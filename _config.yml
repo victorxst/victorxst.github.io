@@ -262,5 +262,10 @@ exclude:
   - vendor/gems/
   - vendor/ruby/
   - README.md
+  - API_STYLE_GUIDE.md
+  - STYLE_GUIDE.md
+  - CONTRIBUTING.md
+  - MAINTAINERS.md
+  - TERMS.md
   - .idea
   - templates
