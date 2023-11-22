@@ -4,23 +4,7 @@ description: >- # this means to ignore newlines until "baseurl:"
 
 baseurl: "/docs/latest" # the subpath of your site, e.g. /blog
 url: "https://victorxst.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-
-# Enter your Disqus shortname (not your username) to enable commenting on posts
-# You can find your shortname on the Settings page of your Disqus account
-disqus:
-
-# Enter your Google Analytics web tracking code (e.g. UA-2110908-2) to activate tracking
-google_analytics:
-
-
-#
-# !! You don't need to change any of the configuration flags below !!
-#
-
-permalink: /:title/
-
-# The release of Jekyll Now that you're using
-version: v1.2.0
+permalink: /:path/
 
 # Jekyll 3 now only supports Kramdown for Markdown
 kramdown:
@@ -32,14 +16,6 @@ kramdown:
     # Use existing pygments syntax highlighting css
     css_class: 'highlight'
 
-# Set the Sass partials directory, as we're using @imports
-sass:
-  style: :expanded # You might prefer to minify using :compressed
-
-# Use the following plug-ins
-gems:
-  - jekyll-sitemap # Create a sitemap using the official Jekyll sitemap gem
-  - jekyll-feed # Create an Atom feed using the official Jekyll feed gem
 
 # Exclude these files from your production _site
 exclude:
