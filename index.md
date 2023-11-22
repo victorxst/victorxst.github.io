@@ -8,17 +8,17 @@ permalink: /
 
 {% include banner.html %}
 
-# Getting started
+# 开始
 
-- [About OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/)
+- [关于 OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/)
 - [Quickstart]({{site.url}}{{site.baseurl}}/quickstart/)
-- [Install OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/)
-- [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
-- [See the FAQ](https://opensearch.org/faq)
+- [安装 OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/)
+- [安装 OpenSearch 控制面板]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
+- [查看常见问题](https://opensearch.org/faq)
 
-## Why use OpenSearch?
+## 为什么要使用 OpenSearch？
 
-With OpenSearch, you can perform the following use cases:
+借助 OpenSearch，你可以执行以下使用案例：
 
 <table style="table-layout: auto ; width: 100%;">
 <tbody>
@@ -43,31 +43,30 @@ With OpenSearch, you can perform the following use cases:
 </tbody>
 </table>
 
-**Additional features and plugins:**
+**附加功能和插件：**
 
-OpenSearch has several features and plugins to help index, secure, monitor, and analyze your data. Most OpenSearch plugins have corresponding OpenSearch Dashboards plugins that provide a convenient, unified user interface.
-- [Anomaly detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/) - Identify atypical data and receive automatic notifications
-- [KNN]({{site.url}}{{site.baseurl}}/search-plugins/knn/) - Find “nearest neighbors” in your vector data
-- [Performance Analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/) - Monitor and optimize your cluster
-- [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/) - Use SQL or a piped processing language to query your data
-- [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/) - Automate index operations
-- [ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/) - Train and execute machine-learning models
-- [Asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/) - Run search requests in the background
-- [Cross-cluster replication]({{site.url}}{{site.baseurl}}/replication-plugin/index/) - Replicate your data across multiple OpenSearch clusters
+OpenSearch 具有多种功能和插件，可帮助索引、保护、监控和分析你的数据。大多数 OpenSearch 插件都有相应的 OpenSearch 控制面板插件，这些插件提供方便、统一的用户界面。
+- [异常检测]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/) - 识别非典型数据并接收自动通知
+- [KNN]({{site.url}}{{site.baseurl}}/search-plugins/knn/) - 在矢量数据中找到“最近邻”
+- [性能分析器]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/) - 监控和优化集群
+- [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/) - 使用 SQL 或管道处理语言查询数据
+- [索引状态管理]({{site.url}}{{site.baseurl}}/im-plugin/) - 自动执行索引操作
+- [ML Commons 插件]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/) - 训练和执行机器学习模型
+- [异步搜索]({{site.url}}{{site.baseurl}}/search-plugins/async/) - 在后台运行搜索请求
+- [跨集群复制]({{site.url}}{{site.baseurl}}/replication-plugin/index/) - 跨多个 OpenSearch 集群复制数据
 
 
-## The secure path forward
-OpenSearch includes a demo configuration so that you can get up and running quickly, but before using OpenSearch in a production environment, you must [configure the Security plugin manually]({{site.url}}{{site.baseurl}}/security/configuration/index/) with your own certificates, authentication method, users, and passwords.
+## 安全前行之路
+OpenSearch 包含一个演示配置，以便你可以快速启动和运行，但在生产环境中使用 OpenSearch 之前，你必须[手动配置安全插件]({{site.url}}{{site.baseurl}}/security/configuration/index/)使用自己的证书、身份验证方法、用户和密码。
 
-## Looking for the Javadoc?
+## 寻找 Javadoc？
 
-See [opensearch.org/javadocs/](https://opensearch.org/javadocs/).
+请参见[opensearch.org/javadocs/](https://opensearch.org/javadocs/)。
 
-## Get involved
+## 参与其中
 
-[OpenSearch](https://opensearch.org) is supported by Amazon Web Services. All components are available under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) on [GitHub](https://github.com/opensearch-project/).
-The project welcomes GitHub issues, bug fixes, features, plugins, documentation---anything at all. To get involved, see [Contributing](https://opensearch.org/source.html) on the OpenSearch website.
+[OpenSearch](https://opensearch.org)受 Amazon Web Services 支持。所有组件均可在 on [GitHub](https://github.com/opensearch-project/)下[Apache 许可证，版本 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)使用。该项目欢迎 GitHub 问题、错误修复、功能、插件、文档---任何东西。要参与其中，请参阅[贡献](https://opensearch.org/source.html) OpenSearch 网站。
 
 ---
 
-<small>OpenSearch includes certain Apache-licensed Elasticsearch code from Elasticsearch B.V. and other source code. Elasticsearch B.V. is not the source of that other source code. ELASTICSEARCH is a registered trademark of Elasticsearch B.V.</small>
+<small>OpenSearch 包含来自 Elasticsearch B.V. 的某些 Apache 许可的 Elasticsearch 代码和其他源代码。Elasticsearch B.V. 不是其他源代码的来源。ELASTICSEARCH 是 Elasticsearch B.V. 的注册商标。</small>
