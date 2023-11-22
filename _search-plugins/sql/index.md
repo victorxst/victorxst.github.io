@@ -1,6 +1,6 @@
 ---
 layout: default
-title: SQL and PPL
+title: SQL 和 PPL
 nav_order: 38
 has_children: true
 has_toc: false

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Breaking changes
+title: 重大变化
 nav_order: 5
 parent: OpenSearch documentation
 permalink: /breaking-changes/

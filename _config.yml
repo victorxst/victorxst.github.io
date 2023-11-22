@@ -114,81 +114,81 @@ just_the_docs:
   # Define the collections used in the theme
   collections:
     install-and-configure:
-      name: Install and upgrade
+      name: 安装和升级
       nav_fold: true
     upgrade-to:
-      name: Migrate to OpenSearch
+      name: 迁移到OpenSearch
       # nav_exclude: true
       nav_fold: true
       # search_exclude: true
     im-plugin:
-      name: Managing Indexes
+      name: 管理索引
       nav_fold: true
     ingest-pipelines:
-      name: Ingest Pipelines
+      name: 摄取管道
       nav_fold: true
     dashboards:
-      name: OpenSearch Dashboards
+      name: OpenSearch仪表盘
       nav_fold: true
     integrations:
-      name: OpenSearch Integrations
+      name: OpenSearch集成
       nav_fold: true
     tuning-your-cluster:
-      name: Creating and tuning your cluster
+      name: 创建和调整您的集群
       nav_fold: true
     security:
-      name: Security in OpenSearch
+      name: OpenSearch的安全性
       nav_fold: true
     security-analytics:
-      name: Security analytics 
+      name: 安全分析
       nav_fold: true
     field-types:
-      name: Mappings and field types
+      name: 映射和字段类型
       nav_fold: true
     analyzers:
-      name: Text analysis
+      name: 文本分析
       nav_fold: true
     query-dsl:
-      name: Query DSL
+      name: 查询DSL
       nav_fold: true
     aggregations:
-      name: Aggregations
+      name: 聚合
       nav_fold: true
     search-plugins:
-      name: Search 
+      name: 搜索 
       nav_fold: true
     ml-commons-plugin:
-      name: Machine learning
+      name: 机器学习
       nav_fold: true
     monitoring-your-cluster:
-      name: Monitoring your cluster
+      name: 监控您的集群
       nav_fold: true
     observing-your-data:
-      name: Observability
+      name: 可观测性
       nav_fold: true
     reporting:
-      name: Reporting
+      name: 报告
       nav_fold: true
     clients:
-      name: Clients
+      name: 客户端
       nav_fold: true
     benchmark:
-      name: OpenSearch Benchmark
+      name: OpenSearch基准测试
       nav_fold: true
     data-prepper: 
-      name: Data Prepper
+      name: 数据准备
       nav_fold: true
     tools:
-      name: Tools
+      name: 工具
       nav_fold: true
     api-reference:
-      name: API reference
+      name: API参考
       nav_fold: true
     troubleshoot:
-      name: Troubleshooting
+      name: 故障排除
       nav_fold: true
     developer-documentation:
-      name: Developer documentation
+      name: 开发者文档
       nav_fold: true
 
 

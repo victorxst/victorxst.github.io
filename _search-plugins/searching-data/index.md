@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Searching data
+title: 搜索数据
 nav_order: 5
 has_children: true
 has_toc: false

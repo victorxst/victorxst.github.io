@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Quickstart
+title: 快速开始
 parent: OpenSearch documentation
 nav_order: 3
 redirect_from: 

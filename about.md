@@ -1,6 +1,6 @@
 ---
 layout: default
-title: About OpenSearch
+title: 关于 OpenSearch
 nav_order: 2
 parent: OpenSearch documentation
 redirect_from:

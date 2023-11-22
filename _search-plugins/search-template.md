@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Search templates
+title: 搜索模板
 nav_order: 50
 redirect_from:
   - /opensearch/search-template/
