@@ -1,7 +1,7 @@
 ---
 layout: default
 title: 快速开始
-parent: OpenSearch documentation
+parent: OpenSearch 文档
 nav_order: 3
 redirect_from: 
   - /opensearch/install/quickstart/
