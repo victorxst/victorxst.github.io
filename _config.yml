@@ -18,6 +18,8 @@ remote_theme: pmarsceill/just-the-docs@v0.3.3
 # Kramdown settings
 kramdown:
   toc_levels: 2..3
+  
+logo: "/assets/images/logo.svg"
 
 
 # Exclude these files from your production _site
