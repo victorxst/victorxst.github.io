@@ -6,15 +6,18 @@ baseurl: "/docs/latest" # the subpath of your site, e.g. /blog
 url: "https://victorxst.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/
 
-# Jekyll 3 now only supports Kramdown for Markdown
+opensearch_version: '2.11.0'
+opensearch_dashboards_version: '2.11.0'
+opensearch_major_minor_version: '2.11'
+lucene_version: '9_7_0'
+
+# Build settings
+markdown: kramdown
+remote_theme: pmarsceill/just-the-docs@v0.3.3
+
+# Kramdown settings
 kramdown:
-  # Use GitHub flavored markdown, including triple backtick fenced code blocks
-  input: GFM
-  # Jekyll 3 and GitHub Pages now only support rouge for syntax highlighting
-  syntax_highlighter: rouge
-  syntax_highlighter_opts:
-    # Use existing pygments syntax highlighting css
-    css_class: 'highlight'
+  toc_levels: 2..3
 
 
 # Exclude these files from your production _site
