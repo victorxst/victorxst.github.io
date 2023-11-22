@@ -1,9 +1,8 @@
 title: OpenSearch documentation
 description: >- # this means to ignore newlines until "baseurl:"
   Documentation for OpenSearch, the Apache 2.0 search, analytics, and visualization suite with advanced security, alerting, SQL support, automated index management, deep performance analysis, and more.
-
 baseurl: "/docs/latest" # the subpath of your site, e.g. /blog
-url: "https://victorxst.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/
 
 opensearch_version: '2.11.0'
@@ -18,7 +17,7 @@ remote_theme: pmarsceill/just-the-docs@v0.3.3
 # Kramdown settings
 kramdown:
   toc_levels: 2..3
-  
+
 logo: "/assets/images/logo.svg"
 
 # Aux links for the upper right navigation
@@ -26,6 +25,181 @@ aux_links:
 
 color_scheme: opensearch
 
+# Define Jekyll collections
+collections:
+  # Define a collection named "tests", its documents reside in the "_tests" directory
+  install-and-configure:
+    permalink: /:collection/:path/
+    output: true
+  upgrade-to:
+    permalink: /:collection/:path/
+    output: true
+  im-plugin:
+    permalink: /:collection/:path/
+    output: true
+  ingest-pipelines:
+    permalink: /:collection/:path/
+    output: true
+  dashboards:
+    permalink: /:collection/:path/
+    output: true
+  integrations:
+    permalink: /:collection/:path/
+    output: true
+  tuning-your-cluster:
+    permalink: /:collection/:path/
+    output: true
+  security:
+    permalink: /:collection/:path/
+    output: true 
+  security-analytics:
+    permalink: /:collection/:path/
+    output: true
+  search-plugins:
+    permalink: /:collection/:path/
+    output: true  
+  ml-commons-plugin:
+    permalink: /:collection/:path/
+    output: true  
+  tuning-your-cluster:
+    permalink: /:collection/:path/
+    output: true
+  monitoring-your-cluster:
+    permalink: /:collection/:path/
+    output: true
+  observing-your-data:
+    permalink: /:collection/:path/
+    output: true
+  reporting:
+    permalink: /:collection/:path/
+    output: true
+  analyzers:
+    permalink: /:collection/:path/
+    output: true
+  query-dsl:
+    permalink: /:collection/:path/
+    output: true 
+  aggregations:
+    permalink: /:collection/:path/
+    output: true
+  field-types:
+    permalink: /:collection/:path/
+    output: true
+  clients:
+    permalink: /:collection/:path/
+    output: true
+  benchmark:
+    permalink: /:collection/:path/
+    output: true
+  data-prepper: 
+    permalink: /:collection/:path/
+    output: true
+  tools:
+    permalink: /:collection/:path/
+    output: true
+  api-reference:
+    permalink: /:collection/:path/
+    output: true  
+  troubleshoot:
+    permalink: /:collection/:path/
+    output: true
+  external_links:
+    permalink: /:collection/:path/
+    output: true
+  developer-documentation:
+    permalink: /:collection/:path/
+    output: true
+
+just_the_docs:
+  # Define the collections used in the theme
+  collections:
+    install-and-configure:
+      name: Install and upgrade
+      nav_fold: true
+    upgrade-to:
+      name: Migrate to OpenSearch
+      # nav_exclude: true
+      nav_fold: true
+      # search_exclude: true
+    im-plugin:
+      name: Managing Indexes
+      nav_fold: true
+    ingest-pipelines:
+      name: Ingest Pipelines
+      nav_fold: true
+    dashboards:
+      name: OpenSearch Dashboards
+      nav_fold: true
+    integrations:
+      name: OpenSearch Integrations
+      nav_fold: true
+    tuning-your-cluster:
+      name: Creating and tuning your cluster
+      nav_fold: true
+    security:
+      name: Security in OpenSearch
+      nav_fold: true
+    security-analytics:
+      name: Security analytics 
+      nav_fold: true
+    field-types:
+      name: Mappings and field types
+      nav_fold: true
+    analyzers:
+      name: Text analysis
+      nav_fold: true
+    query-dsl:
+      name: Query DSL
+      nav_fold: true
+    aggregations:
+      name: Aggregations
+      nav_fold: true
+    search-plugins:
+      name: Search 
+      nav_fold: true
+    ml-commons-plugin:
+      name: Machine learning
+      nav_fold: true
+    monitoring-your-cluster:
+      name: Monitoring your cluster
+      nav_fold: true
+    observing-your-data:
+      name: Observability
+      nav_fold: true
+    reporting:
+      name: Reporting
+      nav_fold: true
+    clients:
+      name: Clients
+      nav_fold: true
+    benchmark:
+      name: OpenSearch Benchmark
+      nav_fold: true
+    data-prepper: 
+      name: Data Prepper
+      nav_fold: true
+    tools:
+      name: Tools
+      nav_fold: true
+    api-reference:
+      name: API reference
+      nav_fold: true
+    troubleshoot:
+      name: Troubleshooting
+      nav_fold: true
+    developer-documentation:
+      name: Developer documentation
+      nav_fold: true
+
+
+# Enable or disable the site search
+# By default, just-the-docs enables its JSON file-based search. We also have an OpenSearch-driven search functionality.
+# To disable any search from appearing, both `search_enabled` and `use_custom_search` need to be false.
+# To use the OpenSearch-driven search, `search_enabled` has to be false and `use_custom_search` needs to be true.
+# If `search_enabled` is true, irrespective of the value of `use_custom_search`, the JSON file-based search appears.
+#
+# `search_enabled` defaults to true
+# `use_custom_search` defaults to false
 search_enabled: false
 use_custom_search: true
 
@@ -52,7 +226,7 @@ search:
   # Enable or disable the search button that appears in the bottom right corner of every page
   # Supports true or false (default)
   button: false
-  
+
 # Google Analytics Tracking (optional)
 # e.g, UA-1234567-89
 ga_tracking: G-BQV14XK08F
@@ -76,10 +250,17 @@ plugins:
 last-modified-at:
   date-format: '%a, %d %b %Y %H:%M:%S %z'
 
-# Exclude these files from your production _site
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
 exclude:
   - Gemfile
   - Gemfile.lock
-  - LICENSE
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
   - README.md
-  - CNAME
+  - .idea
+  - templates
