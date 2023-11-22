@@ -52,8 +52,8 @@ layout: table_wrappers
     <div id="main-header"></div>
     <div class="side-bar">
       <div class="site-header">
-        <a href="/docs/latest/" id="menu-button" class="site-button">
-          Documentation <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-grid"></use></svg>
+        <a href="/" id="menu-button" class="site-button">
+          文档 <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-grid"></use></svg>
         </a>
       </div>
       <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav">
@@ -126,16 +126,16 @@ layout: table_wrappers
     </div>
     <div class="copy-banner">
       <div class="container">
-        <h1><a href="/docs/latest/">Documentation</a></h1>
+        <h1><a href="/">Documentation</a></h1>
         {% if site.search_enabled != false or site.use_custom_search == true %}
         <div class="search">
           <div class="search-input-wrap">
             {% assign docs_version = site.data.versions.current %}
-            {% if site.baseurl == '/docs/latest' %}
+            {% if site.baseurl == '/' %}
               {% assign docs_version = "latest" %}
             {% endif %}
             <input type="text" id="search-input" class="search-input"
-              placeholder="Search..." aria-label="Search {{ site.title }}"
+              placeholder="搜索..." aria-label="Search {{ site.title }}"
               data-docs-version="{{ docs_version }}" autocomplete="off">
             <div class="search-spinner"><i></i></div>
             <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
