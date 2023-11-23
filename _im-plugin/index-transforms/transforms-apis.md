@@ -1,60 +1,59 @@
 ---
 layout: default
-title: Transforms APIs
+title: 转换 APIs
 nav_order: 45
-parent: Index transforms
+parent: 索引转换
 has_toc: true
 ---
 
-# Transforms APIs
+# 转换 API
 
-Aside from using OpenSearch Dashboards, you can also use the REST API to create, start, stop, and complete other operations relative to transform jobs.
+除了使用 OpenSearch 控制面板之外，你还可以使用 REST API 创建、启动、停止和完成与转换作业相关的其他操作。
 
-#### Table of contents
-- TOC
+#### 目录
+- 目录
 {:toc}
 
-## Create a transform job
-Introduced 1.0
-{: .label .label-purple }
+## 创建转换作业
+引入 1.0 {：.label .label-purple }
 
-Creates a transform job. 
+创建转换作业。
 
-### Request format
+### 请求格式
 
 ```json
 PUT _plugins/_transform/<transform_id>
 ```
 
-### Path parameters
+### 路径参数
 
-Parameter | Data Type | Description
+参数 | 数据类型 | 描述
 :--- | :--- | :---
-transform_id | String | Transform ID |
+transform_id | 字符串 | 转换 ID |
 
-### Request body fields
+### 请求正文字段
 
-You can specify the following options in the HTTP request body:
+你可以在 HTTP 请求正文中指定以下选项：
 
-Option | Data Type | Description | Required
+选项 | 数据类型 | 描述 | 必填
 :--- | :--- | :--- | :---
-enabled | Boolean | If true, the transform job is enabled at creation. | No
-continuous | Boolean | Specifies whether the transform job should be continuous. Continuous jobs execute every time they are scheduled according to the `schedule` field and run based off of newly transformed buckets as well as any new data added to source indexes. Non-continuous jobs execute only once. Default is false. | No
-schedule | Object | The schedule for the transform job. | Yes
-start_time | Integer | The Unix epoch time of the transform job's start time. | Yes
-description | String | Describes the transform job. | No
-metadata_id | String | Any metadata to be associated with the transform job. | No
-source_index | String | The source index containing the data to be transformed. | Yes
-target_index | String | The target index the newly transformed data is added to. You can create a new index or update an existing one. | Yes
-data_selection_query | Object | The query DSL to use to filter a subset of the source index for the transform job. See [query domain-specific language(DSL)]({{site.url}}{{site.baseurl}}/opensearch/query-dsl) for more information. | Yes
-page_size | Integer | The number of buckets IM processes and indexes concurrently. A higher number results in better performance, but it requires more memory. If your machine runs out of memory, Index Management (IM) automatically adjusts this field and retries until the operation succeeds. | Yes
-groups | Array | Specifies the grouping(s) to use in the transform job. Supported groups are `terms`, `histogram`, and `date_histogram`. For more information, see [Bucket Aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg). | Yes if not using aggregations.
-source_field | String | The field(s) to transform. | Yes
-aggregations | Object | The aggregations to use in the transform job. Supported aggregations are `sum`, `max`, `min`, `value_count`, `avg`, `scripted_metric`, and `percentiles`. For more information, see [Metric Aggregations]({{site.url}}{{site.baseurl}}/opensearch/metric-agg). | Yes if not using groups.
+已启用 | 布尔值 | 如果为 true，则在创建时启用转换作业。| 不
+连续 | 布尔值 | 指定转换作业是否应是连续的。每次根据 `schedule` 字段进行调度时，都会执行连续作业，并根据新转换的存储桶以及添加到源索引的任何新数据运行。非连续作业仅执行一次。默认值为 false。| 不
+日程安排 | 对象 | 转换作业的计划。| 是的
+start_time | 整数 | 转换作业开始时间的 Unix 纪元时间。| 是的
+描述 | 字符串 | 描述转换作业。| 不
+metadata_id | 字符串 | 要与转换作业关联的任何元数据。| 不
+source_index | 字符串 | 包含要转换的数据的源索引。| 是的
+target_index | 字符串 | 将新转换的数据添加到的目标索引。你可以创建新索引或更新现有索引。| 是的
+data_selection_query | 对象 | 用于筛选转换作业的源索引子集的查询 DSL。有关详细信息，请参阅[查询域特定语言（DSL）]({{site.url}}{{site.baseurl}}/opensearch/query-dsl)。| 是的
+page_size | 整数 |IM 并发处理和索引的存储桶数。数字越大，性能越好，但需要更多的内存。如果计算机内存不足，索引管理（IM）会自动调整此字段并重试，直到操作成功。| 是的
+团体 | 阵列 | 指定要在转换作业中使用的分组。支持的组为 `terms`、 `histogram` 和 `date_histogram`。有关详细信息，请参见[存储桶聚合]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg). | 如果不使用聚合，则可以。
+source_field | 字符串 | 要转换的字段。| 是的
+聚合 | 对象 | 要在转换作业中使用的聚合。支持的聚合包括 `sum`、、、 `value_count`、 `max` `min` `avg` 和 `scripted_metric` `percentiles`。有关详细信息，请参见[指标聚合]({{site.url}}{{site.baseurl}}/opensearch/metric-agg). | 如果不使用组，则可以。
 
-#### Sample Request
+#### 样品申请
 
-The following request creates a transform job with the id `sample`:
+以下请求创建一个 id `sample` 为：
 
 ```json
 PUT _plugins/_transform/sample
@@ -101,7 +100,7 @@ PUT _plugins/_transform/sample
 }
 ```
 
-#### Sample Response
+#### 示例响应
 
 ```json
 {
@@ -159,43 +158,42 @@ PUT _plugins/_transform/sample
 }
 ```
 
-## Update a transform job
-Introduced 1.0
-{: .label .label-purple }
+## 更新转换作业
+引入 1.0 {：.label .label-purple }
 
-Updates the transform job if `transform_id` already exists. For this request you must specify the sequence number and primary term of the transform to be updated. To get these, use the [Get a transform job's details](#get-a-transform-jobs-details) API call. 
+更新转换作业（如果 `transform_id` 已存在）。对于此请求，必须指定要更新的转换的序列号和主要术语。若要获取这些内容，请使用[获取转换作业的详细信息](#get-a-transform-jobs-details) API 调用。
 
-### Request format
+### 请求格式
 
 ```json
 PUT _plugins/_transform/<transform_id>?if_seq_no=<seq_no>&if_primary_term=<primary_term>
 ```
 
-### Query parameters
+### 查询参数
 
-The update operation supports the following query parameters:
+更新操作支持以下查询参数：
 
-Parameter | Description | Required
+参数 | 描述 | 必填
 :---| :--- | :---
-`seq_no` | Only perform the transform operation if the last operation that changed the transform job has the specified sequence number. | Yes
-`primary_term` | Only perform the transform operation if the last operation that changed the transform job has the specified sequence term. | Yes
+ `seq_no` | 仅当更改转换作业的最后一个操作具有指定的序列号时，才执行转换操作。| 是的
+ `primary_term` | 仅当更改转换作业的最后一个操作具有指定的序列项时，才执行转换操作。| 是的
 
-### Request body fields
+### 请求正文字段
 
-You can update the following fields.
+你可以更新以下字段。
 
-Option | Data Type | Description
+选项 | 数据类型 | 描述
 :--- | :--- | :---
-schedule | Object | The schedule for the transform job. Contains the fields `interval.start_time`, `interval.period`, and `interval.unit`.
-start_time | Integer | The Unix epoch start time of the transform job.
-period | Integer | How often to execute the transform job.
-unit | String | The unit of time associated with the execution period. Available options are `Minutes`, `Hours`, and `Days`.
-description | Integer | Describes the transform job.
-page_size | Integer | The number of buckets IM processes and indexes concurrently. A higher number results in better performance, but it requires more memory. If your machine runs out of memory, IM automatically adjusts this field and retries until the operation succeeds.
+日程安排 | 对象 | 转换作业的计划。包含字段 `interval.start_time`、 `interval.period` 和 `interval.unit`。
+start_time | 整数 | 转换作业的 Unix 纪元开始时间。
+期间 | 整数 | 执行转换作业的频率。
+单位 | 字符串 | 与执行周期关联的时间单位。可用选项包括 `Minutes`、 `Hours` 和 `Days`。
+描述 | 整数 | 描述转换作业。
+page_size | 整数 |IM 并发处理和索引的存储桶数。数字越大，性能越好，但需要更多的内存。如果计算机内存不足，IM 会自动调整此字段并重试，直到操作成功。
 
-#### Sample Request
+#### 样品申请
 
-The following request updates a transform job with the id `sample`, sequence number `13`, and primary term `1`:
+以下请求使用 id `sample`、序列号 `13` 和 primary 术语 `1` 更新转换作业：
 
 ```json
 PUT _plugins/_transform/sample?if_seq_no=13&if_primary_term=1
@@ -241,7 +239,7 @@ PUT _plugins/_transform/sample?if_seq_no=13&if_primary_term=1
 }
 ```
 
-#### Sample Response
+#### 示例响应
 
 ```json
 PUT _plugins/_transform/sample?if_seq_no=13&if_primary_term=1
@@ -287,27 +285,26 @@ PUT _plugins/_transform/sample?if_seq_no=13&if_primary_term=1
 }
 ```
 
-## Get a transform job's details
-Introduced 1.0
-{: .label .label-purple }
+## 获取转换作业的详细信息
+引入 1.0 {：.label .label-purple }
 
-Returns a transform job's details. 
+返回转换作业的详细信息。
 
-### Request format
+### 请求格式
 
 ```json
 GET _plugins/_transform/<transform_id>
 ```
 
-#### Sample Request
+#### 样品申请
 
-The following request returns the details of the transform job with the id `sample`:
+以下请求返回 ID `sample` 为以下转换作业的详细信息：
 
 ```json
 GET _plugins/_transform/sample
 ```
 
-#### Sample Response
+#### 示例响应
 
 ```json
 {
@@ -365,17 +362,17 @@ GET _plugins/_transform/sample
 }
 ```
 
-You can also get details of all transform jobs by omitting `transform_id`.
+你还可以通过省略 `transform_id` 来获取所有转换作业的详细信息。
 
-#### Sample Request
+#### 样品申请
 
-The following request returns the details of all transform jobs:
+以下请求返回所有转换作业的详细信息：
 
 ```json
 GET _plugins/_transform/
 ```
 
-#### Sample Response
+#### 示例响应
 
 ```json
 {
@@ -437,27 +434,27 @@ GET _plugins/_transform/
 }
 ```
 
-### Query parameters
+### 查询参数
 
-You can specify the following GET API operation’s query parameters to filter the results.
+你可以指定以下 GET API 操作的查询参数来筛选结果。
 
-Parameter | Description | Required
+参数 | 描述 | 必填
 :--- | :--- | :---
-from | The starting transform to return. Default is 0. | No
-size | Specifies the number of transforms to return. Default is 10. | No
-search |The search term to use to filter results. | No
-sortField | The field to sort results with. | No
-sortDirection | Specifies the direction to sort results in. Can be `ASC` or `DESC`. Default is ASC. | No
+起 | 要返回的起始转换。默认值为 0. | 不
+尺寸 | 指定要返回的转换数。默认值为 10. | 不
+搜索 | 用于筛选结果的搜索词。| 不
+sort 字段 | 用于对结果进行排序的字段。| 不
+排序方向 | 指定对结果进行排序的方向。可以是 `ASC` 或 `DESC`.默认值为 ASC。| 不
 
-#### Sample Request
+#### 样品申请
 
-The following request returns two results starting from transform `8`:
+以下请求从 transform `8` 开始返回两个结果：
 
 ```json
 GET _plugins/_transform?size=2&from=8
 ```
 
-#### Sample Response
+#### 示例响应
 
 ```json
 {
@@ -569,27 +566,26 @@ GET _plugins/_transform?size=2&from=8
 }
 ```
 
-## Start a transform job
-Introduced 1.0
-{: .label .label-purple }
+## 启动转换作业
+引入 1.0 {：.label .label-purple }
 
-Transform jobs created using the API are automatically enabled, but if you ever need to enable a job, you can use the start API operation. 
+使用 API 创建的转换作业会自动启用，但如果需要启用作业，可以使用启动 API 操作。
 
-### Request format
+### 请求格式
 
 ```
 POST _plugins/_transform/<transform_id>/_start
 ```
 
-#### Sample Request
+#### 样品申请
 
-The following request starts the transform job with the ID `sample`:
+以下请求使用 ID `sample` 启动转换作业：
 
 ```json
 POST _plugins/_transform/sample/_start
 ```
 
-#### Sample Response
+#### 示例响应
 
 ```json
 {
@@ -597,27 +593,26 @@ POST _plugins/_transform/sample/_start
 }
 ```
 
-## Stop a transform job
-Introduced 1.0
-{: .label .label-purple }
+## 停止转换作业
+引入 1.0 {：.label .label-purple }
 
-Stops a transform job. 
+停止转换作业。
 
-### Request format
+### 请求格式
 
 ```
 POST _plugins/_transform/<transform_id>/_stop
 ```
 
-#### Sample Request
+#### 样品申请
 
-The following request stops the transform job with the ID `sample`:
+以下请求停止 ID 为以下 ID `sample` 的转换作业：
 
 ```json
 POST _plugins/_transform/sample/_stop
 ```
 
-#### Sample Response
+#### 示例响应
 
 ```json
 {
@@ -625,27 +620,26 @@ POST _plugins/_transform/sample/_stop
 }
 ```
 
-## Get the status of a transform job
-Introduced 1.0
-{: .label .label-purple }
+## 获取转换作业的状态
+引入 1.0 {：.label .label-purple }
 
-Returns the status and metadata of a transform job. 
+返回转换作业的状态和元数据。
 
-### Request format
+### 请求格式
 
 ```
 GET _plugins/_transform/<transform_id>/_explain
 ```
 
-#### Sample Request
+#### 样品申请
 
-The following request returns the details of the transform job with the ID `sample`:
+以下请求返回 ID `sample` 为以下转换作业的详细信息：
 
 ```json
 GET _plugins/_transform/sample/_explain
 ```
 
-#### Sample Response
+#### 示例响应
 
 ```json
 {
@@ -674,13 +668,12 @@ GET _plugins/_transform/sample/_explain
 }
 ```
 
-## Preview a transform job's results
-Introduced 1.0
-{: .label .label-purple }
+## 预览转换作业的结果
+引入 1.0 {：.label .label-purple }
 
-Returns a preview of what a transformed index would look like.
+返回转换后的索引外观的预览。
 
-#### Sample Request
+#### 样品申请
 
 ```json
 POST _plugins/_transform/_preview
@@ -727,7 +720,7 @@ POST _plugins/_transform/_preview
 }
 ```
 
-#### Sample Response
+#### 示例响应
 
 ```json
 {
@@ -761,27 +754,26 @@ POST _plugins/_transform/_preview
 }
 ```
 
-## Delete a transform job
-Introduced 1.0
-{: .label .label-purple }
+## 删除转换作业
+引入 1.0 {：.label .label-purple }
 
-Deletes a transform job. This operation does not delete the source or target indexes. 
+删除转换作业。此操作不会删除源索引或目标索引。
 
-### Request format
+### 请求格式
 
 ```
 DELETE _plugins/_transform/<transform_id>
 ```
 
-#### Sample Request
+#### 样品申请
 
-The following request deletes the transform job with the ID `sample`:
+以下请求删除 ID `sample` 为：
 
 ```json
 DELETE _plugins/_transform/sample
 ```
 
-#### Sample Response
+#### 示例响应
 
 ```json
 {

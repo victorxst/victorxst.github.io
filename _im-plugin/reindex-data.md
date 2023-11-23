@@ -1,34 +1,33 @@
 ---
 layout: default
-title: Reindex data
+title: 重新索引数据
 nav_order: 15
 redirect_from:
   - /opensearch/reindex-data/
 ---
 
-# Reindex data
+# 重新索引数据
 
-After creating an index, you might need to make an extensive change such as adding a new field to every document or combining multiple indexes to form a new one. Rather than deleting your index, making the change offline, and then indexing your data again, you can use the `reindex` operation.
+创建索引后，你可能需要进行大量更改，例如向每个文档添加一个新字段或合并多个索引以形成一个新索引。你可以使用该 `reindex` 操作，而不是删除索引，脱机进行更改，然后再次为数据编制索引。
 
-With the `reindex` operation, you can copy all or a subset of documents that you select through a query to another index. Reindex is a `POST` operation. In its most basic form, you specify a source index and a destination index.
+通过该 `reindex` 操作，可以将通过查询选择的所有文档或部分文档复制到另一个索引。重新索引是一项 `POST` 操作。在最基本的形式中，你可以指定源索引和目标索引。
 
-Reindexing can be an expensive operation depending on the size of your source index. We recommend you disable replicas in your destination index by setting `number_of_replicas` to `0` and re-enable them once the reindex process is complete.
-{: .note }
+重新编制索引可能是一项代价高昂的操作，具体取决于源索引的大小。我们建议你通过设置 `number_of_replicas` 目标 `0` 索引中的副本来禁用它们，并在重新索引过程完成后重新启用它们。{：.note}
 
 ---
 
-#### Table of contents
-1. TOC
+#### 目录
+1. 目录
 {:toc}
 
 
 ---
 
-## Reindex all documents
+## 重新索引所有文档
 
-You can copy all documents from one index to another.
+你可以将所有文档从一个索引复制到另一个索引。
 
-You first need to create a destination index with your desired field mappings and settings or you can copy the ones from your source index:
+你首先需要使用所需的字段映射和设置创建目标索引，也可以从源索引中复制这些映射和设置：
 
 ```json
 PUT destination
@@ -42,7 +41,7 @@ PUT destination
 }
 ```
 
-This `reindex` command copies all the documents from a source index to a destination index:
+此 `reindex` 命令将所有文档从源索引复制到目标索引：
 
 ```json
 POST _reindex
@@ -56,13 +55,13 @@ POST _reindex
 }
 ```
 
-If the destination index is not already created, the `reindex` operation creates a new destination index with default configurations.
+如果尚未创建目标索引，则 `reindex` 该操作将使用默认配置创建新的目标索引。
 
-## Reindex from a remote cluster
+## 从远程群集重新编制索引
 
-You can copy documents from an index in a remote cluster. Use the `remote` option to specify the remote hostname and the required login credentials.
+你可以从远程群集中的索引复制文档。使用该 `remote` 选项指定远程主机名和所需的登录凭据。
 
-This command reaches out to a remote cluster, logs in with the username and password, and copies all the documents from the source index in that remote cluster to the destination index in your local cluster:
+此命令访问远程集群，使用用户名和密码登录，并将该远程集群中的所有文档复制到本地集群中的目标索引：
 
 ```json
 POST _reindex
@@ -81,22 +80,22 @@ POST _reindex
 }
 ```
 
-You can specify the following options:
+你可以指定以下选项：
 
-Options | Valid values | Description | Required
+选项 | 有效值 | 描述 | 必填
 :--- | :--- | :---
-`host` | String | The REST endpoint of the remote cluster. | Yes
-`username` | String | The username to log into the remote cluster. | No
-`password` | String | The password to log into the remote cluster. | No
-`socket_timeout` | Time Unit | The wait time for socket reads (default 30s). | No
-`connect_timeout` | Time Unit | The wait time for remote connection timeouts (default 30s). | No
+ `host` | 字符串 | 远程群集的 REST 终结点。| 是的
+ `username` | 字符串 | 用于登录远程群集的用户名。| 不
+ `password` | 字符串 | 登录到远程群集的密码。| 不
+ `socket_timeout` | 时间单位 | 套接字读取的等待时间（默认为 30 秒）。| 不
+ `connect_timeout` | 时间单位 | 远程连接超时的等待时间（默认为 30 秒）。| 不
 
 
-## Reindex a subset of documents
+## 重新索引文档的子集
 
-You can copy a specific set of documents that match a search query.
+你可以复制与搜索查询匹配的特定文档集。
 
-This command copies only a subset of documents matched by a query operation to the destination index:
+此命令仅将查询操作匹配的文档子集复制到目标索引：
 
 ```json
 POST _reindex
@@ -115,13 +114,13 @@ POST _reindex
 }
 ```
 
-For a list of all query operations, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index).
+有关所有查询操作的列表，请参见[全文查询]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index)。
 
-## Combine one or more indexes
+## 合并一个或多个索引
 
-You can combine documents from one or more indexes by adding the source indexes as a list.
+通过将源索引添加为列表，可以合并一个或多个索引中的文档。
 
-This command copies all documents from two source indexes to one destination index:
+此命令将所有文档从两个源索引复制到一个目标索引：
 
 ```json
 POST _reindex
@@ -137,13 +136,11 @@ POST _reindex
    }
 }
 ```
-Make sure the number of shards for your source and destination indexes is the same.
+确保源索引和目标索引的分片数相同。
 
-## Reindex only unique documents
+## 仅重新索引唯一文档
 
-You can copy only documents missing from a destination index by setting the `op_type` option to `create`.
-In this case, if a document with the same ID already exists, the operation ignores the one from the source index.
-To ignore all version conflicts of documents, set the `conflicts` option to `proceed`.
+通过将选项设置为 `create`，可以仅复制目标索引中缺少的 `op_type` 文档。在这种情况下，如果已存在具有相同 ID 的文档，则操作将忽略源索引中的文档。要忽略文档的所有版本冲突，请将选项 `conflicts` 设置为 `proceed`。
 
 ```json
 POST _reindex
@@ -159,12 +156,11 @@ POST _reindex
 }
 ```
 
-## Transform documents during reindexing
+## 在重新编制索引期间转换文档
 
-You can transform your data during the reindexing process using the `script` option.
-We recommend Painless for scripting in OpenSearch.
+你可以使用该 `script` 选项在重新编制索引的过程中转换数据。我们建议使用 Painless 在 OpenSearch 中编写脚本。
 
-This command runs the source index through a Painless script that increments a `number` field inside an `account` object before copying it to the destination index:
+此命令通过 Painless 脚本运行源索引，该脚本在将对象复制到目标索引之前递增 `number` 对象中的 `account` 字段：
 
 ```json
 POST _reindex
@@ -182,11 +178,11 @@ POST _reindex
 }
 ```
 
-You can also specify an ingest pipeline to transform your data during the reindexing process.
+还可以指定引入管道，以便在重新编制索引过程中转换数据。
 
-You would first have to create a pipeline with `processors` defined. You have a number of different `processors` available to use in your ingest pipeline.
+首先必须创建一个具有 defined 的 `processors` 管道。在引入管道中可以使用许多不同的 `processors` 方法。
 
-Here's a sample ingest pipeline that defines a `split` processor that splits a `text` field based on a `space` separator and stores it in a new `word` field. The `script` processor is a Painless script that finds the length of the `word` field and stores it in a new `word_count` field. The `remove` processor removes the `test` field.
+下面是一个示例引入管道，它定义了一个 `split` 处理器，该处理器根据 `space` 分隔符拆分 `text` 字段并将其存储在新 `word` 字段中。 `script` 处理器是一个 Painless 脚本，用于查找字段的 `word` 长度并将其存储在新 `word_count` 字段中。 `remove` 处理器删除该 `test` 字段。
 
 ```json
 PUT _ingest/pipeline/pipeline-test
@@ -215,7 +211,7 @@ PUT _ingest/pipeline/pipeline-test
 }
 ```
 
-After creating a pipeline, you can use the `reindex` operation:
+创建流水线后，可以使用以下 `reindex` 操作：
 
 ```json
 POST _reindex
@@ -230,39 +226,39 @@ POST _reindex
 }
 ```
 
-## Update documents in the current index
+## 更新当前索引中的文档
 
-To update the data in your current index itself without copying it to a different index, use the `update_by_query` operation.
+若要更新当前索引本身中的数据而不将其复制到其他索引，请使用该 `update_by_query` 操作。
 
-The `update_by_query` operation is `POST` operation that you can perform on a single index at a time.
+该 `update_by_query` 操作是 `POST` 一次可以对单个索引执行的操作。
 
 ```json
 POST <index_name>/_update_by_query
 ```
 
-If you run this command with no parameters, it increments the version number for all documents in the index.
+如果在不带参数的情况下运行此命令，它将递增索引中所有文档的版本号。
 
-## Source index options
+## 源索引选项
 
-You can specify the following options for your source index:
+你可以为源索引指定以下选项：
 
-Option | Valid values | Description | Required
+选项 | 有效值 | 描述 | 必填
 :--- | :--- | :---
-`index` | String | The name of the source index. You can provide multiple source indexes as a list. | Yes
-`max_docs` | Integer | The maximum number of documents to reindex. | No
-`query` | Object | The search query to use for the reindex operation. | No
-`size` | Integer | The number of documents to reindex. | No
-`slice` | String | Specify manual or automatic slicing to parallelize reindexing. | No
+ `index` | 字符串 | 源索引的名称。你可以将多个源索引作为列表提供。| 是的
+ `max_docs` | 整数 | 要重新编制索引的最大文档数。| 不
+ `query` | 对象 | 用于重新索引操作的搜索查询。| 不
+ `size` | 整数 | 要重新编制索引的文档数。| 不
+ `slice` | 字符串 | 指定手动或自动切片以并行化重新索引。| 不
 
-## Destination index options
+## 目标索引选项
 
-You can specify the following options for your destination index:
+你可以为目标索引指定以下选项：
 
-Option | Valid values | Description | Required
+选项 | 有效值 | 描述 | 必填
 :--- | :--- | :---
-`index` | String | The name of the destination index. | Yes
-`version_type` | Enum | The version type for the indexing operation. Valid values: internal, external, external_gt, external_gte. | No
+ `index` | 字符串 | 目标索引的名称。| 是的
+ `version_type` | 枚举 | 索引操作的版本类型。取值范围：internal、external、external_gt、external_gte。| 不
 
-## Index codec considerations
+## 索引编解码器注意事项
 
-For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#reindexing).
+有关索引编解码器注意事项，请参见[索引编解码器]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#reindexing)。

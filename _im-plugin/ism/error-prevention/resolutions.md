@@ -1,8 +1,8 @@
 ---
 layout: default
-title: ISM Error Prevention resolutions
-parent: ISM Error Prevention
-grand_parent: Index State Management
+title: ISM 错误预防解决方法
+parent: ISM 错误预防
+grand_parent: 索引状态管理
 nav_order: 5
 ---
 

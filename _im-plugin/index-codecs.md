@@ -1,92 +1,81 @@
 ---
 layout: default
-title: Index codecs
+title: 索引编解码器
 nav_order: 3
 parent: Index settings
 ---
 
-# Index codecs
+# 索引编解码器
 
-Index codecs determine how the index’s stored fields are compressed and stored on disk. The index codec is controlled by the static `index.codec` setting that specifies the compression algorithm. The setting impacts the index shard size and index operation performance.  
+索引编解码器确定索引的存储字段如何压缩和存储在磁盘上。索引编解码器由指定压缩算法的静态 `index.codec` 设置控制。该设置会影响索引分片大小和索引操作性能。
 
-## Supported codecs
+## 支持的编解码器
 
-OpenSearch provides support for four codecs that can be used for compressing the stored fields. Each codec offers different tradeoffs between compression ratio (storage size) and indexing performance (speed): 
+OpenSearch 支持四种可用于压缩存储字段的编解码器。每个编解码器在压缩率（存储大小）和索引性能（速度）之间提供不同的权衡：
 
-* `default` -- This codec employs the [LZ4 algorithm](https://en.wikipedia.org/wiki/LZ4_(compression_algorithm)) with a preset dictionary, which prioritizes performance over compression ratio. It offers faster indexing and search operations when compared with `best_compression` but may result in larger index/shard sizes. If no codec is provided in the index settings, then LZ4 is used as the default algorithm for compression.
-* `best_compression` -- This codec uses [zlib](https://en.wikipedia.org/wiki/Zlib) as an underlying algorithm for compression. It achieves high compression ratios that result in smaller index sizes. However, this may incur additional CPU usage during index operations and may subsequently result in high indexing and search latencies. 
+*  `default` -- 此编解码器使用[LZ4 算法](https://en.wikipedia.org/wiki/LZ4_(compression_algorithm)）和预设字典，该字典优先考虑性能而不是压缩率。与此相比， `best_compression` 它提供了更快的索引和搜索操作，但可能会导致更大的索引/分片大小。如果索引设置中未提供编解码器，则使用 LZ4 作为默认压缩算法。
+*  `best_compression` -- 此编解码器用作[zlib](https://en.wikipedia.org/wiki/Zlib)压缩的底层算法。它实现了高压缩比，从而减小了索引大小。但是，这可能会在索引操作期间产生额外的 CPU 使用率，并可能导致索引和搜索延迟过高。
 
-As of OpenSearch 2.9, two new codecs based on the [Zstandard compression algorithm](https://github.com/facebook/zstd) are available. This algorithm provides a good balance between compression ratio and speed.
+从 OpenSearch 2.9 开始，提供了两个基于的新[Zstandard 压缩算法](https://github.com/facebook/zstd)编解码器。该算法在压缩比和速度之间提供了良好的平衡。
 
-It may be challenging to change the codec setting of an existing index (see [Changing an index codec](#changing-an-index-codec)), so it is important to test a representative workload in a non-production environment before using a new codec setting.
-{: .important}
+更改现有索引的编解码器设置可能具有挑战性（请参阅[更改索引编解码器](#changing-an-index-codec)），因此在使用新的编解码器设置之前，在非生产环境中测试具有代表性的工作负载非常重要。{：.important}
 
-* `zstd` (OpenSearch 2.9 and later) -- This codec provides significant compression comparable to the `best_compression` codec with reasonable CPU usage and improved indexing and search performance compared to the `default` codec.
-* `zstd_no_dict` (OpenSearch 2.9 and later) -- This codec is similar to `zstd` but excludes the dictionary compression feature. It provides faster indexing and search operations compared to `zstd` at the expense of a slightly larger index size.
+*  `zstd`（OpenSearch 2.9 及更高版本）-- 与编解码器相比 `default`， `best_compression` 此编解码器提供与编解码器相当的显著压缩，具有合理的 CPU 使用率以及改进的索引和搜索性能。
+*  `zstd_no_dict`（OpenSearch 2.9 及更高版本）-- 此编解码器类似于 `zstd` 字典压缩功能，但不包括字典压缩功能。与以稍大的索引大小为代价 `zstd` 相比，它提供了更快的索引和搜索操作。
 
-As of OpenSearch 2.10, the `zstd` and `zstd_no_dict` compression codecs cannot be used for [k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/) or [Security Analytics]({{site.url}}{{site.baseurl}}/security-analytics/index/) indexes.
-{: .warning}
+从 OpenSearch 2.10 开始， `zstd` 和 `zstd_no_dict` 压缩编解码器不能用于[k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/)或[安全分析]({{site.url}}{{site.baseurl}}/security-analytics/index/)索引。{：.warning}
 
-For the `zstd` and `zstd_no_dict` codecs, you can optionally specify a compression level in the `index.codec.compression_level` setting. This setting takes integers in the [1, 6] range. A higher compression level results in a higher compression ratio (smaller storage size) with a tradeoff in speed (slower compression and decompression speeds lead to greater indexing and search latencies). 
+ `zstd` 对于和 `zstd_no_dict` 编解码器，你可以选择在 `index.codec.compression_level` 设置中指定压缩级别。此设置采用 [1，6] 范围内的整数。压缩级别越高，压缩率越高（存储大小越小），但速度越快（压缩和解压缩速度越慢，索引和搜索延迟越大）。
 
-When an index segment is created, it uses the current index codec for compression. If you update the index codec, any segment created after the update will use the new compression algorithm. For specific operation considerations, see [Index codec considerations for index operations](#index-codec-considerations-for-index-operations).
-{: .note}
+创建索引段时，它使用当前索引编解码器进行压缩。如果更新索引编解码器，则更新后创建的任何段都将使用新的压缩算法。有关具体操作注意事项，请参见[索引操作的索引编解码器注意事项](#index-codec-considerations-for-index-operations)。{：.note}
 
-## Choosing a codec 
+## 选择编解码器
 
-The choice of index codec impacts the amount of disk space required to store the index data. Codecs like `best_compression`, `zstd`, and `zstd_no_dict` can achieve higher compression ratios, resulting in smaller index sizes. Conversely, the `default` codec doesn’t prioritize compression ratio, resulting in larger index sizes but faster search operations than `best_compression`.
+索引编解码器的选择会影响存储索引数据所需的磁盘空间量。编解码器（如 `best_compression`、 `zstd`） `zstd_no_dict` 可以实现更高的压缩率，从而产生更小的索引大小。相反，编 `default` 解码器不优先考虑压缩率，导致索引大小更大，但搜索操作速度比 `best_compression` 更快。
 
-## Index codec considerations for index operations
+## 索引操作的索引编解码器注意事项
 
-The following index codec considerations apply to various index operations.
+以下索引编解码器注意事项适用于各种索引操作。
 
-### Writes
+### 写
 
-Every index consists of shards, each of which is further divided into Lucene segments. During index writes, the new segments are created based on the codec specified in the index settings. If you update the codec for an index, the new segments will use the new codec algorithm. 
+每个索引都由分片组成，每个分片都进一步划分为 Lucene 段。在索引写入期间，将根据索引设置中指定的编解码器创建新段。如果更新索引的编解码器，则新段将使用新的编解码器算法。
 
-### Merges
+### 合并
 
-During segment merges, OpenSearch combines smaller index segments into larger segments in order to provide optimal resource utilization and improve performance. The index codec setting influences the speed and efficiency of the merge operations. The number of merges that happen on an index is a factor of the segment size, and a smaller segment size directly translates into smaller merge sizes. If you update the `index.codec` setting, the new merge operations will use the new codec when creating merged segments. The merged segments will have the compression characteristics of the new codec.
+在分段合并期间，OpenSearch 将较小的索引分段合并为较大的分段，以提供最佳资源利用率并提高性能。索引编解码器设置会影响合并操作的速度和效率。索引上发生的合并次数是段大小的一个因素，段大小越小，合并大小越小。如果更新设置 `index.codec`，则在创建合并区段时，新的合并操作将使用新的编解码器。合并的段将具有新编解码器的压缩特性。
 
-### Splits and shrinks
+### 拆分和收缩
 
-The [Split API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/split/) splits an original index into a new index where each original primary shard is divided into two or more primary shards. The [Shrink API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/shrink-index/) shrinks an existing index to a new index with a smaller number of primary shards. As part of split or shrink operations, any newly created segments will use the latest codec settings.
+将[Split API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/split/)原始索引拆分为一个新索引，其中每个原始主分片被划分为两个或多个主分片。将[Shrink API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/shrink-index/)现有索引收缩为具有较少主分片的新索引。作为拆分或收缩操作的一部分，任何新创建的区段都将使用最新的编解码器设置。
 
-### Snapshots
+### 快照
 
-When creating a [snapshot]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/index/), the index codec setting influences the size of the snapshot and the time required for its creation. If the codec of an index is updated, newly created snapshots will use the latest codec setting. The resulting snapshot size will reflect the compression characteristics of the latest codec setting. Existing segments included in the snapshot will retain their original compression characteristics. 
+创建时，索引编解码器设置会影响快照的大小和创建[snapshot]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/index/)快照所需的时间。如果更新了索引的编解码器，则新创建的快照将使用最新的编解码器设置。生成的快照大小将反映最新编解码器设置的压缩特征。快照中包含的现有区段将保留其原始压缩特征。
 
-When you restore the indexes from a snapshot of a cluster to another cluster, it is important to verify that the target cluster supports the codecs of the segments in the source snapshot. For example, if the source snapshot contains segments of the `zstd` or `zstd_no_dict` codecs (introduced in OpenSearch 2.9), you won't be able to restore the snapshot to a cluster that runs on an older OpenSearch version because it doesn't support these codecs. 
+将索引从一个集群的快照还原到另一个集群时，请务必验证目标集群是否支持源快照中分段的编解码器。例如，如果源快照包含或 `zstd_no_dict` 编解码器的分段 `zstd`（在 OpenSearch 2.9 中引入），你将无法将快照还原到在较旧的 OpenSearch 版本上运行的集群，因为它不支持这些编解码器。
 
-### Reindexing
+### 重新索引
 
-When you are performing a [reindex]({{site.url}}{{site.baseurl}}/im-plugin/reindex-data/) operation from a source index, the new segments created in the target index will have the properties of the codec settings of the target index. 
+从源索引执行[reindex]({{site.url}}{{site.baseurl}}/im-plugin/reindex-data/)操作时，在目标索引中创建的新段将具有目标索引的编解码器设置的属性。
 
-### Index rollups and transforms
+### 索引汇总和转换
 
-When an index [rollup]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/) or [transform]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/) job is completed, the segments created in the target index will have the properties of the index codec specified during target index creation, irrespective of the source index codec. If the target index is created dynamically through a rollup job, the default codec is used for segments of the target index.
+索引[rollup]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/)或[transform]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/)作业完成后，在目标索引中创建的段将具有在创建目标索引期间指定的索引编解码器的属性，而不考虑源索引编解码器。如果目标索引是通过汇总作业动态创建的，则默认编解码器将用于目标索引的段。
 
-## Changing an index codec
+## 更改索引编解码器
 
-It is not possible to change the codec setting of an open index. You can close the index, apply the new index codec setting, and reopen the index, at which point only new segments will be written with the new codec. This requires stopping all reads and writes to the index for a brief period to make the codec change and may result in inconsistent segment sizes and compression ratios. Alternatively, you can reindex all data from a source index into a new index with a different codec setting, though this is a very resource-intensive operation.
+无法更改打开索引的编解码器设置。你可以关闭索引，应用新的索引编解码器设置，然后重新打开索引，此时将仅使用新编解码器写入新段。这需要在短时间内停止对索引的所有读取和写入，以更改编解码器，并可能导致段大小和压缩率不一致。或者，你可以使用不同的编解码器设置将源索引中的所有数据重新索引到新索引中，尽管这是一项非常耗费资源的操作。
 
-## Performance tuning and benchmarking
+## 性能调优和基准测试
 
-Depending on your specific use case, you might need to experiment with different index codec settings to fine-tune the performance of your OpenSearch cluster. Conducting benchmark tests with different codecs and measuring the impact on indexing speed, search performance, and resource utilization can help you identify the optimal index codec setting for your workload. With the `zstd` and `zstd_no_dict` codecs, you can also fine-tune the compression level in order to identify the optimal configuration for your cluster.
+根据你的特定使用案例，你可能需要尝试不同的索引编解码器设置来微调 OpenSearch 集群的性能。使用不同的编解码器执行基准测试并测量对索引速度、搜索性能和资源利用率的影响，可以帮助你确定工作负载的最佳索引编解码器设置。 `zstd` 使用和 `zstd_no_dict` 编解码器，你还可以微调压缩级别，以确定集群的最佳配置。
 
-### Benchmarking
+### 标杆
 
-The following table provides a performance comparison of the `best_compression`, `zstd`, and `zstd_no_dict` codecs against the `default` codec. The tests were performed with the [`nyc_taxi`](https://github.com/topics/nyc-taxi-dataset) dataset. The results are listed in terms of percent change, and bold results indicate performance improvement.
+下表提供了、 `zstd` 和 `zstd_no_dict` 编解码器与编 `default` 解码器的性能比较 `best_compression`。使用 [ `nyc_taxi`]（https://github.com/topics/nyc-taxi-dataset）数据集进行测试。结果以百分比变化列出，粗体结果表示性能改进。
 
-| | `best_compression` | `zstd` | `zstd_no_dict` |
-|:---	|:---	|:---	|:--- |
-|**Write** | | | 
-|Median Latency	|0%	|0%	|&minus;1%	|
-|p90 Latency	|3%	|2%	|**&minus;5%**	|
-|Throughput	|&minus;2%	|**7%**	|**14%**	|
-|**Read**	| | | 
-|Median Latency	|0%	|1%	|0%	|
-|p90 Latency	|1%	|1%	|**&minus;2%**	|
-|**Disk**	| | | 
-| Compression ratio	|**&minus;34%**	|**&minus;35%**	|**&minus;30%**	|
+| | `best_compression`| `zstd` | `zstd_no_dict` |
+|：--- |：--- |：--- |：--- | |**写** | | | | 中值延迟 |0% |0% | − 1% | |p90 延迟 |3% |2% |**&minus;5%**	| | 吞吐量 | − 2% |**7%**	|**14%**	| |**读**	| | | | 中值延迟 |0% |1% |0% | |p90 延迟 |1% |1% |**&minus;2%**	| |**磁盘**	| | |
+|压缩比|**&minus;34%**	|**&minus;35%**	|**&minus;30%**	|
 

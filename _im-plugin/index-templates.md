@@ -1,25 +1,25 @@
 ---
 layout: default
-title: Index templates
+title: 索引模板
 nav_order: 6
 redirect_from:
   - /opensearch/index-templates/
 ---
 
-# Index templates
+# 索引模板
 
-Index templates let you initialize new indexes with predefined mappings and settings. For example, if you continuously index log data, you can define an index template so that all of these indexes have the same number of shards and replicas.
+索引模板允许你使用预定义的映射和设置初始化新索引。例如，如果连续为日志数据编制索引，则可以定义索引模板，以便所有这些索引具有相同数量的分片和副本。
 
-### Create a template
+### 创建模板
 
-To create an index template, use a PUT or POST request:
+若要创建索引模板，请使用 PUT 或 POST 请求：
 
 ```json
 PUT _index_template/<template name>
 POST _index_template/<template name>
 ```
 
-This command creates a template named `daily_logs` and applies it to any new index whose name matches the pattern `logs-2020-01-*` and also adds it to the `my_logs` alias:
+此命令创建一个名为 `daily_logs` 该模板的模板，并将其应用于名称与模式 `logs-2020-01-*` 匹配的任何新索引，并将其添加到别名中 `my_logs`：
 
 ```json
 PUT _index_template/daily_logs
@@ -50,7 +50,7 @@ PUT _index_template/daily_logs
 }
 ```
 
-You should see the following response:
+你应看到以下响应：
 
 ```json
 {
@@ -58,7 +58,7 @@ You should see the following response:
 }
 ```
 
-If you create an index named `logs-2020-01-01`, you can see that it has the mappings and settings from the template:
+如果创建名为 `logs-2020-01-01` 的索引，则可以看到它具有模板中的映射和设置：
 
 ```json
 PUT logs-2020-01-01
@@ -98,44 +98,44 @@ GET logs-2020-01-01
 }
 ```
 
-Any additional indexes that match this pattern---`logs-2020-01-02`, `logs-2020-01-03`, and so on---will inherit the same mappings and settings.
+与此模式匹配的任何其他索引--- `logs-2020-01-02`、 `logs-2020-01-03` 等---将继承相同的映射和设置。
 
-Index patterns cannot contain any of the following characters: `:`, `"`, `+`, `/`, `\`, `|`, `?`, `#`, `>`, and `<`.
+索引模式不能包含以下任何字符： `:`、、、 `/`、 `+` `#` `\` `<` `"` `|` `?` `>` 和。
 
-### Retrieve a template
+### 检索模板
 
-To list all index templates:
+要列出所有索引模板，请执行以下操作：
 
 ```json
 GET _cat/templates
 GET /_index_template
 ```
 
-To find a template by its name:
+要按名称查找模板，请执行以下操作：
 
 ```json
 GET _index_template/daily_logs
 ```
 
-To get a list of all templates that match a pattern:
+要获取与模式匹配的所有模板的列表，请执行以下操作：
 
 ```json
 GET _index_template/daily*
 ```
 
-To check if a specific template exists:
+要检查特定模板是否存在，请执行以下操作：
 
 ```json
 HEAD _index_template/<name>
 ```
 
-### Configure multiple templates
+### 配置多个模板
 
-You can create multiple index templates for your indexes. If the index name matches more than one template, OpenSearch takes the mappings and settings from the template with the highest priority and applies it to the index.
+你可以为索引创建多个索引模板。如果索引名称与多个模板匹配，则 OpenSearch 会从优先级最高的模板中获取映射和设置，并将其应用于索引。
 
-For example, say you have the following two templates that both match the `logs-2020-01-02` index and there’s a conflict in the `number_of_shards` field:
+例如，假设你有以下两个模板，它们都与 `logs-2020-01-02` 索引匹配，并且字段中存在冲突 `number_of_shards`：
 
-#### Template 1
+#### 模板 1
 
 ```json
 PUT _index_template/template-01
@@ -153,7 +153,7 @@ PUT _index_template/template-01
 }
 ```
 
-#### Template 2
+#### 模板 2
 
 ```json
 PUT _index_template/template-02
@@ -170,35 +170,34 @@ PUT _index_template/template-02
 }
 ```
 
-Because `template-02` has a higher `priority` value, it takes precedence over `template-01` . The `logs-2020-01-02` index would have the `number_of_shards` value as 3 and the `number_of_replicas` as the default value 1.
+因为 `template-02` 具有更高的 `priority` 值，所以它优先于 `template-01`。 `logs-2020-01-02` 索引的值为 `number_of_shards` 3 `number_of_replicas`，默认值为 1。
 
-### Delete a template
+### 删除模板
 
-You can delete an index template using its name:
+你可以使用索引模板的名称删除索引模板：
 
 ```json
 DELETE _index_template/daily_logs
 ```
 
-## Composable index templates
+## 可组合索引模板
 
-Managing multiple index templates has the following challenges:
+管理多个索引模板面临以下挑战：
 
-- If you have duplication between index templates, storing these index templates results in a bigger cluster state.
-- If you want to make a change across all your index templates, you have to manually make the change for each template.
+- 如果索引模板之间存在重复项，则存储这些索引模板会导致更大的群集状态。
+- 如果要对所有索引模板进行更改，则必须手动对每个模板进行更改。
 
-You can use composable index templates to overcome these challenges. Composable index templates let you abstract common settings, mappings, and aliases into a reusable building block called a component template.
+你可以使用可组合的索引模板来克服这些挑战。通过可组合索引模板，可以将通用设置、映射和别名抽象为称为组件模板的可重用构建基块。
 
-You can combine component templates to compose an index template.
+你可以组合组件模板来组合索引模板。
 
-Settings and mappings that you specify directly in the [create index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/) request override any settings or mappings specified in an index template and its component templates.
-{: .note }
+直接在请求中指定的设置和映射将覆盖索引模板及其组件模板中[创建索引]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/)指定的任何设置或映射。{：.note }
 
-### Create a component template
+### 创建组件模板
 
-Let's define two component templates⁠---`component_template_1` and `component_template_2`:
+让我们定义两个组件模板--- `component_template_1` 和 `component_template_2`：
 
-#### Component template 1
+#### 组件模板 1
 
 ```json
 PUT _component_template/component_template_1
@@ -215,7 +214,7 @@ PUT _component_template/component_template_1
 }
 ```
 
-#### Component template 2
+#### 组件模板 2
 
 ```json
 PUT _component_template/component_template_2
@@ -232,11 +231,11 @@ PUT _component_template/component_template_2
 }
 ```
 
-### Use component templates to create an index template
+### 使用组件模板创建索引模板
 
-When creating index templates, you need to include the component templates in a `composed_of` list.
+创建索引模板时，需要将组件模板 `composed_of` 包含在列表中。
 
-OpenSearch applies the component templates in the order in which you specify them within the index template. The settings, mappings, and aliases that you specify inside the index template are applied last.
+OpenSearch 按照你在索引模板中指定组件模板的顺序应用组件模板。最后应用你在索引模板中指定的设置、映射和别名。
 
 ```json
 PUT _index_template/daily_logs
@@ -276,14 +275,14 @@ PUT _index_template/daily_logs
 }
 ```
 
-If you create an index named `logs-2020-01-01`, you can see that it derives its mappings and settings from both the component templates:
+如果创建名为 `logs-2020-01-01` 的索引，则可以看到它从两个组件模板派生其映射和设置：
 
 ```json
 PUT logs-2020-01-01
 GET logs-2020-01-01
 ```
 
-#### Example response
+#### 响应示例
 
 ```json
 {
@@ -325,14 +324,14 @@ GET logs-2020-01-01
 ```
 
 
-## Index template options
+## 索引模板选项
 
-You can specify the following template options:
+你可以指定以下模板选项：
 
-Option | Type | Description | Required
+选项 | 类型 | 描述 | 必填
 :--- | :--- | :--- | :---
-`template` | `Object` |  Specify index settings, mappings, and aliases. | No
-`priority` | `Integer` | The priority of the index template.  | No
-`composed_of` | `String array` |  The names of component templates applied on a new index together with the current template.  | No
-`version` | `Integer` | Specify a version number to simplify template management. Default is `null`. | No
-`_meta ` | `Object` | Specify meta information about the template. | No
+ `template` | `Object` | 指定索引设置、映射和别名。| 不
+ `priority` | `Integer` | 索引模板的优先级。| 不
+ `composed_of` | `String array` | 应用于新索引的组件模板的名称与当前模板一起。| 不
+ `version` | `Integer` | 指定版本号以简化模板管理。默认值为 `null`. | 不
+ `_meta ` | `Object` | 指定有关模板的元信息。| 不

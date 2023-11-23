@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Index State Management
+title: 索引状态管理
 nav_order: 16
 has_children: true
 redirect_from:
@@ -8,54 +8,52 @@ redirect_from:
 has_toc: false
 ---
 
-# Index State Management
+# 索引状态管理
 
-If you analyze time-series data, you likely prioritize new data over old data. You might periodically perform certain operations on older indexes, such as reducing replica count or deleting them.
+如果分析时序数据，则可能会优先考虑新数据而不是旧数据。你可以定期对较旧的索引执行某些操作，例如减少副本计数或删除它们。
 
-Index State Management (ISM) is a plugin that lets you automate these periodic, administrative operations by triggering them based on changes in the index age, index size, or number of documents. Using the ISM plugin, you can define *policies* that automatically handle index rollovers or deletions to fit your use case.
+索引状态管理（ISM）是一个插件，它允许你根据索引期限、索引大小或文档数量的变化触发这些定期管理操作，从而自动执行这些操作。使用 ISM 插件，你可以定义*政策*自动处理索引滚动更新或删除以适合你的用例。
 
-For example, you can define a policy that moves your index into a `read_only` state after 30 days and then deletes it after a set period of 90 days. You can also set up the policy to send you a notification message when the index is deleted.
+例如，你可以定义一个策略，在 30 天后将索引移动到某个 `read_only` 状态，然后在设定的 90 天后将其删除。你还可以将策略设置为在删除索引时向你发送通知消息。
 
-You might want to perform an index rollover after a certain amount of time or run a `force_merge` operation on an index during off-peak hours to improve search performance during peak hours.
+你可能希望在一定时间后执行索引滚动更新，或者在非高峰时段对索引运行操作 `force_merge`，以提高高峰时段的搜索性能。
 
-To use the ISM plugin, your user role needs to be mapped to the `all_access` role that gives you full access to the cluster. To learn more, see [Users and roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/).
-{: .note }
+要使用 ISM 插件，需要将你的用户角色映射到 `all_access` 授予你对群集的完全访问权限的角色。要了解更多信息，请参阅[用户和角色]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/)。{：.note}
 
-## Get started with ISM
+## ISM 入门
 
-To get started, choose **Index Management** in OpenSearch Dashboards.
+要开始使用，请选择**索引管理** In OpenSearch Dashboards。
 
-### Step 1: Set up policies
+### 步骤 1：设置策略
 
-A policy is a set of rules that describes how an index should be managed. For information about creating a policy, see [Policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/).
+策略是一组规则，用于描述应如何管理索引。有关创建策略的信息，请参阅[Policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/)。
 
-You can use the visual editor or JSON editor to create policies. Compared to the JSON editor, the visual editor offers a more structured way of defining policies by separating the process into creating error notifications, defining ISM templates, and adding states. We recommend using the visual editor if you want to see pre-defined fields, such as which actions you can assign to a state or under what conditions a state can transition into a destination state.
+你可以使用可视化编辑器或 JSON 编辑器创建策略。与 JSON 编辑器相比，可视化编辑器通过将流程分为创建错误通知、定义 ISM 模板和添加状态，提供了一种更结构化的策略定义方式。如果要查看预定义的字段，例如可以分配给状态的操作，或者状态可以在什么条件下转换为目标状态，建议使用可视化编辑器。
 
-#### Visual editor
+#### 可视化编辑器
 
-1. Choose the **Index Policies** tab.
-2. Choose **Create policy**.
-3. Choose **Visual editor**.
-4. In the **Policy info** section, enter a policy ID and an optional description.
-5. In the **Error notification** section, set up an optional error notification that gets sent whenever a policy execution fails. For more information, see [Error notifications]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#error-notifications). If you're using auto rollovers in your policy, we recommend setting up error notifications, which notify you of unexpectedly large indexes if rollovers fail.
-6. In **ISM templates**, enter any ISM template patterns to automatically apply this policy to future indexes. For example, if you specify a template of `sample-index*`, the ISM plugin automatically applies this policy to any indexes whose names start with `sample-index`. Your pattern cannot contain any of the following characters: `:`, `"`, `+`, `/`, `\`, `|`, `?`, `#`, `>`, and `<`.
-7. In **States**, add any states you want to include in the policy. Each state has [actions]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#actions) the plugin executes when the index enters a certain state, and [transitions]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#transitions), which have conditions that, when met, transition the index into a destination state. The first state you create in a policy is automatically set as the initial state. Each policy must have at least one state, but actions and transitions are optional.
-8. Choose **Create**.
+1. 选择选项卡**索引策略**。
+2. 选择**创建策略**。
+3. 选择**可视化编辑器**。
+4. 在**政策信息**该部分中，输入策略 ID 和可选描述。
+5. 在本节中**错误通知**，设置一个可选的错误通知，每当策略执行失败时都会发送该通知。有关详细信息，请参阅[错误通知]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#error-notifications)。如果你在策略中使用自动滚动更新，我们建议你设置错误通知，以便在滚动更新失败时通知你意外较大的索引。
+6. 在中**ISM 模板**，输入任何 ISM 模板模式以自动将此策略应用于将来的索引。例如，如果指定的模板 `sample-index*`，则 ISM 插件会自动将此策略应用于名称以开头 `sample-index` 的任何索引。你的模式不能包含以下任何字符： `:`、、、 `/` `+`、 `?` `\` `<` `"` `|` `#` `>` 和。
+7. 在中**国家**，添加要包含在策略中的任何状态。每个状态都有[actions]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#actions)插件在索引进入特定状态时执行，并且[转换]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#transitions)，这些状态具有满足时将索引转换为目标状态的条件。你在策略中创建的第一个状态会自动设置为初始状态。每个策略必须至少有一个状态，但操作和转换是可选的。
+8. 选择**创造**。
 
 
-#### JSON editor
+#### JSON 编辑器
 
-1. Choose the **Index Policies** tab.
-2. Choose **Create policy**.
-3. Choose **JSON editor**.
-4. In the **Name policy** section, enter a policy ID.
-5. In the **Define policy** section, enter your policy.
-6. Choose **Create**.
+1. 选择选项卡**索引策略**。
+2. 选择**创建策略**。
+3. 选择**JSON 编辑器**。
+4. 在该部分中**名称策略**，输入策略 ID。
+5. 在该**定义策略**部分中，输入你的策略。
+6. 选择**创造**。
 
-After you create a policy, your next step is to attach it to an index or indexes.
-You can set up an `ism_template` in the policy so when an index that matches the ISM template pattern is created, the plugin automatically attaches the policy to the index.
+创建策略后，下一步是将其附加到一个或多个索引。你可以在策略中设置一个 `ism_template`，以便在创建与 ISM 模板模式匹配的索引时，插件会自动将该策略附加到索引。
 
-The following example demonstrates how to create a policy that automatically gets attached to all indexes whose names start with `index_name-`.
+以下示例演示如何创建一个策略，该策略会自动附加到名称以开头 `index_name-` 的所有索引。
 
 ```json
 PUT _plugins/_ism/policies/policy_id
@@ -72,11 +70,11 @@ PUT _plugins/_ism/policies/policy_id
 }
 ```
 
-If you have more than one template that matches an index pattern, ISM uses the priority value to determine which template to apply.
+如果有多个模板与索引模式匹配，ISM 将使用优先级值来确定要应用的模板。
 
-For an example ISM template policy, see [Sample policy with ISM template for auto rollover]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#sample-policy-with-ism-template-for-auto-rollover).
+有关 ISM 模板策略的示例，请参见[带有 ISM 模板的自动滚动更新策略示例]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#sample-policy-with-ism-template-for-auto-rollover)。
 
-Older versions of the plugin include the `policy_id` in an index template, so when an index is created that matches the index template pattern, the index will have the policy attached to it:
+旧版本的插件包括 `policy_id` 在索引模板中，因此当创建与索引模板模式匹配的索引时，索引将附加策略：
 
 ```json
 PUT _index_template/<template_name>
@@ -92,31 +90,30 @@ PUT _index_template/<template_name>
 }
 ```
 
-The `opendistro.index_state_management.policy_id` setting is deprecated. You can continue to automatically manage newly created indexes with the ISM template field.
-{: .note }
+该 `opendistro.index_state_management.policy_id` 设置已弃用。你可以继续使用 ISM 模板字段自动管理新创建的索引。{：.note}
 
-### Step 2: Attach policies to indexes
+### 步骤 2：将策略附加到索引
 
-1. Choose **indexes**.
-2. Choose the index or indexes that you want to attach your policy to.
-3. Choose **Apply policy**.
-4. From the **Policy ID** menu, choose the policy that you created.
-You can see a preview of your policy.
-5. If your policy includes a rollover operation, specify a rollover alias.
-Make sure that the alias that you enter already exists. For more information about the rollover operation, see [rollover]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#rollover).
-6. Choose **Apply**.
+1. 选择**指标**。
+2. 选择要将策略附加到的一个或多个索引。
+3. 选择**应用策略**。
+4. **策略 ID**从菜单中，选择你创建的策略。
+你可以查看策略的预览。
+5. 如果你的策略包含滚动更新操作，请指定滚动更新别名。
+确保你输入的别名已存在。有关滚动更新操作的详细信息，请参阅[rollover]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#rollover)。
+6. 选择**应用**。
 
-After you attach a policy to an index, ISM creates a job that runs every 5 minutes by default to perform policy actions, check conditions, and transition the index into different states. To change the default time interval for this job, see [Settings]({{site.url}}{{site.baseurl}}/im-plugin/ism/settings/).
+将策略附加到索引后，ISM 会创建一个作业，默认情况下每 5 分钟运行一次，以执行策略操作、检查条件以及将索引转换为不同的状态。要更改此作业的默认时间间隔，请参见[Settings]({{site.url}}{{site.baseurl}}/im-plugin/ism/settings/)。
 
-ISM does not run jobs if the cluster state is red.
+如果群集状态为红色，则 ISM 不会运行作业。
 
-### Step 3: Manage indexes
+### 步骤 3：管理索引
 
-1. Choose **Managed indexes**.
-2. To change your policy, see [Change Policy]({{site.url}}{{site.baseurl}}/im-plugin/ism/managedindexes#change-policy).
-3. To attach a rollover alias to your index, select your policy and choose **Add rollover alias**.
-Make sure that the alias that you enter already exists. For more information about the rollover operation, see [rollover]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#rollover).
-4. To remove a policy, choose your policy, and then choose **Remove policy**.
-5. To retry a policy, choose your policy, and then choose **Retry policy**.
+1. 选择**托管索引**。
+2. 要更改策略，请参阅[变更政策]({{site.url}}{{site.baseurl}}/im-plugin/ism/managedindexes#change-policy)。
+3. 要将滚动更新别名附加到索引，请选择你的策略，然后选择**添加滚动更新别名**。
+确保你输入的别名已存在。有关滚动更新操作的详细信息，请参阅[rollover]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#rollover)。
+4. 要删除策略，请选择你的策略，然后选择**删除策略**。
+5. 要重试策略，请选择你的策略，然后选择。**重试策略**
 
-For information about managing your policies, see [Managed indexes]({{site.url}}{{site.baseurl}}/im-plugin/ism/managedindexes/).
+有关管理策略的信息，请参阅[托管索引]({{site.url}}{{site.baseurl}}/im-plugin/ism/managedindexes/)。

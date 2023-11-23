@@ -1,72 +1,70 @@
 ---
 layout: default
-title: Index rollups
+title: 索引汇总
 nav_order: 35
 has_children: true
 redirect_from: 
   - /im-plugin/index-rollups/
 ---
 
-# Index rollups
+# 索引汇总
 
-Time series data increases storage costs, strains cluster health, and slows down aggregations over time. Index rollup lets you periodically reduce data granularity by rolling up old data into summarized indexes.
+时序数据会增加存储成本，使群集运行状况紧张，并随着时间的推移减慢聚合速度。索引汇总允许你通过将旧数据汇总到汇总索引中来定期降低数据粒度。
 
-You pick the fields that interest you and use index rollup to create a new index with only those fields aggregated into coarser time buckets. You can store months or years of historical data at a fraction of the cost with the same query performance.
+你可以选择你感兴趣的字段，然后使用索引汇总来创建新索引，其中仅将这些字段聚合到较粗的时间存储桶中。在相同的查询性能下，你可以存储数月或数年的历史数据，而成本只是其中的一小部分。
 
-For example, say you collect CPU consumption data every five seconds and store it on a hot node. Instead of moving older data to a read-only warm node, you can roll up or compress this data with only the average CPU consumption per day or with a 10% decrease in its interval every week.
+例如，假设你每 5 秒收集一次 CPU 消耗数据，并将其存储在热节点上。你可以汇总或压缩此数据，而不是将旧数据移动到只读热节点，只需每天的平均 CPU 消耗量或每周减少 10% 的间隔。
 
-You can use index rollup in three ways:
+你可以通过三种方式使用索引汇总：
 
-1. Use the index rollup API for an on-demand index rollup job that operates on an index that's not being actively ingested such as a rolled-over index. For example, you can perform an index rollup operation to reduce data collected at a five minute interval to a weekly average for trend analysis.
-2. Use the OpenSearch Dashboards UI to create an index rollup job that runs on a defined schedule. You can also set it up to roll up your indexes as it’s being actively ingested. For example, you can continuously roll up Logstash indexes from a five second interval to a one hour interval.
-3. Specify the index rollup job as an ISM action for complete index management. This allows you to roll up an index after a certain event such as a rollover, index age reaching a certain point, index becoming read-only, and so on. You can also have rollover and index rollup jobs running in sequence, where the rollover first moves the current index to a warm node and then the index rollup job creates a new index with the minimized data on the hot node.
+1. 将索引汇总 API 用于按需索引汇总作业，该作业对未主动引入的索引（如滚动索引）进行操作。例如，你可以执行索引汇总操作，将每隔 5 分钟收集的数据减少到每周平均值，以便进行趋势分析。
+2. 使用 OpenSearch 控制面板 UI 创建按定义的计划运行的索引汇总作业。你还可以将其设置为在主动引入索引时汇总索引。例如，你可以将 Logstash 索引从 5 秒间隔持续汇总到 1 小时间隔。
+3. 将索引汇总作业指定为 ISM 操作，以便完成索引管理。这允许你在特定事件（例如滚动更新、索引期限达到某个点、索引变为只读等）后汇总索引。你还可以按顺序运行滚动更新和索引汇总作业，其中滚动更新首先将当前索引移动到暖节点，然后索引汇总作业使用热节点上的最小化数据创建新索引。
 
-## Create an Index Rollup Job
+## 创建索引汇总作业
 
-To get started, choose **Index Management** in OpenSearch Dashboards.
-Select **Rollup Jobs** and choose **Create rollup job**.
+要开始使用，请选择**索引管理** In OpenSearch Dashboards。选择并选择**汇总作业** **创建汇总作业**。
 
-### Step 1: Set up indexes
+### 步骤 1：设置索引
 
-1. In the **Job name and description** section, specify a unique name and an optional description for the index rollup job.
-2. In the **Indices** section, select the source and target index. The source index is the one that you want to roll up. The source index remains as is, the index rollup job creates a new index referred to as a target index. The target index is where the index rollup results are saved. For target index, you can either type in a name for a new index or you select an existing index.
-5. Choose **Next**
+1. 在该**职位名称和描述**部分中，指定索引汇总作业的唯一名称和可选描述。
+2. 在该**指标**部分中，选择源索引和目标索引。源索引是要汇总的索引。源索引保持原样，索引汇总作业将创建一个称为目标索引的新索引。目标索引是保存索引汇总结果的位置。对于目标索引，可以键入新索引的名称，也可以选择现有索引。
+5. 选择**下一个**
 
-After you create an index rollup job, you can't change your index selections.
+创建索引汇总作业后，无法更改索引选择。
 
-### Step 2: Define aggregations and metrics
+### 第 2 步：定义聚合和指标
 
-Select the attributes with the aggregations (terms and histograms) and metrics (avg, sum, max, min, and value count) that you want to roll up. Make sure you don’t add a lot of highly granular attributes, because you won’t save much space.
+选择包含要汇总的聚合（术语和直方图）和指标（平均值、总和、最大值、最小值和值计数）的属性。请确保不要添加大量高度精细的属性，因为不会节省太多空间。
 
-For example, consider a dataset of cities and demographics within those cities. You can aggregate based on cities and specify demographics within a city as metrics.
-The order in which you select attributes is critical. A city followed by a demographic is different from a demographic followed by a city.
+例如，考虑城市和这些城市内的人口统计数据数据集。你可以基于城市进行聚合，并将城市内的人口统计数据指定为指标。选择属性的顺序至关重要。城市后跟人口统计与人口后跟城市不同。
 
-1. In the **Time aggregation** section, select a timestamp field. Choose between a **Fixed** or **Calendar** interval type and specify the interval and timezone. The index rollup job uses this information to create a date histogram for the timestamp field.
-2. (Optional) Add additional aggregations for each field. You can choose terms aggregation for all field types and histogram aggregation only for numeric fields.
-3. (Optional) Add additional metrics for each field. You can choose between **All**, **Min**, **Max**, **Sum**, **Avg**, or **Value Count**.
-4. Choose **Next**.
+1. 在**时间聚合**该部分中，选择时间戳字段。在间隔类型之间**固定****日历**进行选择，并指定间隔和时区。索引汇总作业使用此信息为时间戳字段创建日期直方图。
+2. （可选）为每个字段添加其他聚合。你可以为所有字段类型选择术语聚合，而仅为数值字段选择直方图聚合。
+3. （可选）为每个字段添加其他指标。你可以在、、、**最小值****和****麦克斯**、**平均值**或**值计数**之间**都**进行选择。
+4. 选择**下一个**。
 
-### Step 3: Specify schedule
+### 第 3 步：指定计划
 
-Specify a schedule to roll up your indexes as it’s being ingested. The index rollup job is enabled by default.
+指定一个计划，以便在引入索引时汇总索引。默认情况下，索引汇总作业处于启用状态。
 
-1. Specify if the data is continuous or not.
-3. For roll up execution frequency, select **Define by fixed interval** and specify the **Rollup interval** and the time unit or **Define by cron expression** and add in a cron expression to select the interval. To learn how to define a cron expression, see [Alerting]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/).
-4. Specify the number of pages per execution process. A larger number means faster execution and more cost for memory.
-5. (Optional) Add a delay to the roll up executions. This is the amount of time the job waits for data ingestion to accommodate any processing time. For example, if you set this value to 10 minutes, an index rollup that executes at 2 PM to roll up 1 PM to 2 PM of data starts at 2:10 PM.
-6. Choose **Next**.
+1. 指定数据是否连续。
+3. 对于汇总执行频率，选择并指定**汇总间隔**和时间单位，或者**通过 cron 表达式定义**添加 cron 表达式以选择**按固定间隔定义**间隔。要了解如何定义 cron 表达式，请参见[Alerting]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/)。
+4. 指定每个执行进程的页数。数字越大，执行速度越快，内存成本越高。
+5. （可选）向汇总执行添加延迟。这是作业等待数据引入以适应任何处理时间的时间量。例如，如果将此值设置为 10 分钟，则在下午 2 点执行以汇总下午 1 点到下午 2 点的数据的索引汇总将从下午 2：10 开始。
+6. 选择**下一个**。
 
-### Step 4: Review and create
+### 第 4 步：查看和创建
 
-Review your configuration and select **Create**.
+查看你的配置，然后选择**创造**。
 
-### Step 5: Search the target index
+### 步骤 5：搜索目标索引
 
-You can use the standard `_search` API to search the target index. Make sure that the query matches the constraints of the target index. For example, if you don’t set up terms aggregations on a field, you don’t receive results for terms aggregations. If you don’t set up the maximum aggregations, you don’t receive results for maximum aggregations.
+你可以使用标准 `_search` API 搜索目标索引。确保查询与目标索引的约束匹配。例如，如果你未在字段上设置术语聚合，则不会收到术语聚合的结果。如果未设置最大聚合数，则不会收到最大聚合数的结果。
 
-You can’t access the internal structure of the data in the target index because the plugin automatically rewrites the query in the background to suit the target index. This is to make sure you can use the same query for the source and target index.
+你无法访问目标索引中数据的内部结构，因为插件会在后台自动重写查询以适应目标索引。这是为了确保你可以对源索引和目标索引使用相同的查询。
 
-To query the target index, set `size` to 0:
+要查询目标索引，请设置为 `size` 0：
 
 ```json
 GET target_index/_search
@@ -85,19 +83,19 @@ GET target_index/_search
 }
 ```
 
-Consider a scenario where you collect rolled up data from 1 PM to 9 PM in hourly intervals and live data from 7 PM to 11 PM in minutely intervals. If you execute an aggregation over these in the same query, for 7 PM to 9 PM, you see an overlap of both rolled up data and live data because they get counted twice in the aggregations.
+假设你每小时收集下午 1 点到晚上 9 点的汇总数据，以及以分钟为间隔收集晚上 7 点到晚上 11 点的实时数据。如果在同一查询中对这些数据执行聚合，则在晚上 7 点到晚上 9 点，你会看到汇总数据和实时数据重叠，因为它们在聚合中被计数两次。
 
-## Sample Walkthrough
+## 示例演练
 
-This walkthrough uses the OpenSearch Dashboards sample e-commerce data. To add that sample data, log in to OpenSearch Dashboards, choose **Home** and **Try our sample data**. For **Sample eCommerce orders**, choose **Add data**.
+本演练使用 OpenSearch 控制面板示例电子商务数据。要添加该示例数据，请登录 OpenSearch 控制面板，选择**家**和**试试我们的示例数据**。对于**电子商务订单示例**，选择**添加数据**。
 
-Then run a search:
+然后运行搜索：
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 
-#### Example response
+#### 响应示例
 
 ```json
 {
@@ -214,8 +212,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ...
 ```
 
-Create an index rollup job.
-This example picks the `order_date`, `customer_gender`, `geoip.city_name`, `geoip.region_name`, and `day_of_week` fields and rolls them into an `example_rollup` target index:
+创建索引汇总作业。此示例选取 `order_date`、、 `customer_gender` `geoip.city_name` `geoip.region_name` 和 `day_of_week` 字段，并将它们汇总到目标索引中 `example_rollup`：
 
 ```json
 PUT _plugins/_rollup/jobs/example
@@ -302,8 +299,7 @@ PUT _plugins/_rollup/jobs/example
 }
 ```
 
-You can query the `example_rollup` index for the terms aggregations on the fields set up in the rollup job.
-You get back the same response that you would on the original `opensearch_dashboards_sample_data_ecommerce` source index:
+你可以在索引中 `example_rollup` 查询汇总作业中设置的字段的术语聚合。你将得到与原始 `opensearch_dashboards_sample_data_ecommerce` 源索引相同的响应：
 
 ```json
 POST example_rollup/_search
@@ -343,7 +339,7 @@ POST example_rollup/_search
 }
 ```
 
-#### Example response
+#### 响应示例
 
 ```json
 {
@@ -514,13 +510,13 @@ POST example_rollup/_search
 }
 ```
 
-## The doc_count field
+## doc_count 字段
 
-The `doc_count` field in bucket aggregations contains the number of documents collected in each bucket. When calculating the bucket's `doc_count`, the number of documents is incremented by the number of the pre-aggregated documents in each summary document. The `doc_count` returned from rollup searches represents the total number of matching documents from the source index. The document count for each bucket is the same whether you search the source index or the rollup target index.
+ `doc_count` 存储桶聚合中的字段包含每个存储桶中收集的文档数。计算存储桶 `doc_count` 时，文档数将按每个汇总文档中预先聚合的文档数递增。从汇总搜索返回的文档数表示源索引中匹配文档的 `doc_count` 总数。无论你搜索源索引还是汇总目标索引，每个存储桶的文档计数都是相同的。
 
-## Query string queries
+## 查询字符串查询
 
-To take advantage of shorter and more easily written strings in Query DSL, you can use [query strings]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/query-string/) to simplify search queries in rollup indexes. To use query strings, add the following fields to your rollup search request:
+若要利用查询 DSL 中更短且更易于编写的字符串，可以使用[查询字符串]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/query-string/)来简化汇总索引中的搜索查询。若要使用查询字符串，请将以下字段添加到汇总搜索请求中：
 
 ```json
 "query": {
@@ -530,7 +526,7 @@ To take advantage of shorter and more easily written strings in Query DSL, you c
   }
 ```
 
-The following example uses a query string with a `*` wildcard operator to search inside a rollup index called `my_server_logs_rollup`:
+以下示例使用带有 `*` 通配符运算符的查询字符串在名为 `my_server_logs_rollup`：
 
 ```json
 GET my_server_logs_rollup/_search
@@ -567,31 +563,29 @@ GET my_server_logs_rollup/_search
 }
 ```
 
-For more information about query string query parameters, see [Query string query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/query-string/#parameters).
+有关查询字符串查询参数的详细信息，请参阅[查询字符串查询]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/query-string/#parameters)。
 
-## Dynamic target index
+## 动态目标索引
 
 <style>
 .nobr { white-space: nowrap }
 </style>
 
-In ISM rollup, the `target_index` field may contain a template that is compiled at the time of each rollup indexing. For example, if you specify the `target_index` field as <span style="white-space: nowrap">`{% raw %}rollup_ndx-{{ctx.source_index}}{% endraw %}`,</span> the source index `log-000001` will roll up into a target index `rollup_ndx-log-000001`. This allows you to roll up data into multiple time-based indexes, with one rollup job created for each source index. 
+在 ISM rollup 中，该 `target_index` 字段可能包含在每次汇总索引时编译的模板。例如，如果将 `target_index` 字段指定为 `{% raw %}rollup_ndx-{{ctx.source_index}}{% endraw %}` <span style="white-space: nowrap">，</span>则源索引将汇总到目标索引 `log-000001` `rollup_ndx-log-000001` 中。这允许你将数据汇总到多个基于时间的索引中，并为每个源索引创建一个汇总作业。
 
-The `source_index` parameter in {% raw %}`{{ctx.source_index}}`{% endraw %} cannot contain wildcards.
-{: .note}
+ `source_index` {% raw %}{% endraw %} `{{ctx.source_index}}` 中的参数不能包含通配符。{：.note}
 
-## Searching multiple rollup indexes
+## 搜索多个汇总索引
 
-When data is rolled up into multiple target indexes, you can run one search across all of the rollup indexes. To search multiple target indexes that have the same rollup, specify the index names as a comma-separated list or a wildcard pattern. For example, with `target_index` as <span style="white-space: nowrap">`{% raw %}rollup_ndx-{{ctx.source_index}}{% endraw %}`</span> and source indexes that start with `log`, specify the `rollup_ndx-log*` pattern. Or, to search for rolled up log-000001 and log-000002 indexes, specify the `rollup_ndx-log-000001,rollup_ndx-log-000002` list.
+将数据汇总到多个目标索引中时，可以对所有汇总索引运行一次搜索。要搜索具有相同汇总的多个目标索引，请将索引名称指定为逗号分隔列表或通配符模式。例如，使用 `target_index` as <span style="white-space: nowrap"></span> `{% raw %}rollup_ndx-{{ctx.source_index}}{% endraw %}` 和以 开头 `rollup_ndx-log*` 的 `log` 源索引指定模式。或者，要搜索汇总的 log-000001 和 log-000002 索引，请指定列表 `rollup_ndx-log-000001,rollup_ndx-log-000002`。
 
-You cannot search a mix of rollup and non-rollup indexes with the same query.
-{: .note}
+不能使用同一查询搜索汇总索引和非汇总索引的混合。{：.note}
 
-## Example
+## 例
 
-The following example demonstrates the `doc_count` field, dynamic index names, and searching multiple rollup indexes with the same rollup.
+以下示例演示了 `doc_count` 字段、动态索引名称以及使用同一汇总搜索多个汇总索引。
 
-**Step 1:** Add an index template for ISM to manage the rolling over of the indexes aliased by `log`:
+**步骤 1：**为 ISM 添加索引模板，以管理别名为： `log`
 
 ```json
 PUT _index_template/ism_rollover
@@ -605,7 +599,7 @@ PUT _index_template/ism_rollover
 }
 ```
 
-**Step 2:** Set up an ISM rollover policy to roll over any index whose name starts with `log*` after one document is uploaded to it, and then roll up the individual backing index. The target index name is dynamically generated from the source index name by prepending the string `rollup_ndx-` to the source index name.
+**步骤 2：**设置 ISM 滚动更新策略，以便在将一个文档上载到该索引后滚动更新名称以开头 `log*` 的任何索引，然后汇总单个后备索引。目标索引名称是从源索引名称动态生成的，方法是在源索引名称前面加上字符串 `rollup_ndx-`。
 
 ```json
 PUT _plugins/_ism/policies/rollover_policy 
@@ -677,7 +671,7 @@ PUT _plugins/_ism/policies/rollover_policy
 }
 ```
 
-**Step 3:** Create an index named `log-000001` and set up an alias `log` for it.
+**步骤 3：**创建一个名为 `log-000001` 该 `log` 索引的索引并为其设置别名。
 
 ```json
 PUT log-000001
@@ -690,7 +684,7 @@ PUT log-000001
 }
 ```
 
-**Step 4:** Index four documents into the index created above. Two of the documents have the message "Success", and two have the message "Error".
+**步骤 4：**将四个文档索引到上面创建的索引中。其中两个文档显示消息“成功”，两个文档显示消息“错误”。
 
 ```json
 POST log/_doc?refresh=true 
@@ -728,12 +722,11 @@ POST log/_doc?refresh=true
 }
 ```
 
-Once you index the first document, the rollover action is executed. This action creates the index `log-000002` with `rollover_policy` attached to it. Then the rollup action is executed, which creates the rollup index `rollup_ndx-log-000001`.
+为第一个文档编制索引后，将执行鼠标悬停操作。此操作将创建附加到它的索引 `log-000002` `rollover_policy`。然后执行汇总操作，这将创建汇总索引 `rollup_ndx-log-000001`。
 
-To monitor the status of rollover and rollup index creation, you can use the ISM explain API: `GET _plugins/_ism/explain`
-{: .tip}
+要监视滚动更新和汇总索引创建的状态，可以使用 ISM 解释 API：{： `GET _plugins/_ism/explain`.tip}
 
-**Step 5:** Search the rollup index.
+**步骤 5：**搜索汇总索引。
 
 ```json
 GET rollup_ndx-log-*/_search
@@ -766,7 +759,7 @@ GET rollup_ndx-log-*/_search
 }
 ```
 
-The response contains two buckets, "Error" and "Success", and the document count for each bucket is 2:
+响应包含两个存储桶，“Error”和“Success”，每个存储桶的文档计数为 2：
 
 ```json
 {
@@ -831,6 +824,6 @@ The response contains two buckets, "Error" and "Success", and the document count
 }
 ```
 
-## Index codec considerations
+## 索引编解码器注意事项
 
-For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#index-rollups-and-transforms).
+有关索引编解码器注意事项，请参见[索引编解码器]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#index-rollups-and-transforms)。

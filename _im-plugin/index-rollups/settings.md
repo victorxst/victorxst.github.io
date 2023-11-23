@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Settings
-parent: Index rollups
+title: 设置
+parent: 索引汇总
 nav_order: 30
 ---
 

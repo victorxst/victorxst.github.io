@@ -1,8 +1,8 @@
 ---
 layout: default
-title: ISM Error Prevention API
-parent: ISM Error Prevention
-grand_parent: Index State Management
+title: ISM 错误预防 API
+parent: ISM 错误防护
+grand_parent: 索引状态管理
 nav_order: 10
 ---
 

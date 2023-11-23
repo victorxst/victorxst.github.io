@@ -1,6 +1,6 @@
 ---
 layout: default
-title: ISM Error Prevention
+title: ISM 错误预防
 nav_order: 90
 has_children: true
 has_toc: false
@@ -9,88 +9,88 @@ redirect_from:
   - /im-plugin/ism/error-prevention/index/
 ---
 
-# ISM error prevention
+# ISM 错误预防
 
-Error prevention validates Index State Management (ISM) actions before they are performed in order to prevent actions from failing. It also outputs additional information from the action validation results in the response of the [Index Explain API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#explain-index). Validation rules and troubleshooting of each action are listed in the following sections.
+错误预防在执行索引状态管理（ISM）操作之前对其进行验证，以防止操作失败。它还在响应中输出来自操作验证结果的其他[索引解释 API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#explain-index)信息。以下各节列出了每个操作的验证规则和疑难解答。
 
 ---
 
-#### Table of contents
-1. TOC
+#### 目录
+1. 目录
 {:toc}
 
 
 ---
 
-## rollover 
+## 过渡
 
-ISM does not perform a `rollover` action for an index under any of these conditions: 
+在以下任何情况下，ISM 都不会对索引执行 `rollover` 操作：
 
-- [The index is not the write index]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/resolutions/#the-index-is-not-the-write-index).
-- [The index does not have an alias]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/resolutions/#the-index-does-not-have-an-alias).
-- [The rollover policy does not contain a rollover_alias index setting]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/resolutions/#the-rollover-policy-misses-rollover_alias-index-setting).
-- [Skipping of a rollover action has occured]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/resolutions/#skipping-rollover-action-is-true).
-- [The index has already been rolled over using the alias successfully]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/resolutions/#this-index-has-already-been-rolled-over-successfully).
+- [索引不是写入索引]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/resolutions/#the-index-is-not-the-write-index).
+- [索引没有别名]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/resolutions/#the-index-does-not-have-an-alias).
+- [滚动更新策略不包含 rollover_alias 索引设置]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/resolutions/#the-rollover-policy-misses-rollover_alias-index-setting).
+- [跳过滚动更新操作]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/resolutions/#skipping-rollover-action-is-true).
+- [索引已成功使用别名进行滚动]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/resolutions/#this-index-has-already-been-rolled-over-successfully).
 
-## delete 
+## 删除
 
-ISM does not perform a `delete` action for an index under any of these conditions: 
+在以下任何情况下，ISM 都不会对索引执行 `delete` 操作：
 
-- The index does not exist.
-- The index name is invalid.
-- The index is the write index for a data stream.
+- 索引不存在。
+- 索引名称无效。
+- 索引是数据流的写入索引。
 
 ## force_merge
 
-ISM does not perform a `force_merge` action for an index if its dataset is too large and exceeds the threshold.
+如果索引的数据集过大且超过阈值，则 ISM 不会对索引执行 `force_merge` 操作。
 
 ## replica_count
 
-ISM does not perform a `replica_count` action for an index under any of these conditions: 
+在以下任何情况下，ISM 都不会对索引执行 `replica_count` 操作：
 
-- The amount of data exceeds the threshold.
-- The number of shards exceeds the maximum.
+- 数据量超过阈值。
+- 分片数量超过最大值。
 
-## open
+## 打开
 
-ISM does not perform an `open` action for an index under any of these conditions: 
+在以下任何情况下，ISM 都不会对索引执行 `open` 操作：
 
-- The index is blocked.
-- The number of shards exceeds the maximum.
+- 索引被阻止。
+- 分片数量超过最大值。
 
 ## read_only
 
-ISM does not perform a `read_only` action for an index under any of these conditions: 
+在以下任何情况下，ISM 都不会对索引执行 `read_only` 操作：
 
-- The index is blocked.
-- The amount of data exceeds the threshold.
+- 索引被阻止。
+- 数据量超过阈值。
 
-## read_write 
+## read_write
 
-ISM does not perform a `read_write` action for an index if the index is blocked.
+如果索引被阻止，ISM 不会对索引执行 `read_write` 操作。
 
 
-## close
+## 关闭
 
-ISM does not perform a `close` action for an index under any of these conditions:
+在以下任何情况下，ISM 都不会对索引执行 `close` 操作：
 
-- The index does not exist.
-- The index name is invalid.
+- 索引不存在。
+- 索引名称无效。
 
 ## index_priority
 
-ISM does not perform an `index_priority` action for an index that does not have `read-only-allow-delete` permission.
+ISM 不会对没有 `read-only-allow-delete` 权限的索引执行 `index_priority` 操作。
 
-## snapshot
+## 快照
 
-ISM does not perform a `snapshot` action for an index under any of these conditions:
+在以下任何情况下，ISM 都不会对索引执行 `snapshot` 操作：
 
-- The index does not exist.
-- The index name is invalid.
+- 索引不存在。
+- 索引名称无效。
 
-## transition 
+## 过渡
 
-ISM does not perform a `transition` action for an index under any of these conditions:
+在以下任何情况下，ISM 都不会对索引执行 `transition` 操作：
 
-- The index does not exist.
-- The index name is invalid.
+- 索引不存在。
+- 索引名称无效。

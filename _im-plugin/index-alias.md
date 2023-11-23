@@ -1,39 +1,39 @@
 ---
 layout: default
-title: Index aliases
+title: 索引别名
 nav_order: 11
 redirect_from:
   - /opensearch/index-alias/
 ---
 
-# Index aliases
+# 索引别名
 
-An alias is a virtual index name that can point to one or more indexes.
+别名是可以指向一个或多个索引的虚拟索引名称。
 
-If your data is spread across multiple indexes, rather than keeping track of which indexes to query, you can create an alias and query it instead.
+如果数据分布在多个索引中，则可以创建别名并改为查询它，而不是跟踪要查询的索引。
 
-For example, if you’re storing logs into indexes based on the month and you frequently query the logs for the previous two months, you can create a `last_2_months` alias and update the indexes it points to each month.
+例如，如果要根据月份将日志存储到索引中，并且经常查询前两个月的日志，则可以创建 `last_2_months` 别名并更新它每月指向的索引。
 
-Because you can change the indexes an alias points to at any time, referring to indexes using aliases in your applications allows you to reindex your data without any downtime.
+由于你可以随时更改别名指向的索引，因此在应用程序中使用别名引用索引允许你在不停机的情况下重新索引数据。
 
 ---
 
-#### Table of contents
-1. TOC
+#### 目录
+1. 目录
 {:toc}
 
 
 ---
 
-## Create aliases
+## 创建别名
 
-To create an alias, use a POST request:
+要创建别名，请使用 POST 请求：
 
 ```json
 POST _aliases
 ```
 
-Use the `actions` method to specify the list of actions that you want to perform. This command creates an alias named `alias1` and adds `index-1` to this alias:
+使用该 `actions` 方法指定要执行的操作列表。此命令创建一个名为 `alias1` 别名的别名，并将其添加到 `index-1` 此别名中：
 
 ```json
 POST _aliases
@@ -49,7 +49,7 @@ POST _aliases
 }
 ```
 
-You should see the following response:
+你应看到以下响应：
 
 ```json
 {
@@ -57,9 +57,9 @@ You should see the following response:
 }
 ```
 
-If this request fails, make sure the index that you're adding to the alias already exists.
+如果此请求失败，请确保要添加到别名的索引已存在。
 
-You can also create an alias using one of the following requests:
+你还可以使用以下请求之一创建别名：
 
 ```json
 PUT <index>/_aliases/<alias name>
@@ -68,25 +68,24 @@ PUT <index>/_alias/<alias name>
 POST <index>/_alias/<alias name>
 ```
 
-The `<index>` in the above requests can be an index name, a comma-separated list of index names, or a wildcard expression. Use `_all` to refer to all indexes.
+ `<index>` 上述请求中的可以是索引名称、以逗号分隔的索引名称列表或通配符表达式。用于 `_all` 引用所有索引。
 
-To check if `alias1` refers to `index-1`, run one of the following commands:
+若要检查是否 `alias1` 引用 `index-1`，请运行以下命令之一：
 
 ```json
 GET /_alias/alias1
 GET /index-1/_alias/alias1
 ```
 
-To get the mappings and settings information of the indexes that the alias references, run the following command:
+若要获取别名引用的索引的映射和设置信息，请运行以下命令：
 
 ```json
 GET alias1
 ```
 
-## Add or remove indexes
+## 添加或删除索引
 
-You can perform multiple actions in the same `_aliases` operation.
-For example, the following command removes `index-1` and adds `index-2` to `alias1`:
+你可以在同一 `_aliases` 操作中执行多个操作。例如，以下命令删除 `index-1` 并添加到 `index-2` `alias1`：
 
 ```json
 POST _aliases
@@ -108,9 +107,9 @@ POST _aliases
 }
 ```
 
-The `add` and `remove` actions occur atomically, which means that at no point will `alias1` point to both `index-1` and `index-2`.
+ `add` 和动作以原子方式发生，这意味着在任何时候都不会 `alias1` 同时 `index-1` 指向和 `remove` `index-2`。
 
-You can also add indexes based on an index pattern:
+你还可以根据索引模式添加索引：
 
 ```json
 POST _aliases
@@ -126,28 +125,28 @@ POST _aliases
 }
 ```
 
-## Manage aliases
+## 管理别名
 
-To list the mapping of aliases to indexes, run the following command:
+若要列出别名到索引的映射，请运行以下命令：
 
 ```json
 GET _cat/aliases?v
 ```
 
-#### Example response
+#### 响应示例
 
 ```json
 alias     index   filter    routing.index   routing.search
 alias1    index-1   *             -                 -
 ```
 
-To check which indexes an alias points to, run the following command:
+若要检查别名指向的索引，请运行以下命令：
 
 ```json
 GET _alias/alias1
 ```
 
-#### Example response
+#### 响应示例
 
 ```json
 {
@@ -159,19 +158,19 @@ GET _alias/alias1
 }
 ```
 
-Conversely, to find which alias points to a specific index, run the following command:
+相反，若要查找指向特定索引的别名，请运行以下命令：
 
 ```json
 GET /index-2/_alias/*
 ```
 
-To get all index names and their aliases, run the following command:
+若要获取所有索引名称及其别名，请运行以下命令：
 
 ```json
 GET /_alias
 ```
 
-To check if an alias exists, run one of the following commands:
+若要检查别名是否存在，请运行以下命令之一：
 
 ```json
 HEAD /alias1/_alias/
@@ -179,9 +178,9 @@ HEAD /_alias/alias1/
 HEAD index-1/_alias/alias1/
 ```
 
-## Add aliases at index creation
+## 在创建索引时添加别名
 
-You can add an index to an alias as you create the index:
+你可以在创建索引时向别名添加索引：
 
 ```json
 PUT index-1
@@ -192,11 +191,11 @@ PUT index-1
 }
 ```
 
-## Create filtered aliases
+## 创建过滤的别名
 
-You can create a filtered alias to access a subset of documents or fields from the underlying indexes.
+你可以创建筛选的别名，以访问基础索引中的文档或字段的子集。
 
-This command adds only a specific timestamp field to `alias1`:
+此命令仅将特定的时间戳字段 `alias1` 添加到：
 
 ```json
 POST _aliases
@@ -217,34 +216,34 @@ POST _aliases
 }
 ```
 
-## Index alias options
+## 索引别名选项
 
-You can specify the options shown in the following table.
+你可以指定下表中显示的选项。
 
-Option | Valid values | Description | Required
+选项 | 有效值 | 描述 | 必填
 :--- | :--- | :---
-`index` | String | The name of the index that the alias points to. | Yes
-`alias` | String | The name of the alias. | No
-`filter` | Object | Add a filter to the alias. | No
-`routing` | String | Limit search to an associated shard value. You can specify `search_routing` and `index_routing` independently. | No
-`is_write_index` | String | Specify the index that accepts any write operations to the alias. If this value is not specified, then no write operations are allowed. | No
+ `index` | 字符串 | 别名指向的索引的名称。| 是的
+ `alias` | 字符串 | 别名的名称。| 不
+ `filter` | 对象 | 向别名添加过滤器。| 不
+ `routing` | 字符串 | 将搜索限制为关联的分片值。你可以单独指定 `search_routing` 和 `index_routing`。| 不
+ `is_write_index` | 字符串 | 指定接受对别名执行任何写入操作的索引。如果未指定此值，则不允许执行写入操作。| 不
 
 
-## Delete aliases
+## 删除别名
 
-To delete one or more aliases from an index, use the following request:
+若要从索引中删除一个或多个别名，请使用以下请求：
 
 ```json
 DELETE <index>/_alias/<alias>
 DELETE <index>/_aliases/<alias>
 ```
 
-Both `<index>` and `<alias>` in the above request support comma-separated lists and wildcard expressions. Use `_all` in place of `<alias>` to delete all aliases for the indexes listed in `<index>`.
+和 `<alias>` 上述请求中都 `<index>` 支持逗号分隔的列表和通配符表达式。 `<alias>` 用于 `_all` 代替删除中 `<index>` 列出的索引的所有别名。
 
-For example, if `alias1` refers to `index-1` and `index-2`, you can run the following command to remove `alias1` from `index-1`:
+例如，如果 `alias1` refer to `index-1` 和 `index-2`，则可以运行以下命令从： `alias1` `index-1`
 
 ```json
 DELETE index-1/_alias/alias1
 ```
 
-After you run the request above, `alias1` no longer refers to `index-1`, but still refers to `index-2`.
+运行上述请求后，不再引用 `index-1`， `alias1` 但仍指 `index-2`。

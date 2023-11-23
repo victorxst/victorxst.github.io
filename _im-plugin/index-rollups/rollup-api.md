@@ -1,31 +1,29 @@
 ---
 layout: default
-title: Index rollups API
-parent: Index rollups
+title: 索引汇总 API
+parent: 索引汇总
 nav_order: 9
 ---
 
-# Index rollups API
+# 索引汇总 API
 
-Use the index rollup operations to programmatically work with index rollup jobs.
+使用索引汇总操作以编程方式处理索引汇总作业。
 
 ---
 
-#### Table of contents
-- TOC
+#### 目录
+- 目录
 {:toc}
 
 
 ---
 
-## Create or update an index rollup job
-Introduced 1.0
-{: .label .label-purple }
+## 创建或更新索引汇总作业
+引入 1.0 {：.label .label-purple }
 
-Creates or updates an index rollup job.
-You must provide the `seq_no` and `primary_term` parameters.
+创建或更新索引汇总作业。你必须提供 `seq_no` 和 `primary_term` 参数。
 
-#### Request
+#### 请求
 
 ```json
 PUT _plugins/_rollup/jobs/<rollup_id> // Create
@@ -90,31 +88,31 @@ PUT _plugins/_rollup/jobs/<rollup_id>?if_seq_no=1&if_primary_term=1 // Update
 }
 ```
 
-You can specify the following options.
+你可以指定以下选项。
 
-Options | Description | Type | Required
+选项 | 描述 | 类型 | 必填
 :--- | :--- |:--- |:--- |
-`source_index` |  The name of the detector. | String | Yes
-`target_index` |  Specify the target index that the rolled up data is ingested into. You can either create a new target index or use an existing index. The target index cannot be a combination of raw and rolled up data. This field supports dynamically generated index names like {% raw %}`rollup_{{ctx.source_index}}`{% endraw %}, where `source_index` cannot contain wildcards.  | String | Yes
-`schedule` |  Schedule of the index rollup job which can be an interval or a cron expression. | Object | Yes
-`schedule.interval`  |  Specify the frequency of execution of the rollup job. | Object | No
-`schedule.interval.start_time` | Start time of the interval. | Timestamp | Yes
-`schedule.interval.period` |  Define the interval period. | String | Yes
-`schedule.interval.unit` | Specify the time unit of the interval. | String | Yes
-`schedule.interval.cron` | Optionally, specify a cron expression to define therollup frequency. | List | No
-`schedule.interval.cron.expression` | Specify a Unix cron expression. | String | Yes
-`schedule.interval.cron.timezone` | Specify timezones as defined by the IANA Time Zone Database. Defaults to UTC. | String | No
-`description` | Optionally, describe the rollup job. | String | No
-`enabled` | When true, the index rollup job is scheduled. Default is true. | Boolean | Yes
-`continuous` | Specify whether or not the index rollup job continuously rolls up data forever or just executes over the current data set once and stops. Default is false. | Boolean | Yes
-`error_notification` | Set up a Mustache message template for error notifications. For example, if an index rollup job fails, the system sends a message to a Slack channel. | Object | No
-`page_size` | Specify the number of buckets to paginate at a time during rollup. | Number | Yes
-`delay` | The number of milliseconds to delay execution of the index rollup job. | Long | No
-`dimensions` | Specify aggregations to create dimensions for the roll up time window. Supported groups are `terms`, `histogram`, and `date_histogram`. For more information, see [Bucket Aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg). | Array | Yes
-`metrics` | Specify a list of objects that represent the fields and metrics that you want to calculate. Supported metrics are `sum`, `max`, `min`, `value_count` and `avg`. For more information, see [Metric Aggregations]({{site.url}}{{site.baseurl}}/opensearch/metric-agg). | Array | No
+ `source_index` | 检测器的名称。| 字符串 | 是的
+ `target_index` | 指定将汇总数据引入到的目标索引。你可以创建新的目标索引，也可以使用现有索引。目标索引不能是原始数据和汇总数据的组合。此字段支持动态生成的索引名称，如 {% raw %}{% endraw %} `rollup_{{ctx.source_index}}`，其中 `source_index` 不能包含通配符。| 字符串 | 是的
+ `schedule` | 索引汇总作业的计划，可以是间隔或 cron 表达式。| 对象 | 是的
+ `schedule.interval`  | 指定汇总作业的执行频率。| 对象 | 不
+ `schedule.interval.start_time` | 间隔的开始时间。| 时间戳 | 是的
+ `schedule.interval.period` | 定义间隔周期。| 字符串 | 是的
+ `schedule.interval.unit` | 指定间隔的时间单位。| 字符串 | 是的
+ `schedule.interval.cron` |（可选）指定 cron 表达式以定义汇总频率。| 列表 | 不
+ `schedule.interval.cron.expression` | 指定 Unix cron 表达式。| 字符串 | 是的
+ `schedule.interval.cron.timezone` | 指定 IANA 时区数据库定义的时区。默认为 UTC。| 字符串 | 不
+ `description` |（可选）描述汇总作业。| 字符串 | 不
+ `enabled` | 如果为 true，则计划索引汇总作业。默认值为 true。| 布尔值 | 是的
+ `continuous` | 指定索引汇总作业是永远连续汇总数据，还是只对当前数据集执行一次并停止。默认值为 false。| 布尔值 | 是的
+ `error_notification` | 为错误通知设置 Mustache 消息模板。例如，如果索引汇总作业失败，系统会向 Slack 通道发送消息。| 对象 | 不
+ `page_size` | 指定汇总期间一次要分页的存储桶数。| 编号 | 是的
+ `delay` | 延迟执行索引汇总作业的毫秒数。| 长 | 不
+ `dimensions` | 指定聚合以创建汇总时间窗口的维度。支持的组为 `terms`、 `histogram` 和 `date_histogram`。有关详细信息，请参见[存储桶聚合]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg). | 阵列 | 是的
+ `metrics` | 指定表示要计算的字段和指标的对象列表。支持的指标包括 `sum`、、 `max` `min` `value_count` 和 `avg`。有关详细信息，请参见[指标聚合]({{site.url}}{{site.baseurl}}/opensearch/metric-agg). | 阵列 | 不
 
 
-#### Example response
+#### 响应示例
 
 ```json
 {
@@ -186,20 +184,19 @@ Options | Description | Type | Required
 ```
 
 
-## Get an index rollup job
-Introduced 1.0
-{: .label .label-purple }
+## 获取索引汇总作业
+引入 1.0 {：.label .label-purple }
 
-Returns all information about an index rollup job based on the `rollup_id`.
+返回有关 `rollup_id` 基于.
 
-#### Request
+#### 请求
 
 ```json
 GET _plugins/_rollup/jobs/<rollup_id>
 ```
 
 
-#### Example response
+#### 响应示例
 
 ```json
 {
@@ -213,19 +210,18 @@ GET _plugins/_rollup/jobs/<rollup_id>
 
 ---
 
-## Delete an index rollup job
-Introduced 1.0
-{: .label .label-purple }
+## 删除索引汇总作业
+引入 1.0 {：.label .label-purple }
 
-Deletes an index rollup job based on the `rollup_id`.
+删除基于 `rollup_id`.
 
-#### Request
+#### 请求
 
 ```json
 DELETE _plugins/_rollup/jobs/<rollup_id>
 ```
 
-#### Example response
+#### 响应示例
 
 ```json
 200 OK
@@ -234,13 +230,12 @@ DELETE _plugins/_rollup/jobs/<rollup_id>
 ---
 
 
-## Start or stop an index rollup job
-Introduced 1.0
-{: .label .label-purple }
+## 启动或停止索引汇总作业
+引入 1.0 {：.label .label-purple }
 
-Start or stop an index rollup job.
+启动或停止索引汇总作业。
 
-#### Request
+#### 请求
 
 ```json
 POST _plugins/_rollup/jobs/<rollup_id>/_start
@@ -248,7 +243,7 @@ POST _plugins/_rollup/jobs/<rollup_id>/_stop
 ```
 
 
-#### Example response
+#### 响应示例
 
 ```json
 200 OK
@@ -257,20 +252,19 @@ POST _plugins/_rollup/jobs/<rollup_id>/_stop
 
 ---
 
-## Explain an index rollup job
-Introduced 1.0
-{: .label .label-purple }
+## 解释索引汇总作业
+引入 1.0 {：.label .label-purple }
 
-Returns detailed metadata information about the index rollup job and its current progress.
+返回有关索引汇总作业及其当前进度的详细元数据信息。
 
-#### Request
+#### 请求
 
 ```json
 GET _plugins/_rollup/jobs/<rollup_id>/_explain
 ```
 
 
-#### Example response
+#### 响应示例
 
 ```json
 {

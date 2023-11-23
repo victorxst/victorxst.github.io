@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Refresh search analyzer
+title: 刷新搜索分析器
 nav_order: 50
 has_toc: false
 redirect_from: 
@@ -8,16 +8,16 @@ redirect_from:
   - /im-plugin/refresh-analyzer/index/
 ---
 
-# Refresh search analyzer
+# 刷新搜索分析器
 
-With ISM installed, you can refresh search analyzers in real time with the following API:
+安装 ISM 后，你可以使用以下 API 实时刷新搜索分析器：
 
 ```json
 POST /_plugins/_refresh_search_analyzers/<index or alias or wildcard>
 ```
-For example, if you change the synonym list in your analyzer, the change takes effect without you needing to close and reopen the index.
+例如，如果在分析器中更改同义词列表，则更改将生效，而无需关闭并重新打开索引。
 
-To work, the token filter must have an `updateable` flag of `true`:
+若要工作，令牌筛选器必须具有 `updateable` 以下 `true` 标志：
 
 ```json
 {

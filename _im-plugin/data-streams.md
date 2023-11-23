@@ -1,25 +1,25 @@
 ---
 layout: default
-title: Data streams
+title: 数据流
 nav_order: 13
 ---
 
-# Data streams
+# 数据流
 
-If you're ingesting continuously generated time-series data such as logs, events, and metrics into OpenSearch, you're likely in a scenario where the number of documents grows rapidly and you don't need to update older documents.
+如果你将连续生成的时序数据（如日志、事件和指标）提取到 OpenSearch 中，则可能处于文档数量快速增长且无需更新旧文档的情况下。
 
-A typical workflow to manage time-series data involves multiple steps, such as creating a rollover index alias, defining a write index, and defining common mappings and settings for the backing indexes.
+管理时序数据的典型工作流涉及多个步骤，例如创建滚动更新索引别名、定义写入索引以及定义支持索引的通用映射和设置。
 
-Data streams simplify this process and enforce a setup that best suits time-series data, such as being designed primarily for append-only data and ensuring that each document has a timestamp field.
+数据流简化了此过程，并强制实施了最适合时间序列数据的设置，例如主要为仅追加数据而设计，并确保每个文档都有一个时间戳字段。
 
-A data stream is internally composed of multiple backing indexes. Search requests are routed to all the backing indexes, while indexing requests are routed to the latest write index. [ISM]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) policies let you automatically handle index rollovers or deletions.
+数据流在内部由多个后备索引组成。搜索请求将路由到所有后备索引，而索引请求将路由到最新的写入索引。[ISM]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/)策略允许你自动处理索引滚动更新或删除。
 
 
-## Get started with data streams
+## 数据流入门
 
-### Step 1: Create an index template
+### 步骤 1：创建索引模板
 
-To create a data stream, you first need to create an index template that configures a set of indexes as a data stream. The `data_stream` object indicates that it’s a data stream and not a regular index template. The index pattern matches with the name of the data stream:
+若要创建数据流，首先需要创建一个索引模板，该模板将一组索引配置为数据流。该 `data_stream` 对象指示它是数据流，而不是常规索引模板。索引模式与数据流的名称匹配：
 
 ```json
 PUT _index_template/logs-template
@@ -33,8 +33,7 @@ PUT _index_template/logs-template
 }
 ```
 
-In this case, each ingested document must have an `@timestamp` field.
-You also have the ability to define your own custom timestamp field as a property in the `data_stream` object. You can also add index mappings and other settings here, just as you would for a regular index template.
+在这种情况下，每个引入的文档都必须有一个 `@timestamp` 字段。你还可以将自己的自定义时间戳字段定义为对象中的 `data_stream` 属性。你还可以在此处添加索引映射和其他设置，就像添加常规索引模板一样。
 
 ```json
 PUT _index_template/logs-template-nginx
@@ -55,21 +54,20 @@ PUT _index_template/logs-template-nginx
 }
 ```
 
-In this case, `logs-nginx` index matches both the `logs-template` and `logs-template-nginx` templates. When you have a tie, OpenSearch selects the matching index template with the higher priority value.
+在本例中， `logs-nginx` index 同时 `logs-template` 匹配和 `logs-template-nginx` 模板。当你出现平局时，OpenSearch 会选择具有较高优先级值的匹配索引模板。
 
-### Step 2: Create a data stream
+### 步骤 2：创建数据流
 
-After you create an index template, you can create a data stream.
-You can use the data stream API to explicitly create a data stream. The data stream API initializes the first backing index:
+创建索引模板后，你可以创建数据流。你可以使用数据流 API 显式创建数据流。数据流 API 初始化第一个后备索引：
 
 ```json
 PUT _data_stream/logs-redis
 PUT _data_stream/logs-nginx
 ```
 
-You can also directly start ingesting data without creating a data stream.
+你也可以直接开始摄取数据，而无需创建数据流。
 
-Because we have a matching index template with a data_stream object, OpenSearch automatically creates the data stream:
+由于我们有一个与 data_stream 对象匹配的索引模板，因此 OpenSearch 会自动创建数据流：
 
 ```json
 POST logs-staging/_doc
@@ -79,13 +77,13 @@ POST logs-staging/_doc
 }
 ```
 
-To see information about a specific data stream:
+要查看有关特定数据流的信息，请执行以下操作：
 
 ```json
 GET _data_stream/logs-nginx
 ```
 
-#### Example response
+#### 响应示例
 
 ```json
 {
@@ -109,15 +107,15 @@ GET _data_stream/logs-nginx
 }
 ```
 
-You can see the name of the timestamp field, the list of the backing indexes, and the template that's used to create the data stream. You can also see the health of the data stream, which represents the lowest status of all its backing indexes.
+你可以看到时间戳字段的名称、支持索引的列表以及用于创建数据流的模板。你还可以查看数据流的运行状况，它表示其所有支持索引的最低状态。
 
-To see more insights about the data stream, use the `_stats` endpoint:
+若要查看有关数据流的更多见解，请使用 `_stats` 终结点：
 
 ```json
 GET _data_stream/logs-nginx/_stats
 ```
 
-#### Example response
+#### 响应示例
 
 ```json
 {
@@ -140,15 +138,15 @@ GET _data_stream/logs-nginx/_stats
 }
 ```
 
-To see information about all data streams, use the following request:
+若要查看有关所有数据流的信息，请使用以下请求：
 
 ```json
 GET _data_stream
 ```
 
-### Step 3: Ingest data into the data stream
+### 步骤 3：将数据引入数据流
 
-To ingest data into a data stream, you can use the regular indexing APIs. Make sure every document that you index has a timestamp field. If you try to ingest a document that doesn't have a timestamp field, you get an error.
+若要将数据引入数据流，可以使用常规索引 API。确保索引的每个文档都有一个时间戳字段。如果尝试引入没有时间戳字段的文档，则会出现错误。
 
 ```json
 POST logs-redis/_doc
@@ -158,10 +156,9 @@ POST logs-redis/_doc
 }
 ```
 
-### Step 4: Searching a data stream
+### 步骤 4：搜索数据流
 
-You can search a data stream just like you search a regular index or an index alias.
-The search operation applies to all of the backing indexes (all data present in the stream).
+你可以像搜索常规索引或索引别名一样搜索数据流。搜索操作适用于所有后备索引（流中存在的所有数据）。
 
 ```json
 GET logs-redis/_search
@@ -174,7 +171,7 @@ GET logs-redis/_search
 }
 ```
 
-#### Example response
+#### 响应示例
 
 ```json
 {
@@ -208,17 +205,17 @@ GET logs-redis/_search
 }
 ```
 
-### Step 5: Rollover a data stream
+### 步骤 5：滚动更新数据流
 
-A rollover operation creates a new backing index that becomes the data stream’s new write index.
+滚动更新操作会创建一个新的后备索引，该索引将成为数据流的新写入索引。
 
-To perform manual rollover operation on the data stream:
+要对数据流执行手动滚动更新操作，请执行以下操作：
 
 ```json
 POST logs-redis/_rollover
 ```
 
-#### Example response
+#### 响应示例
 
 ```json
 {
@@ -232,40 +229,38 @@ POST logs-redis/_rollover
 }
 ```
 
-If you now perform a `GET` operation on the `logs-redis` data stream, you see that the generation ID is incremented from 1 to 2.
+如果现在对 `logs-redis` 数据流执行操作 `GET`，则会看到生成 ID 从 1 递增到 2。
 
-You can also set up an [Index State Management (ISM) policy]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/) to automate the rollover process for the data stream.
-The ISM policy is applied to the backing indexes at the time of their creation. When you associate a policy to a data stream, it only affects the future backing indexes of that data stream.
+你还可以设置一个[索引状态管理（ISM）策略]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/)自动执行数据流的滚动更新过程。ISM 策略在创建后备索引时应用于后备索引。当你将策略关联到数据流时，它只会影响该数据流的未来后备索引。
 
-You also don’t need to provide the `rollover_alias` setting, because the ISM policy infers this information from the backing index.
+你也不需要提供设置 `rollover_alias`，因为 ISM 策略会从后备索引推断此信息。
 
-### Step 6: Manage data streams in OpenSearch Dashboards
+### 步骤 6：在 OpenSearch 控制面板中管理数据流
 
-To manage data streams from OpenSearch Dashboards, open **OpenSearch Dashboards**, choose **Index Management**, select **Indices** or **Policy managed indices**.
+要从 OpenSearch 控制面板管理数据流，请打开**OpenSearch 控制面板**、选择、选择**索引管理****指标**或**策略管理索引**。
 
-You see a toggle switch for data streams that you can use to show or hide indexes belonging to a data stream.
+你会看到数据流的切换开关，可用于显示或隐藏属于数据流的索引。
 
-When you enable this switch, you see a data stream multi-select dropdown menu that you can use for filtering data streams.
-You also see a data stream column that shows you the name of the data stream the index is contained in.
+启用此开关后，你会看到一个数据流多选下拉菜单，可用于筛选数据流。你还会看到一个数据流列，其中显示包含索引的数据流的名称。
 
-![data stream toggle]({{site.url}}{{site.baseurl}}/images/data_streams_toggle.png)
+![数据流切换]({{site.url}}{{site.baseurl}}/images/data_streams_toggle.png)
 
-You can select one or more data streams and apply an ISM policy on them. You can also apply a policy on any individual backing index.
+你可以选择一个或多个数据流，并对其应用 ISM 策略。你还可以对任何单个支持索引应用策略。
 
-You can performing visualizations on a data stream just like you would on a regular index or index alias.
+你可以对数据流执行可视化，就像在常规索引或索引别名上执行可视化一样。
 
-### Step 7: Delete a data stream
+### 步骤 7：删除数据流
 
-The delete operation first deletes the backing indexes of a data stream and then deletes the data stream itself.
+删除操作首先删除数据流的后备索引，然后删除数据流本身。
 
-To delete a data stream and all of its hidden backing indexes:
+要删除数据流及其所有隐藏的支持索引，请执行以下操作：
 
 ```json
 DELETE _data_stream/<name_of_data_stream>
 ```
 
-You can use wildcards to delete more than one data stream.
+你可以使用通配符删除多个数据流。
 
-We recommend deleting data from a data stream using an ISM policy.
+我们建议使用 ISM 策略从数据流中删除数据。
 
-You can also use [asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/index/), [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/), and [PPL]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) to query your data stream directly. You can also use the Security plugin to define granular permissions for the data stream name.
+你还可以使用[异步搜索]({{site.url}}{{site.baseurl}}/search-plugins/async/index/)、[SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/)和[PPL]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/)直接查询数据流。你还可以使用安全插件来定义数据流名称的精细权限。

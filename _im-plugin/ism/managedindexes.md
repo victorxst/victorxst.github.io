@@ -1,38 +1,38 @@
 ---
 layout: default
-title: Managed indexes
+title: 托管索引
 nav_order: 3
-parent: Index State Management
+parent: 索引状态管理
 has_children: false
 redirect_from: 
  - /im-plugin/ism/managedindices/
 ---
 
-# Managed indexes
+# 托管索引
 
-You can change or update a policy using the managed index operations.
+你可以使用托管索引操作更改或更新策略。
 
-This table lists the fields of managed index operations.
+下表列出了托管索引操作的字段。
 
-Parameter | Description | Type | Required | Read Only
+参数 | 描述 | 类型 | 必需 | 只读
 :--- | :--- |:--- |:--- |
-`name` |  The name of the managed index policy. | `string` | Yes | No
-`index` | The name of the managed index that this policy is managing. | `string` | Yes | No
-`index_uuid`  |  The uuid of the index. | `string` | Yes | No
-`enabled` |  When `true`, the managed index is scheduled and run by the scheduler. | `boolean` | Yes | No
-`enabled_time` | The time the managed index was last enabled. If the managed index process is disabled, then this is null. | `timestamp` | Yes | Yes
-`last_updated_time` | The time the managed index was last updated.  | `timestamp` | Yes | Yes
-`schedule` | The schedule of the managed index job. | `object` | Yes | No
-`policy_id` | The name of the policy used by this managed index. | `string` | Yes | No
-`policy_seq_no` | The sequence number of the policy used by this managed index. | `number` | Yes | No
-`policy_primary_term` | The primary term of the policy used by this managed index. | `number` | Yes | No
-`policy_version` | The version of the policy used by this managed index. | `number` | Yes | Yes
-`policy` | The cached JSON of the policy for the `policy_version` that's used during runs. If the policy is null, it means that this is the first execution of the job and the latest policy document is read in/saved. | `object` | No | No
-`change_policy` | The information regarding what policy and state to change to. | `object` | No | No
-`policy_name` | The name of the policy to update to. To update to the latest version, set this to be the same as the current `policy_name`. | `string` | No | Yes
-`state` | The state of the managed index after it finishes updating. If no state is specified, it's assumed that the policy structure did not change. | `string` | No | Yes
+ `name` | 托管索引策略的名称。| `string` | 是 | 不
+ `index` | 此策略管理的托管索引的名称。| `string` | 是 | 不
+ `index_uuid`  | 索引的 uuid。| `string` | 是 | 不
+ `enabled` | 时 `true`，托管索引由调度程序调度和运行。| | `boolean` 是 | 不
+ `enabled_time` | 上次启用托管索引的时间。如果禁用了托管索引进程，则此值为 null。| `timestamp` | 是 | 是的
+ `last_updated_time` | 上次更新托管索引的时间。| `timestamp` | 是 | 是的
+ `schedule` | 托管索引作业的计划。| `object` | 是 | 不
+ `policy_id` | 此托管索引使用的策略的名称。| `string` | 是 | 不
+ `policy_seq_no` | 此托管索引使用的策略的序列号。| `number` | 是 | 不
+ `policy_primary_term` | 此托管索引使用的策略的主要术语。| `number` | 是 | 不
+ `policy_version` | 此托管索引使用的策略版本。| `number` | 是 | 是的
+ `policy` | 在运行期间使用的策略 `policy_version` 的缓存 JSON。如果策略为 null，则表示这是作业的首次执行，并且读入/保存了最新的策略文档。| `object` | 否 | 不
+ `change_policy` | 有关要更改为的策略和状态的信息。| `object` | 否 | 不
+ `policy_name` | 要更新到的策略的名称。要更新到最新版本，请将其设置为与当前 `policy_name` 相同。| | `string` 否 | 是的
+ `state` | 托管索引完成更新后的状态。如果未指定状态，则假定策略结构未更改。| `string` | 否 | 是的
 
-The following example shows a managed index policy:
+以下示例显示了托管索引策略：
 
 ```json
 {
@@ -58,18 +58,18 @@ The following example shows a managed index policy:
 }
 ```
 
-## Change policy
+## 更改策略
 
-You can change any managed index policy, but ISM has a few constraints in place to make sure that policy changes don't break indexes.
+你可以更改任何托管索引策略，但 ISM 有一些约束来确保策略更改不会破坏索引。
 
-If an index is stuck in its current state, never proceeding, and you want to update its policy immediately, make sure that the new policy includes the same state---same name, same actions, same order---as the old policy. In this case, even if the policy is in the middle of executing an action, ISM applies the new policy.
+如果索引停滞在其当前状态，从不继续，并且你希望立即更新其策略，请确保新策略包含与旧策略相同的状态---相同的名称、相同的操作、相同的顺序---。在这种情况下，即使策略正在执行操作，ISM 也会应用新策略。
 
-If you update the policy without including an identical state, ISM updates the policy only after all actions in the current state finish executing. Alternately, you can choose a specific state in your old policy after which you want the new policy to take effect.
+如果更新策略时未包含相同的状态，则 ISM 仅在当前状态下的所有操作执行完毕后才更新策略。或者，你可以在旧策略中选择特定状态，在此之后，你希望新策略生效。
 
-To change a policy using OpenSearch Dashboards, do the following:
+要使用 OpenSearch 控制面板更改策略，请执行以下操作：
 
-- Under **Index Management**, choose the indexes that you want to attach the new policy to.
-- To attach the new policy to indexes in specific states, choose **Choose state filters**, and then choose those states.
-- Under **Choose New Policy**, choose the new policy.
-- To start the new policy for indexes in the current state, choose **Keep indices in their current state after the policy takes effect**.
-- To start the new policy in a specific state, choose **Start from a chosen state after changing policies**, and then choose the default start state in your new policy.
+- 在下**索引管理**，选择要将新策略附加到的索引。
+- 要将新策略附加到特定状态的索引，请选择**选择状态筛选器**，然后选择这些状态。
+- 在下**选择“新建策略”**，选择新策略。
+- 要为处于当前状态的索引启动新策略，请选择**策略生效后，将索引保持当前状态**。
+- 要在特定状态下启动新策略，请选择**更改策略后从所选状态开始**，然后选择新策略中的默认启动状态。

@@ -1,84 +1,84 @@
 ---
 layout: default
-title: Policies
+title: 策略
 nav_order: 1
-parent: Index State Management
+parent: 索引状态管理
 has_children: false
 ---
 
-# Policies
+# 政策
 
-Policies are JSON documents that define the following:
+策略是定义以下内容的 JSON 文档：
 
-- The *states* that an index can be in, including the default state for new indexes. For example, you might name your states "hot," "warm," "delete," and so on. For more information, see [States](#states).
-- Any *actions* that you want the plugin to take when an index enters a state, such as performing a rollover. For more information, see [Actions](#actions).
-- The conditions that must be met for an index to move into a new state, known as *transitions*. For example, if an index is more than eight weeks old, you might want to move it to the "delete" state. For more information, see [Transitions](#transitions).
+- *国家*索引可以处于哪个位置，包括新索引的默认状态。例如，你可以将状态命名为“热”、“暖”、“删除”等。有关详细信息，请参阅[States](#states)。
+- 你希望插件在索引进入状态（例如执行滚动更新）时采取的任何*行动*步骤。有关详细信息，请参阅[Actions](#actions)。
+- 索引进入新状态（称为*转换*）所必须满足的条件。例如，如果索引已超过 8 周，则可能需要将其移至“删除”状态。有关详细信息，请参阅[转换](#transitions)。
 
-In other words, a policy defines the *states* that an index can be in, the *actions* to perform when in a state, and the conditions that must be met to *transition* between states.
+换言之，策略定义*国家*了索引可以处于的状态、处于状态时要执行的条件以及状态之间必须满足的*行动**过渡*条件。
 
-You have complete flexibility in the way you can design your policies. You can create any state, transition to any other state, and specify any number of actions in each state.
+在设计策略方面，你可以完全灵活地进行操作。你可以创建任何状态，转换到任何其他状态，并在每种状态中指定任意数量的操作。
 
-This table lists the relevant fields of a policy.
+下表列出了策略的相关字段。
 
-Field | Description | Type | Required | Read Only
+字段 | 描述 | 类型 | 必需 | 只读
 :--- | :--- |:--- |:--- |
-`policy_id` |  The name of the policy. | `string` | Yes | Yes
-`description` |  A human-readable description of the policy. | `string` | Yes | No
-`ism_template` | Specify an ISM template to automatically apply the policy to the newly created index. | `nested list of objects` | No | No
-`ism_template.index_patterns` | Specify a pattern that matches the newly created index name. | `list of strings` | No | No
-`ism_template.priority` | Specify a priority to disambiguate when multiple policies match the newly created index name. | `number` | No | No
-`last_updated_time`  |  The time the policy was last updated. | `timestamp` | Yes | Yes
-`error_notification` |  The destination and message template for error notifications. The destination could be Amazon Chime, Slack, or a webhook URL. | `object` | No | No
-`default_state` | The default starting state for each index that uses this policy. | `string` | Yes | No
-`states` | The states that you define in the policy. | `nested list of objects` | Yes | No
+ `policy_id` | 策略的名称。| `string` | 是 | 是的
+ `description` | 用户可读的策略描述。| `string` | 是 | 不
+ `ism_template` | 指定 ISM 模板以自动将策略应用于新创建的索引。| `nested list of objects` | 否 | 不
+ `ism_template.index_patterns` | 指定与新创建的索引名称匹配的模式。| `list of strings` | 否 | 不
+ `ism_template.priority` | 指定当多个策略与新创建的索引名称匹配时要消除歧义的优先级。| `number` | 否 | 不
+ `last_updated_time`  | 上次更新策略的时间。| `timestamp` | 是 | 是的
+ `error_notification` | 错误通知的目标和消息模板。目标可以是 Amazon Chime、Slack 或 Webhook URL。| `object` | 否 | 不
+ `default_state` | 使用此策略的每个索引的默认起始状态。| `string` | 是 | 不
+ `states` | 你在策略中定义的状态。| `nested list of objects` | 是 | 不
 
 ---
 
-#### Table of contents
-1. TOC
+#### 目录
+1. 目录
 {:toc}
 
 
 ---
 
-## States
+## 国家
 
-A state is the description of the status that the managed index is currently in. A managed index can be in only one state at a time. Each state has associated actions that are executed sequentially on entering a state and transitions that are checked after all the actions have been completed.
+状态是对托管索引当前所处状态的描述。托管索引一次只能处于一种状态。每个状态都有在进入状态时按顺序执行的关联操作，以及在所有操作完成后检查的转换。
 
-This table lists the parameters that you can define for a state.
+下表列出了可以为状态定义的参数。
 
-Field | Description | Type | Required
+字段 | 描述 | 类型 | 必填
 :--- | :--- |:--- |:--- |
-`name` |  The name of the state. | `string` | Yes
-`actions` | The actions to execute after entering a state. For more information, see [Actions](#actions). | `nested list of objects` | Yes
-`transitions` | The next states and the conditions required to transition to those states. If no transitions exist, the policy assumes that it's complete and can now stop managing the index. For more information, see [Transitions](#transitions). | `nested list of objects` | Yes
+ `name` | 状态的名称。| `string` | 是的
+ `actions` | 进入状态后要执行的操作。有关详细信息，请参见[Actions](#actions). | | `nested list of objects` 是的
+ `transitions` | 接下来的状态以及过渡到这些状态所需的条件。如果不存在转换，则策略假定它已完成，现在可以停止管理索引。有关详细信息，请参见[转换](#transitions). | | `nested list of objects` 是的
 
 ---
 
-## Actions
+## 行动
 
-Actions are the steps that the policy sequentially executes on entering a specific state.
+操作是策略在进入特定状态时按顺序执行的步骤。
 
-ISM executes actions in the order in which they are defined. For example, if you define actions [A,B,C,D], ISM executes action A, and then goes into a sleep period based on the cluster setting `plugins.index_state_management.job_interval`. Once the sleep period ends, ISM continues to execute the remaining actions. However, if ISM cannot successfully execute action A, the operation ends, and actions B, C, and D do not get executed.
+ISM 按照操作的定义顺序执行操作。例如，如果定义操作 [A，B，C，D]，ISM 将执行操作 A，然后根据群集设置 `plugins.index_state_management.job_interval` 进入休眠期。休眠期结束后，ISM 将继续执行其余操作。但是，如果 ISM 无法成功执行操作 A，则操作将结束，并且不会执行操作 B、C 和 D。
 
-Optionally, you can define an action's timeout period, which, if exceeded, forcibly fails the action. For example, if timeout is set to `1d`, and ISM has not completed the action within one day, even after retries, the action fails.
+或者，你可以定义操作的超时期限，如果超过该期限，则强制使操作失败。例如，如果超时设置为 `1d`，并且 ISM 在一天内未完成操作，则即使在重试后，操作也会失败。
 
-This table lists the parameters that you can define for an action.
+下表列出了可以为操作定义的参数。
 
-Parameter | Description | Type | Required | Default
+参数 | 描述 | 类型 | 必需 | 违约
 :--- | :--- |:--- |:--- |
-`timeout` |  The timeout period for the action. Accepts time units for minutes, hours, and days. | `time unit` | No | -
-`retry` | The retry configuration for the action. | `object` | No | Specific to action
+ `timeout` | 操作的超时期限。接受分钟、小时和天的时间单位。| `time unit` | 否 |-
+ `retry` | 操作的重试配置。| `object` | 否 | 特定于操作
 
-The `retry` operation has the following parameters:
+该 `retry` 操作具有以下参数：
 
-Parameter | Description | Type | Required | Default
+参数 | 描述 | 类型 | 必需 | 违约
 :--- | :--- |:--- |:--- |
-`count` | The number of retry counts. | `number` | Yes | -
-`backoff` | The backoff policy type to use when retrying. Valid values are Exponential, Constant, and Linear. | `string` | No | Exponential
-`delay` | The time to wait between retries. Accepts time units for minutes, hours, and days. | `time unit` | No | 1 minute
+ `count` | 重试次数。| `number` | 是 |-
+ `backoff` | 重试时要使用的回退策略类型。有效值为 Exponential、Constant 和 Linear。| `string` | 否 | 指数
+ `delay` | 两次重试之间等待的时间。接受分钟、小时和天的时间单位。| `time unit` | 否 |1 分钟
 
-The following example action has a timeout period of one hour. The policy retries this action three times with an exponential backoff policy, with a delay of 10 minutes between each retry:
+以下示例操作的超时期限为 1 小时。该策略使用指数回退策略重试此操作 3 次，每次重试之间有 10 分钟的延迟：
 
 ```json
 "actions": {
@@ -91,11 +91,11 @@ The following example action has a timeout period of one hour. The policy retrie
 }
 ```
 
-For a list of available unit types, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
+有关可用单位类型的列表，请参见[支持的单位]({{site.url}}{{site.baseurl}}/opensearch/units/)。
 
-## ISM supported operations
+## ISM 支持的操作
 
-ISM supports the following operations:
+ISM 支持以下操作：
 
 - [force_merge](#force_merge)
 - [read_only](#read_only)
@@ -106,7 +106,7 @@ ISM supports the following operations:
 - [open](#open)
 - [delete](#delete)
 - [rollover](#rollover)
-- [notification](#notification)
+- [通知](#notification)
 - [snapshot](#snapshot)
 - [index_priority](#index_priority)
 - [allocation](#allocation)
@@ -114,13 +114,13 @@ ISM supports the following operations:
 
 ### force_merge
 
-Reduces the number of Lucene segments by merging the segments of individual shards. This operation attempts to set the index to a `read-only` state before starting the merging process.
+通过合并单个分片的分段来减少 Lucene 段的数量。此操作尝试在开始合并过程之前将索引设置为状态 `read-only`。
 
-Parameter | Description | Type | Required
+参数 | 描述 | 类型 | 必填
 :--- | :--- |:--- |:--- |
-`max_num_segments` | The number of segments to reduce the shard to. | `number` | Yes
-wait_for_completion | Boolean | When set to `false`, the request returns immediately instead of after the operation is finished. To monitor the operation status, use the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/) with the task ID returned by the request. Default is `true`.
-task_execution_timeout | Time | The explicit task execution timeout. Only useful when wait_for_completion is set to `false`. Default is `1h`. | No
+ `max_num_segments` | 要将分片减少到的分段数。| `number` | 是的
+wait_for_completion | 布尔值 | 设置为 `false` 时，请求会立即返回，而不是在操作完成后返回。若要监视操作状态，请使用[Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/)请求返回的任务 ID。缺省值为 `true`。
+task_execution_timeout | 时间 | 显式任务执行超时。仅当 wait_for_completion 设置为 `false` 时才有用。默认值为 `1h`. | 不
 
 ```json
 {
@@ -132,7 +132,7 @@ task_execution_timeout | Time | The explicit task execution timeout. Only useful
 
 ### read_only
 
-Sets a managed index to be read only.
+将托管索引设置为只读。
 
 ```json
 {
@@ -140,11 +140,11 @@ Sets a managed index to be read only.
 }
 ```
 
-Set the index setting `index.blocks.write` to `true` for a managed index. ***Note:** this block does not prevent the index from refreshing.
+将托管索引的索引设置 `index.blocks.write` 设置为 `true`。此块不会阻止索引刷新。*** 注意：**
 
 ### read_write
 
-Sets a managed index to be writeable.
+将托管索引设置为可写。
 
 ```json
 {
@@ -154,11 +154,11 @@ Sets a managed index to be writeable.
 
 ### replica_count
 
-Sets the number of replicas to assign to an index.
+设置要分配给索引的副本数。
 
-Parameter | Description | Type | Required
+参数 | 描述 | 类型 | 必填
 :--- | :--- |:--- |:--- |
-`number_of_replicas` | Defines the number of replicas to assign to an index. | `number` | Yes
+ `number_of_replicas` | 定义要分配给索引的副本数。| `number` | 是的
 
 ```json
 {
@@ -168,15 +168,15 @@ Parameter | Description | Type | Required
 }
 ```
 
-For information about setting replicas, see [Primary and replica shards]({{site.url}}{{site.baseurl}}/opensearch#primary-and-replica-shards).
+有关设置复制副本的信息，请参见[主分片和副本分片]({{site.url}}{{site.baseurl}}/opensearch#primary-and-replica-shards)。
 
-### shrink
+### 收缩
 
-Allows you to reduce the number of primary shards in your indexes. With this action, you can specify:
+允许你减少索引中的主分片数量。通过此操作，你可以指定：
 
-- The number of primary shards that the target index should contain.
-- A max shard size for the primary shards in the target index.
-- Specify a percentage to shrink the number of primary shards in the target index.
+- 目标索引应包含的主分片数。
+- 目标索引中主分片的最大分片大小。
+- 指定百分比以缩小目标索引中的主分片数量。
 
 ```json
 "shrink": {
@@ -193,16 +193,16 @@ Allows you to reduce the number of primary shards in your indexes. With this act
 }
 ```
 
-Parameter | Description | Type | Example | Required
+参数 | 描述 | 类型 | 示例 | 必填
 :--- | :--- |:--- |:--- |
-`num_new_shards` | The maximum number of primary shards in the shrunken index. | integer | `5` | Yes, however it cannot be used with `max_shard_size` or `percentage_of_source_shards`
-`max_shard_size` | The maximum size in bytes of a shard for the target index. | keyword | `5gb` | Yes, however it cannot be used with `num_new_shards` or `percentage_of_source_shards`
-`percentage_of_source_shards` | Percentage of the number of original primary shards to shrink. This parameter indicates the minimum percentage to use when shrinking the number of primary shards. Must be between 0.0 and 1.0, exclusive.  | Percentage | `0.5` | Yes, however it cannot be used with `max_shard_size` or `num_new_shards`
-`target_index_name_template` | The name of the shrunken index. Accepts strings and the Mustache variables `{{ctx.index}}` and `{{ctx.indexUuid}}`. | `string` or Mustache template | `{"source": "{{ctx.index}}_shrunken"}` | No
-`aliases` | Aliases to add to the new index. | object | `myalias` | No, but must be an array of alias objects
-`force_unsafe` | If true, executes the shrink action even if there are no replicas. | boolean | `false` | No
+ `num_new_shards` | 缩减索引中主分片的最大数量。| 整数 | `5` | 可以，但是它不能与 `max_shard_size` 或 `percentage_of_source_shards`
+ `max_shard_size` | 目标索引的分片的最大大小（以字节为单位）。| 关键字 | `5gb` | 可以，但是它不能与 `num_new_shards` 或 `percentage_of_source_shards`
+ `percentage_of_source_shards` | 要收缩的原始主分片数的百分比。此参数表示在缩减主分片数量时要使用的最小百分比。必须介于 0.0 和 1.0 之间，不包括。| 百分比 | `0.5` | 可以，但是它不能与 `max_shard_size` 或 `num_new_shards`
+ `target_index_name_template` | 缩小索引的名称。接受字符串和 Mustache 变量 `{{ctx.index}}` `{{ctx.indexUuid}}` 和. | 或 Mustache 模板 | | `string` `{"source": "{{ctx.index}}_shrunken"}` 不
+ `aliases` | 要添加到新索引的别名。| 对象 | `myalias` | 否，但必须是别名对象的数组
+ `force_unsafe` | 如果为 true，则即使没有副本，也执行收缩操作。| 布尔值 | `false` | 不
 
-If you want to add `aliases` to the action, the parameter must include an array of [alias objects]({{site.url}}{{site.baseurl}}/api-reference/alias/). For example,
+如果要添加到 `aliases` 操作中，该参数必须包含[别名对象]({{site.url}}{{site.baseurl}}/api-reference/alias/).例如
 
 ```json
 "aliases": [
@@ -225,9 +225,9 @@ If you want to add `aliases` to the action, the parameter must include an array 
 ]
 ```
 
-### close
+### 关闭
 
-Closes the managed index.
+关闭托管索引。
 
 ```json
 {
@@ -235,13 +235,13 @@ Closes the managed index.
 }
 ```
 
-Closed indexes remain on disk, but consume no CPU or memory. You can't read from, write to, or search closed indexes.
+关闭的索引保留在磁盘上，但不占用 CPU 或内存。你无法读取、写入或搜索已关闭的索引。
 
-Closing an index is a good option if you need to retain data for longer than you need to actively search it and have sufficient disk space on your data nodes. If you need to search the data again, reopening a closed index is simpler than restoring an index from a snapshot.
+如果你需要将数据保留的时间长于主动搜索数据所需的时间，并且数据节点上有足够的磁盘空间，那么关闭索引是一个不错的选择。如果需要再次搜索数据，重新打开已关闭的索引比从快照还原索引更简单。
 
-### open
+### 打开
 
-Opens a managed index.
+打开托管索引。
 
 ```json
 {
@@ -249,9 +249,9 @@ Opens a managed index.
 }
 ```
 
-### delete
+### 删除
 
-Deletes a managed index.
+删除托管索引。
 
 ```json
 {
@@ -259,24 +259,23 @@ Deletes a managed index.
 }
 ```
 
-### rollover
+### 过渡
 
-Rolls an alias over to a new index when the managed index meets one of the rollover conditions.
+当托管索引满足其中一个滚动更新条件时，将别名滚动到新索引。
 
-ISM checks the conditions for operations on **every execution of the policy** based on the **set interval**, _not_ continuously. The rollover will be performed if the value **has reached** or _has exceeded_ the configured limit **when the check is performed**. For example with `min_size` configured to a value of 100GiB, ISM might check the index at 99 GiB and not perform the rollover. However, if the index has grown past the limit (e.g., 105GiB) by the next check, the operation is performed.
+ISM 根据不断_不_检查操作**策略的每次执行****设置间隔**条件。如果值**已达到**或_已超过_配置的限制**执行检查时**.例如，如果 `min_size` 配置为 100GiB 值，则 ISM 可能会检查索引的 99 GiB，而不执行滚动更新。但是，如果索引在下次检查时已超过限制（例如，105GiB），则执行该操作。
 
-If you need to skip the rollover action, you can set the index setting `index.plugins.index_state_management.rollover_skip` to `true`. For example, if you receive the error message "Missing alias or not the write index...", you can set the `index.plugins.index_state_management.rollover_skip` parameter to `true` and retry to skip rollover action.
+如果需要跳过滚动更新操作，可以将索引设置 `index.plugins.index_state_management.rollover_skip` 设置为 `true`。例如，如果收到错误消息“缺少别名或不是写入索引...”，则可以将 `index.plugins.index_state_management.rollover_skip` 参数设置为 `true` 并重试以跳过滚动更新操作。
 
-The index format must match the pattern: `^.*-\d+$`. For example, `(logs-000001)`.
-Set `index.plugins.index_state_management.rollover_alias` as the alias to rollover.
+索引格式必须与以下模式匹配： `^.*-\d+$`。例如， `(logs-000001)`.设置为 `index.plugins.index_state_management.rollover_alias` 要滚动更新的别名。
 
-Parameter | Description | Type | Example | Required
+参数 | 描述 | 类型 | 示例 | 必填
 :--- | :--- |:--- |:--- |
-`min_size` | The minimum size of the total primary shard storage (not counting replicas) required to roll over the index. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, so the rollover occurs. See **Important** note above. | `string` | `20gb` or `5mb` | No
-`min_primary_shard_size` | The minimum storage size of a **single primary shard** required to roll over the index. For example, if you set `min_primary_shard_size` to 30 GiB and **one of** the primary shards in the index has a size greater than the condition, the rollover occurs. See **Important** note above. | `string` | `20gb` or `5mb` | No
-`min_doc_count` |  The minimum number of documents required to roll over the index. See **Important** note above. | `number` | `2000000` | No
-`min_index_age` |  The minimum age required to roll over the index. Index age is the time between its creation and the present. Supported units are `d` (days), `h` (hours), `m` (minutes), `s` (seconds), `ms` (milliseconds), and `micros` (microseconds). See **Important** note above. | `string` | `5d` or `7h` | No
-`copy_alias` | Controls whether to copy over all aliases from the current index to a newly created index. Defaults to `false`.  | `boolean` | `true` or `false` | No
+ `min_size` | 滚动更新索引所需的主分片存储总量（不包括副本数）的最小大小。例如，如果你设置为 `min_size` 100 GiB，并且你的索引有 5 个主分片和 5 个副本分片，每个分片 20 GiB，则所有主分片的总大小为 100 GiB，因此会发生滚动更新。请参阅**重要**上面的注释。| | `20gb` 或 `5mb` | `string` 不
+ `min_primary_shard_size` | 滚动更新索引所需的最小存储大小**单个主分片**。例如，如果设置为 `min_primary_shard_size` 30 GiB，并且**其中之一**索引中的主分片的大小大于条件，则会发生滚动更新。请参阅**重要**上面的注释。| | `20gb` 或 `5mb` | `string` 不
+ `min_doc_count` | 滚动更新索引所需的最小文档数。请参阅**重要**上面的注释。| | `2000000` | `number` 不
+ `min_index_age` | 展期索引所需的最低年龄。索引年龄是其创建与现在之间的时间。支持的单位为 `d`（天）、（小时）、 `m`（分钟）、（秒）、 `ms` `h` `s`（毫秒）和 `micros`（微秒）。请参阅**重要**上面的注释。| | `5d` 或 `7h` | `string` 不
+ `copy_alias` | 控制是否将所有别名从当前索引复制到新创建的索引。默认值为 `false`. | `boolean` | `true` 或 `false` | 不
 
 ```json
 {
@@ -310,18 +309,18 @@ Parameter | Description | Type | Example | Required
 }
 ```
 
-### notification
+### 通知
 
-Sends you a notification.
+向你发送通知。
 
-Parameter | Description | Type | Required
+参数 | 描述 | 类型 | 必填
 :--- | :--- |:--- |:--- |
-`destination` | The destination URL. | `Slack, Amazon Chime, or webhook URL` | Yes
-`message_template` |  The text of the message. You can add variables to your messages using [Mustache templates](https://mustache.github.io/mustache.5.html). | `object` | Yes
+ `destination` | 目标 URL。| `Slack, Amazon Chime, or webhook URL` | 是的
+ `message_template` | 消息的文本。你可以使用向消息[小胡子模板](https://mustache.github.io/mustache.5.html)添加变量。| | `object` 是的
 
-The destination system **must** return a response otherwise the notification operation throws an error.
+目标系统**必须**返回响应，否则通知操作将引发错误。
 
-#### Example 1: Chime notification
+#### 示例 1：铃声通知
 
 ```json
 {
@@ -338,7 +337,7 @@ The destination system **must** return a response otherwise the notification ope
 }
 ```
 
-#### Example 2: Custom webhook notification
+#### 示例 2：自定义 Webhook 通知
 
 ```json
 {
@@ -355,7 +354,7 @@ The destination system **must** return a response otherwise the notification ope
 }
 ```
 
-#### Example 3: Slack notification
+#### 示例 3：松弛通知
 
 ```json
 {
@@ -372,28 +371,28 @@ The destination system **must** return a response otherwise the notification ope
 }
 ```
 
-You can use `ctx` variables in your message to represent a number of policy parameters based on the past executions of your policy. For example, if your policy has a rollover action, you can use `{% raw %}{{ctx.action.name}}{% endraw %}` in your message to represent the name of the rollover.
+你可以在 `ctx` 消息中使用变量来表示基于过去执行的策略的多个策略参数。例如，如果你的策略具有滚动更新操作，则可以在消息中用于 `{% raw %}{{ctx.action.name}}{% endraw %}` 表示滚动更新的名称。
 
-The following `ctx` variable options are available for every policy:
+以下 `ctx` 变量选项可用于每个策略：
 
-#### Guaranteed variables
+#### 保证变量
 
-Parameter | Description | Type
+参数 | 描述 | 类型
 :--- | :--- |:--- |:--- |
-`index` | The name of the index. | `string`
-`index_uuid` | The uuid of the index. | `string`
-`policy_id` | The name of the policy. | `string`
+ `index` | 索引的名称。| `string`
+ `index_uuid` | 索引的 uuid。| `string`
+ `policy_id` | 策略的名称。| `string`
 
-### snapshot
+### 快照
 
-Back up your cluster’s indexes and state. For more information about snapshots, see [Take and restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore).
+备份集群的索引和状态。有关快照的详细信息，请参阅[拍摄和恢复快照]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore)。
 
-The `snapshot` operation has the following parameters:
+该 `snapshot` 操作具有以下参数：
 
-Parameter | Description | Type | Required | Default
+参数 | 描述 | 类型 | 必需 | 违约
 :--- | :--- |:--- |:--- |
-`repository` | The repository name that you register through the native snapshot API operations.  | `string` | Yes | -
-`snapshot` | The name of the snapshot. Accepts strings and the Mustache variables `{{ctx.index}}` and `{{ctx.indexUuid}}`. If the Mustache variables are invalid, then the snapshot name defaults to the index's name. | `string` or Mustache template | Yes | -
+ `repository` | 你通过本机快照 API 操作注册的存储库名称。| `string` | 是 |-
+ `snapshot` | 快照的名称。接受字符串和 Mustache 变量 `{{ctx.index}}` 和 `{{ctx.indexUuid}}`.如果 Mustache 变量无效，则快照名称默认为索引的名称。| `string` 或小胡子模板 | 是 |-
 
 ```json
 {
@@ -406,13 +405,13 @@ Parameter | Description | Type | Required | Default
 
 ### index_priority
 
-Set the priority for the index in a specific state. Unallocated shards of indexes are recovered in the order of their priority, whenever possible. The indexes with higher priority values are recovered first followed by the indexes with lower priority values.
+在特定状态下设置索引的优先级。如果可能，将按其优先级顺序恢复未分配的索引分片。首先恢复具有较高优先级值的索引，然后恢复具有较低优先级值的索引。
 
-The `index_priority` operation has the following parameter:
+该 `index_priority` 操作具有以下参数：
 
-Parameter | Description | Type | Required | Default
+参数 | 描述 | 类型 | 必需 | 违约
 :--- | :--- |:--- |:--- |:---
-`priority` | The priority for the index as soon as it enters a state. | `number` | Yes | 1
+ `priority` | 索引进入状态后的优先级。| `number` | 是 |1
 
 ```json
 "actions": [
@@ -424,19 +423,18 @@ Parameter | Description | Type | Required | Default
 ]
 ```
 
-### allocation
+### 分配
 
-Allocate the index to a node with a specific attribute set [like this]({{site.url}}{{site.baseurl}}/opensearch/cluster/#advanced-step-7-set-up-a-hot-warm-architecture).
-For example, setting `require` to `warm` moves your data only to "warm" nodes.
+将索引分配给具有特定属性集[like this]({{site.url}}{{site.baseurl}}/opensearch/cluster/#advanced-step-7-set-up-a-hot-warm-architecture)的节点。例如，设置为 `require` `warm` 仅将数据移动到“暖”节点。
 
-The `allocation` operation has the following parameters:
+该 `allocation` 操作具有以下参数：
 
-Parameter | Description | Type | Required
+参数 | 描述 | 类型 | 必填
 :--- | :--- |:--- |:---
-`require` | Allocate the index to a node with a specified attribute. | `string` | Yes
-`include` | Allocate the index to a node with any of the specified attributes. | `string` | Yes
-`exclude` | Don’t allocate the index to a node with any of the specified attributes. | `string` | Yes
-`wait_for` | Wait for the policy to execute before allocating the index to a node with a specified attribute. | `string` | Yes
+ `require` | 将索引分配给具有指定属性的节点。| `string` | 是的
+ `include` | 将索引分配给具有任何指定属性的节点。| `string` | 是的
+ `exclude` | 不要将索引分配给具有任何指定属性的节点。| `string` | 是的
+ `wait_for` | 等待策略执行，然后再将索引分配给具有指定属性的节点。| `string` | 是的
 
 ```json
 "actions": [
@@ -448,14 +446,13 @@ Parameter | Description | Type | Required
 ]
 ```
 
-### rollup
+### 汇总
 
-[Index rollup]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/index/) lets you periodically reduce data granularity by rolling up old data into summarized indexes.
+[索引汇总]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/index/)允许你通过将旧数据汇总到汇总索引中来定期降低数据粒度。
 
-Rollup jobs can be continuous or non-continuous. A rollup job created using an ISM policy can only be non-continuous.
-{: .note }
+汇总作业可以是连续的，也可以是非连续的。使用 ISM 策略创建的汇总作业只能是非连续的。{：.note }
 
-#### Path and HTTP methods
+#### Path 和 HTTP 方法
 
 ````bash
 PUT _plugins/_rollup/jobs/<rollup_id>
@@ -596,9 +593,9 @@ The following example transitions the index to a `cold` state after a period of 
 ]
 ```
 
-ISM checks the conditions on every execution of the policy based on the set interval.
+ISM 根据设置的时间间隔检查每次执行策略时的条件。
 
-This example uses the `cron` condition to transition indexes every Saturday at 5:00 PT:
+此示例使用条件在 `cron` 太平洋时间每周六 5：00 转换索引：
 
 ```json
 "transitions": [
@@ -616,20 +613,19 @@ This example uses the `cron` condition to transition indexes every Saturday at 5
 ]
 ```
 
-Note that this condition does not execute at exactly 5:00 PM; the job still executes based off the `job_interval` setting. Due to this variance in start time and the amount of time that it can take for actions to complete prior to checking transition conditions, we recommend against overly narrow cron expressions. For example, don't use `15 17 * * SAT` (5:15 PM on Saturday).
+请注意，此条件不会在下午 5：00 执行;作业仍会根据 `job_interval` 设置执行。由于开始时间的这种差异以及在检查转换条件之前完成操作所需的时间，我们建议不要使用过于狭窄的 cron 表达式。例如，不要使用 `15 17 * * SAT`（周六下午 5：15）。
 
-A window of an hour, which this example uses, is generally sufficient, but you might increase it to 2--3 hours to avoid missing the window and having to wait a week for the transition to occur. Alternately, you could use a broader expression such as `* * * * SAT,SUN` to have the transition occur at any time during the weekend.
+此示例使用的一个小时窗口通常就足够了，但你可以将其增加到 2--3 小时，以避免错过该窗口并等待一周才能进行转换。或者，你可以使用更广泛的表达式，例如 `* * * * SAT,SUN` 在周末的任何时间进行转换。
 
-For information on writing cron expressions, see [Cron expression reference]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/).
+有关编写 cron 表达式的信息，请参见[Cron 表达式参考]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/)。
 
 ---
 
-## Error notifications
+## 错误通知
 
-The `error_notification` operation sends you a notification if your managed index fails.
-It notifies a single destination or [notification channel]({{site.url}}{{site.baseurl}}/notifications-plugin/index) with a custom message.
+如果托管索引失败，该 `error_notification` 操作会向你发送通知。它通知单个目标或[通知通道]({{site.url}}{{site.baseurl}}/notifications-plugin/index)自定义消息。
 
-Set up error notifications at the policy level:
+在策略级别设置错误通知：
 
 ```json
 {
@@ -643,15 +639,15 @@ Set up error notifications at the policy level:
 }
 ```
 
-Parameter | Description | Type | Required
+参数 | 描述 | 类型 | 必填
 :--- | :--- |:--- |:--- |
-`destination` | The destination URL. | `Slack, Amazon Chime, or webhook URL` | Yes if `channel` isn't specified
-`channel` | A notification channel's ID | `string` | Yes if `destination` isn't specified
-`message_template` |  The text of the message. You can add variables to your messages using [Mustache templates](https://mustache.github.io/mustache.5.html). | `object` | Yes
+ `destination` | 目标 URL。| `Slack, Amazon Chime, or webhook URL` | 如果未指定，则 `channel` 为”
+ `channel` | 通知通道的 ID | `string` | 如果未指定，则 `destination` 为”
+ `message_template` | 消息的文本。你可以使用向消息[小胡子模板](https://mustache.github.io/mustache.5.html)添加变量。| | `object` 是的
 
-The destination system **must** return a response otherwise the `error_notification` operation throws an error.
+目标系统**必须**返回响应，否则操作 `error_notification` 将引发错误。
 
-#### Example 1: Chime notification
+#### 示例 1：铃声通知
 
 ```json
 {
@@ -668,7 +664,7 @@ The destination system **must** return a response otherwise the `error_notificat
 }
 ```
 
-#### Example 2: Custom webhook notification
+#### 示例 2：自定义 Webhook 通知
 
 ```json
 {
@@ -685,7 +681,7 @@ The destination system **must** return a response otherwise the `error_notificat
 }
 ```
 
-#### Example 3: Slack notification
+#### 示例 3：松弛通知
 
 ```json
 {
@@ -702,7 +698,7 @@ The destination system **must** return a response otherwise the `error_notificat
 }
 ```
 
-#### Example 4: Using a notification channel
+#### 示例 4：使用通知通道
 
 ```json
 {
@@ -717,15 +713,15 @@ The destination system **must** return a response otherwise the `error_notificat
 }
 ```
 
-You can use the same options for `ctx` variables as the [notification](#notification) operation.
+你可以对 `ctx` 变量使用与[通知](#notification)操作相同的选项。
 
-## Sample policy with ISM template for auto rollover
+## 带有 ISM 模板的自动滚动更新策略示例
 
-The following sample template policy is for a rollover use case.
+以下示例模板策略适用于滚动更新用例。
 
-If you want to skip rollovers for an index, set `index.plugins.index_state_management.rollover_skip` to `true` in the settings of that index.
+如果要跳过索引的滚动更新，请在该索引的设置中设置为 `index.plugins.index_state_management.rollover_skip` `true`。
 
-1. Create a policy with an `ism_template` field:
+1. 使用 `ism_template` 字段创建策略：
 
    ```json
    PUT _plugins/_ism/policies/rollover_policy
@@ -754,9 +750,9 @@ If you want to skip rollovers for an index, set `index.plugins.index_state_manag
    }
    ```
 
-   You need to specify the `index_patterns` field. If you don't specify a value for `priority`, it defaults to 0.
+   你需要指定该 `index_patterns` 字段。如果未指定 `priority` 的值，则默认为 0。
 
-2. Set up a template with the `rollover_alias` as `log` :
+2. 使用以下 `rollover_alias` 命令 `log` 设置模板：
 
    ```json
    PUT _index_template/ism_rollover
@@ -770,7 +766,7 @@ If you want to skip rollovers for an index, set `index.plugins.index_state_manag
    }
    ```
 
-3. Create an index with the `log` alias:
+3. 使用 `log` 别名创建索引：
 
    ```json
    PUT log-000001
@@ -783,7 +779,7 @@ If you want to skip rollovers for an index, set `index.plugins.index_state_manag
    }
    ```
 
-4. Index a document to trigger the rollover condition:
+4. 为文档编制索引以触发滚动更新条件：
 
    ```json
    POST log/_doc
@@ -792,19 +788,19 @@ If you want to skip rollovers for an index, set `index.plugins.index_state_manag
    }
    ```
 
-5. Verify if the policy is attached to the `log-000001` index:
+5. 验证策略是否附加到 `log-000001` 索引：
 
    ```json
    GET _plugins/_ism/explain/log-000001?pretty
    ```
 
-## Example policy with ISM templates for the alias action
+## 别名操作的 ISM 模板策略示例
 
-The following example policy is for an alias action use case.
+以下示例策略适用于别名操作用例。
 
-In the following example, the first job will trigger the rollover action, and a new index will be created. Next, another document is added to the two indexes. The new job will then cause the second index to point to the log alias, and the older index will be removed due to the alias action.
+在以下示例中，第一个作业将触发滚动更新操作，并将创建一个新索引。接下来，将另一个文档添加到两个索引中。然后，新作业将导致第二个索引指向日志别名，并且由于别名操作，将删除较旧的索引。
 
-First, create an ISM policy:
+首先，创建 ISM 策略：
 
 ```json
 PUT /_plugins/_ism/policies/rollover_policy?pretty
@@ -854,7 +850,7 @@ PUT /_plugins/_ism/policies/rollover_policy?pretty
 }
 ```
 
-Next, create an index template on which to enable the policy:
+接下来，创建一个索引模板，以在其上启用策略：
 
 ```json
 PUT /_index_template/ism_rollover?
@@ -869,7 +865,7 @@ PUT /_index_template/ism_rollover?
 ```
 {% include copy-curl.html %}
 
-Next, change the cluster settings to trigger jobs every minute:
+接下来，更改群集设置以每分钟触发一次作业：
 
 ```json
 PUT /_cluster/settings?pretty=true
@@ -881,7 +877,7 @@ PUT /_cluster/settings?pretty=true
 ```
 {% include copy-curl.html %}
 
-Next, create a new index:
+接下来，创建一个新索引：
 
 ```json
 PUT /log-000001
@@ -895,7 +891,7 @@ PUT /log-000001
 ```
 {% include copy-curl.html %}
 
-Finally, add a document to the index to trigger the job:
+最后，将文档添加到索引以触发作业：
 
 ```json
 POST /log-000001/_doc
@@ -905,7 +901,7 @@ POST /log-000001/_doc
 ```
 {% include copy-curl.html %}
 
-You can verify these steps using the Alias and Index API:
+你可以使用别名和索引 API 验证以下步骤：
 
 ```json
 GET /_cat/indices?pretty
@@ -917,16 +913,15 @@ GET /_cat/aliases?pretty
 ```
 {% include copy-curl.html %}
 
-Note: The `index` and `remove_index` parameters are not allowed with alias action policies. Only the `add` and `remove` alias action parameters are allowed.
-{: .warning }
+注意： `index` 别名操作策略不允许使用和 `remove_index` 参数。 `add` 只允许和 `remove` alias 操作参数。{：.warning}
 
-## Example policy
+## 示例策略
 
-The following example policy implements a `hot`, `warm`, and `delete` workflow. You can use this policy as a template to prioritize resources to your indexes based on their levels of activity.
+以下示例策略实现 `hot`、 `warm` 和 `delete` 工作流。你可以将此策略用作模板，根据资源的活动级别确定索引的优先级。
 
-In this case, an index is initially in a `hot` state. After a day, it changes to a `warm` state, where the number of replicas increases to 5 to improve the read performance.
+在这种情况下，索引最初处于状态 `hot`。一天后，它会变为一种 `warm` 状态，即副本数增加到 5 以提高读取性能。
 
-After 30 days, the policy moves this index into a `delete` state. The service sends a notification to a Chime room that the index is being deleted, and then permanently deletes it.
+30 天后，策略将此索引移动到状态 `delete`。该服务会向 Chime 聊天室发送索引正在删除的通知，然后将其永久删除。
 
 ```json
 {
@@ -998,6 +993,6 @@ After 30 days, the policy moves this index into a `delete` state. The service se
 }
 ```
 
-This diagram shows the `states`, `transitions`, and `actions` of the above policy as a finite-state machine. For more information about finite-state machines, see [Wikipedia](https://en.wikipedia.org/wiki/Finite-state_machine).
+此图将上述策略的、 `transitions` 和 `actions` 显示 `states` 为有限状态机。有关有限状态机的更多信息，请参见[Wikipedia](https://en.wikipedia.org/wiki/Finite-state_machine)。
 
-![Policy State Machine]({{site.baseurl}}/images/ism.png)
+![策略状态机]({{site.baseurl}}/images/ism.png)

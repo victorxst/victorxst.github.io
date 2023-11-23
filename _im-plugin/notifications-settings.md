@@ -1,40 +1,39 @@
 ---
 layout: default
-title: Notification settings
+title: 通知设置
 nav_order: 100
 ---
 
-# Notification settings
+# 通知设置
 
-Introduced 2.8
-{: .label .label-purple }
+引入 2.8 {：.label .label-purple }
 
-You can use notification settings to configure notifications about long-running index operations. Set up automatic [notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) when long-running index operations are complete by [using Notifications in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/notifications/) or through the API.
+你可以使用通知设置来配置有关长时间运行的索引操作的通知。当长时间运行的索引操作通过[在 OpenSearch 控制面板中使用通知]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/notifications/) API 完成或通过 API 完成时，自动[通知]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/)设置。
 
-Configuring notification settings is useful for long-running index operations, such as `open`, `reindex`, `resize`, and `force merge`. When you send a request for those operations and set the `wait_for_completion` parameter to `false`, the operation returns immediately and the response contains a task ID. You can use that task ID to configure notifications for this operation.
+配置通知设置对于长时间运行的索引操作（如 `open`、、 `reindex` `resize` 和 `force merge`）非常有用。当你发送这些操作的请求并将参数 `false` 设置为时，该操作会立即返回， `wait_for_completion` 并且响应包含任务 ID。你可以使用该任务 ID 配置此操作的通知。
 
-## Configuring notification settings
+## 配置通知设置
 
-You can configure long-running operation notifications through the API by using the `task_id` and `action_name` parameters:
+你可以通过 API `task_id` 使用和 `action_name` 参数配置长时间运行的操作通知：
 
-- **One-time setting**: If you pass `task_id` in the `lron_config` object, the task runs one time and the setting is automatically deleted when the task ends. If you pass both `task_id` and `action_name`, `action_name` is ignored but may be useful to you for searching and debugging notification settings.
-- **Global, persistent setting**: If you pass `action_name` and not `task_id` in the `lron_config` object, the task is global and persistent and applies to all operations of this action type.
+- **一次性设置**：如果传 `task_id` 入 `lron_config` 对象，则任务将运行一次，并在任务结束时自动删除该设置。如果同时 `task_id` 传递和 `action_name`，则会忽略， `action_name` 但可能对搜索和调试通知设置有用。
+- **全局、持久设置**：如果传递 `action_name` 但不在 `task_id` 对象中 `lron_config`，则该任务是全局且持久的，并应用于此操作类型的所有操作。
 
-The following table lists the parameters for long-running index operation notifications. 
+下表列出了长时间运行的索引操作通知的参数。
 
-| Parameter | Type | Description |
+| Parameter | Type |描述|
 | :--- | :--- | :--- |
-| `lron_config` | Object | Long-running index operation notification configuration. |
-| `task_id` | String | The task ID of the task that you want to be notified about. Optional. One of `task_id` and `action_name` must be specified.|
-| `action_name` | String | The operation type that you want to be notified about. Provide `action_name` but not `task_id` to be notified of all operations of this type. Supported values are `indices:data/write/reindex`, `indices:admin/resize`, `indices:admin/forcemerge`, and `indices:admin/open`. Optional. One of `task_id` and `action_name` must be specified. |
-| `lron_condition` | Object | Specifies which events you want to be notified about. Optional. If not provided, you'll be notified of both the operation success and failure. |
-| `lron_condition.success` | Boolean | Set this parameter to `true` to be notified when the operation succeeds. Optional. Default is `true`. |
-| `lron_condition.failure` | Boolean | Set this parameter to `true` to be notified when the operation fails or times out. Optional. Default is `true`. |
-| `channels` | Object | Supported communication channels include Amazon Chime, Amazon Simple Notification Service (Amazon SNS), Amazon Simple Email Service (Amazon SES), email through SMTP, Slack, and custom webhooks. If either `lron_condition.success` or `lron_condition.failure` is `true`, `channels` must contain at least one channel. Learn how to configure notification channels in [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/). |
+| `lron_config` | Object |长时间运行的索引操作通知配置。|
+| `task_id` | String |要收到通知的任务的任务 ID。自选。必须指定其中之一 `task_id` `action_name`。|
+| `action_name` | String |要通知的操作类型。提供 `action_name` 但不 `task_id` 通知此类型的所有操作。支持的值为 `indices:data/write/reindex`、、 `indices:admin/resize` `indices:admin/forcemerge` 和 `indices:admin/open`。自选。必须指定其中之一 `task_id` `action_name`。|
+| `lron_condition` | Object |指定要通知哪些事件。自选。如果未提供，你将收到操作成功和失败的通知。|
+| `lron_condition.success` | Boolean |将此参数设置为 `true` 在操作成功时收到通知。自选。缺省值为 `true`。|
+| `lron_condition.failure` | Boolean |设置该参数为 `true` 在操作失败或超时时通知。自选。缺省值为 `true`。|
+| `channels` | Object |支持的通信渠道包括 Amazon Chime、Amazon Simple Notification Service（Amazon SNS）、Amazon Simple Email Service（Amazon SES）、通过 SMTP 发送电子邮件、Slack 和自定义 Webhook。如果或 `lron_condition.success` `lron_condition.failure` 是 `true`， `channels` 则必须包含至少一个通道。了解如何在中[通知]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/)配置通知通道。|
 
-## Create notification settings 
+## 创建通知设置
 
-The following example request sets up notifications on a failure of a reindex task:
+以下示例请求设置重新索引任务失败时的通知：
 
 ```json
 POST /_plugins/_im/lron
@@ -55,7 +54,7 @@ POST /_plugins/_im/lron
 ```
 {% include copy-curl.html %}
 
-The preceding request results in the following response:
+上述请求将产生以下响应：
 
 ```json
 {
@@ -79,27 +78,26 @@ The preceding request results in the following response:
 }
 ```
 
-### Notification setting ID
+### 通知设置 ID
 
-The response returns an ID for the notification setting in the `_id` field. You can use this ID to read, update, or delete this notification setting. For a global `lron_config`, the ID is in the form `LRON:<action_name>` (for example, `LRON:indices:data/write/reindex`). 
+响应在字段中返回通知设置 `_id` 的 ID。你可以使用此 ID 读取、更新或删除此通知设置。对于全局 `lron_config`，ID 的格式 `LRON:<action_name>` 为（例如， `LRON:indices:data/write/reindex`）。
 
-The `action_name` may contain a slash character (`/`), which must be HTTP encoded as `%2F` if you use it the Dev Tools console. For example, `LRON:indices:data/write/reindex` becomes `LRON:indices:data%2Fwrite%2Freindex`.
-{: .important}
+可能 `action_name` 包含斜杠字符（ `/`），必须对其进行 HTTP 编码，就像在开发工具控制台中使用它一样 `%2F`。例如， `LRON:indices:data/write/reindex` 变为 `LRON:indices:data%2Fwrite%2Freindex`.{：.important}
 
-For a task `lron_config`, the ID is in the form `LRON:<task ID>`.
+对于任务 `lron_config`，ID 的格式 `LRON:<task ID>` 为。
 
-## Retrieve notification settings 
+## 检索通知设置
 
-The following examples retrieve the current configured notification settings. 
+以下示例检索当前配置的通知设置。
 
-Use the following request to retrieve a notification setting with the specified [notification setting ID](#notification-setting-id):
+使用以下请求检索具有指定[通知设置 ID](#notification-setting-id)：
 
 ```json
  GET /_plugins/_im/lron/<lronID>
 ```
 {% include copy-curl.html %}
 
-For example, the following request retrieves the notification setting for the `reindex` operation:
+例如，以下请求检索操作的 `reindex` 通知设置：
 
 ```json
 {
@@ -125,14 +123,14 @@ For example, the following request retrieves the notification setting for the `r
 ```
 {% include copy-curl.html %}
 
-Use the following request to retrieve all notification settings:
+使用以下请求检索所有通知设置：
 
 ```json
 GET /_plugins/_im/lron
 ```
 {% include copy-curl.html %}
 
-The response contains all configured notification settings with their IDs: 
+响应包含所有已配置的通知设置及其 ID：
 
 ```json
 {
@@ -168,9 +166,9 @@ The response contains all configured notification settings with their IDs:
 }
 ```
 
-## Update notification settings 
+## 更新通知设置
 
-The following example modifies an existing notification setting with the specified [notification setting ID](#notification-setting-id):
+以下示例使用指定的[通知设置 ID](#notification-setting-id)：
 
 ```json
 PUT /_plugins/_im/lron/<lronID>
@@ -191,7 +189,7 @@ PUT /_plugins/_im/lron/<lronID>
 ```
 {% include copy-curl.html %}
 
-The response contains the updated setting:
+响应包含更新的设置：
 
 ```json
 {
@@ -215,23 +213,23 @@ The response contains the updated setting:
 }
 ```
 
-## Delete notification settings 
+## 删除通知设置
 
-The following example removes a notifications setting with the specified [notification setting ID](#notification-setting-id):
+以下示例删除具有指定[通知设置 ID](#notification-setting-id)：
 
 ```json
 DELETE /_plugins/_im/lron/<lronID>
 ```
 {% include copy-curl.html %}
 
-For example, the following request deletes the notification setting for the `reindex` operation:
+例如，以下请求删除操作 `reindex` 的通知设置：
 
 ```json
 DELETE _plugins/_im/lron/LRON:indices:data%2Fwrite%2Freindex
 ```
 {% include copy-curl.html %}
 
-## Next steps
+## 后续步骤
 
-- Learn more about the [ISM API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/).
-- Learn more about the [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) application. 
+- 了解有关[ISM API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/).
+- 了解有关该应用程序[通知]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/)的更多信息。

@@ -1,31 +1,30 @@
 ---
 layout: default
 title: ISM API
-parent: Index State Management
+parent: 索引状态管理
 nav_order: 20
 ---
 
-# ISM API
+# ISM API 接口
 
-Use the index state management operations to programmatically work with policies and managed indexes.
+使用索引状态管理操作以编程方式处理策略和托管索引。
 
 ---
 
-#### Table of contents
-- TOC
+#### 目录
+- 目录
 {:toc}
 
 
 ---
 
 
-## Create policy
-Introduced 1.0
-{: .label .label-purple }
+## 创建策略
+引入 1.0 {：.label .label-purple }
 
-Creates a policy.
+创建策略。
 
-#### Example request
+#### 示例请求
 
 ```json
 PUT _plugins/_ism/policies/policy_1
@@ -76,7 +75,7 @@ PUT _plugins/_ism/policies/policy_1
 ```
 
 
-#### Example response
+#### 响应示例
 
 ```json
 {
@@ -138,13 +137,12 @@ PUT _plugins/_ism/policies/policy_1
 
 ---
 
-## Add policy
-Introduced 1.0
-{: .label .label-purple }
+## 添加策略
+引入 1.0 {：.label .label-purple }
 
-Adds a policy to an index. This operation does not change the policy if the index already has one.
+将策略添加到索引。如果索引已有一个策略，则此操作不会更改策略。
 
-#### Example request
+#### 示例请求
 
 ```json
 POST _plugins/_ism/add/index_1
@@ -153,7 +151,7 @@ POST _plugins/_ism/add/index_1
 }
 ```
 
-#### Example response
+#### 响应示例
 
 ```json
 {
@@ -163,22 +161,19 @@ POST _plugins/_ism/add/index_1
 }
 ```
 
-If you use a wildcard `*` while adding a policy to an index, the ISM plugin interprets `*` as all indexes, including system indexes like `.opendistro-security`, which stores users, roles, and tenants. A delete action in your policy might accidentally delete all user roles and tenants in your cluster.
-Don't use the broad `*` wildcard, and instead add a prefix, such as `my-logs*`, when specifying indexes with the `_ism/add` API.
-{: .warning }
+如果在向索引添加策略时使用通配符 `*`，则 ISM 插件将 `*` 解释为所有索引，包括存储用户、角色和租户的系统索引，例如 `.opendistro-security`。策略中的删除操作可能会意外删除群集中的所有用户角色和租户。不要使用宽 `*` 泛通配符，而是在使用 `_ism/add` API 指定索引时添加前缀，例如 `my-logs*`。{：.warning}
 
 ---
 
 
-## Update policy
-Introduced 1.0
-{: .label .label-purple }
+## 更新策略
+引入 1.0 {：.label .label-purple }
 
-Updates a policy. Use the `seq_no` and `primary_term` parameters to update an existing policy. If these numbers don't match the existing policy or the policy doesn't exist, ISM throws an error.
+更新策略。 `seq_no` 使用和 `primary_term` 参数更新现有策略。如果这些数字与现有策略不匹配或策略不存在，则 ISM 将引发错误。
 
-It's possible that the policy currently applied to your index isn't the most up-to-date policy available. To see what policy is currently applied to your index, see [Explain index]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#explain-index). To get the most up-to-date version of a policy, see [Get policy]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#get-policy).
+当前应用于索引的策略可能不是可用的最新策略。要查看当前应用于索引的策略，请参阅[解释索引]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#explain-index)。要获取策略的最新版本，请参阅[Get policy]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#get-policy)。
 
-#### Example request
+#### 示例请求
 
 ```json
 PUT _plugins/_ism/policies/policy_1?if_seq_no=7&if_primary_term=1
@@ -229,7 +224,7 @@ PUT _plugins/_ism/policies/policy_1?if_seq_no=7&if_primary_term=1
 ```
 
 
-#### Example response
+#### 响应示例
 
 ```json
 {
@@ -291,20 +286,19 @@ PUT _plugins/_ism/policies/policy_1?if_seq_no=7&if_primary_term=1
 
 ---
 
-## Get policy
-Introduced 1.0
-{: .label .label-purple }
+## 获取策略
+引入 1.0 {：.label .label-purple }
 
-Gets the policy by `policy_id`.
+通过 `policy_id` 获取策略。
 
-#### Example request
+#### 示例请求
 
 ```json
 GET _plugins/_ism/policies/policy_1
 ```
 
 
-#### Example response
+#### 响应示例
 
 ```json
 {
@@ -363,20 +357,19 @@ GET _plugins/_ism/policies/policy_1
 
 ---
 
-## Remove policy from index
-Introduced 1.0
-{: .label .label-purple }
+## 从索引中删除策略
+引入 1.0 {：.label .label-purple }
 
-Removes any ISM policy from the index.
+从索引中删除任何 ISM 策略。
 
-#### Example request
+#### 示例请求
 
 ```json
 POST _plugins/_ism/remove/index_1
 ```
 
 
-#### Example response
+#### 响应示例
 
 ```json
 {
@@ -388,17 +381,16 @@ POST _plugins/_ism/remove/index_1
 
 ---
 
-## Update managed index policy
-Introduced 1.0
-{: .label .label-purple }
+## 更新托管索引策略
+引入 1.0 {：.label .label-purple }
 
-Updates the managed index policy to a new policy (or to a new version of the policy). You can use an index pattern to update multiple indexes at once. When updating multiple indexes, you might want to include a state filter to only affect certain managed indexes. The change policy filters out all the existing managed indexes and only applies the change to the ones in the state that you specify. You can also explicitly specify the state that the managed index transitions to after the change policy takes effect.
+将托管索引策略更新为新策略（或策略的新版本）。你可以使用索引模式一次更新多个索引。更新多个索引时，你可能希望包含状态筛选器以仅影响某些托管索引。更改策略会筛选出所有现有的托管索引，并仅将更改应用于处于指定状态的索引。你还可以显式指定托管索引在更改策略生效后转换到的状态。
 
-A policy change is an asynchronous background process. The changes are queued and are not executed immediately by the background process. This delay in execution protects the currently running managed indexes from being put into a broken state. If the policy you are changing to has only some small configuration changes, then the change takes place immediately. For example, if the policy changes the `min_index_age` parameter in a rollover condition from `1000d` to `100d`, this change takes place immediately in its next execution. If the change modifies the state, actions, or the order of actions of the current state the index is in, then the change happens at the end of its current state before transitioning to a new state.
+策略更改是一个异步后台进程。更改已排队，后台进程不会立即执行。这种执行延迟可防止当前正在运行的托管索引进入中断状态。如果要更改到的策略只有一些小的配置更改，则更改会立即发生。例如，如果策略将 `min_index_age` 滚动更新条件中的参数从 `1000d` 到 `100d` 更改为，则此更改将在下次执行时立即发生。如果更改修改了索引所处当前状态的状态、操作或操作顺序，则更改将在其当前状态结束时发生，然后再转换为新状态。
 
-In this example, the policy applied on the `index_1` index is changed to `policy_1`, which could either be a completely new policy or an updated version of its existing policy. The process only applies the change if the index is currently in the `searches` state. After this change in policy takes place, `index_1` transitions to the `delete` state.
+在此示例中，应用于索引的策略更改为 `policy_1`，它可以是全新的策略，也可以是其现有策略的 `index_1` 更新版本。仅当索引当前处于该 `searches` 状态时，该过程才应用更改。在策略发生此更改后， `index_1` 将 `delete` 转换为状态。
 
-#### Example request
+#### 示例请求
 
 ```json
 POST _plugins/_ism/change_policy/index_1
@@ -414,7 +406,7 @@ POST _plugins/_ism/change_policy/index_1
 ```
 
 
-#### Example response
+#### 响应示例
 
 ```json
 {
@@ -426,13 +418,12 @@ POST _plugins/_ism/change_policy/index_1
 
 ---
 
-## Retry failed index
-Introduced 1.0
-{: .label .label-purple }
+## 重试失败的索引
+引入 1.0 {：.label .label-purple }
 
-Retries the failed action for an index. For the retry call to succeed, ISM must manage the index, and the index must be in a failed state. You can use index patterns (`*`) to retry multiple failed indexes.
+重试索引的失败操作。要使重试调用成功，ISM 必须管理索引，并且索引必须处于失败状态。你可以使用索引模式（ `*`）重试多个失败的索引。
 
-#### Example request
+#### 示例请求
 
 ```json
 POST _plugins/_ism/retry/index_1
@@ -442,7 +433,7 @@ POST _plugins/_ism/retry/index_1
 ```
 
 
-#### Example response
+#### 响应示例
 
 ```json
 {
@@ -454,20 +445,19 @@ POST _plugins/_ism/retry/index_1
 
 ---
 
-## Explain index
-Introduced 1.0
-{: .label .label-purple }
+## 解释索引
+引入 1.0 {：.label .label-purple }
 
-Gets the current state of the index. You can use index patterns to get the status of multiple indexes.
+获取索引的当前状态。你可以使用索引模式来获取多个索引的状态。
 
-#### Example request
+#### 示例请求
 
 ```json
 GET _plugins/_ism/explain/index_1
 ```
 
 
-#### Example response
+#### 响应示例
 
 ```json
 {
@@ -477,15 +467,15 @@ GET _plugins/_ism/explain/index_1
 }
 ```
 
-Optionally, you can add the `show_policy` parameter to your request's path to get the policy that is currently applied to your index, which is useful for seeing whether the policy applied to your index is the latest one. To get the most up-to-date policy, see [Get Policy API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#get-policy).
+或者，你可以将参数 `show_policy` 添加到请求的路径中，以获取当前应用于索引的策略，这对于查看应用于索引的策略是否是最新的策略非常有用。要获取最新的策略，请参阅[获取策略 API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#get-policy)。
 
-#### Example request
+#### 示例请求
 
 ```json
 GET _plugins/_ism/explain/index_1?show_policy=true
 ```
 
-#### Example response
+#### 响应示例
 
 ```json
 {
@@ -511,24 +501,23 @@ GET _plugins/_ism/explain/index_1?show_policy=true
 }
 ```
 
-The `plugins.index_state_management.policy_id` setting is deprecated starting from ODFE version 1.13.0. We retain this field in the response API for consistency.
+从 ODFE 版本 1.13.0 开始，该 `plugins.index_state_management.policy_id` 设置已弃用。为了保持一致性，我们在响应 API 中保留此字段。
 
 ---
 
-## Delete policy
-Introduced 1.0
-{: .label .label-purple }
+## 删除策略
+引入 1.0 {：.label .label-purple }
 
-Deletes the policy by `policy_id`.
+按 `policy_id` 删除策略。
 
-#### Example request
+#### 示例请求
 
 ```json
 DELETE _plugins/_ism/policies/policy_1
 ```
 
 
-#### Example response
+#### 响应示例
 
 ```json
 {
@@ -547,13 +536,12 @@ DELETE _plugins/_ism/policies/policy_1
 }
 ```
 
-## Error prevention validation
-Introduced 2.4
-{: .label .label-purple }
+## 防错验证
+引入 2.4 {：.label .label-purple }
 
-ISM allows you to run an action automatically. However, running an action can fail for a variety of reasons. You can use error prevention validation to test an action in order to rule out failures.
+ISM 允许你自动运行操作。但是，由于各种原因，运行操作可能会失败。可以使用错误防护验证来测试操作，以排除失败。
 
-To enable error prevention validation, set the `plugins.index_state_management.validation_service.enabled` setting to `true`:
+若要启用错误防护验证，请将 `plugins.index_state_management.validation_service.enabled` 设置设置为 `true`：
 
 ```bash
 PUT _cluster/settings
@@ -564,7 +552,7 @@ PUT _cluster/settings
 }
 ```
 
-#### Example response
+#### 响应示例
 
 ```json
 {
@@ -582,15 +570,15 @@ PUT _cluster/settings
 }
 ```
 
-To check an error prevention validation status and message, pass `validate_action=true` to the `_plugins/_ism/explain` endpoint:
+若要检查防错验证状态和消息，请传递 `validate_action=true` 到 `_plugins/_ism/explain` 终结点：
 
 ```bash
 GET _plugins/_ism/explain/test-000001?validate_action=true
 ```
 
-#### Example response
+#### 响应示例
 
-The response contains an additional validate object with a validation message and status:
+响应包含一个附加的验证对象，其中包含验证消息和状态：
 
 ```json
 {
@@ -638,19 +626,19 @@ The response contains an additional validate object with a validation message an
 }
 ```
 
-If you pass `validate_action=false` or do not pass a `validate_action` value to the `_plugins/_ism/explain` endpoint, the response will not contain an error prevention validation status and message:
+如果将值传递或未传递 `validate_action` 到 `_plugins/_ism/explain` 终结点，则响应将 `validate_action=false` 不包含防错验证状态和消息：
 
 ```bash
 GET _plugins/_ism/explain/test-000001?validate_action=false
 ```
 
-Or:
+或：
 
 ```bash
 GET _plugins/_ism/explain/test-000001
 ```
 
-#### Example response
+#### 响应示例
 
 ```json
 {
