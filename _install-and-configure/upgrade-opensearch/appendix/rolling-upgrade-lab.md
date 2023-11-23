@@ -64,23 +64,23 @@ docker container stop $(docker container ls -aqf name=os-); \
 	   ```bash
 	   sudo swapoff -a
 	   ```
-{% 包括 copy.html %}
+{% include copy.html %}
 1. 增加可用于 OpenSearch 的内存映射数量。 `sysctl` 打开配置文件进行编辑。此示例命令使用[vim](https://www.vim.org/)文本编辑器，但你可以使用任何可用的文本编辑器：
 	   ```bash
 	   sudo vim /etc/sysctl.conf
 	   ```
-{% 包括 copy.html %}
+{% include copy.html %}
 1. 将以下行 `/etc/sysctl.conf` 添加到：
 	   ```bash
 	   vm.max_map_count=262144
 	   ```
-{% 包括 copy.html %}
+{% include copy.html %}
 1. 保存并退出。如果使用 `vi` 或文本编辑器，则通过切换到命令模式并输入 `:wq!` 或 `vim` `ZZ` 来保存并退出。
 1. 应用配置更改：
 	   ```bash
 	   sudo sysctl -p
 	   ```
-{% 包括 copy.html %}
+{% include copy.html %}
 1. 创建一个在主目录中调用 `deploy` 的新目录，然后导航到该目录。你将用于 `~/deploy` 部署脚本、配置文件和 TLS 证书中的路径：
    ```bash
    mkdir ~/deploy && cd ~/deploy

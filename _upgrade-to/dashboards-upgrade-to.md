@@ -1,36 +1,35 @@
 ---
 layout: default
-title: Migrating from Kibana OSS to OpenSearch Dashboards
+title: 从 Kibana OSS 迁移到 OpenSearch 控制面板
 nav_order: 50
 ---
 
-# Migrating from Kibana OSS to OpenSearch Dashboards
+# 从 Kibana OSS 迁移到 OpenSearch 控制面板
 
-Kibana OSS stores its visualizations and dashboards in one or more indexes (`.kibana*`) on the Elasticsearch OSS cluster. As such, the most important step is to leave those indexes intact as you migrate from Elasticsearch OSS to OpenSearch.
+Kibana OSS 将其可视化和仪表板存储在 Elasticsearch OSS 集群上的一个或多个索引（ `.kibana*`）中。因此，最重要的一步是在从 Elasticsearch OSS 迁移到 OpenSearch 时保持这些索引不变。
 
-Consider exporting all Kibana objects prior to starting the migration. In Kibana, choose **Stack Management**, **Saved Objects**, **Export objects**.
-{: .tip }
+请考虑在开始迁移之前导出所有 Kibana 对象。在 Kibana 中，选择**堆栈管理**、**保存的对象**、**导出对象**。{：.tip }
 
-1. After you migrate your Elasticsearch OSS cluster to OpenSearch, stop Kibana.
+1. 将 Elasticsearch OSS 集群迁移到 OpenSearch 后，请停止 Kibana。
 
-1. For safety, make a backup copy of `<kibana-dir>/config/kibana.yml`.
+1. 为安全起见，请制作的备份副本 `<kibana-dir>/config/kibana.yml`。
 
-1. Extract the OpenSearch Dashboards tarball to a new directory.
+1. 将 OpenSearch 控制面板 tarball 提取到新目录。
 
-1. Port your settings from `<kibana-dir>/config/kibana.yml` to `<dashboards-dir>/config/opensearch_dashboards.yml`.
+1. 将你的设置从 `<kibana-dir>/config/kibana.yml` 移植到 `<dashboards-dir>/config/opensearch_dashboards.yml`。
 
-   In general, settings with `elasticsearch` in their names map to `opensearch` (for example, `elasticsearch.shardTimeout` and `opensearch.shardTimeout`) and settings with `kibana` in their names map to `opensearchDashboards` (for example, `kibana.defaultAppId` and `opensearchDashboards.defaultAppId`). Most other settings use the same names.
+   通常，名称中带有的设置映射到（例如，和），名称中带有 `elasticsearch` 的设置映射到 `opensearchDashboards` `opensearch`（例如， `elasticsearch.shardTimeout` `kibana.defaultAppId` 和 `opensearch.shardTimeout` `opensearchDashboards.defaultAppId`）。 `kibana` 大多数其他设置使用相同的名称。
 
-   For a full list of OpenSearch Dashboards settings, see [opensearch_dashboards.yml](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml){:target='\_blank'}.
+   有关 OpenSearch 控制面板设置的完整列表，请参阅[opensearch_dashboards.yml](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml){：target='\_blank'}。
 
-1. If your OpenSearch cluster uses the Security plugin, preserve and modify the default settings in `opensearch_dashboards.yml`, particularly `opensearch.username` and `opensearch.password`.
+1. 如果你的 OpenSearch 集群使用安全插件，请保留并修改中的默认设置 `opensearch_dashboards.yml`，特别是 `opensearch.username` 和 `opensearch.password`。
 
-   If you disabled the Security plugin on your OpenSearch cluster, remove or comment out all `opensearch_security` settings. Then run `rm -rf plugins/security-dashboards/` to remove the Security plugin.
+   如果你在 OpenSearch 集群上禁用了安全插件，请删除或注释掉所有 `opensearch_security` 设置。然后运行 `rm -rf plugins/security-dashboards/` 以删除安全插件。
 
-1. Start OpenSearch Dashboards:
+1. 启动 OpenSearch 控制面板：
 
    ```
    ./bin/opensearch-dashboards
    ```
 
-1. Log in, and verify that your saved searches, visualizations, and dashboards are present.
+1. 登录，并验证你保存的搜索、可视化效果和仪表板是否存在。

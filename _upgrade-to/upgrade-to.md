@@ -1,46 +1,41 @@
 ---
-layout: default
-title: Migrating from Elasticsearch OSS to OpenSearch
-nav_order: 15
+layout：default title：从 Elasticsearch OSS 迁移到 OpenSearch nav_order：15
 ---
 
-# Migrating from Elasticsearch OSS to OpenSearch
+# 从 Elasticsearch OSS 迁移到 OpenSearch
 
-If you want to migrate from an existing Elasticsearch OSS cluster to OpenSearch and find the [snapshot approach]({{site.url}}{{site.baseurl}}/upgrade-to/snapshot-migrate/) unappealing, you can migrate your existing nodes from Elasticsearch OSS to OpenSearch.
+如果你想从现有的 Elasticsearch OSS 集群迁移到 OpenSearch，但发现没有吸引力，[快照方法]({{site.url}}{{site.baseurl}}/upgrade-to/snapshot-migrate/)你可以将现有节点从 Elasticsearch OSS 迁移到 OpenSearch。
 
-If your existing cluster runs an older version of Elasticsearch OSS, the first step is to upgrade to version 6.x or 7.x.
+如果你现有的集群运行的是旧版本的 Elasticsearch OSS，第一步是升级到 6.x 或 7.x 版本。
 
-Before deciding on the version of Elasticsearch OSS for your upgrade, refer to the [Migrating to OpenSearch and limits on the number of nested JSON objects]({{site.url}}{{site.baseurl}}/breaking-changes/#migrating-to-opensearch-and-limits-on-the-number-of-nested-json-objects) documentation in Breaking changes to see whether the issue will have an impact on your cluster and, therefore, your decisions about upgrades and migration.
-{: .important }
+在决定升级的 Elasticsearch OSS 版本之前，请参阅[迁移到 OpenSearch 以及对嵌套 JSON 对象数量的限制]({{site.url}}{{site.baseurl}}/breaking-changes/#migrating-to-opensearch-and-limits-on-the-number-of-nested-json-objects)中断性变更中的文档，了解该问题是否会对你的集群产生影响，从而影响你对升级和迁移的决策。{：.important }
 
-Elasticsearch OSS supports two types of upgrades: rolling and cluster restart.
+Elasticsearch OSS 支持两种升级方式：滚动升级和集群重启。
 
-- Rolling upgrades let you shut down one node at a time for minimal disruption of service.
+- 通过滚动升级，你可以一次关闭一个节点，以最大程度地减少服务中断。
 
-  Rolling upgrades work between minor versions (for example, 6.5 to 6.8) and also support a single path to the next major version (for example, 6.8 to 7.10.2). Performing these upgrades might require intermediate upgrades to arrive at your desired version and can affect cluster performance as nodes leave and rejoin, but the cluster remains available throughout the process.
+  滚动升级在次要版本（例如，6.5 到 6.8）之间工作，并且还支持指向下一个主要版本（例如，6.8 到 7.10.2）的单个路径。执行这些升级可能需要中间升级才能达到所需的版本，并且可能会在节点离开和重新加入时影响集群性能，但集群在整个过程中仍然可用。
 
-- Cluster restart upgrades require you to shut down all nodes, perform the upgrade, and restart the cluster.
+- 群集重新启动升级要求你关闭所有节点，执行升级，然后重新启动群集。
 
-  Cluster restart upgrades work between minor versions (for example, 6.5 to 6.8) and the next major version (for example, 6.x to 7.10.2). Cluster restart upgrades are faster to perform and require fewer intermediate upgrades, but require downtime.
+  群集重启升级在次要版本（例如，6.5 到 6.8）和下一个主要版本（例如，6.x 到 7.10.2）之间工作。群集重新启动升级的执行速度更快，需要的中间升级更少，但需要停机。
 
-To migrate a post-fork version of Elasticsearch (7.11+) to OpenSearch, you can use Logstash.  You'll need to employ the Elasticsearch input plugin within Logstash to extract data from the Elasticsearch cluster, and the [Logstash Output OpenSearch plugin](https://github.com/opensearch-project/logstash-output-opensearch#configuration-for-logstash-output-opensearch-plugin) to write the data to the OpenSearch 2.x cluster. We suggest using Logstash version 7.13.4 or earlier, as newer versions may encounter compatibility issues when establishing a connection with OpenSearch due to changes introduced by Elasticsearch subsequent to the fork. We strongly recommend that users test this solution with their own data to ensure effectiveness. 
-{: .note} 
+要将 Elasticsearch （7.11+）的分叉后版本迁移到 OpenSearch，你可以使用 Logstash。你需要在 Logstash 中使用 Elasticsearch 输入插件从 Elasticsearch 集群中提取数据，并将[Logstash 输出 OpenSearch 插件](https://github.com/opensearch-project/logstash-output-opensearch#configuration-for-logstash-output-opensearch-plugin)数据写入 OpenSearch 2.x 集群。我们建议使用 Logstash 版本 7.13.4 或更早版本，因为较新版本在与 OpenSearch 建立连接时可能会遇到兼容性问题，因为 Elasticsearch 在分叉后引入了更改。我们强烈建议用户使用自己的数据测试此解决方案，以确保有效性。{：.note}
 
-## Migration paths
+## 迁移路径
 
-Elasticsearch OSS version | Rolling upgrade path | Cluster restart upgrade path
+Elasticsearch OSS 版本 | 滚动升级路径 | 群集重启升级路径
 :--- | :--- | :---
-5.x | Upgrade to 5.6, upgrade to 6.8, reindex all 5.x indexes, upgrade to 7.10.2, and migrate to OpenSearch. | Upgrade to 6.8, reindex all 5.x indexes, and migrate to OpenSearch.
-6.x | Upgrade to 6.8, upgrade to 7.10.2, and migrate to OpenSearch. | Migrate to OpenSearch.
-7.x | Migrate to OpenSearch. | Migrate to OpenSearch.
+5.x | 升级到 5.6，升级到 6.8，重新索引所有 5.x 索引，升级到 7.10.2，然后迁移到 OpenSearch。| 升级到 6.8，重新索引所有 5.x 索引，然后迁移到 OpenSearch。
+6.x | 升级到 6.8，升级到 7.10.2，然后迁移到 OpenSearch。| 迁移到 OpenSearch。
+7.x | 迁移到 OpenSearch。| 迁移到 OpenSearch。
 
-If you are migrating an Open Distro for Elasticsearch cluster, we recommend first upgrading to ODFE 1.13 and then migrating to OpenSearch.
-{: .note }
+如果你要迁移 Open Distro for Elasticsearch 集群，我们建议你先升级到 ODFE 1.13，然后再迁移到 OpenSearch。{：.note }
 
 
-## Upgrade Elasticsearch OSS
+## 升级 Elasticsearch OSS
 
-1. Disable shard allocation to prevent Elasticsearch OSS from replicating shards as you shut down nodes:
+1. 关闭分片分配，防止 Elasticsearch OSS 在关闭节点时复制分片：
 
    ```json
    PUT _cluster/settings
@@ -51,37 +46,37 @@ If you are migrating an Open Distro for Elasticsearch cluster, we recommend firs
    }
    ```
 
-1. Stop Elasticsearch OSS on one node (rolling upgrade) or all nodes (cluster restart upgrade).
+1. 在一个节点（滚动升级）或所有节点（集群重启升级）上停止 Elasticsearch OSS。
 
-   On Linux distributions that use systemd, use this command:
+   在使用 systemd 的 Linux 发行版上，使用以下命令：
 
    ```bash
    sudo systemctl stop elasticsearch.service
    ```
 
-   For tarball installations, find the process ID (`ps aux`) and kill it (`kill <pid>`).
+   对于 tarball 安装，找到进程 ID（）并终止它（ `ps aux` `kill <pid>`）。
 
-1. Upgrade the node (rolling) or all nodes (cluster restart).
+1. 升级节点（滚动）或所有节点（群集重启）。
 
-   The exact command varies by package manager, but likely looks something like this:
+   确切的命令因包管理器而异，但可能如下所示：
 
    ```bash
    sudo yum install elasticsearch-oss-7.10.2 --enablerepo=elasticsearch
    ```
 
-   For tarball installations, extract to a new directory to ensure you **do not overwrite** your `config`, `data`, and `logs` directories. Ideally, these directories should have their own, independent paths and *not* be colocated with the Elasticsearch application directory. Then set the `ES_PATH_CONF` environment variable to the directory that contains `elasticsearch.yml` (for example, `/etc/elasticsearch/`). In `elasticsearch.yml`, set `path.data` and `path.logs` to your `data` and `logs` directories (for example, `/var/lib/elasticsearch` and `/var/log/opensearch`).
+   对于 tarball 安装，请解压缩到新目录以确保**不覆盖** `config`、 `data` 和 `logs` 目录。理想情况下，这些目录应该有自己的独立路径，并与*不* Elasticsearch 应用程序目录位于同一位置。然后将 `ES_PATH_CONF` 环境变量设置为包含 `elasticsearch.yml`（例如， `/etc/elasticsearch/`）。在中 `elasticsearch.yml`，将和 设置为 `path.data` 和 `logs` `data` 目录（例如， `/var/lib/elasticsearch` 和 `path.logs` `/var/log/opensearch`）。
 
-1. Restart Elasticsearch OSS on the node (rolling) or all nodes (cluster restart).
+1. 在节点（滚动）或所有节点（集群重启）上重启 Elasticsearch OSS。
 
-   On Linux distributions that use systemd, use this command:
+   在使用 systemd 的 Linux 发行版上，使用以下命令：
 
    ```bash
    sudo systemctl start elasticsearch.service
    ```
 
-   For tarball installations, run `./bin/elasticsearch -d`.
+   对于 tarball 安装，请运行 `./bin/elasticsearch -d`。
 
-1. Wait for the node to rejoin the cluster (rolling) or for the cluster to start (cluster restart). Check the `_nodes` summary to verify that all nodes are available and running the expected version:
+1. 等待节点重新加入集群（滚动）或集群启动（集群重启）。 `_nodes` 检查摘要以验证所有节点是否都可用并运行预期版本：
 
    ```bash
    # Elasticsearch OSS
@@ -90,11 +85,11 @@ If you are migrating an Open Distro for Elasticsearch cluster, we recommend firs
    curl -XGET 'https://localhost:9200/_nodes/_all?pretty=true' -u 'admin:admin' -k
    ```
 
-   Specifically, check the `nodes.<node-id>.version` portion of the response. Also check `_cat/indices?v` for a green status on all indexes.
+   具体而言，请检查 `nodes.<node-id>.version` 响应的部分。此外，检查 `_cat/indices?v` 所有索引的绿色状态。
 
-1. (Rolling) Repeat steps 2--5 until all nodes are using the new version.
+1. （滚动）重复步骤 2--5，直到所有节点都使用新版本。
 
-1. After all nodes are using the new version, re-enable shard allocation:
+1. 所有节点都使用新版本后，重新启用分片分配：
 
    ```json
    PUT _cluster/settings
@@ -105,14 +100,14 @@ If you are migrating an Open Distro for Elasticsearch cluster, we recommend firs
    }
    ```
 
-1. If you upgraded from 5.x to 6.x, [reindex]({{site.url}}{{site.baseurl}}/opensearch/reindex-data/) all indexes.
+1. 如果从 5.x 升级到 6.x，[reindex]({{site.url}}{{site.baseurl}}/opensearch/reindex-data/)则所有索引。
 
-1. Repeat all steps as necessary until you arrive at your desired Elasticsearch OSS version.
+1. 根据需要重复所有步骤，直到获得所需的 Elasticsearch OSS 版本。
 
 
-## Migrate to OpenSearch
+## 迁移到 OpenSearch
 
-1. Disable shard allocation to prevent Elasticsearch OSS from replicating shards as you shut down nodes:
+1. 关闭分片分配，防止 Elasticsearch OSS 在关闭节点时复制分片：
 
    ```json
    PUT _cluster/settings
@@ -123,25 +118,25 @@ If you are migrating an Open Distro for Elasticsearch cluster, we recommend firs
    }
    ```
 
-1. Stop Elasticsearch OSS on one node (rolling upgrade) or all nodes (cluster restart upgrade).
+1. 在一个节点（滚动升级）或所有节点（集群重启升级）上停止 Elasticsearch OSS。
 
-   On Linux distributions that use systemd, use this command:
+   在使用 systemd 的 Linux 发行版上，使用以下命令：
 
    ```bash
    sudo systemctl stop elasticsearch.service
    ```
 
-   For tarball installations, find the process ID (`ps aux`) and kill it (`kill <pid>`).
+   对于 tarball 安装，找到进程 ID（）并终止它（ `ps aux` `kill <pid>`）。
 
-1. Upgrade the node (rolling) or all nodes (cluster restart).
+1. 升级节点（滚动）或所有节点（群集重启）。
 
-   1. Extract the OpenSearch tarball to a new directory to ensure you **do not overwrite** your Elasticsearch OSS `config`, `data`, and `logs` directories.
+   1. 将 OpenSearch 压缩包解压缩到新目录，以确保你的**不覆盖** Elasticsearch OSS `config`、 `data` 和 `logs` 目录。
 
-   1. (Optional) Copy or move your Elasticsearch OSS `data` and `logs` directories to new paths. For example, you might move `/var/lib/elasticsearch` to `/var/lib/opensearch`.
+   1. （可选）将 Elasticsearch OSS `data` 和 `logs` 目录复制或移动到新路径。例如，你可以移动到 `/var/lib/elasticsearch` `/var/lib/opensearch`。
 
-   1. Set the `OPENSEARCH_PATH_CONF` environment variable to the directory that contains `opensearch.yml` (for example, `/etc/opensearch`).
+   1. 将 `OPENSEARCH_PATH_CONF` 环境变量设置为包含 `opensearch.yml`（例如， `/etc/opensearch`）。
 
-   1. In `opensearch.yml`, set `path.data` and `path.logs`. You might also want to disable the Security plugin for now. `opensearch.yml` might look something like this:
+   1. 在 `opensearch.yml`、和 `path.data` `path.logs` 中。你可能还想暂时禁用安全插件。 `opensearch.yml` 可能看起来像这样：
 
       ```yml
       path.data: /var/lib/opensearch
@@ -149,21 +144,21 @@ If you are migrating an Open Distro for Elasticsearch cluster, we recommend firs
       plugins.security.disabled: true
       ```
 
-   1. Port your settings from `elasticsearch.yml` to `opensearch.yml`. Most settings use the same names. At a minimum, specify `cluster.name`, `node.name`, `discovery.seed_hosts`, and `cluster.initial_cluster_manager_nodes`.
+   1. 将你的设置从 `elasticsearch.yml` 移植到 `opensearch.yml`。大多数设置使用相同的名称。至少指定 `cluster.name`、、 `node.name` `discovery.seed_hosts` 和 `cluster.initial_cluster_manager_nodes`。
 
-   1. (Optional) If you're actively connecting to the cluster with legacy clients that check for a particular version number, such as Logstash OSS, add a [compatibility setting]({{site.url}}{{site.baseurl}}/tools/index/) to `opensearch.yml`:
+   1. （可选）如果你使用检查特定版本号的旧客户端（例如 Logstash OSS）主动连接到集群，请将 a [兼容性设置]({{site.url}}{{site.baseurl}}/tools/index/)添加到 `opensearch.yml`：
 
       ```yml
       compatibility.override_main_response_version: true
       ```
 
-   1. (Optional) Add your certificates to your `config` directory, add them to `opensearch.yml`, and initialize the Security plugin.
+   1. （可选）将证书添加到 `config` 目录，将其 `opensearch.yml` 添加到，然后初始化 Security 插件。
 
-1. Start OpenSearch on the node (rolling) or all nodes (cluster restart).
+1. 在节点（滚动）或所有节点（集群重启）上启动 OpenSearch。
 
-   For the tarball, run `./bin/opensearch -d`.
+   对于 tarball，请运行 `./bin/opensearch -d`.
 
-1. Wait for the OpenSearch node to rejoin the cluster (rolling) or for the cluster to start (cluster restart). Check the `_nodes` summary to verify that all nodes are available and running the expected version:
+1. 等待 OpenSearch 节点重新加入集群（滚动）或集群启动（集群重启）。 `_nodes` 检查摘要以验证所有节点是否都可用并运行预期版本：
 
    ```bash
    # Security plugin disabled
@@ -172,11 +167,11 @@ If you are migrating an Open Distro for Elasticsearch cluster, we recommend firs
    curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_nodes/_all?pretty=true'
    ```
 
-   Specifically, check the `nodes.<node-id>.version` portion of the response. Also check `_cat/indices?v` for a green status on all indexes.
+   具体而言，请检查 `nodes.<node-id>.version` 响应的部分。此外，检查 `_cat/indices?v` 所有索引的绿色状态。
 
-1. (Rolling) Repeat steps 2--5 until all nodes are using OpenSearch.
+1. （滚动）重复步骤 2--5，直到所有节点都使用 OpenSearch。
 
-1. After all nodes are using the new version, re-enable shard allocation:
+1. 所有节点都使用新版本后，重新启用分片分配：
 
    ```json
    PUT _cluster/settings
@@ -187,32 +182,31 @@ If you are migrating an Open Distro for Elasticsearch cluster, we recommend firs
    }
    ```
 
-## Upgrade tool
+## 升级工具
 
-The `opensearch-upgrade` tool lets you automate some of the steps in [Migrate to OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-to/upgrade-to/#migrate-to-opensearch), eliminating the need for error-prone manual operations.
+该 `opensearch-upgrade` 工具可让你自动执行中的某些步骤[迁移到 OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-to/upgrade-to/#migrate-to-opensearch)，而无需进行容易出错的手动操作。
 
-The `opensearch-upgrade` tool performs the following functions:
+该 `opensearch-upgrade` 工具执行以下功能：
 
-- Imports any existing configurations and applies it to the new installation of OpenSearch.
-- Installs any existing core plugins.
+- 导入任何现有配置并将其应用于 OpenSearch 的新安装。
+- 安装任何现有的核心插件。
 
-### Limitations
+### 局限性
 
-The `opensearch-upgrade` tool doesn't perform an end-to-end upgrade:
+该工具不执行端到端升级：The `opensearch-upgrade` tool doesn't perform an end-to-end upgrade：
 
-- You need to run the tool on each node of the cluster individually as part of the upgrade process.
-- The tool doesn't provide a rollback option after you've upgraded a node, so make sure you follow best practices and take backups.
-- You must install all community plugins (if available) manually.
-- The tool only validates any keystore settings at service start-up time, so you must manually remove any unsupported settings for the service to start.
+- 作为升级过程的一部分，你需要在群集的每个节点上单独运行该工具。
+- 升级节点后，该工具不提供回滚选项，因此请确保遵循最佳实践并进行备份。
+- 你必须手动安装所有社区插件（如果可用）。
+- 该工具仅在服务启动时验证任何密钥库设置，因此你必须手动删除任何不受支持的设置才能启动服务。
 
-### Using the upgrade tool
+### 使用升级工具
 
-To perform a rolling upgrade using the [OpenSearch tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) distribution:
+要使用发行版执行滚动升级，[OpenSearch 压缩包]({{site.url}}{{site.baseurl}}/opensearch/install/tar/)请执行以下操作：
 
-Check [Migration paths]({{site.url}}{{site.baseurl}}/upgrade-to/upgrade-to/#migration-paths) to make sure that the version you’re upgrading to is supported and whether you need to upgrade to a supported Elasticsearch OSS version first.
-{: .note }
+检查[迁移路径]({{site.url}}{{site.baseurl}}/upgrade-to/upgrade-to/#migration-paths)以确保你要升级到的版本受支持，以及是否需要先升级到受支持的 Elasticsearch OSS 版本。{：.note }
 
-1. Disable shard allocation to prevent Elasticsearch OSS from replicating shards as you shut down nodes:
+1. 关闭分片分配，防止 Elasticsearch OSS 在关闭节点时复制分片：
 
    ```json
    PUT _cluster/settings
@@ -223,62 +217,61 @@ Check [Migration paths]({{site.url}}{{site.baseurl}}/upgrade-to/upgrade-to/#migr
    }
    ```
 
-1. On any one of the nodes, download and extract the OpenSearch tarball to a new directory.
+1. 在任何一个节点上，下载 OpenSearch tarball 并将其解压缩到新目录。
 
-1. Make sure the following environment variables are set:
+1. 请确保设置了以下环境变量：
 
-    - `ES_HOME` - Path to the existing Elasticsearch installation home.
+    -  `ES_HOME` - 现有 Elasticsearch 安装主页的路径。
 
       ```bash
       export ES_HOME=/home/workspace/upgrade-demo/node1/elasticsearch-7.10.2
       ```
 
-    - `ES_PATH_CONF` - Path to the existing Elasticsearch config directory.
+    -  `ES_PATH_CONF` - 现有 Elasticsearch 配置目录的路径。
 
       ```bash
       export ES_PATH_CONF=/home/workspace/upgrade-demo/node1/os-config
       ```
 
-    - `OPENSEARCH_HOME` - Path to the OpenSearch installation home.
+    -  `OPENSEARCH_HOME` - OpenSearch 安装主页的路径。
 
       ```bash
       export OPENSEARCH_HOME=/home/workspace/upgrade-demo/node1/opensearch-1.0.0
       ```
 
-    - `OPENSEARCH_PATH_CONF` - Path to the OpenSearch config directory.
+    -  `OPENSEARCH_PATH_CONF` - OpenSearch 配置目录的路径。
 
       ```bash
       export OPENSEARCH_PATH_CONF=/home/workspace/upgrade-demo/node1/opensearch-config
       ```
 
-1. The `opensearch-upgrade` tool is in the `bin` directory of the distribution. Run the following command from the distribution home:
+1. 该 `opensearch-upgrade` 工具位于 `bin` 发行版的目录中。从分发主目录运行以下命令：
 
-   Make sure you run this tool as the same user running the current Elasticsearch service.
-   {: .note }
+   请确保你以运行当前 Elasticsearch 服务的同一用户身份运行此工具。{：.note }
 
    ```json
    ./bin/opensearch-upgrade
    ```
 
-1. Stop Elasticsearch OSS on the node.
+1. 在节点上停止 Elasticsearch OSS。
 
-   On Linux distributions that use systemd, use this command:
+   在使用 systemd 的 Linux 发行版上，使用以下命令：
 
    ```bash
    sudo systemctl stop elasticsearch.service
    ```
 
-   For tarball installations, find the process ID (`ps aux`) and kill it (`kill <pid>`).
+   对于 tarball 安装，找到进程 ID（）并终止它（ `ps aux` `kill <pid>`）。
 
-1. Start OpenSearch on the node:
+1. 在节点上启动 OpenSearch：
 
    ```json
    ./bin/opensearch -d.
    ```
 
-1. Repeat steps 2--6 until all nodes are using the new version.
+1. 重复步骤 2--6，直到所有节点都使用新版本。
 
-1. After all nodes are using the new version, re-enable shard allocation:
+1. 所有节点都使用新版本后，重新启用分片分配：
 
    ```json
    PUT _cluster/settings
@@ -289,13 +282,13 @@ Check [Migration paths]({{site.url}}{{site.baseurl}}/upgrade-to/upgrade-to/#migr
    }
    ```
 
-### How it works
+### 运作方式
 
-Behind the scenes, the `opensearch-upgrade` tool performs the following tasks in sequence:
+在后台，该 `opensearch-upgrade` 工具按顺序执行以下任务：
 
-1. Looks for a valid Elasticsearch installation on the current node. After it finds the installation, it reads the `elasticsearch.yml` file to get the endpoint details and connects to the locally running Elasticsearch service. If the tool can't find an Elasticsearch installation, it tries to get the path from the `ES_HOME` location.
-1. Verifies if the existing version of Elasticsearch is compatible with the OpenSearch version. It prints a summary of the information gathered to the console and prompts you for a confirmation to proceed.
-1. Imports the settings from the `elasticsearch.yml` config file into the `opensearch.yml` config file.
-1. Copies across any custom JVM options from the `$ES_PATH_CONF/jvm.options.d` directory into the `$OPENSEARCH_PATH_CONF/jvm.options.d` directory. Similarly, it also imports the logging configurations from the `$ES_PATH_CONF/log4j2.properties` file into the `$OPENSEARCH_PATH_CONF/log4j2.properties` file.
-1. Installs the core plugins that you’ve currently installed in the `$ES_HOME/plugins` directory. You must install all other third-party community plugins manually.
-1. Imports the secure settings from the `elasticsearch.keystore` file (if any) into the `opensearch.keystore` file. If the keystore file is password protected, the `opensearch-upgrade` tool prompts you to enter the password.
+1. 在当前节点上查找有效的 Elasticsearch 安装。找到安装后，它会读取 `elasticsearch.yml` 文件以获取端点详细信息，并连接到本地运行的 Elasticsearch 服务。如果该工具找不到 Elasticsearch 安装，它会尝试从该 `ES_HOME` 位置获取路径。
+1. 验证 Elasticsearch 的现有版本是否与 OpenSearch 版本兼容。它将收集到的信息摘要打印到控制台，并提示你确认以继续。
+1. 将配置文件中的设置 `elasticsearch.yml` 导入到配置文件中 `opensearch.yml`。
+1. 将任何自定义 JVM 选项从 `$ES_PATH_CONF/jvm.options.d` 目录 `$OPENSEARCH_PATH_CONF/jvm.options.d` 复制到目录中。同样，它还将日志记录配置从 `$ES_PATH_CONF/log4j2.properties` 文件导入到 `$OPENSEARCH_PATH_CONF/log4j2.properties` 文件中。
+1. 安装你当前已安装在 `$ES_HOME/plugins` 目录中的核心插件。你必须手动安装所有其他第三方社区插件。
+1. 将安全设置从 `elasticsearch.keystore` 文件（如果有）导入到 `opensearch.keystore` 文件中。如果密钥库文件受密码保护，那么该 `opensearch-upgrade` 工具会提示你输入密码。

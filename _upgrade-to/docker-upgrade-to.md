@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Migrating Docker clusters to OpenSearch
+title: 将 Docker 集群迁移到 OpenSearch
 nav_order: 25
 ---
 
-# Migrating Docker clusters to OpenSearch
+# 将 Docker 集群迁移到 OpenSearch
 
-If you use a container orchestration system like Kubernetes (or manage your containers manually) and want to avoid downtime, think of the process not as an upgrade of each node, but as a decommissioning and replacement of each node. One by one, add OpenSearch nodes to the cluster and remove Elasticsearch OSS nodes, pointing to existing data volumes as necessary and allowing time for all indexes to return to a green status prior to proceeding.
+如果你使用 Kubernetes 等容器编排系统（或手动管理容器）并希望避免停机，请不要将该过程视为每个节点的升级，而是每个节点的停用和替换。将 OpenSearch 节点逐个添加到集群并删除 Elasticsearch OSS 节点，根据需要指向现有数据卷，并留出时间让所有索引恢复到绿色状态，然后再继续。
 
-If you use Docker Compose, we highly recommend that you perform what amounts to a [cluster restart upgrade]({{site.url}}{{site.baseurl}}/upgrade-to/upgrade-to/). Update your cluster configuration with new images, new settings, and new environment variables, and test it. Then stop and start the cluster. This process requires downtime, but takes very few steps and lets you continue to treat the cluster as a single entity that you can reliably deploy and redeploy.
+如果你使用 Docker Compose，我们强烈建议你执行相当于[集群重启升级]({{site.url}}{{site.baseurl}}/upgrade-to/upgrade-to/).使用新映像、新设置和新环境变量更新群集配置，并对其进行测试。然后停止并启动群集。此过程需要停机，但只需很少的步骤，并允许你继续将群集视为可以可靠地部署和重新部署的单个实体。
 
-The most important step is to leave your data volumes intact. **Don't** run `docker-compose down -v`.
+最重要的一步是保持数据量完好无损。**不要**运行 `docker-compose down -v`。
