@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Configuring OpenSearch
+title: 配置 OpenSearch
 nav_order: 10
 has_children: true
 redirect_from:
@@ -8,56 +8,55 @@ redirect_from:
   - /opensearch/configuration/
 ---
 
-# Configuring OpenSearch
+# 配置 OpenSearch
 
-There are two types of OpenSearch settings: [dynamic](#dynamic-settings) and [static](#static-settings).
+有两种类型的 OpenSearch 设置：[dynamic](#dynamic-settings)和[static](#static-settings).
 
-## Dynamic settings
+## 动态设置
 
-Dynamic index settings are settings that you can update at any time. You can configure dynamic OpenSearch settings through the Cluster Settings API. For details, see [Update cluster settings using the API](#updating-cluster-settings-using-the-api).
+动态索引设置是可以随时更新的设置。你可以通过集群设置 API 配置动态 OpenSearch 设置。有关详细信息，请参见[使用 API 更新群集设置](#updating-cluster-settings-using-the-api)。
 
-Whenever possible, use the Cluster Settings API; `opensearch.yml` is local to each node, whereas the API applies the setting to all nodes in the cluster. 
-{: .tip}
+尽可能使用群集设置 API; `opensearch.yml` 是每个节点的本地设置，而 API 将设置应用于集群中的所有节点。{：.tip}
 
-## Static settings
+## 静态设置
 
-Certain operations are static and require you to modify the `opensearch.yml` [configuration file](#configuration-file) and restart the cluster. In general, these settings relate to networking, cluster formation, and the local file system. To learn more, see [Cluster formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/).
+某些操作是静态的，需要你修改 `opensearch.yml` [配置文件](#configuration-file)并重新启动集群。通常，这些设置与网络、群集形成和本地文件系统有关。要了解更多信息，请参阅[集群形成]({{site.url}}{{site.baseurl}}/opensearch/cluster/)。
 
-## Specifying settings as environment variables
+## 将设置指定为环境变量
 
-You can specify environment variables as arguments using `-E` when launching OpenSearch:
+你可以在启动 OpenSearch 时将 `-E` 环境变量指定为参数：
 
 ```bash
 ./opensearch -Ecluster.name=opensearch-cluster -Enode.name=opensearch-node1 -Ehttp.host=0.0.0.0 -Ediscovery.type=single-node
 ```
 {% include copy.html %}
 
-## Updating cluster settings using the API
+## 使用 API 更新集群设置
 
-The first step in changing a setting is to view the current settings by sending the following request:
+更改设置的第一步是通过发送以下请求来查看当前设置：
 
 ```json
 GET _cluster/settings?include_defaults=true
 ```
 {% include copy-curl.html %}
 
-For a more concise summary of non-default settings, send the following request:
+有关非默认设置的更简明摘要，请发送以下请求：
 
 ```json
 GET _cluster/settings
 ```
 {% include copy-curl.html %}
 
-Three categories of setting exist in the cluster settings API: persistent, transient, and default. Persistent settings, well, persist after a cluster restart. After a restart, OpenSearch clears transient settings.
+群集设置 API 中存在三类设置：持久性、暂时性和默认值。持久性设置在集群重新启动后仍然存在。重新启动后，OpenSearch 会清除暂时性设置。
 
-If you specify the same setting in multiple places, OpenSearch uses the following precedence:
+如果你在多个位置指定相同的设置，OpenSearch 将使用以下优先级：
 
-1. Transient settings
-2. Persistent settings
-3. Settings from `opensearch.yml`
-4. Default settings
+1. 瞬态设置
+2. 持久性设置
+3. 设置 `opensearch.yml`
+4. 默认设置
 
-To change a setting, use the [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) and specify the new value as either persistent or transient. This example shows the flat settings form:
+若要更改设置，请使用[群集设置 API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/)并将新值指定为持久值或瞬态值。此示例显示平面设置窗体：
 
 ```json
 PUT _cluster/settings
@@ -69,7 +68,7 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-You can also use the expanded form, which lets you copy and paste from the GET response and change existing values:
+你还可以使用扩展的表单，该表单允许你从 GET 响应中复制和粘贴并更改现有值：
 
 ```json
 PUT _cluster/settings
@@ -85,15 +84,15 @@ PUT _cluster/settings
 
 ---
 
-## Configuration file
+## 配置文件
 
-You can find `opensearch.yml` in `/usr/share/opensearch/config/opensearch.yml` (Docker) or `/etc/opensearch/opensearch.yml` (most Linux distributions) on each node.
+你可以在每个节点上的（Docker）或 `/etc/opensearch/opensearch.yml`（大多数 Linux 发行版）中找到。 `opensearch.yml` `/usr/share/opensearch/config/opensearch.yml`
 
-You can edit the `OPENSEARCH_PATH_CONF=/etc/opensearch` to change the config directory location. This variable is sourced from `/etc/default/opensearch`(Debian package) and `/etc/sysconfig/opensearch`(RPM package).
+你可以编辑 `OPENSEARCH_PATH_CONF=/etc/opensearch` 以更改配置目录位置。这个变量来源于 `/etc/default/opensearch`（Debian 软件包）和 `/etc/sysconfig/opensearch`（RPM 软件包）。
 
-If you set your customized `OPENSEARCH_PATH_CONF` variable, be aware that other default environment variables will not be loaded.
+如果设置自定义 `OPENSEARCH_PATH_CONF` 变量，请注意不会加载其他默认环境变量。
 
-You don't mark settings in `opensearch.yml` as persistent or transient, and settings use the flat form:
+不会将设置标记为持久性或暂时性，并且设置 `opensearch.yml` 使用平面形式：
 
 ```yml
 cluster.name: my-application
@@ -101,11 +100,11 @@ action.auto_create_index: true
 compatibility.override_main_response_version: true
 ```
 
-The demo configuration includes a number of [settings for the Security plugin]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/) that you should modify before using OpenSearch for a production workload. To learn more, see [Security]({{site.url}}{{site.baseurl}}/security/).
+演示配置包括在将 OpenSearch 用于生产工作负载之前应修改的一些[安全插件的设置]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/)配置。要了解更多信息，请参阅[Security]({{site.url}}{{site.baseurl}}/security/)。
 
-### (Optional) CORS header configuration
+### （可选）CORS 标头配置
 
-If you are working on a client application running against an OpenSearch cluster on a different domain, you can configure headers in `opensearch.yml` to allow for developing a local application on the same machine. Use [Cross Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) so that your application can make calls to the OpenSearch API running locally. Add the following lines in your `custom-opensearch.yml` file (note that the "-" must be the first character in each line).
+如果你正在处理针对不同域上的 OpenSearch 集群运行的客户端应用程序，则可以配置标头 `opensearch.yml` 以允许在同一台计算机上开发本地应用程序。使用[跨域资源共享](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)，以便你的应用程序可以调用本地运行的 OpenSearch API。在 `custom-opensearch.yml` 文件中添加以下行（请注意，“-”必须是每行中的第一个字符）。
 ```yml
 - http.host:0.0.0.0
 - http.port:9200

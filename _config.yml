@@ -1,6 +1,6 @@
 title: OpenSearch 文档
 description: >- # this means to ignore newlines until "baseurl:"
-  Documentation for OpenSearch, the Apache 2.0 search, analytics, and visualization suite with advanced security, alerting, SQL support, automated index management, deep performance analysis, and more.
+  OpenSearch文档，Apache 2.0搜索、分析和可视化套件，具有高级安全、警报、SQL支持、自动索引管理、深度性能分析等。
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://victorxst.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/

@@ -1,121 +1,117 @@
 ---
 layout: default
-title: Upgrading OpenSearch
+title: 升级 OpenSearch
 nav_order: 20
 has_children: true
 redirect_from:
   - /upgrade-opensearch/index/
 ---
 
-# Upgrading OpenSearch
+# 升级 OpenSearch
 
-The OpenSearch Project releases regular updates that include new features, enhancements, and bug fixes. OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. To learn about upcoming features and fixes, review the [OpenSearch Project Roadmap](https://github.com/orgs/opensearch-project/projects/1) on GitHub. To view a list of previous releases or to learn more about how OpenSearch uses versioning, see [Release Schedule and Maintenance Policy]({{site.url}}/releases.html).
+OpenSearch 项目会定期发布更新，其中包括新功能、增强功能和错误修复。OpenSearch 使用[语义版本控制](https://semver.org/)，这意味着仅在主要版本发布之间引入重大更改。若要了解即将推出的功能和修补程序，请查看[OpenSearch 项目路线图](https://github.com/orgs/opensearch-project/projects/1) GitHub。要查看先前版本的列表或了解有关 OpenSearch 如何使用版本控制的更多信息，请参阅[发布计划和维护政策]({{site.url}}/releases.html)。
 
-We recognize that users are excited about upgrading OpenSearch in order to enjoy the latest features, and we will continue to expand on these upgrade and migration documents to cover additional topics, such as upgrading OpenSearch Dashboards and preserving custom configurations, such as for plugins. To see what's coming next or to make a request for future content, leave a comment on the [upgrade and migration documentation meta issue](https://github.com/opensearch-project/documentation-website/issues/2830) in the [OpenSearch Project](https://github.com/opensearch-project) on GitHub.
+我们认识到，用户对升级 OpenSearch 以享受最新功能感到兴奋，我们将继续扩展这些升级和迁移文档，以涵盖其他主题，例如升级 OpenSearch 控制面板和保留自定义配置，例如插件。要查看接下来会发生什么或对未来内容提出请求，请在 GitHub 上[OpenSearch 项目](https://github.com/opensearch-project)发表评论[升级和迁移文档元问题](https://github.com/opensearch-project/documentation-website/issues/2830)。
 
-If you would like a specific process to be added or would like to contribute, [create an issue](https://github.com/opensearch-project/documentation-website/issues) on GitHub. See the [Contributor Guidelines](https://github.com/opensearch-project/documentation-website/blob/main/CONTRIBUTING.md) to learn how you can help.
-{: .tip}
+如果你希望添加特定流程或想要做出贡献，[创建问题](https://github.com/opensearch-project/documentation-website/issues)请在 GitHub 上。请参阅以[贡献者指南](https://github.com/opensearch-project/documentation-website/blob/main/CONTRIBUTING.md)了解如何提供帮助。{：.tip}
 
-## Workflow considerations
+## 工作流注意事项
 
-Take time to plan the process before making any changes to your cluster. For example, consider the following questions:
+在对群集进行任何更改之前，请花点时间规划该过程。例如，请考虑以下问题：
 
-- How long will the upgrade process take?
-- If your cluster is being used in production, how impactful is downtime?
-- Do you have infrastructure in place to stand up the new cluster in a testing or development environment before you move it into production, or do you need to upgrade the production hosts directly?
+- 升级过程需要多长时间？
+- 如果你的集群在生产中使用，停机的影响有多大？
+- 在将新集群迁移到生产环境之前，你是否有适当的基础结构来在测试或开发环境中建立新集群，或者是否需要直接升级生产主机？
 
-The answers to questions like these will help you determine which upgrade path will work best in your environment.
+此类问题的答案将帮助你确定哪种升级路径最适合你的环境。
 
-At a minimum, you should be:
+你至少应该：
 
-- [Reviewing breaking changes](#reviewing-breaking-changes).
-- [Reviewing the OpenSearch tools compatibility matrices](#reviewing-the-opensearch-tools-compatibility-matrices).
-- [Reviewing plugin compatibility](#reviewing-plugin-compatibility).
-- [Backing up configuration files](#backing-up-configuration-files).
-- [Creating a snapshot](#creating-a-snapshot).
+- [查看中断性变更](#reviewing-breaking-changes).
+- [查看 OpenSearch 工具兼容性矩阵](#reviewing-the-opensearch-tools-compatibility-matrices).
+- [查看插件兼容性](#reviewing-plugin-compatibility).
+- [备份配置文件](#backing-up-configuration-files).
+- [创建快照](#creating-a-snapshot).
 
-Stop any nonessential indexing before you begin the upgrade procedure to eliminate unnecessary resource demands on the cluster while you perform the upgrade.
-{: .tip}
+在开始升级过程之前停止任何不必要的索引，以消除在执行升级时对群集的不必要的资源需求。{：.tip}
 
-### Reviewing breaking changes
+### 查看中断性变更
 
-It's important to determine how the new version of OpenSearch will integrate with your environment. Review [Breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/) before beginning any upgrade procedures to determine whether you will need to make adjustments to your workflow. For example, upstream or downstream components might need to be modified to be compatible with an API change (see meta issue [#2589](https://github.com/opensearch-project/OpenSearch/issues/2589)).
+确定新版本的 OpenSearch 将如何与你的环境集成非常重要。在开始任何升级过程之前，请查看[中断性变更]({{site.url}}{{site.baseurl}}/breaking-changes/)以确定是否需要对工作流进行调整。例如，可能需要修改上游或下游组件以与 API 更改兼容（请参阅元问题[#2589](https://github.com/opensearch-project/OpenSearch/issues/2589)）。
 
-### Reviewing the OpenSearch tools compatibility matrices
+### 查看 OpenSearch 工具兼容性矩阵
 
-If your OpenSearch cluster interacts with other services in your environment, like Logstash or Beats, then you should check the [OpenSearch tools compatibility matrices]({{site.url}}{{site.baseurl}}/tools/index/#compatibility-matrices) to determine whether other components will need to be upgraded.
+如果你的 OpenSearch 集群与环境中的其他服务（如 Logstash 或 Beats）交互，则应检查以确定[OpenSearch 工具兼容性矩阵]({{site.url}}{{site.baseurl}}/tools/index/#compatibility-matrices)是否需要升级其他组件。
 
-### Reviewing plugin compatibility
+### 查看插件兼容性
 
-Review the plugins you use to determine compatibility with the target version of OpenSearch. Official OpenSearch Project plugins can be found in the [OpenSearch Project](https://github.com/opensearch-project) repository on GitHub. If you use any third-party plugins, then you should check the documentation for those plugins to determine whether they are compatible.
+查看你用于确定与目标 OpenSearch 版本的兼容性的插件。官方 OpenSearch 项目插件可在 GitHub 上的[OpenSearch 项目](https://github.com/opensearch-project)存储库中找到。如果你使用任何第三方插件，则应检查这些插件的文档以确定它们是否兼容。
 
-Go to [Available plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#available-plugins) to see a reference table that highlights version compatibility for bundled OpenSearch plugins.
+转到[可用的插件]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#available-plugins)查看参考表，其中突出显示了捆绑的 OpenSearch 插件的版本兼容性。
 
-Major, minor, and patch plugin versions must match OpenSearch major, minor, and patch versions in order to be compatible. For example, plugin versions 2.3.0.x work only with OpenSearch 2.3.0.
-{: .important}
+主要、次要和补丁插件版本必须与 OpenSearch 主要版本、次要版本和补丁版本匹配才能兼容。例如，插件版本 2.3.0.x 仅适用于 OpenSearch 2.3.0. {：.important}
 
-### Backing up configuration files
+### 备份配置文件
 
-Mitigate the risk of data loss by backing up any important files before you start an upgrade. Generally, these files will be located in either of two directories:
+通过在开始升级之前备份任何重要文件来降低数据丢失的风险。通常，这些文件将位于以下两个目录中的任何一个目录中：
 
-- `opensearch/config`
-- `opensearch-dashboards/config`
+-  `opensearch/config`
+-  `opensearch-dashboards/config`
 
-Some examples include `opensearch.yml`, `opensearch_dashboards.yml`, plugin configuration files, and TLS certificates. Once you identify which files you want to back up, copy them to remote storage for safety.
+一些示例包括 `opensearch.yml`、 `opensearch_dashboards.yml`、插件配置文件和 TLS 证书。确定要备份的文件后，请将它们复制到远程存储以确保安全。
 
-If you use security features, make sure to read [A word of caution]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) for information about backing up and restoring your security settings.
+如果你使用安全功能，请务必阅读[一句警告]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution)有关备份和恢复安全设置的信息。
 
-### Creating a snapshot
+### 创建快照
 
-We recommend that you back up your cluster state and indexes using [snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/). Snapshots you take before an upgrade can be used as restore points if you need to roll back the cluster to its original version.
+我们建议你使用[snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/)备份集群状态和索引。如果需要将群集回滚到其原始版本，则可以将升级前拍摄的快照用作还原点。
 
-You can further reduce the risk of data loss by storing your snapshots on external storage, such as a mounted Network File System (NFS) or a cloud storage solution like those listed in the following table.
+通过将快照存储在外部存储（例如挂载的网络文件系统（NFS）或下表中列出的云存储解决方案）上，可以进一步降低数据丢失的风险。
 
-| Snapshot repository location | Required OpenSearch plugin |
+|快照存储库位置| Required OpenSearch plugin |
 | :--- | :--- |
-| [Amazon Simple Storage Service (Amazon S3)](https://aws.amazon.com/s3/) | [repository-s3](https://github.com/opensearch-project/OpenSearch/tree/{{site.opensearch_version}}/plugins/repository-s3) |
-| [Google Cloud Storage (GCS)](https://cloud.google.com/storage) | [repository-gcs](https://github.com/opensearch-project/OpenSearch/tree/{{site.opensearch_version}}/plugins/repository-gcs) |
-| [Apache Hadoop Distributed File System (HDFS)](https://hadoop.apache.org/) | [repository-hdfs](https://github.com/opensearch-project/OpenSearch/tree/{{site.opensearch_version}}/plugins/repository-hdfs) |
-| [Microsoft Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs) | [repository-azure](https://github.com/opensearch-project/OpenSearch/tree/{{site.opensearch_version}}/plugins/repository-azure) |
+| [Amazon Simple Storage Service (Amazon S3)](https://aws.amazon.com/s3/) |[存储库-S3](https://github.com/opensearch-project/OpenSearch/tree/{{site.opensearch_version}}/plugins/repository-s3)|
+| [Google Cloud Storage (GCS)](https://cloud.google.com/storage) |[存储库-GCS](https://github.com/opensearch-project/OpenSearch/tree/{{site.opensearch_version}}/plugins/repository-gcs)|
+| [Apache Hadoop Distributed File System (HDFS)](https://hadoop.apache.org/) |[存储库-hdfs](https://github.com/opensearch-project/OpenSearch/tree/{{site.opensearch_version}}/plugins/repository-hdfs)|
+| [Microsoft Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs) |[repository-azure](https://github.com/opensearch-project/OpenSearch/tree/{{site.opensearch_version}}/plugins/repository-azure)|
 
-## Upgrade methods
+## 升级方法
 
-Choose an appropriate method for upgrading your cluster to a new version of OpenSearch based on your requirements:
+根据你的要求，选择将集群升级到新版 OpenSearch 的适当方法：
 
-- A [rolling upgrade](#rolling-upgrade) upgrades nodes one at a time without stopping the cluster.
-- A [cluster restart upgrade](#cluster-restart-upgrade) upgrades services while the cluster is stopped.
+- A [滚动升级](#rolling-upgrade)在不停止集群的情况下一次升级一个节点。
+- A [集群重启升级](#cluster-restart-upgrade)在集群停止时升级服务。
 
-Upgrades spanning more than a single major version of OpenSearch will require additional effort due to the need for reindexing. For more information, refer to the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API. See the [Index compatibility reference](#index-compatibility-reference) table included later in this guide for help planning your data migration.
+由于需要重新编制索引，跨 OpenSearch 的多个主要版本进行升级将需要额外的工作。有关详细信息，请参阅[Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API。请参阅本指南后面包含的[索引兼容性参考](#index-compatibility-reference)表，以获取有关规划数据迁移的帮助。
 
-### Rolling upgrade
+### 滚动升级
 
-A rolling upgrade is a great option if you want to keep your cluster operational throughout the process. Data may continue to be ingested, analyzed, and queried as nodes are individually stopped, upgraded, and restarted. A variation of the rolling upgrade referred to as "node replacement" follows exactly the same process except that hosts and containers are not reused for the new node. You might perform node replacement if you are upgrading the underlying host(s) as well.
+如果要在整个过程中保持集群正常运行，滚动升级是一个不错的选择。当节点单独停止、升级和重新启动时，可能会继续引入、分析和查询数据。滚动升级的变体（称为“节点替换”）遵循完全相同的过程，只是主机和容器不会重新用于新节点。如果你还要升级底层主机，则可以执行节点替换。
 
-OpenSearch nodes cannot join a cluster if the cluster manager is running a newer version of OpenSearch than the node requesting membership. To avoid this issue, upgrade the cluster-manager-eligible nodes last.
+如果集群管理器运行的 OpenSearch 版本比请求成员资格的节点更新，则 OpenSearch 节点无法加入集群。为避免此问题，请最后升级符合 cluster-manager 条件的节点。
 
 
-See [Rolling Upgrade]({{site.url}}{{site.baseurl}}/install-and-configure/upgrade-opensearch/rolling-upgrade/) for more information about the process.
+有关该过程的详细信息，请参阅[滚动升级]({{site.url}}{{site.baseurl}}/install-and-configure/upgrade-opensearch/rolling-upgrade/)。
 
-### Cluster restart upgrade
+### 集群重启升级
 
-OpenSearch administrators might choose to perform a cluster restart upgrade for several reasons, such as if the administrator doesn't want to perform maintenance on a running cluster or if the cluster is being migrated to a different environment.
+OpenSearch 管理员可能出于多种原因选择执行集群重启升级，例如，如果管理员不想对正在运行的集群执行维护，或者集群要迁移到其他环境。
 
-Unlike a rolling upgrade, where only one node is offline at a time, a cluster restart upgrade requires you to stop OpenSearch and OpenSearch Dashboards on all nodes in the cluster before proceeding. After the nodes are stopped, a new version of OpenSearch is installed. Then OpenSearch is started and the cluster bootstraps to the new version.
+与一次只有一个节点脱机的滚动升级不同，集群重启升级要求你在继续之前停止集群中所有节点上的 OpenSearch 和 OpenSearch 控制面板。节点停止后，将安装新版本的 OpenSearch。然后启动 OpenSearch，集群引导到新版本。
 
-## Compatibility
+## 兼容性
 
-OpenSearch nodes are compatible with other OpenSearch nodes running any other *minor* version within the same *major* version release. For example, 1.1.0 is compatible with 1.3.7 because they are part of the same *major* version (1.x). Additionally, OpenSearch nodes and indexes are backward compatible with the previous major version. That means, for example, that an index created by an OpenSearch node running any 1.x version can be restored from a snapshot to an OpenSearch cluster running any 2.x version.
+OpenSearch 节点与在同一*主要*版本版本中运行任何其他*次要*版本的其他 OpenSearch 节点兼容。例如，1.1.0 与 1.3.7 兼容，因为它们属于同一*主要*版本（1.x）。此外，OpenSearch 节点和索引向后兼容之前的主要版本。这意味着，例如，由运行任何 1.x 版本的 OpenSearch 节点创建的索引可以从快照还原到运行任何 2.x 版本的 OpenSearch 集群。
 
-OpenSearch 1.x nodes are compatible with nodes running Elasticsearch 7.x, but the longevity of a mixed-version environment should not extend beyond cluster upgrade activities.
-{: .tip}
+OpenSearch 1.x 节点与运行 Elasticsearch 7.x 的节点兼容，但混合版本环境的寿命不应超出集群升级活动。{：.tip}
 
-Index compatibility is determined by the version of [Apache Lucene](https://lucene.apache.org/) that created the index. If an index was created by an OpenSearch cluster running version 1.0.0, then the index can be used by any other OpenSearch cluster running up to the latest 1.x or 2.x release. See the [Index compatibility reference](#index-compatibility-reference) table for Lucene versions running in OpenSearch 1.0.0 and later and [Elasticsearch](https://www.elastic.co/) 6.8 and later.
+索引兼容性由创建索引的[Apache Lucene](https://lucene.apache.org/)版本决定。如果索引是由运行版本 1.0.0 的 OpenSearch 集群创建的，则该索引可由运行到最新 1.x 或 2.x 版本的任何其他 OpenSearch 集群使用。请参阅表格，[索引兼容性参考](#index-compatibility-reference)了解在 OpenSearch 1.0.0 及更高版本以及[Elasticsearch 的](https://www.elastic.co/) 6.8 及更高版本中运行的 Lucene 版本。
 
-If your upgrade path spans more than a single major version and you want to retain any existing indexes, then you can use the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API to make your indexes compatible with the target version of OpenSearch before upgrading. For example, if your cluster is currently running Elasticsearch 6.8 and you want to upgrade to OpenSearch 2.x, then you must first upgrade to OpenSearch 1.x, recreate your indexes using the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API, and finally upgrade to 2.x. One alternative to reindexing is to reingest data from the origin, such as by replaying a data stream or ingesting data from a database.
+如果你的升级路径跨越多个主要版本，并且你希望保留任何现有索引，则可以在升级之前使用[Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API 使索引与 OpenSearch 的目标版本兼容。例如，如果你的集群当前运行的是 Elasticsearch 6.8，并且你想要升级到 OpenSearch 2.x，则必须先升级到 OpenSearch 1.x，使用[Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API 重新创建索引，最后升级到 2.x。重新编制索引的一种替代方法是从源重新引入数据，例如重播数据流或从数据库引入数据。
 
-### Index compatibility reference
+### 索引兼容性参考
 
-If you plan to retain old indexes after the OpenSearch version upgrade, then you might need to reindex or reingest the data. Refer to the following table for Lucene versions across recent OpenSearch and Elasticsearch releases.
+如果你计划在 OpenSearch 版本升级后保留旧索引，则可能需要重新编制索引或重新摄取数据。请参阅下表，了解最新 OpenSearch 和 Elasticsearch 版本中的 Lucene 版本。
 
 <style>
 table {
@@ -243,4 +239,4 @@ td {
         <td>6.8</td>
     </tr>
 </table>
-<p style="text-align:right"><sub><em>A dash (&#8212;) indicates that there is no product version containing the specified version of Apache Lucene.</em></sub></p>
+<p style="text-align:right"><sub><em>短划线（—）表示没有包含指定版本的 Apache Lucene 的产品版本。</em></sub></p>

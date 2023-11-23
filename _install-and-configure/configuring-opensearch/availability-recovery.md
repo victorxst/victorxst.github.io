@@ -1,72 +1,72 @@
 ---
 layout: default
-title: Availability and recovery settings
-parent: Configuring OpenSearch
+title: 可用性和恢复设置
+parent: 配置 OpenSearch
 nav_order: 90
 ---
 
-# Availability and recovery settings
+# 可用性和恢复设置
 
-Availability and recovery settings include settings for the following:
+可用性和恢复设置包括以下设置：
 
 - [Snapshots](#snapshot-settings)
-- [Cluster manager task throttling](#cluster-manager-task-throttling-settings)
-- [Remote-backed storage](#remote-backed-storage-settings)
-- [Search backpressure](#search-backpressure-settings)
-- [Shard indexing backpressure](#shard-indexing-backpressure-settings)
-- [Segment replication](#segment-replication-settings)
-- [Cross-cluster replication](#cross-cluster-replication-settings)
+- [集群管理器任务限制](#cluster-manager-task-throttling-settings)
+- [远程支持的存储](#remote-backed-storage-settings)
+- [搜索背压](#search-backpressure-settings)
+- [分片索引背压](#shard-indexing-backpressure-settings)
+- [区段复制](#segment-replication-settings)
+- [跨集群复制](#cross-cluster-replication-settings)
 
-To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+要了解有关静态和动态设置的详细信息，请参阅[配置 OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/)。
 
-## Snapshot settings
+## 快照设置
 
-OpenSearch supports the following snapshot settings:
+OpenSearch 支持以下快照设置：
 
-- `snapshot.max_concurrent_operations`(Dynamic, integer): The maximum number of concurrent snapshot operations. Default is `1000`. 
+-  `snapshot.max_concurrent_operations`（动态，整数）：最大并发快照操作数。缺省值为 `1000`。
 
-### Security-related snapshot settings
+### 与安全相关的快照设置
 
-For security-related snapshot settings, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/).
+有关与安全性相关的快照设置，请参见[安全设置]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/)。
 
-### File system settings
+### 文件系统设置
 
-For information about Amazon S3 repository settings, see [Amazon S3]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#shared-file-system).
+有关 Amazon S3 存储库设置的信息，请参阅[Amazon S3]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#shared-file-system)。
 
-### Amazon S3 settings
+### Amazon S3 设置
 
-For information about Amazon S3 repository settings, see [Amazon S3]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#amazon-s3).
+有关 Amazon S3 存储库设置的信息，请参阅[Amazon S3]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#amazon-s3)。
 
-## Cluster manager task throttling settings
+## 集群管理器任务限制设置
 
-For information about cluster manager task throttling settings, see [Setting throttling limits]({{site.url}}{{site.baseurl}}/tuning-your-cluster/cluster-manager-task-throttling/#setting-throttling-limits).
+有关集群管理器任务限制设置的信息，请参阅[设置限制]({{site.url}}{{site.baseurl}}/tuning-your-cluster/cluster-manager-task-throttling/#setting-throttling-limits)。
 
-## Remote-backed storage settings
+## 远程支持的存储设置
 
-OpenSearch supports the following cluster-level remote-backed storage settings:
+OpenSearch 支持以下集群级远程支持的存储设置：
 
-- `cluster.remote_store.translog.buffer_interval` (Dynamic, time unit): The default value of the translog buffer interval used when performing periodic translog updates. This setting is only effective when the index setting `index.remote_store.translog.buffer_interval` is not present. 
+-  `cluster.remote_store.translog.buffer_interval`（动态，时间单位）：执行定期 translog 更新时使用的 translog 缓冲区间隔的默认值。仅当索引设置不存在时，此设置 `index.remote_store.translog.buffer_interval` 才有效。
 
-- `remote_store.moving_average_window_size` (Dynamic, integer): The moving average window size used to calculate the rolling statistic values exposed through the [Remote Store Stats API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-store-stats-api/). Default is `20`. Minimum enforced is `5`. 
+-  `remote_store.moving_average_window_size`（动态，整数）：用于计算通过[远程存储统计信息 API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-store-stats-api/).缺省值为 `20`。强制执行的最小值为 `5`。
 
-For more remote-backed storage settings, see [Remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/) and [Configuring remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/#configuring-remote-backed-storage).
+有关更多远程支持的存储设置，请参阅[远程支持的存储]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/)和[配置远程支持的存储]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/#configuring-remote-backed-storage)。
 
-For remote segment backpressure settings, see [Remote segment backpressure settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/#remote-segment-backpressure-settings).
+有关远程管段背压设置，请参见[远程管片背压设置]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/#remote-segment-backpressure-settings)。
 
-## Search backpressure settings
+## 搜索背压设置
 
-Search backpressure is a mechanism used to identify resource-intensive search requests and cancel them when the node is under duress. For more information, see [Search backpressure settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/search-backpressure/#search-backpressure-settings).
+搜索背压是一种机制，用于识别资源密集型搜索请求，并在节点受到胁迫时取消它们。有关详细信息，请参阅[搜索背压设置]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/search-backpressure/#search-backpressure-settings)。
 
-## Shard indexing backpressure settings
+## 分片索引背压设置
 
-Shard indexing backpressure is a smart rejection mechanism at a per-shard level that dynamically rejects indexing requests when your cluster is under strain. For more information, see shard indexing backpressure [settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/shard-indexing-settings/).
+分片索引背压是每个分片级别的智能拒绝机制，可在集群处于压力状态时动态拒绝索引请求。有关更多信息，请参阅分片索引背压[settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/shard-indexing-settings/)。
 
-## Segment replication settings
+## 分段复制设置
 
-For information about segment replication settings, see [Segment replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/index/).
+有关分段复制设置的信息，请参见[区段复制]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/index/)。
 
-For information about segment replication backpressure settings, see [Segment replication backpressure]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/backpressure/).
+有关分段复制背压设置的信息，请参见[分段复制背压]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/backpressure/)。
 
-## Cross-cluster replication settings
+## 跨集群复制设置
 
-For information about cross-cluster replication settings, see [Replication settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/settings/).
+有关跨集群复制设置的信息，请参见[复制设置]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/settings/)。

@@ -1,43 +1,41 @@
 ---
 layout: default
-title: Installing plugins
+title: 安装插件
 nav_order: 90
 redirect_from:
    - /opensearch/install/plugins/
    - /install-and-configure/install-opensearch/plugins/
 ---
 
-# Installing plugins
+# 安装插件
 
-You can install individual plugins for OpenSearch based on your needs. For information about available plugins, see [Available plugins](#available-plugins).
+你可以根据需要为 OpenSearch 安装单独的插件。有关可用插件的信息，请参阅[可用的插件](#available-plugins)。
 
 
-For plugins to work properly with OpenSearch, all plugins must have the ability to access the data in the cluster, including metadata about cluster operations. Therefore, to protect your cluster's data and preserve its integrity, first be sure you understand the function of a plugin before installing it on your OpenSearch cluster. Second, when selecting a custom plugin, make sure the plugin's source is a reliable one.
-{: .warning}
+要使插件与 OpenSearch 正常工作，所有插件都必须能够访问集群中的数据，包括有关集群操作的元数据。因此，为了保护集群的数据并保持其完整性，请先确保你了解插件的功能，然后再将其安装在 OpenSearch 集群上。其次，在选择自定义插件时，请确保插件的来源是可靠的。{：.warning}
 
-## Managing plugins
+## 管理插件
 
-OpenSearch uses a command line tool called `opensearch-plugin` for managing plugins. This tool allows you to:
+OpenSearch 使用用于管理插件的 `opensearch-plugin` 命令行工具。此工具允许你：
 
-- [List](#list) installed plugins.
-- [Install](#install) plugins.
-- [Remove](#remove) an installed plugin.
+- [List](#list)已安装的插件。
+- [Install](#install)插件。
+- [Remove](#remove)已安装的插件。
 
-Print help text by passing `-h` or `--help`. Depending on your host configuration, you might also need to run the command with `sudo` privileges.
+通过传递 `-h` 或 `--help` 打印帮助文本。根据你的主机配置，你可能还需要使用 `sudo` 权限运行该命令。
 
-If you are running OpenSearch in a Docker container, plugins must be installed, removed, and configured by modifying the Docker image. For information, see [Working with plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker#working-with-plugins)
-{: .note}
+如果你在 Docker 容器中运行 OpenSearch，则必须通过修改 Docker 映像来安装、删除和配置插件。有关信息，请参阅[使用插件]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker#working-with-plugins) {：.note}
 
-## List
+## 列表
 
-Use `list` to see a list of plugins that have already been installed.
+用于 `list` 查看已安装的插件列表。
 
-#### Usage:
+#### 用法：
 ```bash
 bin/opensearch-plugin list
 ```
 
-#### Example:
+#### 例：
 ```bash
 $ ./opensearch-plugin list
 opensearch-alerting
@@ -58,15 +56,15 @@ opensearch-security
 opensearch-sql
 ```
 
-You can also list installed plugins by using the [CAT API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-plugins/).
+你还可以使用[CAT API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-plugins/)列出已安装的插件。
 
-#### Path and HTTP method
+#### 路径和 HTTP 方法
 
 ```bash
 GET _cat/plugins
 ```
 
-#### Sample response
+#### 示例响应
 
 ```bash
 opensearch-node1 opensearch-alerting                  2.0.1.0
@@ -81,24 +79,24 @@ opensearch-node1 opensearch-notifications             2.0.1.0
 opensearch-node1 opensearch-notifications-core        2.0.1.0
 ```
 
-## Install
+## 安装
 
-There are three ways to install plugins using the `opensearch-plugin`:
+有三种方法可以使用 `opensearch-plugin`：
 
-- [Install a plugin by name]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#install-a-plugin-by-name)
-- [Install a plugin by from a zip file]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#install-a-plugin-from-a-zip-file)
-- [Install a plugin using Maven coordinates]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#install-a-plugin-using-maven-coordinates)
+- [按名称安装插件]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#install-a-plugin-by-name)
+- [从 zip 文件安装插件]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#install-a-plugin-from-a-zip-file)
+- [使用 Maven 坐标安装插件]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#install-a-plugin-using-maven-coordinates)
 
-### Install a plugin by name:
+### 按名称安装插件：
 
-For a list of plugins that can be installed by name, see [Additional plugins]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#additional-plugins).
+有关可按名称安装的插件列表，请参阅[其他插件]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#additional-plugins)。
 
-#### Usage:
+#### 用法：
 ```bash
 bin/opensearch-plugin install <plugin-name>
 ```
 
-#### Example:
+#### 例：
 ```bash
 $ sudo ./opensearch-plugin install analysis-icu
 -> Installing analysis-icu
@@ -107,16 +105,16 @@ $ sudo ./opensearch-plugin install analysis-icu
 -> Installed analysis-icu with folder name analysis-icu
 ```
 
-### Install a plugin from a zip file:
+### 从 zip 文件安装插件：
 
-Remote zip files can be installed by replacing `<zip-file>` with the URL of the hosted file. The tool only supports downloading over HTTP/HTTPS protocols. For local zip files, replace `<zip-file>` with `file:` followed by the absolute or relative path to the plugin zip file as in the second example below.
+可以通过替换为 `<zip-file>` 托管文件的 URL 来安装远程 zip 文件。该工具仅支持通过 HTTP/HTTPS 协议下载。对于本地 zip 文件，请替换为 `<zip-file>` `file:` 插件 zip 文件的绝对或相对路径，如下面的第二个示例所示。
 
-#### Usage:
+#### 用法：
 ```bash
 bin/opensearch-plugin install <zip-file>
 ```
 
-#### Example:
+#### 例：
 ```bash
 # Zip file is hosted on a remote server - in this case, Maven central repository.
 $ sudo ./opensearch-plugin install https://repo1.maven.org/maven2/org/opensearch/plugin/opensearch-anomaly-detection/2.2.0.0/opensearch-anomaly-detection-2.2.0.0.zip
@@ -167,16 +165,16 @@ Continue with installation? [y/N]y
 -> Installed opensearch-anomaly-detection with folder name opensearch-anomaly-detection
 ```
 
-### Install a plugin using Maven coordinates:
+### 使用 Maven 坐标安装插件：
 
-The `opensearch-plugin install` tool also accepts Maven coordinates for available artifacts and versions hosted on [Maven Central](https://search.maven.org/search?q=org.opensearch.plugin). `opensearch-plugin` will parse the Maven coordinates you provide and construct a URL. As a result, the host must be able to connect directly to [Maven Central](https://search.maven.org/search?q=org.opensearch.plugin). The plugin installation will fail if you pass coordinates to a proxy or local repository.
+该 `opensearch-plugin install` 工具还接受上托管[Maven 中心](https://search.maven.org/search?q=org.opensearch.plugin)的可用工件和版本的 Maven 坐标。将解析你提供的 Maven 坐标并构造 URL。 `opensearch-plugin` 因此，主机必须能够直接[Maven 中心](https://search.maven.org/search?q=org.opensearch.plugin)连接到。如果将坐标传递到代理或本地存储库，则插件安装将失败。
 
-#### Usage:
+#### 用法：
 ```bash
 bin/opensearch-plugin install <groupId>:<artifactId>:<version>
 ```
 
-#### Example:
+#### 例：
 ```bash
 $ sudo ./opensearch-plugin install org.opensearch.plugin:opensearch-anomaly-detection:2.2.0.0
 -> Installing org.opensearch.plugin:opensearch-anomaly-detection:2.2.0.0
@@ -202,76 +200,73 @@ Continue with installation? [y/N]y
 -> Installed opensearch-anomaly-detection with folder name opensearch-anomaly-detection
 ```
 
-Restart your OpenSearch node after installing a plugin.
-{: .note}
+安装插件后重新启动 OpenSearch 节点。{：.note}
 
-## Remove
+## 删除
 
-You can remove a plugin that has already been installed with the `remove` option. 
+你可以使用该 `remove` 选项删除已安装的插件。
 
-#### Usage:
+#### 用法：
 ```bash
 bin/opensearch-plugin remove <plugin-name>
 ```
 
-#### Example:
+#### 例：
 ```bash
 $ sudo $ ./opensearch-plugin remove opensearch-anomaly-detection
 -> removing [opensearch-anomaly-detection]...
 ```
 
-Restart your OpenSearch node after removing a plugin.
-{: .note}
+删除插件后重新启动 OpenSearch 节点。{：.note}
 
-## Batch mode
+## 批处理模式
 
-When installing plugins that require additional privileges not included by default, the plugins will prompt the user for confirmation of the required privileges. To grant all requested privileges, use batch mode to skip the confirmation prompt.
+当安装需要默认未包含的额外权限的插件时，插件将提示用户确认所需的权限。要授予所有请求的权限，请使用批处理模式跳过确认提示。
 
-To force batch mode when installing plugins, add the `-b` or `--batch` option:
+要在安装插件时强制使用批处理模式，请添加 `-b` or `--batch` 选项：
 ```bash
 bin/opensearch-plugin install --batch <plugin-name>
 ```
 
-## Available plugins
+## 可用的插件
 
-Major, minor, and patch plugin versions must match OpenSearch major, minor, and patch versions in order to be compatible. For example, plugins versions 2.3.0.x work only with OpenSearch 2.3.0.
-{: .warning}
+主要、次要和补丁插件版本必须与 OpenSearch 主要版本、次要版本和补丁版本匹配才能兼容。例如，插件版本 2.3.0.x 仅适用于 OpenSearch 2.3.0. {：.warning}
 
-### Bundled Plugins
+### 捆绑插件
 
-The following plugins are bundled with all OpenSearch distributions except for minimum distribution packages.
+以下插件与所有 OpenSearch 分配捆绑在一起，但最小分配包除外。
 
-| Plugin Name | Repository | Earliest Available Version |
+| Plugin Name | Repository |最早的可用版本|
 | :--- | :--- | :--- |
-| Alerting | [opensearch-alerting](https://github.com/opensearch-project/alerting) | 1.0.0 |
-| Anomaly Detection | [opensearch-anomaly-detection](https://github.com/opensearch-project/anomaly-detection) | 1.0.0 |
-| Asynchronous Search | [opensearch-asynchronous-search](https://github.com/opensearch-project/asynchronous-search) | 1.0.0 |
-| Cross Cluster Replication | [opensearch-cross-cluster-replication](https://github.com/opensearch-project/cross-cluster-replication) | 1.1.0 |
-| Custom Codecs | [opensearch-custom-codecs](https://github.com/opensearch-project/custom-codecs) | 2.10.0 |
-| Notebooks<sup>1</sup> | [opensearch-notebooks](https://github.com/opensearch-project/dashboards-notebooks) | 1.0.0 to 1.1.0 |
-| Notifications | [notifications](https://github.com/opensearch-project/notifications) | 2.0.0
-| Reports Scheduler | [opensearch-reports-scheduler](https://github.com/opensearch-project/dashboards-reports) | 1.0.0 |
-| Geospatial | [opensearch-geospatial](https://github.com/opensearch-project/geospatial) | 2.2.0 |
-| Index Management | [opensearch-index-management](https://github.com/opensearch-project/index-management) | 1.0.0 |
-| Job Scheduler | [opensearch-job-scheduler](https://github.com/opensearch-project/job-scheduler) | 1.0.0 |
-| k-NN | [opensearch-knn](https://github.com/opensearch-project/k-NN) | 1.0.0 |
-| ML Commons | [opensearch-ml](https://github.com/opensearch-project/ml-commons) | 1.3.0 |
-| Neural Search | [neural-search](https://github.com/opensearch-project/neural-search) | 2.4.0 |
-| Observability | [opensearch-observability](https://github.com/opensearch-project/observability) | 1.2.0 |
-| Performance Analyzer<sup>2</sup> | [opensearch-performance-analyzer](https://github.com/opensearch-project/performance-analyzer) | 1.0.0 |
-| Security | [opensearch-security](https://github.com/opensearch-project/security) | 1.0.0 |
-| Security Analytics | [opensearch-security-analytics](https://github.com/opensearch-project/security-analytics) | 2.4.0 |
-| SQL | [opensearch-sql](https://github.com/opensearch-project/sql) | 1.0.0 |
+| Alerting |[opensearch-alerting（opensearch-alerting）](https://github.com/opensearch-project/alerting)| 1.0.0 |
+| Anomaly Detection |[opensearch-异常检测](https://github.com/opensearch-project/anomaly-detection)| 1.0.0 |
+| Asynchronous Search |[opensearch-异步搜索](https://github.com/opensearch-project/asynchronous-search)| 1.0.0 |
+| Cross Cluster Replication |[opensearch-cross-cluster-replication](https://github.com/opensearch-project/cross-cluster-replication)| 1.1.0 |
+| Custom Codecs |[opensearch-custom-codecs](https://github.com/opensearch-project/custom-codecs)| 2.10.0 |
+| Notebooks<sup>1</sup> |[opensearch-notebooks](https://github.com/opensearch-project/dashboards-notebooks)| 1.0.0 to 1.1.0 |
+| 通知 | [通知](https://github.com/opensearch-project/notifications) | 2.0.0
+| Reports Scheduler |[opensearch-reports-scheduler](https://github.com/opensearch-project/dashboards-reports)| 1.0.0 |
+| Geospatial |[opensearch-geospatial](https://github.com/opensearch-project/geospatial)| 2.2.0 |
+| Index Management |[opensearch-index-management（opensearch-index-management）](https://github.com/opensearch-project/index-management)| 1.0.0 |
+| Job Scheduler |[opensearch-job-scheduler](https://github.com/opensearch-project/job-scheduler)| 1.0.0 |
+| k-NN |[opensearch-knn](https://github.com/opensearch-project/k-NN)| 1.0.0 |
+| ML Commons |[OpenSearch-ML 的](https://github.com/opensearch-project/ml-commons)| 1.3.0 |
+| Neural Search |[神经搜索](https://github.com/opensearch-project/neural-search)| 2.4.0 |
+| Observability |[opensearch-可观测性](https://github.com/opensearch-project/observability)| 1.2.0 |
+| Performance Analyzer<sup>2</sup> |[opensearch-performance-analyzer](https://github.com/opensearch-project/performance-analyzer)| 1.0.0 |
+| Security |[opensearch-安全](https://github.com/opensearch-project/security)| 1.0.0 |
+| Security Analytics |[opensearch-安全-分析](https://github.com/opensearch-project/security-analytics)| 2.4.0 |
+| SQL |[opensearch-sql](https://github.com/opensearch-project/sql)| 1.0.0 |
 
 _<sup>1</sup>Dashboard Notebooks was merged in to the Observability plugin with the release of OpenSearch 1.2.0._<br>
 _<sup>2</sup>Performance Analyzer is not available on Windows._
 
 
-### Additional plugins
+### 其他插件
 
-Members of the OpenSearch community have built countless plugins for the service. Although it isn't possible to build an exhaustive list of every plugin, since many plugins are not maintained within the OpenSearch GitHub repository, the following list of plugins are available to be installed by name using `bin/opensearch-plugin install <plugin-name>`.
+OpenSearch 社区的成员为该服务构建了无数插件。尽管无法构建每个插件的详尽列表，但由于许多插件未在 OpenSearch GitHub 存储库中维护，因此可以使用以下插件列表按名称 `bin/opensearch-plugin install <plugin-name>` 安装。
 
-| Plugin Name | Earliest Available Version |
+| Plugin Name |最早的可用版本|
 | :--- | :--- |
 | analysis-icu | 1.0.0 |
 | analysis-kuromoji | 1.0.0 |
@@ -294,20 +289,20 @@ Members of the OpenSearch community have built countless plugins for the service
 | store-smb | 1.0.0 |
 | transport-nio | 1.0.0 |
 
-## Related links
+## 相关链接
 
-- [About Observability]({{site.url}}{{site.baseurl}}/observability-plugin/index/)
-- [About security analytics]({{site.url}}{{site.baseurl}}/security-analytics/index/)
-- [About the Security plugin]({{site.url}}{{site.baseurl}}/security/index/)
+- [关于可观测性]({{site.url}}{{site.baseurl}}/observability-plugin/index/)
+- [关于安全分析]({{site.url}}{{site.baseurl}}/security-analytics/index/)
+- [关于安全插件]({{site.url}}{{site.baseurl}}/security/index/)
 - [Alerting]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/index/)
-- [Anomaly detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/index/)
-- [Asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/index/)
-- [Cross-cluster replication]({{site.url}}{{site.baseurl}}/replication-plugin/index/)
-- [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/)
+- [异常检测]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/index/)
+- [异步搜索]({{site.url}}{{site.baseurl}}/search-plugins/async/index/)
+- [跨集群复制]({{site.url}}{{site.baseurl}}/replication-plugin/index/)
+- [索引状态管理]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/)
 - [k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/)
-- [ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/)
-- [Neural Search]({{site.url}}{{site.baseurl}}/neural-search-plugin/index/)
-- [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/)
-- [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/)
-- [Performance Analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
+- [ML Commons 插件]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/)
+- [神经搜索]({{site.url}}{{site.baseurl}}/neural-search-plugin/index/)
+- [通知]({{site.url}}{{site.baseurl}}/notifications-plugin/index/)
+- [OpenSearch 控制面板]({{site.url}}{{site.baseurl}}/dashboards/index/)
+- [性能分析器]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
 - [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/)

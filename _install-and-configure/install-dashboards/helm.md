@@ -1,37 +1,35 @@
 ---
 layout: default
 title: Helm
-parent: Installing OpenSearch Dashboards
+parent: 安装 OpenSearch 控制面板
 nav_order: 35
 redirect_from: 
   - /dashboards/install/helm/
 ---
 
-# Run OpenSearch Dashboards using Helm
+# 使用 Helm 运行 OpenSearch 控制面板
 
-Helm is a package manager that allows you to easily install and manage OpenSearch Dashboards in a Kubernetes cluster. You can define your OpenSearch configurations in a YAML file and use Helm to deploy your applications in a version-controlled and reproducible way.
+Helm 是一个软件包管理器，可让你在 Kubernetes 集群中轻松安装和管理 OpenSearch 控制面板。你可以在 YAML 文件中定义 OpenSearch 配置，并使用 Helm 以版本控制且可重现的方式部署应用程序。
 
-The Helm chart contains the resources described in the following table.
+Helm 图表包含下表中描述的资源。
 
-Resource | Description
+资源 | 描述
 :--- | :---
-`Chart.yaml` |  Information about the chart.
-`values.yaml` |  Default configuration values for the chart.
-`templates` |  Templates that combine with values to generate the Kubernetes manifest files.
+ `Chart.yaml` | 有关图表的信息。
+ `values.yaml` | 图表的默认配置值。
+ `templates` | 与值组合以生成 Kubernetes 清单文件的模板。
 
-The specification in the default Helm chart supports many standard use cases and setups. You can modify the default chart to configure your desired specifications and set Transport Layer Security (TLS) and role-based access control (RBAC).
+默认 Helm 图表中的规范支持许多标准用例和设置。你可以修改默认图表以配置所需的规范，并设置传输层安全性（TLS）和基于角色的访问控制（RBAC）。
 
-For information about the default configuration, steps to configure security, and configurable parameters, see the
-[README](https://github.com/opensearch-project/helm-charts/tree/main/charts).
+有关缺省配置、配置安全性的步骤和可配置参数的信息，请参见。[README](https://github.com/opensearch-project/helm-charts/tree/main/charts)
 
-The instructions here assume you have a Kubernetes cluster with Helm preinstalled. See the [Kubernetes documentation](https://kubernetes.io/docs/setup/) for steps to configure a Kubernetes cluster and the [Helm documentation](https://helm.sh/docs/intro/install/) to install Helm.
-{: .note }
+此处的说明假设你有一个预安装了 Helm 的 Kubernetes 集群。[Kubernetes 文档](https://kubernetes.io/docs/setup/)有关配置 Kubernetes 集群的步骤和[Helm 文档](https://helm.sh/docs/intro/install/)安装 Helm 的步骤，请参阅。{：.note }
 
-## Prerequisites
+## 先决条件
 
-Before you get started, you must first use [Helm to install OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/helm/).
+在开始之前，必须先使用[用于安装 OpenSearch 的 Helm]({{site.url}}{{site.baseurl}}/opensearch/install/helm/).
 
-Make sure that you can send requests to your OpenSearch pod:
+确保你可以向 OpenSearch Pod 发送请求：
 
 ```json
 $ curl -XGET https://localhost:9200 -u 'admin:admin' --insecure
@@ -54,33 +52,32 @@ $ curl -XGET https://localhost:9200 -u 'admin:admin' --insecure
 }
 ```
 
-## Install OpenSearch Dashboards using Helm
+## 使用 Helm 安装 OpenSearch 控制面板
 
-1. Change to the `opensearch-dashboards` directory:
+1. 切换到 `opensearch-dashboards` 目录：
 
    ```bash
    cd opensearch-dashboards
    ```
 
-1. Package the Helm chart:
+1. 打包 Helm 图表：
 
    ```bash
    helm package .
    ```
 
-1. Deploy OpenSearch Dashboards:
+1. 部署 OpenSearch 控制面板：
 
    ```bash
    helm install --generate-name opensearch-dashboards-1.0.0.tgz
    ```
-   The output shows you the specifications instantiated from the install.
-   To customize the deployment, pass in the values that you want to override with a custom YAML file:
+   输出显示从安装中实例化的规范。若要自定义部署，请传入要使用自定义 YAML 文件覆盖的值：
 
    ```bash
    helm install --values=customvalues.yaml opensearch-dashboards-1.0.0.tgz
    ```
 
-#### Sample output
+#### 示例输出
 
 ```yaml
 NAME: opensearch-dashboards-1-1629223356
@@ -98,7 +95,7 @@ ensearch-dashboards-1-1629223356" -o jsonpath="{.items[0].metadata.name}")
   kubectl --namespace default port-forward $POD_NAME 8080:$CONTAINER_PORT
 ```
 
-To make sure your OpenSearch Dashboards pod is up and running, run the following command:
+要确保你的 OpenSearch 控制面板 Pod 已启动并运行，请运行以下命令：
 
 ```bash
 $ kubectl get pods
@@ -109,18 +106,18 @@ opensearch-cluster-master-2                           1/1     Running   0       
 opensearch-dashboards-1-1629223356-758bd8747f-8www5   1/1     Running   0          66s
 ```
 
-To set up port forwarding to access OpenSearch Dashboards, exit the OpenSearch shell and run the following command:
+要设置端口转发以访问 OpenSearch 控制面板，请退出 OpenSearch shell 并运行以下命令：
 
 ```bash
 $ kubectl port-forward deployment/opensearch-dashboards-1-1629223356 5601
 ```
 
-You can now access OpenSearch Dashboards from your browser at: http://localhost:5601.
+你现在可以从浏览器访问 OpenSearch 控制面板，网址为：http://localhost:5601.
 
 
-## Uninstall using Helm
+## 使用 Helm 卸载
 
-To identify the OpenSearch Dashboards deployment that you want to delete:
+要确定要删除的 OpenSearch 控制面板部署，请执行以下操作：
 
 ```bash
 $ helm list
@@ -130,7 +127,7 @@ opensearch-dashboards-1-1629223356 default  1 2021-08-17  18:02:37.600796946 +00
 oyedopensearch-dashboards-1.0.0 1.0.0        
 ```
 
-To delete or uninstall a deployment, run the following command:
+若要删除或卸载部署，请运行以下命令：
 
 ```bash
 helm delete opensearch-dashboards-1-1629223356

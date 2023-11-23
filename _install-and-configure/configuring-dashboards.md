@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Configuring OpenSearch Dashboards
+title: 配置 OpenSearch 控制面板
 nav_order: 15
 ---
 
-# Configuring OpenSearch Dashboards
+# 配置 OpenSearch 控制面板
 
-OpenSearch Dashboards uses the `opensearch_dashboards.yml` configuration file to read settings when you spin up a cluster. You can find `opensearch_dashboards.yml` in `/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml` (Docker) or `/etc/opensearch-dashboards/opensearch_dashboards.yml` (most Linux distributions) on each node.
+OpenSearch 控制面板在你启动集群时使用配置文件 `opensearch_dashboards.yml` 读取设置。你可以在每个节点上的（Docker）或 `/etc/opensearch-dashboards/opensearch_dashboards.yml`（大多数 Linux 发行版）中找到。 `opensearch_dashboards.yml` `/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml`
 
-For information about OpenSearch Dashboards settings, see the sample [`opensearch_dashboards.yml`](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml) file.
+有关 OpenSearch 控制面板设置的信息，请参阅示例 [ `opensearch_dashboards.yml`]（https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml）文件。

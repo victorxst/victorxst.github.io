@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Ansible playbook
-parent: Installing OpenSearch
+parent: 安装 OpenSearch
 nav_order: 60
 redirect_from:
   - /opensearch/install/ansible/
@@ -9,37 +9,36 @@ redirect_from:
 
 # Ansible playbook
 
-You can use an Ansible playbook to install and configure a production-ready OpenSearch cluster along with OpenSearch Dashboards.
+你可以使用 Ansible playbook 安装和配置生产就绪型 OpenSearch 集群以及 OpenSearch 控制面板。
 
-The Ansible playbook only supports deployment of OpenSearch and OpenSearch Dashboards to CentOS7 hosts.
-{: .note }
+Ansible playbook 仅支持将 OpenSearch 和 OpenSearch 控制面板部署到 CentOS7 主机。{：.note }
 
-## Prerequisites
+## 先决条件
 
-Make sure you have [Ansible](https://www.ansible.com/) and [Java 8](https://www.java.com/en/download/manual.jsp) installed.
+确保你已[Ansible](https://www.ansible.com/)安装。[Java 8](https://www.java.com/en/download/manual.jsp)
 
-## Configuration
+## 配置
 
-1. Clone the OpenSearch [ansible-playbook](https://github.com/opensearch-project/ansible-playbook) repository:
+1. 克隆 OpenSearch [ansible-playbook （英语：ansible-playbook）](https://github.com/opensearch-project/ansible-playbook)存储库：
 
    ```bash
    git clone https://github.com/opensearch-project/ansible-playbook
    ```
    {% include copy.html %}
 
-2. Configure the node properties in the `inventories/opensearch/hosts` file:
+2. 在 `inventories/opensearch/hosts` 文件中配置节点属性：
 
    ```bash
    ansible_host=<Public IP address> ansible_user=root ip=<Private IP address / 0.0.0.0>
    ```
    {% include copy.html %}
 
-   where:
+   哪里：
 
-   - `ansible_host` is the IP address of the target node that you want the Ansible playbook to install OpenSearch and OpenSearch DashBoards on.
-   - `ip` is the IP address that you want OpenSearch and OpenSearch DashBoards to bind to. You can specify the private IP of the target node, or localhost, or 0.0.0.0.
+   -  `ansible_host` 是你希望 Ansible playbook 在其上安装 OpenSearch 和 OpenSearch DashBoard 的目标节点的 IP 地址。
+   -  `ip` 是你希望 OpenSearch 和 OpenSearch DashBoard 绑定到的 IP 地址。你可以指定目标节点的私有 IP，或者 localhost，或者 0.0.0.0。
 
-3. You can modify the default configuration values in the `inventories/opensearch/group_vars/all/all.yml` file. For example, you can increase the Java memory heap size:
+3. 你可以修改文件中的默认配置值 `inventories/opensearch/group_vars/all/all.yml`。例如，你可以增加 Java 内存堆大小：
 
    ```bash
    xms_value: 8
@@ -47,27 +46,26 @@ Make sure you have [Ansible](https://www.ansible.com/) and [Java 8](https://www.
    ```
    {% include copy.html %}
 
-Make sure you have direct SSH access into the root user of the target node.
-{: .note }
+确保你具有对目标节点的 root 用户的直接 SSH 访问权限。{：.note }
 
-## Run OpenSearch and OpenSearch Dashboards using Ansible playbook
+## 使用 Ansible playbook 运行 OpenSearch 和 OpenSearch 控制面板
 
-1. Run the Ansible playbook with root privileges:
+1. 使用 root 权限运行 Ansible playbook：
 
    ```bash
    ansible-playbook -i inventories/opensearch/hosts opensearch.yml --extra-vars "admin_password=Test@123 kibanaserver_password=Test@6789"
    ```
    {% include copy.html %}
 
-   You can set the passwords for reserved users (`admin` and `kibanaserver`) using the `admin_password` and `kibanaserver_password` variables.
+   你可以使用和 变量为保留用户（ `admin` 和 `kibanaserver` `kibanaserver_password`） `admin_password` 设置密码。
 
-2. After the deployment process is complete, you can access OpenSearch and OpenSearch Dashboards with the username `admin` and the password that you set for the `admin_password` variable.
+2. 部署过程完成后，你可以使用为 `admin_password` 变量设置的用户名 `admin` 和密码访问 OpenSearch 和 OpenSearch 控制面板。
 
-   If you bind `ip` to a private IP or localhost, make sure you're logged into the server that deployed the playbook to access OpenSearch and OpenSearch Dashboards:
+   如果你绑定 `ip` 到私有 IP 或本地主机，请确保你已登录到部署 playbook 以访问 OpenSearch 和 OpenSearch 控制面板的服务器：
 
    ```bash
    curl https://localhost:9200 -u 'admin:Test@123' --insecure
    ```
    {% include copy.html %}
 
-   If you bind `ip` to 0.0.0.0, then replace `localhost` with the public IP or the private IP (if it's in the same network).
+   如果绑定 `ip` 到 0.0.0.0，则替换为 `localhost` 公共 IP 或专用 IP（如果位于同一网络中）。

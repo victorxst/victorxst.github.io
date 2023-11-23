@@ -1,133 +1,131 @@
 ---
 layout: default
 title: Debian
-parent: Installing OpenSearch Dashboards
+parent: 安装 OpenSearch 控制面板
 nav_order: 33
 ---
 
-# Installing OpenSearch Dashboards (Debian)
+# 安装 OpenSearch 控制面板（Debian）
 
-Installing OpenSearch Dashboards using the Advanced Packaging Tool (APT) package manager simplifies the process considerably compared to the [Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tar/) method. For example, the package manager handles several technical considerations, such as the installation path, location of configuration files, and creation of a service managed by `systemd`.
+与该方法相比[Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tar/)，使用 Advanced Packaging Tool（APT）软件包管理器安装 OpenSearch 控制面板可大大简化该过程。例如，包管理器会处理多个技术注意事项，例如安装路径、配置文件的位置以及创建由 `systemd` 管理的服务。
 
-Before installing OpenSearch Dashboards you must configure an OpenSearch cluster. Refer to the OpenSearch [Debian]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/debian/) installation guide for steps.
-{: .important}
+在安装 OpenSearch 控制面板之前，你必须配置 OpenSearch 集群。有关步骤，请参阅 OpenSearch [Debian]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/debian/)安装指南。{：.important}
 
-This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. Some example commands reference the `vi` text editor, but you may use any text editor available.
-{:.note}
+本指南假定你能够熟练地使用 Linux 命令行界面（CLI）工作。你应该了解如何输入命令、在目录之间导航和编辑文本文件。一些示例命令引用 `vi` 文本编辑器，但你可以使用任何可用的文本编辑器。{：.note}
 
-## Installing OpenSearch Dashboards from a package
+## 从软件包安装 OpenSearch 控制面板
 
-1. Download the Debian package for the desired version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The Debian package can be downloaded for both **x64** and **arm64** architectures.
-1. From the CLI, install using `dpkg`.
+1. 直接从[OpenSearch 下载页面](https://opensearch.org/downloads.html){：target='\_blank'} 下载所需版本的 Debian 软件包。Debian 软件包可以下载，适用于这两种**64 倍****arm64 的**架构。
+1. 在 CLI 中，使用 `dpkg`.
    ```bash
    # x64
    sudo dpkg -i opensearch-dashboards-{{site.opensearch_version}}-linux-x64.deb
    # arm64
    sudo dpkg -i opensearch-dashboards-{{site.opensearch_version}}-linux-arm64.deb
    ```
-1. After the installation completes, reload the systemd manager configuration.
+1. 安装完成后，重新加载 systemd 管理器配置。
     ```bash
     sudo systemctl daemon-reload
     ```
-1. Enable OpenSearch as a service.
+1. 启用 OpenSearch 即服务。
     ```bash
     sudo systemctl enable opensearch-dashboards
     ```
-1. Start the OpenSearch service.
+1. 启动 OpenSearch 服务。
     ```bash
     sudo systemctl start opensearch-dashboards
     ```
-1. Verify that OpenSearch launched correctly.
+1. 验证 OpenSearch 是否正确启动。
     ```bash
     sudo systemctl status opensearch-dashboards
     ```
 
-### Fingerprint verification
+### 指纹验证
 
-The Debian package is not signed. If you would like to verify the fingerprint, the OpenSearch Project provides a `.sig` file as well as the `.deb` package for use with GNU Privacy Guard (GPG).
+Debian 软件包未签名。如果你想验证指纹，OpenSearch 项目会提供用于 `.sig` GNU Privacy Guard（GPG）的文件和 `.deb` 软件包。
 
-1. Download the desired Debian package.
+1. 下载所需的 Debian 软件包。
    ```bash
    curl -SLO https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/{{site.opensearch_version}}/opensearch-dashboards-{{site.opensearch_version}}-linux-x64.deb
    ```
-1. Download the corresponding signature file.
+1. 下载相应的签名文件。
    ```bash
    curl -SLO https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/{{site.opensearch_version}}/opensearch-dashboards-{{site.opensearch_version}}-linux-x64.deb.sig
    ```
-1. Download and import the GPG key.
+1. 下载并导入 GPG 密钥。
    ```bash
    curl -o- https://artifacts.opensearch.org/publickeys/opensearch.pgp | gpg --import -
    ```
-1. Verify the signature.
+1. 验证签名。
    ```bash
    gpg --verify opensearch-dashboards-{{site.opensearch_version}}-linux-x64.deb.sig opensearch-dashboards-{{site.opensearch_version}}-linux-x64.deb
    ```
 
-## Installing OpenSearch Dashboards from an APT repository
+## 从 APT 存储库安装 OpenSearch 控制面板
 
-APT, the primary package management tool for Debian–based operating systems, allows you to download and install the Debian package from the APT repository. 
+APT 是基于 Debian 的操作系统的主要软件包管理工具，允许你从 APT 存储库下载和安装 Debian 软件包。
 
-1. Install the necessary packages.
+1. 安装必要的软件包。
    ```bash
    sudo apt-get update && sudo apt-get -y install lsb-release ca-certificates curl gnupg2
    ```
-1. Import the public GPG key. This key is used to verify that the APT repository is signed.
+1. 导入 GPG 公钥。此密钥用于验证 APT 存储库是否已签名。
     ```bash
     curl -o- https://artifacts.opensearch.org/publickeys/opensearch.pgp | sudo gpg --dearmor --batch --yes -o /usr/share/keyrings/opensearch-keyring
     ```
-1. Create an APT repository for OpenSearch.
+1. 为 OpenSearch 创建 APT 存储库。
    ```bash
    echo "deb [signed-by=/usr/share/keyrings/opensearch-keyring] https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/2.x/apt stable main" | sudo tee /etc/apt/sources.list.d/opensearch-dashboards-2.x.list
    ```
-1. Verify that the repository was created successfully.
+1. 验证存储库是否已成功创建。
     ```bash
     sudo apt-get update
     ```
-1. With the repository information added, list all available versions of OpenSearch:
+1. 添加存储库信息后，列出 OpenSearch 的所有可用版本：
    ```bash
    sudo apt list -a opensearch-dashboards
    ```
-1. Choose the version of OpenSearch you want to install: 
-   - Unless otherwise indicated, the latest available version of OpenSearch is installed.
+1. 选择要安装的 OpenSearch 版本：
+   - 除非另有说明，否则将安装最新版本的 OpenSearch。
    ```bash
    sudo apt-get install opensearch-dashboards
    ```
-   - To install a specific version of OpenSearch Dashboards, pass a version number after the package name.
+   - 要安装特定版本的 OpenSearch 控制面板，请在软件包名称后传递版本号。
    ```bash
    # Specify the version manually using opensearch=<version>
    sudo apt-get install opensearch-dashboards={{site.opensearch_version}}
    ```
-1. Once complete, enable OpenSearch.
+1. 完成后，启用 OpenSearch。
     ```bash
     sudo systemctl enable opensearch-dashboards
     ```
-1. Start OpenSearch.
+1. 启动 OpenSearch。
     ```bash
     sudo systemctl start opensearch-dashboards
     ```
-1. Verify that OpenSearch launched correctly.
+1. 验证 OpenSearch 是否正确启动。
     ```bash
     sudo systemctl status opensearch-dashboards
     ```
 
-## Exploring OpenSearch Dashboards
+## 探索 OpenSearch 控制面板
 
-By default, OpenSearch Dashboards, like OpenSearch, binds to `localhost` when you initially install it. As a result, OpenSearch Dashboards is not reachable from a remote host unless the configuration is updated.
+默认情况下，OpenSearch 控制面板（如 OpenSearch）会绑定到 `localhost` 你最初安装它的时间。因此，除非更新配置，否则无法从远程主机访问 OpenSearch 控制面板。
 
-1. Open `opensearch_dashboards.yml`.
+1. 打开 `opensearch_dashboards.yml`。
     ```bash
     sudo vi /etc/opensearch-dashboards/opensearch_dashboards.yml
     ```
-1. Specify a network interface that OpenSearch Dashboards should bind to.
+1. 指定 OpenSearch 控制面板应绑定到的网络接口。
     ```bash
     # Use 0.0.0.0 to bind to any available interface.
     server.host: 0.0.0.0
     ```
-1. Save and quit.
-1. Restart OpenSearch Dashboards to apply the configuration change.
+1. 保存并退出。
+1. 重新启动 OpenSearch 控制面板以应用配置更改。
     ```bash
     sudo systemctl restart opensearch-dashboards
     ```
-1. From a web browser, navigate to OpenSearch Dashboards. The default port is 5601.
-1. Log in with the default username `admin` and the default password `admin`.
-1. Visit [Getting started with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/) to learn more.
+1. 在 Web 浏览器中，导航到 OpenSearch 控制面板。默认端口为 5601。
+1. 使用默认用户名 `admin` 和默认密码 `admin` 登录。
+1. 访问[开始使用 OpenSearch 控制面板]({{site.url}}{{site.baseurl}}/dashboards/index/)以了解更多信息。

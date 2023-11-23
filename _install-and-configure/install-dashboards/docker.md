@@ -1,26 +1,25 @@
 ---
 layout: default
 title: Docker
-parent: Installing OpenSearch Dashboards
+parent: 安装 OpenSearch 控制面板
 nav_order: 1
 redirect_from: 
   - /dashboards/install/docker/
   - /opensearch/install/docker-security/
 ---
 
-# Run OpenSearch Dashboards using Docker
+# 使用 Docker 运行 OpenSearch 控制面板
 
-You *can* start OpenSearch Dashboards using `docker run` after [creating a Docker network](https://docs.docker.com/engine/reference/commandline/network_create/) and starting OpenSearch, but the process of connecting OpenSearch Dashboards to OpenSearch is significantly easier with a Docker Compose file.
+你可以使用*能* after [创建 Docker 网络](https://docs.docker.com/engine/reference/commandline/network_create/)和 start OpenSearch 启动 OpenSearch 控制面板，但使用 Docker Compose 文件将 OpenSearch 控制面板 `docker run` 连接到 OpenSearch 的过程要容易得多。
 
-1. Run `docker pull opensearchproject/opensearch-dashboards:2`.
+1. 运行 `docker pull opensearchproject/opensearch-dashboards:2`。
 
-1. Create a [`docker-compose.yml`](https://docs.docker.com/compose/compose-file/) file appropriate for your environment. A sample file that includes OpenSearch Dashboards is available on the OpenSearch [Docker installation page]({{site.url}}{{site.baseurl}}/opensearch/install/docker#sample-docker-composeyml).
+1. 创建适合你的环境的 [ `docker-compose.yml`]（https://docs.docker.com/compose/compose-file/）文件。OpenSearch 上提供了包含 OpenSearch [Docker 安装页面]({{site.url}}{{site.baseurl}}/opensearch/install/docker#sample-docker-composeyml)控制面板的示例文件。
 
-   Just like `opensearch.yml`, you can pass a custom `opensearch_dashboards.yml` to the container in the Docker Compose file.
-   {: .tip }
+   就像 `opensearch.yml` 一样，你可以将自定义 `opensearch_dashboards.yml` 项传递给 Docker Compose 文件中的容器。{：.tip}
 
-1. Run `docker-compose up`.
+1. 运行 `docker-compose up`。
 
-   Wait for the containers to start. Then see the [OpenSearch Dashboards documentation]({{site.url}}{{site.baseurl}}/dashboards/index/).
+   等待容器启动。然后查看[OpenSearch 控制面板文档]({{site.url}}{{site.baseurl}}/dashboards/index/).
 
-1. When finished, run `docker-compose down`.
+1. 完成后，运行 `docker-compose down`.

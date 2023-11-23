@@ -1,30 +1,29 @@
 ---
 layout: default
-title: Rolling Upgrade
-parent: Upgrading OpenSearch
+title: 滚动升级
+parent: 升级 OpenSearch
 nav_order: 10
 ---
 
-# Rolling Upgrade
+# 滚动升级
 
-Rolling upgrades, sometimes referred to as "node replacement upgrades," can be performed on running clusters with virtually no downtime. Nodes are individually stopped and upgraded in place. Alternatively, nodes can be stopped and replaced, one at a time, by hosts running the new version. During this process you can continue to index and query data in your cluster.
+滚动升级（有时称为“节点替换升级”）可以在正在运行的集群上执行，几乎无需停机。节点单独停止并就地升级。或者，可以由运行新版本的主机一次停止和替换一个节点。在此过程中，你可以继续为集群中的数据编制索引和查询。
 
-This document serves as a high-level, platform-agnostic overview of the rolling upgrade procedure. For specific examples of commands, scripts, and configuration files, refer to the [Appendix]({{site.url}}{{site.baseurl}}/upgrade-opensearch/appendix/).
+本文档是滚动升级过程的高级、与平台无关的概述。有关命令、脚本和配置文件的具体示例，请参阅[Appendix]({{site.url}}{{site.baseurl}}/upgrade-opensearch/appendix/)。
 
-## Preparing to upgrade
+## 准备升级
 
-Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/index/) for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indexes before you make any changes to your OpenSearch cluster.
+在对 OpenSearch 集群进行任何更改之前，请查看[升级 OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/index/)有关备份配置文件以及创建集群状态和索引快照的建议。
 
-**Important:** OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then you will need to perform a fresh installation of OpenSearch and restore the cluster from a snapshot. Take a snapshot and store it in a remote repository before beginning the upgrade procedure.
-{: .important}
+**重要：** OpenSearch 节点无法降级。如果你需要恢复升级，则需要执行 OpenSearch 的全新安装并从快照还原集群。在开始升级过程之前，拍摄快照并将其存储在远程存储库中。{：.important}
 
-## Performing the upgrade
+## 执行升级
 
-1. Verify the health of your OpenSearch cluster before you begin. You should resolve any index or shard allocation issues prior to upgrading to ensure that your data is preserved. A status of **green** indicates that all primary and replica shards are allocated. See [Cluster health]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) for more information. The following command queries the `_cluster/health` API endpoint:
+1. 在开始之前，请验证 OpenSearch 集群的运行状况。在升级之前，应解决任何索引或分片分配问题，以确保保留数据。状态**绿**表示已分配所有主分片和副本分片。有关详细信息，请参阅[群集运行状况]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/)。以下命令查询 `_cluster/health` API 端点：
    ```json
    GET "/_cluster/health?pretty"
    ```
-   The response should look similar to the following example:
+   响应应类似于以下示例：The response should look similar to the following example：
    ```json
    {
        "cluster_name":"opensearch-dev-cluster",
@@ -44,7 +43,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
        "active_shards_percent_as_number":100.0
    }
    ```
-1. Disable shard replication to prevent shard replicas from being created while nodes are being taken offline. This stops the movement of Lucene index segments on nodes in your cluster. You can disable shard replication by querying the `_cluster/settings` API endpoint:
+1. 禁用分片复制以防止在节点脱机时创建分片副本。这将停止集群中节点上 Lucene 索引段的移动。你可以通过查询 `_cluster/settings` API 终端节点来禁用分片复制：
    ```json
    PUT "/_cluster/settings?pretty"
    {
@@ -53,7 +52,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
        }
    }
    ```
-   The response should look similar to the following example:
+   响应应类似于以下示例：The response should look similar to the following example：
    ```json
    {
      "acknowledged" : true,
@@ -70,11 +69,11 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    }
    ```
 
-1. Perform a flush operation on the cluster to commit transaction log entries to the Lucene index:
+1. 在群集上执行刷新操作，以将事务日志条目提交到 Lucene 索引：
    ```json
    POST "/_flush?pretty"
    ```
-   The response should look similar to the following example:
+   响应应类似于以下示例：The response should look similar to the following example：
    ```json
    {
      "_shards" : {
@@ -84,12 +83,12 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
      }
    }
    ```
-1. Review your cluster and identify the first node to upgrade. Eligible cluster manager nodes should be upgraded last because OpenSearch nodes can join a cluster with manager nodes running an older version, but they cannot join a cluster with all manager nodes running a newer version.
-1. Query the `_cat/nodes` endpoint to identify which node was promoted to cluster manager. The following command includes additional query parameters that request only the name, version, node.role, and master headers. Note that OpenSearch 1.x versions use the term "master," which has been deprecated and replaced by "cluster_manager" in OpenSearch 2.x and later.
+1. 查看群集并确定要升级的第一个节点。符合条件的集群管理器节点应最后升级，因为 OpenSearch 节点可以加入运行较旧版本的管理器节点的集群，但不能加入运行较新版本的所有管理器节点的集群。
+1. 查询 `_cat/nodes` 端点以确定哪个节点已提升为集群管理器。以下命令包含仅请求 name、version、node.role 和 master 标头的其他查询参数。请注意，OpenSearch 1.x 版本使用术语“master”，该术语在 OpenSearch 2.x 及更高版本中已被弃用并替换为“cluster_manager”。
    ```bash
    GET "/_cat/nodes?v&h=name,version,node.role,master" | column -t
    ```
-   The response should look similar to the following example:
+   响应应类似于以下示例：The response should look similar to the following example：
    ```bash
    name        version  node.role  master
    os-node-01  7.10.2   dimr       -
@@ -97,25 +96,25 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    os-node-03  7.10.2   dimr       -
    os-node-02  7.10.2   dimr       *
    ```
-1. Stop the node you are upgrading. Do not delete the volume associated with the container when you delete the container. The new OpenSearch container will use the existing volume. **Deleting the volume will result in data loss**.
-1. Confirm that the associated node has been dismissed from the cluster by querying the `_cat/nodes` API endpoint:
+1. 停止要升级的节点。删除容器时，请勿删除与容器关联的卷。新的 OpenSearch 容器将使用现有卷。**删除卷将导致数据丢失**。
+1. 通过查询 `_cat/nodes` API 端点，确认关联的节点已从集群中移除：
    ```bash
    GET "/_cat/nodes?v&h=name,version,node.role,master" | column -t
    ```
-   The response should look similar to the following example:
+   响应应类似于以下示例：The response should look similar to the following example：
    ```bash
    name        version  node.role  master
    os-node-02  7.10.2   dimr       *
    os-node-04  7.10.2   dimr       -
    os-node-03  7.10.2   dimr       -
    ```
-   `os-node-01` is no longer listed because the container has been stopped and deleted.
-1. Deploy a new container running the desired version of OpenSearch and mapped to the same volume as the container you deleted.
-1. Query the `_cat/nodes` endpoint after OpenSearch is running on the new node to confirm that it has joined the cluster:
+    `os-node-01` 不再列出，因为容器已被停止和删除。
+1. 部署运行所需版本的 OpenSearch 的新容器，并将其映射到与你删除的容器相同的卷。
+1. 在 OpenSearch 在新节点上运行后查询 `_cat/nodes` 终端节点，以确认它已加入集群：
    ```bash
    GET "/_cat/nodes?v&h=name,version,node.role,master" | column -t
    ```
-   The response should look similar to the following example:
+   响应应类似于以下示例：The response should look similar to the following example：
    ```bash
    name        version  node.role  master
    os-node-02  7.10.2   dimr       *
@@ -123,19 +122,19 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    os-node-01  7.10.2   dimr       -
    os-node-03  7.10.2   dimr       -
    ```
-   In the example output, the new OpenSearch node reports a running version of `7.10.2` to the cluster. This is the result of `compatibility.override_main_response_version`, which is used when connecting to a cluster with legacy clients that check for a version. You can manually confirm the version of the node by calling the `/_nodes` API endpoint, as in the following command. Replace `<nodeName>` with the name of your node. See [Nodes API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/) to learn more.
+   在示例输出中，新的 OpenSearch 节点向集群报告正在运行的 `7.10.2` 版本。这是 `compatibility.override_main_response_version` 的结果，在连接到具有检查版本的旧客户端的集群时使用。你可以通过调用 `/_nodes` API 端点来手动确认节点的版本，如以下命令所示。替换为 `<nodeName>` 节点的名称。请参阅[Nodes API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/)以了解更多信息。
    ```bash
    GET "/_nodes/<nodeName>?pretty=true" | jq -r '.nodes | .[] | "\(.name) v\(.version)"'
    ```
-   The response should look similar to the following example:
+   响应应类似于以下示例：The response should look similar to the following example：
    ```bash
    os-node-01 v1.3.7
    ```
-1. Repeat steps 5 through 9 for each node in your cluster. Remember to upgrade an eligible cluster manager node last. After replacing the last node, query the `_cat/nodes` endpoint to confirm that all nodes have joined the cluster. The cluster is now bootstrapped to the new version of OpenSearch. You can verify the cluster version by querying the `_cat/nodes` API endpoint:
+1. 对群集中的每个节点重复步骤 5 到 9. 请记住最后升级符合条件的集群管理器节点。替换最后一个节点后，查询 `_cat/nodes` 终端节点以确认所有节点都已加入群集。集群现在已引导到新版本的 OpenSearch。你可以通过查询 `_cat/nodes` API 终端节点来验证集群版本：
    ```bash
    GET "/_cat/nodes?v&h=name,version,node.role,master" | column -t
    ```
-   The response should look similar to the following example:
+   响应应类似于以下示例：The response should look similar to the following example：
    ```bash
    name        version  node.role  master
    os-node-04  1.3.7    dimr       -
@@ -143,7 +142,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    os-node-01  1.3.7    dimr       -
    os-node-03  1.3.7    dimr       -
    ```
-1. Reenable shard replication:
+1. 重新启用分片复制：
    ```json
    PUT "/_cluster/settings?pretty"
    {
@@ -152,7 +151,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
        }
    }
    ```
-   The response should look similar to the following example:
+   响应应类似于以下示例：The response should look similar to the following example：
    ```json
    {
      "acknowledged" : true,
@@ -168,11 +167,11 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
      "transient" : { }
    }
    ```
-1. Confirm that the cluster is healthy:
+1. 确认群集运行状况良好：
    ```bash
    GET "/_cluster/health?pretty"
    ```
-   The response should look similar to the following example:
+   响应应类似于以下示例：The response should look similar to the following example：
    ```json
    {
      "cluster_name" : "opensearch-dev-cluster",
@@ -193,11 +192,11 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
      "active_shards_percent_as_number" : 100.0
    }
    ```
-1. The upgrade is now complete, and you can begin enjoying the latest features and fixes!
+1. 升级现已完成，你可以开始享受最新功能和修复！
 
-### Related articles
+### 相关文章
 
-- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
-- [Performance analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
-- [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
-- [About Security in OpenSearch]({{site.url}}{{site.baseurl}}/security/index/)
+- [OpenSearch 配置]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
+- [性能分析器]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
+- [安装和配置 OpenSearch 控制面板]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
+- [关于 OpenSearch 中的安全性]({{site.url}}{{site.baseurl}}/security/index/)

@@ -1,17 +1,17 @@
 ---
 layout: default
 title: Tarball
-parent: Installing OpenSearch Dashboards
+parent: 安装 OpenSearch 控制面板
 nav_order: 30
 redirect_from: 
   - /dashboards/install/tar/
 ---
 
-# Run OpenSearch Dashboards using the tarball
+# 使用 tarball 运行 OpenSearch 控制面板
 
-1. Download the tarball from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
+1. 从[OpenSearch 下载页面](https://opensearch.org/downloads.html){：target='\_blank'} 下载压缩包。
 
-1. Extract the TAR file to a directory and change to that directory:
+1. 将 TAR 文件解压缩到某个目录，然后切换到该目录：
 
    ```bash
    # x64
@@ -22,9 +22,9 @@ redirect_from:
    cd opensearch-dashboards
    ```
 
-1. If desired, modify `config/opensearch_dashboards.yml`.
+1. 如果需要，请修改 `config/opensearch_dashboards.yml`.
 
-1. Run OpenSearch Dashboards:
+1. 运行 OpenSearch 控制面板：
 
    ```bash
    ./bin/opensearch-dashboards

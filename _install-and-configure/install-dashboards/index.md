@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Installing OpenSearch Dashboards
+title: 安装 OpenSearch 控制面板
 nav_order: 3
 has_children: true
 redirect_from:
@@ -9,9 +9,9 @@ redirect_from:
   - /install-and-configure/install-dashboards/index/
 ---
 
-# Installing OpenSearch Dashboards
+# 安装 OpenSearch 控制面板
 
-OpenSearch Dashboards provides a fully integrated solution for visually exploring, discovering, and querying your observability data. You can install OpenSearch Dashboards with any of the following options:
+OpenSearch 控制面板提供了一个完全集成的解决方案，用于直观地探索、发现和查询你的可观测性数据。你可以使用以下任一选项安装 OpenSearch 控制面板：
 
 - [Docker]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/docker/)
 - [Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tar/)
@@ -20,17 +20,17 @@ OpenSearch Dashboards provides a fully integrated solution for visually explorin
 - [Helm]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/helm/)
 - [Windows]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/windows/)
 
-## Browser compatibility
+## 浏览器兼容性
 
-OpenSearch Dashboards supports the following web browsers:
+OpenSearch 控制面板支持以下 Web 浏览器：
 
-- Chrome
-- Firefox
-- Safari
-- Edge (Chromium)
+- 铬
+- 火狐浏览器
+- Safari 浏览器
+- 边缘（Chromium）
 
-Other Chromium-based browsers might work, as well. Internet Explorer and Microsoft Edge Legacy are **not** supported.
+其他基于 Chromium 的浏览器也可能有效。支持 Internet Explorer 和 Microsoft Edge 旧版**不**。
 
-## Configuration
+## 配置
 
-To learn how to configure TLS for OpenSearch Dashboards, see [Configure TLS]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tls/).
+要了解如何为 OpenSearch 控制面板配置 TLS，请参阅[配置 TLS]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tls/)。

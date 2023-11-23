@@ -1,64 +1,64 @@
 ---
 layout: default
-title: Experimental feature flags
-parent: Configuring OpenSearch
+title: 实验性功能标志
+parent: 配置 OpenSearch
 nav_order: 120
 ---
 
-# Experimental feature flags
+# 实验性功能标志
 
-OpenSearch releases may contain experimental features that you can enable or disable as needed. There are several methods for enabling feature flags, depending on the installation type. 
+OpenSearch 版本可能包含实验性功能，你可以根据需要启用或禁用这些功能。有几种方法可以启用功能标志，具体取决于安装类型。
 
-## Enable in opensearch.yml
+## 在 opensearch.yml 中启用
 
-If you are running an OpenSearch cluster and want to enable feature flags in the config file, add the following line to `opensearch.yml`:
+如果你正在运行 OpenSearch 集群并希望在配置文件中启用功能标志，请将以下行添加到 `opensearch.yml`：
 
 ```yaml
 opensearch.experimental.feature.<feature_name>.enabled: true
 ```
 {% include copy.html %}
 
-## Enable on Docker containers
+## 在 Docker 容器上启用
 
-If you’re running Docker, add the following line to `docker-compose.yml` under the `opensearch-node` > `environment` section:
+如果运行的是 Docker，请在“> `environment`”部分下 `opensearch-node` 添加以下行 `docker-compose.yml`：
 
 ```bash
 OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.<feature_name>.enabled=true"
 ```
 {% include copy.html %}
 
-## Enable on a tarball installation
+## 在 tarball 安装上启用
 
-To enable feature flags on a tarball installation, provide the new JVM parameter either in `config/jvm.options` or `OPENSEARCH_JAVA_OPTS`.
+要在 tarball 安装上启用功能部件标志，请在或 `OPENSEARCH_JAVA_OPTS` 中提供新的 JVM 参数 `config/jvm.options`。
 
-### Option 1: Modify jvm.options
+### 选项 1：修改 jvm.options
 
-Add the following lines to `config/jvm.options` before starting the `opensearch` process to enable the feature and its dependency:
+在开始 `opensearch` 该过程以启用该功能及其依赖项之前，请添加以下行 `config/jvm.options`：
 
 ```bash
 -Dopensearch.experimental.feature.<feature_name>.enabled=true
 ```
 {% include copy.html %}
 
-Then run OpenSearch:
+然后运行 OpenSearch：
 
 ```bash
 ./bin/opensearch
 ```
 {% include copy.html %}
 
-### Option 2: Enable with an environment variable
+### 选项 2：使用环境变量启用
 
-As an alternative to directly modifying `config/jvm.options`, you can define the properties by using an environment variable. This can be done using a single command when you start OpenSearch or by defining the variable with `export`.
+作为直接修改 `config/jvm.options` 的替代方法，你可以使用环境变量定义属性。这可以在启动 OpenSearch 时使用单个命令来完成，也可以通过使用 `export` 定义变量来完成。
 
-To add the feature flags inline when starting OpenSearch, run the following command:
+要在启动 OpenSearch 时以内联方式添加功能标志，请运行以下命令：
 
 ```bash
 OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.<feature_name>.enabled=true" ./opensearch-{{site.opensearch_version}}/bin/opensearch
 ```
 {% include copy.html %}
 
-If you want to define the environment variable separately prior to running OpenSearch, run the following commands:
+如果要在运行 OpenSearch 之前单独定义环境变量，请运行以下命令：
 
 ```bash
 export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.<feature_name>.enabled=true"
@@ -70,11 +70,11 @@ export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.<feature_name>.en
 ```
 {% include copy.html %}
 
-## Enable for OpenSearch development
+## 启用 OpenSearch 开发
 
-To enable feature flags for development, you must add the correct properties to `run.gradle` before building OpenSearch. See the [Developer Guide](https://github.com/opensearch-project/OpenSearch/blob/main/DEVELOPER_GUIDE.md) for information about to use how Gradle to build OpenSearch.
+要为开发启用功能标志，你必须在构建 OpenSearch 之前添加正确的属性 `run.gradle`。[开发者指南](https://github.com/opensearch-project/OpenSearch/blob/main/DEVELOPER_GUIDE.md)有关如何使用 Gradle 构建 OpenSearch 的信息，请参阅。
 
-Add the following properties to run.gradle to enable the feature:
+将以下属性添加到 run.gradle 以启用该功能：
 
 ```gradle
 testClusters {

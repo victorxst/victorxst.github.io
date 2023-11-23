@@ -1,21 +1,20 @@
 ---
 layout: default
-title: Upgrades appendix
-parent: Upgrading OpenSearch
+title: 升级附录
+parent: 升级 OpenSearch
 has_children: true
 nav_order: 30
 redirect_from:
   - /upgrade-opensearch/appendix/
 ---
 
-# Upgrades appendix
+# 升级附录
 
-Use the upgrades appendix to find additional supporting documentation, such as labs that include example API requests and configuration files to supplement the related process documentation. Specific procedures outlined in the appendix section can be used in a variety of ways:
+使用升级附录查找其他支持文档，例如包含示例 API 请求的实验室和用于补充相关过程文档的配置文件。附录部分中概述的特定过程可以以多种方式使用：
 
-- New OpenSearch users can use the steps and example resources we provide to learn about configuring and using OpenSearch and OpenSearch Dashboards.
-- System administrators who work with OpenSearch clusters can use the examples we provide to simulate cluster maintenance in a test environment before applying any changes to a production workload.
+- 新的 OpenSearch 用户可以使用我们提供的步骤和示例资源来了解如何配置和使用 OpenSearch 和 OpenSearch 控制面板。
+- 使用 OpenSearch 集群的系统管理员可以使用我们提供的示例在测试环境中模拟集群维护，然后再对生产工作负载应用任何更改。
 
-If you would like to request a specific topic, please comment on issue [#2830](https://github.com/opensearch-project/documentation-website/issues/2830) in the [OpenSearch Project](https://github.com/opensearch-project) on GitHub.
+如果你想请求特定主题，请在 GitHub 上[OpenSearch 项目](https://github.com/opensearch-project)对问题[#2830](https://github.com/opensearch-project/documentation-website/issues/2830)发表评论。
 
-The specific commands included in this appendix serve as examples of interacting with the OpenSearch API, and the underlying host, in order to demonstrate the steps described in the related upgrade process documents. The intention is not to be overly prescriptive but instead to add context for users who are new to OpenSearch and want to see practical examples.
-{:.note}
+本附录中包含的特定命令可作为与 OpenSearch API 和底层主机交互的示例，以演示相关升级过程文档中描述的步骤。其目的不是过于规范，而是为刚接触 OpenSearch 并希望查看实际示例的用户添加上下文。{：.note}
