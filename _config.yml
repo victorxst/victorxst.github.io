@@ -256,16 +256,12 @@ last-modified-at:
 exclude:
   - Gemfile
   - Gemfile.lock
-  - node_modules
-  - vendor/bundle/
-  - vendor/cache/
-  - vendor/gems/
-  - vendor/ruby/
   - README.md
+  - TERMS.md
+  - templates
   - API_STYLE_GUIDE.md
   - STYLE_GUIDE.md
   - CONTRIBUTING.md
   - MAINTAINERS.md
-  - TERMS.md
-  - .idea
-  - templates
+  - FORMATTING_GUIDE.md
+  - release-notes
