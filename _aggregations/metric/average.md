@@ -1,18 +1,18 @@
 ---
 layout: default
-title: Average
-parent: Metric aggregations
-grand_parent: Aggregations
+title: 平均
+parent: 公制聚合
+grand_parent: 聚合
 nav_order: 10
 redirect_from:
   - /query-dsl/aggregations/metric/average/
 ---
 
-# Average aggregations
+# 平均聚合
 
-The `avg` metric is a single-value metric aggregations that returns the average value of a field.
+这`avg` 公制是一个-值度量聚合返回字段的平均值。
 
-The following example calculates the average of the `taxful_total_price` field:
+以下示例计算`taxful_total_price` 场地：
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -29,7 +29,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 {

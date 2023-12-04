@@ -1,18 +1,18 @@
 ---
 layout: default
-title: Date histogram
-parent: Bucket aggregations
-grand_parent: Aggregations
+title: 日期直方图
+parent: 桶聚合
+grand_parent: 聚合
 nav_order: 20
 redirect_from:
   - /query-dsl/aggregations/bucket/date-histogram/
 ---
 
-# Date histogram aggregations
+# 日期直方图聚合
 
-The `date_histogram` aggregation uses [date math]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/#date-math) to generate histograms for time-series data.
+这`date_histogram` 聚合用途[日期数学]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/#date-math) 为时间生成直方图-系列数据。
 
-For example, you can find how many hits your website gets per month:
+例如，您可以找到您的网站每月获得多少次命中：
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -30,7 +30,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 ...
@@ -58,4 +58,5 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-The response has three months worth of logs. If you graph these values, you can see the peak and valleys of the request traffic to your website month over month.
+响应有三个月的日志。如果绘制这些值，则可以在一个月内看到请求流量到您的网站的峰值和山谷。
+

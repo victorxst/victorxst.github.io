@@ -1,18 +1,18 @@
 ---
 layout: default
-title: Stats
-parent: Metric aggregations
-grand_parent: Aggregations
+title: 统计
+parent: 公制聚合
+grand_parent: 聚合
 nav_order: 110
 redirect_from:
   - /query-dsl/aggregations/metric/stats/
 ---
 
-# Stats aggregations
+# 统计汇总
 
-The `stats` metric is a multi-value metric aggregation that returns all basic metrics such as `min`, `max`, `sum`, `avg`, and `value_count` in one aggregation query.
+这`stats` 公制是多型-价值指标聚合返回所有基本指标，例如`min`，`max`，`sum`，`avg`， 和`value_count` 在一个聚合查询中。
 
-The following example returns the basic stats for the `taxful_total_price` field:
+以下示例返回`taxful_total_price` 场地：
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -29,7 +29,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 ...
@@ -41,6 +41,5 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
     "avg" : 75.05542864304813,
     "sum" : 350884.12890625
   }
- }
 }
 ```

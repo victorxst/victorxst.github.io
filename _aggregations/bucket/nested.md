@@ -1,18 +1,18 @@
 ---
 layout: default
-title: Nested
-parent: Bucket aggregations
-grand_parent: Aggregations
+title: 嵌套
+parent: 桶聚合
+grand_parent: 聚合
 nav_order: 140
 redirect_from:
   - /query-dsl/aggregations/bucket/nested/
 ---
 
-# Nested aggregations
+# 嵌套聚集
 
-The `nested` aggregation lets you aggregate on fields inside a nested object. The `nested` type is a specialized version of the object data type that allows arrays of objects to be indexed in a way that they can be queried independently of each other
+这`nested` 聚合使您可以在嵌套对象内的字段上进行聚合。这`nested` 类型是对象数据类型的专业版本，该版本允许以可以独立于彼此查询的方式索引对象数组
 
-With the `object` type, all the data is stored in the same document, so matches for a search can go across sub documents. For example, imagine a `logs` index with `pages` mapped as an `object` datatype:
+与`object` 类型，所有数据都存储在同一文档中，因此搜索的匹配可以在子文档中进行。例如，想象一个`logs` 索引`pages` 映射为一个`object` 数据类型：
 
 ```json
 PUT logs/_doc/0
@@ -32,7 +32,7 @@ PUT logs/_doc/0
 ```
 {% include copy-curl.html %}
 
-OpenSearch merges all sub-properties of the entity relations that looks something like this:
+OpenSearch合并所有子-看起来像这样的实体关系的属性：
 
 ```json
 {
@@ -43,9 +43,9 @@ OpenSearch merges all sub-properties of the entity relations that looks somethin
 }
 ```
 
-So, if you wanted to search this index with `pages=landing` and `load_time=500`, this document matches the criteria even though the `load_time` value for landing is 200.
+因此，如果您想搜索此索引`pages=landing` 和`load_time=500`，即使`load_time` 着陆的价值为200。
 
-If you want to make sure such cross-object matches don’t happen, map the field as a `nested` type:
+如果您想确保这样的十字架-对象匹配不会发生，将字段映射为`nested` 类型：
 
 ```json
 PUT logs
@@ -65,9 +65,9 @@ PUT logs
 ```
 {% include copy-curl.html %}
 
-Nested documents allow you to index the same JSON document but will keep your pages in separate Lucene documents, making only searches like `pages=landing` and `load_time=200` return the expected result. Internally, nested objects index each object in the array as a separate hidden document, meaning that each nested object can be queried independently of the others.
+嵌套文档允许您索引相同的JSON文档，但会将您的页面保存在单独的Lucene文档中，仅进行搜索`pages=landing` 和`load_time=200` 返回预期的结果。在内部，嵌套对象将数组中的每个对象索引为一个单独的隐藏文档，这意味着每个嵌套对象可以独立查询其他对象。
 
-You have to specify a nested path relative to parent that contains the nested documents:
+您必须指定相对于父母的嵌套路径，其中包含嵌套文档：
 
 
 ```json
@@ -90,7 +90,7 @@ GET logs/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 ...
@@ -101,6 +101,6 @@ GET logs/_search
       "value" : 200.0
     }
   }
- }
 }
 ```
+

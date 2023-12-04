@@ -1,20 +1,20 @@
 ---
 layout: default
-title: Histogram
-parent: Bucket aggregations
-grand_parent: Aggregations
+title: 直方图
+parent: 桶聚合
+grand_parent: 聚合
 nav_order: 100
 redirect_from:
   - /query-dsl/aggregations/bucket/histogram/
 ---
 
-# Histogram aggregations
+# 直方图聚集
 
-The `histogram` aggregation buckets documents based on a specified interval.
+这`histogram` 基于指定间隔的聚合存储桶文档。
 
-With `histogram` aggregations, you can visualize the distributions of values in a given range of documents very easily. Now OpenSearch doesn’t give you back an actual graph of course, that’s what OpenSearch Dashboards is for. But it'll give you the JSON response that you can use to construct your own graph.
+和`histogram` 汇总，您可以很容易地在给定的文档范围内可视化值的分布。现在，OpenSearch并没有给您一个实际的图表，这就是OpenSearch仪表板的目的。但这将为您提供JSON响应，您可以用来构建自己的图形。
 
-The following example buckets the `number_of_bytes` field by 10,000 intervals:
+以下示例存储桶`number_of_bytes` 划分10,000间隔：
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -32,7 +32,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 ...
@@ -52,3 +52,4 @@ GET opensearch_dashboards_sample_data_logs/_search
  }
 }
 ```
+

@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Extended stats
-parent: Metric aggregations
-grand_parent: Aggregations
+title: 扩展统计数据
+parent: 公制聚合
+grand_parent: 聚合
 nav_order: 30
 redirect_from:
   - /query-dsl/aggregations/metric/extended-stats/
 ---
 
-# Extended stats aggregations
+# 扩展统计汇总
 
-The `extended_stats` aggregation is an extended version of the [`stats`]({{site.url}}{{site.baseurl}}/query-dsl/aggregations/metric/stats/) aggregation. Apart from including basic stats, `extended_stats` also returns stats such as `sum_of_squares`, `variance`, and `std_deviation`.
-The following example returns extended stats for `taxful_total_price`:
+这`extended_stats` 聚合是一个扩展版本的[`stats`]({{site.url}}{{site.baseurl}}/query-dsl/aggregations/metric/stats/) 聚合。除了包括基本统计数据外，`extended_stats` 还返回统计数据，例如`sum_of_squares`，`variance`， 和`std_deviation`。
+以下示例返回了扩展统计信息`taxful_total_price`：
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
 {
@@ -27,7 +27,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 ...
@@ -54,12 +54,11 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
       "lower_sampling" : -30.551161586606312
     }
   }
- }
 }
 ```
 
-The `std_deviation_bounds` object provides a visual variance of the data with an interval of plus/minus two standard deviations from the mean.
-To set the standard deviation to a different value, say 3, set `sigma` to 3:
+这`std_deviation_bounds` 对象提供了数据的视觉差异，其中一个间隔为plus/减去两个标准偏差。
+将标准偏差设置为不同的值，例如3，设置`sigma` 到3：
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search

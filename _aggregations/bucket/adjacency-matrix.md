@@ -1,20 +1,20 @@
 ---
 layout: default
-title: Adjacency matrix
-parent: Bucket aggregations
-grand_parent: Aggregations
+title: 邻接矩阵
+parent: 桶聚合
+grand_parent: 聚合
 nav_order: 10
 redirect_from:
   - /query-dsl/aggregations/bucket/adjacency-matrix/
 ---
 
-# Adjacency matrix aggregations
+# 邻接矩阵聚集
 
-The `adjacency_matrix` aggregation lets you define filter expressions and returns a matrix of the intersecting filters where each non-empty cell in the matrix represents a bucket. You can find how many documents fall within any combination of filters.
+这`adjacency_matrix` 聚合使您可以定义过滤器表达式并返回相交过滤器的矩阵-矩阵中的空单元代表一个水桶。您可以找到有多少个文档属于任何过滤器的组合。
 
-Use the `adjacency_matrix` aggregation to discover how concepts are related by visualizing the data as graphs.
+使用`adjacency_matrix` 通过将数据视为图表来发现概念如何相关的聚合。
 
-For example, in the sample eCommerce dataset, to analyze how the different manufacturing companies are related:
+例如，在样本电子商务数据集中，分析了不同制造公司如何相关的：
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -47,39 +47,39 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
- ```json
+ ```JSON
  {
    ...
-   "aggregations" : {
-     "interactions" : {
-       "buckets" : [
+   "aggregations" ：{
+     "interactions" ：{
+       "buckets" ：[[
          {
-           "key" : "grpA",
-           "doc_count" : 1553
-         },
+           "key" ："grpA"，
+           "doc_count" ：1553
+         }，，
          {
-           "key" : "grpA&grpB",
-           "doc_count" : 590
-         },
+           "key" ："grpA&grpB"，
+           "doc_count" ：590
+         }，，
          {
-           "key" : "grpA&grpC",
-           "doc_count" : 329
-         },
+           "key" ："grpA&grpC"，
+           "doc_count" ：329
+         }，，
          {
-           "key" : "grpB",
-           "doc_count" : 1370
-         },
+           "key" ："grpB"，
+           "doc_count" ：1370
+         }，，
          {
-           "key" : "grpB&grpC",
-           "doc_count" : 299
-         },
+           "key" ："grpB&grpC"，
+           "doc_count" ：299
+         }，，
          {
-           "key" : "grpC",
-           "doc_count" : 1218
+           "key" ："grpC"，
+           "doc_count" ：1218
          }
-       ]
+       这是给出的
      }
    }
  }

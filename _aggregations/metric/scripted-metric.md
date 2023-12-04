@@ -1,25 +1,25 @@
 ---
 layout: default
-title: Scripted metric
-parent: Metric aggregations
-grand_parent: Aggregations
+title: 脚本公制
+parent: 公制聚合
+grand_parent: 聚合
 nav_order: 100
 redirect_from:
   - /query-dsl/aggregations/metric/scripted-metric/
 ---
 
-# Scripted metric aggregations
+# 脚本公制聚合
 
-The `scripted_metric` metric is a multi-value metric aggregation that returns metrics calculated from a specified script.
+这`scripted_metric` 公制是多型-返回从指定脚本计算的度量标准的值指标聚合。
 
-A script has four stages: the initial stage, the map stage, the combine stage, and the reduce stage.
+脚本有四个阶段：初始阶段，地图阶段，联合收割机阶段和减少阶段。
 
-* `init_script`: (OPTIONAL) Sets the initial state and executes before any collection of documents.
-* `map_script`: Checks the value of the `type` field and executes the aggregation on the collected documents.
-* `combine_script`: Aggregates the state returned from every shard. The aggregated value is returned to the coordinating node.
-* `reduce_script`: Provides access to the variable states; this variable combines the results from the `combine_script` on each shard into an array.
+*`init_script`：（可选）设置初始状态并在任何文档集合之前执行。
+*`map_script`：检查`type` 字段并在收集的文档上执行汇总。
+*`combine_script`：汇总从每个碎片返回的状态。汇总值将返回到协调节点。
+*`reduce_script`：提供对变量状态的访问；这个变量结合了`combine_script` 在每个碎片上陷入阵列。
 
-The following example aggregates the different HTTP response types in web log data:
+以下示例将Web日志数据中的不同HTTP响应类型汇总：
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -56,7 +56,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 ...
@@ -68,6 +68,6 @@ GET opensearch_dashboards_sample_data_logs/_search
       "error" : 1242
     }
   }
- }
 }
 ```
+

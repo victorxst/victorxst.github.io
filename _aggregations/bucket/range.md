@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Range
-parent: Bucket aggregations
-grand_parent: Aggregations
+title: 范围
+parent: 桶聚合
+grand_parent: 聚合
 nav_order: 150
 redirect_from:
   - /query-dsl/aggregations/bucket/range/
 ---
 
-# Range aggregations
+# 范围聚集
 
-The `range` aggregation lets you define the range for each bucket.
+这`range` 聚合使您可以定义每个存储桶的范围。
 
-For example, you can find the number of bytes between 1000 and 2000, 2000 and 3000, and 3000 and 4000.
-Within the `range` parameter, you can define ranges as objects of an array.
+例如，您可以找到1000、2000、2000和3000，3000和4000之间的字节数。
+在`range` 参数，您可以将范围定义为数组的对象。
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -44,9 +44,9 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-The response includes the `from` key values and excludes the `to` key values:
+响应包括`from` 关键值并排除`to` 钥匙值：
 
-#### Example response
+#### 示例响应
 
 ```json
 ...

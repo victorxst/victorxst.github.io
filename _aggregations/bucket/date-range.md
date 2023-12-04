@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Date range
-parent: Bucket aggregations
-grand_parent: Aggregations
+title: 日期范围
+parent: 桶聚合
+grand_parent: 聚合
 nav_order: 30
 redirect_from:
   - /query-dsl/aggregations/bucket/date-range/
 ---
 
-# Date range aggregations
+# 日期范围聚合
 
-The `date_range` aggregation is conceptually the same as the `range` aggregation, except that it lets you perform date math.
-For example, you can get all documents from the last 10 days. To make the date more readable, include the format with a `format` parameter:
+这`date_range` 聚集在概念上与`range` 汇总，除非它使您可以执行日期数学。
+例如，您可以从过去10天中获取所有文档。为了使日期更可读，请包括一个格式`format` 范围：
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -35,7 +35,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 ...

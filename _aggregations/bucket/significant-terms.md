@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Significant terms
-parent: Bucket aggregations
-grand_parent: Aggregations
+title: 重要术语
+parent: 桶聚合
+grand_parent: 聚合
 nav_order: 180
 ---
 
-# Significant terms aggregations
+# 重要的术语聚合
 
-The `significant_terms` aggregation lets you spot unusual or interesting term occurrences in a filtered subset relative to the rest of the data in an index.
+这`significant_terms` 聚合使您可以在索引中相对于其余数据中的其余数据中发现异常或有趣的术语出现。
 
-A foreground set is the set of documents that you filter. A background set is a set of all documents in an index.
-The `significant_terms` aggregation examines all documents in the foreground set and finds a score for significant occurrences in contrast to the documents in the background set.
+前景集是您过滤的一组文档。背景集是索引中所有文档的集合。
+这`significant_terms` 聚合检查了前景集中的所有文档，并与背景集中的文档相比，找到了重大出现的分数。
 
-In the sample web log data, each document has a field containing the `user-agent` of the visitor. This example searches for all requests from an iOS operating system. A regular `terms` aggregation on this foreground set returns Firefox because it has the most number of documents within this bucket. On the other hand, a `significant_terms` aggregation returns Internet Explorer (IE) because IE has a significantly higher appearance in the foreground set as compared to the background set.
+在示例Web日志数据中，每个文档都有一个字段，其中包含`user-agent` 访客。此示例搜索来自iOS操作系统的所有请求。常规`terms` 该前景集合的聚合返回Firefox，因为它在此存储桶中具有最多的文档。另一方面，`significant_terms` 聚合返回Internet Explorer（IE），因为与背景集相比，IE在前景集中的外观明显更高。
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -37,7 +37,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 ...
@@ -60,11 +60,11 @@ GET opensearch_dashboards_sample_data_logs/_search
       }
     ]
   }
- }
 }
 ```
 
-If the `significant_terms` aggregation doesn't return any result, you might have not filtered the results with a query. Alternatively, the distribution of terms in the foreground set might be the same as the background set, implying that there isn't anything unusual in the foreground set.
+如果是`significant_terms` 聚合不会返回任何结果，您可能没有通过查询过滤结果。另外，前景集中的项分布可能与背景集相同，这意味着前景集中没有任何异常。
 
-The default source of statistical information for background term frequencies is the entire index. You can narrow this scope with a background filter for more focus
+背景术语频率的统计信息的默认来源是整个索引。您可以使用背景过滤器缩小此范围，以获得更多焦点
+
 

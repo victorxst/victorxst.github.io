@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Matrix stats
-parent: Metric aggregations
-grand_parent: Aggregations
+title: 矩阵统计
+parent: 公制聚合
+grand_parent: 聚合
 nav_order: 50
 redirect_from:
   - /query-dsl/aggregations/metric/matrix-stats/
 ---
 
-# Matrix stats aggregations
+# 矩阵统计汇总
 
-The `matrix_stats` aggregation generates advanced stats for multiple fields in a matrix form.
-The following example returns advanced stats in a matrix form for the `taxful_total_price` and `products.base_price` fields:
+这`matrix_stats` 聚合以矩阵形式生成了多个字段的高级统计信息。
+以下示例返回以矩阵形式的高级统计`taxful_total_price` 和`products.base_price` 字段：
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -28,7 +28,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 ...
@@ -70,18 +70,18 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
       }
     ]
   }
- }
 }
 ```
 
-The following table lists all response fields.
+下表列出了所有响应字段。
 
-Statistic | Description
-:--- | :---
-`count` | The number of samples measured.
-`mean` | The average value of the field measured from the sample.
-`variance` | How far the values of the field measured are spread out from its mean value. The larger the variance, the more it's spread from its mean value.
-`skewness` | An asymmetric measure of the distribution of the field's values around the mean.
-`kurtosis` | A measure of the tail heaviness of a distribution. As the tail becomes lighter, kurtosis decreases. As the tail becomes heavier, kurtosis increases. To learn about kurtosis, see [Wikipedia](https://en.wikipedia.org/wiki/Kurtosis).
-`covariance` | A measure of the joint variability between two fields. A positive value means their values move in the same direction and the other way around.
-`correlation` | A measure of the strength of the relationship between two fields. The valid values are between [-1, 1]. A value of -1 means that the value is negatively correlated and a value of 1 means that it's positively correlated. A value of 0 means that there's no identifiable relationship between them.
+统计| 描述
+：--- | ：---
+`count` | 测量样品的数量。
+`mean` | 从样品中测量的场的平均值。
+`variance` | 测得的场值从其平均值中传播多远。差异越大，它从平均值中传播的越多。
+`skewness` | 围绕平均值的场值分布的不对称度量。
+`kurtosis` | 分布的尾巴重度的度量。随着尾巴变得更轻，峰度下降。随着尾巴变得更重，峰度增加。要了解峰度，请参阅[维基百科](https://en.wikipedia.org/wiki/Kurtosis)。
+`covariance` | 两个字段之间关节变异性的度量。正值意味着它们的价值朝着相同的方向移动，另一方面则移动。
+`correlation` | 衡量两个领域之间关系强度的度量。有效值在[-1，1]。一个值-1表示该值是负相关的，而值为1表示其正相关。值为0意味着它们之间没有可识别的关系
+

@@ -1,24 +1,24 @@
 ---
 layout: default
 title: Top hits
-parent: Metric aggregations
-grand_parent: Aggregations
+parent: 公制聚合
+grand_parent: 聚合
 nav_order: 130
 redirect_from:
   - /query-dsl/aggregations/metric/top-hits/
 ---
 
-# Top hits aggregations
+# 最高命中聚合
 
-The `top_hits` metric is a multi-value metric aggregation that ranks the matching documents based on a relevance score for the field that's being aggregated.
+这`top_hits` 公制是多型-值度量集合根据正在汇总的字段的相关性分数对匹配文档进行排名。
 
-You can specify the following options:
+您可以指定以下选项：
 
-- `from`: The starting position of the hit.
-- `size`: The maximum size of hits to return. The default value is 3.
-- `sort`: How the matching hits are sorted. By default, the hits are sorted by the relevance score of the aggregation query.
+- `from`：命中的首发位置。
+- `size`：返回的最大命中尺寸。默认值为3。
+- `sort`：如何分类匹配的命中。默认情况下，命中按聚合查询的相关得分进行排序。
 
-The following example returns the top 5 products in your eCommerce data:
+以下示例返回您的电子商务数据中的前5个产品：
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -35,7 +35,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 ...
@@ -144,6 +144,5 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
       ]
     }
   }
- }
 }
 ```

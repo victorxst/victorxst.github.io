@@ -1,16 +1,16 @@
 ---
 layout: default
-title: Percentile ranks
-parent: Metric aggregations
-grand_parent: Aggregations
+title: 百分位数
+parent: 公制聚合
+grand_parent: 聚合
 nav_order: 80
 redirect_from:
   - /query-dsl/aggregations/metric/percentile-ranks/
 ---
 
-# Percentile rank aggregations
+# 百分位等级聚合
 
-Percentile rank is the percentile of values at or below a threshold grouped by a specified value. For example, if a value is greater than or equal to 80% of the values, it has a percentile rank of 80.
+百分位等级是按指定值分组的阈值或低于阈值的百分位数。例如，如果一个值大于或等于值的80％，则其百分比等级为80。
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -31,7 +31,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 ...
@@ -42,6 +42,5 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
       "15.0" : 0.0830092961834656
     }
   }
- }
 }
 ```

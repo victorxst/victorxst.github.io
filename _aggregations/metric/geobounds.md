@@ -1,18 +1,18 @@
 ---
 layout: default
 title: Geobounds
-parent: Metric aggregations
-grand_parent: Aggregations
+parent: 公制聚合
+grand_parent: 聚合
 nav_order: 40
 redirect_from:
   - /query-dsl/aggregations/metric/geobounds/
 ---
 
-## Geobounds aggregations
+## 地理位置聚集
 
-The `geo_bounds` metric is a multi-value metric aggregation that calculates the [geographic bounding box](https://docs.ogc.org/is/12-063r5/12-063r5.html#30) containing all values of a given `geo_point` or `geo_shape` field. The bounding box is returned as the upper-left and lower-right vertices of the rectangle in terms of latitude and longitude.
+这`geo_bounds` 公制是多型-计算计算的值度量集合[地理边界框](https://docs.ogc.org/is/12-063r5/12-063r5.html#30) 包含给定的所有值`geo_point` 或者`geo_shape` 场地。边界框作为鞋面返回-左右-矩形在纬度和经度方面的右顶点。
 
-The following example returns the `geo_bounds` metrics for the `geoip.location` field:
+以下示例返回`geo_bounds` 指标`geoip.location` 场地：
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -28,7 +28,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 }
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 "aggregations" : {
@@ -48,9 +48,9 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 }
 ```
 
-## Aggregating geoshapes
+## 聚集的Geoshapes
 
-To run an aggregation on a geoshape field, first create an index and map the `location` field as a `geo_shape`:
+要在Geoshape字段上运行聚合，请首先创建索引并映射`location` 字段作为`geo_shape`：
 
 ```json
 PUT national_parks
@@ -66,7 +66,7 @@ PUT national_parks
 ```
 {% include copy-curl.html %}
 
-Next, index some documents into the `national_parks` index:
+接下来，将一些文档索引到`national_parks` 指数：
 
 ```json
 PUT national_parks/_doc/1
@@ -98,7 +98,7 @@ PUT national_parks/_doc/3
 ```
 {% include copy-curl.html %}
 
-You can run a `geo_bounds` aggregation on the `location` field as follows:
+你可以运行`geo_bounds` 在`location` 字段如下：
 
 ```json
 GET national_parks/_search
@@ -115,13 +115,13 @@ GET national_parks/_search
 ```
 {% include copy-curl.html %}
 
-The optional `wrap_longitude` parameter specifies whether the bounding box returned by the aggregation can overlap the international date line (180&deg; meridian). If `wrap_longitude` is set to `true`, the bounding box can overlap the international date line and return a `bounds` object in which the lower-left longitude is greater than the upper-right longitude. The default value for `wrap_longitude` is `true`.
+可选`wrap_longitude` 参数指定聚合返回的边界框是否可以重叠国际日期线（180＆deg; meridian）。如果`wrap_longitude` 被设定为`true`，边界框可以重叠国际日期线并返回`bounds` 较低的对象-左左距鞋面-正确的经度。的默认值`wrap_longitude` 是`true`。
 
-The response contains the geo-bounding box that encloses all shapes in the `location` field:
+响应包含地理-包围所有形状的边界框`location` 场地：
 
-<details open markdown="block">
+<详细信息打开降价="block">
   <summary>
-    Response
+    回复
   </summary>
   {: .text-delta}
 
@@ -223,7 +223,8 @@ The response contains the geo-bounding box that encloses all shapes in the `loca
   }
 }
 ```
-</details>
+</delect>
 
-Currently, OpenSearch supports geoshape aggregation through the API but not in OpenSearch Dashboards visualizations. If you'd like to see geoshape aggregation implemented for visualizations, upvote the related [GitHub issue](https://github.com/opensearch-project/dashboards-maps/issues/250).
+当前，OpenSearch通过API支持GeoShape聚合，但在OpenSearch仪表板可视化中不支持GEOSHAPE聚合。如果您想查看为可视化实施的GeoShape聚合，请访问相关的[Github问题](https://github.com/opensearch-project/dashboards-maps/issues/250)。
 {: .note}
+

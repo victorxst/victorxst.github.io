@@ -1,23 +1,23 @@
 ---
 layout: default
 title: Geodistance
-parent: Bucket aggregations
-grand_parent: Aggregations
+parent: 桶聚合
+grand_parent: 聚合
 nav_order: 70
 redirect_from:
   - /query-dsl/aggregations/bucket/geo-distance/
 ---
 
-# Geodistance aggregations
+# 地球固定聚集
 
-The `geo_distance` aggregation groups documents into concentric circles based on distances from an origin `geo_point` field.
-It's the same as the `range` aggregation, except that it works on geo locations.
+这`geo_distance` 基于距离距离的距离，聚集组将文档记录到同心圆`geo_point` 场地。
+与`range` 聚集，除了它在地理位置上工作。
 
-For example, you can use the `geo_distance` aggregation to find all pizza places within 1 km of you. The search results are limited to the 1 km radius specified by you, but you can add another result found within 2 km.
+例如，您可以使用`geo_distance` 聚集以在您1公里以内找到所有披萨。搜索结果仅限于您指定的1 km半径，但是您可以在2公里内添加另一个结果。
 
-You can only use the `geo_distance` aggregation on fields mapped as `geo_point`.
+您只能使用`geo_distance` 在映射的字段上的聚合`geo_point`。
 
-A point is a single geographical coordinate, such as your current location shown by your smart-phone. A point in OpenSearch is represented as follows:
+一个点是单个地理坐标，例如您的智能显示的当前位置-电话。OpenSearch中的一个点表示如下：
 
 ```json
 {
@@ -31,19 +31,19 @@ A point is a single geographical coordinate, such as your current location shown
 }
 ```
 
-You can also specify the latitude and longitude as an array `[-81.20, 83.76]` or as a string `"83.76, -81.20"`
+您也可以将纬度和经度指定为数组`[-81.20, 83.76]` 或作为字符串`"83.76, -81.20"`
 
-This table lists the relevant fields of a `geo_distance` aggregation:
+该表列出了一个相关字段`geo_distance` 聚合：
 
-Field | Description | Required
-:--- | :--- |:---
-`field` |  Specify the geopoint field that you want to work on. | Yes
-`origin` |  Specify the geopoint that's used to compute the distances from. | Yes
-`ranges`  |  Specify a list of ranges to collect documents based on their distance from the target point. | Yes
-`unit` |  Define the units used in the `ranges` array. The `unit` defaults to `m` (meters), but you can switch to other units like `km` (kilometers), `mi` (miles), `in` (inches), `yd` (yards), `cm` (centimeters), and `mm` (millimeters).  | No
-`distance_type` | Specify how OpenSearch calculates the distance. The default is `sloppy_arc` (faster but less accurate), but can also be set to `arc` (slower but most accurate) or `plane` (fastest but least accurate). Because of high error margins, use `plane` only for small geographic areas. | No
+场地| 描述| 必需的
+：--- | ：--- |：---
+`field` |  指定要处理的地理点字段。| 是的
+`origin` |  指定用于计算距离的地理点。| 是的
+`ranges`  |  根据其距离目标点的距离指定范围列表来收集文档。| 是的
+`unit` |  定义在`ranges` 大批。这`unit` 默认为`m` （米），但是您可以切换到其他单位`km` （公里），`mi` （英里），，`in` （英寸），`yd` （码），`cm` （厘米），以及`mm` （毫米）。| 不
+`distance_type` | 指定OpenSearch如何计算距离。默认值为`sloppy_arc` （更快但准确），但也可以设置为`arc` （较慢但最准确）或`plane` （最快但最不准确）。由于较高的错误边距，请使用`plane` 仅适用于小地理区域。| 不
 
-The syntax is as follows:
+语法如下：
 
 ```json
 {
@@ -70,13 +70,13 @@ The syntax is as follows:
 }
 ```
 
-This example forms buckets from the following distances from a `geo-point` field:
+此示例从以下距离从一个`geo-point` 场地：
 
-- Fewer than 10 km
-- From 10 to 20 km
-- From 20 to 50 km
-- From 50 to 100 km
-- Above 100 km
+- 不到10公里
+- 从10到20公里
+- 从20到50公里
+- 从50到100公里
+- 超过100公里
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -117,7 +117,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 ...

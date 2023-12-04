@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Pipeline aggregations
+title: 管道聚合
 nav_order: 5
 has_children: false
 redirect_from:
@@ -8,38 +8,38 @@ redirect_from:
   - /query-dsl/aggregations/pipeline-agg/
 ---
 
-# Pipeline aggregations
+# 管道聚合
 
-With pipeline aggregations, you can chain aggregations by piping the results of one aggregation as an input to another for a more nuanced output.
+使用管道聚合，您可以通过将一个聚合的结果作为输入来链接聚合，以获得更细微的输出。
 
-You can use pipeline aggregations to compute complex statistical and mathematical measures like derivatives, moving averages, cumulative sums, and so on.
+您可以使用管道聚合来计算复杂的统计和数学措施，例如衍生物，移动平均值，累积总和等。
 
-## Pipeline aggregation syntax
+## 管道聚合语法
 
-A pipeline aggregation uses the `buckets_path` property to access the results of other aggregations.
-The `buckets_path` property has a specific syntax:
+管道聚合使用`buckets_path` 访问其他聚合结果的属性。
+这`buckets_path` 属性具有特定的语法：
 
 ```
 buckets_path = <AGG_NAME>[<AGG_SEPARATOR>,<AGG_NAME>]*[<METRIC_SEPARATOR>, <METRIC>];
 ```
 
-where:
+在哪里：
 
-- `AGG_NAME` is the name of the aggregation.
-- `AGG_SEPARATOR` separates aggregations. It's represented as `>`.
-- `METRIC_SEPARATOR` separates aggregations from its metrics. It's represented as `.`.
-- `METRIC` is the name of the metric, in case of multi-value metric aggregations.
+- `AGG_NAME` 是聚合的名称。
+- `AGG_SEPARATOR` 分开聚合。它表示为`>`。
+- `METRIC_SEPARATOR` 将聚合与其指标分开。它表示为`.`。
+- `METRIC` 是度量的名称，以防万一-价值度量聚合。
 
-For example, `my_sum.sum` selects the `sum` metric of an aggregation called `my_sum`. `popular_tags>my_sum.sum` nests `my_sum.sum` into the `popular_tags` aggregation.
+例如，`my_sum.sum` 选择`sum` 聚集的指标称为`my_sum`。`popular_tags>my_sum.sum` 巢`my_sum.sum` 进入`popular_tags` 聚合。
 
-You can also specify the following additional parameters:
+您还可以指定以下其他参数：
 
-- `gap_policy`: Real-world data can contain gaps or null values. You can specify the policy to deal with such missing data with the `gap_policy` property. You can either set the `gap_policy` property to `skip` to skip the missing data and continue from the next available value, or `insert_zeros` to replace the missing values with zero and continue running.
-- `format`: The type of format for the output value. For example, `yyyy-MM-dd` for a date value.
+- `gap_policy`： 真实的-世界数据可以包含空白值或零值。您可以指定与此类数据处理此类数据的策略`gap_policy` 财产。您可以设置`gap_policy` 财产为`skip` 跳过丢失的数据并从下一个可用值继续`insert_zeros` 用零替换缺失值并继续运行。
+- `format`：输出值的格式类型。例如，`yyyy-MM-dd` 对于日期值。
 
-## Quick example
+## 快速示例
 
-To sum all the buckets returned by the `sum_total_memory` aggregation:
+总结所有由`sum_total_memory` 聚合：
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -68,7 +68,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 ...
@@ -98,31 +98,31 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-## Types of pipeline aggregations
+## 管道聚合的类型
 
-Pipeline aggregations are of two types:
+管道聚合有两种类型：
 
-### Sibling aggregations
+### 兄弟姐妹聚集
 
-Sibling aggregations take the output of a nested aggregation and produce new buckets or new aggregations at the same level as the nested buckets.
+兄弟姐妹聚集取出嵌套聚合的输出，并在与嵌套水桶相同的水平上产生新的存储桶或新聚合。
 
-Sibling aggregations must be a multi-bucket aggregation (have multiple grouped values for a certain field) and the metric must be a numeric value.
+兄弟姐妹的聚集必须是多型-存储键聚集（具有一定字段的多个分组值），并且度量必须是数字值。
 
-`min_bucket`, `max_bucket`, `sum_bucket`, and `avg_bucket` are common sibling aggregations.
+`min_bucket`，`max_bucket`，`sum_bucket`， 和`avg_bucket` 是常见的兄弟姐妹聚集。
 
-### Parent aggregations
+### 父集合
 
-Parent aggregations take the output of an outer aggregation and produce new buckets or new aggregations at the same level as the existing buckets.
+父集合将外部聚合的输出输出，并在与现有存储桶的相同水平上产生新的存储桶或新聚合。
 
-Parent aggregations must have `min_doc_count` set to 0 (default for `histogram` aggregations) and the specified metric must be a numeric value. If `min_doc_count` is greater than `0`, some buckets are omitted, which might lead to incorrect results.
+家长聚合必须具有`min_doc_count` 设置为0（默认`histogram` 聚合）和指定的度量必须是数字值。如果`min_doc_count` 大于`0`，省略了一些水桶，这可能会导致结果不正确。
 
-`derivatives` and `cumulative_sum` are common parent aggregations.
+`derivatives` 和`cumulative_sum` 是常见的母体聚合。
 
-## avg_bucket, sum_bucket, min_bucket, max_bucket
+## avg_bucket，sum_bucket，min_bucket，max_bucket
 
-The `avg_bucket`, `sum_bucket`, `min_bucket`, and `max_bucket` aggregations are sibling aggregations that calculate the average, sum, minimum, and maximum values of a metric in each bucket of a previous aggregation.
+这`avg_bucket`，`sum_bucket`，`min_bucket`， 和`max_bucket` 聚合是计算先前聚合的每个桶中度量的平均值，总和，最小值和最大值的同级聚合。
 
-The following example creates a date histogram with a one-month interval. The `sum` sub-aggregation calculates the sum of all bytes for each month. Finally, the `avg_bucket` aggregation uses this sum to calculate the average number of bytes per month:
+以下示例使用一个创建日期直方图-月间隔。这`sum` 子-聚合计算每个月的所有字节的总和。最后，`avg_bucket` 聚合使用此总和来计算每月的平均字节数：
 
 ```json
 POST opensearch_dashboards_sample_data_logs/_search
@@ -151,7 +151,7 @@ POST opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 ...
@@ -191,13 +191,13 @@ POST opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-In a similar fashion, you can calculate the `sum_bucket`, `min_bucket`, and `max_bucket` values for the bytes per month.
+以类似的方式，您可以计算`sum_bucket`，`min_bucket`， 和`max_bucket` 每月字节的值。
 
-## stats_bucket, extended_stats_bucket
+## stats_bucket，extended_stats_bucket
 
-The `stats_bucket` aggregation is a sibling aggregation that returns a variety of stats (`count`, `min`, `max`, `avg`, and `sum`) for the buckets of a previous aggregation.
+这`stats_bucket` 聚合是一个兄弟姐妹聚合，返回各种统计数据（`count`，`min`，`max`，`avg`， 和`sum`）用于先前聚合的存储桶。
 
-The following example returns the basic stats for the buckets returned by the `sum_of_bytes` aggregation nested into the `visits_per_month` aggregation:
+以下示例返回了由`sum_of_bytes` 聚集嵌套到`visits_per_month` 聚合：
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -226,7 +226,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 ...
@@ -241,9 +241,9 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-The `extended_stats` aggregation is an extended version of the `stats` aggregation. Apart from including basic stats, `extended_stats` also provides stats such as `sum_of_squares`, `variance`, and `std_deviation`.
+这`extended_stats` 聚合是一个扩展版本的`stats` 聚合。除了包括基本统计数据外，`extended_stats` 还提供诸如`sum_of_squares`，`variance`， 和`std_deviation`。
 
-#### Example response
+#### 示例响应
 
 ```json
 "stats_monthly_visits" : {
@@ -272,19 +272,19 @@ The `extended_stats` aggregation is an extended version of the `stats` aggregati
 }
 ```
 
-## bucket_script, bucket_selector
+## buck_script，bucket_selector
 
-The `bucket_script` aggregation is a parent aggregation that executes a script to perform per-bucket calculations of a previous aggregation. Make sure the metrics are of numeric type and the returned values are also numeric.
+这`bucket_script` 聚合是父派的，该脚本执行脚本以执行每个-先前聚集的水桶计算。确保指标是数字类型，并且返回的值也是数字。
 
-Use the `script` parameter to add your script. The script can be inline, in a file, or in an index. To enable inline scripting, add the following line to your `opensearch.yml` file in the `config` folder:
+使用`script` 参数添加您的脚本。该脚本可以在文件，文件中或索引中是内联。要启用内联脚本，请将以下行添加到您的`opensearch.yml` 文件中的文件`config` 文件夹：
 
 ```yaml
 script.inline: on
 ```
 
-The `buckets_path` property consists of multiple entries. Each entry is a key and a value. The key is the name of the value that you can use in the script.
+这`buckets_path` 属性由多个条目组成。每个条目都是钥匙和值。关键是您可以在脚本中使用的值的名称。
 
-The basic syntax is:
+基本语法是：
 
 ```json
 {
@@ -298,7 +298,7 @@ The basic syntax is:
 }
 ```
 
-The following example uses the `sum` aggregation on the buckets generated by a date histogram. From the resultant buckets values, the percentage of RAM is calculated in an interval of 10,000 bytes in the context of a zip extension:
+以下示例使用`sum` 日期直方图生成的存储桶上的聚合。从最终的存储桶值中，在ZIP扩展的背景下以10,000个字节的间隔计算RAM的百分比：
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -345,7 +345,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 "aggregations" : {
@@ -389,13 +389,13 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-The RAM percentage is calculated and appended at the end of each bucket.
+计算RAM百分比并在每个存储桶的末尾附加。
 
-The `bucket_selector` aggregation is a script-based aggregation that selects buckets returned by a `histogram` (or `date_histogram`) aggregation. Use it in scenarios where you don’t want certain buckets in the output based on conditions supplied by you.
+这`bucket_selector` 聚合是一个脚本-基于聚合，选择由A返回的存储桶`histogram` （或者`date_histogram`）聚合。在您不希望根据您提供的条件中某些输出中的某些存储桶的情况下使用它。
 
-The `bucket_selector` aggregation executes a script to decide if a bucket stays in the parent multi-bucket aggregation.
+这`bucket_selector` 汇总执行脚本以确定一个水桶是否停留在父级中-铲斗聚集。
 
-The basic syntax is:
+基本语法是：
 
 ```json
 {
@@ -409,7 +409,7 @@ The basic syntax is:
 }
 ```
 
-The following example calculates the sum of bytes and then evaluates if this sum is greater than 20,000. If true, then the bucket is retained in the bucket list. Otherwise, it’s deleted from the final output.
+以下示例计算字节的总和，然后评估此总和是否大于20,000。如果为true，则将存储桶保留在存储桶列表中。否则，它将从最终输出中删除。
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -441,7 +441,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 "aggregations" : {
@@ -479,11 +479,11 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 ## bucket_sort
 
-The `bucket_sort` aggregation is a parent aggregation that sorts buckets of a previous aggregation.
+这`bucket_sort` 聚合是父母聚集，与先前聚集的桶分类。
 
-You can specify several sort fields together with the corresponding sort order. Additionally, you can sort each bucket based on its key, count, or its sub-aggregations. You can also truncate the buckets by setting `from` and `size` parameters.
+您可以将多个排序字段与相应的排序顺序一起指定。此外，您可以根据其钥匙，计数或其子来对每个存储桶进行排序-聚合。您也可以通过设置来截断水桶`from` 和`size` 参数。
 
-Syntax
+句法
 
 ```json
 {
@@ -499,7 +499,7 @@ Syntax
 }
 ```
 
-The following example sorts the buckets of a `date_histogram` aggregation based on the computed `total_sum` values. We sort the buckets in descending order so that the buckets with the highest number of bytes are returned first.
+以下示例分类了`date_histogram` 基于计算的聚合`total_sum` 值。我们按降序对存储库进行排序，以便首先返回具有最高字节数的存储桶。
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -531,7 +531,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 "aggregations" : {
@@ -567,15 +567,15 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-You can also use this aggregation to truncate the resulting buckets without sorting. For this, just use the `from` and/or `size` parameters without `sort`.
+您也可以使用此聚合来截断所得的存储桶而无需排序。为此，只需使用`from` 和/或`size` 没有参数`sort`。
 
-## cumulative_sum
+## 累积_sum
 
-The `cumulative_sum` aggregation is a parent aggregation that calculates the cumulative sum of each bucket of a previous aggregation.
+这`cumulative_sum` 聚集是一个母体聚集，可以计算先前聚集的每个桶的累积总和。
 
-A cumulative sum is a sequence of partial sums of a given sequence. For example, the cumulative sums of the sequence `{a,b,c,…}` are `a`, `a+b`, `a+b+c`, and so on. You can use the cumulative sum to visualize the rate of change of a field over time.
+累积总和是给定序列的部分总和。例如，序列的累积总和`{a,b,c,…}` 是`a`，`a+b`，`a+b+c`， 等等。您可以使用累积总和来可视化磁场随时间的变化率。
 
-The following example calculates the cumulative number of bytes over a monthly basis:
+以下示例每月计算字节的累积数：
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -604,7 +604,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 ...
@@ -650,17 +650,17 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-## derivative
+## 衍生物
 
-The `derivative` aggregation is a parent aggregation that calculates 1st order and 2nd order derivatives of each bucket of a previous aggregation.
+这`derivative` 聚合是一个母体聚合，该聚合计算先前聚集的每个桶的一阶和第二阶导数。
 
-In mathematics, the derivative of a function measures its sensitivity to change. In other words, a derivative evaluates the rate of change in some function with respect to some variable. To learn more about derivatives, see [Wikipedia](https://en.wikipedia.org/wiki/Derivative).
+在数学中，功能的衍生物衡量其对变化的敏感性。换句话说，衍生物评估了某些变量的某些功能的变化率。要了解有关衍生物的更多信息，请参阅[维基百科](https://en.wikipedia.org/wiki/Derivative)。
 
-You can use derivatives to calculate the rate of change of numeric values compared to its previous time periods.
+您可以使用导数来计算数字值的变化速率与其先前的时间段相比。
 
-The 1st order derivative indicates whether a metric is increasing or decreasing, and by how much it's increasing or decreasing.
+一阶导数表明度量是否正在增加或减少，以及它的增加或减少。
 
-The following example calculates the 1st order derivative for the sum of bytes per month. The 1st order derivative is the difference between the number of bytes in the current month and the previous month:
+以下示例计算每月字节总和的一阶导数。一阶导数是本月和上个月的字节数之间的差异：
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -689,7 +689,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 ...
@@ -728,14 +728,13 @@ GET opensearch_dashboards_sample_data_logs/_search
       }
     ]
   }
- }
 }
 ```
 
-The 2nd order derivative is a double derivative or a derivative of the derivative.
-It indicates how the rate of change of a quantity is itself changing. It’s the difference between the 1st order derivatives of adjacent buckets.
+第二阶导数是衍生物的双衍生物或衍生物。
+它表明数量的变化率本身是如何变化的。这是相邻桶的一阶导数之间的区别。
 
-To calculate a 2nd order derivative, chain one derivative aggregation to another:
+为了计算第二阶导数，将一个衍生物聚集链到另一个衍生物：
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -769,7 +768,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 ...
@@ -811,23 +810,22 @@ GET opensearch_dashboards_sample_data_logs/_search
       }
     ]
   }
- }
 }
 ```
 
-The first bucket doesn't have a 1st order derivate as a derivate needs at least two points for comparison. The first and second buckets don't have a 2nd order derivate because a 2nd order derivate needs at least two data points from the 1st order derivative.
+第一个水桶没有一阶导数，因为派生需要至少两个点进行比较。第一和第二个存储桶没有第二阶导数，因为第二阶派生至少需要从一阶导数中获得两个数据点。
 
-The 1st order derivative for the "2020-11-01" bucket is 2.9480234E7 and the "2020-12-01" bucket is -7435379. So, the 2nd order derivative of the “2020-12-01” bucket is -3.6915613E7 (-7435379-2.9480234E7).
+一阶导数"2020-11-01" 铲斗为2.9480234e7，"2020-12-01" 水桶是-7435379.因此，“ 2020-12-01英寸的存储桶是-3.6915613E7（-7435379-2.9480234E7）。
 
-Theoretically, you could continue chaining derivate aggregations to calculate the third, the fourth, and even higher-order derivatives. That would, however, provide little to no value for most datasets.
+从理论上讲，您可以继续链接派生的聚合以计算第三，第四，甚至更高的-订单衍生物。但是，这对大多数数据集提供了几乎没有价值。
 
-## moving_avg
+## Move_avg
 
-A `moving_avg` aggregation is a parent aggregation that calculates the moving average metric.
+A`moving_avg` 聚合是一个母体聚集，可计算移动平均值。
 
-The `moving_avg` aggregation finds the series of averages of different windows (subsets) of a dataset. A window’s size represents the number of data points covered by the window on each iteration (specified by the `window` property and set to 5 by default). On each iteration, the algorithm calculates the average for all data points that fit into the window and then slides forward by excluding the first member of the previous window and including the first member from the next window.
+这`moving_avg` 聚合发现数据集的不同窗口（子集）的一系列平均值。窗口的大小表示每次迭代窗口涵盖的数据点的数量（由`window` 属性并默认设置为5）。在每次迭代中，该算法计算出适合窗口的所有数据点的平均值，然后通过排除上一个窗口的第一个成员以及在下一个窗口中包括第一个成员来向前滑动。
 
-For example, given the data `[1, 5, 8, 23, 34, 28, 7, 23, 20, 19]`, you can calculate a simple moving average with a window’s size of 5 as follows:
+例如，给定数据`[1, 5, 8, 23, 34, 28, 7, 23, 20, 19]`，您可以计算一个简单的移动平均值，窗口的大小为5，如下所示：
 
 ```
 (1 + 5 + 8 + 23 + 34) / 5 = 14.2
@@ -836,14 +834,14 @@ For example, given the data `[1, 5, 8, 23, 34, 28, 7, 23, 20, 19]`, you can calc
 so on...
 ```
 
-For more information, see [Wikipedia](https://en.wikipedia.org/wiki/Moving_average).
+有关更多信息，请参阅[维基百科](https://en.wikipedia.org/wiki/Moving_average)。
 
-You can use the `moving_avg` aggregation to either smoothen out short-term fluctuations or to highlight longer-term trends or cycles in your time-series data.
+您可以使用`moving_avg` 聚集以使要么平滑-术语波动或突出显示更长-您的时间趋势或周期-系列数据。
 
-Specify a small window size (for example, `window`: 10) that closely follows the data to smoothen out small-scale fluctuations.
-Alternatively, specify a larger window size (for example, `window`: 100) that lags behind the actual data by a substantial amount to smoothen out all higher-frequency fluctuations or random noise, making lower frequency trends more visible.
+指定一个小窗口大小（例如，`window`：10）密切遵循数据以使小小-比例波动。
+或者，指定较大的窗口大小（例如，`window`：100）落后于实际数据的大量落后于实际数据，以使所有更高-频率波动或随机噪声，使较低的频率趋势更加明显。
 
-The following example nests a `moving_avg` aggregation into a `date_histogram` aggregation:
+以下示例筑巢`moving_avg` 聚集成一个`date_histogram` 聚合：
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -868,7 +866,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Example response
+#### 示例响应
 
 ```json  
 ...
@@ -907,14 +905,13 @@ GET opensearch_dashboards_sample_data_logs/_search
       }
     ]
   }
- }
 }
 ```
 
-You can also use the `moving_avg` aggregation to predict future buckets.
-To predict buckets, add the `predict` property and set it to the number of predictions that you want to see.
+您也可以使用`moving_avg` 聚集以预测未来的存储桶。
+要预测存储桶，请添加`predict` 属性并将其设置为您想要看到的预测数。
 
-The following example adds five predictions to the preceding query:
+以下示例将五个预测添加到上述查询：
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -944,7 +941,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 "aggregations" : {
@@ -1022,15 +1019,14 @@ GET opensearch_dashboards_sample_data_logs/_search
       }
     ]
   }
- }
 }
 ```
 
-The `moving_avg` aggregation supports five models — `simple`, `linear`, `exponentially weighted`, `holt-linear`, and `holt-winters`. These models differ in how the values of the window are weighted. As data points become "older" (i.e., the window slides away from them), they might be weighted differently. You can specify a model of your choice by setting the `model` property. The `model` property holds the name of the model and the `settings` object, which you can use to provide model properties. For more information on these models, see [Wikipedia](https://en.wikipedia.org/wiki/Moving_average).
+这`moving_avg` 聚合支持五个模型 - `simple`，`linear`，`exponentially weighted`，`holt-linear`， 和`holt-winters`。这些模型在窗口的值加权方面有所不同。随着数据点变为"older" （即，窗户滑离它们），它们的加权可能会有所不同。您可以通过设置`model` 财产。这`model` 属性拥有模型的名称，`settings` 对象，您可以用来提供模型属性。有关这些模型的更多信息，请参阅[维基百科](https://en.wikipedia.org/wiki/Moving_average)。
 
-A `simple` model first calculates the sum of all data points in the window, and then divides that sum by the size of the window. In other words, a `simple` model calculates a simple arithmetic mean for each window in your dataset.
+A`simple` 模型首先计算窗口中所有数据点的总和，然后将该总和除以窗口的大小。换句话说，一个`simple` 模型计算数据集中每个窗口的简单算术平均值。
 
-The following example uses a simple model with a window size of 30:
+以下示例使用一个简单的模型，窗口大小为30：
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -1062,7 +1058,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 
 
-#### Example response
+#### 示例响应
 
 ```json
 ...
@@ -1101,11 +1097,10 @@ GET opensearch_dashboards_sample_data_logs/_search
       }
     ]
   }
- }
 }
 ```
 
-The following example uses a `holt` model. You can set the speed at which the importance decays occurs with the `alpha` and `beta` setting. The default value of `alpha` is 0.3 and `beta` is 0.1. You can specify any float value between 0-1 inclusive.
+以下示例使用`holt` 模型。您可以设置重要性衰减的速度`alpha` 和`beta` 环境。默认值的默认值`alpha` 是0.3和`beta` 是0.1。您可以指定0之间的任何浮点值-1包含。
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -1139,7 +1134,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 ...
@@ -1178,7 +1173,6 @@ GET opensearch_dashboards_sample_data_logs/_search
       }
     ]
   }
- }
 }
 ```
 
@@ -1186,13 +1180,13 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 ## serial_diff
 
-The `serial_diff` aggregation is a parent pipeline aggregation that computes a series of value differences between a time lag of the buckets from previous aggregations.
+这`serial_diff` 聚合是一个母体管道聚合，它计算以前聚合的存储桶的时间滞后之间的一系列值差异。
 
-You can use the `serial_diff` aggregation to find the data changes between time periods instead of finding the whole value.
+您可以使用`serial_diff` 集合查找时间段之间的数据更改，而不是找到整个值。
 
-With the `lag` parameter (a positive, non-zero integer value), you can tell which previous bucket to subtract from the current one. If you don't specify the `lag` parameter, OpenSearch sets it to 1.
+与`lag` 参数（正，非-零整数值），您可以从当前的桶中判断哪个以前的存储桶要减去。如果您不指定`lag` 参数，OpenSearch将其设置为1。
 
-Lets say that the population of a city grows with time. If you use the serial differencing aggregation with the period of one day, you can see the daily growth. For example, you can compute a series of differences of the weekly average changes of a total price.
+可以说，一个城市的人口随着时间的流逝而增长。如果您在一天的时间内使用串行差异聚合，则可以看到每日增长。例如，您可以计算总价每周平均变化的一系列差异。
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -1222,7 +1216,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 ...
@@ -1255,6 +1249,6 @@ GET opensearch_dashboards_sample_data_logs/_search
       }
     ]
   }
- }
 }
 ```
+

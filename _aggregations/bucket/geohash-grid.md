@@ -1,20 +1,20 @@
 ---
 layout: default
 title: Geohash grid
-parent: Bucket aggregations
-grand_parent: Aggregations
+parent: 桶聚合
+grand_parent: 聚合
 nav_order: 80
 redirect_from:
   - /query-dsl/aggregations/bucket/geohash-grid/
 ---
 
-# Geohash grid aggregations
+# GeoHash网格聚集
 
-The `geohash_grid` aggregation buckets documents for geographical analysis. It organizes a geographical region into a grid of smaller regions of different sizes or precisions. Lower values of precision represent larger geographical areas, and higher values represent smaller, more precise geographical areas. You can aggregate documents on [geopoint]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) or [geoshape]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/) fields using a geohash grid aggregation. One notable difference is that a geopoint is only present in one bucket, but a geoshape is counted in all geohash grid cells with which it intersects.
+这`geohash_grid` 聚合存储桶文档用于地理分析。它将一个地理区域组织成一个不同大小或精确度的较小区域的网格。较低的精度值代表较大的地理区域，较高的值代表较小，更精确的地理区域。您可以汇总文档[地理点]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) 或者[Geoshape]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/) 使用GeoHash网格聚集的字段。一个值得注意的区别是，地理点仅存在于一个桶中，但是Geoshape在与其相交的所有GeoHash网格单元中计数。
 
-The number of results returned by a query might be far too many to display each geopoint individually on a map. The `geohash_grid` aggregation buckets nearby geopoints together by calculating the geohash for each point, at the level of precision that you define (between 1 to 12; the default is 5). To learn more about geohash, see [Wikipedia](https://en.wikipedia.org/wiki/Geohash).
+查询返回的结果数可能太多了，无法在地图上单独显示每个地理点。这`geohash_grid` 通过在定义的精度（1至12之间；默认值为5）的精度级别，通过计算每个点的Geohash来合计的聚合存储桶一起计算地理点。要了解有关GeoHash的更多信息，请参阅[维基百科](https://en.wikipedia.org/wiki/Geohash)。
 
-The web logs example data is spread over a large geographical area, so you can use a lower precision value. You can zoom in on this map by increasing the precision value:
+Web日志示例数据分布在大型地理区域上，因此您可以使用较低的精度值。您可以通过增加精度值来放大此地图：
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -32,7 +32,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 ...
@@ -66,13 +66,13 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-You can visualize the aggregated response on a map using OpenSearch Dashboards.
+您可以使用OpenSearch仪表板在地图上可视化汇总响应。
 
-The more accurate you want the aggregation to be, the more resources OpenSearch consumes because of the number of buckets that the aggregation has to calculate. By default, OpenSearch does not generate more than 10,000 buckets. You can change this behavior by using the `size` attribute, but keep in mind that the performance might suffer for very wide queries consisting of thousands of buckets.
+您希望汇总的准确性越准确，由于汇总必须计算的存储桶数量，因此OpenSearch消耗的资源越多。默认情况下，OpenSearch不会生成超过10,000个存储桶。您可以使用`size` 属性，但请记住，该性能可能会在包括数千个水桶组成的非常广泛的查询中受到影响。
 
-## Aggregating geoshapes
+## 聚集的Geoshapes
 
-To run an aggregation on a geoshape field, first create an index and map the `location` field as a `geo_shape`:
+要在Geoshape字段上运行聚合，请首先创建索引并映射`location` 字段作为`geo_shape`：
 
 ```json
 PUT national_parks
@@ -88,7 +88,7 @@ PUT national_parks
 ```
 {% include copy-curl.html %}
 
-Next, index some documents into the `national_parks` index:
+接下来，将一些文档索引到`national_parks` 指数：
 
 ```json
 PUT national_parks/_doc/1
@@ -120,7 +120,7 @@ PUT national_parks/_doc/3
 ```
 {% include copy-curl.html %}
 
-You can run an aggregation on the `location` field as follows:
+您可以在`location` 字段如下：
 
 ```json
 GET national_parks/_search
@@ -137,13 +137,13 @@ GET national_parks/_search
 ```
 {% include copy-curl.html %}
 
-When aggregating geoshapes, one geoshape can be counted for multiple buckets because it overlaps multiple grid cells:
+当汇总Geoshapes时，可以对多个存储桶进行计数一个Geoshape，因为它与多个网格单元重叠：
 
-<details open markdown="block">
+<详细信息打开降价="block">
   <summary>
-    Response
+    回复
   </summary>
-  {: .text-delta}
+  {： 。文本-三角洲}
   
 ```json
 {
@@ -243,19 +243,20 @@ When aggregating geoshapes, one geoshape can be counted for multiple buckets bec
   }
 }
 ```
-</details>
+</delect>
 
-Currently, OpenSearch supports geoshape aggregation through the API but not in OpenSearch Dashboards visualizations. If you'd like to see geoshape aggregation implemented for visualizations, upvote the related [GitHub issue](https://github.com/opensearch-project/dashboards-maps/issues/250).
+当前，OpenSearch通过API支持GeoShape聚合，但在OpenSearch仪表板可视化中不支持GEOSHAPE聚合。如果您想查看为可视化实施的GeoShape聚合，请访问相关的[Github问题](https://github.com/opensearch-project/dashboards-maps/issues/250)。
 {: .note}
 
-## Supported parameters
+## 支持的参数
 
-Geohash grid aggregation requests support the following parameters.
+GeoHash网格聚合请求支持以下参数。
 
-Parameter | Data type | Description
-:--- | :--- | :---
-field | String | The field on which aggregation is performed. This field must be mapped as a `geo_point` or `geo_shape` field. If the field contains an array, all array values are aggregated. Required.
-precision | Integer | The zoom level used to determine grid cells for bucketing results. Valid values are in the [0, 15] range. Optional. Default is 5. 
-bounds | Object | The bounding box for filtering geopoints and geoshapes. The bounding box is defined by the upper-left and lower-right vertices. Only shapes that intersect with this bounding box or are completely enclosed by this bounding box are included in the aggregation output. The vertices are specified as geopoints in one of the following formats: <br>- An object with a latitude and longitude<br>- An array in the [`longitude`, `latitude`] format<br>- A string in the "`latitude`,`longitude`" format<br>- A geohash <br>- WKT<br> See the [geopoint formats]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats) for formatting examples. Optional.
-size | Integer | The maximum number of buckets to return. When there are more buckets than `size`, OpenSearch returns buckets with more documents. Optional. Default is 10,000.
-shard_size | Integer | The maximum number of buckets to return from each shard. Optional. Default is max (10, `size` &middot; number of shards), which provides a more accurate count of more highly prioritized buckets.
+范围| 数据类型| 描述
+：--- | ：--- | ：---
+场地| 细绳| 执行聚合的字段。该字段必须映射为`geo_point` 或者`geo_shape` 场地。如果字段包含一个数组，则所有数组值均已汇总。必需的。
+精确| 整数| 缩放水平用于确定网格单元以进行铲斗结果。有效值在[0，15]范围内。选修的。默认值为5。
+边界| 目的| 用于过滤地理点和geoshapes的边界框。边界框由鞋面定义-左右-右顶点。只有与此边界框相交或完全由该边界框包含的形状包含在聚合输出中。这些顶点在以下格式之一中指定为地理点：<br>- 具有纬度和经度的对象<br>- 阵列[`longitude`，`latitude`](format<br>- A string in the "`latitude`,`longitude`" format<br>- A geohash <br>- WKT<br> See the [geopoint formats]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats) 用于格式化示例。选修的。
+尺寸| 整数| 返回的最大存储桶数。当水桶比`size`，OpenSearch返回带有更多文档的存储桶。选修的。默认值为10,000。
+shard_size| 整数| 从每个碎片返回的最大存储桶数。选修的。默认值为最大（10，`size` ＆middot;碎片数），这提供了更准确的更优先级存储桶的计数
+

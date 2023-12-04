@@ -1,18 +1,18 @@
 ---
 layout: default
 title: Sum
-parent: Metric aggregations
-grand_parent: Aggregations
+parent: 公制聚合
+grand_parent: 聚合
 nav_order: 120
 redirect_from:
   - /query-dsl/aggregations/metric/sum/
 ---
 
-# Sum aggregations
+# 总计聚合
 
-The `sum` metric is a single-value metric aggregations that returns the sum of the values of a field.
+这`sum` 公制是一个-返回字段值之和的值度量聚合。
 
-The following example calculates the total sum of the `taxful_total_price` field:
+以下示例计算`taxful_total_price` 场地：
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -29,7 +29,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -56,3 +56,4 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
   }
 }
 ```
+

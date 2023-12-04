@@ -1,22 +1,22 @@
 ---
 layout: default
-title: Percentile
-parent: Metric aggregations
-grand_parent: Aggregations
+title: 百分位数
+parent: 公制聚合
+grand_parent: 聚合
 nav_order: 90
 redirect_from:
   - /query-dsl/aggregations/metric/percentile/
 ---
 
-# Percentile aggregations
+# 百分位聚合
 
-Percentile is the percentage of the data that's at or below a certain threshold value.
+百分位数是在一定阈值值的数据中的百分比。
 
-The `percentile` metric is a multi-value metric aggregation that lets you find outliers in your data or figure out the distribution of your data.
+这`percentile` 公制是多型-值度量集合使您可以在数据中找到离群值或找出数据的分布。
 
-Like the `cardinality` metric, the `percentile` metric is also approximate.
+像`cardinality` 公制，`percentile` 公制也近似。
 
-The following example calculates the percentile in relation to the `taxful_total_price` field:
+以下示例计算了相对于`taxful_total_price` 场地：
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -33,7 +33,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 ...
@@ -49,6 +49,6 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
       "99.0" : 222.0
     }
   }
- }
 }
 ```
+

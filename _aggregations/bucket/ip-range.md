@@ -1,17 +1,17 @@
 ---
 layout: default
-title: IP range
-parent: Bucket aggregations
-grand_parent: Aggregations
+title: IP范围
+parent: 桶聚合
+grand_parent: 聚合
 nav_order: 110
 redirect_from:
   - /query-dsl/aggregations/bucket/ip-range/
 ---
 
-# IP range aggregations
+# IP范围聚集
 
-The `ip_range` aggregation is for IP addresses.
-It works on `ip` type fields. You can define the IP ranges and masks in the [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) notation.
+这`ip_range` 聚合是用于IP地址的。
+它可以使用`ip` 类型字段。您可以在[cidr](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) 符号。
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -37,7 +37,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 ...
@@ -58,11 +58,10 @@ GET opensearch_dashboards_sample_data_logs/_search
       }
     ]
   }
- }
 }
 ```
 
-If you add a document with malformed fields to an index that has `ip_range` set to `false` in its mappings, OpenSearch rejects the entire document. You can set `ignore_malformed` to `true` to specify that OpenSearch should ignore malformed fields. The default is `false`.
+如果将带有畸形字段的文档添加到具有`ip_range` 设置`false` 在映射中，OpenSearch拒绝了整个文档。您可以设置`ignore_malformed` 到`true` 要指定OpenSearch应该忽略畸形字段。默认值为`false`。
 
 ```json
 ...

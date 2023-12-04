@@ -1,18 +1,18 @@
 ---
 layout: default
-title: Filter
-parent: Bucket aggregations
-grand_parent: Aggregations
+title: 筛选
+parent: 桶聚合
+grand_parent: 聚合
 nav_order: 50
 redirect_from:
   - /query-dsl/aggregations/bucket/filter/
 ---
 
-# Filter aggregations
+# 过滤器聚合
 
-A `filter` aggregation is a query clause, exactly like a search query — `match` or `term` or `range`. You can use the `filter` aggregation to narrow down the entire set of documents to a specific set before creating buckets.
+A`filter` 聚合是一个查询子句，就像搜索查询一样 - `match` 或者`term` 或者`range`。您可以使用`filter` 在创建存储桶之前，将整个文档缩小到特定集的汇总。
 
-The following example shows the `avg` aggregation running within the context of a filter. The `avg` aggregation only aggregates the documents that match the `range` query:
+以下示例显示`avg` 在过滤器的上下文中运行的聚合。这`avg` 聚合仅汇总匹配的文档`range` 询问：
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -40,7 +40,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 ...

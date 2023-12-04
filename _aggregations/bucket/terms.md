@@ -1,16 +1,16 @@
 ---
 layout: default
-title: Terms
-parent: Bucket aggregations
-grand_parent: Aggregations
+title: 术语
+parent: 桶聚合
+grand_parent: 聚合
 nav_order: 200
 ---
 
-# Terms aggregations
+# 术语聚合
 
-The `terms` aggregation dynamically creates a bucket for each unique term of a field.
+这`terms` 聚合会为字段的每个唯一项动态创建一个存储桶。
 
-The following example uses the `terms` aggregation to find the number of documents per response code in web log data:
+以下示例使用`terms` 汇总以在Web日志数据中查找每个响应代码的文档数量：
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -28,7 +28,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 ...
@@ -55,31 +55,31 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-The values are returned with the key `key`.
-`doc_count` specifies the number of documents in each bucket. By default, the buckets are sorted in descending order of `doc-count`.
+值用密钥返回值`key`。
+`doc_count` 指定每个存储桶中的文档数量。默认情况下，存储桶以降序排序的顺序`doc-count`。
 
-The response also includes two keys named `doc_count_error_upper_bound` and `sum_other_doc_count`.
+响应还包括两个键`doc_count_error_upper_bound` 和`sum_other_doc_count`。
 
-The `terms` aggregation returns the top unique terms. So, if the data has many unique terms, then some of them might not appear in the results. The `sum_other_doc_count` field is the sum of the documents that are left out of the response. In this case, the number is 0 because all the unique values appear in the response.
+这`terms` 聚合返回最高的唯一术语。因此，如果数据具有许多独特的术语，那么结果可能不会出现。这`sum_other_doc_count` 字段是响应中排除的文档的总和。在这种情况下，数字为0，因为所有唯一值都出现在响应中。
 
-The `doc_count_error_upper_bound` field represents the maximum possible count for a unique value that's left out of the final results. Use this field to estimate the error margin for the count.
+这`doc_count_error_upper_bound` 字段表示最终结果中遗留下来的唯一值的最大计数。使用此字段来估计计数的误差余量。
 
-The count might not be accurate. A coordinating node that’s responsible for the aggregation prompts each shard for its top unique terms. Imagine a scenario where the `size` parameter is 3.
-The `terms` aggregation requests each shard for its top 3 unique terms. The coordinating node takes each of the results and aggregates them to compute the final result. If a shard has an object that’s not part of the top 3, then it won't show up in the response.
+计数可能不准确。负责聚合的协调节点促使每个碎片的最佳术语。想象一个场景`size` 参数为3。
+这`terms` 汇总请求每个碎片的前3个唯一术语。协调节点将获取每个结果并将它们汇总以计算最终结果。如果碎片具有不属于前三名的对象，则不会显示在响应中。
 
-This is especially true if `size` is set to a low number. Because the default size is 10, an error is unlikely to happen. If you don’t need high accuracy and want to increase the performance, you can reduce the size.
+如果这尤其如此`size` 设置为较低的数字。由于默认大小为10，因此不太可能发生错误。如果您不需要高准确性并想提高性能，则可以降低尺寸。
 
-## Account for pre-aggregated data
+## 账户-汇总数据
 
-While the `doc_count` field provides a representation of the number of individual documents aggregated in a bucket, `doc_count` by itself does not have a way to correctly increment documents that store pre-aggregated data. To account for pre-aggregated data and accurately calculate the number of documents in a bucket, you can use the `_doc_count` field to add the number of documents in a single summary field. When a document includes the `_doc_count` field, all bucket aggregations recognize its value and increase the bucket `doc_count` cumulatively. Keep these considerations in mind when using the `_doc_count` field:
+而`doc_count` 字段提供了在存储桶中汇总的单个文档数量的表示，`doc_count` 本身没有办法正确地增加存储PRE的文档-汇总数据。考虑预先考虑-汇总数据并准确计算存储桶中的文档数量，您可以使用`_doc_count` 字段以在单个摘要字段中添加文档数量。当文件包括`_doc_count` 字段，所有水桶聚合都识别其价值并增加了桶`doc_count` 累积。使用这些考虑时要牢记这些考虑`_doc_count` 场地：
 
-* The field does not support nested arrays; only positive integers can be used.
-* If a document does not contain the `_doc_count` field, aggregation uses the document to increase the count by 1.
+*该字段不支持嵌套数组；只能使用积极的整数。
+*如果文档不包含`_doc_count` 字段，聚合使用该文档将计数增加1。
 
-OpenSearch features that rely on an accurate document count illustrate the importance of using the `_doc_count` field. To see how this field can be used to support other search tools, refer to [Index rollups](https://opensearch.org/docs/latest/im-plugin/index-rollups/index/), an OpenSearch feature for the Index Management (IM) plugin that stores documents with pre-aggregated data in rollup indexes.
-{: .tip}
+依赖精确文档计数的OpenSearch功能说明了使用`_doc_count` 场地。要查看该字段如何用于支持其他搜索工具，请参阅[索引汇总](https://opensearch.org/docs/latest/im-plugin/index-rollups/index/)，用于索引管理（IM）插件的OpenSearch功能，该插件将文档存储使用PRE-汇总索引中的汇总数据。
+{： 。提示}
 
-#### Example request
+#### 示例请求
 
 ```json
 PUT /my_index/_doc/1
@@ -116,7 +116,7 @@ GET /my_index/_search
 }
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 {

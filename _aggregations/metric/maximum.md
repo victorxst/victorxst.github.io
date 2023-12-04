@@ -1,18 +1,18 @@
 ---
 layout: default
-title: Maximum
-parent: Metric aggregations
-grand_parent: Aggregations
+title: 最大限度
+parent: 公制聚合
+grand_parent: 聚合
 nav_order: 60
 redirect_from:
   - /query-dsl/aggregations/metric/maximum/
 ---
 
-# Maximum aggregations
+# 最大聚合
 
-The `max` metric is a single-value metric aggregations that returns the maximum value of a field.
+这`max` 公制是一个-返回字段最大值的值度量聚合。
 
-The following example calculates the maximum of the `taxful_total_price` field:
+以下示例计算`taxful_total_price` 场地：
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -29,7 +29,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 {

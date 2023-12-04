@@ -1,5 +1,7 @@
 ---
-layout：default title：从 Elasticsearch OSS 迁移到 OpenSearch nav_order：15
+layout: default
+title: 从 Elasticsearch OSS 迁移到 OpenSearch
+nav_order: 15
 ---
 
 # 从 Elasticsearch OSS 迁移到 OpenSearch

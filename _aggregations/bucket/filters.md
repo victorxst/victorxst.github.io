@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Filters
-parent: Bucket aggregations
-grand_parent: Aggregations
+title: 过滤器
+parent: 桶聚合
+grand_parent: 聚合
 nav_order: 60
 redirect_from:
   - /query-dsl/aggregations/bucket/filters/
 ---
 
-# Filters aggregations
+# 过滤器聚合
 
-A `filters` aggregation is the same as the `filter` aggregation, except that it lets you use multiple filter aggregations.
-While the `filter` aggregation results in a single bucket, the `filters` aggregation returns multiple buckets, one for each of the defined filters.
+A`filters` 聚集与`filter` 聚合，除了它使您可以使用多个滤镜聚合。
+而`filter` 聚集导致一个单一的水桶，`filters` 聚合返回多个存储桶，每个定义过滤器中的一个。
 
-To create a bucket for all the documents that didn't match the any of the filter queries, set the `other_bucket` property to `true`:
+要为所有与任何不匹配任何过滤器查询的文档创建一个存储桶，请设置`other_bucket` 财产为`true`：
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -49,7 +49,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 ...

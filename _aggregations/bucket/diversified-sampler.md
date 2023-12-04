@@ -1,16 +1,16 @@
 ---
 layout: default
-title: Diversified sampler
-parent: Bucket aggregations
-grand_parent: Aggregations
+title: 多样化的采样器
+parent: 桶聚合
+grand_parent: 聚合
 nav_order: 40
 redirect_from:
   - /query-dsl/aggregations/bucket/diversified-sampler/
 ---
 
-# Diversified sampler aggregations
+# 多样化的采样器聚集
 
-The `diversified_sampler` aggregation lets you reduce the bias in the distribution of the sample pool. You can use the `field` setting to control the maximum number of documents collected on any one shard which shares a common value:
+这`diversified_sampler` 聚集使您可以减少样品库分布的偏差。您可以使用`field` 设置以控制任何共同值的任何一个分片上收集的文档数量：
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -35,7 +35,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 ...
@@ -60,3 +60,4 @@ GET opensearch_dashboards_sample_data_logs/_search
  }
 }
 ```
+

@@ -9,23 +9,23 @@ redirect_from:
   - /query-dsl/aggregations/
 ---
 
-# Aggregations
+# 聚合
 
-OpenSearch isn’t just for search. Aggregations let you tap into OpenSearch's powerful analytics engine to analyze your data and extract statistics from it.
+OpenSearch不仅是搜索。聚合使您可以利用Opensearch强大的分析引擎来分析您的数据并从中提取统计信息。
 
-The use cases of aggregations vary from analyzing data in real time to take some action to using OpenSearch Dashboards to create a visualization dashboard.
+聚合的用例从实时分析数据来采取一些措施来使用OpenSearch仪表板来创建可视化仪表板。
 
-OpenSearch can perform aggregations on massive datasets in milliseconds. Compared to queries, aggregations consume more CPU cycles and memory.
+OpenSearch可以在毫秒内的大量数据集上执行聚合。与查询相比，聚集消耗更多的CPU周期和内存。
 
-## Aggregations on text fields
+## 文本字段上的聚合
 
-By default, OpenSearch doesn't support aggregations on a text field. Because text fields are tokenized, an aggregation on a text field has to reverse the tokenization process back to its original string and then formulate an aggregation based on that. This kind of an operation consumes significant memory and degrades cluster performance.
+默认情况下，OpenSearch不支持文本字段上的聚合。由于文本字段已被象征化，因此文本字段上的聚合必须将令牌化过程倒回其原始字符串，然后基于该字符串制定聚合。这种操作会消耗大量内存并降低集群性能。
 
-While you can enable aggregations on text fields by setting the `fielddata` parameter to `true` in the mapping, the aggregations are still based on the tokenized words and not on the raw text.
+虽然您可以通过设置文本字段启用汇总`fielddata` 参数为`true` 在映射中，聚集仍然基于令牌化的单词，而不是基于原始文本。
 
-We recommend keeping a raw version of the text field as a `keyword` field that you can aggregate on.
+我们建议将文本字段的原始版本保留为`keyword` 您可以汇总的字段。
 
-In this case, you can perform aggregations on the `title.raw` field, instead of on the `title` field:
+在这种情况下，您可以在`title.raw` 字段，而不是在`title` 场地：
 
 ```json
 PUT movies
@@ -46,9 +46,9 @@ PUT movies
 }
 ```
 
-## General aggregation structure
+## 一般聚集结构
 
-The structure of an aggregation query is as follows:
+聚合查询的结构如下：
 
 ```json
 GET _search
@@ -62,19 +62,19 @@ GET _search
 }
 ```
 
-If you’re only interested in the aggregation result and not in the results of the query, set `size` to 0.
+如果您只对汇总结果感兴趣，而不是对查询结果感兴趣，请设置`size` 到0。
 
-In the `aggs` property (you can use `aggregations` if you want), you can define any number of aggregations. Each aggregation is defined by its name and one of the types of aggregations that OpenSearch supports.
+在里面`aggs` 属性（您可以使用`aggregations` 如果需要），可以定义任何数量的聚合。每个聚合都由其名称和OpenSearch支持的聚合类型之一定义。
 
-The name of the aggregation helps you to distinguish between different aggregations in the response. The `AGG_TYPE` property is where you specify the type of aggregation.
+聚合的名称可帮助您区分响应中的不同聚合。这`AGG_TYPE` 属性是您指定聚合类型的地方。
 
-## Sample aggregation
+## 样品聚集
 
-This section uses the OpenSearch Dashboards sample ecommerce data and web log data. To add the sample data, log in to OpenSearch Dashboards, choose **Home**, and then choose **Try our sample data**. For **Sample eCommerce orders** and **Sample web logs**, choose **Add data**.
+本节使用OpenSearch仪表板示例电子商务数据和Web日志数据。要添加示例数据，请登录到OpenSearch仪表板，请选择**家**，然后选择**尝试我们的示例数据**。为了**样本电子商务订单** 和**示例Web日志**， 选择**添加数据**。
 
 ### avg
 
-To find the average value of the `taxful_total_price` field:
+找到平均值`taxful_total_price` 场地：
 
 ```json
 GET opensearch_dashboards_sample_data_ecommerce/_search
@@ -90,7 +90,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 }
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -118,25 +118,25 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 }
 ```
 
-The aggregation block in the response shows the average value for the `taxful_total_price` field.
+响应中的聚合块显示了`taxful_total_price` 场地。
 
-## Types of aggregations
+## 聚合的类型
 
-There are three main types of aggregations:
+聚集的三种主要类型：
 
-- Metric aggregations - Calculate metrics such as `sum`, `min`, `max`, and `avg` on numeric fields.
-- Bucket aggregations - Sort query results into groups based on some criteria.
-- Pipeline aggregations - Pipe the output of one aggregation as an input to another.
+- 公制聚合- 计算指标，例如`sum`，`min`，`max`， 和`avg` 在数字字段上。
+- 水桶聚集- 根据某些标准将查询结果分组为组。
+- 管道聚合- 将一个聚合的输出作为输入作为输入。
 
-## Nested aggregations
+## 嵌套聚集
 
-Aggregations within aggregations are called nested or subaggregations.
+聚合中的聚合称为嵌套或亚凝集。
 
-Metric aggregations produce simple results and can't contain nested aggregations.
+公制聚合会产生简单的结果，并且不能包含嵌套聚合。
 
-Bucket aggregations produce buckets of documents that you can nest in other aggregations. You can perform complex analysis on your data by nesting metric and bucket aggregations within bucket aggregations.
+铲斗聚合会产生可以嵌套在其他聚合中的文档桶。您可以通过在存储桶聚合中嵌套度量和存储桶聚合来对数据进行复杂的分析。
 
-### General nested aggregation syntax
+### 一般嵌套聚集语法
 
 ```json
 {
@@ -157,10 +157,11 @@ Bucket aggregations produce buckets of documents that you can nest in other aggr
 }
 ```
 
-The inner `aggs` keyword begins a new nested aggregation. The syntax of the parent aggregation and the nested aggregation is the same. Nested aggregations run in the context of the preceding parent aggregations.
+内心`aggs` 关键字开始一个新的嵌套聚合。母体聚集和嵌套聚集的语法是相同的。嵌套聚合在前面的父聚集的上下文中运行。
 
-You can also pair your aggregations with search queries to narrow down things you’re trying to analyze before aggregating. If you don't add a query, OpenSearch implicitly uses the `match_all` query.
+您还可以将汇总与搜索查询配对，以缩小您要在汇总之前要分析的内容。如果您不添加查询，则openSearch隐式使用`match_all` 询问。
 
-## Limitations
+## 限制
 
-Because aggregators are processed using the `double` data type for all values, `long` values of 2<sup>53</sup> and greater are approximate.
+因为使用`double` 所有值的数据类型，`long` 2 <sup> 53 </sup>以上的值近似。
+

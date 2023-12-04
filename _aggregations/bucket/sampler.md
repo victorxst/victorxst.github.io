@@ -1,18 +1,18 @@
 ---
 layout: default
-title: Sampler
-parent: Bucket aggregations
-grand_parent: Aggregations
+title: 采样器
+parent: 桶聚合
+grand_parent: 聚合
 nav_order: 170
 ---
 
-# Sampler aggregations
+# 采样器聚集
 
-If you're aggregating over millions of documents, you can use a `sampler` aggregation to reduce its scope to a small sample of documents for a faster response. The `sampler` aggregation selects the samples by top-scoring documents.
+如果您汇总了数百万个文档，则可以使用`sampler` 将其范围降低到一小部分文档的聚合以获得更快的响应。这`sampler` 聚合按顶部选择样品-评分文件。
 
-The results are approximate but closely represent the distribution of the real data. The `sampler` aggregation significantly improves query performance, but the estimated responses are not entirely reliable.
+结果是近似值，但密切表示真实数据的分布。这`sampler` 聚合显着提高了查询性能，但是估计的响应并不完全可靠。
 
-The basic syntax is:
+基本语法是：
 
 ```json
 “aggs”: {
@@ -25,9 +25,9 @@ The basic syntax is:
 }
 ```
 
-The `shard_size` property tells OpenSearch how many documents (at most) to collect from each shard.
+这`shard_size` 属性告诉Opensearch从每个碎片中收集多少个文档（最多）。
 
-The following example limits the number of documents collected on each shard to 1,000 and then buckets the documents by a `terms` aggregation:
+以下示例将每个碎片收集的文档数量限制为1,000，然后用`terms` 聚合：
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -51,7 +51,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 ...

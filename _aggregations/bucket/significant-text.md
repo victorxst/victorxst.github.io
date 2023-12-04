@@ -1,27 +1,27 @@
 ---
 layout: default
-title: Significant text
-parent: Bucket aggregations
-grand_parent: Aggregations
+title: 重要的文字
+parent: 桶聚合
+grand_parent: 聚合
 nav_order: 190
 ---
 
-# Significant text aggregations
+# 重要的文本聚合
 
-The `significant_text` aggregation is similar to the `significant_terms` aggregation but it's for raw text fields.
-Significant text measures the change in popularity measured between the foreground and background sets using statistical analysis. For example, it might suggest Tesla when you look for its stock acronym TSLA.
+这`significant_text` 聚集与`significant_terms` 聚合，但这是针对原始文本字段。
+重要的文本衡量了使用统计分析在前景集和背景集之间测量的流行度的变化。例如，当您查找其股票首字母缩写TSLA时，它可能建议Tesla。
 
-The `significant_text` aggregation re-analyzes the source text on the fly, filtering noisy data like duplicate paragraphs, boilerplate headers and footers, and so on, which might otherwise skew the results.
+这`significant_text` 聚合-即时分析源文本，过滤嘈杂的数据，例如重复的段落，样板标头和页脚等等，等等，否则可能会偏向结果。
 
-Re-analyzing high-cardinality datasets can be a very CPU-intensive operation. We recommend using the `significant_text` aggregation inside a sampler aggregation to limit the analysis to a small selection of top-matching documents, for example 200.
+关于-分析高-基数数据集可以是非常CPU-密集操作。我们建议使用`significant_text` 采样器聚集中的聚集，以将分析限制为一小部分顶部-匹配文档，例如200。
 
-You can set the following parameters:
+您可以设置以下参数：
 
-- `min_doc_count` - Return results that match more than a configured number of top hits. We recommend not setting `min_doc_count` to 1 because it tends to return terms that are typos or misspellings. Finding more than one instance of a term helps reinforce that the significance is not the result of a one-off accident. The default value of 3 is used to provide a minimum weight-of-evidence.
-- `shard_size` - Setting a high value increases stability (and accuracy) at the expense of computational performance.
-- `shard_min_doc_count` - If your text contains many low frequency words and you're not interested in these (for example typos), then you can set the `shard_min_doc_count` parameter to filter out candidate terms at a shard level with a reasonable certainty to not reach the required `min_doc_count` even after merging the local significant text frequencies. The default value is 1, which has no impact until you explicitly set it. We recommend setting this value much lower than the `min_doc_count` value.
+- `min_doc_count` - 返回结果匹配的结果超过了配置的最高命中次数。我们建议不要设置`min_doc_count` 到1，因为它倾向于返回错别字或拼写错误的术语。寻找多个术语的实例有助于加强意义不是一个的结果-事故。默认值3用于提供最小的重量-的-证据。
+- `shard_size` - 设置高价值会以计算性能为代价提高稳定性（和准确性）。
+- `shard_min_doc_count` - 如果您的文本包含许多低频单词，并且您对这些单词不感兴趣（例如错别字），那么您可以设置`shard_min_doc_count` 参数可以在碎片级别过滤候选术语，并具有合理的确定性，无法达到所需`min_doc_count` 即使在合并了局部重要的文本频率之后。默认值为1，直到您明确设置它，它都不会影响。我们建议设置此值远低于`min_doc_count` 价值。
 
-Assume that you have the complete works of Shakespeare indexed in an OpenSearch cluster. You can find significant texts in relation to the word "breathe" in the `text_entry` field:
+假设您在OpenSearch集群中拥有莎士比亚索引的完整作品。您可以找到与单词有关的重要文本"breathe" 在里面`text_entry` 场地：
 
 ```json
 GET shakespeare/_search
@@ -50,7 +50,7 @@ GET shakespeare/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 "aggregations" : {
@@ -91,15 +91,15 @@ GET shakespeare/_search
 }
 ```
 
-The most significant texts in relation to `breathe` are `air`, `dead`, and `life`.
+与`breathe` 是`air`，`dead`， 和`life`。
 
-The `significant_text` aggregation has the following limitations:
+这`significant_text` 聚合具有以下局限性：
 
-- Doesn't support child aggregations because child aggregations come at a high memory cost. As a workaround, you can add a follow-up query using a `terms` aggregation with an include clause and a child aggregation.
-- Doesn't support nested objects because it works with the document JSON source.
-- The counts of documents might have some (typically small) inaccuracies as it's based on summing the samples returned from each shard. You can use the `shard_size` parameter to fine-tune the trade-off between accuracy and performance. By default, the `shard_size` is set to -1 to automatically estimate the number of shards and the `size` parameter.
+- 不支持儿童聚集，因为儿童聚集的成本很高。作为解决方法，您可以添加关注-使用一个查询`terms` 包含一个包括子句和儿童汇总的汇总。
+- 不支持嵌套对象，因为它可以与文档JSON源一起使用。
+- 文件计数可能存在一些（通常很小）的错误，因为它基于每个碎片返回的样本。您可以使用`shard_size` 参数到罚款-调整贸易-在准确性和性能之间关闭。默认情况下，`shard_size` 被设定为-1自动估计碎片的数量和`size` 范围。
 
-The default source of statistical information for background term frequencies is the entire index. You can narrow this scope with a background filter for more focus:
+背景术语频率的统计信息的默认来源是整个索引。您可以使用背景过滤器范围缩小此范围，以获得更多的重点：
 
 ```json
 GET shakespeare/_search

@@ -1,18 +1,18 @@
 ---
 layout: default
 title: Missing
-parent: Bucket aggregations
-grand_parent: Aggregations
+parent: 桶聚合
+grand_parent: 聚合
 nav_order: 120
 redirect_from:
   - /query-dsl/aggregations/bucket/missing/
 ---
 
-# Missing aggregations
+# 缺少聚合
 
-If you have documents in your index that don’t contain the aggregating field at all or the aggregating field has a value of NULL, use the `missing` parameter to specify the name of the bucket such documents should be placed in.
+如果您的索引中有根本不包含汇总字段的文档，或者汇总字段的值为null，请使用`missing` 参数要指定存储桶的名称，应放入此类文档。
 
-The following example adds any missing values to a bucket named "N/A":
+以下示例将任何缺少的值添加到名为的存储桶中"N/A"：
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -31,7 +31,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-Because the default value for the `min_doc_count` parameter is 1, the `missing` parameter doesn't return any buckets in its response. Set `min_doc_count` parameter to 0 to see the "N/A" bucket in the response:
+因为`min_doc_count` 参数为1，`missing` 参数在其响应中不会返回任何存储桶。放`min_doc_count` 参数到0以查看"N/A" 回应中的水桶：
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -50,7 +50,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 ...

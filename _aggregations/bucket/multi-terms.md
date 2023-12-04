@@ -1,30 +1,30 @@
 ---
 layout: default
 title: Multi-terms
-parent: Bucket aggregations
-grand_parent: Aggregations
+parent: 桶聚合
+grand_parent: 聚合
 nav_order: 130
 redirect_from:
   - /query-dsl/aggregations/multi-terms/
 ---
 
-# Multi-terms aggregations
+# 多-术语聚合
 
-Similar to the `terms` bucket aggregation, you can also search for multiple terms using the `multi_terms` aggregation. Multi-terms aggregations are useful when you need to sort by document count, or when you need to sort by a metric aggregation on a composite key and get the top `n` results. For example, you could search for a specific number of documents (e.g., 1000) and the number of servers per location that show CPU usage greater than 90%. The top number of results would be returned for this multi-term query.
+类似于`terms` 存储桶汇总，您还可以使用`multi_terms` 聚合。多-当您需要按文档计数进行排序，或者需要按照复合键上的度量聚合并获得顶部时，术语聚合很有用`n` 结果。例如，您可以搜索特定数量的文档（例如1000），以及显示CPU使用情况大于90％的每个位置的服务器数量。最高的结果将返回此Multi-术语查询。
 
-The `multi_terms` aggregation does consume more memory than a `terms` aggregation, so its performance might be slower.
+这`multi_terms` 聚集确实比一个`terms` 聚合，因此其性能可能会较慢。
 {: .tip }
 
-## Multi-terms aggregation parameters
+## 多-术语聚合参数
 
-Parameter | Description
-:--- | :---
-multi_terms | Indicates a multi-terms aggregation that gathers buckets of documents together based on criteria specified by multiple terms.
-size | Specifies the number of buckets to return. Default is 10.
-order | Indicates the order to sort the buckets. By default, buckets are ordered according to document count per bucket. If the buckets contain the same document count, then `order` can be explicitly set to the term value instead of document count. (e.g., set `order` to "max-cpu").
-doc_count | Specifies the number of documents to be returned in each bucket. By default, the top 10 terms are returned.
+范围| 描述
+：--- | ：---
+多_terms| 指示一个多-根据多个术语指定的标准，将汇总的术语聚集在一起。
+尺寸| 指定要返回的存储桶数。默认值为10。
+命令| 指示对存储桶进行排序的顺序。默认情况下，根据每个存储桶的文档计数排序存储桶。如果存储桶包含相同的文档计数，则`order` 可以明确设置为术语值而不是文档计数。（例如，设置`order` 到"max-cpu"）。
+DOC_COUNT| 指定每个存储桶中要退还的文档数量。默认情况下，返回前10个条款。
 
-#### Example request
+#### 示例请求
 
 ```json
 GET sample-index100/_search
@@ -49,7 +49,7 @@ GET sample-index100/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -123,3 +123,4 @@ GET sample-index100/_search
   }
 }
 ```
+

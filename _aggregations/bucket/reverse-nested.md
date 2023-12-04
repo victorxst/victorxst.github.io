@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Reverse nested
-parent: Bucket aggregations
-grand_parent: Aggregations
+title: 反向嵌套
+parent: 桶聚合
+grand_parent: 聚合
 nav_order: 160
 redirect_from:
   - /query-dsl/aggregations/bucket/reverse-nested/
 ---
 
-# Reverse nested aggregations
+# 反向嵌套聚集
 
-You can aggregate values from nested documents to their parent; this aggregation is called `reverse_nested`.
-You can use `reverse_nested` to aggregate a field from the parent document after grouping by the field from the nested object. The `reverse_nested` aggregation "joins back" the root page and gets the `load_time` for each for your variations.
+您可以从嵌套文档到其父母汇总值；这个聚合称为`reverse_nested`。
+您可以使用`reverse_nested` 从嵌套对象通过字段分组后，从父文档中汇总字段。这`reverse_nested` 聚合"joins back" 根页并获取`load_time` 对于您的变化。
 
-The `reverse_nested` aggregation is a sub-aggregation inside a nested aggregation. It accepts a single option named `path`. This option defines how many steps backwards in the document hierarchy OpenSearch takes to calculate the aggregations.
+这`reverse_nested` 聚合是一个子-嵌套聚合中的聚集。它接受一个名称的单个选项`path`。此选项定义了文档层次结构opensearch中的倒数几个步骤以计算聚合。
 
 ```json
 GET logs/_search
@@ -51,7 +51,7 @@ GET logs/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 ...
@@ -85,8 +85,8 @@ GET logs/_search
       ]
     }
   }
- }
 }
 ```
 
-The response shows the logs index has one page with a `load_time` of 200 and one with a `load_time` of 500.
+响应显示日志索引具有一个页面`load_time` 200，一个`load_time` 500
+

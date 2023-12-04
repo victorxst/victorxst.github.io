@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Geohex grid
-parent: Bucket aggregations
-grand_parent: Aggregations
+title: Geohex网格
+parent: 桶聚合
+grand_parent: 聚合
 nav_order: 85
 redirect_from:
   - /aggregations/geohexgrid/
@@ -10,21 +10,21 @@ redirect_from:
   - /query-dsl/aggregations/bucket/geohex-grid/
 ---
 
-# Geohex grid aggregations
+# Geohex网格聚集
 
-The Hexagonal Hierarchical Geospatial Indexing System (H3) partitions the Earth's areas into identifiable hexagon-shaped cells. 
+六边形分层地理空间索引系统（H3）将地球区域划分为可识别的六角形-形状的细胞。
 
-The H3 grid system works well for proximity applications because it overcomes the limitations of Geohash's non-uniform partitions. Geohash encodes latitude and longitude pairs, leading to significantly smaller partitions near the poles and a degree of longitude near the equator. However, the H3 grid system's distortions are low and limited to 5 partitions of 122. These five partitions are placed in low-use areas (for example, in the middle of the ocean), leaving the essential areas error free. Thus, grouping documents based on the H3 grid system provides a better aggregation than the Geohash grid.
+H3网格系统在接近应用程序中效果很好，因为它克服了Geohash的非局限性-统一分区。GeoHash编码纬度和经度对，导致两极附近的分区明显较小，并且在赤道附近的经度程度一定程度。但是，H3网格系统的失真较低，限制为5个分区122。-使用区域（例如，在海洋中部），使基本区域无误差。因此，基于H3网格系统的文档分组比GeoHash网格提供了更好的聚合。
 
-The geohex grid aggregation groups [geopoints]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) into grid cells for geographical analysis. Each grid cell corresponds to an [H3 cell](https://h3geo.org/docs/core-library/h3Indexing/#h3-cell-indexp) and is identified using the [H3Index representation](https://h3geo.org/docs/core-library/h3Indexing/#h3index-representation).
+Geohex网格聚集组[地理点]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) 进入网格单元进行地理分析。每个网格单元对应于[H3细胞](https://h3geo.org/docs/core-library/h3Indexing/#h3-cell-indexp) 并使用[H3Index表示](https://h3geo.org/docs/core-library/h3Indexing/#h3index-representation)。
 
-## Precision
+## 精确
 
-The `precision` parameter controls the level of granularity that determines the grid cell size. The lower the precision, the larger the grid cells. 
+这`precision` 参数控制确定网格单元大小的粒度水平。精度越低，网格单元越大。
 
-The following example illustrates low-precision and high-precision aggregation requests.
+以下示例说明了低-精度和高-精确汇总请求。
 
-To start, create an index and map the `location` field as a `geo_point`:
+首先，创建索引并映射`location` 字段作为`geo_point`：
 
 ```json
 PUT national_parks
@@ -40,7 +40,7 @@ PUT national_parks
 ```
 {% include copy-curl.html %}
 
-Index the following documents into the sample index:
+将以下文档索引到样本索引：
 
 ```json
 PUT national_parks/_doc/1
@@ -69,12 +69,12 @@ PUT national_parks/_doc/3
 ```
 {% include copy-curl.html %}
 
-You can index geopoints in several formats. For a list of all supported formats, see the [geopoint documentation]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats). 
+您可以以多种格式索引地理点。有关所有支持格式的列表，请参见[地理点文档]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats)。
 {: .note}
 
-## Low-precision requests
+## 低的-精度请求
 
-Run a low-precision request that buckets all three documents together:
+低点-精确要求将所有三个文件都结合在一起：
 
 ```json
 GET national_parks/_search
@@ -91,10 +91,10 @@ GET national_parks/_search
 ```
 {% include copy-curl.html %}
 
-You can use either the `GET` or `POST` HTTP method for geohex grid aggregation queries.
+您可以使用`GET` 或者`POST` HTTP方法用于GeoHex网格聚合查询。
 {: .note}
 
-The response groups documents 2 and 3 together because they are close enough to be bucketed in one grid cell:
+响应组文件2和3在一起，因为它们足够近以在一个网格单元格中放置：
 
 ```json
 {
@@ -159,9 +159,9 @@ The response groups documents 2 and 3 together because they are close enough to 
 }
 ```
 
-## High-precision requests
+## 高的-精度请求
 
-Now run a high-precision request:
+现在跑高-精确请求：
 
 ```json
 GET national_parks/_search
@@ -178,7 +178,7 @@ GET national_parks/_search
 ```
 {% include copy-curl.html %}
 
-All three documents are bucketed separately because of higher granularity:
+由于粒度较高，这三个文档都是单独贴上的：
 
 ```json
 {
@@ -247,9 +247,9 @@ All three documents are bucketed separately because of higher granularity:
 }
 ```
 
-## Filtering requests
+## 过滤请求
 
-High-precision requests are resource intensive, so we recommend using a filter like `geo_bounding_box` to limit the geographical area. For example, the following query applies a filter to limit the search area:
+高的-精确请求是资源密集的，因此我们建议使用诸如此类的过滤器`geo_bounding_box` 限制地理区域。例如，以下查询应用过滤器以限制搜索区域：
 
 ```json
 GET national_parks/_search
@@ -279,7 +279,7 @@ GET national_parks/_search
 ```
 {% include copy-curl.html %}
 
-The response contains the two documents that are within the `geo_bounding_box` bounds:
+响应包含两个文档`geo_bounding_box` 边界：
 
 ```json
 {
@@ -319,7 +319,7 @@ The response contains the two documents that are within the `geo_bounding_box` b
 }
 ```
 
-You can also restrict the geographical area by providing the coordinates of the bounding envelope in the `bounds` parameter. Both `bounds` and `geo_bounding_box` coordinates can be specified in any of the [geopoint formats]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats). The following query uses the well-known text (WKT) "POINT(`longitude` `latitude`)" format for the `bounds` parameter:
+您还可以通过在界限中提供边界信封的坐标来限制地理区域`bounds` 范围。两个都`bounds` 和`geo_bounding_box` 可以在任何一个中指定坐标[地理点格式]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats)。以下查询使用井-已知文本（WKT）"POINT(`longitude` `latitude`)" 格式`bounds` 范围：
 
 ```json
 GET national_parks/_search
@@ -341,7 +341,7 @@ GET national_parks/_search
 ```
 {% include copy-curl.html %}
 
-The response contains only the two results that are within the specified bounds:
+响应仅包含指定范围内的两个结果：
 
 ```json
 {
@@ -378,16 +378,17 @@ The response contains only the two results that are within the specified bounds:
 }
 ```
 
-The `bounds` parameter can be used with or without the `geo_bounding_box` filter; these two parameters are independent and can have any spatial relationship to each other.
+这`bounds` 参数可以在有或没有的情况下使用`geo_bounding_box` 筛选;这两个参数是独立的，并且可以彼此之间存在任何空间关系。
 
-## Supported parameters
+## 支持的参数
 
-Geohex grid aggregation requests support the following parameters.
+GeoHex网格聚合请求支持以下参数。
 
-Parameter | Data type | Description
-:--- | :--- | :---
-field | String | The field that contains the geopoints. This field must be mapped as a `geo_point` field. If the field contains an array, all array values are aggregated. Required.
-precision | Integer | The zoom level used to determine grid cells for bucketing results. Valid values are in the [0, 15] range. Optional. Default is 5. 
-bounds | Object | The bounding box for filtering geopoints. The bounding box is defined by the upper-left and lower-right vertices. The vertices are specified as geopoints in one of the following formats: <br>- An object with a latitude and longitude<br>- An array in the [`longitude`, `latitude`] format<br>- A string in the "`latitude`,`longitude`" format<br>- A geohash <br>- WKT<br> See the [geopoint formats]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats) for formatting examples. Optional.
-size | Integer | The maximum number of buckets to return. When there are more buckets than `size`, OpenSearch returns buckets with more documents. Optional. Default is 10,000.
-shard_size | Integer | The maximum number of buckets to return from each shard. Optional. Default is max (10, `size` &middot; number of shards), which provides a more accurate count of more highly prioritized buckets.
+范围| 数据类型| 描述
+：--- | ：--- | ：---
+场地| 细绳| 包含地理点的字段。该字段必须映射为`geo_point` 场地。如果字段包含一个数组，则所有数组值均已汇总。必需的。
+精确| 整数| 缩放水平用于确定网格单元以进行铲斗结果。有效值在[0，15]范围内。选修的。默认值为5。
+边界| 目的| 用于过滤地理点的边界框。边界框由鞋面定义-左右-右顶点。这些顶点在以下格式之一中指定为地理点：<br>- 具有纬度和经度的对象<br>- 阵列[`longitude`，`latitude`](format<br>- A string in the "`latitude`,`longitude`" format<br>- A geohash <br>- WKT<br> See the [geopoint formats]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats) 用于格式化示例。选修的。
+尺寸| 整数| 返回的最大存储桶数。当水桶比`size`，OpenSearch返回带有更多文档的存储桶。选修的。默认值为10,000。
+shard_size| 整数| 从每个碎片返回的最大存储桶数。选修的。默认值为最大（10，`size` ＆middot;碎片数），这提供了更准确的更优先级存储桶的计数
+
