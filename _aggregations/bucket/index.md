@@ -35,7 +35,7 @@ OpenSearch支持以下水桶聚合：
 - [直方图]({{site.url}}{{site.baseurl}}/aggregations/bucket/histogram/)
 - [IP范围]({{site.url}}{{site.baseurl}}/aggregations/bucket/ip-range/)
 - [丢失的]({{site.url}}{{site.baseurl}}/aggregations/bucket/missing/)
-- [多-术语]({{site.url}}{{site.baseurl}}/aggregations/bucket/multi-terms/)
+- [并发-术语]({{site.url}}{{site.baseurl}}/aggregations/bucket/multi-terms/)
 - [嵌套]({{site.url}}{{site.baseurl}}/aggregations/bucket/nested/)
 - [范围]({{site.url}}{{site.baseurl}}/aggregations/bucket/range/)
 - [反向嵌套]({{site.url}}{{site.baseurl}}/aggregations/bucket/reverse-nested/)

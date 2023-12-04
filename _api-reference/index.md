@@ -38,7 +38,7 @@ redirect_from:
 - [摄入的API]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/)
 - [k-NN插件API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api/)
 - [ML Commons API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/) 
-- [多-搜索]({{site.url}}{{site.baseurl}}/api-reference/multi-search/)
+- [并发-搜索]({{site.url}}{{site.baseurl}}/api-reference/multi-search/)
 - [节点API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/)
 - [通知API]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/api/)
 - [性能分析仪API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/api/)

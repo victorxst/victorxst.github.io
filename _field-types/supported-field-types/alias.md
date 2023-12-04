@@ -80,7 +80,7 @@ GET movies/_field_caps?fields=release_date
 
 在以下情况下，您不能使用别名：
 - 在写请求中，例如更新请求。
-- 多-字段或目标`copy_to`。
+- 并发-字段或目标`copy_to`。
 - 作为用于过滤结果的_source参数。
 - 在具有字段名称的API中，例如术语向量。
 - 在`terms`，，，，`more_like_this`， 和`geo_shape` 查询（检索文档时不支持别名）。

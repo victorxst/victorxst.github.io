@@ -51,7 +51,7 @@ redirect_from:
 - [字首]({{site.url}}{{site.baseurl}}/query-dsl/term/prefix/) 
 - [范围]({{site.url}}{{site.baseurl}}/query-dsl/term/range/) 
 - [匹配]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match/) 
-- [多-匹配]({{site.url}}{{site.baseurl}}/query-dsl/full-text/multi-match/) 
+- [并发-匹配]({{site.url}}{{site.baseurl}}/query-dsl/full-text/multi-match/) 
 - [请求参数]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) 
 - [简单查询字符串]({{site.url}}{{site.baseurl}}/query-dsl/full-text/simple-query-string/) 
 - [存在]({{site.url}}{{site.baseurl}}/query-dsl/term/exists/) 

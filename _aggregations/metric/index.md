@@ -23,9 +23,9 @@ redirect_from:
 
 单身的-值度量聚合返回一个单一度量，例如`sum`，`min`，`max`，`avg`，`cardinality`， 或者`value_count`。
 
-### 多-价值度量聚合
+### 并发-价值度量聚合
 
-多-值度量聚合返回多个度量。这些包括`stats`，`extended_stats`，`matrix_stats`，`percentile`，`percentile_ranks`，`geo_bound`，`top_hits`， 和`scripted_metric`。
+并发-值度量聚合返回多个度量。这些包括`stats`，`extended_stats`，`matrix_stats`，`percentile`，`percentile_ranks`，`geo_bound`，`top_hits`， 和`scripted_metric`。
 
 ## 支持的度量聚合
 
