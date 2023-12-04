@@ -1,22 +1,22 @@
 ---
 layout: default
-title: xy point
+title: xy点
 nav_order: 58
 has_children: false
-parent: Cartesian field types
-grand_parent: Supported field types
+parent: Cartesian字段类型
+grand_grand_parent: 支持的字段类型
 redirect_from:
   - /opensearch/supported-field-types/xy-point/
   - /field-types/xy-point/
 ---
 
-# xy point field type
+# XY点字段类型
 
-An xy point field type contains a point in a two-dimensional Cartesian coordinate system, specified by x and y coordinates. It is based on the Lucene [XYPoint](https://lucene.apache.org/core/9_3_0/core/org/apache/lucene/geo/XYPoint.html) field type. The xy point field type is similar to the [geopoint]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) field type, but does not have the range limitations of geopoint. The coordinates of an xy point are single-precision floating-point values. For information about the range and precision of floating-point values, see [Numeric field types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/).
+xy点字段类型包含两个点-尺寸笛卡尔坐标系，由X和Y坐标指定。它是基于Lucene的[xypoint](https://lucene.apache.org/core/9_3_0/core/org/apache/lucene/geo/XYPoint.html) 字段类型。XY点字段类型类似于[地理点]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) 现场类型，但没有地理点的范围限制。XY点的坐标是单个的-精密浮动-点值。有关浮动范围和精度的信息-点值，请参阅[数字字段类型]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/)。
 
-## Example
+## 例子
 
-Create a mapping with an xy point field type:
+使用XY点字段类型创建映射：
 
 ```json
 PUT testindex1
@@ -32,11 +32,11 @@ PUT testindex1
 ```
 {% include copy-curl.html %}
 
-## Formats
+## 格式
 
-xy points can be indexed in the following formats:
+XY点可以以以下格式索引：
 
-- An object with x and y coordinates
+- 具有X和Y坐标的对象
 
 ```json
 PUT testindex1/_doc/1
@@ -49,7 +49,7 @@ PUT testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-- A string in the "`x`, `y`" format
+- 一条字符串"`x`, `y`" 格式
 
 ```json
 PUT testindex1/_doc/2
@@ -59,7 +59,7 @@ PUT testindex1/_doc/2
 ```
 {% include copy-curl.html %}
 
-- An array in the [`x`, `y`] format
+- [`x`，`y`] 格式
 
 ```json
 PUT testindex1/_doc/3
@@ -69,7 +69,7 @@ PUT testindex1/_doc/3
 ```
 {% include copy-curl.html %}
 
-- A [well-known text (WKT)](https://docs.opengeospatial.org/is/12-063r5/12-063r5.html) POINT in the "POINT(`x` `y`)" format
+- A[出色地-已知文本（WKT）](https://docs.opengeospatial.org/is/12-063r5/12-063r5.html) 指向"POINT(`x` `y`)" 格式
 
 ```json
 PUT testindex1/_doc/4
@@ -79,7 +79,7 @@ PUT testindex1/_doc/4
 ```
 {% include copy-curl.html %}
 
-- GeoJSON format
+- Geojson格式
 
 ```json
 PUT testindex1/_doc/5
@@ -92,15 +92,16 @@ PUT testindex1/_doc/5
 ```
 {% include copy-curl.html %}
 
-In all xy point formats, the coordinates must be specified in the `x, y` order. 
-{: .note}
+在所有XY点格式中，必须在`x, y` 命令。
+{: .note}}
 
-## Parameters
+## 参数
 
-The following table lists the parameters accepted by xy point field types. All parameters are optional.
+下表列出了XY点字段类型接受的参数。所有参数都是可选的。
 
-Parameter | Description 
-:--- | :--- 
-`ignore_malformed` | A Boolean value that specifies to ignore malformed values and not to throw an exception. Default is `false`.
-`ignore_z_value` | Specific to points with three coordinates. If `ignore_z_value` is `true`, the third coordinate is not indexed but is still stored in the _source field. If `ignore_z_value` is `false`, an exception is thrown.
-[`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A  value to be used in place of `null`. The value must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
+范围| 描述
+：--- | ：--- 
+`ignore_malformed` | 布尔值指定忽略畸形值而不引发异常的值。默认为`false`。
+`ignore_z_value` | 特定于具有三个坐标的点。如果`ignore_z_value` 是`true`，第三个坐标没有索引，但仍存储在_source字段中。如果`ignore_z_value` 是`false`，一个例外。
+[`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | 用于代替的值`null`。该值必须与字段相同。如果未指定此参数，则该字段在其值为时被视为丢失`null`。默认为`null`
+

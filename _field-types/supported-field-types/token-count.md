@@ -1,22 +1,22 @@
 ---
 layout: default
-title: Token count
+title: 令牌计数
 nav_order: 48
 has_children: false
-parent: String field types
-grand_parent: Supported field types
+parent: String字段类型
+grand_grand_parent: 支持的字段类型
 redirect_from:
   - /opensearch/supported-field-types/token-count/
   - /field-types/token-count/
 ---
 
-# Token count field type
+# 令牌计数字段类型
 
-A token count field type stores the number of analyzed tokens in a string.
+代币计数字段类型将字符串中分析令牌的数量存储。
 
-## Example
+## 例子
 
-Create a mapping with a token count field:
+使用令牌计数字段创建映射：
 
 ```json
 PUT testindex
@@ -38,7 +38,7 @@ PUT testindex
 ```
 {% include copy-curl.html %}
 
-Index three documents with text fields:
+索引带有文本字段的三个文档：
 
 ```json
 PUT testindex/_doc/1
@@ -58,7 +58,7 @@ PUT testindex/_doc/3
 ```
 {% include copy-curl.html %}
 
-Search for sentences with fewer than 10 words:
+搜索少于10个单词的句子：
 
 ```json
 GET testindex/_search
@@ -74,7 +74,7 @@ GET testindex/_search
 ```
 {% include copy-curl.html %}
 
-The response contains one matching sentence:
+响应包含一个匹配句子：
 
 ```json
 {
@@ -107,16 +107,17 @@ The response contains one matching sentence:
 }
 ```
 
-## Parameters
+## 参数
 
-The following table lists the parameters accepted by token count field types. The `analyzer` parameter is required; all other parameters are optional.
+下表列出了由令牌计数字段类型接受的参数。这`analyzer` 需要参数；所有其他参数都是可选的。
 
-Parameter | Description 
-:--- | :--- 
-`analyzer` | The analyzer to be used for this field. Specify an analyzer without token filters for optimal performance. Required.
-`boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0.
-`doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `false`.
-`enable_position_increments` | A Boolean value that specifies whether position increments should be counted. To avoid removing stopwords, set this field to `false`. Default is `true`.
-`index` | A Boolean value that specifies whether the field should be searchable. Default is `true`.
-[`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A  value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
-`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the _source field. Default is `false`. 
+范围| 描述
+：--- | ：--- 
+`analyzer` | 用于此字段的分析仪。指定无令牌过滤器的分析仪以获得最佳性能。必需的。
+`boost` | 浮动-指定该字段对相关性分数的重量的点值。值高于1.0的值增加了该领域的相关性。0.0至1.0之间的值降低了该场的相关性。默认值为1.0。
+`doc_values` | 布尔值指定是否应将字段存储在磁盘上，以便将其用于聚合，排序或脚本。默认为`false`。
+`enable_position_increments` | 布尔值指定是否应计数位置增量。为避免删除停止词，请将此字段设置为`false`。默认为`true`。
+`index` | 布尔值指定是否应搜索该字段。默认为`true`。
+[`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | 用于代替的值`null`。必须与字段相同。如果未指定此参数，则该字段在其值为时被视为丢失`null`。默认为`null`。
+`store` | 布尔值指定是否应存储字段值，并且可以与_source字段分开检索。默认为`false`。
+

@@ -1,25 +1,25 @@
 ---
 layout: default
-title: Keyword
+title: 关键词
 nav_order: 46
 has_children: false
-parent: String field types
-grand_parent: Supported field types
+parent: String字段类型
+grand_parent: 支持的字段类型
 redirect_from:
   - /opensearch/supported-field-types/keyword/
   - /field-types/keyword/
 ---
 
-# Keyword field type
+# 关键字字段类型
 
-A keyword field type contains a string that is not analyzed. It allows only exact, case-sensitive matches.
+关键字字段类型包含未分析的字符串。它仅允许精确的情况-敏感匹配。
 
-If you need to use a field for full-text search, map it as [`text`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text/) instead.
-{: .note }
+如果您需要使用一个字段以完整-文本搜索，将其映射为[`text`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text/) 反而。
+{: .note}
 
-## Example
+## 例子
 
-Create a mapping with a keyword field:
+使用关键字字段创建映射：
 
 ```json
 PUT movies
@@ -35,23 +35,24 @@ PUT movies
 ```
 {% include copy-curl.html %}
 
-## Parameters
+## 参数
 
-The following table lists the parameters accepted by keyword field types. All parameters are optional.
+下表列出了由关键字字段类型接受的参数。所有参数都是可选的。
 
-Parameter | Description 
-:--- | :--- 
-`boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0.
-`doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `false`.
-`eager_global_ordinals` | Specifies whether global ordinals should be loaded eagerly on refresh. If the field is often used for aggregations, this parameter should be set to `true`. Default is `false`.
-`fields` | To index the same string in several ways (for example, as a keyword and text), provide the fields parameter. You can specify one version of the field to be used for search and another to be used for sorting and aggregations.
-`ignore_above` | Any string longer than this integer value should not be indexed. Default is 2147483647. Default dynamic mapping creates a keyword subfield for which `ignore_above` is set to 256.
-`index` | A Boolean value that specifies whether the field should be searchable. Default is `true`.
-`index_options` | Information to be stored in the index that will be considered when calculating relevance scores. Can be set to `freqs` for term frequency. Default is `docs`.
-`meta` | Accepts metadata for this field.
-`normalizer` | Specifies how to preprocess this field before indexing (for example, make it lowercase). Default is `null` (no preprocessing).
-`norms` | A Boolean value that specifies whether the field length should be used when calculating relevance scores. Default is `false`.
-[`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A  value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
-`similarity` | The ranking algorithm for calculating relevance scores. Default is `BM25`. 
-`split_queries_on_whitespace` | A Boolean value that specifies whether full-text queries should be split on whitespace. Default is `false`.
-`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the _source field. Default is `false`. 
+范围| 描述
+：--- | ：--- 
+`boost` | 浮动-指定该字段对相关性分数的重量的点值。值高于1.0的值增加了该领域的相关性。0.0至1.0之间的值降低了该场的相关性。默认值为1.0。
+`doc_values` | 布尔值指定是否应将字段存储在磁盘上，以便将其用于聚合，排序或脚本。默认为`false`。
+`eager_global_ordinals` | 指定是否应在刷新上热切地加载全球序列。如果该字段通常用于聚合，则应将此参数设置为`true`。默认为`false`。
+`fields` | 要以多种方式索引相同的字符串（例如，作为关键字和文本），提供字段参数。您可以指定用于搜索的字段的一个版本，而用于分类和聚合的另一个版本。
+`ignore_above` | 任何更长的字符串都不应索引。默认值为2147483647。默认动态映射创建一个关键字子字段。`ignore_above` 设置为256。
+`index` | 布尔值指定是否应搜索该字段。默认为`true`。
+`index_options` | 在计算相关性分数时将考虑的索引中存储的信息。可以设置为`freqs` 用于期限频率。默认为`docs`。
+`meta` | 接受该领域的元数据。
+`normalizer` | 指定在索引之前如何预处理此字段（例如，使其成为小写）。默认为`null` （没有预处理）。
+`norms` | 布尔值指定在计算相关性分数时是否应使用字段长度。默认为`false`。
+[`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | 用于代替的值`null`。必须与字段相同。如果未指定此参数，则该字段在其值为时被视为丢失`null`。默认为`null`。
+`similarity` | 用于计算相关性得分的排名算法。默认为`BM25`。
+`split_queries_on_whitespace` | 布尔值，指定是否满-文本查询应在空格上分开。默认为`false`。
+`store` | 布尔值指定是否应存储字段值，并且可以与_source字段分开检索。默认为`false`。
+

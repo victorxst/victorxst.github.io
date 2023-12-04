@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Mappings and field types
+title: 映射和字段类型
 nav_order: 1
 nav_exclude: true
 redirect_from: 
@@ -8,54 +8,54 @@ redirect_from:
   - /field-types/mappings/
 ---
 
-# Mappings and field types
+# 映射和字段类型
 
-You can define how documents and their fields are stored and indexed by creating a _mapping_. The mapping specifies the list of fields for a document. Every field in the document has a _field type_, which corresponds to the type of data the field contains. For example, you may want to specify that the `year` field should be of type `date`. To learn more, see [Supported field types]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/index/).
+您可以通过创建_mapping_来定义如何存储和索引文档及其字段。该映射指定文档的字段列表。文档中的每个字段都有一个_field Type_，该字段对应于该字段所包含的数据类型。例如，您可能需要指定`year` 字段应为类型`date`。要了解更多，请参阅[支持的字段类型]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/index/)。
 
-If you're just starting to build out your cluster and data, you may not know exactly how your data should be stored. In those cases, you can use dynamic mappings, which tell OpenSearch to dynamically add data and its fields. However, if you know exactly what types your data falls under and want to enforce that standard, then you can use explicit mappings.
+如果您刚刚开始构建群集和数据，则可能不知道应该如何存储数据。在这种情况下，您可以使用动态映射，该映射告诉Opensearch动态添加数据及其字段。但是，如果您确切地知道数据类型属于哪种类型并想要执行该标准，则可以使用明确的映射。
 
-For example, if you want to indicate that `year` should be of type `text` instead of an `integer`, and `age` should be an `integer`, you can do so with explicit mappings. By using dynamic mapping, OpenSearch might interpret both `year` and `age` as integers.
+例如，如果您想指出`year` 应该是类型`text` 而不是一个`integer`， 和`age` 应该是一个`integer`，您可以通过明确的映射进行操作。通过使用动态映射，OpenSearch可能会解释`year` 和`age` 作为整数。
 
-This section provides an example for how to create an index mapping and how to add a document to it that will get ip_range validated.
+本节提供了一个如何创建索引映射以及如何向其添加文档的示例，以验证IP_range。
 
-#### Table of contents
+#### 目录
 1. TOC
-{:toc}
+{：toc}
 
 
 ---
 ## Dynamic mapping
 
-When you index a document, OpenSearch adds fields automatically with dynamic mapping. You can also explicitly add fields to an index mapping.
+索引文档时，OpenSearch会自动添加字段，并使用动态映射。您还可以将字段明确添加到索引映射中。
 
 #### Dynamic mapping types
 
-Type | Description
-:--- | :---
-null | A `null` field can't be indexed or searched. When a field is set to null, OpenSearch behaves as if that field has no values.
-boolean | OpenSearch accepts `true` and `false` as boolean values. An empty string is equal to `false.`
-float | A single-precision 32-bit floating point number.
-double | A double-precision 64-bit floating point number.
-integer | A signed 32-bit number.
-object | Objects are standard JSON objects, which can have fields and mappings of their own. For example, a `movies` object can have additional properties such as `title`, `year`, and `director`.
-array | Arrays in OpenSearch can only store values of one type, such as an array of just integers or strings. Empty arrays are treated as though they are fields with no values.
-text | A string sequence of characters that represent full-text values.
-keyword | A string sequence of structured characters, such as an email address or ZIP code.
-date detection string | Enabled by default, if new string fields match a date's format, then the string is processed as a `date` field. For example, `date: "2012/03/11"` is processed as a date.
-numeric detection string | If disabled, OpenSearch may automatically process numeric values as strings when they should be processed as numbers. When enabled, OpenSearch can process strings into `long`, `integer`, `short`, `byte`, `double`, `float`, `half_float`, `scaled_float`, and `unsigned_long`. Default is disabled.
+类型| 描述
+：--- | ：---
+无效的| A`null` 字段无法索引或搜索。当将字段设置为null时，OpenSearch的行为就像该字段没有值。
+布尔| OpenSearch接受`true` 和`false` 作为布尔值。一个空字符串等于`false.`
+漂浮| 一个-精度32-位浮点数。
+双倍的| 双重-精度64-位浮点数。
+整数| 签名的32-位号。
+目的| 对象是标准的JSON对象，可以具有自己的字段和映射。例如，`movies` 对象可以具有其他属性，例如`title`，，，，`year`， 和`director`。
+大批| OpenSearch中的数组只能存储一种类型的值，例如仅整数或字符串的数组。空数组被对待，好像它们是没有值的字段。
+文本| 一个代表完整字符的字符串序列-文本值。
+关键词| 结构化字符的弦序列，例如电子邮件地址或邮政编码。
+日期检测字符串| 默认启用，如果新字符串字段匹配日期的格式，则将字符串处理为`date` 场地。例如，`date: "2012/03/11"` 作为日期处理。
+数字检测字符串| 如果禁用，OpenSearch可能会自动处理数字值作为字符串，那么它们应作为数字处理。启用后，OpenSearch可以将字符串处理到`long`，，，，`integer`，，，，`short`，，，，`byte`，，，，`double`，，，，`float`，，，，`half_float`，，，，`scaled_float`， 和`unsigned_long`。默认值为禁用。
 
 ## Explicit mapping
 
-If you know exactly what your field data types need to be, you can specify them in your request body when creating your index.
+如果您确切地知道您的字段数据类型需要什么，则可以在创建索引时在请求正文中指定它们。
 
 ```json
-PUT sample-index1
+放置样本-索引1
 {
-  "mappings": {
-    "properties": {
-      "year":    { "type" : "text" },
-      "age":     { "type" : "integer" },
-      "director":{ "type" : "text" }
+  "mappings"：{
+    "properties"：{
+      "year"：{"type" ："text" }，，
+      "age"：{"type" ："integer" }，，
+      "director"：{"type" ："text" }
     }
   }
 }
@@ -64,36 +64,36 @@ PUT sample-index1
 ### Response
 ```json
 {
-    "acknowledged": true,
-    "shards_acknowledged": true,
-    "index": "sample-index1"
+    "acknowledged"： 真的，
+    "shards_acknowledged"： 真的，
+    "index"："sample-index1"
 }
 ```
 
-To add mappings to an existing index or data stream, you can send a request to the `_mapping` endpoint using the `PUT` or `POST` HTTP method:
+要将映射添加到现有索引或数据流中，您可以将请求发送到`_mapping` 使用端点`PUT` 或者`POST` HTTP方法：
 
 ```json
-POST sample-index1/_mapping
+帖子样本-index1/_mapping
 {
-  "properties": {
-    "year":    { "type" : "text" },
-    "age":     { "type" : "integer" },
-    "director":{ "type" : "text" }
+  "properties"：{
+    "year"：{"type" ："text" }，，
+    "age"：{"type" ："integer" }，，
+    "director"：{"type" ："text" }
   }
 }
 ```
 
-You cannot change the mapping of an existing field, you can only modify the field's mapping parameters. 
+您不能更改现有字段的映射，只能修改字段的映射参数。
 {: .note}
 
 ---
-## Mapping example usage
+## 映射示例用法
 
-The following example shows how to create a mapping to specify that OpenSearch should ignore any documents with malformed IP addresses that do not conform to the [`ip`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/ip/) data type. You accomplish this by setting the `ignore_malformed` parameter to `true`.
+下面的示例显示了如何创建映射以指定OpenSearch应该忽略任何不符合符合畸形的IP地址的文档[`ip`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/ip/) 数据类型。您通过设置`ignore_malformed` 参数为`true`。
 
-### Create an index with an `ip` mapping
+### 用一个`ip` 映射
 
-To create an index, use a PUT request:
+要创建索引，请使用PUT请求：
 
 ```json
 PUT /test-index 
@@ -109,7 +109,7 @@ PUT /test-index
 }
 ```
 
-You can add a document that has a malformed IP address to your index:
+您可以将具有畸形IP地址的文档添加到您的索引：
 
 ```json
 PUT /test-index/_doc/1 
@@ -118,15 +118,15 @@ PUT /test-index/_doc/1
 }
 ```
 
-This indexed IP address does not throw an error because `ignore_malformed` is set to true. 
+此索引的IP地址不会引发错误，因为`ignore_malformed` 设置为true。
 
-You can query the index using the following request:
+您可以使用以下请求查询索引：
 
 ```json
 GET /test-index/_search
 ```
 
-The response shows that the `ip_address` field is ignored in the indexed document:
+回应表明`ip_address` 索引文档中忽略了字段：
 
 ```json
 {
@@ -161,38 +161,38 @@ The response shows that the `ip_address` field is ignored in the indexed documen
 }
 ```
 
-## Get a mapping
+## 获取映射
 
-To get all mappings for one or more indexes, use the following request:
+要获取一个或多个索引的所有映射，请使用以下请求：
 
 ```json
 GET <index>/_mapping
 ```
 
-In the above request, `<index>` may be an index name or a comma-separated list of index names. 
+在上述请求中，`<index>` 可能是索引名称或逗号-索引名称的分开列表。
 
-To get all mappings for all indexes, use the following request:
+要获取所有索引的所有映射，请使用以下请求：
 
 ```json
 GET _mapping
 ```
 
-To get a mapping for a specific field, provide the index name and the field name:
+要获取特定字段的映射，请提供索引名称和字段名称：
 
 ```json
 GET _mapping/field/<fields>
 GET /<index>/_mapping/field/<fields>
 ```
 
-Both `<index>` and `<fields>` can be specified as one value or a comma-separated list.
+两个都`<index>` 和`<fields>` 可以指定为一个值或逗号-分开列表。
 
-For example, the following request retrieves the mapping for the `year` and `age` fields in `sample-index1`:
+例如，以下请求检索`year` 和`age` 字段中`sample-index1`：
 
 ```json
 GET sample-index1/_mapping/field/year,age
 ```
 
-The response contains the specified fields:
+响应包含指定的字段：
 
 ```json
 {

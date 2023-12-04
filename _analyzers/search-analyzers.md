@@ -1,31 +1,31 @@
 ---
 layout: default
-title: Search analyzers
+title: 搜索分析
 nav_order: 30
 ---
 
-# Search analyzers
+# 搜索分析
 
-Search analyzers are specified at query time and are used to analyze the query string when you run a full-text query on a [text]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) field.
+在查询时间指定搜索分析，并在运行完整时用于分析查询字符串-文字查询[文本]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) 场地。
 
-## Determining which search analyzer to use
+## 确定要使用哪种搜索分析
 
-To determine which analyzer to use for a query string at query time, OpenSearch examines the following parameters in order:
+要确定在查询时间用于查询字符串的分析仪，OpenSearch按顺序检查以下参数：
 
-1. The `analyzer` parameter of the query
-1. The `search_analyzer` mapping parameter of the field
-1. The `analysis.analyzer.default_search` index setting
-1. The `analyzer` mapping parameter of the field
-1. The `standard` analyzer (default)
+1. 这`analyzer` 查询的参数
+1. 这`search_analyzer` 该字段的映射参数
+1. 这`analysis.analyzer.default_search` 索引设置
+1. 这`analyzer` 该字段的映射参数
+1. 这`standard` 分析仪（默认）
 
-In most cases, specifying a search analyzer that is different from the index analyzer is not necessary and could negatively impact search result relevance or lead to unexpected search results.
+在大多数情况下，指定与索引分析仪不同的搜索分析不是必需的，并且可能对搜索结果相关性产生负面影响或导致意外搜索结果。
 {: .warning}
 
-For information about verifying which analyzer is associated with which field, see [Verifying analyzer settings]({{site.url}}{{site.baseurl}}/analyzers/index/#verifying-analyzer-settings).
+有关验证哪个分析仪与哪个字段相关的信息，请参见[验证分析仪设置]({{site.url}}{{site.baseurl}}/analyzers/index/#verifying-analyzer-settings)。
 
-## Specifying a search analyzer for a query string
+## 为查询字符串指定搜索分析
 
-Specify the name of the analyzer you want to use at query time in the `analyzer` field:
+在查询时间中指定要在查询时间使用的分析仪的名称`analyzer` 场地：
 
 ```json
 GET shakespeare/_search
@@ -42,13 +42,13 @@ GET shakespeare/_search
 ```
 {% include copy-curl.html %}
 
-Valid values for [built-in analyzers]({{site.url}}{{site.baseurl}}/analyzers/index#built-in-analyzers) are `standard`, `simple`, `whitespace`, `stop`, `keyword`, `pattern`, `fingerprint`, or any supported [language analyzer]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/).
+有效值[建造-在分析仪中]({{site.url}}{{site.baseurl}}/analyzers/index#built-in-analyzers) 是`standard`，，，，`simple`，，，，`whitespace`，，，，`stop`，，，，`keyword`，，，，`pattern`，，，，`fingerprint`，或任何受支持的[语言分析仪]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/)。
 
-## Specifying a search analyzer for a field
+## 为字段指定搜索分析
 
-When creating index mappings, you can provide the `search_analyzer` parameter for each [text]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) field. When providing the `search_analyzer`, you must also provide the `analyzer` parameter, which specifies the [index analyzer]({{site.url}}{{site.baseurl}}/analyzers/index-analyzers/) to be used at indexing time.
+创建索引映射时，您可以提供`search_analyzer` 每个参数[文本]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) 场地。提供`search_analyzer`，您还必须提供`analyzer` 参数，指定[索引分析仪]({{site.url}}{{site.baseurl}}/analyzers/index-analyzers/) 在索引时间使用。
 
-For example, the following request specifies the `simple` analyzer as the index analyzer and the `whitespace` analyzer as the search analyzer for the `text_entry` field:
+例如，以下请求指定`simple` 分析仪作为索引分析仪和`whitespace` 分析仪作为搜索分析`text_entry` 场地：
 
 ```json
 PUT testindex
@@ -66,11 +66,11 @@ PUT testindex
 ```
 {% include copy-curl.html %}
 
-## Specifying the default search analyzer for an index
+## 为索引指定默认搜索分析
 
-If you want to analyze all query strings at search time with the same analyzer, you can specify the search analyzer in the `analysis.analyzer.default_search` setting. When providing the `analysis.analyzer.default_search`, you must also provide the `analysis.analyzer.default` parameter, which specifies the [index analyzer]({{site.url}}{{site.baseurl}}/analyzers/index-analyzers/) to be used at indexing time.
+如果您想在搜索时间分析所有查询字符串，则可以在`analysis.analyzer.default_search` 环境。提供`analysis.analyzer.default_search`，您还必须提供`analysis.analyzer.default` 参数，指定[索引分析仪]({{site.url}}{{site.baseurl}}/analyzers/index-analyzers/) 在索引时间使用。
 
-For example, the following request specifies the `simple` analyzer as the index analyzer and the `whitespace` analyzer as the search analyzer for the `testindex` index:
+例如，以下请求指定`simple` 分析仪作为索引分析仪和`whitespace` 分析仪作为搜索分析`testindex` 指数：
 
 ```json
 PUT testindex
@@ -91,3 +91,4 @@ PUT testindex
 
 ```
 {% include copy-curl.html %}
+

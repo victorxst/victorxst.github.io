@@ -1,22 +1,22 @@
 ---
 layout: default
-title: Join
+title: 加入
 nav_order: 44
 has_children: false
-parent: Object field types
-grand_parent: Supported field types
+parent: Object字段类型
+grand_parent: 支持的字段类型
 redirect_from:
   - /opensearch/supported-field-types/join/
   - /field-types/join/
 ---
 
-# Join field type
+# 加入现场类型
 
-A join field type establishes a parent/child relationship between documents in the same index. 
+JOIN字段类型在同一索引中建立文档之间的父/子关系。
 
-## Example
+## 例子
 
-Create a mapping to establish a parent-child relationship between products and their brands:
+创建映射以建立父母-产品与其品牌之间的儿童关系：
 
 ```json
 PUT testindex1
@@ -35,7 +35,7 @@ PUT testindex1
 ```
 {% include copy-curl.html %}
 
-Then, index a parent document with a join field type:
+然后，将父文档索引带有JOIN字段类型：
 
 ```json
 PUT testindex1/_doc/1
@@ -48,7 +48,7 @@ PUT testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-You can also use a shortcut without object notation to index a parent document:
+您还可以使用无物体表示法的快捷方式来索引父文档：
 
 ```json
 PUT testindex1/_doc/1
@@ -59,9 +59,9 @@ PUT testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-When indexing child documents, you have to specify the `routing` query parameter because parent and child documents in the same relation have to be indexed on the same shard. Each child document refers to its parent's ID in the `parent` field.
+索引子文件时，您必须指定`routing` 查询参数是因为必须在同一碎片上索引父母和子女文档。每个孩子的文件都指其父母的ID`parent` 场地。
 
-Index two child documents, one for each parent:
+索引两个子文件，每个父母一个：
 
 ```json
 PUT testindex1/_doc/3?routing=1
@@ -87,11 +87,11 @@ PUT testindex1/_doc/4?routing=1
 ```
 {% include copy-curl.html %}
 
-## Querying a join field
+## 查询联接字段
 
-When you query a join field, the response contains subfields that specify whether the returned document is a parent or a child. For child objects, the parent ID is also returned.
+当您查询加入字段时，响应包含指定返回文档是父母还是子女的子字段。对于子对象，还返回父ID。
 
-### Search for all documents
+### 搜索所有文档
 
 ```json
 GET testindex1/_search
@@ -103,7 +103,7 @@ GET testindex1/_search
 ```
 {% include copy-curl.html %}
 
-The response indicates whether a document is a parent or a child:
+响应表明文件是父母还是孩子：
 
 ```json
 {
@@ -167,9 +167,9 @@ The response indicates whether a document is a parent or a child:
 }
 ```
 
-### Search for all children of a parent 
+### 寻找父母的所有孩子
 
-Find all products associated with Brand 1:
+查找与品牌1相关的所有产品：
 
 ```json
 GET testindex1/_search
@@ -188,7 +188,7 @@ GET testindex1/_search
 ```
 {% include copy-curl.html %}
 
-The response contains Product 1 and Product 2, which are associated with Brand 1:
+响应包含与品牌1相关的产品1和产品2：
 
 ```json
 {
@@ -240,9 +240,9 @@ The response contains Product 1 and Product 2, which are associated with Brand 1
 }
 ```
 
-### Search for the parent of a child
+### 寻找孩子的父母
 
-Find the parent of Product 1:
+找到产品1的父母：
 
 ```json
 GET testindex1/_search
@@ -261,7 +261,7 @@ GET testindex1/_search
 ```
 {% include copy-curl.html %}
 
-The response returns Brand 1 as Product 1's parent:
+响应将品牌1作为产品1的父母返回：
 
 ```json
 {
@@ -297,9 +297,9 @@ The response returns Brand 1 as Product 1's parent:
 }
 ```
 
-## Parent with many children
+## 父母有很多孩子
 
-One parent can have many children. Create a mapping with multiple children:
+一位父母可以有很多孩子。与多个孩子创建映射：
 
 ```json
 PUT testindex1
@@ -318,10 +318,11 @@ PUT testindex1
 ```
 {% include copy-curl.html %}
 
-## Join field type notes 
+## 加入现场类型注释
 
-- There can only be one join field mapping in an index.
-- You need to provide the routing parameter when retrieving, updating, or deleting a child document. This is because parent and child documents in the same relation have to be indexed on the same shard.
-- Multiple parents are not supported. 
-- You can add a child document to an existing document only if the existing document is already marked as a parent.
-- You can add a new relation to an existing join field.
+- 索引中只能有一个联接字段映射。
+- 在检索，更新或删除子文档时，您需要提供路由参数。这是因为必须在同一碎片上索引父母和子女文件。
+- 不支持多个父母。
+- 您只有在现有文档已经标记为父母时，才可以将子文档添加到现有文档中。
+- 您可以将新的关系添加到现有的联接字段。
+

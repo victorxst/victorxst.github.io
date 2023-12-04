@@ -1,21 +1,21 @@
 ---
 layout: default
-title: Boolean
+title: 布尔
 nav_order: 20
 has_children: false
-parent: Supported field types
+parent: 支持的字段类型
 redirect_from:
   - /opensearch/supported-field-types/boolean/
   - /field-types/boolean/
 ---
 
-# Boolean field type
+# 布尔字段类型
 
-A Boolean field type takes `true` or `false` values, or `"true"` or `"false"` strings. You can also pass an empty string (`""`) in place of a `false` value.
+布尔场类型采用`true` 或者`false` 值，或`"true"` 或者`"false"` 字符串。您也可以通过一个空字符串（`""`）代替`false` 价值。
 
-## Example
+## 例子
 
-Create a mapping where a, b, and c are Boolean fields:
+创建一个映射，其中a，b和c是布尔字段：
 
 ```json
 PUT testindex
@@ -37,7 +37,7 @@ PUT testindex
 ```
 {% include copy-curl.html %}
 
-Index a document with Boolean values:
+索引具有布尔值的文档：
 
 ```json
 PUT testindex/_doc/1 
@@ -49,9 +49,9 @@ PUT testindex/_doc/1
 ```
 {% include copy-curl.html %}
 
-As a result, `a` and `b` will be set to `true`, and `c` will be set to `false`.
+因此，`a` 和`b` 将设置为`true`， 和`c` 将设置为`false`。
 
-Search for all documents where `c` is false:
+搜索所有文档`c` 是错误的：
 
 ```json
 GET testindex/_search 
@@ -65,26 +65,26 @@ GET testindex/_search
 ```
 {% include copy-curl.html %}
 
-## Parameters
+## 参数
 
-The following table lists the parameters accepted by Boolean field types. All parameters are optional.
+下表列出了布尔字段类型接受的参数。所有参数都是可选的。
 
-Parameter | Description 
-:--- | :--- 
-`boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0.
-`doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting or scripting. Default is `true`.
-`index` | A Boolean value that specifies whether the field should be searchable. Default is `true`. 
-`meta` | Accepts metadata for this field.
-[`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A  value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
-`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the _source field. Default is `false`. 
+范围| 描述
+：--- | ：--- 
+`boost` | 浮动-指定该字段对相关性分数的重量的点值。值高于1.0的值增加了该领域的相关性。 0.0至1.0之间的值降低了该场的相关性。默认值为1.0。
+`doc_values` | 布尔值指定是否应将字段存储在磁盘上，以便将其用于聚合，排序或脚本。默认为`true`。
+`index` | 布尔值指定是否应搜索该字段。默认为`true`。
+`meta` | 接受该领域的元数据。
+[`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | 用于代替的值`null`。必须与字段相同。如果未指定此参数，则该字段在其值为时被视为丢失`null`。默认为`null`。
+`store` | 布尔值指定是否应存储字段值，并且可以与_source字段分开检索。默认为`false`。
 
-## Boolean values in aggregations and scripts
+## 汇总和脚本中的布尔值
 
-In aggregations on Boolean fields, `key` returns numeric values (1 for `true` or 0 for `false`), and `key_as_string` returns strings (`"true"` or `"false"`). Scripts return `true` and `false` for Boolean values.
+在布尔领域的汇总中，`key` 返回数字值（1`true` 或0`false`）， 和`key_as_string` 返回字符串（`"true"` 或者`"false"`）。脚本返回`true` 和`false` 对于布尔值。
 
-### Example
+### 例子
 
-Run a terms aggregation query on the field `a`:
+在现场运行术语聚合查询`a`：
 
 ```json
 GET testindex/_search
@@ -108,7 +108,7 @@ GET testindex/_search
 ```
 {% include copy-curl.html %}
 
-The script returns the value of `a` as `true`, `key` returns the value of `a` as `1`, and `key_as_string` returns the value of `a` as `"true"`:
+脚本返回的值`a` 作为`true`，，，，`key` 返回的价值`a` 作为`1`， 和`key_as_string` 返回的价值`a` 作为`"true"`：
 
 ```json
 {
@@ -155,3 +155,4 @@ The script returns the value of `a` as `true`, `key` returns the value of `a` as
   }
 }
 ```
+

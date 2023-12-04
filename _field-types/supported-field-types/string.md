@@ -1,21 +1,22 @@
 ---
 layout: default
-title: String field types
+title: String字段类型
 nav_order: 45
 has_children: true
 has_toc: false
-parent: Supported field types
+grand_parent: 支持的字段类型
 redirect_from:
   - /opensearch/supported-field-types/string/
   - /field-types/string/
 ---
 
-# String field types
+# 字符串字段类型
 
-String field types contain text values or values derived from text. The following table lists all string field types that OpenSearch supports.
+字符串字段类型包含文本值或从文本得出的值。下表列出了OpenSearch支持的所有字符串字段类型。
 
-Field data type | Description
-:--- | :---  
-[`keyword`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/) | A string that is not analyzed. Useful for exact-value search.
-[`text`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text/) | A string that is analyzed. Useful for full-text search.
-[`token_count`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/token-count/)  | Counts the number of tokens in a string. 
+字段数据类型| 描述
+：--- | ：---  
+[`keyword`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/) | 未分析的字符串。对精确有用-价值搜索。
+[`text`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text/) | 分析的字符串。适用-文字搜索。
+[`token_count`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/token-count/)  | 计算字符串中令牌的数量。
+

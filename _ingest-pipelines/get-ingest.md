@@ -1,37 +1,36 @@
 ---
 layout: default
-title: Get pipeline
+title: 获取管道
 nav_order: 12
 redirect_from:
   - /opensearch/rest-api/ingest-apis/get-ingest/
   - /api-reference/ingest-apis/get-ingest/
 ---
 
-# Get pipeline
-**Introduced 1.0**
-{: .label .label-purple }
+# 获取管道
+**引入 1.0** {：.label .label-purple }
 
-Use the get ingest pipeline API operation to retrieve all the information about the pipeline.
+使用获取引入管道 API 操作检索有关管道的所有信息。
 
-## Retrieving information about all pipelines
+## 检索有关所有管道的信息
 
-The following example request returns information about all ingest pipelines:
+以下示例请求返回有关所有引入管道的信息：
 
 ```json
 GET _ingest/pipeline/
 ```
 {% include copy-curl.html %}
 
-## Retrieving information about a specific pipeline
+## 检索有关特定管道的信息
 
-The following example request returns information about a specific pipeline, which for this example is `my-pipeline`: 
+以下示例请求返回有关特定管道的信息，对于此示例，该管道为 `my-pipeline`：
 
 ```json
 GET _ingest/pipeline/my-pipeline
 ```
 {% include copy-curl.html %}
 
-The response contains the pipeline information:
+响应包含管道信息：
 
 ```json
 {

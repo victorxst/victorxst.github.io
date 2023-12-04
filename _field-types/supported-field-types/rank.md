@@ -1,33 +1,33 @@
 ---
 layout: default
-title: Rank field types
+title: Rank字段类型
 nav_order: 60
 has_children: false
-parent: Supported field types
+grand_parent: 支持的字段类型
 redirect_from:
   - /opensearch/supported-field-types/rank/
   - /field-types/rank/
 ---
 
-# Rank field types
+# 等级字段类型
 
-The following table lists all rank field types that OpenSearch supports.
+下表列出了OpenSearch支持的所有等级字段类型。
 
-Field data type | Description
-:--- | :---  
-[`rank_feature`](#rank-feature) | Boosts or decreases the relevance score of documents. 
-[`rank_features`](#rank-features) | Boosts or decreases the relevance score of documents. Used when the list of features is sparse. 
+字段数据类型| 描述
+：--- | ：---  
+[`rank_feature`](#rank-feature) | 提高或降低文档的相关性得分。
+[`rank_features`](#rank-features) | 提高或降低文档的相关性得分。当功能列表稀疏时使用。
 
-Rank feature and rank features fields can be queried with [rank feature queries](#rank-feature-query) only. They do not support aggregating or sorting.
-{: .note }
+可以查询等级功能和等级功能字段[等级特征查询](#rank-feature-query) 仅有的。他们不支持汇总或分类。
+{: .note}
 
-## Rank feature
+## 排名功能
 
-A rank feature field type uses a positive [float]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) value to boost or decrease the relevance score of a document in a `rank_feature` query. By default, this value boosts the relevance score. To decrease the relevance score, set the optional `positive_score_impact` parameter to false.
+等级功能字段类型使用正面[漂浮]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) 提高或降低文档中相关性评分的价值`rank_feature` 询问。默认情况下，此值可以提高相关性分数。要降低相关得分，请设置可选的`positive_score_impact` 参数为false。
 
-### Example
+### 例子
 
-Create a mapping with a rank feature field:
+创建具有等级功能字段的映射：
 
 ```json
 PUT chessplayers
@@ -50,7 +50,7 @@ PUT chessplayers
 ```
 {% include copy-curl.html %}
 
-Index three documents with a rank_feature field that boosts the score (`rating`) and a rank_feature field that decreases the score (`age`):
+带有rank_feature字段的索引三个文档，可以提高分数（`rating`）和一个降低分数的rank_feature字段（`age`）：
 
 ```json
 PUT testindex1/_doc/1
@@ -82,11 +82,11 @@ PUT testindex1/_doc/3
 ```
 {% include copy-curl.html %}
 
-## Rank feature query
+## 等级功能查询
 
-Using a rank feature query, you can rank players by rating, by age, or by both rating and age. If you rank players by rating, higher-rated players will have higher relevance scores. If you rank players by age, younger players will have higher relevance scores.
+使用等级功能查询，您可以按评级，年龄或评级和年龄对玩家进行排名。如果您通过评分对球员进行排名，则更高-评分玩家的相关性得分将更高。如果您按年龄对球员进行排名，那么年轻的球员的相关性得分将更高。
 
-Use a rank feature query to search for players based on age and rating:
+使用等级功能查询根据年龄和评分搜索玩家：
 
 ```json
 GET chessplayers/_search
@@ -111,7 +111,7 @@ GET chessplayers/_search
 ```
 {% include copy-curl.html %}
 
-When ranked by both age and rating, younger players and players who are more highly ranked score better:
+当年龄和评分都排名时，年轻的球员和排名更高的球员都会更好：
 
 ```json
 {
@@ -168,13 +168,13 @@ When ranked by both age and rating, younger players and players who are more hig
 }
 ```
 
-## Rank features
+## 等级功能
 
-A rank features field type is similar to the rank feature field type, but it is more suitable for a sparse list of features. A rank features field can index numeric feature vectors that are later used to boost or decrease documents' relevance scores in `rank_feature` queries. 
+等级功能字段类型与等级功能字段类型相似，但更适合稀疏功能列表。等级功能字段可以索引数字特征向量，后来用于提高或降低文档的相关性分数`rank_feature` 查询。
 
-### Example
+### 例子
 
-Create a mapping with a rank features field:
+创建具有等级功能字段的映射：
 
 ```json
 PUT testindex1
@@ -190,7 +190,7 @@ PUT testindex1
 ```
 {% include copy-curl.html %}
 
-To index a document with a rank features field, use a hashmap with string keys and positive float values:
+要索引具有等级功能字段的文档，请使用带有字符串键和正浮点值的哈希图：
 
 ```json
 PUT testindex1/_doc/1
@@ -215,7 +215,7 @@ PUT testindex1/_doc/2
 ```
 {% include copy-curl.html %}
 
-Query the documents using a rank feature query:
+使用等级功能查询查询文档：
 
 ```json
 GET testindex1/_search
@@ -229,7 +229,7 @@ GET testindex1/_search
 ```
 {% include copy-curl.html %}
 
-The response is ranked by relevance score:
+响应按相关得分进行排名：
 
 ```json
 {
@@ -278,5 +278,6 @@ The response is ranked by relevance score:
 }
 ```
 
-Rank feature and rank features fields use top nine significant bits for precision, leading to about 0.4% relative error. Values are stored with a relative precision of 2<sup>−8</sup> = 0.00390625.
-{: .note }
+等级特征和等级特征字段使用前九个重要位来精确，导致相对误差约为0.4％。值以2 <sup> -8 </sup> = 0.00390625的相对精度存储。
+{: .note}
+

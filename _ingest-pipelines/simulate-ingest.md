@@ -1,21 +1,20 @@
 ---
 layout: default
-title: Simulate pipeline
+title: 模拟管道
 nav_order: 11
 redirect_from:
   - /opensearch/rest-api/ingest-apis/simulate-ingest/
   - /api-reference/ingest-apis/simulate-ingest/
 ---
 
-# Simulate pipeline
-**Introduced 1.0**
-{: .label .label-purple }
+# 模拟管道
+**引入 1.0** {：.label .label-purple }
 
-Use the simulate ingest pipeline API operation to run or test the pipeline.
+使用模拟引入管道 API 操作来运行或测试管道。
 
-## Path and HTTP methods
+## Path 和 HTTP 方法
 
-The following requests **simulate the latest ingest pipeline created**:
+以下要求**模拟创建的最新引入管道**：
 
 ```
 GET _ingest/pipeline/_simulate
@@ -23,7 +22,7 @@ POST _ingest/pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-The following requests **simulate a single pipeline based on the pipeline ID**:
+以下要求**根据流水线 ID 模拟单个流水线**：
 
 ```
 GET _ingest/pipeline/<pipeline-id>/_simulate
@@ -31,32 +30,32 @@ POST _ingest/pipeline/<pipeline-id>/_simulate
 ```
 {% include copy-curl.html %}
 
-## Request body fields
+## 请求正文字段
 
-The following table lists the request body fields used to run a pipeline.
+下表列出了用于运行管道的请求正文字段。
 
-Field | Required | Type | Description
+字段 | 必需 | 类型 | 描述
 :--- | :--- | :--- | :---
-`docs` | Required | Array | The documents to be used to test the pipeline.
-`pipeline` | Optional | Object | The pipeline to be simulated. If the pipeline identifier is not included, then the response simulates the latest pipeline created.
+ `docs` | 必需 | 阵列 | 用于测试管道的文档。
+ `pipeline` | 可选 | 对象 | 要模拟的管道。如果未包含管道标识符，则响应将模拟创建的最新管道。
 
-The `docs` field can include subfields listed in the following table.
+该 `docs` 字段可以包含下表中列出的子字段。
 
-Field | Required | Type | Description
+字段 | 必需 | 类型 | 描述
 :--- | :--- | :--- | :---
-`source` | Required | Object | The document's JSON body.
-`id` | Optional | String | A unique document identifier. The identifier cannot be used elsewhere in the index.
-`index` | Optional | String | The index where the document's transformed data appears.
+ `source` | 必需 | 对象 | 文档的 JSON 正文。
+ `id` | 可选 | 字符串 | 唯一的文档标识符。标识符不能在索引中的其他位置使用。
+ `index` | 可选 | 字符串 | 显示文档转换后数据的索引。
 
-## Query parameters 
+## 查询参数
 
-The following table lists the query parameters for running a pipeline. 
+下表列出了用于运行管道的查询参数。
 
-Parameter | Type | Description
+参数 | 类型 | 描述
 :--- | :--- | :---
-`verbose` | Boolean | Verbose mode. Display data output for each processor in the executed pipeline.
+ `verbose` | 布尔值 | 详细模式。显示已执行管道中每个处理器的数据输出。
 
-#### Example: Specify a pipeline in the path
+#### 示例：在路径中指定管道
 
 ```json
 POST /_ingest/pipeline/my-pipeline/_simulate
@@ -85,7 +84,7 @@ POST /_ingest/pipeline/my-pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-The request returns the following response:
+该请求返回以下响应：
 
 ```json
 {
@@ -122,9 +121,9 @@ The request returns the following response:
 }
 ```
 
-#### Example: Verbose mode
+#### 示例：详细模式
 
-When the previous request is run with the `verbose` parameter set to `true`, the response shows the sequence of transformations for each document. For example, for the document with the ID `1`, the response contains the results of applying each processor in the pipeline in sequence:
+当在参数设置为 `true` 的情况下运行 `verbose` 上一个请求时，响应将显示每个文档的转换顺序。例如，对于具有 ID `1` 的文档，响应包含按顺序应用管道中每个处理器的结果：
 
 ```json
 {
@@ -190,9 +189,9 @@ When the previous request is run with the `verbose` parameter set to `true`, the
 }
 ```
 
-#### Example: Specify a pipeline in the request body
+#### 示例：在请求正文中指定管道
 
-Alternatively, you can specify a pipeline directly in the request body without first creating a pipeline:
+或者，你可以直接在请求正文中指定管道，而无需先创建管道：
 
 ```json
 POST /_ingest/pipeline/_simulate
@@ -236,9 +235,9 @@ POST /_ingest/pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-#### Response
+#### 响应
 
-The request returns the following response:
+该请求返回以下响应：
 
 ```json
 {

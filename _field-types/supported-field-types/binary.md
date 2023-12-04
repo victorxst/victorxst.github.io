@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Binary
-parent: Supported field types
+title: 二进制
+parent: 支持的字段类型
 nav_order: 12
 has_children: false
 redirect_from:
@@ -9,13 +9,13 @@ redirect_from:
   - /field-types/binary/
 ---
 
-# Binary field type
+# 二进制字段类型
 
-A binary field type contains a binary value in [Base64](https://en.wikipedia.org/wiki/Base64) encoding that is not searchable. 
+二进制字段类型包含一个二进制值[基础64](https://en.wikipedia.org/wiki/Base64) 编码无法搜索的编码。
 
-## Example
+## 例子
 
-Create a mapping with a binary field:
+用二进制字段创建映射：
 
 ```json
 PUT testindex 
@@ -31,7 +31,7 @@ PUT testindex
 ```
 {% include copy-curl.html %}
 
-Index a document with a binary value:
+索引具有二进制值的文档：
 
 ```json
 PUT testindex/_doc/1 
@@ -41,14 +41,15 @@ PUT testindex/_doc/1
 ```
 {% include copy-curl.html %}
 
-Use `=` as a padding character. Embedded newline characters are not allowed.
-{: .note }
+使用`=` 作为填充字符。不允许嵌入式新线字符。
+{： 。笔记 }
 
-## Parameters
+## 参数
 
-The following table lists the parameters accepted by binary field types. All parameters are optional.
+下表列出了二进制字段类型接受的参数。所有参数都是可选的。
 
-Parameter | Description 
-:--- | :--- 
-`doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Optional. Default is `true`.
-`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the _source field. Optional. Default is `false`.
+范围| 描述
+：--- | ：--- 
+`doc_values` | 布尔值指定是否应将字段存储在磁盘上，以便将其用于聚合，排序或脚本。选修的。默认为`true`。
+`store` | 布尔值指定是否应存储字段值，并且可以与_source字段分开检索。选修的。默认为`false`
+

@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Delimited term frequency
-parent: Token filters
+title: 定期频率
+parent: 令牌过滤器
 nav_order: 100
 ---
 
-# Delimited term frequency token filter
+# 定期频率令牌过滤器
 
-The `delimited_term_freq` token filter separates a token stream into tokens with corresponding term frequencies, based on a provided delimiter. A token consists of all characters before the delimiter, and a term frequency is the integer after the delimiter. For example, if the delimiter is `|`, then for the string `foo|5`, `foo` is the token and `5` is its term frequency. If there is no delimiter, the token filter does not modify the term frequency. 
+这`delimited_term_freq` 令牌滤波器根据提供的定界符将令牌流分隔为具有相应项频率的令牌。一个令牌由定界符之前的所有字符组成，术语频率是定界符之后的整数。例如，如果定界符是`|`，然后对于字符串`foo|5`，`foo` 是令牌和`5` 是其术语频率。如果没有定界符，则令牌过滤器不会修改术语频率。
 
-You can either use a preconfigured `delimited_term_freq` token filter or create a custom one.
+您可以使用预配置`delimited_term_freq` 令牌过滤器或创建自定义过滤器。
 
-## Preconfigured `delimited_term_freq` token filter
+## 预先配置`delimited_term_freq` 令牌过滤器
 
-The preconfigured `delimited_term_freq` token filter uses the `|` default delimiter. To analyze text with the preconfigured token filter, send the following request to the `_analyze` endpoint:
+预配置`delimited_term_freq` 令牌过滤器使用`|` 默认分界符。要使用预配置的令牌过滤器分析文本，请将以下请求发送到`_analyze` 端点：
 
 ```json
 POST /_analyze
@@ -27,7 +27,7 @@ POST /_analyze
 ```
 {% include copy-curl.html %}
 
-The `attributes` array specifies that you want to filter the output of the `explain` parameter to return only `termFrequency`. The response contains both the original token and the parsed output of the token filter that includes the term frequency:
+这`attributes` 数组指定要过滤的输出`explain` 仅返回的参数`termFrequency`。响应包含包含术语频率的令牌过滤器的原始令牌和解析输出：
 
 ```json
 {
@@ -66,9 +66,9 @@ The `attributes` array specifies that you want to filter the output of the `expl
 }
 ```
 
-## Custom `delimited_term_freq` token filter
+## 风俗`delimited_term_freq` 令牌过滤器
 
-To configure a custom `delimited_term_freq` token filter, first specify the delimiter in the mapping request, in this example, `^`:
+配置自定义`delimited_term_freq` 令牌过滤器，首先在映射请求中指定定界符，在此示例中，`^`：
 
 ```json
 PUT /testindex
@@ -87,7 +87,7 @@ PUT /testindex
 ```
 {% include copy-curl.html %}
 
-Then analyze text with the custom token filter you created:
+然后使用您创建的自定义令牌过滤器分析文本：
 
 ```json
 POST /testindex/_analyze
@@ -101,7 +101,7 @@ POST /testindex/_analyze
 ```
 {% include copy-curl.html %}
 
-The response contains both the original token and the parsed version with the term frequency:
+响应包含具有频率一词的原始令牌和解析版本：
 
 ```json
 {
@@ -140,11 +140,11 @@ The response contains both the original token and the parsed version with the te
 }
 ```
 
-## Combining `delimited_token_filter` with scripts
+## 结合`delimited_token_filter` 与脚本
 
-You can write Painless scripts to calculate custom scores for the documents in the results.
+您可以编写无痛脚本来计算结果中文档的自定义分数。
 
-First, create an index and provide the following mappings and settings:
+首先，创建索引并提供以下映射和设置：
 
 ```json
 PUT /test
@@ -187,9 +187,9 @@ PUT /test
 ```
 {% include copy-curl.html %}
 
-The `test` index uses a keyword tokenizer, a delimited term frequency token filter (where the delimiter is `^`), and a custom analyzer that includes a keyword tokenizer and a delimited term frequency token filter. The mappings specify that the field `f1` is a keyword field and the field `f2` is a text field. The field `f2` uses the custom analyzer defined in the settings for text analysis. Additionally, specifying `index_options` signals to OpenSearch to add the term frequencies to the inverted index. You'll use the term frequencies to give documents with repeated terms a higher score.
+这`test` 索引使用关键字令牌，这是一个定界术语频率令牌过滤器（定界符为`^`），以及一个包括关键字令牌和界限频率令牌过滤器的自定义分析仪。映射指定字段`f1` 是关键字字段和字段`f2` 是文本字段。场`f2` 使用设置中定义的自定义分析仪进行文本分析。另外，指定`index_options` 向OpenSearch进行信号，将术语频率添加到倒置索引中。您将使用术语频率将重复项的文档提供更高的分数。
 
-Next, index two documents using bulk upload:
+接下来，使用批量上传索引两个文档：
 
 ```json
 POST /_bulk?refresh=true
@@ -200,7 +200,7 @@ POST /_bulk?refresh=true
 ```
 {% include copy-curl.html %}
 
-The following query searches for all documents in the index and calculates document scores as the term frequency of the term `v1` in the field `f2`:
+以下查询搜索索引中的所有文档，并将文档分数计算为术语的术语频率`v1` 在该领域`f2`：
 
 ```json
 GET /test/_search
@@ -225,7 +225,7 @@ GET /test/_search
 ```
 {% include copy-curl.html %}
 
-In the response, document 1 has a score of 30 because the term frequency of the term `v1` in the field `f2` is 30. Document 2 has a score of 0 because the term `v1` does not appear in `f2`:
+在响应中，文档1的得分为30，因为该术语的术语频率`v1` 在该领域`f2` IS 30.文件2的得分为0，因为该术语`v1` 没有出现在`f2`：
 
 ```json
 {
@@ -266,10 +266,11 @@ In the response, document 1 has a score of 30 because the term frequency of the 
 }
 ```
 
-## Parameters
+## 参数
 
-The following table lists all parameters that the `delimited_term_freq` supports.
+下表列出了所有参数`delimited_term_freq` 支持。
 
-Parameter | Required/Optional | Description
-:--- | :--- | :---
-`delimiter` | Optional | The delimiter used to separate tokens from term frequencies. Must be a single non-null character. Default is `|`.
+范围| 必需/可选| 描述
+：--- | ：--- | ：---
+`delimiter` | 选修的| 定界符用于将令牌与术语频率分开。必须是一个非-空字符。默认为`|`
+

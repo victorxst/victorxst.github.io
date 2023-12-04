@@ -3,20 +3,20 @@ layout: default
 title: Object
 nav_order: 41
 has_children: false
-parent: Object field types
-grand_parent: Supported field types
+parent: Object字段类型
+grand_grand_parent: 支持的字段类型
 redirect_from: 
   - /opensearch/supported-field-types/object/
   - /field-types/object/
 ---
 
-# Object field type
+# 对象字段类型
 
-An object field type contains a JSON object (a set of name/value pairs). A value in a JSON object may be another JSON object. It is not necessary to specify `object` as the type when mapping object fields because `object` is the default type.
+对象字段类型包含JSON对象（一组名称/值对）。JSON对象中的值可能是另一个JSON对象。没有必要指定`object` 作为映射对象字段时的类型，因为`object` 是默认类型。
 
-## Example
+## 例子
 
-Create a mapping with an object field:
+使用对象字段创建映射：
 
 ```json
 PUT testindex1/_mappings
@@ -38,7 +38,7 @@ PUT testindex1/_mappings
 ```
 {% include copy-curl.html %}
 
-Index a document with an object field:
+带有对象字段的文档索引：
 
 ```json
 PUT testindex1/_doc/1
@@ -51,9 +51,9 @@ PUT testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-Nested objects are stored as flat key/value pairs internally. To refer to a field in a nested object, use `parent field`.`child field` (for example, `patient.id`).
+嵌套对象在内部存储为平键/值对。要引用嵌套对象中的字段，请使用`parent field`。`child field` （例如，`patient.id`）。
 
-Search for a patient with ID 123456:
+搜索ID 123456的患者：
 
 ```json
 GET testindex1/_search
@@ -67,21 +67,21 @@ GET testindex1/_search
 ```
 {% include copy-curl.html %}
 
-## Parameters
+## 参数
 
-The following table lists the parameters accepted by object field types. All parameters are optional.
+下表列出了对象字段类型接受的参数。所有参数都是可选的。
 
-Parameter | Description 
-:--- | :--- 
-[`dynamic`](#the-dynamic-parameter) | Specifies whether new fields can be dynamically added to this object. Valid values are `true`, `false`, and `strict`. Default is `true`.
-`enabled` | A Boolean value that specifies whether the JSON contents of the object should be parsed. If `enabled` is set to `false`, the object's contents are not indexed or searchable, but they are still retrievable from the _source field. Default is `true`.
-`properties` | Fields of this object, which can be of any supported type. New properties can be dynamically added to this object if `dynamic` is set to `true`.
+范围| 描述
+：--- | ：--- 
+[`dynamic`](#the-dynamic-parameter) | 指定是否可以将新字段动态添加到此对象中。有效值是`true`，`false`， 和`strict`。默认为`true`。
+`enabled` | 布尔值指定是否应解析对象的JSON内容。如果`enabled` 被设定为`false`，该对象的内容不可索引或可搜索，但仍可以从_source字段中检索。默认为`true`。
+`properties` | 该对象的字段，可以是任何受支持类型的字段。如果新属性可以动态添加到此对象中`dynamic` 被设定为`true`。
 
-### The `dynamic` parameter
+### 这`dynamic` 范围
 
-The `dynamic` parameter specifies whether new fields can be dynamically added to an object that is already indexed.
+这`dynamic` 参数指定是否可以将新字段动态添加到已经索引的对象中。
 
-For example, you can initially create a mapping with a `patient` object that has only one field:
+例如，您最初可以使用`patient` 只有一个字段的对象：
 
 ```json
 PUT testindex1/_mappings
@@ -100,7 +100,7 @@ PUT testindex1/_mappings
 ```
 {% include copy-curl.html %}
 
-Then you index a document with a new `id` field in `patient`:
+然后，您将文档索引`id` 字段中`patient`：
 
 ```json
 PUT testindex1/_doc/1
@@ -113,7 +113,7 @@ PUT testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-As a result, the field `id` is added to the mappings:
+结果，该领域`id` 被添加到映射中：
 
 ```json
 {
@@ -142,13 +142,14 @@ As a result, the field `id` is added to the mappings:
 }
 ```
 
-The `dynamic` parameter has the following valid values.
+这`dynamic` 参数具有以下有效值。
 
-Value | Description 
-:--- | :--- 
-`true` | New fields can be added to the mapping dynamically. This is the default.
-`false` | New fields cannot be added to the mapping dynamically. If a new field is detected, it is not indexed or searchable. However, it is still retrievable from the _source field. 
-`strict` | When new fields are added to the mapping dynamically, an exception is thrown. To add a new field to an object, you have to add it to the mapping first.
+价值| 描述
+：--- | ：--- 
+`true` | 新字段可以动态添加到映射中。这是默认值。
+`false` | 新字段无法动态地添加到映射中。如果检测到新字段，则无法索引或可搜索。但是，它仍然可以从_source字段中检索。
+`strict` | 当动态地将新字段添加到映射到映射时，会抛出一个异常。要将新字段添加到对象中，您必须先将其添加到映射中。
 
-Inner objects inherit the `dynamic` parameter value from their parent unless they declare their own `dynamic` parameter value.
-{: .note }
+内在对象继承`dynamic` 除非他们自己声明自己的父母的参数价值`dynamic` 参数值。
+{: .note}
+

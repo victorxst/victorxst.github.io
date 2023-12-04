@@ -1,21 +1,20 @@
 ---
 layout: default
-title: Handling pipeline failures
+title: 处理管道故障
 nav_order: 15
 redirect_from:
   - /api-reference/ingest-apis/pipeline-failures/
 ---
 
-# Handling pipeline failures
-**Introduced 1.0**
-{: .label .label-purple }
+# 处理管道故障
+**引入 1.0** {：.label .label-purple }
 
-Each ingest pipeline consists of a series of processors that are applied to the documents in sequence. If a processor fails, the entire pipeline will fail. You have two options for handling failures:
+每个引入管道都由一系列处理器组成，这些处理器按顺序应用于文档。如果处理器发生故障，则整个管道将发生故障。有两个选项可用于处理故障：
 
-- **Fail the entire pipeline:** If a processor fails, the entire pipeline will fail and the document will not be indexed.
-- **Fail the current processor and continue with the next processor:** This can be useful if you want to continue processing the document even if one of the processors fails.
+- **使整个管道失败：**如果处理器发生故障，则整个管道将失败，并且不会为文档编制索引。
+- **使当前处理器出现故障，然后继续使用下一个处理器：**如果要继续处理文档，即使其中一个处理器出现故障，这也很有用。
 
-By default, an ingest pipeline stops if one of its processors fails. If you want the pipeline to continue running when a processor fails, you can set the `ignore_failure` parameter for that processor to `true` when creating the pipeline:
+默认情况下，如果其中一个处理器发生故障，引入管道将停止。如果希望管道在处理器发生故障时继续运行，则可以在创建管道时将该处理器的参数设置为 `ignore_failure` `true`：
 
 ```json
 PUT _ingest/pipeline/my-pipeline/
@@ -34,7 +33,7 @@ PUT _ingest/pipeline/my-pipeline/
 ```
 {% include copy-curl.html %}
 
-You can specify the `on_failure` parameter to run immediately after a processor fails. If you have specified `on_failure`, OpenSearch will run the other processors in the pipeline even if the `on_failure` configuration is empty: 
+你可以指定在处理器发生故障后立即运行的 `on_failure` 参数。如果你指定 `on_failure` 了，则即使 `on_failure` 配置为空，OpenSearch 也会运行管道中的其他处理器：
 
 ```json
 PUT _ingest/pipeline/my-pipeline/
@@ -61,19 +60,18 @@ PUT _ingest/pipeline/my-pipeline/
 ```
 {% include copy-curl.html %}
 
-If the processor fails, OpenSearch logs the failure and continues to run all remaining processors in the search pipeline. To check whether there were any failures, you can use [ingest pipeline metrics]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/pipeline-failures/#ingest-pipeline-metrics).
-{: tip}
+如果处理器发生故障，OpenSearch 会记录故障并继续运行搜索管道中的所有剩余处理器。要检查是否有任何故障，可以使用[引入管道指标]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/pipeline-failures/#ingest-pipeline-metrics).{：提示}
 
-## Ingest pipeline metrics
+## 引入管道指标
 
-To view ingest pipeline metrics, use the [Nodes Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/):
+若要查看引入管道指标，请使用[节点统计 API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/)：
 
 ```json
 GET /_nodes/stats/ingest?filter_path=nodes.*.ingest
 ```
 {% include copy-curl.html %}
 
-The response contains statistics for all ingest pipelines, for example:
+响应包含所有引入管道的统计信息，例如：
 
 ```json
  {
@@ -132,5 +130,4 @@ The response contains statistics for all ingest pipelines, for example:
 }
 ```
 
-**Troubleshooting ingest pipeline failures:** The first thing you should do is check the logs to see whether there are any errors or warnings that can help you identify the cause of the failure. OpenSearch logs contain information about the ingest pipeline that failed, including the processor that failed and the reason for the failure.
-{: .tip}
+**引入管道故障疑难解答：**你应该做的第一件事是检查日志，查看是否有任何错误或警告可以帮助你确定失败的原因。OpenSearch 日志包含有关失败的提取管道的信息，包括失败的处理器和失败的原因。{：.tip}

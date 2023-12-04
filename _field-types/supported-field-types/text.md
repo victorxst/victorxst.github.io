@@ -1,26 +1,26 @@
 ---
 layout: default
-title: Text
+title: 文本
 nav_order: 47
 has_children: false
-parent: String field types
-grand_parent: Supported field types
+parent: String字段类型
+grand_grand_parent: 支持的字段类型
 redirect_from:
   - /opensearch/supported-field-types/text/
   - /field-types/text/
 ---
 
-# Text field type
+# 文本字段类型
 
-A text field type contains a string that is analyzed. It is used for full-text search because it allows partial matches. Searches with multiple terms can match some but not all of them. Depending on the analyzer, results can be case insensitive, stemmed, stopwords removed, synonyms applied, etc.
+文本字段类型包含一个分析的字符串。它用于完整-文本搜索是因为它允许部分匹配。具有多个术语的搜索可以匹配一些但不匹配所有术语。根据分析仪的不同，结果可能是病例不敏感的，STEM的，删除了止动，施加了同义词，等等。
 
 
-If you need to use a field for exact-value search, map it as a [`keyword`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/) instead.
-{: .note }
+如果您需要使用一个字段以确切-价值搜索，将其映射为[`keyword`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/) 反而。
+{: .note}
 
-## Example
+## 例子
 
-Create a mapping with a text field:
+使用文本字段创建映射：
 
 ```json
 PUT movies
@@ -36,54 +36,54 @@ PUT movies
 ```
 {% include copy-curl.html %}
 
-## Parameters
+## 参数
 
-The following table lists the parameters accepted by text field types. All parameters are optional.
+下表列出了文本字段类型接受的参数。所有参数都是可选的。
 
-Parameter | Description 
-:--- | :---
-`analyzer` | The analyzer to be used for this field. By default, it will be used at index time and at search time. To override it at search time, set the `search_analyzer` parameter. Default is the `standard` analyzer, which uses grammar-based tokenization and is based on the [Unicode Text Segmentation](https://unicode.org/reports/tr29/) algorithm.
-`boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0.
-`eager_global_ordinals` | Specifies whether global ordinals should be loaded eagerly on refresh. If the field is often used for aggregations, this parameter should be set to `true`. Default is `false`.
-`fielddata` | A Boolean value that specifies whether to access analyzed tokens for this field for sorting, aggregation, and scripting. Default is `false`.
-`fielddata_frequency_filter` | A JSON object that specifies to load into memory only those analyzed tokens whose document frequency is between the `min` and `max` values (provided as either an absolute number or a percentage). Frequency is computed per segment. Parameters: `min`, `max`, `min_segment_size`. Default is to load all analyzed tokens.
-`fields` | To index the same string in several ways (for example, as a keyword and text), provide the fields parameter. You can specify one version of the field to be used for search and another to be used for sorting and aggregations.
-`index` | A Boolean value that specifies whether the field should be searchable. Default is `true`.
-`index_options` | Specifies the information to be stored in the index for search and highlighting. Valid values: `docs` (doc number only), `freqs` (doc number and term frequencies), `positions` (doc number, term frequencies, and term positions), `offsets` (doc number, term frequencies, term positions, and start and end character offsets). Default is `positions`.
-`index_phrases` | A Boolean value that specifies to index 2-grams separately. 2-grams are combinations of two consecutive words in this field's string. Leads to faster exact phrase queries with no slop but a larger index. Works best when stopwords are not removed. Default is `false`.
-`index_prefixes` | A JSON object that specifies to index term prefixes separately. The number of characters in the prefix is between `min_chars` and `max_chars`, inclusive. Leads to faster prefix searches but a larger index. Optional parameters: `min_chars`, `max_chars`. Default `min_chars` is 2, `max_chars` is 5.
-`meta` | Accepts metadata for this field.
-`norms` | A Boolean value that specifies whether the field length should be used when calculating relevance scores. Default is `false`.
-`position_increment_gap` | When text fields are analyzed, they are assigned positions. If a field contained an array of strings, and these positions were consecutive, this would lead to potentially matching across different array elements. To prevent this, an artificial gap is inserted between consecutive array elements. You can change this gap by specifying an integer `position_increment_gap`. Note: If `slop` is greater than `position_element_gap`, matching across different array elements may occur. Default is 100.
-`similarity` | The ranking algorithm for calculating relevance scores. Default is `BM25`. 
-[`term_vector`](#term-vector-parameter) | A Boolean value that specifies whether a term vector for this field should be stored. Default is `no`.
+范围| 描述
+：--- | ：---
+`analyzer` | 用于此字段的分析仪。默认情况下，它将在索引时和搜索时间使用。要在搜索时间覆盖它，请设置`search_analyzer` 范围。默认为`standard` 分析仪，使用语法-基于令牌化，并基于[Unicode文本细分](https://unicode.org/reports/tr29/) 算法。
+`boost` | 浮动-指定该字段对相关性分数的重量的点值。值高于1.0的值增加了该领域的相关性。0.0至1.0之间的值降低了该场的相关性。默认值为1.0。
+`eager_global_ordinals` | 指定是否应在刷新上热切地加载全球序列。如果该字段通常用于聚合，则应将此参数设置为`true`。默认为`false`。
+`fielddata` | 布尔值指定是否访问该字段的代币进行分析，汇总和脚本。默认为`false`。
+`fielddata_frequency_filter` | 一个指定仅加载到存储器的JSON对象`min` 和`max` 值（作为绝对数字或百分比提供）。频率是每个段计算的。参数：`min`，，，，`max`，，，，`min_segment_size`。默认值是加载所有分析的令牌。
+`fields` | 要以多种方式索引相同的字符串（例如，作为关键字和文本），提供字段参数。您可以指定用于搜索的字段的一个版本，而用于分类和聚合的另一个版本。
+`index` | 布尔值指定是否应搜索该字段。默认为`true`。
+`index_options` | 指定要存储在索引中的信息进行搜索和突出显示。有效值：`docs` （仅DOC编号），`freqs` （文档编号和术语频率），`positions` （文档编号，任期频率和期限位置），`offsets` （文档编号，术语频率，术语位置以及启动和最终字符偏移）。默认为`positions`。
+`index_phrases` | 指定索引2的布尔值-克分别。2-克是该字段字符串中两个连续单词的组合。导致更快的精确短语查询，没有斜率，而是较大的索引。当未删除停止词时，效果最好。默认为`false`。
+`index_prefixes` | 一个分别指定索引项前缀的JSON对象。前缀中的字符数在`min_chars` 和`max_chars`， 包括的。导致更快的前缀搜索，但索引较大。可选参数：`min_chars`，，，，`max_chars`。默认`min_chars` 是2，`max_chars` 是5。
+`meta` | 接受该领域的元数据。
+`norms` | 布尔值指定在计算相关性分数时是否应使用字段长度。默认为`false`。
+`position_increment_gap` | 分析文本字段时，将分配它们的位置。如果一个字段包含一系列字符串，并且这些位置是连续的，则将导致在不同的阵列元素上可能匹配。为了防止这种情况，在连续的阵列元素之间插入人造间隙。您可以通过指定整数来更改此差距`position_increment_gap`。注意：如果`slop` 大于`position_element_gap`，可能会发生在不同的数组元素上匹配。默认值为100。
+`similarity` | 用于计算相关性得分的排名算法。默认为`BM25`。
+[`term_vector`](#term-vector-parameter) | 布尔值指定是否应存储该字段的术语向量。默认为`no`。
 
-## Term vector parameter
+## 项矢量参数
 
-A term vector is produced during analysis. It contains:
-- A list of terms.
-- The ordinal position of each term.
-- The start and end character offsets of the search string within the field.
-- Payloads (if available). Each term can have custom binary data associated with the term's position.
+分析过程中产生一个术语矢量。它包含了：
+- 术语列表。
+- 每个项的序列位置。
+- 字段中搜索字符串的开始和最终字符偏移。
+- 有效载荷（如果有）。每个项可以具有与该术语位置关联的自定义二进制数据。
 
-The `term_vector` field contains a JSON object that accepts the following parameters:
+这`term_vector` 字段包含一个接受以下参数的JSON对象：
 
-Parameter | Stored values
-:--- | :---
-`no` | None. This is the default.
-`yes` | Terms in the field.
-`with_offsets` | Terms and character offsets.
-`with_positions_offsets` | Terms, positions, and character offsets.
-`with_positions_offsets_payloads` | Terms, positions, character offsets, and payloads.
-`with_positions` | Terms and positions.
-`with_positions_payloads` | Terms, positions, and payloads.
+范围| 存储的值
+：--- | ：---
+`no` | 没有任何。这是默认值。
+`yes` | 字段中的术语。
+`with_offsets` | 条款和性格偏移。
+`with_positions_offsets` | 术语，位置和角色偏移。
+`with_positions_offsets_payloads` | 术语，位置，角色偏移和有效载荷。
+`with_positions` | 条款和立场。
+`with_positions_payloads` | 术语，职位和有效载荷。
 
-Storing positions is useful for proximity queries. Storing character offsets is useful for highlighting.
+存储位置可用于接近查询。存储字符偏移可用于突出显示。
 {: .tip }
 
-### Term vector parameter example
+### 术语矢量参数示例
 
-Create a mapping with a text field that stores character offsets in a term vector:
+使用文本字段创建一个映射，该文本字段将字符偏移存储在术语向量中：
 
 ```json
 PUT testindex
@@ -100,7 +100,7 @@ PUT testindex
 ```
 {% include copy-curl.html %}
 
-Index a document with a text field:
+带有文本字段的文档索引：
 
 ```json
 PUT testindex/_doc/1
@@ -110,7 +110,7 @@ PUT testindex/_doc/1
 ```
 {% include copy-curl.html %}
 
-Query for "date of birth" and highlight it in the original field:
+查询"date of birth" 并在原始字段中突出显示：
 
 ```json
 GET testindex/_search
@@ -129,7 +129,7 @@ GET testindex/_search
 ```
 {% include copy-curl.html %}
 
-The words "date of birth" are highlighted in the response:
+话"date of birth" 在回应中强调：
 
 ```json
 {

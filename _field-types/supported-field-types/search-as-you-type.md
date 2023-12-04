@@ -1,24 +1,24 @@
 ---
 layout: default
-title: Search as you type
+title: 键入时搜索
 nav_order: 53
 has_children: false
-parent: Autocomplete field types
-grand_parent: Supported field types
+parent: 自动完成字段类型
+grand_grand_parent: 支持的字段类型
 redirect_from:
   - /opensearch/supported-field-types/search-as-you-type/
   - /field-types/search-as-you-type/
 ---
 
-# Search-as-you-type field type
+# 搜索-作为-你-类型字段类型
 
-A search-as-you-type field type provides search-as-you-type functionality using both prefix and infix completion. 
+搜索-作为-你-类型字段类型提供搜索-作为-你-使用前缀和Infix完成键入功能。
 
-## Example
+## 例子
 
-Mapping a search-as-you-type field creates n-gram subfields of this field, where n is in the range [2, `max_shingle_size`]. Additionally, it creates an index prefix subfield.
+映射搜索-作为-你-类型字段创建n-该领域的克子场，其中n在范围内[2，`max_shingle_size`]。此外，它创建了一个索引前缀子字段。
 
-Create a mapping with a search-as-you-type field:
+通过搜索创建映射-作为-你-类型字段：
 
 ```json
 PUT books
@@ -34,9 +34,9 @@ PUT books
 ```
 {% include copy-curl.html %}
 
-In addition to the `suggestions` field, this creates `suggestions._2gram`, `suggestions._3gram`, and `suggestions._index_prefix` fields. 
+除了`suggestions` 字段，这创造了`suggestions._2gram`，`suggestions._3gram`， 和`suggestions._index_prefix` 字段。
 
-Index a document with a search-as-you-type field:
+用搜索索引文档-作为-你-类型字段：
 
 ```json
 PUT books/_doc/1
@@ -46,7 +46,7 @@ PUT books/_doc/1
 ```
 {% include copy-curl.html %}
 
-To match terms in any order, use a bool_prefix or multi-match query. These queries rank the documents in which search terms are in the specified order higher than the documents in which terms are out of order.
+要按任何顺序匹配术语，请使用BOOL_PREFIX或MULTI-匹配查询。这些查询对搜索术语按指定顺序高的文档进行排名，高于未订单的文档。
 
 ```json
 GET books/_search
@@ -66,7 +66,7 @@ GET books/_search
 ```
 {% include copy-curl.html %}
 
-The response contains the matching document:
+响应包含匹配文档：
 
 ```json
 {
@@ -99,7 +99,7 @@ The response contains the matching document:
 }
 ```
 
-To match terms in order, use a match_phrase_prefix query:
+要按顺序匹配术语，请使用match_phrase_prefix查询：
 
 ```json
 GET books/_search
@@ -113,7 +113,7 @@ GET books/_search
 ```
 {% include copy-curl.html %}
 
-The response contains the matching document:
+响应包含匹配文档：
 
 ```json
 {
@@ -146,7 +146,7 @@ The response contains the matching document:
 }
 ```
 
-To match the last terms exactly, use a match_phrase query:
+要准确匹配最后一个术语，请使用match_phrase查询：
 
 ```json
 GET books/_search
@@ -160,7 +160,7 @@ GET books/_search
 ```
 {% include copy-curl.html %}
 
-Response:
+回复：
 
 ```json
 {
@@ -193,19 +193,20 @@ Response:
 }
 ```
 
-## Parameters
+## 参数
 
-The following table lists the parameters accepted by search-as-you-type field types. All parameters are optional.
+下表列出了搜索接受的参数-作为-你-类型字段类型。所有参数都是可选的。
 
-Parameter | Description 
-:--- | :---
-`analyzer` | The analyzer to be used for this field. By default, it will be used at index time and at search time. To override it at search time, set the `search_analyzer` parameter. Default is the `standard` analyzer, which uses grammar-based tokenization and is based on the [Unicode Text Segmentation](https://unicode.org/reports/tr29/) algorithm. Configures the root field and subfields.
-`index` | A Boolean value that specifies whether the field should be searchable. Default is `true`. Configures the root field and subfields.
-`index_options` | Specifies the information to be stored in the index for search and highlighting. Valid values: `docs` (doc number only), `freqs` (doc number and term frequencies), `positions` (doc number, term frequencies, and term positions), `offsets` (doc number, term frequencies, term positions, and start and end character offsets). Default is `positions`. Configures the root field and subfields.
-`max_shingle_size` | An integer that specifies the maximum n-gram size. Valid values are in the range [2, 4]. N-grams to be created are in the range [2, `max_shingle_size`]. Default is 3, which creates a 2-gram and a 3-gram. Larger `max_shingle_size` values work better for more specific queries but lead to a larger index size. 
-`norms` | A Boolean value that specifies whether the field length should be used when calculating relevance scores. Configures the root field and n-gram subfields (default is `false`). Does not configure the prefix subfield (in the prefix subfield, `norms` is `false`). 
-`search_analyzer` | The analyzer to be used at search time. Default is the analyzer specified in the `analyzer` parameter. Configures the root field and subfields.
-`search_quote_analyzer` | The analyzer to be used at search time with phrases. Default is the analyzer specified in the `analyzer` parameter. Configures the root field and subfields.
-`similarity` | The ranking algorithm for calculating relevance scores. Default is `BM25`. Configures the root field and subfields.
-`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the _source field. Default is `false`. Configures the root field only.
-[`term_vector`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text#term-vector-parameter) | A Boolean value that specifies whether a term vector for this field should be stored. Default is `no`. Configures the root field and n-gram subfields. Does not configure the prefix subfield. 
+范围| 描述
+：--- | ：---
+`analyzer` | 用于此字段的分析仪。默认情况下，它将在索引时和搜索时间使用。要在搜索时间覆盖它，请设置`search_analyzer` 范围。默认为`standard` 分析仪，使用语法-基于令牌化，并基于[Unicode文本细分](https://unicode.org/reports/tr29/) 算法。配置根字段和子字段。
+`index` | 布尔值指定是否应搜索该字段。默认为`true`。配置根字段和子字段。
+`index_options` | 指定要存储在索引中的信息进行搜索和突出显示。有效值：`docs` （仅DOC编号），`freqs` （文档编号和术语频率），`positions` （文档编号，任期频率和期限位置），`offsets` （文档编号，术语频率，术语位置以及启动和最终字符偏移）。默认为`positions`。配置根字段和子字段。
+`max_shingle_size` | 一个指定最大n的整数-克大小。有效值在[2，4]范围内。n-要创建的克在范围内[2，`max_shingle_size`]。默认值为3，创建一个2-克和3-公克。更大`max_shingle_size` 值可在更具体的查询中工作得更好，但导致索引尺寸较大。
+`norms` | 布尔值指定在计算相关性分数时是否应使用字段长度。配置根字段和n-克子场（默认为`false`）。不配置前缀子字段（在前缀子字段中，`norms` 是`false`）。
+`search_analyzer` | 分析仪将在搜索时间使用。默认是在`analyzer` 范围。配置根字段和子字段。
+`search_quote_analyzer` | 用短语在搜索时间使用的分析仪。默认是在`analyzer` 范围。配置根字段和子字段。
+`similarity` | 用于计算相关性得分的排名算法。默认为`BM25`。配置根字段和子字段。
+`store` | 布尔值指定是否应存储字段值，并且可以与_source字段分开检索。默认为`false`。仅配置根字段。
+[`term_vector`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text#term-vector-parameter) | 布尔值指定是否应存储该字段的术语向量。默认为`no`。配置根字段和n-克子场。不配置前缀子字段。
+

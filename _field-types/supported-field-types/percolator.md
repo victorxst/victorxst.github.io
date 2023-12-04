@@ -3,21 +3,21 @@ layout: default
 title: Percolator
 nav_order: 65
 has_children: false
-parent: Supported field types
+grand_parent: 支持的字段类型
 redirect_from:
   - /opensearch/supported-field-types/percolator/
   - /field-types/percolator/
 ---
 
-# Percolator field type
+# Percolator字段类型
 
-A percolator field type specifies to treat this field as a query. Any JSON object field can be marked as a percolator field. Normally, documents are indexed and searches are run against them. When you use a percolator field, you store a search, and later the percolate query matches documents to that search. 
+Percolator字段类型指定将此字段视为查询。任何JSON对象字段都可以将其标记为渗滤器字段。通常，文档是索引的，并且搜索与它们相反。当您使用Percolator字段时，您可以存储搜索，然后将Percaly查询与该搜索相匹配。
 
-## Example
+## 例子
 
-A customer is searching for a table priced at $400 or less and wants to create an alert for this search. 
+客户正在寻找价格为400美元或以下的桌子，并希望为此搜索创建警报。
 
-Create a mapping assigning a percolator field type to the query field:
+创建一个将percolator字段类型分配到查询字段的映射：
 
 ```json
 PUT testindex1
@@ -43,7 +43,7 @@ PUT testindex1
 ```
 {% include copy-curl.html %}
 
-Index a query:
+索引查询：
 
 ```json
 PUT testindex1/_doc/1
@@ -74,10 +74,10 @@ PUT testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-Fields referenced in the query must already exist in the mapping.
-{: .note }
+查询中引用的字段必须已经存在于映射中。
+{: .note}
 
-Run a percolate query to search for matching documents:
+运行渗透查询以搜索匹配文档：
 
 ```json
 GET testindex1/_search
@@ -100,7 +100,7 @@ GET testindex1/_search
 ```
 {% include copy-curl.html %}
 
-The response contains the originally indexed query:
+响应包含最初的索引查询：
 
 ```json
 {

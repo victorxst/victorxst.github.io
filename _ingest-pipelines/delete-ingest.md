@@ -1,26 +1,25 @@
 ---
 layout: default
-title: Delete pipeline
+title: 删除管道
 nav_order: 13
 redirect_from:
   - /opensearch/rest-api/ingest-apis/delete-ingest/
   - /api-reference/ingest-apis/delete-ingest/
 ---
 
-# Delete pipeline
-**Introduced 1.0**
-{: .label .label-purple }
+# 删除管道
+**引入 1.0** {：.label .label-purple }
 
-Use the following request to delete a pipeline. 
+使用以下请求删除管道。
 
-To delete a specific pipeline, pass the pipeline ID as a parameter:
+若要删除特定管道，请将管道 ID 作为参数传递：
 
 ```json
 DELETE /_ingest/pipeline/<pipeline-id>
 ```
 {% include copy-curl.html %}
 
-To delete all pipelines in a cluster, use the wildcard character (`*`):
+若要删除群集中的所有管道，请使用通配符（ `*`）：
 
 ```json
 DELETE /_ingest/pipeline/*

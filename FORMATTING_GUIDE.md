@@ -42,7 +42,7 @@ title: Date
 nav_order: 25
 has_children: false
 parent: Date field types
-grand_parent: Supported field types
+grand_grand_parent: 支持的字段类型
 ---
 ```
 

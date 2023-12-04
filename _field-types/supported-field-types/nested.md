@@ -1,24 +1,24 @@
 ---
 layout: default
-title: Nested
+title: 嵌套
 nav_order: 42
 has_children: false
-parent: Object field types
-grand_parent: Supported field types
+parent: Object字段类型
+grand_grand_parent: 支持的字段类型
 redirect_from:
   - /opensearch/supported-field-types/nested/
   - /field-types/nested/
 ---
 
-# Nested field type
+# 嵌套字段类型
 
-A nested field type is a special type of [object field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/object/). 
+嵌套场类型是一种特殊类型[Object字段类型]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/object/)。
 
-Any object field can take an array of objects. Each of the objects in the array is dynamically mapped as an object field type and stored in flattened form. This means that the objects in the array are broken down into individual fields, and values for each field across all objects are stored together. It is sometimes necessary to use the nested type to preserve a nested object as a whole so that you can perform a search on it.
+任何对象字段都可以采用一系列对象。数组中的每个对象都被动态映射为Object字段类型，并以扁平的形式存储。这意味着数组中的对象被分解为单个字段，并且在所有对象上的每个字段的值一起存储在一起。有时有必要使用嵌套类型保留整体嵌套对象，以便您可以对其进行搜索。
 
-## Flattened form
+## 扁平的形式
 
-By default, each of the nested objects is dynamically mapped as object field type. Any object field can take an array of objects. 
+默认情况下，每个嵌套对象都被动态映射为Object字段类型。任何对象字段都可以采用一系列对象。
 
 ```json
 PUT testindex1/_doc/100
@@ -31,7 +31,7 @@ PUT testindex1/_doc/100
 ```
 {% include copy-curl.html %}
 
-When these objects are stored, they are flattened, so their internal representation has an array of all values for each field:
+当这些对象存储时，它们会被扁平，因此它们的内部表示为每个字段的所有值数组：
 
 ```json
 {
@@ -41,7 +41,7 @@ When these objects are stored, they are flattened, so their internal representat
 }
 ```
 
-Some queries will work correctly in this representation. If you search for patients older than 75 OR smokers, document 100 should match.
+在此表示中，一些查询将正确起作用。如果您搜索超过75岁或吸烟者的患者，则文件100应匹配。
 
 ```json
 GET testindex1/_search
@@ -68,7 +68,7 @@ GET testindex1/_search
 ```
 {% include copy-curl.html %}
 
-The query correctly returns document 100:
+查询正确返回文档100：
 
 ```json
 {
@@ -112,7 +112,7 @@ The query correctly returns document 100:
 }
 ```
 
-Alternatively, if you search for patients older than 75 AND smokers, document 100 should not match.
+另外，如果您搜索超过75岁的患者和吸烟者，则文件100不应匹配。
 
 ```json
 GET testindex1/_search 
@@ -139,11 +139,11 @@ GET testindex1/_search
 ```
 {% include copy-curl.html %}
 
-However, this query still incorrectly returns document 100. This is because the relation between age and smoking was lost when arrays of values for individual fields were created.
+但是，此查询仍然错误地返回文档100。这是因为当创建了单个字段的值数组时，年龄和吸烟之间的关系丢失了。
 
-## Nested field type 
+## 嵌套字段类型
 
-Nested objects are stored as separate documents, and the parent object has references to its children. To mark objects as nested, create a mapping with a nested field type.
+嵌套对象作为单独的文档存储，而父对象则引用其子女。要将对象标记为嵌套，请使用嵌套字段类型创建映射。
 
 ```json
 PUT testindex1
@@ -159,7 +159,7 @@ PUT testindex1
 ```
 {% include copy-curl.html %}
 
-Then, index a document with a nested field type:
+然后，用嵌套字段类型索引文档：
 
 ```json
 PUT testindex1/_doc/100
@@ -172,7 +172,7 @@ PUT testindex1/_doc/100
 ```
 {% include copy-curl.html %}
 
-You can use the following nested query to search for patients older than 75 OR smokers:
+您可以使用以下嵌套查询来搜索75岁以上的患者或吸烟者：
 
 ```json
 GET testindex1/_search
@@ -204,7 +204,7 @@ GET testindex1/_search
 ```
 {% include copy-curl.html %}
 
-The query correctly returns both patients:
+查询正确返回两个患者：
 
 ```json
 {
@@ -247,7 +247,7 @@ The query correctly returns both patients:
 }
 ```
 
-You can use the following nested query to search for patients older than 75 AND smokers:
+您可以使用以下嵌套查询来寻找75岁以上的患者和吸烟者：
 
 ```json
 GET testindex1/_search
@@ -279,7 +279,7 @@ GET testindex1/_search
 ```
 {% include copy-curl.html %}
 
-The previous query returns no results, as expected:
+前面的查询没有预期的结果，没有结果：
 
 ```json
 {
@@ -302,13 +302,14 @@ The previous query returns no results, as expected:
 }
 ```
 
-## Parameters
+## 参数
 
-The following table lists the parameters accepted by object field types. All parameters are optional.
+下表列出了Object字段类型接受的参数。所有参数都是可选的。
 
-Parameter | Description 
-:--- | :--- 
-[`dynamic`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/object#the-dynamic-parameter) | Specifies whether new fields can be dynamically added to this object. Valid values are `true`, `false`, and `strict`. Default is `true`.
-`include_in_parent` | A Boolean value that specifies whether all fields in the child nested object should also be added to the parent document in flattened form. Default is `false`.
-`include_in_root` | A Boolean value that specifies whether all fields in the child nested object should also be added to the root document in flattened form. Default is `false`.
-`properties` | Fields of this object, which can be of any supported type. New properties can be dynamically added to this object if `dynamic` is set to `true`.
+范围| 描述
+：--- | ：--- 
+[`dynamic`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/object#the-dynamic-parameter) | 指定是否可以将新字段动态添加到此对象中。有效值是`true`，`false`， 和`strict`。默认为`true`。
+`include_in_parent` | 布尔值指定是否还应以扁平的形式添加子嵌套对象中的所有字段。默认为`false`。
+`include_in_root` | 布尔值指定是否还应以扁平的形式添加子嵌套对象中的所有字段。默认为`false`。
+`properties` | 该对象的字段，可以是任何受支持类型的字段。如果新属性可以动态添加到此对象中`dynamic` 被设定为`true`。
+

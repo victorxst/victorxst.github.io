@@ -1,24 +1,24 @@
 ---
 layout: default
-title: IP address
+title: IP地址
 nav_order: 30
 has_children: false
-parent: Supported field types
+parent: 支持的字段类型
 redirect_from:
   - /opensearch/supported-field-types/ip/
   - /field-types/ip/
 ---
 
-# IP address field type
+# IP地址字段类型
 
-An ip field type contains an IP address in IPv4 or IPv6 format. 
+IP字段类型包含IPv4或IPv6格式中的IP地址。
 
-To represent IP address ranges, there is an IP [range field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/range/).
-{: .note }
+为了表示IP地址范围，有一个IP[范围字段类型]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/range/)。
+{: .note}
 
-## Example
+## 例子
 
-Create a mapping with an IP address:
+使用IP地址创建映射：
 
 ```json
 PUT testindex 
@@ -34,7 +34,7 @@ PUT testindex
 ```
 {% include copy-curl.html %}
 
-Index a document with an IP address:
+带有IP地址的文档索引：
 
 ```json
 PUT testindex/_doc/1 
@@ -44,7 +44,7 @@ PUT testindex/_doc/1
 ```
 {% include copy-curl.html %}
 
-Query an index for a specific IP address:
+查询特定IP地址的索引：
 
 ```json
 GET testindex/_doc/1 
@@ -58,11 +58,11 @@ GET testindex/_doc/1
 ```
 {% include copy-curl.html %}
 
-## Searching for an IP address and its associated network mask
+## 搜索IP地址及其关联的网络掩码
 
-You can query an index for an IP address in [Classless Inter-Domain Routing (CIDR) notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation). Using CIDR notation, specify the IP address and the prefix length (0–32), separated by `/`. For example, the prefix length of 24 will match all IP addresses with the same initial 24 bits.
+您可以在[无阶级的中间-域路由（CIDR）符号](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation)。使用CIDR表示法，指定IP地址和前缀长度（0-32），由`/`。例如，前缀长度为24，将与所有IP地址与相同的初始24位匹配。
 
-#### Example query in IPv4 format
+#### IPv4格式的示例查询
 
 ```json
 GET testindex/_search 
@@ -76,7 +76,7 @@ GET testindex/_search
 ```
 {% include copy-curl.html %}
 
-#### Example query in IPv6 format
+#### IPv6格式的示例查询
 
 ```json
 GET testindex/_search 
@@ -90,7 +90,7 @@ GET testindex/_search
 ```
 {% include copy-curl.html %}
 
-If you use an IP address in IPv6 format in a `query_string` query, you need to escape `:` characters because they are parsed as special characters. You can accomplish this by wrapping the IP address in quotation marks and escaping those quotation marks with `\`.
+如果您在ipv6格式中使用IP地址`query_string` 查询，您需要逃脱`:` 字符是因为它们被解析为特殊字符。您可以通过将IP地址包装在引号标记中并逃脱这些引号，从而实现这一目标`\`。
 
 ```json
 GET testindex/_search 
@@ -104,17 +104,18 @@ GET testindex/_search
 ```
 {% include copy-curl.html %}
 
-## Parameters
+## 参数
 
-The following table lists the parameters accepted by ip field types. All parameters are optional.
+下表列出了IP字段类型接受的参数。所有参数都是可选的。
 
-Parameter | Description 
-:--- | :--- 
-`boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0.
-`doc_values` | A Boolean value that specifies if the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `true`.
-`ignore_malformed` | A Boolean value that specifies to ignore malformed values and not to throw an exception. Default is `false`.
-`index` | A Boolean value that specifies whether the field should be searchable. Default is `true`. 
-[`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A  value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
-`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the _source field. Default is `false`. 
+范围| 描述
+：--- | ：--- 
+`boost` | 浮动-指定该字段对相关性分数的重量的点值。值高于1.0的值增加了该领域的相关性。0.0至1.0之间的值降低了该场的相关性。默认值为1.0。
+`doc_values` | 布尔值指定是否应将字段存储在磁盘上，以便将其用于聚合，排序或脚本。默认为`true`。
+`ignore_malformed` | 布尔值指定忽略畸形值而不引发异常的值。默认为`false`。
+`index` | 布尔值指定是否应搜索该字段。默认为`true`。
+[`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | 用于代替的值`null`。必须与字段相同。如果未指定此参数，则该字段在其值为时被视为丢失`null`。默认为`null`。
+`store` | 布尔值指定是否应存储字段值，并且可以与_source字段分开检索。默认为`false`。
+
 
 

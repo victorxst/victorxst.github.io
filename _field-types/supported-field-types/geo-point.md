@@ -1,22 +1,22 @@
 ---
 layout: default
-title: Geopoint
+title: 地理点
 nav_order: 56
 has_children: false
-parent: Geographic field types
-grand_parent: Supported field types
+parent: 地理字段类型
+grand_parent: 支持的字段类型
 redirect_from:
   - /opensearch/supported-field-types/geo-point/
   - /field-types/geo-point/
 ---
 
-# Geopoint field type
+# 地理点字段类型
 
-A geopoint field type contains a geographic point specified by latitude and longitude. 
+地理点字段类型包含由纬度和经度指定的地理点。
 
-## Example
+## 例子
 
-Create a mapping with a geopoint field type:
+使用地理点字段类型创建映射：
 
 ```json
 PUT testindex1
@@ -32,11 +32,11 @@ PUT testindex1
 ```
 {% include copy-curl.html %}
 
-## Formats
+## 格式
 
-Geopoints can be indexed in the following formats:
+地理点可以以以下格式索引：
 
-- An object with a latitude and longitude
+- 具有纬度和经度的对象
 
 ```json
 PUT testindex1/_doc/1
@@ -49,7 +49,7 @@ PUT testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-- A string in the "`latitude`,`longitude`" format
+- 一条字符串"`latitude`,`longitude`" 格式
 
 ```json
 PUT testindex1/_doc/2
@@ -59,7 +59,7 @@ PUT testindex1/_doc/2
 ```
 {% include copy-curl.html %}
 
-- A geohash
+- 地理船
 
 ```json
 PUT testindex1/_doc/3
@@ -69,7 +69,7 @@ PUT testindex1/_doc/3
 ```
 {% include copy-curl.html %}
 
-- An array in the [`longitude`, `latitude`] format
+- [`longitude`，`latitude`] 格式
 
 ```json
 PUT testindex1/_doc/4
@@ -79,7 +79,7 @@ PUT testindex1/_doc/4
 ```
 {% include copy-curl.html %}
 
-- A [Well-Known Text](https://docs.opengeospatial.org/is/12-063r5/12-063r5.html) POINT in the "POINT(`longitude` `latitude`)" format
+- A[出色地-已知文字](https://docs.opengeospatial.org/is/12-063r5/12-063r5.html) 指向"POINT(`longitude` `latitude`)" 格式
 
 ```json
 PUT testindex1/_doc/5
@@ -89,7 +89,7 @@ PUT testindex1/_doc/5
 ```
 {% include copy-curl.html %}
 
-- GeoJSON format, where the `coordinates` are in the [`longitude`, `latitude`] format
+- Geojson格式，`coordinates` 在[`longitude`，`latitude`] 格式
 
 ```json
 PUT testindex1/_doc/6
@@ -102,12 +102,13 @@ PUT testindex1/_doc/6
 ```
 {% include copy-curl.html %}
 
-## Parameters
+## 参数
 
-The following table lists the parameters accepted by geopoint field types. All parameters are optional.
+下表列出了通过地理点字段类型接受的参数。所有参数都是可选的。
 
-Parameter | Description 
-:--- | :--- 
-`ignore_malformed` | A Boolean value that specifies to ignore malformed values and not to throw an exception. Valid values for latitude are [-90, 90]. Valid values for longitude are [-180, 180]. Default is `false`.
-`ignore_z_value` | Specific to points with three coordinates. If `ignore_z_value` is `true`, the third coordinate is not indexed but is still stored in the _source field. If `ignore_z_value` is `false`, an exception is thrown.
-[`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A  value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
+范围| 描述
+：--- | ：--- 
+`ignore_malformed` | 布尔值指定忽略畸形值而不引发异常的值。纬度的有效值为[-90，90]。经度的有效值是[-180，180]。默认为`false`。
+`ignore_z_value` | 特定于具有三个坐标的点。如果`ignore_z_value` 是`true`，第三个坐标没有索引，但仍存储在_source字段中。如果`ignore_z_value` 是`false`，一个例外。
+[`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | 用于代替的值`null`。必须与字段相同。如果未指定此参数，则该字段在其值为时被视为丢失`null`。默认为`null`
+

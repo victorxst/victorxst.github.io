@@ -3,20 +3,20 @@ layout: default
 title: Geoshape
 nav_order: 57
 has_children: false
-parent: Geographic field types
-grand_parent: Supported field types
+parent: 地理字段类型
+grand_parent: 支持的字段类型
 redirect_from:
   - /opensearch/supported-field-types/geo-shape/
   - /field-types/geo-shape/
 ---
 
-# Geoshape field type
+# Geoshape字段类型
 
-A geoshape field type contains a geographic shape, such as a polygon or a collection of geographic points. To index a geoshape, OpenSearch tesselates the shape into a triangular mesh and stores each triangle in a BKD tree. This provides a 10<sup>-7</sup>decimal degree of precision, which represents near-perfect spatial resolution. Performance of this process is mostly impacted by the number of vertices in a polygon you are indexing.
+Geoshape场类型包含地理形状，例如多边形或地理点的集合。要为GeoShape索引，请将搜索切换到三角形网格中，然后将每个三角形存储在BKD树上。这提供了10 <sup>-7 </sup>十进制精度，代表附近-完美的空间分辨率。该过程的性能主要受您索引多边形的顶点的数量影响。
 
-## Example
+## 例子
 
-Create a mapping with a geoshape field type:
+使用GeoShape字段类型创建映射：
 
 ```json
 PUT testindex
@@ -32,36 +32,36 @@ PUT testindex
 ```
 {% include copy-curl.html %}
 
-## Formats
+## 格式
 
-Geoshapes can be indexed in the following formats:
+geoshapes可以以以下格式进行索引：
 
-- [GeoJSON](https://geojson.org/)
-- [Well-Known Text (WKT)](https://docs.opengeospatial.org/is/12-063r5/12-063r5.html)
+- [Geojson](https://geojson.org/)
+- [出色地-已知文本（WKT）](https://docs.opengeospatial.org/is/12-063r5/12-063r5.html)
 
-In both GeoJSON and WKT, the coordinates must be specified in the `longitude, latitude` order within coordinate arrays. Note that the longitude comes first in this format.
+在Geojson和WKT中，必须在`longitude, latitude` 在坐标数组中订购。请注意，经度首先以这种格式出现。
 {: .note}
 
-## Geoshape types
+## Geoshape类型
 
-The following table describes the possible geoshape types and their relationship to the GeoJSON and WKT types.
+下表描述了可能的Geoshape类型及其与Geojson和WKT类型的关系。
 
-OpenSearch type | GeoJSON type | WKT type | Description 
-:--- | :--- | :--- | :--- 
-[`point`](#point) | Point | POINT | A geographic point specified by latitude and longitude. OpenSearch uses World Geodetic System (WGS84) coordinates.
-[`linestring`](#linestring) | LineString | LINESTRING | A line specified by two or more points. May be a straight line or a path of connected line segments.
-[`polygon`](#polygon) | Polygon | POLYGON | A polygon specified by a list of vertices in coordinate form. The polygon must be closed, meaning the last point must be the same as the first point. Therefore, to create an n-gon, n+1 vertices are required. The minimum number of vertices is four, which creates a triangle.
-[`multipoint`](#multipoint) | MultiPoint | MULTIPOINT | An array of discrete related points that are not connected.
-[`multilinestring`](#multilinestring) | MultiLineString | MULTILINESTRING | An array of linestrings.
-[`multipolygon`](#multipolygon) | MultiPolygon | MULTIPOLYGON | An array of polygons.
-[`geometrycollection`](#geometry-collection) | GeometryCollection | GEOMETRYCOLLECTION | A collection of geoshapes that may be of different types.
-[`envelope`](#envelope) | N/A | BBOX | A bounding rectangle specified by upper-left and lower-right vertices.
+OpenSearch类型| Geojson类型| WKT类型| 描述
+：--- | ：--- | ：--- | ：--- 
+[`point`](#point) | 观点| 观点| 由纬度和经度指定的地理点。OpenSearch使用世界测量系统（WGS84）坐标。
+[`linestring`](#linestring) | linestring| linestring| 由两个或多个点指定的线。可能是连接线段的直线或路径。
+[`polygon`](#polygon) | 多边形| 多边形| 由坐标形式的顶点列表指定的多边形。多边形必须关闭，这意味着最后一点必须与第一个点相同。因此，创建一个n-GON，N+1个顶点。最小顶点数为四个，这会产生一个三角形。
+[`multipoint`](#multipoint) | 多点| 多点| 一系列未连接的离散相关点。
+[`multilinestring`](#multilinestring) | 多势| 多势| 一系列的衬里。
+[`multipolygon`](#multipolygon) | 多重子| 多重子| 多边形阵列。
+[`geometrycollection`](#geometry-collection) | 几何收获| 几何收获| 可能是不同类型的Geoshapes集合。
+[`envelope`](#envelope) | N/A。| bbox| 由鞋面指定的边界矩形-左右-右顶点。
 
-## Point
+## 观点
 
-A point is a single pair of coordinates specified by latitude and longitude. 
+一个点是一对由纬度和经度指定的坐标。
 
-Index a point in GeoJSON format:
+索引格式的观点：
 
 ```json
 PUT testindex/_doc/1
@@ -74,7 +74,7 @@ PUT testindex/_doc/1
 ```
 {% include copy-curl.html %}
 
-Index a point in WKT format:
+索引wkt格式的点：
 
 ```json
 PUT testindex/_doc/1
@@ -84,11 +84,11 @@ PUT testindex/_doc/1
 ```
 {% include copy-curl.html %}
 
-## Linestring
+## linestring
 
-A linestring is a line specified by two or more points. If the points are collinear, the linestring is a straight line. Otherwise, the linestring represents a path made of line segments.
+linestring是由两个或多个点指定的线。如果点是共线，则衬里是一条直线。否则，linestring表示线段制成的路径。
 
-Index a linestring in GeoJSON format:
+索引geojson格式的统一性：
 
 ```json
 PUT testindex/_doc/2
@@ -101,7 +101,7 @@ PUT testindex/_doc/2
 ```
 {% include copy-curl.html %}
 
-Index a linestring in WKT format:
+索引wkt格式的统一性：
 
 ```json
 PUT testindex/_doc/2
@@ -111,14 +111,14 @@ PUT testindex/_doc/2
 ```
 {% include copy-curl.html %}
 
-## Polygon
+## 多边形
 
-A polygon is specified by a list of vertices in coordinate form. The polygon must be closed, meaning the last point must be the same as the first point. In the following example, a triangle is created using four points. 
+多边形由以坐标形式的顶点列表指定。多边形必须关闭，这意味着最后一点必须与第一个点相同。在下面的示例中，使用四个点创建一个三角形。
 
-GeoJSON requires that you list the vertices of the polygon counterclockwise. WKT does not impose a specific order on vertices.
+Geojson要求您逆时针列出多边形的顶点。WKT不会在顶点强加特定的顺序。
 {: .note}
 
-Index a polygon (triangle) in GeoJSON format:
+索引以geojson格式的多边形（三角形）：
 
 ```json
 PUT testindex/_doc/3
@@ -136,7 +136,7 @@ PUT testindex/_doc/3
 ```
 {% include copy-curl.html %}
 
-Index a polygon (triangle) in WKT format:
+索引以WKT格式的多边形（三角形）：
 
 ```json
 PUT testindex/_doc/3
@@ -146,12 +146,12 @@ PUT testindex/_doc/3
 ```
 {% include copy-curl.html %}
 
-The polygon may have holes inside. In this case, the `coordinates` field will contain multiple arrays. The first array represents the outer polygon, and each subsequent array represents a hole. Holes are represented as polygons and specified as arrays of coordinates.
+多边形可能有孔。在这种情况下，`coordinates` 字段将包含多个数组。第一个阵列代表外多边形，每个后续阵列代表一个孔。孔表示为多边形，并指定为坐标阵列。
 
-GeoJSON requires that you list the vertices of the polygon counterclockwise and the vertices of the hole clockwise. WKT does not impose a specific order on vertices.
+Geojson要求您逆时针列出多边形的顶点和孔的顶点。WKT不会在顶点强加特定的顺序。
 {: .note}
 
-Index a polygon (triangle) with a triangular hole in GeoJSON format:
+索引一个多边形（三角形），带有三角形孔，格式：
 
 ```json
 PUT testindex/_doc/4
@@ -174,7 +174,7 @@ PUT testindex/_doc/4
 ```
 {% include copy-curl.html %}
 
-Index a polygon (triangle) with a triangular hole in WKT format:
+索引A多边形（三角形），具有WKT格式的三角形孔：
 
 ```json
 PUT testindex/_doc/4
@@ -184,9 +184,9 @@ PUT testindex/_doc/4
 ```
 {% include copy-curl.html %}
 
-In OpenSearch, you can specify a polygon by listing its vertices clockwise or counterclockwise. This works well for polygons that do not cross the date line (are narrower than 180&deg;). However, a polygon that crosses the date line (is wider than 180&deg;) might be ambiguous because  WKT does not impose a specific order on vertices. Thus, you must specify polygons that cross the date line by listing their vertices counterclockwise. 
+在OpenSearch中，您可以通过顺时针或逆时针列出其顶点来指定多边形。这对于不越过日期线的多边形（比180＆deg窄;）很好。但是，越过日期线的多边形（大于180＆deg;）可能是模棱两可的，因为WKT不会在顶点上施加特定的顺序。因此，您必须通过逆时针列出其顶点来指定越过日期线的多边形。
 
-You can define an [`orientation`](#parameters) parameter to specify the vertex traversal order at mapping time:
+您可以定义一个[`orientation`](#parameters) 参数在映射时间指定顶点遍历顺序：
 
 ```json
 PUT testindex
@@ -203,7 +203,7 @@ PUT testindex
 ```
 {% include copy-curl.html %}
 
-Subsequently indexed documents can override the `orientation` setting:
+随后，索引文件可以覆盖`orientation` 环境：
 
 ```json
 PUT testindex/_doc/3
@@ -222,11 +222,11 @@ PUT testindex/_doc/3
 ```
 {% include copy-curl.html %}
 
-## Multipoint
+## 多点
 
-A multipoint is an array of discrete related points that are not connected. 
+多点是未连接的离散相关点的数组。
 
-Index a multipoint in GeoJSON format:
+索引geojson格式的多点：
 
 ```json
 PUT testindex/_doc/6
@@ -242,7 +242,7 @@ PUT testindex/_doc/6
 ```
 {% include copy-curl.html %}
 
-Index a multipoint in WKT format:
+索引WKT格式的多点：
 
 ```json
 PUT testindex/_doc/6
@@ -252,11 +252,11 @@ PUT testindex/_doc/6
 ```
 {% include copy-curl.html %}
 
-## Multilinestring
+## 多势
 
-A multilinestring is an array of linestrings.
+多势是一系列的固定线。
 
-Index a linestring in GeoJSON format:
+索引geojson格式的统一性：
 
 ```json
 PUT testindex/_doc/2
@@ -272,7 +272,7 @@ PUT testindex/_doc/2
 ```
 {% include copy-curl.html %}
 
-Index a linestring in WKT format:
+索引wkt格式的统一性：
 
 ```json
 PUT testindex/_doc/2
@@ -282,11 +282,11 @@ PUT testindex/_doc/2
 ```
 {% include copy-curl.html %}
 
-## Multipolygon
+## 多重子
 
-A multipolygon is an array of polygons. In this example, the first polygon contains a hole, and the second does not. 
+多角形是多边形的阵列。在此示例中，第一个多边形包含一个孔，而第二个则没有。
 
-Index a multipolygon in GeoJSON format:
+索引以geojson格式的多重分子：
 
 ```json
 PUT testindex/_doc/4
@@ -317,7 +317,7 @@ PUT testindex/_doc/4
 ```
 {% include copy-curl.html %}
 
-Index a multipolygon in WKT format:
+索引以WKT格式的多重分子：
 
 ```json
 PUT testindex/_doc/4
@@ -327,11 +327,11 @@ PUT testindex/_doc/4
 ```
 {% include copy-curl.html %}
 
-## Geometry collection
+## 几何收集
 
-A geometry collection is a collection of geoshapes that may be of different types.
+几何集合是可能具有不同类型的GeoShapes的集合。
 
-Index a geometry collection in GeoJSON format:
+索引以Geojson格式的几何收藏：
 
 ```json
 PUT testindex/_doc/7
@@ -353,7 +353,7 @@ PUT testindex/_doc/7
 ```
 {% include copy-curl.html %}
 
-Index a geometry collection in WKT format:
+索引以WKT格式的几何收集：
 
 ```json
 PUT testindex/_doc/7
@@ -363,11 +363,11 @@ PUT testindex/_doc/7
 ```
 {% include copy-curl.html %}
 
-## Envelope
+## 信封
 
-An envelope is a bounding rectangle specified by upper-left and lower-right vertices. The GeoJSON format is `[[minLon, maxLat], [maxLon, minLat]]`.
+信封是一个由鞋面指定的边界矩形-左右-右顶点。Geojson格式是`[[minLon, maxLat], [maxLon, minLat]]`。
 
-Index an envelope in GeoJSON format:
+索引格式的信封：
 
 ```json
 PUT testindex/_doc/2
@@ -380,9 +380,9 @@ PUT testindex/_doc/2
 ```
 {% include copy-curl.html %}
 
-In WKT format, use `BBOX (minLon, maxLon, maxLat, minLat)`.
+以WKT格式，使用`BBOX (minLon, maxLon, maxLat, minLat)`。
 
-Index an envelope in WKT BBOX format:
+WKT Bbox格式的索引一个信封：
 
 ```json
 PUT testindex/_doc/8
@@ -392,13 +392,14 @@ PUT testindex/_doc/8
 ```
 {% include copy-curl.html %}
 
-## Parameters
+## 参数
 
-The following table lists the parameters accepted by geoshape field types. All parameters are optional.
+下表列出了GeoShape字段类型接受的参数。所有参数都是可选的。
 
-Parameter | Description 
-:--- | :--- 
-`coerce` | A Boolean value that specifies whether to automatically close unclosed linear rings. Default is `false`.
-`ignore_malformed` | A Boolean value that specifies to ignore malformed GeoJSON or WKT geoshapes and not to throw an exception. Default is `false` (throw an exception when geoshapes are malformed).
-`ignore_z_value` | Specific to points with three coordinates. If `ignore_z_value` is `true`, the third coordinate is not indexed but is still stored in the _source field. If `ignore_z_value` is `false`, an exception is thrown. Default is `true`.
-`orientation` | Specifies the traversal order of the vertices in the geoshape's list of coordinates. `orientation` takes the following values: <br> 1. RIGHT: counterclockwise. Specify RIGHT orientation by using one of the following strings (uppercase or lowercase): `right`, `counterclockwise`, `ccw`. <br> 2. LEFT: clockwise. Specify LEFT orientation by using one of the following strings (uppercase or lowercase): `left`, `clockwise`, `cw`.  This value can be overridden by individual documents.<br> Default is `RIGHT`.
+范围| 描述
+：--- | ：--- 
+`coerce` | 布尔值指定是否会自动关闭未关闭未关闭的线性环。默认为`false`。
+`ignore_malformed` | 一个布尔值指定的是忽略畸形的Geojson或WKT Geoshapes，而不是抛出例外。默认为`false` （当Geoshapes畸形时，请例外）。
+`ignore_z_value` | 特定于具有三个坐标的点。如果`ignore_z_value` 是`true`，第三个坐标没有索引，但仍存储在_source字段中。如果`ignore_z_value` 是`false`，一个例外。默认为`true`。
+`orientation` | 指定Geoshape坐标列表中顶点的遍历顺序。`orientation` 采用以下值：<br> 1.右：逆时针。通过使用以下字符串之一（大写或小写）来指定正确的方向：`right`，`counterclockwise`，`ccw`。<br> 2.左：顺时针。使用以下一个字符串之一（大写或小写）来指定左定向：`left`，`clockwise`，`cw`。单个文档可以覆盖此值。<br>默认值为`RIGHT`。
+

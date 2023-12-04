@@ -1,30 +1,30 @@
 ---
 layout: default
-title: Range field types
+title: Range字段类型
 nav_order: 35
 has_children: false
-parent: Supported field types
+grand_parent: 支持的字段类型
 redirect_from:
   - /opensearch/supported-field-types/range/
   - /field-types/range/
 ---
 
-# Range field types
+# Range字段类型
 
-The following table lists all range field types that OpenSearch supports.
+下表列出了OpenSearch支持的所有范围字段类型。
 
-Field data type | Description
-:--- | :---
-`integer_range` | A range of [integer]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) values. 
-`long_range` | A range of [long]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) values.   
-`double_range` | A range of [double]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) values.  
-`float_range` | A range of [float]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) values. 
-`ip_range` | A range of [IP addresses]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/ip/) in IPv4 or IPv6 format. Start and end IP addresses may be in different formats.  
-`date_range` | A range of [date]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/) values. Start and end dates may be in different [formats]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/#formats). Internally, all dates are stored as unsigned 64-bit integers representing milliseconds since the epoch.
+字段数据类型| 描述
+：--- | ：---
+`integer_range` | 范围[整数]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) 值。
+`long_range` | 范围[长的]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) 值。
+`double_range` | 范围[双倍的]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) 值。
+`float_range` | 范围[漂浮]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) 值。
+`ip_range` | 范围[IP地址]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/ip/) 在IPv4或IPv6格式中。启动和结束IP地址可能以不同的格式。
+`date_range` | 范围[日期]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/) 值。开始和结束日期可能不同[格式]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/#formats)。在内部，所有日期都存储为未签名64-自时代以来代表毫秒的位整数。
 
-## Example
+## 例子
 
-Create a mapping with a double range and a date range:
+创建具有双重范围和日期范围的映射：
 
 ```json
 PUT testindex 
@@ -44,7 +44,7 @@ PUT testindex
 ```
 {% include copy-curl.html %}
 
-Index a document with a double range and a date range:
+索引具有双重范围和日期范围的文档：
 
 ```json
 PUT testindex/_doc/1
@@ -61,11 +61,11 @@ PUT testindex/_doc/1
 ```
 {% include copy-curl.html %}
 
-## IP address ranges
+## IP地址范围
 
-You can specify IP address ranges in two formats: as a range and in [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation).
+您可以以两种格式指定IP地址范围：作为一个范围和[CIDR表示法](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation)。
 
-Create a mapping with an IP address range:
+创建具有IP地址范围的映射：
 
 ```json
 PUT testindex 
@@ -84,7 +84,7 @@ PUT testindex
 ```
 {% include copy-curl.html %}
 
-Index a document with IP address ranges in both formats:
+索引具有两种格式IP地址范围的文档：
 
 ```json
 PUT testindex/_doc/2
@@ -98,15 +98,15 @@ PUT testindex/_doc/2
 ```
 {% include copy-curl.html %}
 
-## Querying range fields
+## 查询范围字段
 
-You can use a [Term query](#term-query) or a [Range query](#range-query) to search for values within range fields. 
+您可以使用[术语查询](#term-query) 或a[范围查询](#range-query) 搜索范围字段内的值。
 
-### Term query
+### 术语查询
 
-A term query takes a value and matches all range fields for which the value is within the range.
+术语查询具有一个值，并匹配该值在范围内的所有范围字段。
 
-The following query will return document 1 because 3.5 is within the range [1.0, 4.0]:
+以下查询将返回文档1，因为3.5在[1.0，4.0]范围内：
 
 ```json
 GET testindex/_search
@@ -122,11 +122,11 @@ GET testindex/_search
 ```
 {% include copy-curl.html %}
 
-### Range query
+### 范围查询
 
-A range query on a range field returns documents within that range. 
+范围字段上的范围查询返回该范围内的文档。
 
-Query for all graduation dates in 2019, providing the date range in a "MM/dd/yyyy" format:
+查询2019年所有毕业日期，提供日期范围"MM/dd/yyyy" 格式：
 
 ```json
 GET testindex1/_search
@@ -145,15 +145,16 @@ GET testindex1/_search
 ```
 {% include copy-curl.html %}
 
-The preceding query will return document 1 for the `within` and `intersects` relations but will not return it for the `contains` relation. For more information about relation types, see [range query parameters]({{site.url}}{{site.baseurl}}/query-dsl/term/range#parameters).
+前面的查询将返回文件1`within` 和`intersects` 关系，但不会归还`contains` 关系。有关关系类型的更多信息，请参见[范围查询参数]({{site.url}}{{site.baseurl}}/query-dsl/term/range#parameters)。
 
-## Parameters
+## 参数
 
-The following table lists the parameters accepted by range field types. All parameters are optional.
+下表列出了按范围字段类型接受的参数。所有参数都是可选的。
 
-Parameter | Description 
-:--- | :--- 
-`boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0.
-`coerce` | A Boolean value that signals to truncate decimals for integer values and to convert strings to numeric values. Default is `true`.
-`index` | A Boolean value that specifies whether the field should be searchable. Default is `true`. 
-`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the _source field. Default is `false`. 
+范围| 描述
+：--- | ：--- 
+`boost` | 浮动-指定该字段对相关性分数的重量的点值。值高于1.0的值增加了该领域的相关性。0.0至1.0之间的值降低了该场的相关性。默认值为1.0。
+`coerce` | 一个布尔值，该值向整数值截断了小数，并将字符串转换为数字值。默认为`true`。
+`index` | 布尔值指定是否应搜索该字段。默认为`true`。
+`store` | 布尔值指定是否应存储字段值，并且可以与_source字段分开检索。默认为`false`。
+

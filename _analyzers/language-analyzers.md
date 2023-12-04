@@ -1,25 +1,25 @@
 ---
 layout: default
-title: Language analyzers
+title: 语言分析
 nav_order: 10
 redirect_from:
   - /query-dsl/analyzers/language-analyzers/
 ---
 
-# Language analyzer
+# 语言分析
 
-OpenSearch supports the following language values with the `analyzer` option:
-`arabic`, `armenian`, `basque`, `bengali`, `brazilian`, `bulgarian`, `catalan`, `czech`, `danish`, `dutch`, `english`, `estonian`, `finnish`, `french`, `galician`, `german`, `greek`, `hindi`, `hungarian`, `indonesian`, `irish`, `italian`, `latvian`, `lithuanian`, `norwegian`, `persian`, `portuguese`, `romanian`, `russian`, `sorani`, `spanish`, `swedish`, `turkish`, and `thai`.
+OpenSearch用`analyzer` 选项：
+`arabic`，`armenian`，`basque`，`bengali`，`brazilian`，`bulgarian`，`catalan`，`czech`，`danish`，`dutch`，`english`，`estonian`，`finnish`，`french`，`galician`，`german`，`greek`，`hindi`，`hungarian`，`indonesian`，`irish`，`italian`，`latvian`，`lithuanian`，`norwegian`，`persian`，`portuguese`，`romanian`，`russian`，`sorani`，`spanish`，`swedish`，`turkish`， 和`thai`。
 
-To use the analyzer when you map an index, specify the value within your query. For example, to map your index with the French language analyzer, specify the `french` value for the analyzer field:
+要在映射索引时使用分析器，请在查询中指定值。例如，要使用法语分析仪映射您的索引，请指定`french` 分析仪字段的价值：
 
 ```json
  "analyzer": "french"
 ```
 
-#### Example request
+#### 示例请求
 
-The following query specifies the `french` language analyzer for the index `my-index`:
+以下查询指定`french` 索引的语言分析`my-index`：
 
 ```json
 PUT my-index
@@ -40,4 +40,5 @@ PUT my-index
 }
 ```
 
-<!-- TO do: each of the options needs its own section with an example. Convert table to individual sections, and then give a streamlined list with valid values. -->
+<!-- 要做：每个选项都需要自己的部分，其中有一个示例。将表转换为各个部分，然后给出具有有效值的简化列表。--->
+

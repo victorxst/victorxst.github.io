@@ -1,75 +1,75 @@
 ---
 layout: default
-title: Flat object
+title: 平坦对象
 nav_order: 43
 has_children: false
-parent: Object field types
-grand_parent: Supported field types
+parent: Object字段类型
+grand_parent: 支持的字段类型
 redirect_from:
   - /field-types/flat-object/
 ---
 
-# Flat object field type
+# 平面Object字段类型
 
-In OpenSearch, you don't have to specify a mapping before indexing documents. If you don't specify a mapping, OpenSearch uses [dynamic mapping]({{site.url}}{{site.baseurl}}/field-types/index#dynamic-mapping) to map every field and its subfields in the document automatically. When you ingest documents such as logs, you may not know every field's subfield name and type in advance. In this case, dynamically mapping all new subfields can quickly lead to a "mapping explosion," where the growing number of fields may degrade the performance of your cluster. 
+在OpenSearch中，您无需在索引文档之前指定映射。如果您不指定映射，则OpenSearch使用[动态映射]({{site.url}}{{site.baseurl}}/field-types/index#dynamic-mapping) 自动映射文档中的每个字段及其子字段。当您摄入诸如日志之类的文档时，您可能不知道每个字段的子字段名称并提前键入。在这种情况下，动态映射所有新的子字段都可以快速导致"mapping explosion," 越来越多的字段可能会降低集群的性能。
 
-The flat object field type solves this problem by treating the entire JSON object as a string. Subfields within the JSON object are accessible using standard dot path notation, but they are not indexed for fast lookup.
+平面Object字段类型通过将整个JSON对象视为字符串来解决此问题。使用标准点路径符号可以访问JSON对象中的子字段，但没有为快速查找而索引。
 
-The maximum field value length in the dot notation is 2<sup>24</sup> &minus; 1.
+点符号中的最大场值长度为2 <sup> 24 </sup>&minus;；1。
 {: .note}
 
-The flat object field type provides the following benefits:
+平坦Object字段类型提供以下好处：
 
-- Efficient reads: Fetching performance is similar to that of a keyword field.
-- Memory efficiency: Storing the entire complex JSON object in one field without indexing all of its subfields reduces the number of fields in an index. 
-- Space efficiency: OpenSearch does not create an inverted index for subfields in flat objects, thereby saving space. 
-- Compatibility for migration: You can migrate your data from systems that support similar flat types to OpenSearch.
+- 有效的读取：获取性能类似于关键字字段的性能。
+- 内存效率：将整个复杂的JSON对象存储在一个字段中而不索引其所有子字段会减少索引中的字段数。
+- 空间效率：OpenSearch不会为平面对象中的子字段创建倒置索引，从而节省空间。
+- 迁移的兼容性：您可以从支持类似的平面类型的系统中迁移数据。
 
-Mapping a field as a flat object applies when a field and its subfields are mostly read and not used as search criteria because the subfields are not indexed. Flat objects are useful for objects with a large number of fields or when you don't know the keys in advance.
+当字段及其子字段被读取而不用作搜索条件时，将字段映射为平坦对象，因为子字段没有索引。平面对象对于具有大量字段的对象或您不预先知道键时有用。
 
-Flat objects support exact match queries with and without dot path notation. For a complete list of supported query types, see [Supported queries](#supported-queries).
+平面对象支持有或没有点路径符号的精确匹配查询。有关支持的查询类型的完整列表，请参见[支持的查询](#supported-queries)。
 
-Searching for a specific value of a nested field in a document may be inefficient because it may require a full scan of the index, which can be an expensive operation.
+在文档中搜索嵌套字段的特定值可能会效率低下，因为它可能需要对索引进行全面扫描，这可能是一个昂贵的操作。
 {: .note}
 
-Flat objects do not support:
+平坦对象不支持：
 
-- Type-specific parsing.
-- Numerical operations, such as numerical comparison or numerical sorting.
-- Text analysis.
-- Highlighting.
-- Aggregations of subfields using dot notation.
-- Filtering by subfields.
+- 类型-具体解析。
+- 数值操作，例如数值比较或数值分类。
+- 文本分析。
+- 突出显示。
+- 使用点表示法的汇总。
+- 通过子场过滤。
 
-## Supported queries
+## 支持的查询
 
-The flat object field type supports the following queries:
+平面Object字段类型支持以下查询：
 
-- [Term]({{site.url}}{{site.baseurl}}/query-dsl/term/term/) 
-- [Terms]({{site.url}}{{site.baseurl}}/query-dsl/term/terms/) 
-- [Terms set]({{site.url}}{{site.baseurl}}/query-dsl/term/terms-set/)  
-- [Prefix]({{site.url}}{{site.baseurl}}/query-dsl/term/prefix/) 
-- [Range]({{site.url}}{{site.baseurl}}/query-dsl/term/range/) 
-- [Match]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match/) 
-- [Multi-match]({{site.url}}{{site.baseurl}}/query-dsl/full-text/multi-match/) 
-- [Query string]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) 
-- [Simple query string]({{site.url}}{{site.baseurl}}/query-dsl/full-text/simple-query-string/) 
-- [Exists]({{site.url}}{{site.baseurl}}/query-dsl/term/exists/) 
+- [学期]({{site.url}}{{site.baseurl}}/query-dsl/term/term/) 
+- [术语]({{site.url}}{{site.baseurl}}/query-dsl/term/terms/) 
+- [术语设置]({{site.url}}{{site.baseurl}}/query-dsl/term/terms-set/)  
+- [字首]({{site.url}}{{site.baseurl}}/query-dsl/term/prefix/) 
+- [范围]({{site.url}}{{site.baseurl}}/query-dsl/term/range/) 
+- [匹配]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match/) 
+- [多-匹配]({{site.url}}{{site.baseurl}}/query-dsl/full-text/multi-match/) 
+- [请求参数]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) 
+- [简单查询字符串]({{site.url}}{{site.baseurl}}/query-dsl/full-text/simple-query-string/) 
+- [存在]({{site.url}}{{site.baseurl}}/query-dsl/term/exists/) 
 
-## Limitations
+## 限制
 
-The following limitations apply to flat objects in OpenSearch 2.7:
+以下限制适用于OpenSearch 2.7中的平面对象：
 
-- Flat objects do not support open parameters.
-- Painless scripting and wildcard queries are not supported for retrieving values of subfields.
+- 平面对象不支持开放参数。
+- 对于检索子字段的值，不支持无痛的脚本和通配符查询。
 
-This functionality is planned for a future release.
+该功能是为将来发布的。
 
-## Using flat object
+## 使用平坦对象
 
-The following example illustrates mapping a field as a flat object, indexing documents with flat object fields, and searching for leaf values of the flat object in those documents.
+以下示例说明将字段映射为平坦对象，用平面对象字段索引文档，并在这些文档中搜索平面对象的叶值。
 
-First, create a mapping for your index, where `issue` is of type `flat_object`:
+首先，为您的索引创建映射，其中`issue` 是类型`flat_object`：
 
 ```json
 PUT /test-index/
@@ -85,7 +85,7 @@ PUT /test-index/
 ```
 {% include copy-curl.html %}
 
-Next, index two documents with flat object fields:
+接下来，索引两个文档，带有平面对象字段：
 
 ```json
 PUT /test-index/_doc/1
@@ -125,7 +125,7 @@ PUT /test-index/_doc/2
 ```
 {% include copy-curl.html %}
 
-To search for a leaf value of the flat object, use either a GET or a POST request. Even if you don't know the field names, you can search for a leaf value in the entire flat object. For example, the following request searches for all issues labeled as bugs:
+要搜索平面对象的叶值，请使用get或post请求。即使您不知道字段名称，也可以在整个平面对象中搜索叶值。例如，以下请求搜索所有标记为错误的问题：
 
 ```json
 GET /test-index/_search
@@ -136,7 +136,7 @@ GET /test-index/_search
 }
 ```
 
-Alternatively, if you know the subfield name in which to search, provide the field's path in dot notation:
+另外，如果您知道要在其中搜索的子字段名称，请在DOT符号中提供该字段的路径：
 
 ```json
 GET /test-index/_search
@@ -148,7 +148,7 @@ GET /test-index/_search
 ```
 {% include copy-curl.html %}
 
-In both cases, the response is the same and contains document 2:
+在这两种情况下，响应都是相同的，并且包含文件2：
 
 ```json
 {
@@ -189,7 +189,7 @@ In both cases, the response is the same and contains document 2:
 }
 ```
 
-Using a prefix query, you can search for all issues for the versions that start with `2.`:
+使用前缀查询，您可以搜索以从`2.`：
 
 ```json
 GET /test-index/_search
@@ -200,7 +200,7 @@ GET /test-index/_search
 }
 ```
 
-With a range query, you can search for all issues for versions 2.0--2.1:
+使用范围查询，您可以搜索版本2.0的所有问题--2.1：
 
 ```json
 GET /test-index/_search
@@ -216,9 +216,9 @@ GET /test-index/_search
 }
 ```
 
-## Defining a subfield as a flat object
+## 将子场定义为平坦对象
 
-You can define a subfield of a JSON object as a flat object. For example, use the following query to define the `issue.labels` as `flat_object`:
+您可以将JSON对象的子字段定义为平坦对象。例如，使用以下查询定义`issue.labels` 作为`flat_object`：
 
 ```json
 PUT /test-index/
@@ -241,4 +241,5 @@ PUT /test-index/
 ```
 {% include copy-curl.html %}
 
-Because `issue.number` is not part of the flat object, you can use it to aggregate and sort documents.
+因为`issue.number` 不是平面对象的一部分，您可以使用它来汇总和排序文档
+

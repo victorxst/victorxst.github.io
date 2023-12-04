@@ -1,19 +1,19 @@
 ---
 layout: default
-title: k-NN vector
+title: k-NN 矢量
 nav_order: 58
 has_children: false
-parent: Supported field types
+grand_parent: 支持的字段类型
 has_math: true
 ---
 
-# k-NN vector 
+# k-nn矢量
 
-The [k-NN plugin]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/) introduces a custom data type, the `knn_vector`, that allows users to ingest their k-NN vectors into an OpenSearch index and perform different kinds of k-NN search. The `knn_vector` field is highly configurable and can serve many different k-NN workloads. In general, a `knn_vector` field can be built either by providing a method definition or specifying a model id.
+这[k-NN插件]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/) 引入自定义数据类型，`knn_vector`，这使用户可以摄取其K-nn向量成opensearch索引并执行不同种类的k-nn搜索。这`knn_vector` 字段是高度可配置的，可以为许多不同的K服务-NN工作负载。通常，`knn_vector` 可以通过提供方法定义或指定模型ID来构建字段。
 
-## Example
+## 例子
 
-For example, to map `my_vector1` as a `knn_vector`, use the following request:
+例如，映射`my_vector1` 作为一个`knn_vector`，使用以下请求：
 
 ```json
 PUT test-index
@@ -45,9 +45,9 @@ PUT test-index
 ```
 {% include copy-curl.html %}
 
-## Method definitions
+## 方法定义
 
-[Method definitions]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions) are used when the underlying [approximate k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) algorithm does not require training. For example, the following `knn_vector` field specifies that *nmslib*'s implementation of *hnsw* should be used for approximate k-NN search. During indexing, *nmslib* will build the corresponding *hnsw* segment files.
+[方法定义]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions) 在基础时使用[近似k-nn]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) 算法不需要培训。例如，以下`knn_vector` 字段指定 *nmslib *的实现 *hnsw *应用于近似k-nn搜索。在索引期间， * nmslib *将构建相应的 * HNSW *段文件。
 
 ```json
 "my_vector": {
@@ -65,11 +65,11 @@ PUT test-index
 }
 ```
 
-## Model IDs
+## 型号ID
 
-Model IDs are used when the underlying Approximate k-NN algorithm requires a training step. As a prerequisite, the
-model has to be created with the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-model). The
-model contains the information needed to initialize the native library segment files.
+当基础近似k时使用模型ID-NN算法需要训练步骤。作为先决条件，
+必须使用[火车API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-model)。这
+模型包含初始化本机库段文件所需的信息。
 
 ```json
   "type": "knn_vector",
@@ -77,51 +77,51 @@ model contains the information needed to initialize the native library segment f
 }
 ```
 
-However, if you intend to use Painless scripting or a k-NN score script, you only need to pass the dimension.
+但是，如果您打算使用无痛的脚本或K-nn得分脚本，您只需要通过维度即可。
  ```json
    "type": "knn_vector",
    "dimension": 128
  }
  ```
 
-## Lucene byte vector
+## Lucene Byte Vector
 
-By default, k-NN vectors are `float` vectors, where each dimension is 4 bytes. If you want to save storage space, you can use `byte` vectors with the `lucene` engine. In a `byte` vector, each dimension is a signed 8-bit integer in the [-128, 127] range. 
+默认情况下，k-nn矢量是`float` 向量，每个维度为4个字节。如果要节省存储空间，则可以使用`byte` 与`lucene` 引擎。在一个`byte` 向量，每个维度是签名的8-在[-128，127]范围。
  
-Byte vectors are supported only for the `lucene` engine. They are not supported for the `nmslib` and `faiss` engines.
-{: .note}
+字节向量仅支持`lucene` 引擎。他们不支持`nmslib` 和`faiss` 引擎。
+{: .note}}
 
-In [k-NN benchmarking tests](https://github.com/opensearch-project/k-NN/tree/main/benchmarks/perf-tool), the use of `byte` rather than `float` vectors resulted in a significant reduction in storage and memory usage as well as improved indexing throughput and reduced query latency. Additionally, precision on recall was not greatly affected (note that recall can depend on various factors, such as the [quantization technique](#quantization-techniques) and data distribution). 
+在[k-NN基准测试](https://github.com/opensearch-project/k-NN/tree/main/benchmarks/perf-tool)， 指某东西的用途`byte` 而不是`float` 向量导致存储和内存使用情况显着减少，并改善了索引吞吐量和减少查询延迟。此外，召回精度没有受到很大的影响（请注意，召回可能取决于各种因素，例如[量化技术](#quantization-techniques) 和数据分布）。
 
-When using `byte` vectors, expect some loss of precision in the recall compared to using `float` vectors. Byte vectors are useful in large-scale applications and use cases that prioritize a reduced memory footprint in exchange for a minimal loss of recall.
-{: .important}
+使用时`byte` 向量，与使用相比，召回召回中有一定的精度丧失`float` 向量。字节向量在大的-比例应用程序和用例，优先减少记忆足迹，以换取最小的召回损失。
+{： 。重要的}
  
-Introduced in k-NN plugin version 2.9, the optional `data_type` parameter defines the data type of a vector. The default value of this parameter is `float`.
+在k中引入-NN插件2.9版，可选`data_type` 参数定义向量的数据类型。此参数的默认值为`float`。
 
-To use a `byte` vector, set the `data_type` parameter to `byte` when creating mappings for an index:
+使用一个`byte` 向量，设置`data_type` 参数为`byte` 在为索引创建映射时：
 
- ```json
-PUT test-index
+ ```JSON
+放测试-指数
 {
-  "settings": {
-    "index": {
-      "knn": true,
-      "knn.algo_param.ef_search": 100
+  "settings"：{
+    "index"：{
+      "knn"： true，
+      "knn.algo_param.ef_search"：100
     }
-  },
-  "mappings": {
-    "properties": {
-      "my_vector1": {
-        "type": "knn_vector",
-        "dimension": 3,
-        "data_type": "byte",
-        "method": {
-          "name": "hnsw",
-          "space_type": "l2",
-          "engine": "lucene",
-          "parameters": {
-            "ef_construction": 128,
-            "m": 24
+  }，，
+  "mappings"：{
+    "properties"：{
+      "my_vector1"：{
+        "type"："knn_vector"，
+        "dimension"：3，
+        "data_type"："byte"，
+        "method"：{
+          "name"："hnsw"，
+          "space_type"："l2"，
+          "engine"："lucene"，
+          "parameters"：{
+            "ef_construction"：128，
+            "m"：24
           }
         }
       }
@@ -134,17 +134,17 @@ PUT test-index
 Then ingest documents as usual. Make sure each dimension in the vector is in the supported [-128, 127] range:
 
 ```json
-PUT test-index/_doc/1
+放测试-索引/_doc/1
 {
-  "my_vector1": [-126, 28, 127]
+  "my_vector1"：[[-126、28、127]
 }
 ```
 {% include copy-curl.html %}
 
 ```json
-PUT test-index/_doc/2
+放测试-索引/_doc/2
 {
-  "my_vector1": [100, -128, 0]
+  "my_vector1"：[100，-128，0]
 }
 ```
 {% include copy-curl.html %}
@@ -152,14 +152,14 @@ PUT test-index/_doc/2
 When querying, be sure to use a `byte` vector:
 
 ```json
-GET test-index/_search
+进行测试-索引/_Search
 {
-  "size": 2,
-  "query": {
-    "knn": {
-      "my_vector1": {
-        "vector": [26, -120, 99],
-        "k": 2
+  "size"：2，
+  "query"：{
+    "knn"：{
+      "my_vector1"：{
+        "vector"：[[26，-120，99]，
+        "k"：2
       }
     }
   }
@@ -176,33 +176,33 @@ If your vectors are of the type `float`, you need to first convert them to the `
 The following example pseudocode illustrates the scalar quantization technique used for the benchmarking tests on Euclidean datasets with the L2 space type. Euclidean distance is shift invariant. If you shift both $$x$$ and $$y$$ by the same $$z$$, then the distance remains the same ($$\lVert x-y\rVert =\lVert (x-z)-(y-z)\rVert$$).
 
 ```python
-# Random dataset (Example to create a random dataset)
-dataset = np.random.uniform(-300, 300, (100, 10))
-# Random query set (Example to create a random queryset)
-queryset = np.random.uniform(-350, 350, (100, 10))
-# Number of values
+# 随机数据集（创建一个随机数据集的示例）
+dataset = np.random.riform（-300，300，（100，10））
+# 随机查询集（示例创建一个随机QuerySet）
+querySet = np.random.均匀（-350，350，（100，10））
+# 值数
 B = 256
 
-# INDEXING:
-# Get min and max
-dataset_min = np.min(dataset)
-dataset_max = np.max(dataset)
-# Shift coordinates to be non-negative
-dataset -= dataset_min
-# Normalize into [0, 1]
-dataset *= 1. / (dataset_max - dataset_min)
-# Bucket into 256 values
-dataset = np.floor(dataset * (B - 1)) - int(B / 2)
+# 索引：
+# 获得最小和最大
+dataset_min = np.min（数据集）
+dataset_max = np.max（数据集）
+# 将坐标转换为非-消极的
+数据集-= dataset_min
+# 标准化为[0，1]
+数据集 *= 1. /（dataset_max- dataset_min）
+# 存储到256个值
+dataset = np.floor（数据集 *（b- 1））- int（b / 2）
 
-# QUERYING:
-# Clip (if queryset range is out of datset range)
-queryset = queryset.clip(dataset_min, dataset_max)
-# Shift coordinates to be non-negative
-queryset -= dataset_min
-# Normalize
-queryset *= 1. / (dataset_max - dataset_min)
-# Bucket into 256 values
-queryset = np.floor(queryset * (B - 1)) - int(B / 2)
+# 查询：
+# 剪辑（如果QuerySet范围不超出数据集范围）
+querySet = queryset.clip（dataset_min，dataset_max）
+# 将坐标转换为非-消极的
+queryset-= dataset_min
+# 归一化
+queryset *= 1. /（dataset_max- dataset_min）
+# 存储到256个值
+querySet = np.floor（querySet *（b- 1））- int（b / 2）
 ```
 {% include copy.html %}
 
@@ -213,20 +213,20 @@ The following example pseudocode illustrates the scalar quantization technique u
 The following pseudocode is for positive numbers:
 
 ```python
-# For Positive Numbers
+# 用于正数
 
-# INDEXING and QUERYING:
+# 索引和查询：
 
-# Get Max of train dataset
+# 获取最大火车数据集
 max = np.max(dataset)
 min = 0
 B = 127
 
-# Normalize into [0,1]
+# 标准化为[0,1]
 val = (val - min) / (max - min)
 val = (val * B)
 
-# Get int and fraction values
+# 获取int和分数值
 int_part = floor(val)
 frac_part = val - int_part
 
@@ -242,20 +242,20 @@ return Byte(bval)
 The following pseudocode is for negative numbers:
 
 ```python
-# For Negative Numbers
+# 对于负数
 
-# INDEXING and QUERYING:
+# 索引和查询：
 
-# Get Min of train dataset
+# 获取火车数据集的最小
 min = 0
 max = -np.min(dataset)
 B = 128
 
-# Normalize into [0,1]
+# 标准化为[0,1]
 val = (val - min) / (max - min)
 val = (val * B)
 
-# Get int and fraction values
+# 获取int和分数值
 int_part = floor(var)
 frac_part = val - int_part
 

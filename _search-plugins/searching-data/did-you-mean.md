@@ -25,7 +25,7 @@ The term suggester uses an [edit distance](https://en.wikipedia.org/wiki/Edit_di
 
 The edit distance is the number of single-character insertions, deletions, or substitutions that need to be performed for a term to match another term. For example, to change the word "cat" to "hats", you need to substitute "h" for "c" and insert an "s", so the edit distance in this case is 2.
 
-To use the term suggester, you don't need any special field mappings for your index. By default, string field types are mapped as `text`. A `text` field is analyzed, so the `title` in the following example is tokenized into individual words. Indexing the following documents creates a `books` index where `title` is a `text` field:
+To use the term suggester, you don't need any special field mappings for your index. By default, String字段类型 are mapped as `text`. A `text` field is analyzed, so the `title` in the following example is tokenized into individual words. Indexing the following documents creates a `books` index where `title` is a `text` field:
 
 ```json
 PUT books/_doc/1

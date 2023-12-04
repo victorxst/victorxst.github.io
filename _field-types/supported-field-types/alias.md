@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Alias
+title: 别名
 nav_order: 10
 has_children: false
-parent: Supported field types
+parent: 支持的字段类型
 redirect_from:
   - /opensearch/supported-field-types/alias/
   - /field-types/alias/
 ---
 
-# Alias field type
+# 别名字段类型
 
-An alias field type creates another name for an existing field. You can use aliases in the[search](#using-aliases-in-search-api-operations) and [field capabilities](#using-aliases-in-field-capabilities-api-operations) API operations, with some [exceptions](#exceptions). To set up an [alias](#alias-field), you need to specify the [original field](#original-field) name in the `path` parameter.
+别名字段类型为现有字段创建另一个名称。您可以在[搜索](#using-aliases-in-search-api-operations) 和[现场功能](#using-aliases-in-field-capabilities-api-operations) API操作，有一些[例外](#exceptions)。设置一个[别名](#alias-field)，您需要指定[原始领域](#original-field) 名称`path` 范围。
 
-## Example
+## 例子
 
 ```json
 PUT movies 
@@ -33,63 +33,64 @@ PUT movies
 ```
 {% include copy-curl.html %}
 
-## Parameters
+## 参数
 
-Parameter | Description 
-:--- | :--- 
-`path` | The full path to the original field, including all parent objects. For example, parent.child.field_name. Required.
+范围| 描述
+：--- | ：--- 
+`path` | 原始字段的完整路径，包括所有父对象。例如，parent.child.field_name。必需的。
 
-## Alias field
+## 别名字段
 
-Alias fields must obey the following rules:
+别名字段必须遵守以下规则：
 
-- An alias field can only have one original field.
-- In nested objects, the alias must have the same nesting level as the original field.
+- 别名字段只能具有一个原始字段。
+- 在嵌套对象中，别名必须具有与原始场相同的嵌套级别。
 
-To change the field that the alias references, update the mappings. Note that aliases in any previously stored percolator queries will still reference the original field.
-{: .note }
+要更改别名引用的字段，请更新映射。请注意，任何先前存储的Percolator查询中的别名仍将引用原始字段。
+{： 。笔记 }
 
-## Original field
+## 原始领域
 
-The original field for an alias must obey the following rules:
-- The original field must be created before the alias is created.
-- The original field cannot be an object or another alias.
+别名必须遵守以下规则：
+- 必须在创建别名之前创建原始字段。
+- 原始字段不能是对象或其他别名。
 
-## Using aliases in search API operations
+## 在搜索API操作中使用别名
 
-You can use aliases in the following read operations of the search API:
-- Queries
-- Sorts
-- Aggregations
+您可以在搜索API的以下读取操作中使用别名：
+- 查询
+- 等
+- 聚合
 - `stored_fields`
 - `docvalue_fields`
-- Suggestions
-- Highlights
-- Scripts that access field values
+- 建议
+- 强调
+- 访问字段值的脚本
 
-## Using aliases in field capabilities API operations
+## 在现场功能API操作中使用别名
 
-To use an alias in the field capabilities API, specify it in the fields parameter.
+要在字段功能API中使用别名，请在字段参数中指定它。
 
 ```json
 GET movies/_field_caps?fields=release_date
 ```
 {% include copy-curl.html %}
 
-## Exceptions
+## 例外
 
-You cannot use aliases in the following situations:
-- In write requests, such as update requests.
-- In multi-fields or as a target of `copy_to`.
-- As a _source parameter for filtering results.
-- In APIs that take field names, such as term vectors.
-- In `terms`, `more_like_this`, and `geo_shape` queries (aliases are not supported when retrieving documents).
+在以下情况下，您不能使用别名：
+- 在写请求中，例如更新请求。
+- 多-字段或目标`copy_to`。
+- 作为用于过滤结果的_source参数。
+- 在具有字段名称的API中，例如术语向量。
+- 在`terms`，，，，`more_like_this`， 和`geo_shape` 查询（检索文档时不支持别名）。
 
-## Wildcards
+## 通配符
 
-In search and field capabilities wildcard queries, both the original field and the alias are matched against the wildcard pattern. 
+在搜索和现场功能通配符查询中，原始场和别名都与通配符模式相匹配。
 
 ```json
 GET movies/_field_caps?fields=release*
 ```
 {% include copy-curl.html %}
+

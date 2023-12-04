@@ -1,22 +1,22 @@
 ---
 layout: default
-title: Completion
+title: 完成
 nav_order: 51
 has_children: false
-parent: Autocomplete field types
-grand_parent: Supported field types
+parent: 自动完成字段类型
+grand_parent: 支持的字段类型
 redirect_from:
   - /opensearch/supported-field-types/completion/
   - /field-types/completion/
 ---
 
-# Completion field type
+# 完成字段类型
 
-A completion field type provides autocomplete functionality through a completion suggester. The completion suggester is a prefix suggester, so it matches the beginning of text only. A completion suggester creates an in-memory data structure, which provides faster lookups but leads to increased memory usage. You need to upload a list of all possible completions into the index before using this feature.
+完成字段类型通过完成建议提供自动完成功能。完成建议是前缀Suggester，因此仅与文本的开头相匹配。一个完整的建议创建了一个-内存数据结构，可提供更快的查找，但会导致内存使用增加。在使用此功能之前，您需要将所有可能完成的列表上传到索引中。
 
-## Example
+## 例子
 
-Create a mapping with a completion field:
+创建一个具有完成字段的映射：
 
 ```json
 PUT chess_store
@@ -35,7 +35,7 @@ PUT chess_store
 ```
 {% include copy-curl.html %}
 
-Index suggestions into OpenSearch:
+索引建议：
 
 ```json
 PUT chess_store/_doc/1
@@ -48,16 +48,16 @@ PUT chess_store/_doc/1
 ```
 {% include copy-curl.html %}
 
-## Parameters
+## 参数
 
-The following table lists the parameters accepted by completion fields.
+下表列出了由完成字段接受的参数。
 
-Parameter | Description 
-:--- | :--- 
-`input` | A list of possible completions as a string or array of strings. Cannot contain `\u0000` (null), `\u001f` (information separator one), or `\u001e` (information separator two). Required.
-`weight` | A positive integer or a positive integer string for ranking suggestions. Optional.
+范围| 描述
+：--- | ：--- 
+`input` | 可能的完成列表，作为字符串或字符串数​​组。无法包含`\u0000` （无效的），`\u001f` （信息分离器一个）或`\u001e` （信息分离器二）。必需的。
+`weight` | 积极整数或用于对建议进行排名的正整数。选修的。
 
-Multiple suggestions can be indexed as follows:
+可以将多个建议索引如下：
 
 ```json
 PUT chess_store/_doc/2
@@ -80,7 +80,7 @@ PUT chess_store/_doc/2
 ```
 {% include copy-curl.html %}
 
-As an alternative, you can use the following shorthand notation (note that you cannot provide the `weight` parameter in this notation):
+作为替代方案，您可以使用以下速记符号（请注意，您无法提供`weight` 该符号中的参数）：
 
 ```json
 PUT chess_store/_doc/3
@@ -90,11 +90,11 @@ PUT chess_store/_doc/3
 ```
 {% include copy-curl.html %}
 
-## Querying completion field types
+## 查询完成字段类型
 
-To query completion field types, specify the prefix that you want to search for and the name of the field in which to look for suggestions.
+要查询完成字段类型，请指定要搜索的前缀以及寻找建议的字段名称。
 
-Query the index for suggestions that start with the word "chess":
+查询索引是否以单词开头的建议"chess"：
 
 ```json
 GET chess_store/_search
@@ -111,7 +111,7 @@ GET chess_store/_search
 ```
 {% include copy-curl.html %}
 
-The response contains autocomplete suggestions:
+响应包含自动完整的建议：
 
 ```json
 {
@@ -181,9 +181,9 @@ The response contains autocomplete suggestions:
 }
 ```
 
-In the response, the `_score` field contains the value of the `weight` parameter that was set up at index time. The `text` field is populated with the suggestion's `input` parameter.
+在回应中`_score` 字段包含`weight` 在索引时间设置的参数。这`text` 领域填充了建议的`input` 范围。
 
-By default, the response contains the whole document, including the `_source` field, which may impact performance. To return only the `suggestions` field, you can specify that in the `_source` parameter. You can also restrict the number of returned suggestions by specifying the `size` parameter.
+默认情况下，响应包含整个文档，包括`_source` 场，可能会影响性能。仅返回`suggestions` 字段，您可以在`_source` 范围。您还可以通过指定返回建议的数量`size` 范围。
 
 ```json
 GET chess_store/_search
@@ -202,7 +202,7 @@ GET chess_store/_search
 ```
 {% include copy-curl.html %}
 
-The response contains the suggestions:
+响应包含建议：
 
 ```json
 {
@@ -272,22 +272,22 @@ The response contains the suggestions:
 }
 ```
 
-To take advantage of source filtering, use the suggest functionality on the `_search` endpoint. The `_suggest` endpoint does not support source filtering.
-{: .note}
+要利用源过滤，请在`_search` 端点。这`_suggest` 端点不支持源过滤。
+{： 。笔记}
 
-## Completion query parameters
+## 完成查询参数
 
-The following table lists the parameters accepted by the completion suggester query.
+下表列出了完整建议询问的参数。
 
-Parameter | Description 
-:--- | :--- 
-`field` | A string that specifies the field on which to run the query. Required.
-`size` | An integer that specifies the maximum number of returned suggestions. Optional. Default is 5.
-`skip_duplicates` | A Boolean value that specifies whether to skip duplicate suggestions. Optional. Default is `false`.
+范围| 描述
+：--- | ：--- 
+`field` | 一个指定要运行查询的字段的字符串。必需的。
+`size` | 一个整数指定最大返回建议的数量。选修的。默认值为5。
+`skip_duplicates` | 布尔值指定是否跳过重复建议。选修的。默认为`false`。
 
-## Fuzzy completion query
+## 模糊完成查询
 
-To allow for fuzzy matching, you can specify the `fuzziness` parameter for the completion query. In this case, even if the user mistypes a search term, the completion query still returns results. Additionally, the longer the prefix that matches the query, the higher the document's score.
+为了允许模糊匹配，您可以指定`fuzziness` 完成查询的参数。在这种情况下，即使用户误解了搜索词，完成查询仍然会返回结果。此外，匹配查询的前缀越长，文档的分数就越高。
 
 ```json
 GET chess_store/_search
@@ -308,24 +308,24 @@ GET chess_store/_search
 ```
 {% include copy-curl.html %}
 
-To use all default fuzziness options, specify `"fuzzy": {}` or `"fuzzy": true`.
-{: .tip}
+要使用所有默认模糊选项，请指定`"fuzzy": {}` 或者`"fuzzy": true`。
+{： 。提示}
 
-The following table lists the parameters accepted by the fuzzy completion suggester query. All of the parameters are optional.
+下表列出了模糊完成建议的参数。所有参数都是可选的。
 
-Parameter | Description 
-:--- | :--- 
-`fuzziness` | Fuzziness can be set as one of the following: <br> 1. An integer that specifies the maximum allowed [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) for this edit. <br> 2. `AUTO`: Strings of 0–2 characters must match exactly, strings of 3–5 characters allow 1 edit, and strings longer than 5 characters allow 2 edits.<br> Default is `AUTO`.
-`min_length` | An integer that specifies the minimum length the input must be to start returning suggestions. If the search term is shorter than `min_length`, no suggestions are returned. Default is 3.
-`prefix_length` | An integer that specifies the minimum length the matched prefix must be to start returning suggestions. If the prefix of `prefix_length` is not matched, but the search term is still within the Levenshtein distance, no suggestions are returned. Default is 1.
-`transpositions` | A Boolean value that specifies to count transpositions (interchanges of adjacent characters) as one edit instead of two. Example: The suggestion's `input` parameter is `abcde` and the `fuzziness` is 1. If `transpositions` is set to `true`, `abdce` will match, but if `transpositions` is set to `false`, `abdce` will not match.  Default is `true`.
-`unicode_aware` | A Boolean value that specifies whether to use Unicode code points when measuring the edit distance, transposition, and length. If `unicode_aware` is set to `true`, the measurement is slower. Default is `false`, in which case distances are measured in bytes.
+范围| 描述
+：--- | ：--- 
+`fuzziness` | 模糊性可以设置为以下一个：<br> 1.指定最大允许的整数[Levenshtein距离](https://en.wikipedia.org/wiki/Levenshtein_distance) 对于此编辑。 <br> 2。`AUTO`：0-2个字符的字符串必须完全匹配，3-5个字符的字符串允许1个编辑，字符串超过5个字符允许2个编辑。<br>默认值为`AUTO`。
+`min_length` | 一个整数指定输入必须是开始返回建议的最小长度。如果搜索词比`min_length`，没有任何建议。默认值为3。
+`prefix_length` | 指定最小长度的整数必须是开始返回建议。如果前缀`prefix_length` 不匹配，但是搜索词仍在Levenshtein距离之内，没有返回建议。默认值为1。
+`transpositions` | 一个布尔值指定的是将换位（相邻字符的互换）视为一个编辑而不是两个。示例：建议的`input` 参数为`abcde` 和`fuzziness` 是1.如果`transpositions` 被设定为`true`，，，，`abdce` 会匹配，但是如果`transpositions` 被设定为`false`，，，，`abdce` 不匹配。默认为`true`。
+`unicode_aware` | 布尔值指定在测量编辑距离，换位和长度时是否使用Unicode代码点。如果`unicode_aware` 被设定为`true`，测量较慢。默认为`false`，在这种情况下，距离以字节为单位。
 
-## Regex queries
+## 正则查询
 
-You can use a regular expression to define the prefix for the completion suggester query. 
+您可以使用正则表达式来定义完整建议查询的前缀。
 
-For example, to search for strings that start with "a" and have a "d" later on, use the following query:
+例如，搜索以"a" 并有一个"d" 稍后，使用以下查询：
 
 ```json
 GET chess_store/_search
@@ -342,7 +342,7 @@ GET chess_store/_search
 ```
 {% include copy-curl.html %}
 
-The response matches the string "abcde":
+响应与字符串匹配"abcde"：
 
 ```json
 {

@@ -1,28 +1,27 @@
 ---
 layout: default
-title: Create pipeline
+title: 创建管道
 nav_order: 10
 redirect_from:
   - /opensearch/rest-api/ingest-apis/create-update-ingest/
   - /api-reference/ingest-apis/create-ingest/
 ---
 
-# Create pipeline
-**Introduced 1.0**
-{: .label .label-purple }
+# 创建流水线
+**引入 1.0** {：.label .label-purple }
 
-Use the create pipeline API operation to create or update pipelines in OpenSearch. Note that the pipeline requires you to define at least one processor that specifies how to change the documents. 
+使用创建管道 API 操作在 OpenSearch 中创建或更新管道。请注意，管道要求你至少定义一个指定如何更改文档的处理器。
 
-## Path and HTTP method
+## 路径和 HTTP 方法
 
-Replace `<pipeline-id>` with your pipeline ID:
+替换为 `<pipeline-id>` 管道 ID：
 
 ```json
 PUT _ingest/pipeline/<pipeline-id>
 ```
-#### Example request
+#### 示例请求
 
-Here is an example in JSON format that creates an ingest pipeline with two `set` processors and an `uppercase` processor. The first `set` processor sets the `grad_year` to `2023`, and the second `set` processor sets `graduated` to `true`. The `uppercase` processor converts the `name` field to uppercase.
+下面是一个 JSON 格式的示例，用于创建包含两个 `set` 处理器和一个 `uppercase` 处理器的引入管道。第一个 `set` 处理器将 `grad_year` 设置为 `2023`，第二个 `set` 处理器设置为 `graduated` `true`。 `uppercase` 处理器将 `name` 字段转换为大写。
 
 ```json
 PUT _ingest/pipeline/my-pipeline
@@ -53,37 +52,37 @@ PUT _ingest/pipeline/my-pipeline
 ```
 {% include copy-curl.html %}
 
-To learn more about error handling, see [Handling pipeline failures]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/pipeline-failures/).
+要了解有关错误处理的详细信息，请参阅[处理管道故障]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/pipeline-failures/)。
 
-## Request body fields
+## 请求正文字段
 
-The following table lists the request body fields used to create or update a pipeline. 
+下表列出了用于创建或更新管道的请求正文字段。
 
-Parameter | Required | Type | Description
+参数 | 必需 | 类型 | 描述
 :--- | :--- | :--- | :---
-`processors` | Required | Array of processor objects | An array of processors, each of which transforms documents. Processors are run sequentially in the order specified.
-`description` | Optional | String | A description of your ingest pipeline. 
+ `processors` | 必需 | 处理器对象数组 | 一组处理器，每个处理器转换文档。处理器按指定的顺序按顺序运行。
+ `description` | 可选 | 字符串 | 引入管道的说明。
 
-## Path parameters
+## 路径参数
 
-Parameter | Required | Type | Description
+参数 | 必需 | 类型 | 描述
 :--- | :--- | :--- | :---
-`pipeline-id` | Required | String | The unique identifier, or pipeline ID, assigned to the ingest pipeline. 
+ `pipeline-id` | 必需 | 字符串 | 分配给引入管道的唯一标识符或管道 ID。
 
-## Query parameters
+## 查询参数
 
-Parameter | Required | Type | Description
+参数 | 必需 | 类型 | 描述
 :--- | :--- | :--- | :---
-`cluster_manager_timeout` | Optional | Time | Period to wait for a connection to the cluster manager node. Defaults to 30 seconds.
-`timeout` | Optional | Time | Period to wait for a response. Defaults to 30 seconds. 
+ `cluster_manager_timeout` | 可选 | 时间 | 等待与集群管理器节点建立连接的时间段。默认值为 30 秒。
+ `timeout` | 可选 | 时间 | 等待响应的时间段。默认值为 30 秒。
 
-## Template snippets
+## 模板片段
 
-Some processor parameters support [Mustache](https://mustache.github.io/) template snippets. To get the value of a field, surround the field name in three curly braces, for example, `{% raw %}{{{field-name}}}{% endraw %}`.
+某些处理器参数支持[Mustache](https://mustache.github.io/)模板代码段。若要获取字段的值，请将字段名称括在三个大括号中，例如 `{% raw %}{{{field-name}}}{% endraw %}`.
 
-#### Example: `set` ingest processor using Mustache template snippet
+#### 示例： `set` 使用 Mustache 模板代码段引入处理器
 
-The following example sets the field `{% raw %}{{{role}}}{% endraw %}` with a value `{% raw %}{{{tenure}}}{% endraw %}`:
+以下示例使用以下值 `{% raw %}{{{tenure}}}{% endraw %}` 设置字段 `{% raw %}{{{role}}}{% endraw %}`：
 
 ```json
 PUT _ingest/pipeline/my-pipeline

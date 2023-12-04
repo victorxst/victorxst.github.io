@@ -1,29 +1,29 @@
 ---
 layout: default
-title: Index analyzers
+title: 索引分析
 nav_order: 20
 ---
 
-# Index analyzers
+# 索引分析
 
-Index analyzers are specified at indexing time and are used to analyze [text]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) fields when indexing a document.
+索引分析在索引时间指定，用于分析[文本]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) 索引文档时字段。
 
-## Determining which index analyzer to use
+## 确定要使用哪种索引分析
 
-To determine which analyzer to use for a field when a document is indexed, OpenSearch examines the following parameters in order:
+要确定在索引文档时将哪种分析仪用于字段，OpenSearch按顺序检查以下参数：
 
-1. The `analyzer` mapping parameter of the field
-1. The `analysis.analyzer.default` index setting
-1. The `standard` analyzer (default)
+1. 这`analyzer` 该字段的映射参数
+1. 这`analysis.analyzer.default` 索引设置
+1. 这`standard` 分析仪（默认）
 
-When specifying an index analyzer, keep in mind that in most cases, specifying an analyzer for each `text` field in an index works best. Analyzing both the text field (at indexing time) and the query string (at query time) with the same analyzer ensures that the search uses the same terms as those that are stored in the index. 
+指定索引分析时，请记住，在大多数情况下，为每个分析仪指定一个分析仪`text` 索引中的字段最有效。使用相同分析仪分析文本字段（在索引时间）和查询字符串（在查询时间）确保搜索使用与索引中存储的术语相同的术语。
 {: .important }
 
-For information about verifying which analyzer is associated with which field, see [Verifying analyzer settings]({{site.url}}{{site.baseurl}}/analyzers/index/#verifying-analyzer-settings).
+有关验证哪个分析仪与哪个字段相关的信息，请参见[验证分析仪设置]({{site.url}}{{site.baseurl}}/analyzers/index/#verifying-analyzer-settings)。
 
-## Specifying an index analyzer for a field
+## 为字段指定索引分析
 
-When creating index mappings, you can supply the `analyzer` parameter for each [text]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) field. For example, the following request specifies the `simple` analyzer for the `text_entry` field:
+创建索引映射时，您可以提供`analyzer` 每个参数[文本]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) 场地。例如，以下请求指定`simple` 分析仪`text_entry` 场地：
 
 ```json
 PUT testindex
@@ -40,9 +40,9 @@ PUT testindex
 ```
 {% include copy-curl.html %}
 
-## Specifying a default index analyzer for an index
+## 为索引指定默认索引分析
 
-If you want to use the same analyzer for all text fields in an index, you can specify it in the `analysis.analyzer.default` setting as follows:
+如果要在索引中使用同一分析仪对所有文本字段使用相同的分析仪，则可以在`analysis.analyzer.default` 设置如下：
 
 ```json
 PUT testindex
@@ -60,6 +60,7 @@ PUT testindex
 ```
 {% include copy-curl.html %}
 
-If you don't specify a default analyzer, the `standard` analyzer is used.
+如果您不指定默认分析仪，则`standard` 使用分析仪。
 {: .note}
+
 
