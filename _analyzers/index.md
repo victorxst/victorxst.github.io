@@ -38,7 +38,7 @@ redirect_from:
 下表列出了构建的-在OpenSearch提供的分析仪中。表的最后一列包含将分析仪应用于字符串的结果`It’s fun to contribute a brand-new PR or 2 to OpenSearch!`。
 
 分析仪| 进行分析| 分析仪输出
-：--- | ：--- | ：---
+:--- | :--- | :--- 
 **标准** （默认）| - 在单词边界处分析字符串<br>- 删除大多数标点符号<br>- 将令牌转换为小写| [`it’s`，`fun`，`to`，`contribute`，`a`，`brand`，`new`，`pr`，`or`，`2`，`to`，`opensearch`这是给出的
 **简单的** | - 在任何非-字母字符<br>- 删除非-字母字符<br>- 将令牌转换为小写| [`it`，`s`，`fun`，`to`，`contribute`，`a`，`brand`，`new`，`pr`，`or`，`to`，`opensearch`这是给出的
 **空格** | - 在空白空间上解析串入令牌| [`It’s`，`fun`，`to`，`contribute`，`a`，`brand-new`，`PR`，`or`，`2`，`to`，`OpenSearch!`这是给出的

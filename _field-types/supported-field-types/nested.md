@@ -307,7 +307,7 @@ GET testindex1/_search
 下表列出了Object字段类型接受的参数。所有参数都是可选的。
 
 范围| 描述
-：--- | ：--- 
+:--- | :--- 
 [`dynamic`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/object#the-dynamic-parameter) | 指定是否可以将新字段动态添加到此对象中。有效值是`true`，`false`， 和`strict`。默认为`true`。
 `include_in_parent` | 布尔值指定是否还应以扁平的形式添加子嵌套对象中的所有字段。默认为`false`。
 `include_in_root` | 布尔值指定是否还应以扁平的形式添加子嵌套对象中的所有字段。默认为`false`。

@@ -100,7 +100,7 @@ PUT testindex1/_doc/5
 下表列出了XY点字段类型接受的参数。所有参数都是可选的。
 
 范围| 描述
-：--- | ：--- 
+:--- | :--- 
 `ignore_malformed` | 布尔值指定忽略畸形值而不引发异常的值。默认为`false`。
 `ignore_z_value` | 特定于具有三个坐标的点。如果`ignore_z_value` 是`true`，第三个坐标没有索引，但仍存储在_source字段中。如果`ignore_z_value` 是`false`，一个例外。
 [`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | 用于代替的值`null`。该值必须与字段相同。如果未指定此参数，则该字段在其值为时被视为丢失`null`。默认为`null`

@@ -253,7 +253,7 @@ GET national_parks/_search
 GeoHash网格聚合请求支持以下参数。
 
 范围| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :--- 
 场地| 细绳| 执行聚合的字段。该字段必须映射为`geo_point` 或者`geo_shape` 场地。如果字段包含一个数组，则所有数组值均已汇总。必需的。
 精确| 整数| 缩放水平用于确定网格单元以进行铲斗结果。有效值在[0，15]范围内。选修的。默认值为5。
 边界| 目的| 用于过滤地理点和geoshapes的边界框。边界框由鞋面定义-左右-右顶点。只有与此边界框相交或完全由该边界框包含的形状包含在聚合输出中。这些顶点在以下格式之一中指定为地理点：<br>- 具有纬度和经度的对象<br>- 阵列[`longitude`，`latitude`](format<br>- A string in the "`latitude`,`longitude`" format<br>- A geohash <br>- WKT<br> See the [geopoint formats]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats) 用于格式化示例。选修的。

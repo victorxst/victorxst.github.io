@@ -14,7 +14,7 @@ redirect_from:
 下表列出了OpenSearch支持的所有等级字段类型。
 
 字段数据类型| 描述
-：--- | ：---  
+:--- | :---  
 [`rank_feature`](#rank-feature) | 提高或降低文档的相关性得分。
 [`rank_features`](#rank-features) | 提高或降低文档的相关性得分。当功能列表稀疏时使用。
 

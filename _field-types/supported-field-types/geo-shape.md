@@ -47,7 +47,7 @@ geoshapes可以以以下格式进行索引：
 下表描述了可能的Geoshape类型及其与Geojson和WKT类型的关系。
 
 OpenSearch类型| Geojson类型| WKT类型| 描述
-：--- | ：--- | ：--- | ：--- 
+:--- | :--- | :---  | ：--- 
 [`point`](#point) | 观点| 观点| 由纬度和经度指定的地理点。OpenSearch使用世界测量系统（WGS84）坐标。
 [`linestring`](#linestring) | linestring| linestring| 由两个或多个点指定的线。可能是连接线段的直线或路径。
 [`polygon`](#polygon) | 多边形| 多边形| 由坐标形式的顶点列表指定的多边形。多边形必须关闭，这意味着最后一点必须与第一个点相同。因此，创建一个n-GON，N+1个顶点。最小顶点数为四个，这会产生一个三角形。
@@ -397,7 +397,7 @@ PUT testindex/_doc/8
 下表列出了GeoShape字段类型接受的参数。所有参数都是可选的。
 
 范围| 描述
-：--- | ：--- 
+:--- | :--- 
 `coerce` | 布尔值指定是否会自动关闭未关闭未关闭的线性环。默认为`false`。
 `ignore_malformed` | 一个布尔值指定的是忽略畸形的Geojson或WKT Geoshapes，而不是抛出例外。默认为`false` （当Geoshapes畸形时，请例外）。
 `ignore_z_value` | 特定于具有三个坐标的点。如果`ignore_z_value` 是`true`，第三个坐标没有索引，但仍存储在_source字段中。如果`ignore_z_value` 是`false`，一个例外。默认为`true`。

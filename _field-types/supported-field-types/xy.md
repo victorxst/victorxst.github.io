@@ -21,7 +21,7 @@ redirect_from:
 下表列出了OpenSearch支持的所有笛卡尔字段类型。
 
 字段数据类型| 描述
-：--- | ：---  
+:--- | :---  
 [`xy_point`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-point/) | 一个点-尺寸笛卡尔坐标系，由X和Y坐标指定。
 [`xy_shape`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-shape/) | 一个形状，例如多边形或xy点的集合，-维笛卡尔坐标系。
 

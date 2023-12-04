@@ -15,7 +15,7 @@ redirect_from:
 Object字段类型包含对象或关系的值。下表列出了OpenSearch支持的所有对象字段类型。
 
 字段数据类型| 描述
-：--- | ：---  
+:--- | :---  
 [`object`]({{site.url}}{{site.baseurl}}/field-types/object/) | JSON对象。
 [`nested`]({{site.url}}{{site.baseurl}}/field-types/nested/) | 当数组中的对象需要独立作为单独的文档索引时使用。
 [`flat_object`]({{site.url}}{{site.baseurl}}/field-types/flat-object/) | JSON对象被视为字符串。
