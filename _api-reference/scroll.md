@@ -1,25 +1,25 @@
 ---
 layout: default
-title: Scroll
+title: 滚动
 nav_order: 71
 redirect_from:
  - /opensearch/rest-api/scroll/
 ---
 
-# Scroll
-**Introduced 1.0**
+# 滚动
+**引入1.0**
 {: .label .label-purple }
 
-You can use the `scroll` operation to retrieve a large number of results. For example, for machine learning jobs, you can request an unlimited number of results in batches.
+您可以使用`scroll` 操作以检索大量结果。例如，对于机器学习工作，您可以分批索取无限数量的结果。
 
-To use the `scroll` operation, add a `scroll` parameter to the request header with a search context to tell OpenSearch how long you need to keep scrolling. This search context needs to be long enough to process a single batch of results.
+使用`scroll` 操作，添加一个`scroll` 使用搜索上下文的请求标头的参数，以告诉OpenSearch您需要滚动多长时间。此搜索上下文需要足够长的时间来处理一批结果。
 
-Because search contexts consume a lot of memory, we suggest you don't use the `scroll` operation for frequent user queries. Instead, use the `sort` parameter with the `search_after` parameter to scroll responses for user queries.
+因为搜索上下文会消耗大量内存，我们建议您不要使用`scroll` 用于频繁的用户查询的操作。而是使用`sort` 带有的参数`search_after` 参数以滚动响应用户查询。
 {: .note }
 
-## Example
+## 例子
 
-To set the number of results that you want returned for each batch, use the `size` parameter:
+要设置您要返回每批结果的结果数，请使用`size` 范围：
 
 ```json
 GET shakespeare/_search?scroll=10m
@@ -29,13 +29,13 @@ GET shakespeare/_search?scroll=10m
 ```
 {% include copy-curl.html %}
 
-OpenSearch caches the results and returns a scroll ID to access them in batches:
+OpenSearch缓存结果并返回滚动ID，以分批访问它们：
 
 ```json
 "_scroll_id" : "DXF1ZXJ5QW5kRmV0Y2gBAAAAAAAAAAUWdmpUZDhnRFBUcWFtV21nMmFwUGJEQQ=="
 ```
 
-Pass this scroll ID to the `scroll` operation to get back the next batch of results:
+将此卷轴ID传递给`scroll` 恢复下一批结果的操作：
 
 ```json
 GET _search/scroll
@@ -46,10 +46,10 @@ GET _search/scroll
 ```
 {% include copy-curl.html %}
 
-Using this scroll ID, you get results in batches of 10,000 as long as the search context is still open. Typically, the scroll ID does not change between requests, but it *can* change, so make sure to always use the latest scroll ID. If you don't send the next scroll request within the set search context, the `scroll` operation does not return any results.
+使用此滚动ID，只要搜索上下文仍然打开，您就可以将结果批量为10,000。通常，滚动ID不会在请求之间发生变化，但是 *可以 *更改，因此请确保始终使用最新的滚动ID。如果您不在设定搜索上下文中发送下一个滚动请求，则`scroll` 操作不会返回任何结果。
 
-If you expect billions of results, use a sliced scroll. Slicing allows you to perform multiple scroll operations for the same request, but in parallel.
-Set the ID and the maximum number of slices for the scroll:
+如果您期望数十亿个结果，请使用切片卷轴。切片允许您针对相同请求执行多个滚动操作，但并行。
+设置ID和滚动的最大切片数：
 
 ```json
 GET shakespeare/_search?scroll=10m
@@ -65,27 +65,27 @@ GET shakespeare/_search?scroll=10m
 ```
 {% include copy-curl.html %}
 
-With a single scroll ID, you get back 10 results.
-You can have up to 10 IDs.
+有了一个滚动ID，您将获得10个结果。
+您最多可以拥有10个ID。
 
-Close the search context when you’re done scrolling, because the `scroll` operation continues to consume computing resources until the timeout:
+完成滚动后关闭搜索上下文，因为`scroll` 操作继续消耗计算资源，直到超时为止：
 
 ```json
 DELETE _search/scroll/DXF1ZXJ5QW5kRmV0Y2gBAAAAAAAAAAcWdmpUZDhnRFBUcWFtV21nMmFwUGJEQQ==
 ```
 {% include copy-curl.html %}
 
-To close all open scroll contexts:
+关闭所有打开卷轴上下文：
 
 ```json
 DELETE _search/scroll/_all
 ```
 {% include copy-curl.html %}
 
-The `scroll` operation corresponds to a specific timestamp. It doesn't consider documents added after that timestamp as potential results.
+这`scroll` 操作对应于特定的时间戳。它不会将时间戳之后添加的文档视为潜在结果。
 
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 GET _search/scroll
@@ -96,17 +96,17 @@ GET _search/scroll/<scroll-id>
 POST _search/scroll/<scroll-id>
 ```
 
-## URL parameters
+## URL参数
 
-All scroll parameters are optional.
+所有滚动参数都是可选的。
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- | :--- | :---
-scroll | Time | Specifies the amount of time the search context is maintained.
-scroll_id | String | The scroll ID for the search.
-rest_total_hits_as_int | Boolean | Whether the `hits.total` property is returned as an integer (`true`) or an object (`false`). Default is `false`.
+滚动| 时间| 指定维持搜索上下文的时间。
+scroll_id| 细绳| 搜索的滚动ID。
+REST_TOTAL_HITS_AS_INT| 布尔| 是否`hits.total` 属性作为整数返回（`true`）或一个对象（`false`）。默认为`false`。
 
-## Response
+## 回复
 
 ```json
 {
@@ -114,3 +114,4 @@ rest_total_hits_as_int | Boolean | Whether the `hits.total` property is returned
   "num_freed": 1
 }
 ```
+

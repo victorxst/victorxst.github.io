@@ -1,20 +1,20 @@
 ---
 layout: default
-title: Stats
-parent: Index APIs
+title: 统计
+parent: 索引API
 nav_order: 72
 ---
 
-# Index Stats 
-**Introduced 1.0**
+# 索引统计
+**引入1.0**
 {: .label .label-purple }
 
-The Index Stats API provides index statistics. For data streams, the API provides statistics for the stream's backing indexes. By default, the returned statistics are index level. To receive shard-level statistics, set the `level` parameter to `shards`.
+索引统计信息API提供索引统计信息。对于数据流，API提供了该流的背面索引的统计信息。默认情况下，返回的统计信息是索引级别。接收碎片-等级统计，设置`level` 参数为`shards`。
 
-When a shard moves to a different node, the shard-level statistics for the shard are cleared. Although the shard is no longer part of the node, the node preserves any node-level statistics to which the shard contributed.
+当碎片移至其他节点时，碎片-清除了碎片的水平统计数据。尽管碎片不再是节点的一部分，但节点保留任何节点-碎片贡献的水平统计数据。
 {: .note}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```json
 GET /_stats
@@ -22,68 +22,68 @@ GET /<index_ids>/_stats
 GET /<index_ids>/_stats/<metric>
 ```
 
-## Path parameters
+## 路径参数
 
-The following table lists the available path parameters. All path parameters are optional.
+下表列出了可用路径参数。所有路径参数都是可选的。
 
-| Parameter | Data type | Description |
+| 范围| 数据类型| 描述|
 | :--- | :--- | :--- |
-| `<index_ids>` | String | A comma-separated list of indexes, data streams, or index aliases used to filter results. Supports wildcard expressions. Defaults to `_all` (`*`).
-`<metric>` | String | A comma-separated list of metric groups that will be included in the response. For valid values, see [Metrics](#metrics). Defaults to all metrics. |
+| `<index_ids>` | 细绳| 逗号-用于过滤结果的索引，数据流或索引别名的分离列表。支持通配符表达式。默认为`_all` （（`*`）。
+`<metric>` | 细绳| 逗号-将包括在响应中的公制组的分开列表。对于有效的值，请参阅[指标](#metrics)。默认为所有指标。|
 
-### Metrics
+### 指标
 
-The following table lists all available metric groups.
+下表列出了所有可用的公制组。
 
-Metric | Description
-:--- |:----
-`_all` | Return all statistics. 
-`completion` | Completion suggester statistics. 
-`docs` | Returns the number of documents and the number of deleted documents that have not yet been merged. Index refresh operations can affect this statistic. 
-`fielddata` | Field data statistics. 
-`flush` | Flush statistics. 
-`get` | Get statistics, including missing stats. 
-`indexing` | Indexing statistics. 
-`merge` | Merge statistics. 
-`query_cache` | Query cache statistics. 
-`refresh` | Refresh statistics. 
-`request_cache` | Shard request cache statistics. 
-`search` | Search statistics, including suggest operation statistics. Search operations can be associated with one or more groups. You can include statistics for custom groups by providing a `groups` parameter, which accepts a comma-separated list of group names. To return statistics for all groups, use `_all`. 
-`segments` | Statistics about memory use of all open segments. If the `include_segment_file_sizes` parameter is `true`, this metric includes the aggregated disk usage of each Lucene index file.
-`store` | Size of the index in byte units. 
-`translog` | Translog statistics. 
-`warmer` | Warmer statistics. 
+公制| 描述
+：--- |：----
+`_all` | 返回所有统计数据。
+`completion` | 完成建议统计。
+`docs` | 返回文档数量和尚未合并的已删除文档数量。索引刷新操作可能会影响此统计数据。
+`fielddata` | 现场数据统计。
+`flush` | 冲洗统计。
+`get` | 获取统计数据，包括缺少统计数据。
+`indexing` | 索引统计。
+`merge` | 合并统计。
+`query_cache` | 查询缓存统计。
+`refresh` | 刷新统计。
+`request_cache` | 碎片请求缓存统计。
+`search` | 搜索统计数据，包括建议操作统计。搜索操作可以与一个或多个组相关联。您可以通过提供一个自定义组的统计信息`groups` 接受逗号的参数-分组名称的列表。要返回所有组的统计信息，请使用`_all`。
+`segments` | 有关所有开放段的内存使用的统计信息。如果是`include_segment_file_sizes` 参数为`true`，该指标包括每个Lucene索引文件的汇总磁盘使用情况。
+`store` | 字节单元中索引的大小。
+`translog` | 翻译统计。
+`warmer` | 温暖的统计数据。
 
-## Query parameters
+## 查询参数
 
-The following table lists the available query parameters. All query parameters are optional.
+下表列出了可用查询参数。所有查询参数都是可选的。
 
-Parameter | Data type | Description 
+范围| 数据类型| 描述
 :--- | :--- | :--- 
-`expand_wildcards` | String | Specifies the type of indexes to which wildcard expressions can expand. Supports comma-separated values. Valid values are: <br> - `all`: Expand to all open and closed indexes, including hidden indexes. <br> - `open`: Expand to open indexes. <br> - `closed`: Expand to closed indexes. <br> - `hidden`: Include hidden indexes when expanding. Must be combined with `open`, `closed`, or both. <br> - `none`: Do not accept wildcard expressions. <br> Default is `open`.
-`fields` | String | A comma-separated list or a wildcard expression specifying fields to include in the statistics. Specifies the default field list if neither `completion_fields` nor `fielddata_fields` is provided.
-`completion_fields` | String | A comma-separated list or wildcard expression specifying fields to include in field-level `completion` statistics.
-`fielddata_fields` | String | A comma-separated list or wildcard expression specifying fields to include in field-level `fielddata` statistics.
-`forbid_closed_indices` | Boolean | Specifies not to collect statistics for closed indexes. Default is `true`.
-`groups` | String | A comma-separated list of search groups to include in the `search` statistics.
-`level` | String | Specifies the level used to aggregate statistics. Valid values are: <br> - `cluster`: Cluster-level statistics. <br> - `indices`: Index-level statistics. <br> - `shards`: Shard-level statistics. <br> Default is `indices`.
-`include_segment_file_sizes` | Boolean | Specifies whether to report the aggregated disk usage of each Lucene index file. Only applies to `segments` statistics. Default is `false`.
-`include_unloaded_segments` | Boolean | Specifies whether to include information from segments that are not loaded into memory. Default is `false`.
+`expand_wildcards` | 细绳| 指定通配符表达式可以扩展到的索引类型。支持逗号-分离的值。有效值是：<br>- `all`：扩展到所有打开和封闭的索引，包括隐藏的索引。<br>- `open`：扩展到打开索引。<br>- `closed`：扩展到封闭索引。<br>- `hidden`：在扩展时包括隐藏的索引。必须与`open`，`closed`， 或两者。<br>- `none`：不要接受通配符的表达。<br>默认值为`open`。
+`fields` | 细绳| 逗号-分离的列表或通配符表达式指定统计中包含的字段。如果都不`completion_fields` 也不`fielddata_fields` 提供。
+`completion_fields` | 细绳| 逗号-分开的列表或通配符表达式指定字段-等级`completion` 统计数据。
+`fielddata_fields` | 细绳| 逗号-分开的列表或通配符表达式指定字段-等级`fielddata` 统计数据。
+`forbid_closed_indices` | 布尔| 指定不收集封闭索引的统计信息。默认为`true`。
+`groups` | 细绳| 逗号-分开的搜索组列表，包括`search` 统计数据。
+`level` | 细绳| 指定用于汇总统计的级别。有效值是：<br>- `cluster`： 簇-水平统计。<br>- `indices`： 指数-水平统计。<br>- `shards`：shard-水平统计。<br>默认值为`indices`。
+`include_segment_file_sizes` | 布尔| 指定是否报告每个Lucene索引文件的汇总磁盘使用情况。仅适用于`segments` 统计数据。默认为`false`。
+`include_unloaded_segments` | 布尔| 指定是否包含未加载到内存中的段中的信息。默认为`false`。
 
-#### Example request: One index
+#### 示例请求：一个索引
 
 ```json
 GET /testindex/_stats
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
-By default, the returned statistics are aggregated in the `primaries` and `total` aggregations. The `primaries` aggregation contains statistics for the primary shards. The `total` aggregation contains statistics for both primary and replica shards. The following is an example Index Stats API response: 
+默认情况下，返回的统计信息在`primaries` 和`total` 聚合。这`primaries` 聚合包含主要碎片的统计数据。这`total` 聚合包含主要和复制碎片的统计数据。以下是一个示例索引统计API响应：
 
-<details closed markdown="block">
+<详细信息关闭的markdown ="block">
   <summary>
-    Response
+    回复
   </summary>
   {: .text-delta}
 
@@ -759,52 +759,53 @@ By default, the returned statistics are aggregated in the `primaries` and `total
   }
 }
 ```
-</details>
+</delect>
 
-#### Example request: Comma-separated list of indexes
+#### 示例请求：逗号-分开索引列表
 
 ```json
 GET /testindex1,testindex2/_stats
 ```
 {% include copy-curl.html %}
 
-#### Example request: Wildcard expression
+#### 示例请求：通配符表达式
 
 ```json
 GET /testindex*/_stats
 ```
 {% include copy-curl.html %}
 
-#### Example request: Specific stats
+#### 示例请求：特定属性
 
 ```json
 GET /testindex/_stats/refresh,flush
 ```
 {% include copy-curl.html %}
 
-#### Example request: Expand wildcards
+#### 示例请求：扩展通配符
 
 ```json
 GET /testindex*/_stats?expand_wildcards=open,hidden
 ```
 {% include copy-curl.html %}
 
-#### Example request: Shard-level statistics
+#### 示例请求：碎片-水平统计
 
 ```json
 GET /testindex/_stats?level=shards
 ```
 {% include copy-curl.html %}
 
-## Concurrent segment search
+## 并发段搜索
 
-Starting in OpenSearch 2.10, [concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/) allows each shard-level request to search segments in parallel during the query phase. If you [enable the experimental concurrent segment search feature flag]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search#enabling-the-feature-flag), the Index Stats API response will contain several additional fields with statistics about slices (units of work executed by a thread). These fields will be provided whether or not the cluster and index settings for concurrent segment search are enabled. For more information about slices, see [Concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search#searching-segments-concurrently).
+从OpenSearch 2.10开始[并发段搜索]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/) 允许每个碎片-在查询阶段并行搜索段的级别请求。如果你[启用实验并发段搜索功能标志]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search#enabling-the-feature-flag)，索引统计API响应将包含一些其他字段，其中包含有关切片的统计信息（线程执行的工作单位）。无论是否启用了用于并发段搜索的群集和索引设置，都将提供这些字段。有关切片的更多信息，请参阅[并发段搜索]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search#searching-segments-concurrently)。
 
-The following table provides information about the added response fields.
+下表提供了有关添加响应字段的信息。
 
-|Response field	| Description	|
+|响应字段| 描述|
 |:---	|:---	| 
-|`search.concurrent_avg_slice_count`	|The average slice count of all search requests. This is computed as the total slice count divided by the total number of concurrent search requests.	|
-|`search.concurrent_query_total`	|The total number of query operations that use concurrent segment search.	|
-|`search.concurrent_query_time_in_millis`	|The total amount of time taken by all query operations that use concurrent segment search, in milliseconds.	|
-|`search.concurrent_query_current`	|The number of currently running query operations that use concurrent segment search.	|
+|`search.concurrent_avg_slice_count`|所有搜索请求的平均切片计数。这是根据总切片计数除以并发搜索请求的总数。|
+|`search.concurrent_query_total`|使用并发段搜索的查询操作总数。|
+|`search.concurrent_query_time_in_millis`|所有查询操作使用并发段搜索的所有查询操作所需的总时间，以毫秒为单位。|
+|`search.concurrent_query_current`|使用并发段搜索的当前运行查询操作的数量。|
+

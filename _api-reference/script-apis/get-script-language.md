@@ -1,26 +1,26 @@
 ---
 layout: default
-title: Get Script Language
-parent: Script APIs
+title: 获取脚本语言
+parent: 脚本API
 nav_order: 6
 ---
 
-# Get script language
-**Introduced 1.0**
+# 获取脚本语言
+**引入1.0**
 {: .label .label-purple }
 
-The get script language API operation retrieves all supported script languages and their contexts.
+GET脚本语言API操作检索所有支持的脚本语言及其上下文。
 
-#### Example request
+#### 示例请求
 
 ```json
 GET _script_language
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
-The `GET _script_language` request returns the available contexts for each language:
+这`GET _script_language` 请求返回每种语言的可用上下文：
 
 ```json
 {
@@ -89,13 +89,14 @@ The `GET _script_language` request returns the available contexts for each langu
 }
 ```
 
-## Response fields
+## 响应字段
 
-The request contains the following response fields.
+该请求包含以下响应字段。
 
-Field | Data type | Description | 
+场地| 数据类型| 描述| 
 :--- | :--- | :---
-types_allowed | List of strings | The types of scripts that are enabled, determined by the `script.allowed_types` setting. May contain `inline` and/or `stored`.
-language_contexts | List of objects | A list of objects, each of which maps a supported language to its available contexts.
-language_contexts.language | String | The name of the registered scripting language.
-language_contexts.contexts | List of strings | A list of all contexts for the language, determined by the `script.allowed_contexts` setting.
+types_lowered| 字符串列表| 启用的脚本类型，由`script.allowed_types` 环境。可能含有`inline` 和/或`stored`。
+Laging_contexts| 对象列表| 一个对象列表，每个对象将支持的语言映射到其可用上下文中。
+language_contexts.language| 细绳| 注册脚本语言的名称。
+Laging_contexts.contexts| 字符串列表| 该语言的所有上下文列表，由`script.allowed_contexts` 环境。
+

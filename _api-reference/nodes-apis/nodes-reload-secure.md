@@ -1,34 +1,34 @@
 ---
 layout: default
-title: Nodes reload secure settings
-parent: Nodes APIs
+title: 节点重新加载安全设置
+parent: 节点API
 nav_order: 50
 ---
 
-# Nodes reload secure settings
-**Introduced 1.0**
+# 节点重新加载安全设置
+**引入1.0**
 {: .label .label-purple }
 
-The nodes reload secure settings endpoint allows you to change secure settings on a node and reload the secure settings without restarting the node.
+节点重新加载安全设置端点使您可以在节点上更改安全设置，并在不重新启动节点的情况下重新加载安全设置。
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 POST _nodes/reload_secure_settings
 POST _nodes/<nodeId>/reload_secure_settings
 ```
 
-## Path parameter
+## 路径参数
 
-You can include the following optional path parameter in your request.
+您可以在请求中包含以下可选路径参数。
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- | :--- | :---
-nodeId | String | A comma-separated list of nodeIds used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). Defaults to `_all`.
+nodeid| 细绳| 逗号-用于过滤结果的节点的分离列表。支持[节点过滤器]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters)。默认为`_all`。
 
-## Request fields
+## 请求字段
 
-The request may include an optional object containing the password for the OpenSearch keystore.
+该请求可能包括一个可选对象，其中包含OpenSearch密钥库的密码。
 
 ```json
 {
@@ -36,18 +36,18 @@ The request may include an optional object containing the password for the OpenS
 }
 ```
 
-#### Example request
+#### 示例请求
 
-The following is an example API request:
+以下是一个示例API请求：
 
 ```
 POST _nodes/reload_secure_settings
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
-The following is an example response:
+以下是一个示例响应：
 
 ```json
 {
@@ -65,6 +65,7 @@ The following is an example response:
 }
 ```
 
-## Required permissions
+## 所需的权限
 
-If you use the Security plugin, make sure you set the following permissions: `cluster:manage/nodes`.
+如果使用安全插件，请确保设置以下权限：`cluster:manage/nodes`
+

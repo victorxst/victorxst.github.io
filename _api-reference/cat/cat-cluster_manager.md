@@ -1,6 +1,6 @@
 ---
 layout: default
-title: CAT cluster manager
+title: CAT 集群管理器
 parent: CAT API
 redirect_from:
  - /opensearch/rest-api/cat/cat-master/
@@ -8,38 +8,39 @@ nav_order: 30
 has_children: false
 ---
 
-# CAT cluster_manager
-**Introduced 1.0**
+# CAT CLUSTER_MANAGER
+**引入1.0**
 {: .label .label-purple }
 
-The CAT cluster manager operation lists information that helps identify the elected cluster manager node.
+CAT群集管理器操作列出了有助于识别当选集群管理器节点的信息。
 
-## Example
+## 例子
 
 ```
 GET _cat/cluster_manager?v
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 GET _cat/cluster_manager
 ```
 
-## URL parameters
+## URL参数
 
-All CAT cluster manager URL parameters are optional.
+所有CAT群集管理器URL参数都是可选的。
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+除了[常见的URL参数]({{site.url}}{{site.baseurl}}/api-reference/cat/index)，您可以指定以下参数：
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- | :--- | :---
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
+cluster_manager_timeout| 时间| 等待连接到群集管理器节点的时间。默认值为30秒。
 
-## Response
+## 回复
 
 ```json
 id                     |   host     |     ip     |   node
 ZaIkkUd4TEiAihqJGkp5CA | 172.18.0.3 | 172.18.0.3 | opensearch-node2
 ```
+

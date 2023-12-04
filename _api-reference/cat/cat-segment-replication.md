@@ -1,82 +1,82 @@
 ---
 layout: default
-title: CAT segment replication
+title: CAT 节复制
 parent: CAT API
 nav_order: 53
 has_children: false
 ---
 
-# CAT segment replication
-**Introduced 2.7**
+# 猫节复制
+**引入2.7**
 {: .label .label-purple }
 
-The CAT segment replication operation returns information about active and last completed [segment replication]({{site.url}}{{site.baseurl}}/opensearch/segment-replication/index) events on each replica shard, including related shard-level metrics. These metrics provide information about how far behind the primary shard the replicas are lagging.
+猫节复制操作返回有关活动的信息，最后完成[段复制]({{site.url}}{{site.baseurl}}/opensearch/segment-replication/index) 每个复制碎片上的活动，包括相关碎片-水平指标。这些指标提供了有关复制品落后的主要碎片的信息。
 
-Call the CAT Segment Replication API only on indexes with segment replication enabled.
+仅在启用段复制的索引上调用CAT段复制API。
 {: .note}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```json
 GET /_cat/segment_replication
 GET /_cat/segment_replication/<index>
 ```
 
-## Path parameters
+## 路径参数
 
-The following table lists the available optional path parameter.
+下表列出了可用的可选路径参数。
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- | :--- | :---
-`index` | String | The name of the index, or a comma-separated list or wildcard expression of index names used to filter results. If this parameter is not provided, the response contains information about all indexes in the cluster.
+`index` | 细绳| 索引的名称或逗号-用于过滤结果的索引名称的分离列表或通配符表达式。如果未提供此参数，则响应包含有关集群中所有索引的信息。
 
-## Query parameters
+## 查询参数
 
-The CAT segment replication API operation supports the following optional query parameters.
+CAT段复制API操作支持以下可选查询参数。
 
-Parameter | Data type  | Description
+范围| 数据类型| 描述
 :--- |:-----------| :---
-`active_only` | Boolean    | If `true`, the response only includes active segment replications. Defaults to `false`. 
-[`detailed`](#additional-detailed-response-metrics) | String     | If `true`, the response includes additional metrics for each stage of a segment replication event. Defaults to `false`.
-`shards` | String     | A comma-separated list of shards to display.
-`bytes` | Byte units | [Units]({{site.url}}{{site.baseurl}}/opensearch/units/) used to display byte size values.
-`format` | String     | A short version of the HTTP accept header. Valid values include `JSON` and `YAML`.  
-`h` | String     | A comma-separated list of column names to display. 
-`help` | Boolean    | If `true`, the response includes help information. Defaults to `false`.
-`time` | Time units | [Units]({{site.url}}{{site.baseurl}}/opensearch/units/) used to display time values.
-`v` | Boolean    | If `true`, the response includes column headings. Defaults to `false`.
-`s` | String     | Specifies to sort the results. For example, `s=shardId:desc` sorts by shardId in descending order.
+`active_only` | 布尔| 如果`true`，响应仅包括主动段重复。默认为`false`。
+[`detailed`](#additional-detailed-response-metrics) | 细绳| 如果`true`，响应包括段复制事件的每个阶段的其他指标。默认为`false`。
+`shards` | 细绳| 逗号-分开显示的碎片列表。
+`bytes` | 字节单元| [单位]({{site.url}}{{site.baseurl}}/opensearch/units/) 用于显示字节大小值。
+`format` | 细绳| HTTP接受标头的简短版本。有效值包括`JSON` 和`YAML`。
+`h` | 细绳| 逗号-要显示的列名称的分开列表。
+`help` | 布尔| 如果`true`，响应包括帮助信息。默认为`false`。
+`time` | 时间单元| [单位]({{site.url}}{{site.baseurl}}/opensearch/units/) 用于显示时间值。
+`v` | 布尔| 如果`true`，响应包括列标题。默认为`false`。
+`s` | 细绳| 指定分类结果。例如，`s=shardId:desc` 通过降序进行shardid。
 
-## Example
+## 例子
 
-The following examples illustrate various segment replication responses.
+以下示例说明了各种段复制响应。
 
-#### Example 1: No active segment replication events
+#### 示例1：没有主动段复制事件
 
-The following query requests segment replication metrics with column headings for all indexes:
+以下查询请求将所有索引的列标题段复制指标：
 
 ```json
 GET /_cat/segment_replication?v=true
 ```
 {% include copy-curl.html %}
 
-The response contains the metrics for the preceding request:
+响应包含上述请求的指标：
 
 ```bash
 shardId target_node target_host checkpoints_behind bytes_behind current_lag last_completed_lag rejected_requests
 [index-1][0] runTask-1 127.0.0.1 0 0b 0s 7ms 0
 ```
 
-#### Example 2: Shard ID specified
+#### 示例2：指定的碎片ID
 
-The following query requests segment replication metrics with column headings for shards with the ID `0` from indexes `index1` and `index2`:
+以下查询请求段复制指标，带有ID的碎片列标题`0` 来自索引`index1` 和`index2`：
 
 ```json
 GET /_cat/segment_replication/index1,index2?v=true&shards=0
 ```
 {% include copy-curl.html %}
 
-The response contains the metrics for the preceding request. The column headings correspond to the metric names:
+响应包含前面请求的指标。列标题对应于公制名称：
 
 ```bash
 shardId target_node target_host checkpoints_behind bytes_behind current_lag last_completed_lag rejected_requests
@@ -84,16 +84,16 @@ shardId target_node target_host checkpoints_behind bytes_behind current_lag last
 [index-2][0] runTask-1 127.0.0.1 0 0b 0s 5ms 0
 ```
 
-#### Example 3: Detailed response
+#### 示例3：详细响应
 
-The following query requests detailed segment replication metrics with column headings for all indexes:
+以下查询请求详细的段复制指标，所有索引的列标题：
 
 ```json
 GET /_cat/segment_replication?v=true&detailed=true
 ```
 {% include copy-curl.html %}
 
-The response contains additional metrics about the files and stages of a segment replication event:
+响应包含有关段复制事件的文件和阶段的其他指标：
 
 ```bash
 shardId target_node target_host checkpoints_behind bytes_behind current_lag last_completed_lag rejected_requests stage time files_fetched files_percent bytes_fetched bytes_percent start_time stop_time files files_total bytes bytes_total replicating_stage_time_taken get_checkpoint_info_stage_time_taken file_diff_stage_time_taken get_files_stage_time_taken finalize_replication_stage_time_taken
@@ -101,16 +101,16 @@ shardId target_node target_host checkpoints_behind bytes_behind current_lag last
 [index-2][0] runTask-1 127.0.0.1 0 0b 0s 5ms 0 done 7ms 3 100.0% 3664 100.0% 2023-03-16T13:53:33.466Z 2023-03-16T13:53:33.474Z 3 3 3.5kb 3.5kb 0s 1ms 0s 2ms 2ms
 ```
 
-#### Example 4: Sorting the results
+#### 示例4：对结果进行排序
 
-The following query requests segment replication metrics with column headings for all indexes, sorted by shard ID in descending order:
+以下查询请求段复制指标，所有索引的列标题，按shard ID按降序排序：
 
 ```json
 GET /_cat/segment_replication?v&s=shardId:desc
 ```
 {% include copy-curl.html %}
 
-The response contains the sorted results:
+响应包含分类结果：
 
 ```bash
 shardId    target_node  target_host checkpoints_behind bytes_behind current_lag last_completed_lag rejected_requests
@@ -118,50 +118,51 @@ shardId    target_node  target_host checkpoints_behind bytes_behind current_lag 
 [test6][0] runTask-2   127.0.0.1   0                  0b           0s          4ms                0
 ```
 
-#### Example 5: Using a metric alias 
+#### 示例5：使用度量别名
 
-In a request, you can either use a metric's full name or one of its aliases. The following query is the same as the preceding query, but it uses the alias `s` instead of `shardID` for sorting:
+在请求中，您可以使用度量标准的全名或其别名之一。以下查询与前面的查询相同，但使用别名`s` 代替`shardID` 用于排序：
 
 ```json
 GET /_cat/segment_replication?v&s=s:desc
 ```
 {% include copy-curl.html %}
 
-## Response metrics
+## 响应指标
 
-The following table lists the response metrics that are returned for all requests. When referring to a metric in a query parameter, you can provide either the metric's full name or any of its aliases, as shown in the previous [example](#example-5-using-a-metric-alias).
+下表列出了所有请求返回的响应指标。在查询参数中指的指标时，您可以提供指标的全名或其任何别名，如上所述[例子](#example-5-using-a-metric-alias)。
 
-Metric | Alias | Description
+公制| 别名| 描述
 :--- | :--- | :---
-`shardId` | `s` | The ID of a specific shard.
-`target_host` | `thost` | The target host IP address.
-`target_node` | `tnode` | The target node name.
-`checkpoints_behind` | `cpb` | The number of checkpoints by which the replica shard is behind the primary shard.
-`bytes_behind` | `bb` | The number of bytes by which the replica shard is behind the primary shard.
-`current_lag` | `clag` | The time elapsed while waiting for a replica shard to catch up to the primary shard.
-`last_completed_lag` | `lcl` | The time taken for a replica shard to catch up to the latest primary shard refresh.
-`rejected_requests` | `rr` | The number of rejected requests for the replication group.
+`shardId` | `s` | 特定碎片的ID。
+`target_host` | `thost` | 目标主机IP地址。
+`target_node` | `tnode` | 目标节点名称。
+`checkpoints_behind` | `cpb` | 复制碎片在主要碎片后面的检查点的数量。
+`bytes_behind` | `bb` | 复制碎片在主要碎片后面的字节数。
+`current_lag` | `clag` | 等待复制碎片赶上主要碎片时的时间。
+`last_completed_lag` | `lcl` | 复制碎片所花费的时间赶上了最新的主要碎片刷新。
+`rejected_requests` | `rr` | 复制组的拒绝请求数量。
 
-### Additional detailed response metrics
+### 其他详细响应指标
 
-The following table lists the additional response fields returned if `detailed` is set to `true`.
+下表列出了返回的其他响应字段，如果`detailed` 被设定为`true`。
 
-Metric | Alias | Description
+公制| 别名| 描述
 :--- |:--- |:---
-`stage` | `st` | The current stage of a segment replication event.
-`time` | `t`, `ti` | The amount of time a segment replication event took to complete, in milliseconds.
-`files_fetched` | `ff` | The number of files fetched so far for a segment replication event.
-`files_percent` | `fp` | The percentage of files fetched so far for a segment replication event.
-`bytes_fetched` | `bf` | The number of bytes fetched so far for a segment replication event.
-`bytes_percent` | `bp` | The number of bytes fetched so far for a segment replication event as a percentage.
-`start_time` | `start` | The segment replication start time.
-`stop_time` | `stop` | The segment replication stop time.
-`files` | `f` | The number of files that needs to be fetched for a segment replication event.
-`files_total` | `tf` | The total number of files that are part of this recovery, including both reused and recovered files.
-`bytes` | `b` | The number of bytes that needs to be fetched for a segment replication event.
-`bytes_total` | `tb` | The total number of bytes in the shard.
-`replicating_stage_time_taken` | `rstt` | The amount of time the `replicating` stage of a segment replication event took to complete. 
-`get_checkpoint_info_stage_time_taken` | `gcistt` | The amount of time the `get checkpoint info` stage of a segment replication event took to complete. 
-`file_diff_stage_time_taken` | `fdstt` | The amount of time the `file diff` stage of a segment replication event took to complete. 
-`get_files_stage_time_taken` | `gfstt` | The amount of time the `get files` stage of a segment replication event took to complete. 
-`finalize_replication_stage_time_taken` | `frstt` | The amount of time the `finalize replication` stage of a segment replication event took to complete.
+`stage` | `st` | 段复制事件的当前阶段。
+`time` | `t`，`ti` | 分段复制事件以毫秒为单位完成的时间。
+`files_fetched` | `ff` | 到目前为止，用于段复制事件的文件数量。
+`files_percent` | `fp` | 到目前为止，用于段复制事件的文件百分比。
+`bytes_fetched` | `bf` | 到目前为止，用于段复制事件的字节数。
+`bytes_percent` | `bp` | 到目前为止，以段重复事件的百分比获取字节数。
+`start_time` | `start` | 段复制开始时间。
+`stop_time` | `stop` | 段复制停止时间。
+`files` | `f` | 需要获取段复制事件的文件数量。
+`files_total` | `tf` | 是此恢复的一部分的文件总数，包括重复使用和恢复的文件。
+`bytes` | `b` | 需要获取细分复制事件的字节数。
+`bytes_total` | `tb` | 碎片中的字节总数。
+`replicating_stage_time_taken` | `rstt` | 时间的时间`replicating` 段重复事件的阶段完成。
+`get_checkpoint_info_stage_time_taken` | `gcistt` | 时间的时间`get checkpoint info` 段重复事件的阶段完成。
+`file_diff_stage_time_taken` | `fdstt` | 时间的时间`file diff` 段重复事件的阶段完成。
+`get_files_stage_time_taken` | `gfstt` | 时间的时间`get files` 段重复事件的阶段完成。
+`finalize_replication_stage_time_taken` | `frstt` | 时间的时间`finalize replication` 段重复事件的阶段完成。
+

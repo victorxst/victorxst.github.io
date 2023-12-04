@@ -1,47 +1,47 @@
 ---
 layout: default
-title: Cluster stats
+title: 集群统计
 nav_order: 60
-parent: Cluster APIs
+parent: 群集API
 has_children: false
 redirect_from:
   - /api-reference/cluster-stats/
   - /opensearch/rest-api/cluster-stats/
 ---
 
-# Cluster stats
-**Introduced 1.0**
+# 集群统计
+**引入1.0**
 {: .label .label-purple }
 
-The cluster stats API operation returns statistics about your cluster.
+群集统计API操作返回有关群集的统计信息。
 
-## Example
+## 例子
 
 ```json
 GET _cluster/stats/nodes/_cluster_manager
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```json
 GET _cluster/stats
 GET _cluster/stats/nodes/<node-filters>
 ```
 
-## URL parameters
+## URL参数
 
-All cluster stats parameters are optional.
+所有群集统计参数都是可选的。
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- | :--- | :---
-&lt;node-filters&gt; | List | A comma-separated list of [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters) that OpenSearch uses to filter results.
+＆lt; node-过滤器＆gt;| 列表| 逗号-分开的列表[节点过滤器]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters) OpenSearch用来过滤结果。
 
 
-  Although the `master` node is now called `cluster_manager` for version 2.0, we retained the `master` field for backwards compatibility. If you have a node that has either a `master` role or a `cluster_manager` role, the `count` increases for both fields by 1. To see an example node count increase, see the Response sample.
+  虽然`master` 现在称为节点`cluster_manager` 对于2.0版，我们保留了`master` 向后兼容的字段。如果您的节点有一个`master` 角色或`cluster_manager` 角色，`count` 这两个字段的增加。要查看示例节点计数的增加，请参见响应样本。
    {: .note }
 
-## Response
+## 回复
 
 ```json
 {
@@ -481,36 +481,37 @@ Parameter | Type | Description
 }
 ```
 
-## Response body fields
+## 响应身体场
 
-Field | Description
+场地| 描述
 :--- | :---
-nodes | How many nodes returned in the response.
-cluster_name | The cluster's name.
-cluster_uuid | The cluster's uuid.
-timestamp | The Unix epoch time of when the cluster was last refreshed.
-status | The cluster's health status.
-indices | Statistics about the indexes in the cluster.
-indices.count | How many indexes are in the cluster.
-indices.shards | Information about the cluster's shards.
-indices.docs | How many documents are still in the cluster and how many documents are deleted.
-indices.store | Information about the cluster's storage.
-indices.fielddata | Information about the cluster's field data
-indices.query_cache | Data about the cluster's query cache.
-indices.completion | How many bytes in memory are used to complete operations.
-indices.segments | Information about the cluster's segments, which are small Lucene indexes.
-indices.mappings | Mappings within the cluster.
-indices.analysis | Information about analyzers used in the cluster.
-nodes | Statistics about the nodes in the cluster.
-nodes.count | How many nodes were returned from the request.
-nodes.versions | OpenSearch's version number.
-nodes.os | Information about the operating systems used in the nodes.
-nodes.process | The processes the returned nodes use.
-nodes.jvm | Statistics about the Java Virtual Machines in use.
-nodes.fs | The nodes' file storage.
-nodes.plugins | The OpenSearch plugins integrated within the nodes.
-nodes.network_types | The transport and HTTP networks within the nodes.
-nodes.discovery_type | The method the nodes use to find other nodes within the cluster.
-nodes.packaging_types | Information about the nodes' OpenSearch distribution.
-nodes.ingest | Information about the nodes' ingest pipelines/nodes, if there are any.
-total_time_spent | The total amount of download and upload time spent across all shards in the cluster when downloading or uploading from the remote store.
+节点| 响应中返回了多少个节点。
+cluster_name| 集群的名称。
+cluster_uuid| 集群的UUID。
+时间戳| 群集最后一次刷新的Unix时期时间。
+地位| 集群的健康状况。
+指数| 有关集群中索引的统计信息。
+indices.count| 集群中有多少个索引。
+索引| 有关集群碎片的信息。
+indices.docs| 集群中仍有多少个文档，并删除了多少个文档。
+indices.Store| 有关集群存储的信息。
+indices.fielddata| 有关集群字段数据的信息
+indices.query_cache| 有关集群查询缓存的数据。
+indices.completion| 内存中有多少个字节来完成操作。
+索引| 有关集群细分市场的信息，这些细分是小的Lucene索引。
+索引| 集群中的映射。
+指数。分析| 有关集群中使用的分析仪的信息。
+节点| 有关群集中节点的统计信息。
+nodes.count| 从请求返回了多少个节点。
+nodes.versions| OpenSearch的版本编号。
+nodes.os| 有关节点中使用的操作系统的信息。
+Nodes.process| 返回的节点使用的过程。
+nodes.jvm| 有关Java虚拟机的统计信息。
+nodes.fs| 节点的文件存储。
+Nodes.plugins| 集成在节点中的OpenSearch插件。
+nodes.network_types| 节点内的传输和HTTP网络。
+nodes.discovery_type| 节点用来在群集中找到其他节点的方法。
+nodes.packaging_types| 有关节点的搜索分布的信息。
+节点| 有关节点的摄入管道/节点的信息，如果有的话。
+total_time_spent| 从远程商店下载或上传时，在集群中所有碎片的下载和上传时间的总数总数。
+

@@ -1,34 +1,34 @@
 ---
 layout: default
-title: Tasks
+title: 任务
 nav_order: 85
 redirect_from:
  - /opensearch/rest-api/tasks/
 ---
 
-# Tasks
-**Introduced 1.0**
+# 任务
+**引入1.0**
 {: .label .label-purple }
 
-A task is any operation you run in a cluster. For example, searching your data collection of books for a title or author name is a task. When you run OpenSearch, a task is automatically created to monitor your cluster's health and performance. For more information about all of the tasks currently executing in your cluster, you can use the `tasks` API operation.
+任务是您在集群中运行的任何操作。例如，搜索书籍的数据收集以获取标题或作者名称是一项任务。运行OpenSearch时，将自动创建任务以监视群集的健康和性能。有关当前集群中当前执行的所有任务的更多信息，您可以使用`tasks` API操作。
 
-The following request returns information about all of your tasks:
+以下请求返回有关您所有任务的信息：
 
 ```
 GET _tasks
 ```
 {% include copy-curl.html %}
 
-By including a task ID, you can get information specific to a particular task. Note that a task ID consists of a node's identifying string and the task's numerical ID. For example, if your node's identifying string is `nodestring` and the task's numerical ID is `1234`, then your task ID is `nodestring:1234`. You can find this information by running the `tasks` operation:
+通过包含任务ID，您可以获取特定于特定任务的信息。请注意，任务ID由节点的标识字符串和任务的数值ID组成。例如，如果您的节点的识别字符串为`nodestring` 任务的数值ID是`1234`，那么您的任务ID是`nodestring:1234`。您可以通过运行`tasks` 手术：
 
 ```
 GET _tasks/<task_id>
 ```
 {% include copy-curl.html %}
 
-Note that if a task finishes running, it won't be returned as part of your request. For an example of a task that takes a little longer to finish, you can run the [`_reindex`]({{site.url}}{{site.baseurl}}/opensearch/reindex-data) API operation on a larger document, and then run `tasks`.
+请注意，如果任务完成了，则不会作为您的请求的一部分返回。对于一个任务需要更长的时间才能完成的示例，您可以运行[`_reindex`]({{site.url}}{{site.baseurl}}/opensearch/reindex-data) API在较大的文档上操作，然后运行`tasks`。
 
-#### Example response
+#### 示例响应
 ```json
 {
   "nodes": {
@@ -82,29 +82,29 @@ Note that if a task finishes running, it won't be returned as part of your reque
 }
 ```
 
-You can also use the following parameters with your query.
+您也可以在查询中使用以下参数。
 
-Parameter | Data type | Description |
+范围| 数据类型| 描述|
 :--- | :--- | :---
-`nodes` | List | A comma-separated list of node IDs or names to limit the returned information. Use `_local` to return information from the node you're connecting to, specify the node name to get information from specific nodes, or keep the parameter empty to get information from all nodes.
-`actions` | List | A comma-separated list of actions that should be returned. Keep empty to return all.
-`detailed` | Boolean | Returns detailed task information. (Default: false)
-`parent_task_id` | String | Returns tasks with a specified parent task ID (node_id:task_number). Keep empty or set to -1 to return all.
-`wait_for_completion` | Boolean | Waits for the matching tasks to complete. (Default: false)
-`group_by` | Enum | Groups tasks by parent/child relationships or nodes. (Default: nodes)
-`timeout` | Time | An explicit operation timeout. (Default: 30 seconds)
-`cluster_manager_timeout` | Time | The time to wait for a connection to the primary node. (Default: 30 seconds)
+`nodes` | 列表| 逗号-分开的节点ID列表或名称以限制返回的信息。使用`_local` 要返回您要连接的节点的信息，请指定节点名称以从特定节点获取信息，或将参数保留为空以从所有节点中获取信息。
+`actions` | 列表| 逗号-分开应返回的动作列表。保持空返回全部。
+`detailed` | 布尔| 返回详细的任务信息。（默认：false）
+`parent_task_id` | 细绳| 使用指定的父任务ID（node_id：task_number）返回任务。保持空或设置为-1返回全部。
+`wait_for_completion` | 布尔| 等待匹配任务完成。（默认：false）
+`group_by` | 枚举| 按父母/子关系或节点组成任务。（默认：节点）
+`timeout` | 时间| 明确的操作超时。（默认：30秒）
+`cluster_manager_timeout` | 时间| 等待与主节点连接的时间。（默认：30秒）
 
-For example, this request returns tasks currently running on a node named `opensearch-node1`:
+例如，此请求返回当前在名为的节点上运行的任务`opensearch-node1`：
 
-#### Example request
+#### 示例请求
 
 ```json
 GET /_tasks?nodes=opensearch-node1
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -148,16 +148,16 @@ GET /_tasks?nodes=opensearch-node1
 }
 ```
 
-The following request returns detailed information about active search tasks:
+以下请求返回有关活动搜索任务的详细信息：
 
-#### Example request
+#### 示例请求
 
 ```bash
 curl -XGET "localhost:9200/_tasks?actions=*search&detailed
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -219,59 +219,59 @@ curl -XGET "localhost:9200/_tasks?actions=*search&detailed
 
 ```
 
-### The `resource_stats` object
+### 这`resource_stats` 目的
 
-The `resource_stats` object is only updated for tasks that support resource tracking. These stats are computed based on scheduled thread executions, including both threads that have finished working on the task and threads currently working on the task. Because the same thread may be scheduled to work on the same task multiple times, each instance of a given thread being scheduled to work on a given task is considered to be a single thread execution.
+这`resource_stats` 仅针对支持资源跟踪的任务更新对象。这些统计数据是根据计划的线程执行计算的，包括完成了完成该任务的两个线程和当前从事该任务的线程。由于可以安排同一线程多次处理同一任务，因此安排在给定任务上使用的给定线程的每个实例都被认为是单个线程执行。
 
-The following table lists all response fields in the `resource_stats` object. 
+下表列出了所有响应字段`resource_stats` 目的。
 
-Response field | Description |
+响应字段| 描述|
 :--- | :--- |
-`average` | The average resource usage across all scheduled thread executions. |
-`total` | The sum of resource usages across all scheduled thread executions. |
-`min` | The minimum resource usage across all scheduled thread executions. |
-`max` | The maximum resource usage across all scheduled thread executions. |
-`thread_info` | Thread-count-related stats.|
-`thread_info.active_threads` | The number of threads currently working on the task. |
-`thread_info.thread_executions` | The number of threads that have been scheduled to work on the task. |
+`average` | 所有计划的线程执行中的平均资源使用情况。|
+`total` | 所有计划的线程执行中的资源使用总和。|
+`min` | 所有计划的线程执行中的最小资源使用率。|
+`max` | 所有计划的线程执行中的最大资源使用情况。|
+`thread_info` | 线-数数-相关统计。|
+`thread_info.active_threads` | 当前从事该任务的线程数。|
+`thread_info.thread_executions` | 已计划处理该任务的线程数量。|
 
-## Task canceling
+## 任务取消
 
-After getting a list of tasks, you can cancel all cancelable tasks with the following request:
+获得任务列表后，您可以通过以下请求取消所有可取消任务：
 
 ```
 POST _tasks/_cancel
 ```
 {% include copy-curl.html %}
 
-Note that not all tasks are cancelable. To see if a task is cancelable, refer to the `cancellable` field in the response to your `tasks` API request.
+请注意，并非所有任务都是可以取消的。要查看任务是否可以取消，请参阅`cancellable` 对您的回应`tasks` API请求。
 
-You can also cancel a task by including a specific task ID.
+您还可以通过包括特定任务ID来取消任务。
 
 ```
 POST _tasks/<task_id>/_cancel
 ```
 {% include copy-curl.html %}
 
-The `cancel` operation supports the same parameters as the `tasks` operation. The following example shows how to cancel all cancelable tasks on multiple nodes.
+这`cancel` 操作支持与`tasks` 手术。以下示例显示了如何取消多个节点上的所有可取消任务。
 
 ```
 POST _tasks/_cancel?nodes=opensearch-node1,opensearch-node2
 ```
 {% include copy-curl.html %}
 
-## Attaching headers to tasks
+## 将标题附加到任务
 
-To associate requests with tasks for better tracking, you can provide a `X-Opaque-Id:<ID_number>` header as part of the HTTPS request reader of your `curl` command. The API will attach the specified header in the returned result.
+要将请求与任务更好地跟踪，您可以提供一个`X-Opaque-Id:<ID_number>` 标题作为您的HTTPS请求阅读器的一部分`curl` 命令。API将在返回的结果中附加指定的标头。
 
-Usage:
+用法：
 
 ```bash
 curl -i -H "X-Opaque-Id: 111111" "https://localhost:9200/_tasks" -u 'admin:admin' --insecure
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-The `_tasks` operation returns the following result.
+这`_tasks` 操作返回以下结果。
 
 ```json
 HTTP/1.1 200 OK
@@ -323,9 +323,10 @@ content-length: 768
   }
 }
 ```
-This operation supports the same parameters as the `tasks` operation. The following example shows how you can associate `X-Opaque-Id` with specific tasks:
+此操作支持与`tasks` 手术。以下示例显示了如何关联`X-Opaque-Id` 有特定的任务：
 
 ```bash
 curl -i -H "X-Opaque-Id: 123456" "https://localhost:9200/_tasks?nodes=opensearch-node1" -u 'admin:admin' --insecure
 ```
-{% include copy.html %}
+{％include copy.html％}
+

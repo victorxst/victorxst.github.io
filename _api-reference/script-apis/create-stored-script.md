@@ -1,55 +1,55 @@
 ---
 layout: default
-title: Create or Update Stored Script
-parent: Script APIs
+title: 创建或更新存储的脚本
+parent: 脚本API
 nav_order: 1
 ---
 
-# Create or update stored script
-**Introduced 1.0**
+# 创建或更新存储的脚本
+**引入1.0**
 {: .label .label-purple }
 
-Creates or updates a stored script or search template.
+创建或更新存储的脚本或搜索模板。
 
-For additional information about Painless scripting, see:
+有关无痛脚本的其他信息，请参见：
 
-* [k-NN Painless Scripting extensions]({{site.url}}{{site.baseurl}}/search-plugins/knn/painless-functions/).
+*[k-nn无痛的脚本扩展]({{site.url}}{{site.baseurl}}/search-plugins/knn/painless-functions/)。
 
-* [k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/).
+*[k-nn]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/)。
 
 
-## Path parameters
+## 路径参数
 
-| Parameter | Data type | Description | 
+| 范围| 数据类型| 描述| 
 :--- | :--- | :---
-| script-id | String | Stored script or search template ID. Must be unique across the cluster. Required. |
+| 脚本-ID| 细绳| 存储的脚本或搜索模板ID。必须在整个集群中是唯一的。必需的。|
 
-## Query parameters
+## 查询参数
 
-All parameters are optional.
+所有参数都是可选的。
 
-| Parameter | Data type | Description | 
+| 范围| 数据类型| 描述| 
 :--- | :--- | :---
-| context | String | Context in which the script or search template is to run. To prevent errors, the API immediately compiles the script or template in this context. |
-| cluster_manager_timeout | Time | Amount of time to wait for a connection to the cluster manager. Defaults to 30 seconds. |
-| timeout | Time | The period of time to wait for a response. If a response is not received before the timeout value, the request fails and returns an error. Defaults to 30 seconds.|
+| 语境| 细绳| 脚本或搜索模板要运行的上下文。为了防止错误，API立即在此上下文中编译脚本或模板。|
+| cluster_manager_timeout| 时间| 等待与群集管理器连接的时间。默认为30秒。|
+| 暂停| 时间| 等待回应的时间。如果在超时值之前未收到响应，则请求失败并返回错误。默认为30秒。|
 
-## Request fields
+## 请求字段
 
-| Field | Data type | Description | 
+| 场地| 数据类型| 描述| 
 :--- | :--- | :---
-| script | Object | Defines the script or search template, its parameters, and its language. See *Script object* below. |
+| 脚本| 目的| 定义脚本或搜索模板，其参数及其语言。请参阅下面的 *脚本对象 *。|
 
-*Script object*
+*脚本对象*
 
-| Field | Data type | Description | 
+| 场地| 数据类型| 描述| 
 :--- | :--- | :---
-| lang | String | Scripting language. Required. |
-| source | String or Object | Required. <br /> <br /> For scripts, a string with the contents of the script. <br /> <br /> For search templates, an object that defines the search template. Supports the same parameters as the [Search]({{site.url}}{{site.baseurl}}/api-reference/search) API request body. Search templates also support Mustache variables. |
+| 朗| 细绳| 脚本语言。必需的。|
+| 来源| 字符串或对象| 必需的。<br /> <br />对于脚本，一个带有脚本内容的字符串。<br /> <br />对于搜索模板，定义搜索模板的对象。支持与[搜索]({{site.url}}{{site.baseurl}}/api-reference/search) API请求主体。搜索模板还支持胡须变量。|
 
-#### Example request
+#### 示例请求
 
-The sample uses an index called `books` with the following documents:
+该示例使用索引称为`books` 使用以下文件：
 
 ````json
 {"index":{"_id":1}}
@@ -60,7 +60,7 @@ The sample uses an index called `books` with the following documents:
 {"name":"book3","author":"Gilroy","ratings":[2,1,5]}
 ````
 
-The following request creates the Painless script `my-first-script`. It sums the ratings for each book and displays the sum in the output.
+以下请求创建了无痛的脚本`my-first-script`。它总和每本书的评分并在输出中显示总和。
 
 ````json
 PUT _scripts/my-first-script
@@ -77,12 +77,12 @@ PUT _scripts/my-first-script
   }
 }
 ````
-{% include copy.html %}
+{％include copy.html％}
 
-The example above uses the syntax of the Dev Tools console in OpenSearch Dashboards. You can also use a curl request.
+上面的示例使用OpenSearch仪表板中的Dev工具控制台的语法。您也可以使用卷曲请求。
 {: .note }
 
-The following curl request is equivalent to the previous Dashboards console example:
+以下curl请求等效于以前的仪表板控制台示例：
 
 ````json
 curl -XPUT "http://opensearch:9200/_scripts/my-first-script" -H 'Content-Type: application/json' -d'
@@ -93,10 +93,10 @@ curl -XPUT "http://opensearch:9200/_scripts/my-first-script" -H 'Content-Type: a
   }
 }'
 ````
-{% include copy.html %}
+{％include copy.html％}
 
 
-The following request creates the Painless script `my-first-script`, which sums the ratings for each book and displays the sum in the output:
+以下请求创建了无痛的脚本`my-first-script`，总和每本书的评分并在输出中显示总和：
 
 ````json
 PUT _scripts/my-first-script
@@ -115,11 +115,11 @@ PUT _scripts/my-first-script
 ````
 {% include copy-curl.html %}
 
-See [Execute Painless stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/exec-stored-script/) for information about running the script.
+看[执行无痛的存储脚本]({{site.url}}{{site.baseurl}}/api-reference/script-apis/exec-stored-script/) 有关运行脚本的信息。
 
-#### Example response
+#### 示例响应
 
-The `PUT _scripts/my-first-script` request returns the following field:
+这`PUT _scripts/my-first-script` 请求返回以下字段：
 
 ````json
 {
@@ -127,22 +127,22 @@ The `PUT _scripts/my-first-script` request returns the following field:
 }
 ````
 
-To determine whether the script was successfully created, use the [Get stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/get-stored-script/) API, passing the script name as the `script` path parameter.
+要确定是否成功创建了脚本，请使用[获取存储的脚本]({{site.url}}{{site.baseurl}}/api-reference/script-apis/get-stored-script/) API，将脚本名称传递给`script` 路径参数。
 {: .note}
 
-### Response fields
+### 响应字段
 
-| Field | Data type | Description | 
+| 场地| 数据类型| 描述| 
 :--- | :--- | :---
-| acknowledged | Boolean | Whether the request was received. |
+| 承认| 布尔| 是否收到请求。|
 
-## Creating or updating a stored script with parameters
+## 使用参数创建或更新存储的脚本
 
-The Painless script supports `params` to pass variables to the script. 
+无痛的脚本支持`params` 将变量传递到脚本。
 
-#### Example
+#### 例子
 
-The following request creates the Painless script `multiplier-script`. The request sums the ratings for each book, multiplies the summed value by the `multiplier` parameter, and displays the result in the output:
+以下请求创建了无痛的脚本`multiplier-script`。该请求总计每本书的评分，将总价值乘以`multiplier` 参数，并在输出中显示结果：
 
 ````json
 PUT _scripts/multiplier-script
@@ -161,9 +161,9 @@ PUT _scripts/multiplier-script
 ````
 {% include copy-curl.html %}
 
-### Example response
+### 示例响应
 
-The `PUT _scripts/multiplier-script` request returns the following field:
+这`PUT _scripts/multiplier-script` 请求返回以下字段：
 
 ````json
 {

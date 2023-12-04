@@ -1,59 +1,59 @@
 ---
 layout: default
-title: Nodes hot threads
-parent: Nodes APIs
+title: 节点热线
+parent: 节点API
 nav_order: 30
 ---
 
-# Nodes hot threads
-**Introduced 1.0**
+# 节点热线
+**引入1.0**
 {: .label .label-purple }
 
-The nodes hot threads endpoint provides information about busy JVM threads for selected cluster nodes. It provides a unique view of the of activity each node.
+节点热线程端点提供有关所选群集节点繁忙的JVM线程的信息。它提供了每个节点活动的独特视图。
 
-#### Example
+#### 例子
 
 ```json
 GET /_nodes/hot_threads
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```json
 GET /_nodes/hot_threads
 GET /_nodes/<nodeId>/hot_threads
 ```
 
-## Path parameters
+## 路径参数
 
-You can include the following optional path parameter in your request. 
+您可以在请求中包含以下可选路径参数。
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- | :--- | :---
-nodeId | String  | A comma-separated list of node IDs used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). Defaults to `_all`.
+nodeid| 细绳| 逗号-用于过滤结果的节点ID的分离列表。支持[节点过滤器]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters)。默认为`_all`。
 
-## Query parameters
+## 查询参数
 
-You can include the following query parameters in your request. All query parameters are optional.
+您可以在请求中包含以下查询参数。所有查询参数都是可选的。
 
-Parameter | Type | Description
-:--- | :---| :---
-snapshots | Integer | The number of samples of thread stacktraces. Defaults to `10`.
-interval | Time | The interval between consecutive samples. Defaults to `500ms`.
-threads | Integer | The number of the busiest threads to return information about. Defaults to `3`.
-ignore_idle_threads | Boolean   | Don’t show threads that are in known idle states, such as waiting on a socket select or pulling from an empty task queue. Defaults to `true`.
-type | String | Supported thread types are `cpu`, `wait`, or `block`. Defaults to `cpu`.
-timeout | Time | Sets the time limit for node response. Default value is `30s`.
+范围| 类型| 描述
+:--- | :---| ：---
+快照| 整数| 线程堆栈的样本数量。默认为`10`。
+间隔| 时间| 连续样品之间的间隔。默认为`500ms`。
+线程| 整数| 返回有关信息的最繁忙线程的数量。默认为`3`。
+ignore_idle_threads| 布尔| 不要显示已知空闲状态的线程，例如在插座上等待或从空任务队列中拉出的线程。默认为`true`。
+类型| 细绳| 支持的线程类型是`cpu`，`wait`， 或者`block`。默认为`cpu`。
+暂停| 时间| 设置节点响应的时间限制。默认值是`30s`。
 
-#### Example request 
+#### 示例请求
 
 ```json
 GET /_nodes/hot_threads
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```bash
 ::: {opensearch}{F-ByTQzVQ3GQeYzQJArJGQ}{GxbcLdCATPWggOuQHJAoCw}{127.0.0.1}{127.0.0.1:9300}{dimr}{shard_indexing_pressure_enabled=true}
@@ -65,26 +65,26 @@ GET /_nodes/hot_threads
        org.opensearch.performanceanalyzer.collectors.ScheduledMetricCollectorsExecutor.run(ScheduledMetricCollectorsExecutor.java:100)
 ```
 
-## Response
+## 回复
 
-Unlike the majority of OpenSearch API responses, this response is in a text format.
+与大多数OpenSearch API响应不同，此响应是文本格式。
 
-It consists of one section per each cluster node included in the response.
+它由响应中包含的每个群集节点的一个部分组成。
 
-Each section starts with a single line containing the following segments:
+每个部分以包含以下段的一行开始：
 
-Line segment | Description
-:--- |:-------
-<code>:::&nbsp;</code>  | Line start (a distinct visual symbol).
-`{global-eu-35}` | Node name.
-`{uFPbKLDOTlOmdnwUlKW8sw}` | NodeId.
-`{OAM8OT5CQAyasWuIDeVyUA}` | EphemeralId.
-`{global-eu-35.local}` | Host name.
-`{[gdv2:a284:2acv:5fa6:0:3a2:7260:74cf]:9300}` | Host address.
-`{dimr}` | Node roles (d=data, i=ingest, m=cluster&nbsp;manager, r=remote&nbsp;cluster&nbsp;client).
-`{zone=west-a2, shard_indexing_pressure_enabled=true}` | Node attributes.
+线段| 描述
+：--- |：-------
+<code> :::＆nbsp; </code>| 线启动（一个独特的视觉符号）。
+`{global-eu-35}` | 节点名称。
+`{uFPbKLDOTlOmdnwUlKW8sw}` | nodeid。
+`{OAM8OT5CQAyasWuIDeVyUA}` | 临时性。
+`{global-eu-35.local}` | 主机名。
+`{[gdv2:a284:2acv:5fa6:0:3a2:7260:74cf]:9300}` | 主机地址。
+`{dimr}` | 节点角色（d = data，i = ingest，m = cluster＆nbsp; manager，r =远程＆nbsp; cluster＆nbsp; client）。
+`{zone=west-a2, shard_indexing_pressure_enabled=true}` | 节点属性。
 
-Then information about threads of the selected type is provided.
+然后提供有关所选类型线程的信息。
 
 ```bash
 ::: {global-eu-35}{uFPbKLDOTlOmdnwUlKW8sw}{OAM8OT5CQAyasWuIDeVyUA}{global-eu-35.local}{[gdv2:a284:2acv:5fa6:0:3a2:7260:74cf]:9300}{dimr}{zone=west-a2, shard_indexing_pressure_enabled=true}
@@ -122,6 +122,7 @@ Then information about threads of the selected type is provided.
        app//org.opensearch.transport.OutboundHan...
 ```
 
-## Required permissions
+## 所需的权限
 
-If you use the Security plugin, make sure you set the following permissions: `cluster:monitor/nodes/hot_threads`.
+如果使用安全插件，请确保设置以下权限：`cluster:monitor/nodes/hot_threads`。
+

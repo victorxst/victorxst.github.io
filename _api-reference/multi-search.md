@@ -6,13 +6,13 @@ redirect_from:
  - /opensearch/rest-api/multi-search/
 ---
 
-# Multi-search
-**Introduced 1.0**
+# 多-搜索
+**引入1.0**
 {: .label .label-purple }
 
-As the name suggests, the multi-search operation lets you bundle multiple search requests into a single request. OpenSearch then executes the searches in parallel, so you get back the response more quickly compared to sending one request per search. OpenSearch executes each search independently, so the failure of one doesn't affect the others.
+顾名思义，多-搜索操作使您可以将多个搜索请求捆绑到一个请求中。然后，OpenSearch并并行执行搜索，因此与每次搜索发送一个请求相比，您更快地获得了响应。OpenSearch独立执行每个搜索，因此一个失败不会影响其他搜索。
 
-## Example
+## 例子
 
 ```json
 GET _msearch
@@ -25,7 +25,7 @@ GET _msearch
 {% include copy-curl.html %}
 
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 GET _msearch
@@ -35,9 +35,9 @@ POST <indices>/_msearch
 ```
 
 
-## Request body
+## 请求身体
 
-The multi-search request body follows this pattern:
+多-搜索请求主体遵循以下模式：
 
 ```
 Metadata\n
@@ -47,50 +47,50 @@ Query\n
 
 ```
 
-- Metadata lines include options, such as which indexes to search and the type of search.
-- Query lines use the [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/).
+- 元数据线包括选项，例如搜索索引和搜索类型。
+- 查询线使用[查询DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/)。
 
-Just like the [bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) operation, the JSON doesn't need to be minified---spaces are fine---but it does need to be on a single line. OpenSearch uses newline characters to parse multi-search requests and requires that the request body end with a newline character.
+就像[大部分]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) 操作，JSON不需要缩小---空间很好---但是它确实需要在一条线上。OpenSearch使用newline字符来解析元-搜索请求，并要求请求主体以newline字符结束。
 
 
-## URL parameters and metadata options
+## URL参数和元数据选项
 
-All multi-search URL parameters are optional. Some can also be applied per-search as part of each metadata line.
+全部多-搜索URL参数是可选的。有些也可以使用-作为每条元数据线的一部分搜索。
 
-Parameter | Type | Description | Supported in metadata line
+范围| 类型| 描述| 元数据线支持
 :--- | :--- | :---
-allow_no_indices | Boolean | Whether to ignore wildcards that don't match any indexes. Default is `true`. | Yes
-cancel_after_time_interval | Time | The time after which the search request will be canceled. Supported at both parent and child request levels. The order of precedence is:<br> 1. Child-level parameter<br> 2. Parent-level parameter<br> 3. [Cluster setting]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings).<br>Default is -1. | Yes
-css_minimize_roundtrips | Boolean | Whether OpenSearch should try to minimize the number of network round trips between the coordinating node and remote clusters (only applicable to cross-cluster search requests). Default is `true`. | No
-expand_wildcards | Enum | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`. | Yes
-ignore_unavailable | Boolean | If an index from the indexes list doesn’t exist, whether to ignore it rather than fail the query. Default is `false`. | Yes
-max_concurrent_searches | Integer | The maximum number of concurrent searches. The default depends on your node count and search thread pool size. Higher values can improve performance, but risk overloading the cluster. | No
-max_concurrent_shard_requests | Integer | Maximum number of concurrent shard requests that each search executes per node. Default is 5. Higher values can improve performance, but risk overloading the cluster. | No
-pre_filter_shard_size | Integer | Default is 128. | No
-rest_total_hits_as_int | String | Whether the `hits.total` property is returned as an integer (`true`) or an object (`false`). Default is `false`. | No
-search_type | String | Affects relevance score. Valid options are `query_then_fetch` and `dfs_query_then_fetch`. `query_then_fetch` scores documents using term and document frequencies for the shard (faster, less accurate), whereas `dfs_query_then_fetch` uses term and document frequencies across all shards (slower, more accurate). Default is `query_then_fetch`. | Yes
-typed_keys | Boolean | Whether to prefix aggregation names with their internal types in the response. Default is `false`. | No
+允许_no_indices| 布尔| 是否忽略不符合任何索引的通配符。默认为`true`。| 是的
+cancel_after_time_interval| 时间| 之后将取消搜索请求的时间。在父母和子女请求级别上得到支持。优先顺序是：<br> 1.孩子-级别参数<br> 2.父-级别参数<br> 3。[集群设置]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings)。<br>默认值为-1。| 是的
+CSS_MINIMIZE_ROUNDTRIPS| 布尔| OpenSearch是否应该尝试最大程度地减少协调节点和远程群集之间的网络往返数量（仅适用于交叉-集群搜索请求）。默认为`true`。| 不
+Expand_WildCard| 枚举| 将通配符表达式扩展到混凝土指数。将多个值与逗号相结合。支持的值是`all`，`open`，`closed`，`hidden`， 和`none`。默认为`open`。| 是的
+ignore_unavailable| 布尔| 如果不存在来自索引列表的索引，是否忽略它而不是使查询失败。默认为`false`。| 是的
+max_concurrent_searches| 整数| 并发搜索的最大数量。默认值取决于您的节点计数和搜索线程池大小。较高的值可以提高性能，但有可能使集群超负荷。| 不
+max_concurrent_shard_requests| 整数| 每个节点执行每个搜索执行的并发碎片请求的最大数量。默认值为5。更高的值可以提高性能，但风险超载集群。| 不
+pre_filter_shard_size| 整数| 默认值为128。| 不
+REST_TOTAL_HITS_AS_INT| 细绳| 是否`hits.total` 属性作为整数返回（`true`）或一个对象（`false`）。默认为`false`。| 不
+搜索类型| 细绳| 影响相关得分。有效的选项是`query_then_fetch` 和`dfs_query_then_fetch`。`query_then_fetch` 使用术语和文档频率分数（更快，准确）的频率分数，而`dfs_query_then_fetch` 在所有碎片中使用术语和文档频率（较慢，更准确）。默认为`query_then_fetch`。| 是的
+typed_keys| 布尔| 是否在响应中将聚合名称添加到其内部类型。默认为`false`。| 不
 
-{% comment %}Regarding `pre_filter_shard_size`: The description from the REST API specification is unintelligible---to me, anyway. I wasn't able to learn anything from reading the source code, either, so I've included the default value and nothing else in the table above. - aetter
+{％评论％}`pre_filter_shard_size`：来自REST API规范的描述难以理解---无论如何，对我来说。我也无法从阅读源代码中学到任何东西，因此我在上表中包含了默认值，没有其他内容。- Aetter
 
-From the REST API specification: A threshold that enforces a pre-filter round trip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. This filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint.{% endcomment %}
+从REST API规范中：执行PRE的阈值-如果搜索请求扩展到超过阈值，则根据查询重写的查询重写往返前过滤器搜索碎片。如果碎片无法根据其重写方法IE匹配任何文档，则此过滤器往返可以显着限制碎片数。如果必须匹配日期过滤器，但是碎片范围和查询是不相交的。
 
 
-## Metadata-only options
+## 元数据-只有选项
 
-Some options can't be applied as URL parameters to the entire request. Instead, you can apply them per-search as part of each metadata line. All are optional.
+某些选项不能作为URL参数应用于整个请求。相反，您可以使用它们-作为每条元数据线的一部分搜索。所有都是可选的。
 
-Option | Type | Description
+选项| 类型| 描述
 :--- | :--- | :---
-index | String, string array | If you don't specify an index or multiple indexes as part of the URL (or want to override the URL value for an individual search), you can include it here. Examples include `"logs-*"` and `["my-store", "sample_data_ecommerce"]`.
-preference | String | The nodes or shards that you'd like to perform the search. This setting can be useful for testing, but in most situations, the default behavior provides the best search latencies. Options include `_local`, `_only_local`, `_prefer_nodes`, `_only_nodes`, and `_shards`. These last three options accept a list of nodes or shards. Examples include `"_only_nodes:data-node1,data-node2"` and `"_shards:0,1`.
-request_cache | Boolean | Whether to cache results, which can improve latency for repeat searches. Default is to use the `index.requests.cache.enable` setting for the index (which defaults to `true` for new indexes).
-routing | String | Comma-separated custom routing values, for example, `"routing": "value1,value2,value3"`.
+指数| 字符串，字符串数组| 如果您不作为URL的一部分指定索引或多个索引（或想覆盖单个搜索的URL值），则可以在此处包含它。示例包括`"logs-*"` 和`["my-store", "sample_data_ecommerce"]`。
+偏爱| 细绳| 您想执行搜索的节点或碎片。此设置对于测试可能很有用，但是在大多数情况下，默认行为提供了最佳的搜索潜伏期。选项包括`_local`，`_only_local`，`_prefer_nodes`，`_only_nodes`， 和`_shards`。这些最后三个选项接受节点或碎片列表。示例包括`"_only_nodes:data-node1,data-node2"` 和`"_shards:0,1`。
+request_cache| 布尔| 是否要缓存结果，可以改善重复搜索的延迟。默认是使用`index.requests.cache.enable` 设置索引（默认为`true` 对于新索引）。
+路由| 细绳| 逗号-分开的自定义路由值，例如`"routing": "value1,value2,value3"`。
 
 
-## Response
+## 回复
 
-OpenSearch returns an array with the results of each search in the same order as the multi-search request.
+OpenSearch返回一个数组，每个搜索的结果都以与Multi相同的顺序返回-搜索请求。
 
 ```json
 {
@@ -275,3 +275,4 @@ OpenSearch returns an array with the results of each search in the same order as
   ]
 }
 ```
+

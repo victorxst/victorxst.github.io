@@ -1,6 +1,6 @@
 ---
 layout: default
-title: CAT repositories
+title: CAT 存储库
 parent: CAT API
 
 nav_order: 52
@@ -9,41 +9,42 @@ redirect_from:
  - /opensearch/rest-api/cat/cat-repositories/
 ---
 
-# CAT repositories
-**Introduced 1.0**
+# 猫存储库
+**引入1.0**
 {: .label .label-purple }
 
-The CAT repositories operation lists all snapshot repositories for a cluster.
+CAT存储库操作列出了群集的所有快照存储库。
 
-## Example
+## 例子
 
 ```
 GET _cat/repositories?v
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 GET _cat/repositories
 ```
 
-## URL parameters
+## URL参数
 
-All CAT repositories URL parameters are optional.
+所有CAT存储库URL参数都是可选的。
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+除了[常见的URL参数]({{site.url}}{{site.baseurl}}/api-reference/cat/index)，您可以指定以下参数：
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- | :--- | :---
-local | Boolean | Whether to return information from the local node only instead of from the cluster_manager node. Default is false.
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster_manager node. Default is 30 seconds.
+当地的| 布尔| 是否仅从本地节点返回信息，而不是从cluster_manager节点返回。默认值为false。
+cluster_manager_timeout| 时间| 等待连接到cluster_manager节点的时间。默认值为30秒。
 
 
-## Response
+## 回复
 
 ```json
 id    type
 repo1   fs
 repo2   s3
 ```
+

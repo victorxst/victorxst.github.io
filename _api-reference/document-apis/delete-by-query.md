@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Delete by query
-parent: Document APIs
+title: 通过查询删除
+parent: 文档API
 nav_order: 40
 redirect_from:
  - /opensearch/rest-api/document-apis/delete-by-query/
 ---
 
-# Delete by query
-**Introduced 1.0**
+# 通过查询删除
+**引入1.0**
 {: .label .label-purple}
 
-You can include a query as part of your delete request so OpenSearch deletes all documents that match that query.
+您可以在删除请求的一部分中包含查询，因此OpenSearch删除所有匹配该查询的文档。
 
-## Example
+## 例子
 
 ```json
 POST sample-index1/_delete_by_query
@@ -27,56 +27,56 @@ POST sample-index1/_delete_by_query
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 POST <index>/_delete_by_query
 ```
 
-## URL parameters
+## URL参数
 
-All URL parameters are optional.
+所有URL参数都是可选的。
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- | :--- | :--- | :---
-&lt;index&gt; | String | Name or list of the data streams, indexes, or aliases to delete from. Supports wildcards. If left blank, OpenSearch searches all indexes.
-allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is `true`.
-analyzer | String | The analyzer to use in the query string.
-analyze_wildcard | Boolean | Specifies whether to analyze wildcard and prefix queries. Default is false.
-conflicts | String | Indicates to OpenSearch what should happen if the delete by query operation runs into a version conflict. Valid options are `abort` and `proceed`. Default is `abort`.
-default_operator | String | Indicates whether the default operator for a string query should be AND or OR. Default is OR.
-df | String | The default field in case a field prefix is not provided in the query string.
-expand_wildcards | String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. Valid values are `all` (match any index), `open` (match open, non-hidden indexes), `closed` (match closed, non-hidden indexes), `hidden` (match hidden indexes), and `none` (deny wildcard expressions). Default is `open`.
-from | Integer | The starting index to search from. Default is 0.
-ignore_unavailable | Boolean | Specifies whether to include missing or closed indexes in the response. Default is false.
-lenient | Boolean | Specifies whether OpenSearch should accept requests if queries have format errors (for example, querying a text field for an integer). Default is false.
-max_docs | Integer | How many documents the delete by query operation should process at most. Default is all documents.
-preference | String | Specifies which shard or node OpenSearch should perform the delete by query operation on.
-q | String | Lucene query string's query.
-request_cache | Boolean | Specifies whether OpenSearch should use the request cache. Default is whether it’s enabled in the index’s settings.
-refresh | Boolean | If true, OpenSearch refreshes shards to make the delete by query operation available to search results. Valid options are `true`, `false`, and `wait_for`, which tells OpenSearch to wait for a refresh before executing the operation. Default is `false`.
-requests_per_second | Integer | Specifies the request's throttling in sub-requests per second. Default is -1, which means no throttling.
-routing | String | Value used to route the operation to a specific shard.
-scroll | Time | Amount of time the search context should be open.
-scroll_size | Integer | Size of the operation's scroll requests. Default is 1000.
-search_type | String | Whether OpenSearch should use global term and document frequencies calculating revelance scores. Valid choices are `query_then_fetch` and `dfs_query_then_fetch`. `query_then_fetch` scores documents using local term and document frequencies for the shard. It’s usually faster but less accurate. `dfs_query_then_fetch` scores documents using global term and document frequencies across all shards. It’s usually slower but more accurate. Default is `query_then_fetch`.
-search_timeout | Time | How long to wait until OpenSearch deems the request timed out. Default is no timeout.
-slices | String or Integer | How many slices to cut the operation into for faster processing. Specify an integer to set how many slices to divide the operation into, or use `auto`, which tells OpenSearch it should decide how many slices to divide into. If you have a lot of shards in your index, set a lower number for better efficiency. Default is 1, which means the task should not be divided.
-sort | String | A comma-separated list of &lt;field&gt; : &lt;direction&gt; pairs to sort by.
-_source | String | Specifies whether to include the `_source` field in the response.
-_source_excludes | String | A comma-separated list of source fields to exclude from the response.
-_source_includes | String | A comma-separated list of source fields to include in the response.
-stats | String | Value to associate with the request for additional logging.
-terminate_after | Integer | The maximum number of documents OpenSearch should process before terminating the request.
-timeout | Time | How long the operation should wait from a response from active shards. Default is `1m`.
-version | Boolean | Whether to include the document version as a match.
-wait_for_active_shards | String | The number of shards that must be active before OpenSearch executes the operation. Valid values are `all` or any integer up to the total number of shards in the index. Default is 1, which is the primary shard.
-wait_for_completion | Boolean | Setting this parameter to false indicates to OpenSearch it should not wait for completion and perform this request asynchronously. Asynchronous requests run in the background, and you can use the [Tasks]({{site.url}}{{site.baseurl}}/api-reference/tasks) API to monitor progress.
+＆lt; index＆gt;| 细绳| 数据流，索引或别名的名称或列表要从中删除。支持通配符。如果剩下空白，OpenSearch搜索所有索引。
+允许_no_indices| 布尔| 是否忽略不符合任何索引的通配符。默认为`true`。
+分析仪| 细绳| 用于查询字符串中的分析仪。
+Analyze_wildCard| 布尔| 指定是否分析通配符和前缀查询。默认值为false。
+冲突| 细绳| 指示开放搜索，如果通过查询操作删除将发生什么会发生什么，则会发生在版本冲突中。有效的选项是`abort` 和`proceed`。默认为`abort`。
+Default_operator| 细绳| 指示字符串查询的默认运算符应该是和或或。默认为或。
+DF| 细绳| 如果查询字符串中未提供字段前缀，则默认字段。
+Expand_WildCard| 细绳| 指定通配符表达式可以匹配的索引类型。支持逗号-分离的值。有效值是`all` （匹配任何索引），`open` （匹配开放，非-隐藏索引），`closed` （匹配封闭，非-隐藏索引），`hidden` （匹配隐藏索引），`none` （拒绝通配符表达）。默认为`open`。
+从| 整数| 搜索的起始索引。默认值为0。
+ignore_unavailable| 布尔| 指定响应中是否包括缺失或封闭索引。默认值为false。
+宽容| 布尔| 指定如果查询具有格式错误，OpenSearch是否应接受请求（例如，查询文本字段中的整数）。默认值为false。
+max_docs| 整数| 查询操作删除删除的文档最多应处理。默认是所有文档。
+偏爱| 细绳| 指定哪些碎片或节点OpenSearch应通过查询操作执行删除。
+问| 细绳| Lucene查询字符串的查询。
+request_cache| 布尔| 指定OpenSearch是否应使用请求缓存。默认值是是否在索引的设置中启用。
+刷新| 布尔| 如果为true，则OpenSearch刷新碎片以通过查询操作删除可用于搜索结果。有效的选项是`true`，`false`， 和`wait_for`，它告诉Opensearch在执行操作之前等待刷新。默认为`false`。
+requests_per_second| 整数| 指定请求在sub中的节流-每秒请求。默认为-1，这意味着没有节流。
+路由| 细绳| 用于将操作路由到特定碎片的值。
+滚动| 时间| 搜索上下文应打开的时间。
+scroll_size| 整数| 操作滚动请求的大小。默认值为1000。
+搜索类型| 细绳| OpenSearch是否应使用全球术语和记录计算启示分数的频率。有效的选择是`query_then_fetch` 和`dfs_query_then_fetch`。`query_then_fetch` 使用本地术语和文档频率为碎片评分文档。通常更快但准确。`dfs_query_then_fetch` 使用全球术语和文档频率在所有碎片中得分。通常较慢，但更准确。默认为`query_then_fetch`。
+search_timeout| 时间| 等到OpenSearch认为该请求的时间超时。默认值不是超时。
+切片| 字符串或整数| 有多少个切片可以将操作切成更快的处理。指定整数设置多少个切片以将操作分为或使用`auto`，它告诉OpenSearch，它应该决定要分成多少个切片。如果您的索引中有很多碎片，请设置较低的数字以提高效率。默认值为1，这意味着任务不应划分。
+种类| 细绳| 逗号-＆lt; field＆gt;：＆lt; Direction＆gt;对分类。
+_来源| 细绳| 指定是否包括`_source` 响应中的字段。
+_source_excludes| 细绳| 逗号-分开的源字段列表以外的响应中排除。
+_source_includes| 细绳| 逗号-分开的源字段列表要包含在响应中。
+统计| 细绳| 与其他日志记录请求相关联的价值。
+terminate_after| 整数| 文档数量的最大数量OpenSearch应在终止请求之前进行处理。
+暂停| 时间| 操作应从活动碎片的响应中等待多长时间。默认为`1m`。
+版本| 布尔| 是否将文档版本作为匹配项。
+wait_for_active_shards| 细绳| 在OpenSearch执行操作之前必须活跃的碎片数。有效值是`all` 或索引中碎片总数的任何整数。默认值为1，这是主要碎片。
+wait_for_completion| 布尔| 将此参数设置为false指示opensearch它不应等待完成，也不应等高地执行此请求。异步请求在后台运行，您可以使用[任务]({{site.url}}{{site.baseurl}}/api-reference/tasks) API监视进度。
 
 
-## Request body
+## 请求身体
 
-To search your index for specific documents, you must include a [query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index) in the request body that OpenSearch uses to match documents. If you don't use a query, OpenSearch treats your delete request as a simple [delete document operation]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-document).
+要搜索您的索引以查看特定文档，您必须包括一个[询问]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index) 在OpenSearch用来匹配文档的请求主体中。如果您不使用查询，OpenSearch将您的删除请求视为简单[删除文档操作]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-document)。
 
 ```json
 {
@@ -88,7 +88,7 @@ To search your index for specific documents, you must include a [query]({{site.u
 }
 ```
 
-## Response
+## 回复
 ```json
 {
   "took": 143,
@@ -109,19 +109,20 @@ To search your index for specific documents, you must include a [query]({{site.u
 }
 ```
 
-## Response body fields
+## 响应身体场
 
-Field | Description
+场地| 描述
 :--- | :---
-took | The amount of time in milliseconds OpenSearch needed to complete the operation.
-timed_out | Whether any delete requests during the operation timed out.
-total | Total number of documents processed.
-deleted | Total number of documents deleted.
-batches | Number of scroll responses the request processed.
-version_conflicts | Number of conflicts the request ran into.
-noops | How many delete requests OpenSearch ignored during the operation. This field always returns 0.
-retries | The number of bulk and search retry requests.
-throttled_millis | Number of throttled milliseconds during the request.
-requests_per_second | Number of requests executed per second during the operation.
-throttled_until_millis | The amount of time until OpenSearch executes the next throttled request. Always equal to 0 in a delete by query request.
-failures | Any failures that occur during the request.
+拿| 完成操作所需的毫秒搜索时间。
+时间到| 在操作时是否有任何删除请求。
+全部的| 处理的文档总数。
+删除| 删除的文档总数。
+批次| 滚动响应数量已处理的请求。
+version_conflicts| 请求遇到的冲突数量。
+零| 在操作过程中忽略了多少删除请求。该字段总是返回0。
+重试| 批量和搜索重试请求的数量。
+throttled_millis| 在请求期间，毫秒的毫秒数。
+requests_per_second| 操作过程中每秒执行的请求数。
+throttled_until_millis| OpenSearch执行下一个节流请求之前的时间。通过查询请求始终等于删除中的0。
+失败| 请求期间发生的任何故障。
+

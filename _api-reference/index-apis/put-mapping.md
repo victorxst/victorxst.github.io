@@ -1,34 +1,34 @@
 ---
 layout: default
-title: Create or update mappings
-parent: Index APIs
+title: 创建或更新映射
+parent: 索引API
 nav_order: 27
 redirect_from:
   - /opensearch/rest-api/index-apis/update-mapping/
   - /opensearch/rest-api/update-mapping/
 ---
 
-# Create or update mappings
-**Introduced 1.0**
+# 创建或更新映射
+**引入1.0**
 {: .label .label-purple }
 
-If you want to create or add mappings and fields to an index, you can use the put mapping API operation. For an existing mapping, this operation updates the mapping.
+如果要在索引中创建或添加映射和字段，则可以使用put映射API操作。对于现有的映射，此操作更新映射。
 
-You can't use this operation to update mappings that already map to existing data in the index. You must first create a new index with your desired mappings, and then use the [reindex API operation]({{site.url}}{{site.baseurl}}/opensearch/reindex-data) to map all the documents from your old index to the new index. If you don't want any downtime while you re-index your indexes, you can use [aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias).
+您无法使用此操作来更新已经映射到索引中现有数据的映射。您必须首先使用所需映射创建一个新索引，然后使用[Reindex API操作]({{site.url}}{{site.baseurl}}/opensearch/reindex-data) 将所有文档从旧索引映射到新索引。如果您不想停机时间-索引您的索引，您可以使用[别名]({{site.url}}{{site.baseurl}}/opensearch/index-alias)。
 
 
-## Required path parameter
+## 必需的路径参数
 
-The only required path parameter is the index with which to associate the mapping. If you don't specify an index, you will get an error. You can specify a single index, or multiple indexes separated by a comma as follows:
+唯一必需的路径参数是与映射关联的索引。如果您没有指定索引，则会遇到错误。您可以指定单个索引，或以下逗号分隔的多个索引：
 
 ```
 PUT /<target-index>/_mapping
 PUT /<target-index1>,<target-index2>/_mapping
 ```
 
-## Required request body field
+## 要求的请求身体领域
 
-The request body must contain `properties`, which has all of the mappings that you want to create or update.
+请求主体必须包含`properties`，它具有要创建或更新的所有映射。
 
 ```json
 {
@@ -43,11 +43,11 @@ The request body must contain `properties`, which has all of the mappings that y
 }
 ```
 
-## Optional request body fields
+## 可选请求身体场
 
-### dynamic
+### 动态的
 
-You can make the document structure match the structure of the index mapping by setting the `dynamic` request body field to `strict`, as seen in the following example:
+您可以通过设置文档结构与索引映射的结构匹配`dynamic` 请求身体领域`strict`，如以下示例所示：
 
 ```json
 {
@@ -60,29 +60,29 @@ You can make the document structure match the structure of the index mapping by 
 }
 ```
 
-## Optional query parameters
+## 可选查询参数
 
-Optionally, you can add query parameters to make a more specific request. For example, to skip any missing or closed indexes in the response, you can add the `ignore_unavailable` query parameter to your request as follows:
+可选地，您可以添加查询参数以提出更具体的请求。例如，要跳过响应中的所有缺失或封闭索引，您可以添加`ignore_unavailable` 查询您的请求参数如下：
 
 ```json
 PUT /sample-index/_mapping?ignore_unavailable
 ```
 
-The following table defines the put mapping query parameters:
+下表定义了put映射查询参数：
 
-Parameter | Data type | Description
+范围| 数据类型| 描述
 :--- | :--- | :---
-allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is `true`.
-expand_wildcards | String | Expands wildcard expressions to different indexes. Combine multiple values with commas. Available values are `all` (match all indexes), `open` (match open indexes), `closed` (match closed indexes), `hidden` (match hidden indexes), and `none` (do not accept wildcard expressions), which must be used with `open`, `closed`, or both. Default is `open`.
-ignore_unavailable | Boolean | If true, OpenSearch does not include missing or closed indexes in the response.
-ignore_malformed | Boolean | Use this parameter with the `ip_range` data type to specify that OpenSearch should ignore malformed fields. If `true`, OpenSearch does not include entries that do not match the IP range specified in the index in the response. The default is `false`.
-cluster_manager_timeout | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
-timeout | Time | How long to wait for the response to return. Default is `30s`.
-write_index_only | Boolean | Whether OpenSearch should apply mapping updates only to the write index.
+允许_no_indices| 布尔| 是否忽略不符合任何索引的通配符。默认为`true`。
+Expand_WildCard| 细绳| 将通配符表达式扩展到不同的索引。将多个值与逗号相结合。可用值是`all` （匹配所有索引），`open` （匹配打开索引），`closed` （匹配封闭索引），`hidden` （匹配隐藏索引），`none` （请勿接受通配符表达式），必须与`open`，`closed`， 或两者。默认为`open`。
+ignore_unavailable| 布尔| 如果为true，则OpenSearch不会在响应中包括缺失或封闭索引。
+ignore_malformed| 布尔| 将此参数与`ip_range` 数据类型要指定OpenSearch应该忽略错误的字段。如果`true`，OpenSearch不包括与响应中索引中指定的IP范围不匹配的条目。默认值为`false`。
+cluster_manager_timeout| 时间| 等待连接到群集管理器节点多长时间。默认为`30s`。
+暂停| 时间| 等待响应返回多长时间。默认为`30s`。
+write_index_only| 布尔| OpenSearch是否应仅将映射更新应用于写索引。
 
-#### Sample Request
+#### 样本请求
 
-The following request creates a new mapping for the `sample-index` index:
+以下请求为`sample-index` 指数：
 
 ```json
 PUT /sample-index/_mapping
@@ -100,14 +100,15 @@ PUT /sample-index/_mapping
 ```
 {% include copy-curl.html %}
 
-#### Sample Response
+#### 样本响应
 
-Upon success, the response returns `"acknowledged": true`.
+成功后，响应返回`"acknowledged": true`。
 
 ```json
 {
     "acknowledged": true
 }
 ```
+
 
 

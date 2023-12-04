@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Index document
-parent: Document APIs
+title: 索引文档
+parent: 文档API
 nav_order: 1
 redirect_from: 
  - /opensearch/rest-api/document-apis/index-document/
 ---
 
-# Index document
-**Introduced 1.0**
+# 索引文档
+**引入1.0**
 {: .label .label-purple}
 
-Before you can search for data, you must first add documents. This operation adds a single document to your index.
+在搜索数据之前，必须首先添加文档。此操作为您的索引添加了一个文档。
 
-## Example
+## 例子
 
 ```json
 PUT sample-index/_doc/1
@@ -23,7 +23,7 @@ PUT sample-index/_doc/1
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 PUT <index>/_doc/<_id>
@@ -33,29 +33,29 @@ PUT <index>/_create/<_id>
 POST <index>/_create/<_id>
 ```
 
-## URL parameters
+## URL参数
 
-In your request, you must specify the index you want to add your document to. If the index doesn't already exist, OpenSearch automatically creates the index and adds in your document. All other URL parameters are optional.
+根据您的要求，您必须指定要添加文档的索引。如果索引尚未存在，OpenSearch会自动创建索引并在您的文档中添加。所有其他URL参数都是可选的。
 
-Parameter | Type | Description | Required
+范围| 类型| 描述| 必需的
 :--- | :--- | :--- | :---
-&lt;index&gt; | String | Name of the index. | Yes
-&lt;_id&gt; | String | A unique identifier to attach to the document. To automatically generate an ID, use `POST <target>/doc` in your request instead of PUT. | No
-if_seq_no | Integer | Only perform the index operation if the document has the specified sequence number. | No
-if_primary_term | Integer | Only perform the index operation if the document has the specified primary term.| No
-op_type | Enum | Specifies the type of operation to complete with the document. Valid values are `create` (create the index if it doesn't exist) and `index`. If a document ID is included in the request, then the default is `index`. Otherwise, the default is `create`. | No
-pipeline | String | Route the index operation to a certain pipeline. | No
-routing | String | value used to assign the index operation to a specific shard. | No
-refresh | Enum | If true, OpenSearch refreshes shards to make the operation visible to searching. Valid options are `true`, `false`, and `wait_for`, which tells OpenSearch to wait for a refresh before executing the operation. Default is false. | No
-timeout | Time | How long to wait for a response from the cluster. Default is `1m`. | No
-version | Integer | The document's version number. | No
-version_type | Enum | Assigns a specific type to the document. Valid options are `external` (retrieve the document if the specified version number is greater than the document's current version) and `external_gte` (retrieve the document if the specified version number is greater than or equal to the document's current version). For example, to index version 3 of a document, use `/_doc/1?version=3&version_type=external`. | No
-wait_for_active_shards | String | The number of active shards that must be available before OpenSearch processes the request. Default is 1 (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the operation to succeed. | No
-require_alias | Boolean | Specifies whether the target index must be an index alias. Default is false. | No
+＆lt; index＆gt;| 细绳| 索引的名称。| 是的
+＆lt; _id＆gt;| 细绳| 一个唯一的标识符，可以连接到文档上。要自动生成ID，请使用`POST <target>/doc` 根据您的要求而不是提取。| 不
+if_seq_no| 整数| 仅在文档具有指定的序列编号时执行索引操作。| 不
+if_primary_term| 整数| 仅在文档具有指定的主要术语时执行索引操作。| 不
+op_type| 枚举| 指定与文档一起完成的操作类型。有效值是`create` （如果不存在，则创建索引）和`index`。如果请求中包含文档ID，则默认值为`index`。否则，默认值为`create`。| 不
+管道| 细绳| 将索引操作路由到某个管道。| 不
+路由| 细绳| 用于将索引操作分配给特定碎片的值。| 不
+刷新| 枚举| 如果是真的，OpenSearch刷新碎片使操作可见。有效的选项是`true`，`false`， 和`wait_for`，它告诉Opensearch在执行操作之前等待刷新。默认值为false。| 不
+暂停| 时间| 等待群集的响应多长时间。默认为`1m`。| 不
+版本| 整数| 文档的版本号。| 不
+version_type| 枚举| 为文档分配特定类型。有效的选项是`external` （如果指定的版本编号大于文档的当前版本，则检索文档）和`external_gte` （如果指定的版本号大于或等于文档的当前版本，则检索文档）。例如，要索引文档的版本3，请使用`/_doc/1?version=3&version_type=external`。| 不
+wait_for_active_shards| 细绳| 在OpenSearch处理请求之前，必须可用的活动碎片数。默认值为1（仅是主要碎片）。设置`all` 或一个积极的整数。大于1的值需要复制品。例如，如果指定一个值为3的值，则索引必须在两个其他节点上分布两个副本才能成功。| 不
+require_alias| 布尔| 指定目标索引是否必须是索引别名。默认值为false。| 不
 
-## Request body
+## 请求身体
 
-Your request body must contain the information you want to index.
+您的请求主体必须包含您要索引的信息。
 
 ```json
 {
@@ -63,7 +63,7 @@ Your request body must contain the information you want to index.
 }
 ```
 
-## Response
+## 回复
 ```json
 {
   "_index": "sample-index",
@@ -80,17 +80,18 @@ Your request body must contain the information you want to index.
 }
 ```
 
-## Response body fields
+## 响应身体场
 
-Field | Description
+场地| 描述
 :--- | :---
-_index | The name of the index.
-_id | The document's ID.
-_version | The document's version.
-result | The result of the index operation.
-_shards | Detailed information about the cluster's shards.
-total | The total number of shards.
-successful | The number of shards OpenSearch successfully added the document to.
-failed | The number of shards OpenSearch failed to add the document to.
-_seq_no | The sequence number assigned when the document was indexed.
-_primary_term | The primary term assigned when the document was indexed.
+_指数| 索引的名称。
+_ID| 文档的ID。
+_版本| 文档的版本。
+结果| 索引操作的结果。
+_沙尔德| 有关集群碎片的详细信息。
+全部的| 碎片总数。
+成功的| shards opensearch的数量成功地添加了文档。
+失败的| 碎片数量未能将文档添加到。
+_seq_no| 索引文档时分配的序列号。
+_primary_term| 索引文档时分配的主要术语。
+

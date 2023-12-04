@@ -1,65 +1,65 @@
 ---
 layout: default
-title: Create Snapshot
-parent: Snapshot APIs
+title: 创建快照
+parent: 快照API
 nav_order: 5
 ---
 
-# Create snapshot
-**Introduced 1.0**
+# 创建快照
+**引入1.0**
 {: .label .label-purple }
 
-Creates a snapshot within an existing repository.
+在现有存储库中创建快照。
 
-* To learn more about snapshots, see [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index).
+*要了解有关快照的更多信息，请参阅[快照]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index)。
 
-* To view a list of your repositories, see [Get snapshot repository]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-repository).
+*要查看您的存储库列表，请参阅[获取快照存储库]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-repository)。
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```json
 PUT /_snapshot/<repository>/<snapshot>
 POST /_snapshot/<repository>/<snapshot>
 ```
 
-## Path parameters
+## 路径参数
 
-Parameter | Data type | Description
+范围| 数据类型| 描述
 :--- | :--- | :---
-repository | String | Repostory name to contain the snapshot. |
-snapshot | String | Name of Snapshot to create. |
+存储库| 细绳| repostory名称包含快照。|
+快照| 细绳| 快照的名称要创建。|
 
-## Query parameters
+## 查询参数
 
-Parameter | Data type | Description
+范围| 数据类型| 描述
 :--- | :--- | :---
-wait_for_completion | Boolean |  Whether to wait for snapshot creation to complete before continuing. If you include this parameter, the snapshot definition is returned after completion. |
+wait_for_completion| 布尔|  是否要等待快照创建才能完成。如果包含此参数，则在完成后返回快照定义。|
 
-## Request fields
+## 请求字段
 
-The request body is optional.
+请求主体是可选的。
 
-Field | Data type | Description
+场地| 数据类型| 描述
 :--- | :--- | :---
-`indices` | String | The indices you want to include in the snapshot. You can use `,` to create a list of indices, `*` to specify an index pattern, and `-` to exclude certain indices. Don't put spaces between items. Default is all indices.
-`ignore_unavailable` | Boolean | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the snapshot. Default is false.
-`include_global_state` | Boolean | Whether to include cluster state in the snapshot. Default is true.
-`partial` | Boolean | Whether to allow partial snapshots. Default is false, which fails the entire snapshot if one or more shards fails to stor
+`indices` | 细绳| 您要在快照中包含的索引。您可以使用`,` 要创建索引列表，`*` 指定索引模式，并`-` 排除某些指数。不要在项目之间放置空间。默认是所有索引。
+`ignore_unavailable` | 布尔| 如果是`indices` 列表不存在，是否忽略它而不是失败快照。默认值为false。
+`include_global_state` | 布尔| 是否将群集状态包括在快照中。默认是正确的。
+`partial` | 布尔| 是否允许部分快照。默认值为false，如果一个或多个碎片无法存放，则会使整个快照失败
 
-#### Example requests
+#### 示例请求
 
-##### Request without a body
+##### 没有身体的要求
 
-The following request creates a snapshot called `my-first-snapshot` in an S3 repository called `my-s3-repository`. A request body is not included because it is optional.
+以下请求创建了一个名为的快照`my-first-snapshot` 在一个称为的S3存储库中`my-s3-repository`。不包括请求主体，因为它是可选的。
 
 ```json
 POST _snapshot/my-s3-repository/my-first-snapshot
 ```
 {% include copy-curl.html %}
 
-##### Request with a body
+##### 与身体请求
 
-You can also add a request body to include or exclude certain indices or specify other settings:
+您还可以添加一个请求主体以包括或排除某些索引或指定其他设置：
 
 ```json
 PUT _snapshot/my-s3-repository/2
@@ -72,11 +72,11 @@ PUT _snapshot/my-s3-repository/2
 ```
 {% include copy-curl.html %}
 
-#### Example responses
+#### 示例响应
 
-Upon success, the response content depends on whether you include the `wait_for_completion` query parameter.
+成功后，响应内容取决于您是否包括`wait_for_completion` 查询参数。
 
-##### `wait_for_completion` not included
+##### `wait_for_completion` 不包含
 
 ```json
 {
@@ -84,12 +84,12 @@ Upon success, the response content depends on whether you include the `wait_for_
 }
 ```
 
-To verify that the snapshot was created, use the [Get snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot) API, passing the snapshot name as the `snapshot` path parameter.
+要验证创建快照，请使用[获取快照]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot) API，将快照名称传递给`snapshot` 路径参数。
 {: .note}
 
-##### `wait_for_completion` included
+##### `wait_for_completion` 包括
 
-The snapshot definition is returned.
+快照定义将返回。
 
 ```json
 {
@@ -125,23 +125,24 @@ The snapshot definition is returned.
 }
 ```
 
-#### Response fields
+#### 响应字段
 
-| Field | Data type | Description |
+| 场地| 数据类型| 描述|
 | :--- | :--- | :--- | 
-| snapshot | string | Snapshot name. |
-| uuid | string | Snapshot's universally unique identifier (UUID). |
-| version_id | int | Build ID of the Open Search version that created the snapshot. |
-| version | float | Open Search version that created the snapshot. |
-| indices | array | Indices in the snapshot. |
-| data_streams | array | Data streams in the snapshot. |
-| include_global_state | boolean | Whether the current cluster state is included in the snapshot. |
-| start_time | string | Date/time when the snapshot creation process began. |
-| start_time_in_millis | long | Time (in milliseconds) when the snapshot creation process began. |
-| end_time | string | Date/time when the snapshot creation process ended. |
-| end_time_in_millis | long | Time (in milliseconds) when the snapshot creation process ended. |
-| duration_in_millis | long | Total time (in milliseconds) that the snapshot creation process lasted. |
-| failures | array | Failures, if any, that occured during snapshot creation. |
-| shards | object | Total number of shards created along with number of successful and failed shards. |
-| state | string | Snapshot status. Possible values: `IN_PROGRESS`, `SUCCESS`, `FAILED`, `PARTIAL`. |
-| remote_store_index_shallow_copy | Boolean | Whether the snapshot of the remote store indexes is captured as a shallow copy. Default is `false`. |
+| 快照| 细绳| 快照名称。|
+| UUID| 细绳| 快照的普遍唯一标识符（UUID）。|
+| version_id| int| 构建创建快照的打开搜索版本的ID。|
+| 版本| 漂浮| 打开创建快照的搜索版本。|
+| 指数| 大批| 快照中的索引。|
+| data_streams| 大批| 快照中的数据流。|
+| 包括_global_state| 布尔| 快照中是否包含当前的群集状态。|
+| 开始时间| 细绳| 快照创建过程开始的日期/时间。|
+| start_time_in_millis| 长的| 时间（以毫秒为单位）开始快照创建过程。|
+| 时间结束| 细绳| 快照创建过程结束的日期/时间。|
+| end_time_in_millis| 长的| 时间（以毫秒为单位）当快照创建过程结束时。|
+| lisation_in_millis| 长的| 快照创建过程持续的总时间（以毫秒为单位）。|
+| 失败| 大批| 快照创建期间发生的失败（如果有）。|
+| 碎片| 目的| 创建的碎片总数以及成功和失败的碎片数量。|
+| 状态| 细绳| 快照状态。可能的值：`IN_PROGRESS`，`SUCCESS`，`FAILED`，`PARTIAL`。|
+| 远程_store_index_shallow_copy| 布尔| 远程存储索引的快照是否被捕获为浅副本。默认为`false`。
+

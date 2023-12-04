@@ -1,79 +1,79 @@
 ---
 layout: default
-title: Dangling indexes
+title: 悬挂索引
 parent: index-apis
 nav_order: 30
 ---
 
-# Dangling indexes API
-**Introduced 1.0**
+# 悬挂索引API
+**引入1.0**
 {: .label .label-purple }
 
-After a node joins a cluster, dangling indexes occur if any shards exist in the node's local directory that do not already exist in the cluster. Dangling indexes can be listed, deleted, or imported.
+节点加入群集后，如果在节点的本地目录中存在任何碎片，则会发生悬挂索引，这些碎片在集群中尚未存在。可以列出，删除或进口悬挂索引。
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
-List dangling indexes:
+清单悬挂索引：
 
 ```
 GET /_dangling
 ```
 
-Import a dangling index:
+导入一个悬空指数：
 
 ```
 POST /_dangling/<index-uuid>
 ```
 
-Delete a dangling index:
+删除一个悬挂索引：
 
 ```
 DELETE /_dangling/<index-uuid>
 ```
 
-## Path parameters
+## 路径参数
 
-Path parameters are required.
+需要路径参数。
 
-Path parameter | Description
+路径参数| 描述
 :--- | :---
-index-uuid | UUID of index.
+指数-UUID| 索引的UUID。
 
-## Query parameters
+## 查询参数
 
-Query parameters are optional.
+查询参数是可选的。
 
-Query parameter | Data type | Description
+查询参数| 数据类型| 描述
 :--- | :--- | :---
-accept_data_loss | Boolean | Must be set to `true` for an `import` or `delete` because OpenSearch is unaware of where the dangling index data came from.
-timeout | Time units | The amount of time to wait for a response. If no response is received in the defined time period, an error is returned. Default is `30` seconds.
-cluster_manager_timeout | Time units | The amount of time to wait for a connection to the cluster manager. If no response is received in the defined time period, an error is returned. Default is `30` seconds.
+accept_data_loss| 布尔| 必须设置为`true` 为`import` 或者`delete` 因为Opensearch不知道悬挂索引数据的来源。
+暂停| 时间单元| 等待响应的时间。如果在定义的时间段内未收到任何响应，则会返回错误。默认为`30` 秒。
+cluster_manager_timeout| 时间单元| 等待与集群管理器连接的时间。如果在定义的时间段内未收到任何响应，则会返回错误。默认为`30` 秒。
 
-## Examples
+## 例子
 
-The following are example requests and a example response.
+以下是示例请求和示例响应。
 
-#### Sample list
+#### 样本列表
 
 ````bash
 GET /_dangling
 ````
 {% include copy-curl.html %}
 
-#### Sample import
+#### 样本导入
 
 ````bash
 POST /_dangling/msdjernajxAT23RT-BupMB?accept_data_loss=true
 ````
 {% include copy-curl.html %}
  
-#### Sample delete
+#### 样品删除
 
 ````bash
 DELETE /_dangling/msdjernajxAT23RT-BupMB?accept_data_loss=true
 ````
 
-#### Example response body
+#### 示例响应主体
 
 ````json
 {

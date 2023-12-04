@@ -1,26 +1,26 @@
 ---
 layout: default
-title: Profile
-nav_order: 55
+title: 轮廓
+NAV_ORDER：55
 ---
 
-# Profile
-**Introduced 1.0**
+# 轮廓
+**引入1.0**
 {: .label .label-purple }
 
-The Profile API provides timing information about the execution of individual components of a search request. Using the Profile API, you can debug slow requests and understand how to improve their performance. The Profile API does not measure the following:
+配置文件API提供了有关执行搜索请求的各个组件的时序信息。使用配置文件API，您可以调试慢速请求并了解如何提高其性能。配置文件API未衡量以下内容：
 
-- Network latency
-- Time spent in the search fetch phase
-- Amount of time a request spends in queues
-- Idle time while merging shard responses on the coordinating node
+- 网络延迟
+- 在搜索提取阶段花费的时间
+- 请求在队列中花费的时间
+- 在协调节点上合并碎片响应时空闲时间
 
-The Profile API is a resource-consuming operation that adds overhead to search operations.
+配置文件API是资源-消费操作为搜索操作增加了开销。
 {: .warning}
 
-#### Example request
+#### 示例请求
 
-To use the Profile API, include the `profile` parameter set to `true` in the search request sent to the `_search` endpoint:
+要使用配置文件API，请包括`profile` 参数设置为`true` 在发送到的搜索请求中`_search` 端点：
 
 ```json
 GET /testindex/_search
@@ -33,7 +33,7 @@ GET /testindex/_search
 ```
 {% include copy-curl.html %}
 
-To turn on human-readable format, include the `?human=true` query parameter in the request:
+打开人类-可读格式，包括`?human=true` 请求中查询参数：
 
 ```json
 GET /testindex/_search?human=true
@@ -46,7 +46,7 @@ GET /testindex/_search?human=true
 ```
 {% include copy-curl.html %}
 
-The response contains an additional `time` field with human-readable units, for example:
+响应包含附加`time` 人类的领域-例如，可读单元：
 
 ```json
 "collector": [
@@ -59,16 +59,16 @@ The response contains an additional `time` field with human-readable units, for 
 ]
 ```
 
-The Profile API response is verbose, so if you're running the request through the `curl` command, include the `?pretty` query parameter to make the response easier to understand.
+配置文件API响应是冗长的，因此，如果您正在通过`curl` 命令，包括`?pretty` 查询参数以使响应易于理解。
 {: .tip}
 
-#### Example response
+#### 示例响应
 
-The response contains profiling information:
+响应包含分析信息：
 
-<details closed markdown="block">
+<详细信息关闭的markdown ="block">
   <summary>
-    Response
+    回复
   </summary>
   {: .text-delta}
 
@@ -211,86 +211,86 @@ The response contains profiling information:
   }
 }
 ```
-</details>
+</delect>
 
-## Response fields
+## 响应字段
 
-The response includes the following fields.
+响应包括以下字段。
 
-Field | Data type | Description
+场地| 数据类型| 描述
 :--- | :--- | :---
-`profile` | Object | Contains profiling information.
-`profile.shards` | Array of objects | A search request can be executed against one or more shards in the index, and a search may involve one or more indexes. Thus, the `profile.shards` array contains profiling information for each shard that was involved in the search.
-`profile.shards.id` | String | The shard ID of the shard in the `[node-ID][index-name][shard-ID]` format.
-`profile.shards.searches` | Array of objects | A search represents a query executed against the underlying Lucene index. Most search requests execute a single search against a Lucene index, but some search requests can execute more than one search. For example, including a global aggregation results in a secondary `match_all` query for the global context. The `profile.shards` array contains profiling information about each search execution.
-[`profile.shards.searches.query`](#the-query-array) | Array of objects | Profiling information about the query execution.
-`profile.shards.searches.rewrite_time` | Integer | All Lucene queries are rewritten. A query and its children may be rewritten more than once, until the query stops changing. The rewriting process involves performing optimizations, such as removing redundant clauses or replacing a query path with a more efficient one. After the rewriting process, the original query may change significantly. The `rewrite_time` field contains the cumulative total rewrite time for the query and all its children, in nanoseconds.
-[`profile.shards.searches.collector`](#the-collector-array) | Array of objects | Profiling information about the Lucene collectors that ran the search.
-[`profile.shards.aggregations`](#aggregations) | Array of objects | Profiling information about the aggregation execution.
+`profile` | 目的| 包含分析信息。
+`profile.shards` | 对象数组| 可以针对索引中的一个或多个碎片执行搜索请求，搜索可能涉及一个或多个索引。就这样`profile.shards` 数组包含搜索中涉及的每个碎片的分析信息。
+`profile.shards.id` | 细绳| 碎片的碎片ID`[node-ID][index-name][shard-ID]` 格式。
+`profile.shards.searches` | 对象数组| 搜索代表针对基础Lucene索引执行的查询。大多数搜索请求都针对Lucene索引执行单个搜索，但是某些搜索请求可以执行多个搜索。例如，包括全局聚合会导致次要`match_all` 查询全球环境。这`profile.shards` 数组包含有关每个搜索执行的分析信息。
+[`profile.shards.searches.query`](#the-query-array) | 对象数组| 分析有关查询执行的信息。
+`profile.shards.searches.rewrite_time` | 整数| 所有Lucene疑问都是重写的。查询及其子女可能会多次重写，直到查询停止更改为止。重写过程涉及进行优化，例如删除冗余子句或更有效地替换查询路径。重写过程后，原始查询可能会发生重大变化。这`rewrite_time` 字段包含纳秒中查询及其所有子女的累积总重写时间。
+[`profile.shards.searches.collector`](#the-collector-array) | 对象数组| 分析有关运行搜索的Lucene收集器的信息。
+[`profile.shards.aggregations`](#aggregations) | 对象数组| 分析有关汇总执行的信息。
 
-### The `query` array
+### 这`query` 大批
 
-The `query` array contains objects with the following fields.
+这`query` 数组包含具有以下字段的对象。
 
-Field | Data type | Description
+场地| 数据类型| 描述
 :--- | :--- | :---
-`type` | String | The Lucene query type into which the search query was rewritten. Corresponds to the Lucene class name (which often has the same name in OpenSearch).
-`description` | String | Contains a Lucene explanation of the query. Helps differentiate queries with the same type.
-`time_in_nanos` | Long | The amount of time the query took to execute, in nanoseconds. In a parent query, the time is inclusive of the execution times of all the child queries.
-[`breakdown`](#the-breakdown-object) | Object | Contains timing statistics about low-level Lucene execution.
-`children` | Array of objects | If a query has subqueries (children), this field contains information about the subqueries.
+`type` | 细绳| 重写搜索查询的Lucene查询类型。对应于Lucene类名称（在OpenSearch中通常具有相同的名称）。
+`description` | 细绳| 包含对查询的Lucene解释。帮助将查询与相同类型区分。
+`time_in_nanos` | 长的| 查询在纳秒内执行的时间。在父母查询中，时间包括所有子女查询的执行时间。
+[`breakdown`](#the-breakdown-object) | 目的| 包含有关低的定时统计数据-Level Lucene执行。
+`children` | 对象数组| 如果查询具有子征服（儿童），则此字段包含有关子征服的信息。
 
-### The `breakdown` object
+### 这`breakdown` 目的
 
-The `breakdown` object represents the timing statistics about low-level Lucene execution, broken down by method. Timings are listed in wall-clock nanoseconds and are not normalized. The `breakdown` timings are inclusive of all child times. The `breakdown` object comprises the following fields. All fields contain integer values.
+这`breakdown` 对象表示有关低的定时统计信息-将Lucene执行，按方法分解。时间在墙上列出-时钟纳米秒，未标准化。这`breakdown` 时机包括所有儿童时代。这`breakdown` 对象包括以下字段。所有字段都包含整数值。
 
-Field | Description
+场地| 描述
 :--- | :--- 
-`create_weight` | A `Query` object in Lucene is immutable. Yet, Lucene should be able to reuse `Query` objects in multiple `IndexSearcher` objects. Thus, `Query` objects need to keep temporary state and statistics associated with the index in which the query is executed. To achieve reuse, every `Query` object generates a `Weight` object, which keeps the temporary context (state) associated with the `<IndexSearcher, Query>` tuple. The `create_weight` field contains the amount of time spent creating the `Weight` object.
-`build_scorer` | A `Scorer` iterates over matching documents and generates a score for each document. The `build_scorer` field contains the amount of time spent generating the `Scorer` object. This does not include the time spent scoring the documents. The `Scorer` initialization time depends on the optimization and complexity of a particular query. The `build_scorer` parameter also includes the amount of time associated with caching, if caching is applicable and enabled for the query.
-`next_doc` | The `next_doc` Lucene method returns the document ID of the next document that matches the query. This method is a special type of the `advance` method and is equivalent to `advance(docId() + 1)`. The `next_doc` method is more convenient for many Lucene queries. The `next_doc` field contains the amount of time required to determine the next matching document, which varies depending on the query type.  
-`advance` | The `advance` method is a lower-level version of the `next_doc` method in Lucene. It also finds the next matching document but necessitates that the calling query perform additional tasks, such as identifying skips. Some queries, such as conjunctions (`must` clauses in Boolean queries), cannot use `next_doc`. For those queries, `advance` is timed.
-`match` | For some queries, document matching is performed in two steps. First, the document is matched approximately. Second, those documents that are approximately matched are examined through a more comprehensive process. For example, a phrase query first checks whether a document contains all terms in the phrase. Next, it verifies that the terms are in order (which is a more expensive process). The `match` field is non-zero only for those queries that use the two-step verification process. 
-`score` | Contains the time taken for a `Scorer` to score a particular document.
-`shallow_advance` | Contains the amount of time required to execute the `advanceShallow` Lucene method.
-`compute_max_score` | Contains the amount of time required to execute the `getMaxScore` Lucene method.
-`set_min_competitive_score` | Contains the amount of time required to execute the `setMinCompetitiveScore` Lucene method.
-`<method>_count` | Contains the number of invocations of a `<method>`. For example, `advance_count` contains the number of invocations of the `advance` method. Different invocations of the same method occur because the method is called on different documents. You can determine the selectivity of a query by comparing counts in different query components.
+`create_weight` | A`Query` Lucene中的物体是不变的。但是，露西恩应该能够重复使用`Query` 多个对象`IndexSearcher` 对象。因此，`Query` 对象需要保持与执行查询的索引相关的临时状态和统计信息。为了实现重复使用，每个`Query` 对象生成一个`Weight` 对象，该对象保持与临时上下文（状态）`<IndexSearcher, Query>` 元组。这`create_weight` 字段包含创建时间的时间`Weight` 目的。
+`build_scorer` | A`Scorer` 迭代匹配文档，并为每个文档生成一个分数。这`build_scorer` 字段包含花费的时间生成`Scorer` 目的。这不包括对文档进行评分的时间。这`Scorer` 初始化时间取决于特定查询的优化和复杂性。这`build_scorer` 参数还包括与缓存相关的时间，如果用于查询并启用了缓存。
+`next_doc` | 这`next_doc` Lucene方法返回与查询相匹配的下一个文档的文档ID。此方法是一种特殊类型`advance` 方法，等效于`advance(docId() + 1)`。这`next_doc` 对于许多Lucene查询，方法更方便。这`next_doc` 字段包含确定下一个匹配文档所需的时间，该文档取决于查询类型。
+`advance` | 这`advance` 方法较低-级别版本的`next_doc` Lucene的方法。它还找到了下一个匹配的文档，但需要调用查询执行其他任务，例如识别跳过。一些查询，例如连词（`must` 布尔查询中的从句），无法使用`next_doc`。对于这些查询，`advance` 是定时的。
+`match` | 对于某些查询，文档匹配以两个步骤执行。首先，该文档大约匹配。其次，通过更全面的过程对那些大约匹配的文档进行了检查。例如，首先检查文档是否包含短语中的所有术语。接下来，它验证了术语是否有序（这是一个更昂贵的过程）。这`match` 字段是非-仅适用于那些使用两个查询-步骤验证过程。
+`score` | 包含花费的时间`Scorer` 为特定文档评分。
+`shallow_advance` | 包含执行的时间`advanceShallow` Lucene方法。
+`compute_max_score` | 包含执行的时间`getMaxScore` Lucene方法。
+`set_min_competitive_score` | 包含执行的时间`setMinCompetitiveScore` Lucene方法。
+`<method>_count` | 包含一个`<method>`。例如，`advance_count` 包含`advance` 方法。由于在不同的文档上调用该方法，因此发生了相同方法的不同调用。您可以通过比较不同查询组件中的计数来确定查询的选择性。
 
-### The `collector` array
+### 这`collector` 大批
 
-The `collector` array contains information about Lucene Collectors. A Collector is responsible for coordinating document traversal and scoring and collecting matching documents. Using Collectors, individual queries can record aggregation results and execute global queries or post-query filters. 
+这`collector` 阵列包含有关Lucene收集器的信息。收藏家负责协调文档遍历，评分和收集匹配文档。使用收集器，单个查询可以记录聚合结果并执行全局查询或发布-查询过滤器。
 
-Field | Description
+场地| 描述
 :--- | :--- 
-`name` | The collector name. In the [example response](#example-response), the `collector` is a single `SimpleTopScoreDocCollector`---the default scoring and sorting collector.
-`reason` | Contains a description of the collector. For possible field values, see [Collector reasons](#collector-reasons).
-`time_in_nanos` | A wall-clock time, including timing for all children.
-`children` | If a collector has subcollectors (children), this field contains information about the subcollectors.
+`name` | 收藏家名称。在里面[示例响应](#example-response)， 这`collector` 是一个`SimpleTopScoreDocCollector`---默认评分和分类收集器。
+`reason` | 包含对收藏家的描述。对于可能的字段值，请参阅[收集者的原因](#collector-reasons)。
+`time_in_nanos` | 一堵墙-时钟时间，包括所有儿童的时间。
+`children` | 如果收集器具有子收集器（儿童），则此字段包含有关子策略器的信息。
 
-Collector times are calculated, combined, and normalized independently, so they are independent of query times.
+收集器时间是独立计算，组合和归一化的，因此它们独立于查询时间。
 {: .note}
 
-#### Collector reasons
+#### 收集者的原因
 
-The following table describes all available collector reasons.
+下表描述了所有可用的收藏家原因。
 
-Reason | Description
+原因| 描述
 :--- | :--- 
-`search_sorted` | A collector that scores and sorts documents. Present in most simple searches.
-`search_count` | A collector that counts the number of matching documents but does not fetch the source. Present when `size: 0` is specified.
-`search_terminate_after_count` | A collector that searches for matching documents and terminates the search when it finds a specified number of documents. Present when the `terminate_after_count` query parameter is specified.
-`search_min_score` | A collector that returns matching documents that have a score greater than a minimum score. Present when the `min_score` parameter is specified.
-`search_multi` | A wrapper collector for other collectors. Present when search, aggregations, global aggregations, and post filters are combined in a single search.
-`search_timeout` | A collector that stops running after a specified period of time. Present when a `timeout` parameter is specified.
-`aggregation` | A collector for aggregations that is run against the specified query scope. OpenSearch uses a single `aggregation` collector to collect documents for all aggregations.
-`global_aggregation` | A collector that is run against the global query scope. Global scope is different from a specified query scope, so in order to collect the entire dataset, a `match_all` query must be run.
+`search_sorted` | 分数和分类文件的收藏家。在大多数简单的搜索中存在。
+`search_count` | 计算匹配文档数量但不获取源的收集器。在当时`size: 0` 指定。
+`search_terminate_after_count` | 一个收集器搜索匹配文档并在找到指定数量的文档时终止搜索。当时`terminate_after_count` 指定查询参数。
+`search_min_score` | 一个收藏家返回其得分大于最低分数的匹配文档。当时`min_score` 参数已指定。
+`search_multi` | 其他收藏家的包装收藏家。在单个搜索中将搜索，聚合，全局聚合和后过滤器组合在一起时存在。
+`search_timeout` | 在指定的时间段内停止运行的收集器。在a`timeout` 参数已指定。
+`aggregation` | 针对指定查询范围运行的聚合收集器。OpenSearch使用一个`aggregation` 收集器收集所有聚合的文件。
+`global_aggregation` | 与全球查询范围相对的收藏家。全局范围与指定的查询范围不同，因此为了收集整个数据集`match_all` 查询必须运行。
 
-## Aggregations
+## 聚合
 
-To profile aggregations, send an aggregation request and provide the `profile` parameter set to `true`.
+要配置汇总，请发送聚合请求并提供`profile` 参数设置为`true`。
 
-#### Example request: Global aggregation
+#### 示例请求：全局聚合
 
 ```json
 GET /opensearch_dashboards_sample_data_ecommerce/_search
@@ -313,13 +313,13 @@ GET /opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response: Global aggregation
+#### 示例响应：全局聚合
 
-The response contains profiling information:
+响应包含分析信息：
 
-<details closed markdown="block">
+<详细信息关闭的markdown ="block">
   <summary>
-    Response
+    回复
   </summary>
   {: .text-delta}
 
@@ -566,9 +566,9 @@ The response contains profiling information:
   }
 }
 ```
-</details>
+</delect>
 
-#### Example request: Non-global aggregation
+#### 示例请求：非-全球聚合
 
 ```json
 GET /opensearch_dashboards_sample_data_ecommerce/_search
@@ -585,13 +585,13 @@ GET /opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response: Non-global aggregation
+#### 示例响应：非-全球聚合
 
-The response contains profiling information:
+响应包含分析信息：
 
-<details closed markdown="block">
+<详细信息关闭的markdown ="block">
   <summary>
-    Response
+    回复
   </summary>
   {: .text-delta}
 
@@ -728,50 +728,50 @@ The response contains profiling information:
   }
 }
 ```
-</details>
+</delect>
 
-### Response fields
+### 响应字段
 
-The `aggregations` array contains aggregation objects with the following fields.
+这`aggregations` 数组包含带有以下字段的聚合对象。
 
-Field | Data type | Description
+场地| 数据类型| 描述
 :--- | :--- | :---
-`type` | String | The aggregator type. In the [non-global aggregation example response](#example-response-non-global-aggregation), the aggregator type is `AvgAggregator`. [Global aggregation example response](#example-request-global-aggregation) contains a `GlobalAggregator` with an `AvgAggregator` child.
-`description` | String | Contains a Lucene explanation of the aggregation. Helps differentiate aggregations with the same type.
-`time_in_nanos` | Long | The amount of time taken to execute the aggregation, in nanoseconds. In a parent aggregation, the time is inclusive of the execution times of all the child aggregations.
-[`breakdown`](#the-breakdown-object-1) | Object | Contains timing statistics about low-level Lucene execution.
-`children` | Array of objects | If an aggregation has subaggregations (children), this field contains information about the subaggregations.
-`debug` | Object | Some aggregations return a `debug` object that describes the details of the underlying execution.
+`type` | 细绳| 聚合类型。在里面[非-全局聚合示例响应](#example-response-non-global-aggregation)，聚合类型是`AvgAggregator`。[全局聚合示例响应](#example-request-global-aggregation) 包含a`GlobalAggregator` 与`AvgAggregator` 孩子。
+`description` | 细绳| 包含对聚集的Lucene解释。帮助将聚合与相同类型区分。
+`time_in_nanos` | 长的| 在纳秒内执行聚合所花费的时间。在父母的汇总中，时间包括所有子女聚合的执行时间。
+[`breakdown`](#the-breakdown-object-1) | 目的| 包含有关低的定时统计数据-Level Lucene执行。
+`children` | 对象数组| 如果聚合具有亚物体（儿童），则此字段包含有关亚物种的信息。
+`debug` | 目的| 一些聚合返回`debug` 描述基础执行细节的对象。
 
-### The `breakdown` object
+### 这`breakdown` 目的
 
-The `breakdown` object represents the timing statistics about low-level Lucene execution, broken down by method. Each field in the `breakdown` object represents an internal Lucene method executed within the aggregation. Timings are listed in wall-clock nanoseconds and are not normalized. The `breakdown` timings are inclusive of all child times. The `breakdown` object is comprised of the following fields. All fields contain integer values.
+这`breakdown` 对象表示有关低的定时统计信息-将Lucene执行，按方法分解。每个字段`breakdown` 对象表示在聚合中执行的内部Lucene方法。时间在墙上列出-时钟纳米秒，未标准化。这`breakdown` 时机包括所有儿童时代。这`breakdown` 对象由以下字段组成。所有字段都包含整数值。
 
-Field | Description
+场地| 描述
 :--- | :--- 
-`initialize` | Contains the amount of time taken to execute the `preCollection()` callback method during `AggregationCollectorManager` creation.
-`build_leaf_collector`| Contains the time spent running the `getLeafCollector()` method of the aggregation, which creates a new collector to collect the given context.
-`collect`| Contains the time spent collecting the documents into buckets.
-`post_collection`| Contains the time spent running the aggregation’s `postCollection()` callback method.
-`build_aggregation`| Contains the time spent running the aggregation’s `buildAggregations()` method, which builds the results of this aggregation.
-`reduce`| Contains the time spent in the `reduce` phase.
-`<method>_count` | Contains the number of invocations of a `<method>`. For example, `build_leaf_collector_count` contains the number of invocations of the `build_leaf_collector` method. 
+`initialize` | 包含执行的时间`preCollection()` 回调方法`AggregationCollectorManager` 创建。
+`build_leaf_collector`| 包含运行时间的时间`getLeafCollector()` 聚合的方法，该方法创建了一个新的收藏家来收集给定上下文。
+`collect`| 包含将文档收集到水桶中花费的时间。
+`post_collection`| 包含运行聚合的时间`postCollection()` 回调方法。
+`build_aggregation`| 包含运行聚合的时间`buildAggregations()` 方法，它构建了此聚合的结果。
+`reduce`| 包含在`reduce` 阶段。
+`<method>_count` | 包含一个`<method>`。例如，`build_leaf_collector_count` 包含`build_leaf_collector` 方法。
 
-## Concurrent segment search
+## 并发段搜索
 
-Starting in OpenSearch 2.10, [concurrent segment search]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/) allows each shard-level request to search segments in parallel during the query phase. If you enable the experimental concurrent segment search feature flag, the Profile API response will contain several additional fields with statistics about _slices_.
+从OpenSearch 2.10开始[并发段搜索]({{site.url}}{{site.baseurl}}/search-plugins/concurrent-segment-search/) 允许每个碎片-在查询阶段并行搜索段的级别请求。如果启用实验并发段搜索功能标志，则配置文件API响应将包含一些其他字段，其中包含有关_slices_的统计信息。
 
-A slice is the unit of work that can be executed by a thread. Each query can be partitioned into multiple slices, with each slice containing one or more segments. All the slices can be executed either in parallel or in some order depending on the available threads in the pool.
+切片是可以由线程执行的工作单位。每个查询都可以分为多个切片，每个切片包含一个或多个段。所有切片可以根据池中的可用线程并行或某些顺序执行。
 
-In general, the max/min/avg slice time captures statistics across all slices for a timing type. For example, when profiling aggregations, the `max_slice_time_in_nanos` field in the `aggregations` section shows the maximum time consumed by the aggregation operation and its children across all slices. 
+通常，最大/分钟/AVG切片时间捕获了所有切片的统计信息，以达到计时类型。例如，在分析聚合时`max_slice_time_in_nanos` 字段`aggregations` 部分显示了汇总操作及其在所有切片中的孩子所消耗的最长时间。
 
-#### Example response
+#### 示例响应
 
-The following is an example response for a concurrent search with three segment slices:
+以下是与三个片段切片的并发搜索的示例响应：
 
-<details closed markdown="block">
+<详细信息关闭的markdown ="block">
   <summary>
-    Response
+    回复
   </summary>
   {: .text-delta}
 
@@ -926,44 +926,45 @@ The following is an example response for a concurrent search with three segment 
   }
 }
 ```
-</details>
+</delect>
 
-### Modified or added response fields
+### 修改或添加的响应字段
 
-The following sections contain definitions of all modified or added response fields for concurrent segment search.
+以下各节包含所有修改或添加的响应字段的定义，用于并发段搜索。
 
-#### The `query` array
+#### 这`query` 大批
 
-|Field	|Description	|
+|场地|描述|
 |:---	|:---	|
-|`time_in_nanos`	|For concurrent segment search, `time_in_nanos` is the cumulative amount of time taken to run all methods across all slices, in nanoseconds. This is not equivalent to the actual amount of time the query took to run because it does not take into account that multiple slices can run the methods in parallel.	|
-|`breakdown.<method>`	|For concurrent segment search, this field contains the total amount of time taken by all segments to run a method.	|
-|`breakdown.<method>_count`	|For concurrent segment search, this field contains the total number of invocations of a `<method>` obtained by adding the number of method invocations for all segments.	|
+|`time_in_nanos`|用于并发段搜索，`time_in_nanos` 是在纳秒中运行所有切片的所有方法所花费的累积时间。这不等于查询所花费的实际时间，因为它没有考虑到多个切片可以并行运行该方法。|
+|`breakdown.<method>`|对于并发段搜索，此字段包含所有段运行方法所花费的时间。|
+|`breakdown.<method>_count`|对于并发段搜索，此字段包含一个调用总数`<method>` 通过添加所有段的方法调用数量获得。|
 
-#### The `collector` array
+#### 这`collector` 大批
 
-|Field	|Description	|
+|场地|描述|
 |:---	|:---	|
-|`time_in_nanos`	|The total elapsed time for this collector, in nanoseconds. For concurrent segment search, `time_in_nanos` is the total amount of time across all slices (`max(slice_end_time) - min(slice_start_time)`).	|
-|`max_slice_time_in_nanos`	|The maximum amount of time taken by any slice, in nanoseconds.	|
-|`min_slice_time_in_nanos`	|The minimum amount of time taken by any slice, in nanoseconds.	|
-|`avg_slice_time_in_nanos`	|The average amount of time taken by any slice, in nanoseconds.	|
-|`slice_count`	|The total slice count for this query.	|
-|`reduce_time_in_nanos`	|The amount of time taken to reduce results for all slice collectors, in nanoseconds.	|
+|`time_in_nanos`|该收集器的总时间为纳秒。用于并发段搜索，`time_in_nanos` 是所有切片的总时间（`max(slice_end_time) - min(slice_start_time)`）。|
+|`max_slice_time_in_nanos`|任何切片在纳秒中花费的最长时间。|
+|`min_slice_time_in_nanos`|任何切片在纳秒中花费的最短时间。|
+|`avg_slice_time_in_nanos`|任何切片的平均时间，纳米秒。|
+|`slice_count`|此查询的总切片计数。|
+|`reduce_time_in_nanos`|减少纳米秒的所有切片收集器的结果所花费的时间。|
 
-#### The `aggregations` array
+#### 这`aggregations` 大批
 
-|Field	|Description	|
+|场地|描述|
 |:---	|:---	|
-|`time_in_nanos`	|The total elapsed time for this aggregation, in nanoseconds. For concurrent segment search, `time_in_nanos` is the total amount of time across all slices (`max(slice_end_time) - min(slice_start_time)`).	|
-|`max_slice_time_in_nanos`	|The maximum amount of time taken by any slice to run an aggregation, in nanoseconds.	|
-|`min_slice_time_in_nanos`	|The minimum amount of time taken by any slice to run an aggregation, in nanoseconds.	|
-|`avg_slice_time_in_nanos`	|The average amount of time taken by any slice to run an aggregation, in nanoseconds.	|
-|`<method>`	|The total elapsed time across all slices (`max(slice_end_time) - min(slice_start_time)`). For example, for the `collect` method, it is the total time spent collecting documents into buckets across all slices.	|
-|`max_<method>`	|The maximum amount of time taken by any slice to run an aggregation method.	|
-|`min_<method>`|The minimum amount of time taken by any slice to run an aggregation method.	|
-|`avg_<method>`	|The average amount of time taken by any slice to run an aggregation method.	|
-|`<method>_count`	|The total method count across all slices. For example, for the `collect` method, it is the total number of invocations of this method needed to collect documents into buckets across all slices.	|
-|`max_<method>_count`	|The maximum number of invocations of a `<method>` on any slice.	|
-|`min_<method>_count`	|The minimum number of invocations of a `<method>` on any slice.	|
-|`avg_<method>_count`	|The average number of invocations of a `<method>` on any slice.	|
+|`time_in_nanos`|该聚合的总时间是纳秒。用于并发段搜索，`time_in_nanos` 是所有切片的总时间（`max(slice_end_time) - min(slice_start_time)`）。|
+|`max_slice_time_in_nanos`|任何切片在纳秒中运行聚合所花费的最长时间。|
+|`min_slice_time_in_nanos`|任何切片在纳秒中运行聚合所花费的最短时间。|
+|`avg_slice_time_in_nanos`|任何切片在纳秒中运行聚合的平均时间。|
+|`<method>`|所有切片的总过去时间（`max(slice_end_time) - min(slice_start_time)`）。例如，对于`collect` 方法，这是将文档收集到所有切片中的水桶中花费的总时间。|
+|`max_<method>`|任何切片所花费的最长时间运行聚合方法。|
+|`min_<method>`|任何切片所花费的最短时间运行聚合方法。|
+|`avg_<method>`|任何切片所需的平均时间运行聚合方法。|
+|`<method>_count`|总方法在所有切片中计数。例如，对于`collect` 方法，这是此方法的总数，将文档收集到所有切片的存储桶中所需的总数。|
+|`max_<method>_count`|A的最大召唤数量`<method>` 在任何切片上。|
+|`min_<method>_count`|最小数量`<method>` 在任何切片上。|
+|`avg_<method>_count`|A的平均调用数量`<method>` 在任何切片上。|
+

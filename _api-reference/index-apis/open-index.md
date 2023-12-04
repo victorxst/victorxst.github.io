@@ -1,52 +1,53 @@
 ---
 layout: default
-title: Open index
-parent: Index APIs
+title: 打开索引
+parent: 索引API
 nav_order: 55
 redirect_from:
   - /opensearch/rest-api/index-apis/open-index/
 ---
 
-# Open index
-**Introduced 1.0**
+# 打开索引
+**引入1.0**
 {: .label .label-purple }
 
-The open index API operation opens a closed index, letting you add or search for data within the index.
+打开的索引API操作打开封闭索引，让您在索引中添加或搜索数据。
 
-## Example
+## 例子
 
 ```json
 POST /sample-index/_open
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 POST /<index-name>/_open
 ```
 
-## URL parameters
+## URL参数
 
-All parameters are optional.
+所有参数都是可选的。
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- | :--- | :---
-&lt;index-name&gt; | String | The index to open. Can be a comma-separated list of multiple index names. Use `_all` or * to open all indexes.
-allow_no_indices | Boolean | Whether to ignore wildcards that don't match any indexes. Default is true.
-expand_wildcards | String | Expands wildcard expressions to different indexes. Combine multiple values with commas. Available values are all (match all indexes), open (match open indexes), closed (match closed indexes), hidden (match hidden indexes), and none (do not accept wildcard expressions). Default is open.
-ignore_unavailable | Boolean | If true, OpenSearch does not search for missing or closed indexes. Default is false.
-wait_for_active_shards | String | Specifies the number of active shards that must be available before OpenSearch processes the request. Default is 1 (only the primary shard). Set to all or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the request to succeed.
-cluster_manager_timeout | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
-timeout | Time | How long to wait for a response from the cluster. Default is `30s`.
-wait_for_completion | Boolean | When set to `false`, the request returns immediately instead of after the operation is finished. To monitor the operation status, use the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/) with the task ID returned by the request. Default is `true`.
-task_execution_timeout | Time | The explicit task execution timeout. Only useful when wait_for_completion is set to `false`. Default is `1h`.
+＆lt;索引-名称＆gt;| 细绳| 打开的索引。可以是逗号-多个索引名称的分开列表。使用`_all` 或 *打开所有索引。
+允许_no_indices| 布尔| 是否忽略不符合任何索引的通配符。默认是正确的。
+Expand_WildCard| 细绳| 将通配符表达式扩展到不同的索引。将多个值与逗号相结合。可用的值全部（匹配所有索引），打开（匹配打开索引），封闭（匹配封闭索引），隐藏（匹配隐藏索引）和无（不接受通配符表达式）。默认值打开。
+ignore_unavailable| 布尔| 如果为true，则OpenSearch不会搜索缺失或封闭的索引。默认值为false。
+wait_for_active_shards| 细绳| 指定在OpenSearch处理请求之前必须可用的活动碎片数。默认值为1（仅是主要碎片）。设置为全部或正整数。大于1的值需要复制品。例如，如果指定一个值为3的值，则该索引必须在两个其他节点上分布两个副本才能成功。
+cluster_manager_timeout| 时间| 等待连接到群集管理器节点多长时间。默认为`30s`。
+暂停| 时间| 等待群集的响应多长时间。默认为`30s`。
+wait_for_completion| 布尔| 设置为`false`，请求立即返回操作完成后。要监视操作状态，请使用[任务API]({{site.url}}{{site.baseurl}}/api-reference/tasks/) 随着请求返回任务ID。默认为`true`。
+task_execution_timeout| 时间| 明确的任务执行超时。仅当将WAIT_FOR_COMPLETION设置为`false`。默认为`1h`。
 
 
-## Response
+## 回复
 ```json
 {
   "acknowledged": true,
   "shards_acknowledged": true
 }
 ```
+

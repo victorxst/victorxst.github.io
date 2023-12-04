@@ -1,6 +1,6 @@
 ---
 layout: default
-title: CAT indices operation
+title: CAT 指数操作
 parent: CAT API
 nav_order: 25
 has_children: false
@@ -8,60 +8,61 @@ redirect_from:
 - /opensearch/rest-api/cat/cat-indices/
 ---
 
-# CAT indices
-**Introduced 1.0**
+# 猫指数
+**引入1.0**
 {: .label .label-purple }
 
-The CAT indexes operation lists information related to indexes, that is, how much disk space they are using, how many shards they have, their health status, and so on.
+CAT索引操作列出了与索引有关的信息，即，他们使用的磁盘空间数量，拥有多少碎片，其健康状况等等。
 
-## Example
+## 例子
 
 ```
 GET _cat/indices?v
 ```
 {% include copy-curl.html %}
 
-To limit the information to a specific index, add the index name after your query.
+要将信息限制为特定索引，请在查询之后添加索引名称。
 
 ```
 GET _cat/indices/<index>?v
 ```
 {% include copy-curl.html %}
 
-If you want to get information for more than one index, separate the indexes with commas:
+如果您想获得多个索引的信息，请将索引与逗号分开：
 
 ```json
 GET _cat/indices/index1,index2,index3
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 GET _cat/indices/<index>
 GET _cat/indices
 ```
 
-## URL parameters
+## URL参数
 
-All CAT indexes URL parameters are optional.
+所有CAT索引URL参数都是可选的。
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+除了[常见的URL参数]({{site.url}}{{site.baseurl}}/api-reference/cat/index)，您可以指定以下参数：
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- | :--- | :---
-bytes | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-health | String | Limit indexes based on their health status. Supported values are `green`, `yellow`, and `red`.
-include_unloaded_segments | Boolean | Whether to include information from segments not loaded into memory. Default is false.
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
-pri | Boolean | Whether to return information only from the primary shards. Default is false.
-time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-expand_wildcards | Enum | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`.
+字节| 字节大小| 指定字节大小的单元。例如，`7kb` 或者`6gb`。有关更多信息，请参阅[支持单位]({{site.url}}{{site.baseurl}}/opensearch/units/)。
+健康| 细绳| 根据其健康状况限制索引。支持的值是`green`，`yellow`， 和`red`。
+包括_unloaded_segments| 布尔| 是否包括未加载到内存中的段中的信息。默认值为false。
+cluster_manager_timeout| 时间| 等待连接到群集管理器节点的时间。默认值为30秒。
+pri| 布尔| 是否仅从主要碎片中返回信息。默认值为false。
+时间| 时间| 指定时间的单位。例如，`5d` 或者`7h`。有关更多信息，请参阅[支持单位]({{site.url}}{{site.baseurl}}/opensearch/units/)。
+Expand_WildCard| 枚举| 将通配符表达式扩展到混凝土指数。将多个值与逗号相结合。支持的值是`all`，`open`，`closed`，`hidden`， 和`none`。默认为`open`。
 
 
-## Response
+## 回复
 
 ```json
 health | status | index | uuid | pri | rep | docs.count | docs.deleted | store.size | pri.store.size
 green  | open | movies | UZbpfERBQ1-3GSH2bnM3sg | 1 | 1 | 1 | 0 | 7.7kb | 3.8kb
 ```
+

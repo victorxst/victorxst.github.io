@@ -1,58 +1,58 @@
 ---
 layout: default
-title: Create index
-parent: Index APIs
+title: 创建索引
+parent: 索引API
 nav_order: 25
 redirect_from:
   - /opensearch/rest-api/index-apis/create-index/
   - /opensearch/rest-api/create-index/
 ---
 
-# Create index
-**Introduced 1.0**
+# 创建索引
+**引入1.0**
 {: .label .label-purple }
 
-While you can create an index by using a document as a base, you can also create an empty index for later use.
+虽然您可以通过使用文档作为基础来创建索引，但也可以创建一个空索引以供以后使用。
 
-When creating an index, you can specify its mappings, settings, and aliases. 
+创建索引时，您可以指定其映射，设置和别名。
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 PUT <index-name>
 ```
 
-## Index naming restrictions
+## 索引命名限制
 
-OpenSearch indexes have the following naming restrictions:
+OpenSearch索引具有以下命名限制：
 
-- All letters must be lowercase.
-- Index names can't begin with underscores (`_`) or hyphens (`-`).
-- Index names can't contain spaces, commas, or the following characters:
+- 所有字母必须是小写。
+- 索引名称不能以下划线开头（`_`）或连字符（`-`）。
+- 索引名称不能包含空格，逗号或以下字符：
 
-  `:`, `"`, `*`, `+`, `/`, `\`, `|`, `?`, `#`, `>`, or `<`
+  `:`，`"`，`*`，`+`，`/`，`\`，`|`，`?`，`#`，`>`， 或者`<`
 
-## Path parameters
+## 路径参数
 
-| Parameter | Description |
+| 范围| 描述|
 :--- | :--- 
-| index | String | The index name. Must conform to the [index naming restrictions](#index-naming-restrictions). Required. |
+| 指数| 细绳| 索引名称。必须符合[索引命名限制](#index-naming-restrictions)。必需的。|
 
-## Query parameters
+## 查询参数
 
-You can include the following query parameters in your request. All parameters are optional.
+您可以在请求中包含以下查询参数。所有参数都是可选的。
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- | :--- | :---
-wait_for_active_shards | String | Specifies the number of active shards that must be available before OpenSearch processes the request. Default is 1 (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the request to succeed.
-cluster_manager_timeout | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
-timeout | Time | How long to wait for the request to return. Default is `30s`.
+wait_for_active_shards| 细绳| 指定在OpenSearch处理请求之前必须可用的活动碎片数。默认值为1（仅是主要碎片）。设置`all` 或一个积极的整数。大于1的值需要复制品。例如，如果指定一个值为3的值，则该索引必须在两个其他节点上分布两个副本才能成功。
+cluster_manager_timeout| 时间| 等待连接到群集管理器节点多长时间。默认为`30s`。
+暂停| 时间| 等待请求返回多长时间。默认为`30s`。
 
-## Request body
+## 请求身体
 
-As part of your request, you can optionally specify [index settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/), [mappings]({{site.url}}{{site.baseurl}}/field-types/index/), and [aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/) for your newly created index. 
+作为您请求的一部分，您可以选择指定[索引设置]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/)，[映射]({{site.url}}{{site.baseurl}}/field-types/index/)， 和[别名]({{site.url}}{{site.baseurl}}/opensearch/index-alias/) 对于您新创建的索引。
 
-#### Example request
+#### 示例请求
 
 ```json
 PUT /sample-index1
@@ -75,3 +75,4 @@ PUT /sample-index1
   }
 }
 ```
+

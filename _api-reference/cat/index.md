@@ -8,55 +8,55 @@ redirect_from:
   - /opensearch/rest-api/cat/index/
 ---
 
-# CAT API
-**Introduced 1.0**
+# 猫API
+**引入1.0**
 {: .label .label-purple }
-You can get essential statistics about your cluster in an easy-to-understand, tabular format using the compact and aligned text (CAT) API. The CAT API is a human-readable interface that returns plain text instead of traditional JSON.
+您可以轻松获得有关群集的基本统计信息-到-了解使用紧凑和对齐文本（CAT）API的表格格式。猫API是人类-可读的界面返回纯文本而不是传统的JSON。
 
-Using the CAT API, you can answer questions like which node is the elected master, what state is the cluster in, how many documents are in each index, and so on.
+使用CAT API，您可以回答问题，例如哪个节点是当选的大师，群集中的哪个状态，每个索引中有多少个文档等等。
 
-## Example
+## 例子
 
-To see the available operations in the CAT API, use the following command:
+要查看CAT API中的可用操作，请使用以下命令：
 
 ```
 GET _cat
 ```
 {% include copy-curl.html %}
 
-## Optional query parameters
+## 可选查询参数
 
-You can use the following query parameters with any CAT API to filter your results.
+您可以使用任何CAT API使用以下查询参数来过滤您的结果。
 
-Parameter | Description
+范围| 描述
 :--- | :--- |
-`v` |  Provides verbose output by adding headers to the columns. It also adds some formatting to help align each of the columns together. All examples in this section include the `v` parameter.
-`help` | Lists the default and other available headers for a given operation.
-`h`  |  Limits the output to specific headers.
-`format` |  Returns the result in JSON, YAML, or CBOR formats.
-`sort` | Sorts the output by the specified columns.
+`v` |  通过将标头添加到列中来提供详细的输出。它还添加了一些格式，以帮助将每个列对齐在一起。本节中的所有示例包括`v` 范围。
+`help` | 列出给定操作的默认标头和其他可用标头。
+`h`  |  将输出限制为特定的标题。
+`format` |  返回JSON，YAML或CBOR格式的结果。
+`sort` | 按指定的列对输出进行分类。
 
-### Query parameter usage examples
+### 查询参数用法示例
 
-You can specify a query parameter to any CAT operation to obtain more specific results.
+您可以为任何CAT操作指定查询参数，以获得更具体的结果。
 
-### Get verbose output
+### 获取详细的输出
 
-To query aliases and get verbose output that includes all column headings in the response, use the `v` query parameter.
+要查询别名并获取包含响应中所有列标题的详细输出，请使用`v` 查询参数。
 
 ```json
 GET _cat/aliases?v
 ```
 {% include copy-curl.html %}
 
-The response provides more details, such as names of each column in the response. 
+响应提供了更多详细信息，例如响应中每列的名称。
 
 ```
 alias index filter routing.index routing.search is_write_index
 .kibana .kibana_1 - - - -
 sample-alias1 sample-index-1 - - - -
 ```
-Without the verbose parameter, `v`, the response simply returns the alias names:
+没有详细参数，`v`，响应只会返回别名名称：
 
 ```
 
@@ -64,23 +64,24 @@ Without the verbose parameter, `v`, the response simply returns the alias names:
 sample-alias1 sample-index-1 - - - -
 ```
 
-### Get all available headers
+### 获取所有可用标题
 
-To see all the available headers, use the `help` parameter:
+要查看所有可用的标题，请使用`help` 范围：
 
 ```
 GET _cat/<operation_name>?help
 ```
 
-### Get a subset of headers
+### 获取标题子
 
-To limit the output to a subset of headers, use the `h` parameter:
+要将输出限制为标头的子集，请使用`h` 范围：
 
 ```
 GET _cat/<operation_name>?h=<header_name_1>,<header_name_2>&v
 ```
 
-Typically, for any operation you can find out what headers are available using the `help` parameter, and then use the `h` parameter to limit the output to only the headers that you care about.
+通常，对于任何操作，您都可以使用`help` 参数，然后使用`h` 参数将输出仅限于您关心的标头。
 
-If you use the Security plugin, make sure you have the appropriate permissions.
+如果使用安全插件，请确保拥有适当的权限。
 {: .note }
+

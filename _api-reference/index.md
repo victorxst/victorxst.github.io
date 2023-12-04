@@ -1,6 +1,6 @@
 ---
 layout: default
-title: REST API reference
+title: REST API参考
 nav_order: 1
 has_toc: false
 has_children: true
@@ -9,56 +9,57 @@ redirect_from:
   - /opensearch/rest-api/index/
 ---
 
-# REST API reference
-**Introduced 1.0**
+# REST API参考
+**引入1.0**
 {: .label .label-purple }
 
-You can use REST APIs for most operations in OpenSearch. In this reference, we provide a description of the API, and details that include the paths and HTTP methods, supported parameters, and example requests and responses.
+您可以将REST API用于OpenSearch中的大多数操作。在此引用中，我们提供了API的描述，以及包括路径和HTTP方法，支持参数以及示例请求和响应的详细信息。
 
-This reference includes the REST APIs supported by OpenSearch. If a REST API is missing, please provide feedback or submit a pull request in GitHub.
+该引用包括OpenSearch支持的REST API。如果缺少REST API，请提供反馈或在GitHub中提交拉动请求。
 {: .tip }
 
-## Related articles 
+## 相关文章
 
-- [Analyze API]({{site.url}}{{site.baseurl}}/api-reference/analyze-apis/)
-- [Access control API]({{site.url}}{{site.baseurl}}/security/access-control/api/)
-- [Alerting API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/)
-- [Anomaly detection API]({{site.url}}{{site.baseurl}}/observing-your-data/ad/api/) 
-- [CAT APIs]({{site.url}}{{site.baseurl}}/api-reference/cat/index/)
-- [Cluster APIs]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/index/)
-- [Common REST parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/)
-- [Count]({{site.url}}{{site.baseurl}}/api-reference/count/)
-- [Cross-cluster replication API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/api/)
-- [Document APIs]({{site.url}}{{site.baseurl}}/api-reference/document-apis/index/)
-- [Explain]({{site.url}}{{site.baseurl}}/api-reference/explain/)
-- [Index APIs]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/)
-- [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/)
-- [Index state management API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/)
-- [ISM error prevention API]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/api/)
-- [Ingest APIs]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/)
-- [k-NN plugin API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api/)
+- [分析API]({{site.url}}{{site.baseurl}}/api-reference/analyze-apis/)
+- [访问控制API]({{site.url}}{{site.baseurl}}/security/access-control/api/)
+- [提醒API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/)
+- [异常检测API]({{site.url}}{{site.baseurl}}/observing-your-data/ad/api/) 
+- [猫API]({{site.url}}{{site.baseurl}}/api-reference/cat/index/)
+- [群集API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/index/)
+- [常见的休息参数]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/)
+- [数数]({{site.url}}{{site.baseurl}}/api-reference/count/)
+- [叉-集群复制API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/api/)
+- [文档API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/index/)
+- [解释]({{site.url}}{{site.baseurl}}/api-reference/explain/)
+- [索引API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/)
+- [索引汇总API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/)
+- [索引状态管理API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/)
+- [ISM错误预防API]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/api/)
+- [摄入的API]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/)
+- [k-NN插件API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api/)
 - [ML Commons API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/) 
-- [Multi-search]({{site.url}}{{site.baseurl}}/api-reference/multi-search/)
-- [Nodes APIs]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/)
-- [Notifications API]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/api/)
-- [Performance analyzer API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/api/)
-- [Point in Time API]({{site.url}}{{site.baseurl}}/search-plugins/point-in-time-api/)
-- [Popular APIs]({{site.url}}{{site.baseurl}}/api-reference/popular-api/)
-- [Ranking evaluation]({{site.url}}{{site.baseurl}}/api-reference/rank-eval/)
-- [Refresh search analyzer]({{site.url}}{{site.baseurl}}/im-plugin/refresh-analyzer/)
-- [Remove cluster information]({{site.url}}{{site.baseurl}}/api-reference/remote-info/)
-- [Root cause analysis API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/rca/api/)
-- [Snapshot management API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/sm-api/)
-- [Script APIs]({{site.url}}{{site.baseurl}}/api-reference/script-apis/index/)
-- [Scroll]({{site.url}}{{site.baseurl}}/api-reference/scroll/)
-- [Search]({{site.url}}{{site.baseurl}}/api-reference/search/)
-- [Search relevance stats API]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/stats-api/)
-- [Security analytics APIs]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/index/)
-- [Snapshot APIs]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/)
-- [Stats API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/stats-api/)
-- [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/)
-- [Tasks]({{site.url}}{{site.baseurl}}/api-reference/tasks/)
-- [Transforms API]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/)
+- [多-搜索]({{site.url}}{{site.baseurl}}/api-reference/multi-search/)
+- [节点API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/)
+- [通知API]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/api/)
+- [性能分析仪API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/api/)
+- [时间点API]({{site.url}}{{site.baseurl}}/search-plugins/point-in-time-api/)
+- [流行的API]({{site.url}}{{site.baseurl}}/api-reference/popular-api/)
+- [排名评估]({{site.url}}{{site.baseurl}}/api-reference/rank-eval/)
+- [刷新搜索分析仪]({{site.url}}{{site.baseurl}}/im-plugin/refresh-analyzer/)
+- [删除群集信息]({{site.url}}{{site.baseurl}}/api-reference/remote-info/)
+- [根本原因分析API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/rca/api/)
+- [快照管理API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/sm-api/)
+- [脚本API]({{site.url}}{{site.baseurl}}/api-reference/script-apis/index/)
+- [滚动]({{site.url}}{{site.baseurl}}/api-reference/scroll/)
+- [搜索]({{site.url}}{{site.baseurl}}/api-reference/search/)
+- [搜索相关统计数据API]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/stats-api/)
+- [安全分析API]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/index/)
+- [快照API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/)
+- [统计API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/stats-api/)
+- [支持单位]({{site.url}}{{site.baseurl}}/api-reference/units/)
+- [任务]({{site.url}}{{site.baseurl}}/api-reference/tasks/)
+- [转换API]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/)
+
 
 
 

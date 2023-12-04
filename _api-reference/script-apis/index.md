@@ -1,14 +1,15 @@
 ---
 layout: default
-title: Script APIs
+title: 脚本API
 has_children: true
 nav_order: 70
 redirect_from:
   - /opensearch/rest-api/script-apis/
 ---
 
-# Script APIs
-**Introduced 1.0**
+# 脚本API
+**引入1.0**
 {: .label .label-purple }
 
-The script APIs allow you to work with stored scripts. Stored scripts are part of the cluster state and reduce compilation time and enhance search speed. The default scripting language is Painless.
+脚本API允许您使用存储的脚本。存储的脚本是群集状态的一部分，并减少了编译时间并提高搜索速度。默认的脚本语言无痛。
+

@@ -1,16 +1,16 @@
 ---
 layout: default
-title: Popular APIs
+title: 流行的API
 nav_order: 96
 redirect_from:
   - /opensearch/popular-api/
 ---
 
-# Popular APIs
-**Introduced 1.0**
+# 流行的API
+**引入1.0**
 {: .label .label-purple }
 
-This page contains example requests for popular OpenSearch operations.
+此页面包含示例请求流行的OpenSearch操作。
 
 
 ---
@@ -22,7 +22,7 @@ This page contains example requests for popular OpenSearch operations.
 
 ---
 
-## Create index with non-default settings
+## 用非-默认设置
 
 ```json
 PUT my-logs
@@ -45,7 +45,7 @@ PUT my-logs
 ```
 
 
-## Index a document with a random ID
+## 索引带有随机ID的文档
 
 ```json
 POST my-logs/_doc
@@ -56,7 +56,7 @@ POST my-logs/_doc
 ```
 
 
-## Index a document with a specific ID
+## 索引具有特定ID的文档
 
 ```json
 PUT my-logs/_doc/1
@@ -67,9 +67,9 @@ PUT my-logs/_doc/1
 ```
 
 
-## Index several documents at once
+## 一次索引几个文档
 
-The blank line at the end of the request body is required. If you omit the `_id` field, OpenSearch generates a random ID.
+要求主体末尾的空白线。如果您省略了`_id` 字段，OpenSearch生成一个随机ID。
 
 ```json
 POST _bulk
@@ -81,14 +81,14 @@ POST _bulk
 ```
 
 
-## List all indexes
+## 列出所有索引
 
 ```
 GET _cat/indices?v&expand_wildcards=all
 ```
 
 
-## Open or close all indexes that match a pattern
+## 打开或关闭与模式匹配的所有索引
 
 ```
 POST my-logs*/_open
@@ -96,30 +96,30 @@ POST my-logs*/_close
 ```
 
 
-## Delete all indexes that match a pattern
+## 删除与模式匹配的所有索引
 
 ```
 DELETE my-logs*
 ```
 
 
-## Create an index alias
+## 创建索引别名
 
-This request creates the alias `my-logs-today` for the index `my-logs-2019-11-13`.
+此请求创建别名`my-logs-today` 对于索引`my-logs-2019-11-13`。
 
 ```
 PUT my-logs-2019-11-13/_alias/my-logs-today
 ```
 
 
-## List all aliases
+## 列出所有别名
 
 ```
 GET _cat/aliases?v
 ```
 
 
-## Search an index or all indexes that match a pattern
+## 搜索与模式匹配的索引或所有索引
 
 ```
 GET my-logs/_search?q=test
@@ -127,14 +127,14 @@ GET my-logs*/_search?q=test
 ```
 
 
-## Get cluster settings, including defaults
+## 获取集群设置，包括默认设置
 
 ```
 GET _cluster/settings?include_defaults=true
 ```
 
 
-## Change disk watermarks (or other cluster settings)
+## 更改磁盘水印（或其他群集设置）
 
 ```json
 PUT _cluster/settings
@@ -147,42 +147,42 @@ PUT _cluster/settings
 ```
 
 
-## Get cluster health
+## 获得群集健康
 
 ```
 GET _cluster/health
 ```
 
 
-## List nodes in the cluster
+## 在集群中列出节点
 
 ```
 GET _cat/nodes?v
 ```
 
 
-## Get node statistics
+## 获取节点统计
 
 ```
 GET _nodes/stats
 ```
 
 
-## Get snapshots in a repository
+## 在存储库中获取快照
 
 ```
 GET _snapshot/my-repository/_all
 ```
 
 
-## Take a snapshot
+## 拍摄快照
 
 ```
 PUT _snapshot/my-repository/my-snapshot
 ```
 
 
-## Restore a snapshot
+## 还原快照
 
 ```json
 POST _snapshot/my-repository/my-snapshot/_restore
@@ -191,3 +191,4 @@ POST _snapshot/my-repository/my-snapshot/_restore
   "include_global_state": false
 }
 ```
+

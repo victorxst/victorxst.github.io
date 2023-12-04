@@ -1,28 +1,28 @@
 ---
 layout: default
-title: Remote cluster information
+title: 远程群集信息
 nav_order: 67
 redirect_from: 
  - /opensearch/rest-api/remote-info/
 ---
 
-# Remote cluster information
-**Introduced 1.0**
+# 远程群集信息
+**引入1.0**
 {: .label .label-purple }
 
-This operation provides connection information for any remote OpenSearch clusters that you've configured for the local cluster, such as the remote cluster alias, connection mode (`sniff` or `proxy`), IP addresses for seed nodes, and timeout settings.
+此操作为您为本地群集配置的任何远程OpenSearch群集提供连接信息，例如远程群集别名，连接模式（`sniff` 或者`proxy`），种子节点的IP地址和超时设置。
 
-The response is more comprehensive and useful than a call to `_cluster/settings`, which only includes the cluster alias and seed nodes.
+响应比呼吁更全面和有用`_cluster/settings`，仅包括簇别名和种子节点。
 
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 GET _remote/info
 ```
 {% include copy-curl.html %}
 
-## Response
+## 回复
 
 ```json
 {
@@ -39,3 +39,4 @@ GET _remote/info
   }
 }
 ```
+

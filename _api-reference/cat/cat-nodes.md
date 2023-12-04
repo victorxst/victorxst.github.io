@@ -1,6 +1,6 @@
 ---
 layout: default
-title: CAT nodes operation
+title: CAT 节点操作
 parent: CAT API
 
 nav_order: 40
@@ -9,46 +9,47 @@ redirect_from:
 - /opensearch/rest-api/cat/cat-nodes/
 ---
 
-# CAT nodes
-**Introduced 1.0**
+# 猫节点
+**引入1.0**
 {: .label .label-purple }
 
-The CAT nodes operation lists node-level information, including node roles and load metrics.
+猫节点操作列出节点-级别信息，包括节点角色和负载指标。
 
-A few important node metrics are `pid`, `name`, `cluster_manager`, `ip`, `port`, `version`, `build`, `jdk`, along with `disk`, `heap`, `ram`, and `file_desc`.
+一些重要的节点指标是`pid`，`name`，`cluster_manager`，`ip`，`port`，`version`，`build`，`jdk`， 随着`disk`，`heap`，`ram`， 和`file_desc`。
 
-## Example
+## 例子
 
 ```
 GET _cat/nodes?v
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 GET _cat/nodes
 ```
 
-## URL parameters
+## URL参数
 
-All CAT nodes URL parameters are optional.
+所有CAT节点URL参数都是可选的。
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+除了[常见的URL参数]({{site.url}}{{site.baseurl}}/api-reference/cat/index)，您可以指定以下参数：
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- | :--- | :---
-bytes | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-full_id | Boolean | If true, return the full node ID. If false, return the shortened node ID. Defaults to false.
-local | Boolean | Whether to return information from the local node only instead of from the cluster_manager node. Default is false.
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
-time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-include_unloaded_segments | Boolean | Whether to include information from segments not loaded into memory. Default is false.
+字节| 字节大小| 指定字节大小的单元。例如，`7kb` 或者`6gb`。有关更多信息，请参阅[支持单位]({{site.url}}{{site.baseurl}}/opensearch/units/)。
+full_id| 布尔| 如果为true，请返回完整的节点ID。如果false，请返回缩短的节点ID。默认为false。
+当地的| 布尔| 是否仅从本地节点返回信息，而不是从cluster_manager节点返回。默认值为false。
+cluster_manager_timeout| 时间| 等待连接到群集管理器节点的时间。默认值为30秒。
+时间| 时间| 指定时间的单位。例如，`5d` 或者`7h`。有关更多信息，请参阅[支持单位]({{site.url}}{{site.baseurl}}/opensearch/units/)。
+包括_unloaded_segments| 布尔| 是否包括未加载到内存中的段中的信息。默认值为false。
 
 
-## Response
+## 回复
 
 ```json
 ip       |   heap.percent | ram.percent | cpu load_1m | load_5m | load_15m | node.role | node.roles |     cluster_manager |  name
 10.11.1.225  |         31   |    32  | 0  |  0.00  |  0.00   | di  | data,ingest,ml  | - |  data-e5b89ad7
 ```
+

@@ -6,16 +6,16 @@ redirect_from:
  - /opensearch/rest-api/count/
 ---
 
-# Count
-**Introduced 1.0**
+# 数数
+**引入1.0**
 {: .label .label-purple }
 
-The count API gives you quick access to the number of documents that match a query.
-You can also use it to check the document count of an index, data stream, or cluster.
+计数API使您可以快速访问与查询匹配的文档数量。
+您也可以使用它来检查索引，数据流或群集的文档计数。
 
-## Example
+## 例子
 
-To see the number of documents that match a query:
+要查看与查询匹配的文档数量：
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_count
@@ -29,7 +29,7 @@ GET opensearch_dashboards_sample_data_logs/_count
 ```
 {% include copy-curl.html %}
 
-The following call to the search API produces equivalent results:
+以下呼叫搜索API会产生同等的结果：
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -45,27 +45,27 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-To see the number of documents in an index:
+在索引中查看文档数量：
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_count
 ```
 {% include copy-curl.html %}
 
-To check for the number of documents in a [data stream]({{site.url}}{{site.baseurl}}/opensearch/data-streams/), replace the index name with the data stream name.
+要检查一个文档的数量[数据流]({{site.url}}{{site.baseurl}}/opensearch/data-streams/)，用数据流名称替换索引名称。
 
-To see the number of documents in your cluster:
+要查看群集中的文档数量：
 
 ```json
 GET _count
 ```
 {% include copy-curl.html %}
 
-Alternatively, you could use the [cat indexes]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/) and [cat count]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-count/) APIs to see the number of documents per index or data stream.
+或者，您可以使用[猫索引]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/) 和[猫数]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-count/) API查看每个索引或数据流的文档数量。
 {: .note }
 
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 GET <target>/_count/<id>
@@ -73,26 +73,26 @@ POST <target>/_count/<id>
 ```
 
 
-## URL parameters
+## URL参数
 
-All count parameters are optional.
+所有计数参数都是可选的。
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- | :--- | :---
-`allow_no_indices` | Boolean | If false, the request returns an error if any wildcard expression or index alias targets any closed or missing indexes. Default is false.
-`analyzer` | String | The analyzer to use in the query string.
-`analyze_wildcard` | Boolean | Specifies whether to analyze wildcard and prefix queries. Default is false.
-`default_operator` | String | Indicates whether the default operator for a string query should be AND or OR. Default is OR.
-`df` | String | The default field in case a field prefix is not provided in the query string.
-`expand_wildcards` | String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. Valid values are `all` (match any index), `open` (match open, non-hidden indexes), `closed` (match closed, non-hidden indexes), `hidden` (match hidden indexes), and `none` (deny wildcard expressions). Default is `open`.
-`ignore_unavailable` | Boolean | Specifies whether to include missing or closed indexes in the response. Default is false.
-`lenient` | Boolean | Specifies whether OpenSearch should accept requests if queries have format errors (for example, querying a text field for an integer). Default is false.
-`min_score` | Float |	Include only documents with a minimum `_score` value in the result.
-`routing` | String | Value used to route the operation to a specific shard.
-`preference` | String | Specifies which shard or node OpenSearch should perform the count operation on.
-`terminate_after` | Integer | The maximum number of documents OpenSearch should process before terminating the request.
+`allow_no_indices` | 布尔| 如果false，请求将返回错误，如果任何通配符表达式或索引别名针对任何封闭或丢失的索引。默认值为false。
+`analyzer` | 细绳| 用于查询字符串中的分析仪。
+`analyze_wildcard` | 布尔| 指定是否分析通配符和前缀查询。默认值为false。
+`default_operator` | 细绳| 指示字符串查询的默认运算符应该是和或或。默认为或。
+`df` | 细绳| 如果查询字符串中未提供字段前缀，则默认字段。
+`expand_wildcards` | 细绳| 指定通配符表达式可以匹配的索引类型。支持逗号-分离的值。有效值是`all` （匹配任何索引），`open` （匹配开放，非-隐藏索引），`closed` （匹配封闭，非-隐藏索引），`hidden` （匹配隐藏索引），`none` （拒绝通配符表达）。默认为`open`。
+`ignore_unavailable` | 布尔| 指定响应中是否包括缺失或封闭索引。默认值为false。
+`lenient` | 布尔| 指定如果查询具有格式错误，OpenSearch是否应接受请求（例如，查询文本字段中的整数）。默认值为false。
+`min_score` | 漂浮|仅包括最低文档`_score` 结果的价值。
+`routing` | 细绳| 用于将操作路由到特定碎片的值。
+`preference` | 细绳| 指定哪些分片或节点OpenSearch应执行计数操作。
+`terminate_after` | 整数| 文档数量的最大数量OpenSearch应在终止请求之前进行处理。
 
-## Response
+## 回复
 
 ```json
 {
@@ -105,3 +105,4 @@ Parameter | Type | Description
   }
 }
 ```
+

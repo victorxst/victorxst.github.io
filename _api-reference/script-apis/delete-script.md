@@ -1,43 +1,43 @@
 ---
 layout: default
-title: Delete Script
-parent: Script APIs
+title: 删除脚本
+parent: 脚本API
 nav_order: 4
 ---
 
-# Delete script
-**Introduced 1.0**
+# 删除脚本
+**引入1.0**
 {: .label .label-purple }
 
-Deletes a stored script
+删除存储的脚本
 
-## Path parameters
+## 路径参数
 
-Path parameters are optional. 
+路径参数是可选的。
 
-| Parameter | Data type | Description | 
+| 范围| 数据类型| 描述| 
 :--- | :--- | :---
-| script-id | String | ID of script to delete. |
+| 脚本-ID| 细绳| 要删除脚本的ID。|
 
-## Query parameters
+## 查询参数
 
-| Parameter | Data type | Description | 
+| 范围| 数据类型| 描述| 
 :--- | :--- | :---
-| cluster_manager_timeout | Time | Amount of time to wait for a connection to the cluster manager. Optional, defaults to `30s`. |
-| timeout | Time | The period of time to wait for a response. If a response is not received before the timeout value, the request will be dropped.
+| cluster_manager_timeout| 时间| 等待与群集管理器连接的时间。可选，默认为`30s`。|
+| 暂停| 时间| 等待回应的时间。如果在超时值之前未收到响应，则将删除请求。
 
-#### Example request
+#### 示例请求
 
-The following request deletes the `my-first-script` script:
+以下请求删除了`my-first-script` 脚本：
 
 ````json
 DELETE _scripts/my-script
 ````
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
-The `DELETE _scripts/my-first-script` request returns the following field:
+这`DELETE _scripts/my-first-script` 请求返回以下字段：
 
 ````json
 {
@@ -45,12 +45,13 @@ The `DELETE _scripts/my-first-script` request returns the following field:
 }
 ````
 
-To determine whether the stored script was successfully deleted, use the [Get stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/get-stored-script/) API, passing the script name as the `script` path parameter.
+要确定是否成功删除了存储的脚本，请使用[获取存储的脚本]({{site.url}}{{site.baseurl}}/api-reference/script-apis/get-stored-script/) API，将脚本名称传递给`script` 路径参数。
 
-## Response fields
+## 响应字段
 
-The <HTTP METHOD> <endpoint> request returns the following response fields:
+<http方法> <Endpoint>请求返回以下响应字段：
 
-| Field | Data type | Description | 
+| 场地| 数据类型| 描述| 
 :--- | :--- | :---
-| acknowledged | Boolean | Whether the delete script request was received. |
+| 承认| 布尔| 是否收到删除脚本请求。
+

@@ -1,23 +1,24 @@
 ---
 layout: default
-title: Ingest APIs
+title: 摄入的API
 has_children: false
 nav_order: 40
 redirect_from:
   - /opensearch/rest-api/ingest-apis/index/
 ---
 
-# Ingest APIs
-**Introduced 1.0**
+# 摄入的API
+**引入1.0**
 {: .label .label-purple }
 
-Ingest APIs are a valuable tool for loading data into a system. Ingest APIs work together with [ingest pipelines]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-pipelines/) and [ingest processors]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-processors/) to process or transform data from a variety of sources and in a variety of formats. 
+摄入API是将数据加载到系统中的宝贵工具。摄入的API与[摄取管道]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-pipelines/) 和[摄入的处理器]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/ingest-processors/) 从多种来源和各种格式处理或转换数据。
 
-## Ingest pipeline APIs
+## 摄入管道API
 
-Simplify, secure, and scale your OpenSearch data ingestion with the following APIs:
+用以下API简化，安全并扩展您的OpenSearch数据摄入：
 
-- [Create pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/create-ingest/): Use this API to create or update a pipeline configuration.
-- [Get pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/get-ingest/): Use this API to retrieve a pipeline configuration.
-- [Simulate pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/simulate-ingest/): Use this pipeline to test a pipeline configuration.
-- [Delete pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/delete-ingest/): Use this API to delete a pipeline configuration.
+- [创建管道]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/create-ingest/)：使用此API创建或更新管道配置。
+- [获取管道]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/get-ingest/)：使用此API检索管道配置。
+- [模拟管道]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/simulate-ingest/)：使用此管道测试管道配置。
+- [删除管道]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/delete-ingest/)：使用此API删除管道配置。
+

@@ -1,50 +1,50 @@
 ---
 layout: default
-title: Clear cache
-parent: Index APIs
+title: 清除缓存
+parent: 索引API
 nav_order: 10
 ---
 
-# Clear cache
-**Introduced 1.0**
+# 清除缓存
+**引入1.0**
 {: .label .label-purple }
 
-The clear cache API operation clears the caches of one or more indexes. For data streams, the API clears the caches of the stream’s backing indexes.
+清晰的缓存API操作清除了一个或多个索引的缓存。对于数据流，API清除了该流的背索索引的缓存。
 
 
-If you use the Security plugin, you must have the `manage index` privileges.
+如果使用安全插件，则必须`manage index` 特权。
 {: .note}
 
-## Path parameters
+## 路径参数
 
-| Parameter | Data type | Description |
+| 范围| 数据类型| 描述|
 :--- | :--- | :---
-| target | String | Comma-delimited list of data streams, indexes, and index aliases to which cache clearing is applied. Wildcard expressions (`*`) are supported. To target all data streams and indexes in a cluster, omit this parameter or use `_all` or `*`. Optional. |
+| 目标| 细绳| 逗号-应用缓存清除的数据流，索引和索引别名的界定列表。通配符表达式（`*`支持）。要针对集群中的所有数据流和索引，请省略此参数或使用`_all` 或者`*`。选修的。|
 
 
-## Query parameters
+## 查询参数
 
-All query parameters are optional.
+所有查询参数都是可选的。
 
-| Parameter | Data type | Description |
+| 范围| 数据类型| 描述|
 :--- | :--- | :---
-| allow_no_indices | Boolean | Whether to ignore wildcards, index aliases, or `_all` target (`target` path parameter) values that don’t match any indexes. If `false`, the request returns an error if any wildcard expression, index alias, or `_all` target value doesn't match any indexes. This behavior also applies if the request targets include other open indexes. For example, a request where the target is `fig*,app*` returns an error if an index starts with `fig` but no index starts with `app`. Defaults to `true`. |
-| expand_wildcards | String | Determines the index types that wildcard expressions can expand to. Accepts multiple values separated by a comma, such as  `open,hidden`. Valid values are: <br /><br /> `all` -- Expand to open, closed, and hidden indexes.<br /><br />`open` -- Expand only to open indexes.<br /><br />`closed` -- Expand only to closed indexes<br /><br />`hidden` -- Expand to include hidden indexes. Must be combined with `open`, `closed`, or `both`.<br /><br />`none` -- Expansions are not accepted.<br /><br /> Defaults to `open`. |
-| fielddata | Boolean | If `true`, clears the fields cache. Use the `fields` parameter to clear specific fields' caches.  Defaults to `true`. |
-| fields | String | Used in conjunction with the `fielddata` parameter. Comma-delimited list of field names that are cleared out of the cache. Does not support objects or field aliases. Defaults to all fields. |
-| file | Boolean | If `true`, clears the unused entries from the file cache on nodes with the Search role. Defaults to `false`. |
-| index | String | Comma-delimited list of index names that are cleared out of the cache. |
-| ignore_unavailable | Boolean | If `true`, OpenSearch ignores missing or closed indexes. Defaults to `false`. |
-| query | Boolean | If `true`, clears the query cache. Defaults to `true`. |
-| request | Boolean | If `true`, clears the request cache. Defaults to `true`. |
+| 允许_no_indices| 布尔| 是忽略通配符，索引别名还是`_all` 目标 （`target` 路径参数）值不匹配任何索引。如果`false`，请求如果任何通配符表达式，索引别名或`_all` 目标值不匹配任何索引。如果请求目标包括其他开放索引，则此行为也适用。例如，目标是`fig*,app*` 如果索引开始`fig` 但是没有索引开头`app`。默认为`true`。|
+| Expand_WildCard| 细绳| 确定通配符表达式可以扩展到的索引类型。接受由逗号分隔的多个值，例如`open,hidden`。有效值是：<br /> <br />`all` -- 扩展到打开，关闭和隐藏索引。<br /> <br />`open` -- 仅扩展到打开索引。<br /> <br />`closed` -- 仅扩展到封闭索引<br /> <br />`hidden` -- 扩展以包括隐藏索引。必须与`open`，`closed`， 或者`both`。<br /> <br />`none` -- 不接受扩展。<br /> <br />默认为`open`。|
+| fieldData| 布尔| 如果`true`，清除字段缓存。使用`fields` 参数清除特定字段的缓存。默认为`true`。|
+| 字段| 细绳| 与`fielddata` 范围。逗号-从缓存中清除的字段名称的界定列表。不支持对象或字段别名。默认为所有字段。|
+| 文件| 布尔| 如果`true`，清除带有搜索角色的节点上的文件缓存的未使用条目。默认为`false`。|
+| 指数| 细绳| 逗号-从缓存中清除的索引名称的划界列表。|
+| ignore_unavailable| 布尔| 如果`true`，OpenSearch忽略缺失或封闭索引。默认为`false`。|
+| 询问| 布尔| 如果`true`，清除查询缓存。默认为`true`。|
+| 要求| 布尔| 如果`true`，清除请求缓存。默认为`true`。|
 
-#### Example requests
+#### 示例请求
 
-The following example requests show multiple clear cache API uses.
+以下示例请求显示多个清晰的缓存API使用。
 
-##### Clear a specific cache
+##### 清除特定的缓存
 
-The following request clears the fields cache only:
+以下请求仅清除字段缓存：
 
 ```json
 POST /my-index/_cache/clear?fielddata=true
@@ -53,7 +53,7 @@ POST /my-index/_cache/clear?fielddata=true
 
 <hr />
 
-The following request clears the query cache only:
+以下请求仅清除查询缓存：
 
 ```json
 POST /my-index/_cache/clear?query=true
@@ -62,50 +62,50 @@ POST /my-index/_cache/clear?query=true
 
 <hr />
 
-The following request clears the request cache only:
+以下请求仅清除请求缓存：
 
 ```json
 POST /my-index/_cache/clear?request=true
 ```
 {% include copy-curl.html %}
 
-#### Clear the cache for specific fields
+#### 清除特定字段的缓存
 
-The following request clears the fields caches of `fielda` and `fieldb`:
+以下请求清除了字段缓存`fielda` 和`fieldb`：
 
 ```json
 POST /my-index/_cache/clear?fields=fielda,fieldb
 ```
 {% include copy-curl.html %}
 
-#### Clear caches for specific data streams or indexes
+#### 清除特定数据流或索引的缓存
 
-The following request clears the cache for two specific indexes:
+以下请求清除了两个特定索引的缓存：
 
 ```json
 POST /my-index,my-index2/_cache/clear
 ```
 {% include copy-curl.html %}
 
-#### Clear caches for all data streams and indexes
+#### 清除所有数据流和索引的缓存
 
-The following request clears the cache for all data streams and indexes:
+以下请求清除了所有数据流和索引的缓存：
 
 ```json
 POST /_cache/clear
 ```
 {% include copy-curl.html %}
 
-#### Clear unused entries from the cache on search-capable nodes
+#### 清除搜索中缓存中的未使用的条目-有能力的节点
 
 ```json
 POST /*/_cache/clear?file=true 
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
-The `POST /books,hockey/_cache/clear` request returns the following fields:
+这`POST /books,hockey/_cache/clear` 请求返回以下字段：
 
 ```json
 {
@@ -117,13 +117,14 @@ The `POST /books,hockey/_cache/clear` request returns the following fields:
 }
 ```
 
-## Response fields
+## 响应字段
 
-The `POST /books,hockey/_cache/clear` request returns the following response fields:
+这`POST /books,hockey/_cache/clear` 请求返回以下响应字段：
 
-| Field | Data type | Description | 
+| 场地| 数据类型| 描述| 
 :--- | :--- | :---
-| _shards | Object | Shard information. |
-| total | Integer | Total number of shards. |
-| successful | Integer | Number of index shards with caches successfully cleared. |
-| failed | Integer | Number of index shards with caches that failed to clear. |
+| _沙尔德| 目的| 碎片信息。|
+| 全部的| 整数| 碎片总数。|
+| 成功的| 整数| 带有卡车的索引碎片的数量成功清除了。|
+| 失败的| 整数| 带有缓存的索引碎片数量未能清除。|
+

@@ -1,51 +1,51 @@
 ---
 layout: default
-title: Ranking evaluation
+title: 排名评估
 nav_order: 60
 ---
 
-# Ranking evaluation
-**Introduced 1.0**
+# 排名评估
+**引入1.0**
 {: .label .label-purple }
 
-The [rank]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/rank/) eval endpoint allows you to evaluate the quality of ranked search results.
+这[秩]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/rank/) 评估端点允许您评估排名搜索结果的质量。
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 GET <index_name>/_rank_eval 
 POST <index_name>/_rank_eval
 ```
 
-## Query parameters
+## 查询参数
 
-Query parameters are optional.
+查询参数是可选的。
 
-Parameter | Data type | Description
+范围| 数据类型| 描述
 :--- | :---  | :---
-ignore_unavailable | Boolean | Defaults to `false`. When set to `false` the response body will return an error if an index is closed or missing.
-allow_no_indices | Boolean | Defaults to `true`. When set to `false` the response body will return an error if a wildcard expression points to indexes that are closed or missing.
-expand_wildcards | String | Expand wildcard expressions for indexes that are `open`, `closed`, `hidden`, `none`, or `all`.
-search_type | String | Set search type to either `query_then_fetch` or `dfs_query_then_fetch`.
+ignore_unavailable| 布尔| 默认为`false`。设置为`false` 如果索引关闭或丢失，响应主体将返回错误。
+允许_no_indices| 布尔| 默认为`true`。设置为`false` 如果通配符表达式指向封闭或丢失的索引，则响应主体将返回错误。
+Expand_WildCard| 细绳| 扩大索引的通配符表达式`open`，`closed`，`hidden`，`none`， 或者`all`。
+搜索类型| 细绳| 将搜索类型设置为任一`query_then_fetch` 或者`dfs_query_then_fetch`。
 
-## Request fields
+## 请求字段
 
-The request body must contain at least one parameter.
+请求主体必须至少包含一个参数。
 
-Field Type | Description
+字段类型| 描述
 :--- | :---  
-id | Document or template ID.
-requests | Set multiple search requests within the request field section.
-ratings | Document relevance score.
-k | The number of documents returned per query. Default is set to 10.
-relevant_rating_threshold | The threshold at which documents are considered relevant. Default is set to 1.
-normalize | Discounted cumulative gain will be calculated when set to `true`.
-maximum_relevance | Sets the maximum relevance score when using the expected reciprocal rank metric.
-ignore_unlabeled | Defaults to `false`. Unlabeled documents are ignored when set to `true`. 
-template_id | Template ID.
-params | Parameters used in the template.
+ID| 文档或模板ID。
+要求| 在“请求”字段部分中设置多个搜索请求。
+评分| 文件相关得分。
+k| 每个查询返回的文档数量。默认设置为10。
+seacitant_rating_threshold| 文档被认为相关的阈值。默认设置为1。
+归一化| 设置为折扣累积收益将计算`true`。
+最大值| 使用预期的相互等级度量时，设置最大相关得分。
+ignore_unlabeled| 默认为`false`。设置为`true`。
+template_id| 模板ID。
+参数| 模板中使用的参数。
 
-#### Example request
+#### 示例请求
 
 ````json
 GET shakespeare/_rank_eval
@@ -76,7 +76,7 @@ GET shakespeare/_rank_eval
 ````
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ````json
 {

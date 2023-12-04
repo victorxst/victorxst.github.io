@@ -1,22 +1,23 @@
 ---
 layout: default
-title: Supported units
+title: 支持单位
 nav_order: 90
 redirect_from:
   - /opensearch/units/
 ---
 
-# Supported units
-**Introduced 1.0**
+# 支持单位
+**引入1.0**
 {: .label .label-purple }
 
-OpenSearch supports the following units for all REST operations:
+OpenSearch支持所有REST操作的以下单元：
 
-Unit | Description | Example
+单元| 描述| 例子
 :--- | :--- | :---
-Times | The supported units for time are `d` for days, `h` for hours, `m` for minutes, `s` for seconds, `ms` for milliseconds, `micros` for microseconds, and `nanos` for nanoseconds. | `5d` or `7h`
-Bytes | The supported units for byte size are `b` for bytes, `kb` for kibibytes, `mb` for mebibytes, `gb` for gibibytes, `tb` for tebibytes, and `pb` for pebibytes. Despite the base-10 abbreviations, these units are base-2; `1kb` is 1,024 bytes, `1mb` is 1,048,576 bytes, etc. | `7kb` or `6gb`
-Distances | The supported units for distance are `mi` for miles, `yd` for yards, `ft` for feet, `in` for inches, `km` for kilometers, `m` for meters, `cm` for centimeters, `mm` for millimeters, and `nmi` or `NM` for nautical miles. | `5mi` or `4ft`
-Quantities without units | For large values that don't have a unit, use `k` for kilo, `m` for mega, `g` for giga, `t` for tera, and `p` for peta. | `5k` for 5,000
+时代| 随时间的支持单位是`d` 好几天，`h` 用了几个小时，`m` 几分钟`s` 几秒钟`ms` 对于毫秒`micros` 对于微秒，以及`nanos` 对于纳秒。| `5d` 或者`7h`
+字节| 字节大小的支持单元是`b` 对于字节，`kb` 对于kibibytes，`mb` 对于Mebibytes，`gb` 对于gibibytes，`tb` 对于tebibytes和`pb` 用于卵石。尽管有基地-10个缩写，这些单位是基础-2;`1kb` 是1,024个字节，`1mb` 是1,048,576个字节，等。| `7kb` 或者`6gb`
+距离| 距离的支撑单元是`mi` 几英里，`yd` 对于院子，`ft` 对于脚，`in` 对于英寸，`km` 对于公里，`m` 对于米，`cm` 用于厘米，`mm` 用于毫米，`nmi` 或者`NM` 用于航海里程。| `5mi` 或者`4ft`
+无单位的数量| 对于没有单位的大价值观，请使用`k` 对于Kilo，`m` 对于巨人，`g` 对于giga，`t` 对于tera，`p` 对于PETA。| `5k` 5,000
 
-To convert output units to human-readable values, see [Common REST parameters]({{site.url}}{{site.baseurl}}/opensearch/common-parameters/).
+将输出单位转换为人类-可读的值，请参阅[常见的休息参数]({{site.url}}{{site.baseurl}}/opensearch/common-parameters/)。
+

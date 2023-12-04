@@ -1,40 +1,40 @@
 ---
 layout: default
-title: Nodes info
-parent: Nodes APIs
+title: 节点信息
+parent: 节点API
 nav_order: 10
 ---
 
-# Nodes info
-**Introduced 1.0**
+# 节点信息
+**引入1.0**
 {: .label .label-purple }
 
-The nodes info API represents mostly static information about your cluster's nodes, including but not limited to:
+节点信息API主要表示有关群集节点的静态信息，包括但不限于：
 
-- Host system information 
-- JVM 
-- Processor Type 
-- Node settings 
-- Thread pools settings 
-- Installed plugins
+- 主机系统信息
+- JVM
+- 处理器类型
+- 节点设置
+- 线程池设置
+- 已安装的插件
 
-## Example
+## 例子
 
-To get information about all nodes in a cluster, use the following query:
+要获取集群中所有节点的信息，请使用以下查询：
 
 ```json
 GET /_nodes
 ```
 {% include copy-curl.html %}
 
-To get thread pool information about the cluster manager node only, use the following query:
+要获取有关群集管理器节点的线程池信息，请使用以下查询：
 
 ```json
 GET /_nodes/master:true/thread_pool
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```bash
 GET /_nodes
@@ -45,52 +45,52 @@ GET /_nodes/<nodeId>/<metrics>
 GET /_nodes/<nodeId>/info/<metrics>
 ```
 
-## Path parameters
+## 路径参数
 
-The following table lists the available path parameters. All path parameters are optional.
+下表列出了可用路径参数。所有路径参数都是可选的。
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- |:-------| :---
-nodeId | String | A comma-separated list of nodeIds used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). Defaults to `_all`.
-metrics | String | A comma-separated list of metric groups that will be included in the response. For example, `jvm,thread_pool`. Defaults to all metrics.
+nodeid| 细绳| 逗号-用于过滤结果的节点的分离列表。支持[节点过滤器]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters)。默认为`_all`。
+指标| 细绳| 逗号-将包括在响应中的公制组的分开列表。例如，`jvm,thread_pool`。默认为所有指标。
 
-The following table lists all available metric groups.
+下表列出了所有可用的公制组。
 
-Metric | Description
+公制| 描述
 :--- |:----
-settings | A node's settings. This is a combination of the default settings, custom settings from the [configuration file]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/#configuration-file), and dynamically [updated settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/#updating-cluster-settings-using-the-api).
-os | Static information about the host OS, including version, processor architecture, and available/allocated processors.
-process | Contains the process ID.
-jvm | Detailed static information about the running JVM, including arguments.
-thread_pool | Configured options for all individual thread pools.
-transport | Mostly static information about the transport layer.
-http | Mostly static information about the HTTP layer.
-plugins | Information about installed plugins and modules.
-ingest | Information about ingest pipelines and available ingest processors.
-aggregations | Information about available [aggregations]({{site.url}}{{site.baseurl}}/opensearch/aggregations).
-indices | Static index settings configured at the node level.
+设置| 节点的设置。这是默认设置的组合，从[配置文件]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/#configuration-file)和动态[更新的设置]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/#updating-cluster-settings-using-the-api)。
+操作系统| 有关主机OS的静态信息，包括版本，处理器体系结构以及可用/分配的处理器。
+过程| 包含过程ID。
+JVM| 有关运行JVM的详细静态信息，包括参数。
+thread_pool| 为所有单个线程池配置的选项。
+运输| 主要是有关运输层的静态信息。
+http| 主要是有关HTTP层的静态信息。
+插件| 有关已安装插件和模块的信息。
+摄取| 有关摄入管道和可用摄入处理器的信息。
+聚合| 有关可用的信息[聚合]({{site.url}}{{site.baseurl}}/opensearch/aggregations)。
+指数| 在节点级别配置的静态索引设置。
 
-## Query parameters
+## 查询参数
 
-You can include the following query parameters in your request. All query parameters are optional.
+您可以在请求中包含以下查询参数。所有查询参数都是可选的。
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- |:-------| :---
-flat_settings| Boolean | Specifies whether to return the `settings` object of the response in flat format. Default is `false`.
-timeout | Time | Sets the time limit for node response. Default value is `30s`.
+flat_settings| 布尔| 指定是否返回`settings` 响应的对象以平面格式。默认为`false`。
+暂停| 时间| 设置节点响应的时间限制。默认值是`30s`。
 
-#### Example request
+#### 示例请求
 
-The following query requests the `process` and `transport` metrics from the cluster manager node: 
+以下查询请求`process` 和`transport` 集群管理器节点的指标：
 
 ```json
 GET /_nodes/cluster_manager:true/process,transport
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
-The response contains the metric groups specified in the `<metrics>` request parameter (in this case, `process` and `transport`):
+响应包含在`<metrics>` 请求参数（在这种情况下，`process` 和`transport`）：
 
 ```json
 {
@@ -136,34 +136,35 @@ The response contains the metric groups specified in the `<metrics>` request par
 }
 ```
 
-## Response fields
+## 响应字段
 
-The response contains the basic node identification and build info for every node matching the `<nodeId>` request parameter. The following table lists the response fields.
+响应包含基本节点标识并为每个节点构建匹配的信息`<nodeId>` 请求参数。下表列出了响应字段。
 
-Field | Description
+场地| 描述
 :--- |:----
-name | The node's name.
-transport_address | The node's transport address.
-host | The node's host address.
-ip | The node's host IP address.
-version | The node's OpenSearch version.
-build_type | The node's build type, like `rpm`, `docker`, `tar`, etc.
-build_hash | The git commit hash of the build.
-total_indexing_buffer | The maximum heap size in bytes used to hold newly indexed documents. Once this heap size is exceeded, the documents are written to disk.
-roles | The list of the node's roles.
-attributes | The node's attributes.
-os | Information about the OS, including name, version, architecture, refresh interval, and the number of available and allocated processors.
-process | Information about the currently running process, including PID, refresh interval, and `mlockall`, which specifies whether the process address space has been successfully locked in memory. 
-jvm | Information about the JVM, including PID, version, memory information, garbage collector information, and arguments.
-thread_pool | Information about the thread pool.
-transport | Information about the transport address, including bound address, publish address, and profiles.
-http | Information about the HTTP address, including bound address, publish address, and maximum content length, in bytes.
-plugins | Information about the installed plugins, including name, version, OpenSearch version, Java version, description, class name, custom folder name, a list of extended plugins, and `has_native_controller`, which specifies whether the plugin has a native controller process. 
-modules | Information about the modules, including name, version, OpenSearch version, Java version, description, class name, custom folder name, a list of extended plugins, and `has_native_controller`, which specifies whether the plugin has a native controller process. Modules are different from plugins because modules are loaded into OpenSearch automatically, while plugins have to be installed manually.
-ingest | Information about ingest pipelines and processors.
-aggregations | Information about the available aggregation types.
+姓名| 节点的名称。
+transport_address| 节点的传输地址。
+主持人| 节点的主机地址。
+IP| 节点的主机IP地址。
+版本| 节点的OpenSearch版本。
+build_type| 节点的构建类型`rpm`，`docker`，`tar`， ETC。
+build_hash| 构建的git提交。
+total_indexing_buffer| 字节中的最大堆大小用于保存新索引的文档。一旦超出了堆的大小，文档就会写入磁盘。
+角色| 节点角色列表。
+属性| 节点的属性。
+操作系统| 有关操作系统的信息，包括名称，版本，体系结构，刷新间隔以及可用的处理器和分配的处理器的数量。
+过程| 有关当前运行过程的信息，包括PID，刷新间隔和`mlockall`，指定过程地址空间是否已成功锁定在内存中。
+JVM| 有关JVM的信息，包括PID，版本，内存信息，垃圾收集器信息和参数。
+thread_pool| 有关线程池的信息。
+运输| 有关运输地址的信息，包括约束地址，发布地址和个人资料。
+http| 有关HTTP地址的信息，包括界限地址，发布地址和最大内容长度，以字节为单位。
+插件| 有关已安装插件的信息，包括名称，版本，OpenSearch版本，Java版本，描述，类名称，自定义文件夹名称，扩展插件列表，以及`has_native_controller`，指定插件是否具有本机控制器过程。
+模块| 有关模块的信息，包括名称，版本，OpenSearch版本，Java版本，描述，类名称，自定义文件夹名称，扩展插件列表，以及`has_native_controller`，指定插件是否具有本机控制器过程。模块与插件不同，因为将模块自动加载到OpenSearch中，而必须手动安装插件。
+摄取| 有关摄入管道和处理器的信息。
+聚合| 有关可用聚合类型的信息。
 
 
-## Required permissions
+## 所需的权限
 
-If you use the Security plugin, make sure you have the appropriate permissions: `cluster:monitor/nodes/info`.
+如果使用安全插件，请确保拥有适当的权限：`cluster:monitor/nodes/info`。
+

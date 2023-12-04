@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Split index
-parent: Index APIs
+title: 拆分索引
+parent: 索引API
 nav_order: 70
 redirect_from:
   - /opensearch/rest-api/index-apis/split/
 ---
 
-# Split index
-**Introduced 1.0**
+# 拆分索引
+**引入1.0**
 {: .label .label-purple }
 
-The split index API operation splits an existing read-only index into a new index, cutting each primary shard into some amount of primary shards in the new index.
+拆分索引API操作将现有读取-仅将索引分为一个新索引，将每个主要碎片切成新索引中的一定数量的主要碎片。
 
-## Example
+## 例子
 
 ```json
 PUT /sample-index1/_split/split-index1
@@ -31,42 +31,42 @@ PUT /sample-index1/_split/split-index1
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 POST /<source-index>/_split/<target-index>
 PUT /<source-index>/_split/<target-index>
 ```
 
-## Index naming restrictions
+## 索引命名限制
 
-OpenSearch indexes have the following naming restrictions:
+OpenSearch索引具有以下命名限制：
 
-- All letters must be lowercase.
-- Index names can't begin with underscores (`_`) or hyphens (`-`).
-- Index names can't contain spaces, commas, or the following characters:
+- 所有字母必须是小写。
+- 索引名称不能以下划线开头（`_`）或连字符（`-`）。
+- 索引名称不能包含空格，逗号或以下字符：
 
-  `:`, `"`, `*`, `+`, `/`, `\`, `|`, `?`, `#`, `>`, or `<`
+  `:`，`"`，`*`，`+`，`/`，`\`，`|`，`?`，`#`，`>`， 或者`<`
 
-## URL parameters
+## URL参数
 
-Your request must include the source and target indexes. All split index parameters are optional.
+您的请求必须包括源索引和目标索引。所有拆分索引参数都是可选的。
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- | :--- | :---
-&lt;source-index&gt; | String | The source index to split.
-&lt;target-index&gt; | String | The index to create.
-wait_for_active_shards | String | The number of active shards that must be available before OpenSearch processes the request. Default is 1 (only the primary shard). Set to all or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the operation to succeed.
-cluster_manager_timeout | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
-timeout | Time | How long to wait for the request to return. Default is `30s`.
-wait_for_completion | Boolean | When set to `false`, the request returns immediately instead of after the operation is finished. To monitor the operation status, use the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/) with the task ID returned by the request. Default is `true`.
-task_execution_timeout | Time | The explicit task execution timeout. Only useful when wait_for_completion is set to `false`. Default is `1h`.
+＆lt;来源-索引＆gt;| 细绳| 分裂的源索引。
+＆lt;目标-索引＆gt;| 细绳| 创建索引。
+wait_for_active_shards| 细绳| 在OpenSearch处理请求之前，必须可用的活动碎片数。默认值为1（仅是主要碎片）。设置为全部或正整数。大于1的值需要复制品。例如，如果指定一个值为3的值，则索引必须在两个其他节点上分布两个副本才能成功。
+cluster_manager_timeout| 时间| 等待连接到群集管理器节点多长时间。默认为`30s`。
+暂停| 时间| 等待请求返回多长时间。默认为`30s`。
+wait_for_completion| 布尔| 设置为`false`，请求立即返回操作完成后。要监视操作状态，请使用[任务API]({{site.url}}{{site.baseurl}}/api-reference/tasks/) 随着请求返回任务ID。默认为`true`。
+task_execution_timeout| 时间| 明确的任务执行超时。仅当将WAIT_FOR_COMPLETION设置为`false`。默认为`1h`。
 
-## Request body
+## 请求身体
 
-The split index API operation creates a new target index, so you can specify any [index settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/) and [aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/) to apply to the target index.
+拆分索引API操作创建了一个新的目标索引，因此您可以指定任何[索引设置]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/) 和[别名]({{site.url}}{{site.baseurl}}/opensearch/index-alias/) 应用于目标索引。
 
-## Response
+## 回复
 
 ```json
 {
@@ -76,6 +76,7 @@ The split index API operation creates a new target index, so you can specify any
 }
 ```
 
-## Index codec considerations
+## 索引编解码器注意事项
 
-For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#splits-and-shrinks).
+有关索引编解码器的注意事项，请参阅[索引编解码器]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#splits-and-shrinks)
+

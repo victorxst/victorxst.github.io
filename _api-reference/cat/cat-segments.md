@@ -1,6 +1,6 @@
 ---
 layout: default
-title: CAT segments
+title: CAT 段
 parent: CAT API
 
 nav_order: 55
@@ -9,55 +9,56 @@ redirect_from:
 - /opensearch/rest-api/cat/cat-segments/
 ---
 
-# CAT segments
-**Introduced 1.0**
+# 猫段
+**引入1.0**
 {: .label .label-purple }
 
-The cat segments operation lists Lucene segment-level information for each index.
+猫段操作列出了Lucene段-每个索引的级别信息。
 
-## Example
+## 例子
 
 ```
 GET _cat/segments?v
 ```
 {% include copy-curl.html %}
 
-To see only the information about segments of a specific index, add the index name after your query.
+要仅查看有关特定索引段的信息，请在查询后添加索引名称。
 
 ```
 GET _cat/segments/<index>?v
 ```
 {% include copy-curl.html %}
 
-If you want to get information for more than one index, separate the indexes with commas:
+如果您想获得多个索引的信息，请将索引与逗号分开：
 
 ```
 GET _cat/segments/index1,index2,index3
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 GET _cat/segments
 ```
 
-## URL parameters
+## URL参数
 
-All CAT segments URL parameters are optional.
+所有CAT段URL参数都是可选的。
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+除了[常见的URL参数]({{site.url}}{{site.baseurl}}/api-reference/cat/index)，您可以指定以下参数：
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- | :--- | :---
-bytes | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/)..
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
+字节| 字节大小| 指定字节大小的单元。例如，`7kb` 或者`6gb`。有关更多信息，请参阅[支持单位]({{site.url}}{{site.baseurl}}/opensearch/units/)..
+cluster_manager_timeout| 时间| 等待连接到群集管理器节点的时间。默认值为30秒。
 
 
-## Response
+## 回复
 
 ```json
 index | shard | prirep | ip | segment | generation | docs.count | docs.deleted | size | size.memory | committed | searchable | version | compound
 movies | 0 | p | 172.18.0.4 | _0 | 0 | 1 | 0 | 3.5kb | 1364 | true | true | 8.7.0 | true
 movies | 0 | r | 172.18.0.3 | _0 | 0 | 1 | 0 | 3.5kb | 1364 | true | true | 8.7.0 | true
 ```
+

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: CAT aliases
+title: CAT 别名
 parent: CAT API
 redirect_from:
 - /opensearch/rest-api/cat/cat-aliases/
@@ -9,34 +9,34 @@ nav_order: 1
 has_children: false
 ---
 
-# CAT aliases
-**Introduced 1.0**
+# 猫别名
+**引入1.0**
 {: .label .label-purple }
 
-The CAT aliases operation lists the mapping of aliases to indexes, plus routing and filtering information.
+CAT别名操作列出了别名与索引的映射，以及路由和过滤信息。
 
-## Example
+## 例子
 
 ```json
 GET _cat/aliases?v
 ```
 {% include copy-curl.html %}
 
-To limit the information to a specific alias, add the alias name after your query:
+要将信息限制为特定别名，请在查询之后添加别名名称：
 
 ```json
 GET _cat/aliases/<alias>?v
 ```
 {% include copy-curl.html %}
 
-If you want to get information for more than one alias, separate the alias names with commas:
+如果您想获取多个别名的信息，请将别名名称与逗号分开：
 
 ```json
 GET _cat/aliases/alias1,alias2,alias3
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 GET _cat/aliases/<alias>
@@ -44,20 +44,20 @@ GET _cat/aliases
 ```
 
 
-## URL parameters
+## URL参数
 
-All CAT aliases URL parameters are optional.
+所有CAT别名URL参数都是可选的。
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+除了[常见的URL参数]({{site.url}}{{site.baseurl}}/api-reference/cat/index)，您可以指定以下参数：
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- | :--- | :---
-local | Boolean | Whether to return information from the local node only instead of from the master node. Default is false.
-expand_wildcards | Enum | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`.
+当地的| 布尔| 是否仅从本地节点返回信息，而不是从主节点返回。默认值为false。
+Expand_WildCard| 枚举| 将通配符表达式扩展到混凝土指数。将多个值与逗号相结合。支持的值是`all`，`open`，`closed`，`hidden`， 和`none`。默认为`open`。
 
-## Response
+## 回复
 
-The following response shows that `alias1` refers to a `movies` index and has a configured filter:
+以下回应表明`alias1` 指的是`movies` 索引并具有配置的过滤器：
 
 ```json
 alias   | index     | filter  | routing.index | routing.search  | is_write_index
@@ -65,4 +65,5 @@ alias1  | movies    |   *     |      -        |       -         |      -
 .opensearch-dashboards | .opensearch-dashboards_1 |   -     |      -        |       -         |      -
 ```
 
-To learn more about index aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias).
+要了解有关索引别名的更多信息，请参阅[索引别名]({{site.url}}{{site.baseurl}}/opensearch/index-alias)。
+

@@ -1,42 +1,42 @@
 ---
 layout: default
-title: Get Snapshot
-parent: Snapshot APIs
+title: 获取快照
+parent: 快照API
 nav_order: 6
 ---
 
-# Get snapshot.
-**Introduced 1.0**
+# 获取快照。
+**引入1.0**
 {: .label .label-purple }
 
-Retrieves information about a snapshot.
+检索有关快照的信息。
 
-## Path parameters
+## 路径参数
 
-| Parameter | Data type | Description |
+| 范围| 数据类型| 描述|
 | :--- | :--- | :--- |
-| repository | String | The repository that contains the snapshot to retrieve. |
-| snapshot | String | Snapshot to retrieve.
+| 存储库| 细绳| 包含要检索的快照的存储库。|
+| 快照| 细绳| 快照要检索。
 
-## Query parameters
+## 查询参数
 
-| Parameter | Data type | Description | 
+| 范围| 数据类型| 描述| 
 :--- | :--- | :---
-| verbose | Boolean | Whether to show all, or just basic snapshot information. If `true`, returns all information. If `false`, omits information like start/end times, failures, and shards. Optional, defaults to `true`.|
-| ignore_unavailable | Boolean | How to handle snapshots that are unavailable (corrupted or otherwise temporarily can't be returned). If `true` and the snapshot is unavailable, the request does not return the snapshot. If `false` and the snapshot is unavailable, the request returns an error. Optional, defaults to `false`.|
+| 冗长| 布尔| 是显示全部，还是仅显示基本快照信息。如果`true`，返回所有信息。如果`false`，省略诸如开始/结束时间，失败和碎片之类的信息。可选，默认为`true`。|
+| ignore_unavailable| 布尔| 如何处理不可用的快照（损坏或暂时无法返回）。如果`true` 快照不可用，请求不会返回快照。如果`false` 快照不可用，请求返回错误。可选，默认为`false`。|
 
-#### Example request
+#### 示例请求
 
-The following request retrieves information for the `my-first-snapshot` located in the `my-opensearch-repo` repository:
+以下请求检索信息`my-first-snapshot` 位于`my-opensearch-repo` 存储库：
 
 ````json
 GET _snapshot/my-opensearch-repo/my-first-snapshot
 ````
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
-Upon success, the response returns snapshot information:
+成功后，响应返回快照信息：
 
 ````json
 {
@@ -73,22 +73,23 @@ Upon success, the response returns snapshot information:
   ]
 }
 ````
-## Response fields
+## 响应字段
 
-| Field | Data type | Description |
+| 场地| 数据类型| 描述|
 | :--- | :--- | :--- | 
-| snapshot | string | Snapshot name. |
-| uuid | string | Snapshot's universally unique identifier (UUID). |
-| version_id | int | Build ID of the Open Search version that created the snapshot. |
-| version | float | Open Search version that created the snapshot. |
-| indices | array | Indices in the snapshot. |
-| data_streams | array | Data streams in the snapshot. |
-| include_global_state | boolean | Whether the current cluster state is included in the snapshot. |
-| start_time | string | Date/time when the snapshot creation process began. |
-| start_time_in_millis | long | Time (in milliseconds) when the snapshot creation process began. |
-| end_time | string | Date/time when the snapshot creation process ended. |
-| end_time_in_millis | long | Time (in milliseconds) when the snapshot creation process ended. |
-| duration_in_millis | long | Total time (in milliseconds) that the snapshot creation process lasted. |
-| failures | array | Failures, if any, that occured during snapshot creation. |
-| shards | object | Total number of shards created along with number of successful and failed shards. |
-| state | string | Snapshot status. Possible values: `IN_PROGRESS`, `SUCCESS`, `FAILED`, `PARTIAL`. |
+| 快照| 细绳| 快照名称。|
+| UUID| 细绳| 快照的普遍唯一标识符（UUID）。|
+| version_id| int| 构建创建快照的打开搜索版本的ID。|
+| 版本| 漂浮| 打开创建快照的搜索版本。|
+| 指数| 大批| 快照中的索引。|
+| data_streams| 大批| 快照中的数据流。|
+| 包括_global_state| 布尔| 快照中是否包含当前的群集状态。|
+| 开始时间| 细绳| 快照创建过程开始的日期/时间。|
+| start_time_in_millis| 长的| 时间（以毫秒为单位）开始快照创建过程。|
+| 时间结束| 细绳| 快照创建过程结束的日期/时间。|
+| end_time_in_millis| 长的| 时间（以毫秒为单位）当快照创建过程结束时。|
+| lisation_in_millis| 长的| 快照创建过程持续的总时间（以毫秒为单位）。|
+| 失败| 大批| 快照创建期间发生的失败（如果有）。|
+| 碎片| 目的| 创建的碎片总数以及成功和失败的碎片数量。|
+| 状态| 细绳| 快照状态。可能的值：`IN_PROGRESS`，`SUCCESS`，`FAILED`，`PARTIAL`。
+

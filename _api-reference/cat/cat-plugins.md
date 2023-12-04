@@ -1,6 +1,6 @@
 ---
 layout: default
-title: CAT plugins
+title: CAT 插件
 parent: CAT API
 
 nav_order: 50
@@ -9,37 +9,37 @@ redirect_from:
 - /opensearch/rest-api/cat/cat-plugins/
 ---
 
-# CAT plugins
-**Introduced 1.0**
+# 猫插件
+**引入1.0**
 {: .label .label-purple }
 
-The CAT plugins operation lists the names, components, and versions of the installed plugins.
+CAT插件操作列出了已安装插件的名称，组件和版本。
 
-## Example
+## 例子
 
 ```
 GET _cat/plugins?v
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 GET _cat/plugins
 ```
 
-## URL parameters
+## URL参数
 
-All CAT plugins URL parameters are optional.
+所有CAT插件URL参数都是可选的。
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+除了[常见的URL参数]({{site.url}}{{site.baseurl}}/api-reference/cat/index)，您可以指定以下参数：
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- | :--- | :---
-local | Boolean | Whether to return information from the local node only instead of from the cluster_manager node. Default is false.
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster_manager node. Default is 30 seconds.
+当地的| 布尔| 是否仅从本地节点返回信息，而不是从cluster_manager节点返回。默认值为false。
+cluster_manager_timeout| 时间| 等待连接到cluster_manager节点的时间。默认值为30秒。
 
-## Response
+## 回复
 
 ```json
 name       component                       version
@@ -64,3 +64,4 @@ odfe-node1 opendistro-reports-scheduler    1.13.0.0
 odfe-node1 opendistro-sql                  1.13.2.0
 odfe-node1 opendistro_security             1.13.1.0
 ```
+

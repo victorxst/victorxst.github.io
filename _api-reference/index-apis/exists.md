@@ -1,45 +1,46 @@
 ---
 layout: default
-title: Index exists
-parent: Index APIs
+title: 索引存在
+parent: 索引API
 nav_order: 50
 redirect_from:
   - /opensearch/rest-api/index-apis/exists/
 ---
 
-# Index exists
-**Introduced 1.0**
+# 索引存在
+**引入1.0**
 {: .label .label-purple }
 
-The index exists API operation returns whether or not an index already exists.
+索引存在API操作返回是否已经存在索引。
 
-## Example
+## 例子
 
 ```json
 HEAD /sample-index
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 HEAD /<index-name>
 ```
 
-## URL parameters
+## URL参数
 
-All parameters are optional.
+所有参数都是可选的。
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- | :--- | :---
-allow_no_indices | Boolean | Whether to ignore wildcards that don't match any indexes. Default is true.
-expand_wildcards | String | Expands wildcard expressions to different indexes. Combine multiple values with commas. Available values are all (match all indexes), open (match open indexes), closed (match closed indexes), hidden (match hidden indexes), and none (do not accept wildcard expressions). Default is open.
-flat_settings | Boolean | Whether to return settings in the flat form, which can improve readability, especially for heavily nested settings. For example, the flat form of "index": { "creation_date": "123456789" } is "index.creation_date": "123456789".
-include_defaults | Boolean | Whether to include default settings as part of the response. This parameter is useful for identifying the names and current values of settings you want to update.
-ignore_unavailable | Boolean | If true, OpenSearch does not search for missing or closed indexes. Default is false.
-local | Boolean | Whether to return information from only the local node instead of from the cluster manager node. Default is false.
+允许_no_indices| 布尔| 是否忽略不符合任何索引的通配符。默认是正确的。
+Expand_WildCard| 细绳| 将通配符表达式扩展到不同的索引。将多个值与逗号相结合。可用的值全部（匹配所有索引），打开（匹配打开索引），封闭（匹配封闭索引），隐藏（匹配隐藏索引）和无（不接受通配符表达式）。默认值打开。
+flat_settings| 布尔| 是否以平面形式返回设置，这可以提高可读性，尤其是对于重嵌套的设置。例如，平坦的形式"index"：{"creation_date"："123456789" } 是"index.creation_date"："123456789"。
+include_defaults| 布尔| 是否将默认设置作为响应的一部分。此参数可用于识别要更新的设置的名称和当前值。
+ignore_unavailable| 布尔| 如果为true，则OpenSearch不会搜索缺失或封闭的索引。默认值为false。
+当地的| 布尔| 是否仅从本地节点而不是从群集管理器节点返回信息。默认值为false。
 
 
-## Response
+## 回复
 
-The index exists API operation returns only one of two possible response codes: `200` -- the index exists, and `404` -- the index does not exist.
+索引存在API操作仅返回两个可能的响应代码之一：`200` -- 该指数存在，`404` -- 该索引不存在。
+

@@ -1,23 +1,23 @@
 ---
 layout: default
-title: Cluster allocation explain
+title: 群集分配解释
 nav_order: 10
-parent: Cluster APIs
+parent: 群集API
 has_children: false
 redirect_from:
  - /opensearch/rest-api/cluster-allocation/
 ---
 
-# Cluster allocation explain
-**Introduced 1.0**
+# 群集分配解释
+**引入1.0**
 {: .label .label-purple }
 
-The most basic cluster allocation explain request finds an unassigned shard and explains why it can't be allocated to a node.
+最基本的群集分配解释请求找到了一个未分配的碎片，并解释了为什么不能将其分配给节点。
 
-If you add some options, you can instead get information on a specific shard, including why OpenSearch assigned it to its current node.
+如果添加了一些选项，则可以在特定的碎片上获取信息，包括为什么OpenSearch将其分配给当前节点。
 
 
-## Example
+## 例子
 
 ```json
 GET _cluster/allocation/explain?include_yes_decisions=true
@@ -29,7 +29,7 @@ GET _cluster/allocation/explain?include_yes_decisions=true
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 GET _cluster/allocation/explain
@@ -37,29 +37,29 @@ POST _cluster/allocation/explain
 ```
 
 
-## URL parameters
+## URL参数
 
-All cluster allocation explain parameters are optional.
+所有群集分配解释参数都是可选的。
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- | :--- | :---
-include_yes_decisions | Boolean | OpenSearch makes a series of yes or no decisions when trying to allocate a shard to a node. If this parameter is true, OpenSearch includes the (generally more numerous) "yes" decisions in its response. Default is false.
-include_disk_info | Boolean | Whether to include information about disk usage in the response. Default is false.
+包括_yes_decisions| 布尔| 当试图将碎片分配给节点时，OpenSearch做出了一系列的决定。如果此参数为真，则OpenSearch包括（通常更多）"yes" 在其回应中的决定。默认值为false。
+包括_disk_info| 布尔| 是否在响应中包括有关磁盘使用情况的信息。默认值为false。
 
 
-## Request body
+## 请求身体
 
-All cluster allocation explain fields are optional.
+所有群集分配解释字段都是可选的。
 
-Field | Type | Description
+场地| 类型| 描述
 :--- | :--- | :---
-current_node | String | If you only want an explanation if the shard happens to be on a particular node, specify that node name here.
-index | String | The name of the shard's index.
-primary | Boolean | Whether to provide an explanation for the primary shard (true) or its first replica (false), which share the same shard ID.
-shard | Integer | The shard ID that you want an explanation for.
+Current_Node| 细绳| 如果您只想说明碎片恰好在特定节点上，请在此处指定该节点名称。
+指数| 细绳| 碎片索引的名称。
+基本的| 布尔| 是否提供对主要碎片（true）或其第一个副本（false）的解释，该副本（false）共享相同的碎片ID。
+碎片| 整数| 您想要解释的碎片ID。
 
 
-## Response
+## 回复
 
 ```json
 {
@@ -147,3 +147,4 @@ shard | Integer | The shard ID that you want an explanation for.
   }]
 }
 ```
+

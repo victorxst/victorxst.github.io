@@ -1,34 +1,34 @@
 ---
 layout: default
-title: Execute Painless script
-parent: Script APIs
+title: 执行简单脚本
+parent: 脚本API
 nav_order: 7
 ---
 
-# Execute Painless script
-**Introduced 1.0**
+# 执行简单脚本
+**引入1.0**
 {: .label .label-purple }
 
-The Execute Painless script API allows you to run a script that is not stored.
+执行无痛脚本API允许您运行未存储的脚本。
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```json
 GET /_scripts/painless/_execute
 POST /_scripts/painless/_execute
 ```
 
-## Request fields
+## 请求字段
 
-| Field | Description | 
+| 场地| 描述| 
 :--- | :---
-| script | The script to run. Required|
-| context | A context for the script. Optional. Default is `painless_test`. |
-| context_setup | Specifies additional parameters for the context. Optional.| 
+| 脚本| 要运行的脚本。必需的|
+| 语境| 脚本的上下文。选修的。默认为`painless_test`。|
+| context_setup| 为上下文指定其他参数。选修的。| 
 
-#### Example request
+#### 示例请求
 
-The following request uses the default `painless_context` for the script:
+以下请求使用默认`painless_context` 对于脚本：
 
 ```json
 GET /_scripts/painless/_execute
@@ -44,9 +44,9 @@ GET /_scripts/painless/_execute
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
-The response contains the average of two script parameters:
+响应包含两个脚本参数的平均值：
 
 ```json
 {
@@ -54,33 +54,33 @@ The response contains the average of two script parameters:
 }
 ```
 
-## Response fields
+## 响应字段
 
-| Field | Description | 
+| 场地| 描述| 
 :--- | :--- 
-| result | The script result.|
+| 结果| 脚本结果。|
 
 
-## Script contexts
+## 脚本上下文
 
-Choose different contexts to control the variables that are available to the script and the result's return type. The default context is `painless_test`.
+选择不同的上下文来控制脚本可用的变量以及结果的返回类型。默认上下文是`painless_test`。
 
-## Painless test context
+## 无痛测试环境
 
-The `painless_test` context is the default script context that provides only the `params` variable to the script. The returned result is always converted to a string. See the preceding example request for a usage example.
+这`painless_test` 上下文是默认脚本上下文，仅提供`params` 脚本可变。返回的结果始终转换为字符串。请参阅前面的示例请求以获取用法示例。
 
-## Filter context
+## 滤波器上下文
 
-The `filter` context runs the script as if the script were inside a script query. You must provide a test document in the context. The `_source`, stored fields, and `_doc` variables will be available to the script.
+这`filter` 上下文运行脚本，就好像脚本在脚本查询中一样。您必须在上下文中提供测试文档。这`_source`，存储的字段，以及`_doc` 变量将用于脚本。
 
-You can specify the following parameters for the filter context in the `context_setup`.
+您可以在过滤器上下文中指定以下参数`context_setup`。
 
-Parameter | Description
+范围| 描述
 :--- | :---
-document | The document that is indexed in memory temporarily and available to the script.
-index | The name of the index that contains a mapping for the document.
+文档| 暂时将内存索引的文档可用于脚本。
+指数| 包含文档映射的索引名称。
 
-For example, first create an index with a mapping for a test document:
+例如，首先创建一个带有测试文档映射的索引：
 
 ```json
 PUT /testindex1
@@ -99,7 +99,7 @@ PUT /testindex1
 ```
 {% include copy-curl.html %}
 
-Run a script to determine if a student is eligible to graduate with honors:
+运行脚本以确定学生是否有资格获得荣誉：
 
 ```json
 POST /_scripts/painless/_execute
@@ -122,7 +122,7 @@ POST /_scripts/painless/_execute
 ```
 {% include copy-curl.html %}
 
-The response contains the result:
+响应包含结果：
 
 ```json
 {
@@ -130,19 +130,19 @@ The response contains the result:
 }
 ```
 
-## Score context
+## 得分上下文
 
-The `score` context runs a script as if the script were in a `script_score` function in a `function_score` query.
+这`score` 上下文运行脚本，好像脚本在`script_score` 功能`function_score` 询问。
 
-You can specify the following parameters for the score context in the `context_setup`.
+您可以在分数上下文中指定以下参数`context_setup`。
 
-Parameter | Description
+范围| 描述
 :--- | :---
-document | The document that is indexed in memory temporarily and available to the script.
-index | The name of the index that contains a mapping for the document.
-query | If the script uses the `_score` parameter, the query can specify to use the `_score` field to compute the score.
+文档| 暂时将内存索引的文档可用于脚本。
+指数| 包含文档映射的索引名称。
+询问| 如果脚本使用`_score` 参数，查询可以指定用于使用`_score` 字段计算分数。
 
-For example, first create an index with a mapping for a test document:
+例如，首先创建一个带有测试文档映射的索引：
 
 ```json
 PUT /testindex1
@@ -158,7 +158,7 @@ PUT /testindex1
 ```
 {% include copy-curl.html %}
 
-Run a script that converts a GPA on a 4.0 scale into a different scale that is provided as a parameter:
+运行一个将4.0比例尺转换为GPA的脚本，以作为参数提供的不同比例：
 
 ```json
 POST /_scripts/painless/_execute
@@ -180,7 +180,7 @@ POST /_scripts/painless/_execute
 ```
 {% include copy-curl.html %}
 
-The response contains the result:
+响应包含结果：
 
 ```json
 {

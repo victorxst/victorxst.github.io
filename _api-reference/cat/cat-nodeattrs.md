@@ -8,40 +8,41 @@ redirect_from:
 - /opensearch/rest-api/cat/cat-nodeattrs/
 ---
 
-# CAT nodeattrs
-**Introduced 1.0**
+# 猫nodeattrs
+**引入1.0**
 {: .label .label-purple }
 
-The CAT nodeattrs operation lists the attributes of custom nodes.
+CAT NodeAttrs操作列出了自定义节点的属性。
 
-## Example
+## 例子
 
 ```
 GET _cat/nodeattrs?v
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 GET _cat/nodeattrs
 ```
 
-## URL parameters
+## URL参数
 
-All CAT nodeattrs URL parameters are optional.
+所有CAT NodeAttrs URL参数都是可选的。
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+除了[常见的URL参数]({{site.url}}{{site.baseurl}}/api-reference/cat/index)，您可以指定以下参数：
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- | :--- | :---
-local | Boolean | Whether to return information from the local node only instead of from the cluster_manager node. Default is false.
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
+当地的| 布尔| 是否仅从本地节点返回信息，而不是从cluster_manager节点返回。默认值为false。
+cluster_manager_timeout| 时间| 等待连接到群集管理器节点的时间。默认值为30秒。
 
 
-## Response
+## 回复
 
 ```json
 node | host | ip | attr | value
 odfe-node2 | 172.18.0.3 | 172.18.0.3 | testattr | test
 ```
+

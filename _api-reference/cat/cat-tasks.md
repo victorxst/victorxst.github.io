@@ -1,6 +1,6 @@
 ---
 layout: default
-title: CAT tasks
+title: CAT 任务
 parent: CAT API
 
 nav_order: 70
@@ -9,42 +9,43 @@ redirect_from:
 - /opensearch/rest-api/cat/cat-tasks/
 ---
 
-# CAT tasks
-**Introduced 1.0**
+# 猫任务
+**引入1.0**
 {: .label .label-purple }
 
-The CAT tasks operation lists the progress of all tasks currently running on your cluster.
+CAT任务操作列出了当前在群集上运行的所有任务的进度。
 
-## Example
+## 例子
 
 ```
 GET _cat/tasks?v
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 GET _cat/tasks
 ```
 
-## URL parameters
+## URL参数
 
-All CAT tasks URL parameters are optional.
+所有CAT任务URL参数都是可选的。
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+除了[常见的URL参数]({{site.url}}{{site.baseurl}}/api-reference/cat/index)，您可以指定以下参数：
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- | :--- | :---
-nodes | List | A comma-separated list of node IDs or names to limit the returned information. Use `_local` to return information from the node you're connecting to, specify the node name to get information from specific nodes, or keep the parameter empty to get information from all nodes.
-detailed | Boolean | Returns detailed task information. (Default: false)
-parent_task_id | String | Returns tasks with a specified parent task ID (node_id:task_number). Keep empty or set to -1 to return all.
-time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
+节点| 列表| 逗号-分开的节点ID列表或名称以限制返回的信息。使用`_local` 要返回您要连接的节点的信息，请指定节点名称以从特定节点获取信息，或将参数保留为空以从所有节点中获取信息。
+详细的| 布尔| 返回详细的任务信息。（默认：false）
+parent_task_id| 细绳| 使用指定的父任务ID（node_id：task_number）返回任务。保持空或设置为-1返回全部。
+时间| 时间| 指定时间的单位。例如，`5d` 或者`7h`。有关更多信息，请参阅[支持单位]({{site.url}}{{site.baseurl}}/opensearch/units/)。
 
 
-## Response
+## 回复
 
 ```json
 action | task_id | parent_task_id | type | start_time | timestamp | running_time | ip | node
 cluster:monitor/tasks/lists | 1vo54NuxSxOrbPEYdkSF0w:168062 | - | transport | 1624337809471 | 04:56:49 | 489.5ms | 172.18.0.4 | odfe-node1     
 ```
+

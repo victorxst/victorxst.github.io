@@ -1,6 +1,6 @@
 ---
 layout: default
-title: CAT health
+title: CAT 健康
 parent: CAT API
 
 nav_order: 20
@@ -9,36 +9,36 @@ redirect_from:
 - /opensearch/rest-api/cat/cat-health/
 ---
 
-# CAT health
-**Introduced 1.0**
+# 猫健康
+**引入1.0**
 {: .label .label-purple }
 
-The CAT health operation lists the status of the cluster, how long the cluster has been up, the number of nodes, and other useful information that helps you analyze the health of your cluster.
+CAT健康操作列出了集群的状态，群集已经增加了多长时间，节点的数量以及其他有用的信息，可帮助您分析集群的健康状况。
 
-## Example
+## 例子
 
 ```json
 GET _cat/health?v
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 GET _cat/health?v
 ```
 {% include copy-curl.html %}
 
-## URL parameters
+## URL参数
 
-All CAT health URL parameters are optional.
+所有CAT健康URL参数都是可选的。
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- | :--- | :---
-time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-ts | Boolean | If true, returns HH:MM:SS and Unix epoch timestamps. Default is true.
+时间| 时间| 指定时间的单位。例如，`5d` 或者`7h`。有关更多信息，请参阅[支持单位]({{site.url}}{{site.baseurl}}/opensearch/units/)。
+TS| 布尔| 如果为true，请返回HH：MM：SS和UNIX Epoch时间戳。默认是正确的。
 
-## Response
+## 回复
 
 ```json
 GET _cat/health?v&time=5d
@@ -46,3 +46,4 @@ GET _cat/health?v&time=5d
 epoch | timestamp | cluster | status | node.total | node.data | shards | pri | relo | init | unassign | pending_tasks | max_task_wait_time | active_shards_percent
 1624248112 | 04:01:52 | odfe-cluster | green | 2 | 2 | 16 | 8 | 0 | 0 | 0 | 0 | - | 100.0%
 ```
+

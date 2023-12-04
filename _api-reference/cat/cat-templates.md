@@ -1,6 +1,6 @@
 ---
 layout: default
-title: CAT templates
+title: CAT 模板
 parent: CAT API
 
 nav_order: 70
@@ -9,50 +9,51 @@ redirect_from:
 - /opensearch/rest-api/cat/cat-templates/
 ---
 
-# CAT templates
-**Introduced 1.0**
+# 猫模板
+**引入1.0**
 {: .label .label-purple }
 
-The CAT templates operation lists the names, patterns, order numbers, and version numbers of index templates.
+CAT模板操作列出了索引模板的名称，模式，订单编号和版本号。
 
-## Example
+## 例子
 
 ```
 GET _cat/templates?v
 ```
 {% include copy-curl.html %}
 
-If you want to get information for a specific template or pattern:
+如果要获取特定模板或模式的信息：
 
 ```
 GET _cat/templates/<template_name_or_pattern>
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 GET _cat/templates
 ```
 {% include copy-curl.html %}
 
-## URL parameters
+## URL参数
 
-All CAT templates URL parameters are optional.
+所有CAT模板URL参数都是可选的。
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+除了[常见的URL参数]({{site.url}}{{site.baseurl}}/api-reference/cat/index)，您可以指定以下参数：
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- | :--- | :---
-local | Boolean | Whether to return information from the local node only instead of from the cluster manager node. Default is false.
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
+当地的| 布尔| 是否仅从本地节点返回信息，而不是从群集管理器节点返回。默认值为false。
+cluster_manager_timeout| 时间| 等待连接到群集管理器节点的时间。默认值为30秒。
 
 
-## Response
+## 回复
 
 ```
 name | index_patterns order version composed_of
 tenant_template | [opensearch-dashboards*] | 0  |    
 ```
 
-To learn more about index templates, see [Index templates]({{site.url}}{{site.baseurl}}/opensearch/index-templates).
+要了解有关索引模板的更多信息，请参阅[索引模板]({{site.url}}{{site.baseurl}}/opensearch/index-templates)。
+

@@ -1,37 +1,38 @@
 ---
 layout: default
-title: Analysis API Terminology
-parent: Analyze API
+title: 分析API术语
+parent: 分析API
 
 nav_order: 1
 ---
 
-# Terminology
+# 术语
 
-The following sections provide descriptions of important text analysis terms. 
+以下各节提供了重要的文本分析术语的描述。
 
-## Analyzers
+## 分析仪
 
-Analyzers tell OpenSearch how to index and search text. An analyzer is composed of three components: a tokenizer, zero or more token filters, and zero or more character filters. 
+分析师告诉Opensearch如何索引和搜索文本。一个分析仪由三个组件组成：令牌，零或更多令牌过滤器和零或更多字符过滤器。
 
-OpenSearch provides *built-in* analyzers. For example, the `standard` built-in analyzer converts text to lowercase and breaks text into tokens based on word boundaries such as carriage returns and white space. The `standard` analyzer is also called the *default* analyzer and is used when no analyzer is specified in the text analysis request.
+OpenSearch提供 *已建造-在*分析仪中。例如，`standard` 建造-在分析仪中，将文本转换为小写，并根据单词边界（例如马车返回和空白空间）将文本分解为令牌。这`standard` 分析仪也称为 *默认 *分析仪，并在文本分析请求中未指定分析仪时使用。
 
-If needed, you can combine tokenizers, token filters, and character filters to create a *custom* analyzer.
+如果需要，您可以将令牌器，令牌过滤器和角色过滤器组合起来，以创建 *自定义 *分析仪。
 
-#### Tokenizers
+#### 象征器
 
-Tokenizers break unstructured text into tokens and maintain metadata about tokens, such as their starting and ending positions in the text.
+令牌者将非结构化的文本分解为令牌并维护有关令牌的元数据，例如其在文本中的启动和结束位置。
 
-#### Character filters
+#### 角色过滤器
 
-Character filters examine text and perform translations, such as changing, removing, and adding characters. 
+角色过滤检查文本并执行翻译，例如更改，删除和添加字符。
 
-#### Token filters
+#### 令牌过滤器
 
-Token filters modify tokens, performing operations such as converting a token's characters to uppercase and adding or removing tokens. 
+令牌过滤器修改令牌，执行操作，例如将令牌的字符转换为大写，添加或删除令牌。
 
-## Normalizers
+## 标准化器
 
-Similar to analyzers, normalizers tokenize text but return a single token only. Normalizers do not employ tokenizers; they make limited use of character and token filters, such as those that operate on one character at a time.
+与分析仪类似，归一化剂令牌文本，但仅返回单个令牌。规范化器不采用引导剂；他们对角色和代币过滤器的使用有限，例如一次在一个角色上操作的过滤器。
 
-By default, OpenSearch does not apply normalizers. To apply normalizers, you must add them to your data before creating an index.
+默认情况下，OpenSearch不应用正常化器。要应用惯例，您必须在创建索引之前将它们添加到数据中
+

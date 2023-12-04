@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Update document
-parent: Document APIs
+title: 更新文档
+parent: 文档API
 nav_order: 10
 redirect_from: 
  - /opensearch/rest-api/document-apis/update-document/
 ---
 
-# Update document
-**Introduced 1.0**
+# 更新文档
+**引入1.0**
 {: .label .label-purple }
 
-If you need to update a document's fields in your index, you can use the update document API operation. You can do so by specifying the new data you want in your index or by including a script in your request body, which OpenSearch runs to update the document.
+如果您需要在索引中更新文档字段，则可以使用“更新文档API操作”。您可以通过在索引中指定所需的新数据或通过在请求主体中包含脚本来做到这一点，而OpenSearch运行以更新文档。
 
-## Example
+## 例子
 
 ```json
 POST /sample-index1/_update/1
@@ -26,7 +26,7 @@ POST /sample-index1/_update/1
 ```
 {% include copy-curl.html %}
 
-## Script example
+## 脚本示例
 
 ```json
 POST /test-index1/_update/1
@@ -38,34 +38,34 @@ POST /test-index1/_update/1
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 POST /<index>/_update/<_id>
 ```
 
-## URL parameters
+## URL参数
 
-Parameter | Type | Description | Required
+范围| 类型| 描述| 必需的
 :--- | :--- | :--- | :---
-&lt;index&gt; | String | Name of the index. | Yes
-&lt;_id&gt; | String | The ID of the document to update. | Yes
-if_seq_no | Integer | Only perform the update operation if the document has the specified sequence number. | No
-if_primary_term | Integer | Perform the update operation if the document has the specified primary term. | No
-lang | String | Language of the script. Default is `painless`. | No
-require_alias | Boolean | Specifies whether the destination must be an index alias. Default is false. | No
-refresh | Enum | If true, OpenSearch refreshes shards to make the operation visible to searching. Valid options are `true`, `false`, and `wait_for`, which tells OpenSearch to wait for a refresh before executing the operation. Default is `false`. | No
-retry_on_conflict | Integer | The amount of times OpenSearch should retry the operation if there's a document conflict. Default is 0. | No
-routing | String | Value to route the update operation to a specific shard. | No
-_source | Boolean or List | Whether or not to include the `_source` field in the response body. Default is `false`. This parameter also supports a comma-separated list of source fields for including multiple source fields in the query response. | No
-_source_excludes | List | A comma-separated list of source fields to exclude in the query response. | No
-_source_includes | List | A comma-separated list of source fields to include in the query response. | No
-timeout | Time | How long to wait for a response from the cluster. | No
-wait_for_active_shards | String | The number of active shards that must be available before OpenSearch processes the update request. Default is 1 (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the operation to succeed. | No
+＆lt; index＆gt;| 细绳| 索引的名称。| 是的
+＆lt; _id＆gt;| 细绳| 文档的ID更新。| 是的
+if_seq_no| 整数| 仅在文档具有指定的序列编号时执行更新操作。| 不
+if_primary_term| 整数| 如果文档具有指定的主要术语，则执行更新操作。| 不
+朗| 细绳| 脚本的语言。默认为`painless`。| 不
+require_alias| 布尔| 指定目标是否必须是索引别名。默认值为false。| 不
+刷新| 枚举| 如果是真的，OpenSearch刷新碎片使操作可见。有效的选项是`true`，`false`， 和`wait_for`，它告诉Opensearch在执行操作之前等待刷新。默认为`false`。| 不
+retry_on_conflict| 整数| 如果有文档冲突，则OpenSearch的次数应重试操作。默认值为0。| 不
+路由| 细绳| 将更新操作路由到特定碎片的值。| 不
+_来源| 布尔或列表| 是否包括`_source` 响应体中的田地。默认为`false`。此参数还支持逗号-分开的源字段列表，用于在查询响应中包含多个源字段。| 不
+_source_excludes| 列表| 逗号-分开的源字段列表要在查询响应中排除。| 不
+_source_includes| 列表| 逗号-分开的源字段列表要包括在查询响应中。| 不
+暂停| 时间| 等待群集的响应多长时间。| 不
+wait_for_active_shards| 细绳| 在OpenSearch处理更新请求之前，必须可用的活动碎片数量。默认值为1（仅是主要碎片）。设置`all` 或一个积极的整数。大于1的值需要复制品。例如，如果指定一个值为3的值，则索引必须在两个其他节点上分布两个副本才能成功。| 不
 
-## Request body
+## 请求身体
 
-Your request body must contain the information you want to update your document with. If you just want to replace certain fields in your document, your request body must include a `doc` object, which has the fields you want to update.
+您的请求主体必须包含您要更新文档的信息。如果您只想替换文档中的某些字段，您的请求正文必须包括一个`doc` 对象，其中您要更新的字段。
 
 ```json
 {
@@ -76,7 +76,7 @@ Your request body must contain the information you want to update your document 
 }
 ```
 
-You can also use a script to tell OpenSearch how to update your document.
+您还可以使用脚本告诉Opensearch如何更新文档。
 
 ```json
 {
@@ -90,9 +90,9 @@ You can also use a script to tell OpenSearch how to update your document.
 }
 ```
 
-### Upsert
+### UPSERT
 
-Upsert is an operation that conditionally either updates an existing document or inserts a new one based on information in the object. In the following example, the `upsert` operation updates the `last name` and adds the `first_name` field if a document already exists. If a document does not exist, a new one is indexed using content in the `upsert` object.
+UPSERT是一种有条件地更新现有文档或根据对象中信息插入新文档的操作。在下面的示例中，`upsert` 操作更新`last name` 并添加`first_name` 字段如果文档已经存在。如果不存在文档，则使用新的文档使用内容索引`upsert` 目的。
 
 ```json
 {
@@ -106,7 +106,7 @@ Upsert is an operation that conditionally either updates an existing document or
   }
 }
 ```
-You can also add `doc_as_upsert` to the request and set it to `true` to use the information in `doc` for performing the upsert operation.
+您也可以添加`doc_as_upsert` 根据请求并将其设置为`true` 使用信息`doc` 用于执行UpSert操作。
 
 ```json
 {
@@ -119,7 +119,7 @@ You can also add `doc_as_upsert` to the request and set it to `true` to use the 
 }
 ```
 
-## Response
+## 回复
 ```json
 {
   "_index": "sample-index1",
@@ -136,17 +136,18 @@ You can also add `doc_as_upsert` to the request and set it to `true` to use the 
 }
 ```
 
-## Response body fields
+## 响应身体场
 
-Field | Description
+场地| 描述
 :--- | :---
-_index | The name of the index.
-_id | The document's ID.
-_version | The document's version.
-_result | The result of the update operation.
-_shards | Detailed information about the cluster's shards.
-total | The total number of shards.
-successful | The number of shards OpenSearch successfully updated the document in.
-failed | The number of shards OpenSearch failed to update the document in.
-_seq_no | The sequence number assigned when the document was indexed.
-_primary_term | The primary term assigned when the document was indexed.
+_指数| 索引的名称。
+_ID| 文档的ID。
+_版本| 文档的版本。
+_结果| 更新操作的结果。
+_沙尔德| 有关集群碎片的详细信息。
+全部的| 碎片总数。
+成功的| shards opensearch的数量成功地更新了文档。
+失败的| OpenSearch的碎片数未能更新文档。
+_seq_no| 索引文档时分配的序列号。
+_primary_term| 索引文档时分配的主要术语。
+

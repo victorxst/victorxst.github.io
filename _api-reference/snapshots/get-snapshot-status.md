@@ -1,50 +1,50 @@
 ---
 layout: default
-title: Get Snapshot Status
-parent: Snapshot APIs
+title: 获取快照状态
+parent: 快照API
 nav_order: 8
 ---
 
-# Get snapshot status
-**Introduced 1.0**
+# 获取快照状态
+**引入1.0**
 {: .label .label-purple }
 
-Returns details about a snapshot’s state during and after snapshot creation.
+在快照创建期间和之后返回有关快照状态的详细信息。
 
-To learn about snapshot creation, see [Create snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-snapshot).
+要了解快照创作，请参阅[创建快照]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-snapshot)。
 
-If you use the Security plugin, you must have the `monitor_snapshot`, `create_snapshot`, or `manage cluster` privileges.
+如果使用安全插件，则必须`monitor_snapshot`，`create_snapshot`， 或者`manage cluster` 特权。
 {: .note}
 
-## Path parameters
+## 路径参数
 
-Path parameters are optional. 
+路径参数是可选的。
 
-| Parameter | Data type | Description | 
+| 范围| 数据类型| 描述| 
 :--- | :--- | :---
-| repository | String | Repository containing the snapshot. |
-| snapshot | String | Snapshot to return. |
+| 存储库| 细绳| 包含快照的存储库。|
+| 快照| 细绳| 快照要返回。|
 
-Three request variants provide flexibility:
+三个请求变体提供了灵活性：
 
-* `GET _snapshot/_status` returns the status of all currently running snapshots in all repositories.
+*`GET _snapshot/_status` 返回所有存储库中当前运行快照的状态。
 
-* `GET _snapshot/<repository>/_status` returns the status of only currently running snapshots in the specified repository. This is the preferred variant.
+*`GET _snapshot/<repository>/_status` 返回仅在指定存储库中运行快照的状态。这是首选变体。
 
-* `GET _snapshot/<repository>/<snapshot>/_status` returns the status of all snapshots in the specified repository whether they are running or not.
+*`GET _snapshot/<repository>/<snapshot>/_status` 返回指定存储库中所有快照的状态，无论它们是否正在运行。
 
-Using the API to return state for other than currently running snapshots can be very costly for (1) machine machine resources and (2) processing time if running in the cloud. For each snapshot, each request causes file reads from all a snapshot's shards. 
+除了当前运行快照外，使用API以返回状态，对于（1）机器资源，如果在云中运行，则可以非常昂贵。对于每个快照，每个请求都会导致文件从所有快照的碎片中读取。
 {: .warning}
 
-## Request fields
+## 请求字段
 
-| Field | Data type | Description | 
+| 场地| 数据类型| 描述| 
 :--- | :--- | :---
-| ignore_unavailable | Boolean | How to handles requests for unavailable snapshots. If `false`, the request returns an error for unavailable snapshots. If `true`, the request ignores unavailable snapshots, such as those that are corrupted or temporarily cannot be returned. Defaults to `false`.|
+| ignore_unavailable| 布尔| 如何处理不可用快照的请求。如果`false`，该请求返回无法使用快照的错误。如果`true`，该请求忽略了不可用的快照，例如被损坏或暂时返回的快照。默认为`false`。|
 
-#### Example request
+#### 示例请求
 
-The following request returns the status of `my-first-snapshot` in the `my-opensearch-repo` repository. Unavailable snapshots are ignored.
+以下请求返回`my-first-snapshot` 在里面`my-opensearch-repo` 存储库。不可用的快照被忽略。
 
 ````json
 GET _snapshot/my-opensearch-repo/my-first-snapshot/_status
@@ -54,11 +54,11 @@ GET _snapshot/my-opensearch-repo/my-first-snapshot/_status
 ````
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
-The example that follows corresponds to the request above in the [Example request](#example-request) section.
+接下来的示例对应于上面的请求[示例请求](#example-request) 部分。
 
-The `GET _snapshot/my-opensearch-repo/my-first-snapshot/_status` request returns the following fields:
+这`GET _snapshot/my-opensearch-repo/my-first-snapshot/_status` 请求返回以下字段：
 
 ````json
 {
@@ -369,55 +369,56 @@ The `GET _snapshot/my-opensearch-repo/my-first-snapshot/_status` request returns
 }
 ````
 
-## Response fields
+## 响应字段
 
-| Field | Data type | Description | 
+| 场地| 数据类型| 描述| 
 :--- | :--- | :---
-| repository | String | Name of repository that contains the snapshot. |
-| snapshot | String | Snapshot name. |
-| uuid | String | Snapshot Universally unique identifier (UUID). |
-| state | String | Snapshot's current status. See [Snapshot states](#snapshot-states).  |
-| include_global_state | Boolean | Whether the current cluster state is included in the snapshot. |
-| shards_stats | Object | Snapshot's shard counts. See [Shard stats](#shard-stats). |
-| stats | Object | Details of files included in the snapshot. `file_count`: number of files. `size_in_bytes`: total of all fie sizes. See [Snapshot file stats](#snapshot-file-stats). |
-| index | list of Objects | List of objects that contain information about the indices in the snapshot. See [Index objects](#index-objects).|
+| 存储库| 细绳| 包含快照的存储库的名称。|
+| 快照| 细绳| 快照名称。|
+| UUID| 细绳| 快照普遍唯一的标识符（UUID）。|
+| 状态| 细绳| 快照的当前状态。看[快照状态](#snapshot-states)。|
+| 包括_global_state| 布尔| 快照中是否包含当前的群集状态。|
+| shards_stats| 目的| 快照的碎片计数。看[碎片统计](#shard-stats)。|
+| 统计| 目的| 快照中包含的文件的详细信息。`file_count`：文件数。`size_in_bytes`：总体大小。看[快照文件统计](#snapshot-file-stats)。|
+| 指数| 对象列表| 包含有关快照中索引的信息的对象列表。看[索引对象](#index-objects)。|
 
-##### Snapshot states
+##### 快照状态
 
-| State | Description | 
+| 状态| 描述| 
 :--- | :--- |
-| FAILED | The snapshot terminated in an error and no  data was stored. |
-| IN_PROGRESS | The snapshot is currently running. |
-| PARTIAL | The global cluster state was stored, but data from at least one shard was not stored. The `failures` property of the [Create snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-snapshot) response contains additional details. |
-| SUCCESS | The snapshot finished and all shards were stored successfully. |
+| 失败的| 快照以错误终止，没有存储数据。|
+| 进行中| 快照当前正在运行。|
+| 部分的| 存储了全球群集状态，但没有存储来自至少一个碎片的数据。这`failures` 属性[创建快照]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-snapshot) 响应包含其他细节。|
+| 成功| 快照完成，所有碎片都成功地存储了。|
 
-##### Shard stats
+##### 碎片统计
 
-All property values are Integers.
+所有属性值都是整数。
 
-| Property | Description | 
+| 财产| 描述| 
 :--- | :--- |
-| initializing | Number of shards that are still initializing. |
-| started | Number of shards that have started but not are not finalized. |
-| finalizing | Number of shards that are finalizing but are not done. |
-| done | Number of shards that initialized, started, and finalized successfully. |
-| failed | Number of shards that failed to be included in the snapshot. |
-| total | Total number of shards included in the snapshot. |
+| 初始化| 仍在初始化的碎片数量。|
+| 开始| 已经开始但未完成的碎片数量。|
+| 最终确定| 最终确定但未完成的碎片数量。|
+| 完毕| 成功初始化，启动和最终确定的碎片数量。|
+| 失败的| 未能包含在快照中的碎片数。|
+| 全部的| 快照中包含的碎片总数。|
 
-##### Snapshot file stats
+##### 快照文件统计
 
-| Property | Type | Description | 
+| 财产| 类型| 描述| 
 :--- | :--- | :--- |
-| incremental | Object | Number and size of files that still need to be copied during snapshot creation. For completed snapshots, `incremental` provides the number and size of files that were not already in the repository and were copied as part of the incremental snapshot. |
-| processed | Object | Number and size of files already uploaded to the snapshot. The processed `file_count` and `size_in_bytes` are incremented in stats after a file is uploaded. |
-| total | Object | Total number and size of files that are referenced by the snapshot. | 
-| start_time_in_millis | Long | Time (in milliseconds) when snapshot creation began. |
-| time_in_millis | Long | Total time (in milliseconds) that the snapshot took to complete. |
+| 增加的| 目的| 快照创建期间仍需要复制文件的数量和大小。对于完整的快照，`incremental` 提供存储库中尚未在存储库中的文件的数量和大小，并作为增量快照的一部分复制。|
+| 处理| 目的| 已经上传到快照的文件的数字和大小。处理过`file_count` 和`size_in_bytes` 在上传文件后，将在统计数据中增加。|
+| 全部的| 目的| 快照引用的文件的总数和大小。| 
+| start_time_in_millis| 长的| 时间（以毫秒为单位）开始创建快照。|
+| time_in_millis| 长的| 快照完成的总时间（以毫秒为单位）。|
 
-##### Index objects
+##### 索引对象
 
-| Property | Type | Description | 
+| 财产| 类型| 描述| 
 :--- | :--- | :--- |
-| shards_stats | Object | See [Shard stats](#shard-stats). |
-| stats | Object | See [Snapshot file stats](#snapshot-file-stats). |
-| shards | list of Objects | List of objects containing information about the shards that include the snapshot. Properies of the shards are listed below in bold text. <br /><br /> **stage**: Current state of shards in the snapshot. Shard states are: <br /><br /> * DONE: Number of shards in the snapshot that were successfully stored in the repository. <br /><br /> * FAILURE: Number of shards in the snapshot that were not successfully stored in the repository. <br /><br /> * FINALIZE: Number of shards in the snapshot that are in the finalizing stage of being stored in the repository. <br /><br />* INIT: Number of shards in the snapshot that are in the initializing stage of being stored in the repository.<br /><br />* STARTED:  Number of shards in the snapshot that are in the started stage of being stored in the repository.<br /><br /> **stats**: See [Snapshot file stats](#snapshot-file-stats). <br /><br /> **total**: Total number and size of files referenced by the snapshot. <br /><br /> **start_time_in_millis**: Time (in milliseconds) when snapshot creation began. <br /><br /> **time_in_millis**: Total time (in milliseconds) that the snapshot took to complete.  |
+| shards_stats| 目的| 看[碎片统计](#shard-stats)。|
+| 统计| 目的| 看[快照文件统计](#snapshot-file-stats)。|
+| 碎片| 对象列表| 包含有关碎片信息的对象列表，其中包括快照。碎片的工作人员在下面列出了大胆的文本。<br /> <br />**阶段**：快照中的当前状态。碎片状态为：<br /> <br /> *完成：快照中成功存储在存储库中的碎片数。<br /> <br /> *故障：快照中未成功存储在存储库中的碎片数。<br /> <br /> *最终确定：在存储在存储库中的最终确定阶段中的碎片数。<br /> <br />* init：快照中存储在存储库中的初始化阶段中的碎片数。<br /> <br />*开始：快照中的碎片数存储在存储库中的开始阶段。<br /> <br />**统计**： 看[快照文件统计](#snapshot-file-stats)。<br /> <br />**全部的**：快照引用的文件的总数和大小。<br /> <br />**start_time_in_millis**：时间（以毫秒为单位）开始快照创建。<br /> <br />**time_in_millis**：快照完成的总时间（以毫秒为单位）。
+

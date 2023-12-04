@@ -1,35 +1,35 @@
 ---
 layout: default
-title: Execute Painless stored script
-parent: Script APIs
+title: 执行简单的存储脚本
+parent: 脚本API
 nav_order: 2
 ---
 
-# Execute Painless stored script
-**Introduced 1.0**
+# 执行简单的存储脚本
+**引入1.0**
 {: .label .label-purple }
 
-Runs a stored script written in the Painless language. 
+运行一个用无痛语言写的存储脚本。
 
-OpenSearch provides several ways to run a script; the following sections show how to run a script by passing script information in the request body of a `GET <index>/_search` request.
+OpenSearch提供了几种运行脚本的方法；以下各节显示了如何通过在请求主体中传递脚本信息来运行脚本`GET <index>/_search` 要求。
 
-## Request fields
+## 请求字段
 
-| Field | Data type | Description | 
+| 场地| 数据类型| 描述| 
 :--- | :--- | :---
-| query | Object | A filter that specifies documents to process. |
-| script_fields | Object | Fields to include in output. | 
-| script | Object | ID of the script that produces a value for a field. |
+| 询问| 目的| 指定要处理的文档的过滤器。|
+| script_fields| 目的| 输出中包括的字段。| 
+| 脚本| 目的| 产生字段值的脚本的ID。|
 
-#### Example request
+#### 示例请求
 
-The following request runs the stored script that was created in [Create or update stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/). The script sums the ratings for each book and displays the sum in the `total_ratings` field in the output.
+以下请求运行了在[创建或更新存储的脚本]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/)。脚本总和每本书的评分，并在`total_ratings` 输出中的字段。
 
-* The script's target is the `books` index.
+*脚本的目标是`books` 指数。
 
-* The `"match_all": {}` property value is an empty object indicating to process each document in the index.
+* 这`"match_all": {}` 属性值是一个空的对象，指示在索引中处理每个文档。
 
-* The `total_ratings` field value is the result of the `my-first-script` execution. See  [Create or update stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/).
+* 这`total_ratings` 现场值是`my-first-script` 执行。看[创建或更新存储的脚本]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/)。
 
 ````json
 GET books/_search
@@ -48,9 +48,9 @@ GET books/_search
 ````
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
-The `GET books/_search` request returns the following fields:
+这`GET books/_search` 请求返回以下字段：
 
 ````json
 {
@@ -104,47 +104,47 @@ The `GET books/_search` request returns the following fields:
 }
 ````
 
-## Response fields
+## 响应字段
 
-| Field | Data type | Description | 
+| 场地| 数据类型| 描述| 
 :--- | :--- | :---
-| took | Integer | How long the operation took in milliseconds. |
-| timed_out | Boolean | Whether the operation timed out. |
-| _shards | Object | Total number of shards processed and also the total number of successful, skipped, and not processed. |
-| hits | Object | Contains high-level information about the documents processed and an array of `hits` objects. See [Hits object](#hits-object). | 
+| 拿| 整数| 操作花了多长时间。|
+| 时间到| 布尔| 该操作是否定时。|
+| _沙尔德| 目的| 处理的碎片总数以及成功，跳过且未处理的总数。|
+| 命中| 目的| 包含高-有关所处理文档的级别信息和一系列`hits` 对象。看[命中对象](#hits-object)。| 
 
-#### Hits object
+#### 命中对象
 
-| Field | Data type | Description | 
+| 场地| 数据类型| 描述| 
 :--- | :--- | :---
-| total | Object | Total number of documents processed and their relationship to the `match` request field. |
-| max_score | Double | Highest relevance score returned from all the hits. |
-| hits | Array | Information about each document that was processed. See [Document object](#Document-object). |
+| 全部的| 目的| 处理的文件总数及其与`match` 请求字段。|
+| max_score| 双倍的| 最高相关性得分从所有命中返回。|
+| 命中| 大批| 有关处理的每个文档的信息。看[文档对象](#Document-object)。|
 
-#### Document object
+#### 文档对象
 
-| Field | Data type | Description | 
+| 场地| 数据类型| 描述| 
 :--- | :--- | :---
-| _index | String | Index that contains the document. |
-| _id | String | Document ID. |
-| _score | Float | Document's relevance score. |
-| fields | Object | Fields and their value returned from the script. |
+| _指数| 细绳| 包含文档的索引。|
+| _ID| 细绳| 文档ID。|
+| _分数| 漂浮| 文档的相关性得分。|
+| 字段| 目的| 字段及其价值从脚本返回。|
 
-## Running a Painless stored script with parameters
+## 使用参数运行无痛的存储脚本
 
-To pass different parameters to the script each time when running a query, define `params` in `script_fields`.
+每次运行查询时，要将不同的参数传递到脚本，请定义`params` 在`script_fields`。
 
-#### Example
+#### 例子
 
-The following request runs the stored script that was created in [Create or update stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/). The script sums the ratings for each book, multiplies the summed value by the `multiplier` parameter, and displays the result in the output.
+以下请求运行了在[创建或更新存储的脚本]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/)。脚本总和每本书的评分，将总价值乘以`multiplier` 参数，并在输出中显示结果。
 
-* The script's target is the `books` index.
+*脚本的目标是`books` 指数。
 
-* The `"match_all": {}` property value is an empty object, indicating that it processes each document in the index.
+* 这`"match_all": {}` 属性值是一个空对象，表明它处理索引中的每个文档。
 
-* The `total_ratings` field value is the result of the `multiplier-script` execution. See [Creating or updating a stored script with parameters]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/).
+* 这`total_ratings` 现场值是`multiplier-script` 执行。看[使用参数创建或更新存储的脚本]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/)。
 
-* `"multiplier": 2` in the `params` field is a variable passed to the stored script `multiplier-script`:
+*`"multiplier": 2` 在里面`params` 字段是传递给存储脚本的变量`multiplier-script`：
 
 ```json
 GET books/_search
@@ -166,7 +166,7 @@ GET books/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -223,10 +223,10 @@ GET books/_search
 }
 ```
 
-**Sort results using painless stored script
-You can use painless stored script to sort results.**
+**使用无痛脚本对结果进行排序
+您可以使用无痛的存储脚本对结果进行排序。**
 
-#### Sample request
+#### 样本请求
 
 ```json
 GET books/_search
@@ -259,7 +259,7 @@ GET books/_search
 }
 ```
 
-#### Sample response
+#### 样本响应
 
 ```json
 {
@@ -324,3 +324,4 @@ GET books/_search
   }
 }
 ```
+

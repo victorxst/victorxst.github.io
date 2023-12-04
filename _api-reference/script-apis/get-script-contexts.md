@@ -1,26 +1,26 @@
 ---
 layout: default
-title: Get Stored Script Contexts
-parent: Script APIs
+title: 获取存储的脚本上下文
+parent: 脚本API
 nav_order: 5
 ---
 
-# Get stored script contexts
-**Introduced 1.0**
+# 获取存储的脚本上下文
+**引入1.0**
 {: .label .label-purple }
 
-Retrieves all contexts for stored scripts.
+检索存储脚本的所有上下文。
 
-#### Example request
+#### 示例请求
 
 ````json
 GET _script_context
 ````
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
-The `GET _script_context` request returns the following fields:
+这`GET _script_context` 请求返回以下字段：
 
 ````json
 {
@@ -547,32 +547,33 @@ The `GET _script_context` request returns the following fields:
 }
 ````
 
-## Response fields
+## 响应字段
 
-The `GET _script_context` request returns the following response fields:
+这`GET _script_context` 请求返回以下响应字段：
 
-| Field | Data type | Description | 
+| 场地| 数据类型| 描述| 
 :--- | :--- | :---
-| contexts | List | A list of all contexts. See [Script object](#script-context).  |
+| 上下文| 列表| 所有上下文的列表。看[脚本对象](#script-context)。|
 
-#### Script context
+#### 脚本上下文
 
-| Field | Data type | Description | 
+| 场地| 数据类型| 描述| 
 :--- | :--- | :---
-| name | String | The context name. |
-|  methods | List | List of the context's allowable methods. See [Script object](#context-methods). |
+| 姓名| 细绳| 上下文名称。|
+|  方法| 列表| 上下文的允许方法列表。看[脚本对象](#context-methods)。|
 
-#### Context methods
+#### 上下文方法
 
-| Field | Data type | Description | 
+| 场地| 数据类型| 描述| 
 :--- | :--- | :---
-| name | String | Method name. |
-| name | String | Type that the method returns (`boolean`, `object`, `number`, and so on). |
-| params | List | List of the parameters accepted by the method. See [Script object](#method-parameters). |
+| 姓名| 细绳| 方法名称。|
+| 姓名| 细绳| 键入该方法返回（`boolean`，`object`，`number`， 等等）。|
+| 参数| 列表| 该方法接受的参数列表。看[脚本对象](#method-parameters)。|
 
-#### Method parameters 
+#### 方法参数
 
-| Field | Data type | Description | 
+| 场地| 数据类型| 描述| 
 :--- | :--- | :---
-| type | String | Parameter data type. | 
-| name | String | Parameter name. |
+| 类型| 细绳| 参数数据类型。| 
+| 姓名| 细绳| 参数名称。
+

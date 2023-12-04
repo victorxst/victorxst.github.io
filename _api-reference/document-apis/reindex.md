@@ -1,20 +1,20 @@
 ---
 layout: default
-title: Reindex document
-parent: Document APIs
+title: Reindex文档
+parent: 文档API
 nav_order: 60
 redirect_from: 
   - /opensearch/reindex-data/
   - /opensearch/rest-api/document-apis/reindex/
 ---
 
-# Reindex document
-**Introduced 1.0**
+# Reindex文档
+**引入1.0**
 {: .label .label-purple}
 
-The reindex document API operation lets you copy all or a subset of your data from a source index into a destination index.
+Reindex文档API操作使您可以将数据的全部或一个子集从源索引复制到目标索引中。
 
-## Example
+## 例子
 
 ```json
 POST /_reindex
@@ -29,59 +29,59 @@ POST /_reindex
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 POST /_reindex
 ```
 
-## URL parameters
+## URL参数
 
-All URL parameters are optional.
+所有URL参数都是可选的。
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- | :--- | :---
-refresh | Boolean | If true, OpenSearch refreshes shards to make the reindex operation available to search results. Valid options are `true`, `false`, and `wait_for`, which tells OpenSearch to wait for a refresh before executing the operation. Default is `false`.
-timeout | Time | How long to wait for a response from the cluster. Default is `30s`.
-wait_for_active_shards | String | The number of active shards that must be available before OpenSearch processes the reindex request. Default is 1 (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the operation to succeed.
-wait_for_completion | Boolean | Waits for the matching tasks to complete. Default is `false`.
-requests_per_second | Integer | Specifies the request’s throttling in sub-requests per second. Default is -1, which means no throttling.
-require_alias | Boolean | Whether the destination index must be an index alias. Default is false.
-scroll | Time | How long to keep the search context open. Default is `5m`.
-slices | Integer | Number of sub-tasks OpenSearch should divide this task into. Default is 1, which means OpenSearch should not divide this task. Setting this parameter to `auto` indicates to OpenSearch that it should automatically decide how many slices to split the task into.
-max_docs | Integer | How many documents the update by query operation should process at most. Default is all documents.
+刷新| 布尔| 如果为true，则OpenSearch刷新碎片以使ReIndex操作可用于搜索结果。有效的选项是`true`，`false`， 和`wait_for`，它告诉Opensearch在执行操作之前等待刷新。默认为`false`。
+暂停| 时间| 等待群集的响应多长时间。默认为`30s`。
+wait_for_active_shards| 细绳| 在OpenSearch处理ReIndex请求之前，必须可用的活动碎片数。默认值为1（仅是主要碎片）。设置`all` 或一个积极的整数。大于1的值需要复制品。例如，如果指定一个值为3的值，则索引必须在两个其他节点上分布两个副本才能成功。
+wait_for_completion| 布尔| 等待匹配任务完成。默认为`false`。
+requests_per_second| 整数| 指定请求在sub中的节流-每秒请求。默认为-1，这意味着没有节流。
+require_alias| 布尔| 目的地索引是否必须是索引别名。默认值为false。
+滚动| 时间| 保持搜索上下文开放多长时间。默认为`5m`。
+切片| 整数| 子数量-任务OpenSearch应将此任务分为。默认值为1，这意味着OpenSearch不应划分此任务。将此参数设置为`auto` 向OpenSearch表示，它应该自动决定将任务分为多个切片。
+max_docs| 整数| 查询操作更新的更新最多应处理多少文档。默认是所有文档。
 
-## Request body
+## 请求身体
 
-Your request body must contain the names of the source index and destination index. All other fields are optional.
+您的请求主体必须包含源索引和目标索引的名称。所有其他字段都是可选的。
 
-Field | Description
+场地| 描述
 :--- | :---
-conflicts | Indicates to OpenSearch what should happen if the delete by query operation runs into a version conflict. Valid options are `abort` and `proceed`. Default is abort.
-source | Information about the source index to include. Valid fields are `index`, `max_docs`, `query`, `remote`, `size`, `slice`, and `_source`.
-index | The name of the source index to copy data from.
-max_docs | The maximum number of documents to reindex.
-query | The search query to use for the reindex operation.
-remote | Information about a remote OpenSearch cluster to copy data from. Valid fields are `host`, `username`, `password`, `socket_timeout`, and `connect_timeout`.
-host | Host URL of the OpenSearch cluster to copy data from.
-username | Username to authenticate with the remote cluster.
-password | Password to authenticate with the remote cluster.
-socket_timeout | The wait time for socket reads. Default is 30s.
-connect_timeout | The wait time for remote connection timeouts. Default is 30s.
-size | The number of documents to reindex.
-slice | Whether to manually or automatically slice the reindex operation so it executes in parallel. Setting this field to `auto` allows OpenSearch to control the number of slices to use, which is one slice per shard, up to a maximum of 20. If there are multiple sources, the number of slices used are based on the index or backing index with the smallest number of shards.
-_source | Whether to reindex source fields. Specify a list of fields to reindex or true to reindex all fields. Default is true.
-id | The ID to associate with manual slicing.
-max | Maximum number of slices.
-dest | Information about the destination index. Valid values are `index`, `version_type`, and `op_type`.
-index | Name of the destination index.
-version_type | The indexing operation's version type. Valid values are `internal`, `external`, `external_gt` (retrieve the document if the specified version number is greater than the document’s current version), and `external_gte` (retrieve the document if the specified version number is greater or equal to than the document’s current version).
-op_type | Whether to copy over documents that are missing in the destination index. Valid values are `create` (ignore documents with the same ID from the source index) and `index` (copy everything from the source index).
-script | A script that OpenSearch uses to apply transformations to the data during the reindex operation.
-source | The actual script that OpenSearch runs.
-lang | The scripting language. Valid options are `painless`, `expression`, `mustache`, and `java`.
+冲突| 指示开放搜索，如果通过查询操作删除将发生什么会发生什么，则会发生在版本冲突中。有效的选项是`abort` 和`proceed`。默认值为中止。
+来源| 有关要包括的源索引的信息。有效字段是`index`，`max_docs`，`query`，`remote`，`size`，`slice`， 和`_source`。
+指数| 源索引复制数据的名称。
+max_docs| 最多要重新索引的文档数量。
+询问| 用于Reindex操作的搜索查询。
+偏僻的| 有关远程OpenSearch集群的信息，以复制数据。有效字段是`host`，`username`，`password`，`socket_timeout`， 和`connect_timeout`。
+主持人| OpenSearch集群的主机URL从中复制数据。
+用户名| 用户名可使用远程群集进行身份验证。
+密码| 密码可以使用远程群集进行身份验证。
+socket_timeout| 插座的等待时间读取。默认值为30。
+connect_timeout| 远程连接超时的等待时间。默认值为30。
+尺寸| reindex的文档数量。
+片| 是手动还是自动切成reindex操作，以便并并行执行。将此字段设置为`auto` 允许OpenSearch控制使用的切片数，即每片一个切片，最多20片。如果有多个来源，所使用的切片数是基于索引或备份索引，最小数量的碎片数。
+_来源| 是否要重新索引源字段。指定要重新索引的字段列表或true以重新索引所有字段。默认是正确的。
+ID| 与手动切片相关联的ID。
+最大限度| 最大切片数。
+命运| 有关目标索引的信息。有效值是`index`，`version_type`， 和`op_type`。
+指数| 目标索引的名称。
+version_type| 索引操作的版本类型。有效值是`internal`，`external`，`external_gt` （如果指定的版本号大于文档的当前版本，则检索文档），并且`external_gte` （如果指定的版本编号大于或等于文档的当前版本，则检索文档）。
+op_type| 是否要复制目标索引中缺少的文档。有效值是`create` （忽略来自源索引中具有相同ID的文档）和`index` （复制源索引中的所有内容）。
+脚本| OpenSearch使用的脚本将转换应用于ReIndex操作期间的数据。
+来源| OpenSearch运行的实际脚本。
+朗| 脚本语言。有效的选项是`painless`，`expression`，`mustache`， 和`java`。
 
-## Response
+## 回复
 ```json
 {
     "took": 28829,
@@ -104,21 +104,22 @@ lang | The scripting language. Valid options are `painless`, `expression`, `must
 }
 ```
 
-## Response body fields
+## 响应身体场
 
-Field | Description
+场地| 描述
 :--- | :---
-took | How long the operation took in milliseconds.
-timed_out | Whether the operation timed out.
-total | The total number of documents processed.
-updated | The number of documents updated in the destination index.
-created | The number of documents created in the destination index.
-deleted | The number of documents deleted.
-batches | Number of scroll responses.
-version_conflicts | Number of version conflicts.
-noops | How many documents OpenSearch ignored during the operation.
-retries | Number of bulk and search retry requests.
-throttled_millis | Number of throttled milliseconds during the request.
-requests_per_second | Number of requests executed per second during the operation.
-throttled_until_millis | The amount of time until OpenSearch executes the next throttled request.
-failures | Any failures that occurred during the operation.
+拿| 操作花了多长时间。
+时间到| 该操作是否定时。
+全部的| 处理的文件总数。
+更新| 目的地索引中更新的文档数量。
+创建| 在目标索引中创建的文档数量。
+删除| 删除的文档数量。
+批次| 滚动响应的数量。
+version_conflicts| 版本冲突的数量。
+零| 在操作过程中忽略了多少个文档OpenSearch。
+重试| 批量和搜索重试请求的数量。
+throttled_millis| 在请求期间，毫秒的毫秒数。
+requests_per_second| 操作过程中每秒执行的请求数。
+throttled_until_millis| OpenSearch执行下一个节流请求之前的时间。
+失败| 操作过程中发生的任何故障。
+

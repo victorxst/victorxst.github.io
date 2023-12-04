@@ -1,46 +1,46 @@
 ---
 layout: default
-title: Cluster settings
+title: 集群设置
 nav_order: 50
-parent: Cluster APIs
+parent: 群集API
 redirect_from:
   - /api-reference/cluster-settings/
   - /opensearch/rest-api/cluster-settings/
 ---
 
-# Cluster settings
-**Introduced 1.0**
+# 集群设置
+**引入1.0**
 {: .label .label-purple }
 
-The cluster settings operation lets you check the current settings for your cluster, review default settings, and change settings. When you update a setting using the API, OpenSearch applies it to all nodes in the cluster.
+群集设置操作使您可以检查当前设置中的群集，查看默认设置并更改设置。当您使用API更新设置时，OpenSearch将其应用于集群中的所有节点。
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 GET _cluster/settings
 PUT _cluster/settings
 ```
 
-## Path parameters
+## 路径参数
 
-All cluster setting parameters are optional.
+所有群集设置参数都是可选的。
 
-Parameter | Data type | Description
+范围| 数据类型| 描述
 :--- | :--- | :---
-flat_settings | Boolean | Whether to return settings in the flat form, which can improve readability, especially for heavily nested settings. For example, the flat form of `"cluster": { "max_shards_per_node": 500 }` is `"cluster.max_shards_per_node": "500"`.
-include_defaults (GET only) | Boolean | Whether to include default settings as part of the response. This parameter is useful for identifying the names and current values of settings you want to update.
-cluster_manager_timeout | Time unit | The amount of time to wait for a response from the cluster manager node. Default is `30 seconds`.
-timeout (PUT only) | Time unit | The amount of time to wait for a response from the cluster. Default is `30 seconds`.
+flat_settings| 布尔| 是否以平面形式返回设置，这可以提高可读性，尤其是对于重嵌套的设置。例如，平坦的形式`"cluster": { "max_shards_per_node": 500 }` 是`"cluster.max_shards_per_node": "500"`。
+包括_defaults（仅获取）| 布尔| 是否将默认设置作为响应的一部分。此参数可用于识别要更新的设置的名称和当前值。
+cluster_manager_timeout| 时间单元| 等待群集管理器节点响应的时间。默认为`30 seconds`。
+超时（仅放置）| 时间单元| 等待集群响应的时间。默认为`30 seconds`。
 
 
-#### Example request
+#### 示例请求
 
 ```json
 GET _cluster/settings?include_defaults=true
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 PUT _cluster/settings
@@ -51,18 +51,18 @@ PUT _cluster/settings
 }
 ```
 
-## Request fields
+## 请求字段
 
-The GET operation has no request body options. All cluster setting field parameters are optional.
+GET操作没有请求主体选项。所有群集设置字段参数都是可选的。
 
-Not all cluster settings can be updated using the cluster settings API. You will receive the error message `"setting [cluster.some.setting], not dynamically updateable"` when trying to configure these settings through the API.
+并非所有群集设置都可以使用群集设置API更新。您将收到错误消息`"setting [cluster.some.setting], not dynamically updateable"` 尝试通过API配置这些设置时。
 {: .note }
 
-For a listing of all cluster settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+有关所有集群设置的列表，请参见[配置OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/)。
 
-#### Example request
+#### 示例请求
 
-For a PUT operation, the request body must contain `transient` or `persistent`, along with the setting you want to update:
+为了进行POT操作，请求主体必须包含`transient` 或者`persistent`，以及您要更新的设置：
 
 ```json
 PUT _cluster/settings
@@ -74,9 +74,9 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-For more information about transient settings, persistent settings, and precedence, see [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/).
+有关瞬态设置，持久设置和优先级的更多信息，请参见[OpenSearch配置]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)。
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -89,3 +89,4 @@ For more information about transient settings, persistent settings, and preceden
    "transient":{}
 }
 ```
+

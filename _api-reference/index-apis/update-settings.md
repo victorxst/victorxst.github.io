@@ -1,21 +1,21 @@
 ---
 layout: default
-title: Update settings
-parent: Index APIs
+title: 更新设置
+parent: 索引API
 nav_order: 75
 redirect_from:
   - /opensearch/rest-api/index-apis/update-settings/
 ---
 
-# Update settings
-**Introduced 1.0**
+# 更新设置
+**引入1.0**
 {: .label .label-purple }
 
-You can use the update settings API operation to update index-level settings. You can change dynamic index settings at any time, but static settings cannot be changed after index creation. For more information about static and dynamic index settings, see [Create index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/).
+您可以使用更新设置API操作更新索引-级别设置。您可以随时更改动态索引设置，但是创建索引后无法更改静态设置。有关静态和动态索引设置的更多信息，请参见[创建索引]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/)。
 
-Aside from the static and dynamic index settings, you can also update individual plugins' settings. To get the full list of updatable settings, run `GET <target-index>/_settings?include_defaults=true`.
+除了静态和动态索引设置外，您还可以更新单个插件的设置。要获取可更新设置的完整列表，请运行`GET <target-index>/_settings?include_defaults=true`。
 
-## Example
+## 例子
 
 ```json
 PUT /sample-index1/_settings
@@ -28,29 +28,29 @@ PUT /sample-index1/_settings
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 PUT /<target-index>/_settings
 ```
 
-## Query parameters
+## 查询参数
 
-All update settings parameters are optional.
+所有更新设置参数都是可选的。
 
-Parameter | Data type | Description
+范围| 数据类型| 描述
 :--- | :--- | :---
-allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is `true`.
-expand_wildcards | String | Expands wildcard expressions to different indexes. Combine multiple values with commas. Available values are `all` (match all indexes), `open` (match open indexes), `closed` (match closed indexes), `hidden` (match hidden indexes), and `none` (do not accept wildcard expressions), which must be used with `open`, `closed`, or both. Default is `open`.
-flat_settings | Boolean | Whether to return settings in the flat form, which can improve readability, especially for heavily nested settings. For example, the flat form of “index”: { “creation_date”: “123456789” } is “index.creation_date”: “123456789”.
-ignore_unavailable | Boolean | If true, OpenSearch does not include missing or closed indexes in the response.
-preserve_existing | Boolean | Whether to preserve existing index settings. Default is false.
-cluster_manager_timeout | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
-timeout | Time | How long to wait for a connection to return. Default is `30s`.
+允许_no_indices| 布尔| 是否忽略不符合任何索引的通配符。默认为`true`。
+Expand_WildCard| 细绳| 将通配符表达式扩展到不同的索引。将多个值与逗号相结合。可用值是`all` （匹配所有索引），`open` （匹配打开索引），`closed` （匹配封闭索引），`hidden` （匹配隐藏索引），`none` （请勿接受通配符表达式），必须与`open`，`closed`， 或两者。默认为`open`。
+flat_settings| 布尔| 是否以平面形式返回设置，这可以提高可读性，尤其是对于重嵌套的设置。例如，“索引”的扁平形式：{“ creation_date”：“ 123456789”}是“ index.creation_date”：“ 123456789”。
+ignore_unavailable| 布尔| 如果为true，则OpenSearch不会在响应中包括缺失或封闭索引。
+preserve_existing| 布尔| 是否保留现有的索引设置。默认值为false。
+cluster_manager_timeout| 时间| 等待连接到群集管理器节点多长时间。默认为`30s`。
+暂停| 时间| 等待连接返回多长时间。默认为`30s`。
 
-## Request body
+## 请求身体
 
-The request body must all of the index settings that you want to update.
+请求主体必须要更新的所有索引设置。
 
 ```json
 {
@@ -61,10 +61,11 @@ The request body must all of the index settings that you want to update.
 }
 ```
 
-## Response
+## 回复
 
 ```json
 {
     "acknowledged": true
 }
 ```
+

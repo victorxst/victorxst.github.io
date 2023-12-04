@@ -1,65 +1,65 @@
 ---
 layout: default
-title: Restore Snapshot
-parent: Snapshot APIs
+title: 还原快照
+parent: 快照API
 
 nav_order: 9
 ---
 
-# Restore Snapshot
-**Introduced 1.0**
+# 还原快照
+**引入1.0**
 {: .label .label-purple }
 
-Restores a snapshot of a cluster or specified data streams and indices. 
+还原集群或指定数据流和索引的快照。
 
-* For information about indices and clusters, see [Introduction to OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/index).
+*有关索引和集群的信息，请参阅[OpenSearch简介]({{site.url}}{{site.baseurl}}/opensearch/index)。
 
-* For information about data streams, see [Data streams]({{site.url}}{{site.baseurl}}/opensearch/data-streams).
+*有关数据流的信息，请参阅[数据流]({{site.url}}{{site.baseurl}}/opensearch/data-streams)。
 
-If open indexes with the same name that you want to restore already exist in the cluster, you must close, delete, or rename the indexes. See [Example request](#example-request) for information about renaming an index. See [Close index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index) for information about closing an index.
+如果打开的索引与要还原的同名索引已经存在于集群中，则必须关闭，删除或重命名索引。看[示例请求](#example-request) 有关重命名索引的信息。看[关闭索引]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index) 有关关闭索引的信息。
 {: .note}
 
-## Path parameters
+## 路径参数
 
-| Parameter | Data type | Description |
+| 范围| 数据类型| 描述|
 :--- | :--- | :---
-repository | String | Repository containing the snapshot to restore. |
-| snapshot | String | Snapshot to restore. |
+存储库| 细绳| 存储库包含快照以还原。|
+| 快照| 细绳| 快照要恢复。|
 
-## Query parameters
+## 查询参数
 
-Parameter | Data type | Description
+范围| 数据类型| 描述
 :--- | :--- | :---
-wait_for_completion | Boolean |  Whether to wait for snapshot restoration to complete before continuing. |
+wait_for_completion| 布尔|  是否要等待快照恢复才能完成。|
 
-### Request fields
+### 请求字段
 
-All request body parameters are optional.
+所有请求的身体参数都是可选的。
 
-| Parameter | Data type | Description |
+| 范围| 数据类型| 描述|
 :--- | :--- | :--- 
-| ignore_unavailable | Boolean | How to handle data streams or indices that are missing or closed. If `false`, the request returns an error for any data stream or index that is missing or closed. If `true`, the request ignores data streams and indices in indices that are missing or closed. Defaults to `false`. |
-| ignore_index_settings | Boolean | A comma-delimited list of index settings that you don't want to restore from a snapshot. |
-| include_aliases | Boolean | How to handle index aliases from the original snapshot. If `true`, index aliases from the original snapshot are restored. If `false`, aliases along with associated indices are not restored. Defaults to `true`. |
-| include_global_state | Boolean | Whether to restore the current cluster state<sup>1</sup>. If `false`, the cluster state is not restored. If true, the current cluster state is restored. Defaults to `false`.|
-| index_settings | String | A comma-delimited list of settings to add or change in all restored indices. Use this parameter to override index settings during snapshot restoration. For data streams, these index settings are applied to the restored backing indices. |
-| indices | String | A comma-delimited list of data streams and indices to restore from the snapshot. Multi-index syntax is supported. By default, a restore operation includes all data streams and indices in the snapshot. If this argument is provided, the restore operation only includes the data streams and indices that you specify. |
-| partial | Boolean | How the restore operation will behave if indices in the snapshot do not have all primary shards available. If `false`, the entire restore operation fails if any indices in the snapshot do not have all primary shards available. <br /> <br />If `true`, allows the restoration of a partial snapshot of indices with unavailable shards. Only shards that were successfully included in the snapshot are restored. All missing shards are recreated as empty. By default, the entire restore operation fails if one or more indices included in the snapshot do not have all primary shards available. To change this behavior, set `partial` to `true`. Defaults to `false`. |
-| rename_pattern | String | The pattern to apply to restored data streams and indices. Data streams and indices matching the rename pattern will be renamed according to `rename_replacement`. <br /><br />The rename pattern is applied as defined by the regular expression that supports referencing the original text. <br /> <br />The request fails if two or more data streams or indices are renamed into the same name. If you rename a restored data stream, its backing indices are also renamed. For example, if you rename the logs data stream to `recovered-logs`, the backing index `.ds-logs-1` is renamed to `.ds-recovered-logs-1`. <br /> <br />If you rename a restored stream, ensure an index template matches the new stream name. If there are no matching index template names, the stream cannot roll over and new backing indices are not created.|
-| rename_replacement | String | The rename replacement string. See `rename_pattern` for more information.|
-| source_remote_store_repository | String | The name of the remote store repository of the source index being restored. If not provided, the Snapshot Restore API will use the repository that was registered when the snapshot was created.
-| wait_for_completion | Boolean | Whether to return a response after the restore operation has completed.  If `false`, the request returns a response when the restore operation initializes.  If `true`, the request returns a response when the restore operation completes. Defaults to `false`. |
+| ignore_unavailable| 布尔| 如何处理丢失或关闭的数据流或索引。如果`false`，该请求返回丢失或关闭的任何数据流或索引的错误。如果`true`，该请求忽略了缺少或关闭的索引中的数据流和索引。默认为`false`。|
+| ignore_index_settings| 布尔| 逗号-您不想从快照还原的索引设置列表。|
+| 包括_ALIASES| 布尔| 如何处理原始快照中的索引别名。如果`true`，恢复了原始快照中的索引别名。如果`false`，尚未恢复别名以及相关指数。默认为`true`。|
+| 包括_global_state| 布尔| 是否还原当前的群集状态<sup> 1 </sup>。如果`false`，群集状态未恢复。如果为true，则将恢复当前的群集状态。默认为`false`。|
+| index_settings| 细绳| 逗号-划定的设置列表，以添加或更改所有还原索引。在快照修复期间，使用此参数覆盖索引设置。对于数据流，将这些索引设置应用于还原的备份索引。|
+| 指数| 细绳| 逗号-划界数据流的列表和索引以从快照恢复。并发-支持索引语法。默认情况下，还原操作包括快照中的所有数据流和索引。如果提供了此参数，则还原操作仅包括您指定的数据流和索引。|
+| 部分的| 布尔| 如果快照中的索引没有所有主要碎片，那么还原操作将如何行为。如果`false`，如果快照中的任何索引没有所有主要碎片，则整个还原操作会失败。<br /> <br /> if`true`，允许恢复不可用的碎片的部分索引快照。仅恢复了快照中成功包含的碎片。所有缺少的碎片都被重新创建为空。默认情况下，如果快照中包含一个或多个索引，则整个还原操作将失败。要改变这种行为，请设置`partial` 到`true`。默认为`false`。|
+| Rename_pattern| 细绳| 适用于还原的数据流和索引的模式。与重命名模式相匹配的数据流和索引将根据`rename_replacement`。<br /> <br />将重命名模式应用于支持引用原始文本的正则表达式所定义。<br /> <br />如果两个或多个数据流或索引被重命名为同一名称，请求将失败。如果您重命名已恢复的数据流，则其备份索引也会重命名。例如，如果将日志数据流命名为`recovered-logs`，背景索引`.ds-logs-1` 被更名为`.ds-recovered-logs-1`。<br /> <br />如果您重命名已修复的流，请确保索引模板匹配新的流名称。如果没有匹配的索引模板名称，则该流将无法翻滚，并且未创建新的备份索引。|
+| Rename_redlacement| 细绳| 重命名替换字符串。看`rename_pattern` 了解更多信息。|
+| source_remote_store_repository| 细绳| 恢复源索引的远程存储存储库的名称。如果未提供，快照还原API将使用创建快照时注册的存储库。
+| wait_for_completion| 布尔| 是否要在还原操作完成后返回响应。如果`false`，当还原操作初始化时，请求将返回响应。如果`true`，当恢复操作完成后，请求返回响应。默认为`false`。|
 
-<sup>1</sup>The cluster state includes:
-* Persistent cluster settings
-* Index templates
-* Legacy index templates
-* Ingest pipelines
-* Index lifecycle policies
+<sup> 1 </sup>群集状态包括：
+*持续的集群设置
+*索引模板
+*传统索引模板
+*摄取管道
+*索引生命周期政策
 
-#### Example request
+#### 示例请求
 
-The following request restores the `opendistro-reports-definitions` index from `my-first-snapshot`. The `rename_pattern` and `rename_replacement` combination causes the index to be renamed to `opendistro-reports-definitions_restored` because duplicate open index names in a cluster are not allowed.
+以下请求还原`opendistro-reports-definitions` 索引来自`my-first-snapshot`。这`rename_pattern` 和`rename_replacement` 组合导致索引重命名为`opendistro-reports-definitions_restored` 因为不允许在集群中重复开放索引名称。
 
 ````json
 POST /_snapshot/my-opensearch-repo/my-first-snapshot/_restore
@@ -73,9 +73,9 @@ POST /_snapshot/my-opensearch-repo/my-first-snapshot/_restore
 }
 ````
 
-#### Example response
+#### 示例响应
 
-Upon success, the response returns the following JSON object:
+成功后，响应返回以下JSON对象：
 
 ````json
 {
@@ -90,17 +90,17 @@ Upon success, the response returns the following JSON object:
   }
 }
 ````
-Except for the snapshot name, all properties are empty or `0`. This is because any changes made to the volume after the snapshot was generated are lost. However, if you invoke the [Get snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot) API to examine the snapshot, a fully populated snapshot object is returned. 
+除快照名称外，所有属性均为空或`0`。这是因为丢失了快照后对音量进行的任何更改。但是，如果您调用[获取快照]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot) API检查快照，返回一个填充的快照对象。
 
-## Response fields
+## 响应字段
 
-| Field | Data type | Description |
+| 场地| 数据类型| 描述|
 | :--- | :--- | :--- | 
-| snapshot | string | Snapshot name. |
-| indices | array | Indices in the snapshot. |
-| shards | object | Total number of shards created along with number of successful and failed shards. |
+| 快照| 细绳| 快照名称。|
+| 指数| 大批| 快照中的索引。|
+| 碎片| 目的| 创建的碎片总数以及成功和失败的碎片数量。|
 
-If open indices in a snapshot already exist in a cluster, and you don't delete, close, or rename them, the API returns an error like the following:
+如果快照中的打开索引已经存在于集群中，并且您不会删除，关闭或重命名它们，则API返回以下错误：
 {: .note}
 
 ````json

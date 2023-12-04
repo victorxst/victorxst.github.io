@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Analyze API
+title: 分析API
 has_children: true
 nav_order: 7
 redirect_from:
@@ -8,18 +8,18 @@ redirect_from:
   - /api-reference/analyze-apis/
 ---
 
-# Analyze API
-**Introduced 1.0**
+# 分析API
+**引入1.0**
 {: .label .label-purple }
 
-The Analyze API allows you to perform [text analysis]({{site.url}}{{site.baseurl}}/api-reference/analyze-apis/), which is the process of converting unstructured text into individual tokens (usually words) that are optimized for search.
+分析API允许您执行[文本分析]({{site.url}}{{site.baseurl}}/api-reference/analyze-apis/)，这是将非结构化文本转换为供搜索优化的单个令牌（通常是单词）的过程。
 
-The Analyze API analyzes a text string and returns the resulting tokens.
+分析API分析文本字符串并返回所得令牌。
 
-If you use the Security plugin, you must have the `manage index` privilege. If you only want to analyze text, you must have the `manage cluster` privilege.
+如果使用安全插件，则必须`manage index` 特权。如果您只想分析文本，则必须`manage cluster` 特权。
 {: .note}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 GET /_analyze
@@ -28,61 +28,61 @@ POST /_analyze
 POST /{index}/_analyze
 ```
 
-Although you can issue an analyze request using both `GET` and `POST` requests, the two have important distinctions. A `GET` request causes data to be cached in the index so that the next time the data is requested, it is retrieved faster. A `POST` request sends a string that does not already exist to the analyzer to be compared with data that is already in the index. `POST` requests are not cached.
+尽管您可以使用两者都会发出分析请求`GET` 和`POST` 请求，两者具有重要的区别。A`GET` 请求会导致数据缓存在索引中，以便下次请求数据时，将其检索得更快。A`POST` 请求发送了一个尚未存在的字符串，该字符串与索引中已经存在的数据进行了比较。`POST` 请求没有缓存。
 {: .note}
 
-## Path parameter
+## 路径参数
 
-You can include the following optional path parameter in your request.
+您可以在请求中包含以下可选路径参数。
 
-Parameter | Data type | Description
+范围| 数据类型| 描述
 :--- | :--- | :---
-index | String | Index that is used to derive the analyzer.
+指数| 细绳| 用于得出分析仪的索引。
 
-## Query parameters
+## 查询参数
 
-You can include the following optional query parameters in your request.
+您可以在请求中包含以下可选查询参数。
 
-Field | Data type | Description
+场地| 数据类型| 描述
 :--- | :--- | :---
-analyzer | String | The name of the analyzer to apply to the `text` field. The analyzer can be built in or configured in the index.<br /><br />If `analyzer` is not specified, the analyze API uses the analyzer defined in the mapping of the `field` field.<br /><br />If the `field` field is not specified, the analyze API uses the default analyzer for the index.<br /><br > If no index is specified or the index does not have a default analyzer, the analyze API uses the standard analyzer.
-attributes | Array of Strings | Array of token attributes for filtering the output of the `explain` field.
-char_filter | Array of Strings | Array of character filters for preprocessing characters before the `tokenizer` field.
-explain | Boolean | If true, causes the response to include token attributes and additional details. Defaults to `false`.
-field | String | Field for deriving the analyzer. <br /><br > If you specify `field`, you must also specify the `index` path parameter. <br /><br > If you specify the `analyzer` field, it overrides the value of `field`. <br /><br > If you do not specify `field`, the analyze API uses the default analyzer for the index. <br /><br > If you do not specify the `index` field, or the index does not have a default analyzer, the analyze API uses the standard analyzer.
-filter | Array of Strings | Array of token filters to apply after the `tokenizer` field.
-normalizer | String | Normalizer for converting text into a single token. 
-tokenizer | String | Tokenizer for converting the `text` field into tokens.
+分析仪| 细绳| 分析仪的名称适用于`text` 场地。分析仪可以在索引中内置或配置。<br /> <br />如果`analyzer` 未指定，分析API使用在映射中定义的分析仪`field` 字段。<br /> <br />如果`field` 未指定字段，分析API使用索引的默认分析仪。<br /> <br>如果未指定索引或索引没有默认分析仪，则分析API使用标准分析仪。
+属性| 弦数| 用于过滤输出的令牌属性数组`explain` 场地。
+char_filter| 弦数| 字符过滤器数组，用于预处理字符之前`tokenizer` 场地。
+解释| 布尔| 如果为真，则导致响应包括令牌属性和其他详细信息。默认为`false`。
+场地| 细绳| 用于得出分析仪的字段。<br /> <br>如果指定`field`，您还必须指定`index` 路径参数。<br /> <br>如果指定`analyzer` 字段，它覆盖了`field`。<br /> <br>如果未指定`field`，分析API使用索引默认分析仪。<br /> <br>如果未指定`index` 字段或索引没有默认分析仪，分析API使用标准分析仪。
+筛选| 弦数| 在`tokenizer` 场地。
+归一化器| 细绳| 用于将文本转换为单个令牌的标准器。
+令牌| 细绳| 用于转换的令牌`text` 字段进入令牌。
 
-The following query parameter is required.
+需要以下查询参数。
 
-Field | Data type | Description
+场地| 数据类型| 描述
 :--- | :--- | :---
-text | String or Array of Strings | Text to analyze. If you provide an array of strings, the text is analyzed as a multi-value field.
+文本| 字符串或字符串| 文本要分析。如果您提供一系列字符串，则将文本分析为多-价值字段。
 
-#### Example requests
+#### 示例请求
 
-[Analyze array of text strings](#analyze-array-of-text-strings)
+[分析文本字符串阵列](#analyze-array-of-text-strings)
 
-[Apply a built-in analyzer](#apply-a-built-in-analyzer)
+[应用建筑物-在分析仪中](#apply-a-built-in-analyzer)
 
-[Apply a custom analyzer](#apply-a-custom-analyzer)
+[应用自定义分析仪](#apply-a-custom-analyzer)
 
-[Apply a custom transient analyzer](#apply-a-custom-transient-analyzer)
+[应用自定义瞬态分析仪](#apply-a-custom-transient-analyzer)
 
-[Specify an index](#specify-an-index)
+[指定索引](#specify-an-index)
 
-[Derive the analyzer from an index field](#derive-the-analyzer-from-an-index-field)
+[从索引字段得出分析仪](#derive-the-analyzer-from-an-index-field)
 
-[Specify a normalizer](#specify-a-normalizer)
+[指定归一化器](#specify-a-normalizer)
 
-[Get token details](#get-token-details)
+[获取令牌详细信息](#get-token-details)
 
-[Set a token limit](#set-a-token-limit)
+[设置令牌限制](#set-a-token-limit)
 
-#### Analyze array of text strings
+#### 分析文本字符串阵列
 
-When you pass an array of strings to the `text` field, it is analyzed as a multi-value field.
+当您将一系列字符串传递给`text` 字段，将其分析为多物-价值字段。
 
 ````json
 GET /_analyze
@@ -93,7 +93,7 @@ GET /_analyze
 ````
 {% include copy-curl.html %}
 
-The previous request returns the following fields:
+上一个请求返回以下字段：
 
 ````json
 {
@@ -144,11 +144,11 @@ The previous request returns the following fields:
 }
 ````
 
-#### Apply a built-in analyzer
+#### 应用建筑物-在分析仪中
 
-If you omit the `index` path parameter, you can apply any of the built-in analyzers to the text string.
+如果您省略了`index` 路径参数，您可以应用任何内置的-在分析仪的文本字符串中。
 
-The following request analyzes text using the `standard` built-in analyzer:
+以下请求使用`standard` 建造-在分析仪中：
 
 ````json
 GET /_analyze
@@ -159,7 +159,7 @@ GET /_analyze
 ````
 {% include copy-curl.html %}
 
-The previous request returns the following fields:
+上一个请求返回以下字段：
 
 ````json
 {
@@ -189,13 +189,13 @@ The previous request returns the following fields:
 }
 ````
 
-#### Apply a custom analyzer
+#### 应用自定义分析仪
 
-You can create your own analyzer and specify it in an analyze request.
+您可以创建自己的分析仪并在分析请求中指定。
 
-In this scenario, a custom analyzer `lowercase_ascii_folding` has been created and associated with the `books2` index. The analyzer converts text to lowercase and converts non-ASCII characters to ASCII.
+在这种情况下，自定义分析仪`lowercase_ascii_folding` 已创建并与`books2` 指数。分析仪将文本转换为小写，并转换-ASCII字符到ASCII。
 
-The following request applies the custom analyzer to the provided text:
+以下请求将自定义分析仪应用于提供的文本：
 
 ````json
 GET /books2/_analyze
@@ -206,7 +206,7 @@ GET /books2/_analyze
 ````
 {% include copy-curl.html %}
 
-The previous request returns the following fields:
+上一个请求返回以下字段：
 
 ````json
 {
@@ -243,11 +243,11 @@ The previous request returns the following fields:
 }
 ````
 
-#### Apply a custom transient analyzer
+#### 应用自定义瞬态分析仪
 
-You can build a custom transient analyzer from tokenizers, token filters, or character filters. Use the `filter` parameter to specify token filters.
+您可以从代币，令牌过滤器或角色过滤器中构建自定义瞬态分析仪。使用`filter` 参数以指定令牌过滤器。
 
-The following request uses the `uppercase` character filter to convert the text to uppercase:
+以下请求使用`uppercase` 字符过滤器将文本转换为大写：
 
 ````json
 GET /_analyze
@@ -259,7 +259,7 @@ GET /_analyze
 ````
 {% include copy-curl.html %}
 
-The previous request returns the following fields:
+上一个请求返回以下字段：
 
 ````json
 {
@@ -276,7 +276,7 @@ The previous request returns the following fields:
 ````
 <hr />
 
-The following request uses the `html_strip` filter to remove HTML characters from the text:
+以下请求使用`html_strip` 过滤以从文本中删除HTML字符：
 
 ````json
 GET /_analyze
@@ -289,7 +289,7 @@ GET /_analyze
 ````
 {% include copy-curl.html %}
 
-The previous request returns the following fields:
+上一个请求返回以下字段：
 
 ```` json
 {
@@ -307,9 +307,9 @@ The previous request returns the following fields:
 
 <hr />
 
-You can combine filters using an array.
+您可以使用数组组合过滤器。
 
-The following request combines a `lowercase` translation with a `stop` filter that removes the words in the `stopwords` array:
+以下请求结合了`lowercase` 用`stop` 滤除了删除单词中的单词`stopwords` 大批：
 
 ````json
 GET /_analyze
@@ -321,7 +321,7 @@ GET /_analyze
 ````
 {% include copy-curl.html %}
 
-The previous request returns the following fields:
+上一个请求返回以下字段：
 
 ````json
 {
@@ -372,11 +372,11 @@ The previous request returns the following fields:
 }
 ````
 
-#### Specify an index
+#### 指定索引
 
-You can analyze text using an index's default analyzer, or you can specify a different analyzer.
+您可以使用索引的默认分析仪分析文本，也可以指定其他分析仪。
 
-The following request analyzes the provided text using the default analyzer associated with the `books` index:
+以下请求使用与`books` 指数：
 
 ````json
 GET /books/_analyze
@@ -386,7 +386,7 @@ GET /books/_analyze
 ````
 {% include copy-curl.html %}
 
-The previous request returns the following fields:
+上一个请求返回以下字段：
 
 ````json
 
@@ -413,12 +413,11 @@ The previous request returns the following fields:
       "position" : 2
     }
   ]
-}
 ````
 
 <hr />
 
-The following request analyzes the provided text using the `keyword` analyzer, which returns the entire text value as a single token:
+以下请求使用`keyword` 分析仪，将整个文本值返回为一个令牌：
 
 ````json
 GET /books/_analyze
@@ -429,7 +428,7 @@ GET /books/_analyze
 ````
 {% include copy-curl.html %}
 
-The previous request returns the following fields:
+上一个请求返回以下字段：
 
 ````json
 {
@@ -445,13 +444,13 @@ The previous request returns the following fields:
 }
 ````
 
-#### Derive the analyzer from an index field
+#### 从索引字段得出分析仪
 
-You can pass text and a field in the index. The API looks up the field's analyzer and uses it to analyze the text.
+您可以在索引中传递文本和字段。API查找了字段的分析仪，并使用它来分析文本。
 
-If the mapping does not exist, the API uses the standard analyzer, which converts all text to lowercase and tokenizes based on white space.
+如果映射不存在，则API使用标准分析仪，该标准分析仪将所有文本转换为基于空白空间的小写和标记。
 
-The following request causes the analysis to be based on the mapping for `name`:
+以下请求导致分析基于映射`name`：
 
 ````json
 GET /books2/_analyze
@@ -462,7 +461,7 @@ GET /books2/_analyze
 ````
 {% include copy-curl.html %}
 
-The previous request returns the following fields:
+上一个请求返回以下字段：
 
 ````json
 {
@@ -492,13 +491,13 @@ The previous request returns the following fields:
 }
 ````
 
-#### Specify a normalizer
+#### 指定归一化器
 
-Instead of using a keyword field, you can use the normalizer associated with the index. A normalizer causes the analysis change to produce a single token.
+您可以使用与索引关联的标准式，而不是使用关键字字段。标准器导致分析变化产生单个令牌。
 
-In this example, the `books2` index includes a normalizer called `to_lower_fold_ascii` that converts text to lowercase and translates non-ASCII text to ASCII.
+在此示例中，`books2` 索引包括一个标准器称为`to_lower_fold_ascii` 将文本转换为小写并翻译非-ASCII文本给ASCII。
 
-The following request applies `to_lower_fold_ascii` to the text:
+以下请求适用`to_lower_fold_ascii` 到文字：
 
 ````json
 GET /books2/_analyze
@@ -509,7 +508,7 @@ GET /books2/_analyze
 ````
 {% include copy-curl.html %}
 
-The previous request returns the following fields:
+上一个请求返回以下字段：
 
 ````json
 {
@@ -527,9 +526,9 @@ The previous request returns the following fields:
 
 <hr />
 
-You can create a custom transient normalizer with token and character filters.
+您可以使用令牌和字符过滤器创建自定义的瞬态标准器。
 
-The following request uses the `uppercase` character filter to convert the given text to all uppercase:
+以下请求使用`uppercase` 字符过滤器将给定文本转换为所有大写：
 
 ````json
 GET /_analyze
@@ -540,7 +539,7 @@ GET /_analyze
 ````
 {% include copy-curl.html %}
 
-The previous request returns the following fields:
+上一个请求返回以下字段：
 
 ````json
 {
@@ -556,11 +555,11 @@ The previous request returns the following fields:
 }
 ````
 
-#### Get token details
+#### 获取令牌详细信息
 
-You can obtain additional details for all tokens by setting the `explain` attribute to `true`.
+您可以通过设置所有令牌获得所有令牌的其他详细信息`explain` 属性为`true`。
 
-The following request provides detailed token information for the `reverse` filter used with the `standard` tokenizer:
+以下请求提供了详细的令牌信息`reverse` 滤波器与`standard` Tokenizer：
 
 ````json
 GET /_analyze
@@ -574,7 +573,7 @@ GET /_analyze
 ````
 {% include copy-curl.html %}
 
-The previous request returns the following fields:
+上一个请求返回以下字段：
 
 ````json
 {
@@ -639,11 +638,11 @@ The previous request returns the following fields:
 }
 ````
 
-#### Set a token limit
+#### 设置令牌限制
 
-You can set a limit to the number of tokens generated. Setting a lower value reduces a node's memory usage. The default value is 10000.
+您可以将生成的令牌数设置为限制。设置较低的值会减少节点的内存使用量。默认值为10000。
 
-The following request limits the tokens to four:
+以下请求将令牌限制为四：
 
 ````json
 PUT /books2
@@ -655,36 +654,37 @@ PUT /books2
 ````
 {% include copy-curl.html %}
 
-The preceding request is an index API rather than an analyze API. See [Dynamic index-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-level-index-settings) for additional details.
+前面的请求是索引API，而不是分析API。看[动态索引-级索引设置]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-level-index-settings) 有关其他详细信息。
 {: .note}
 
-### Response fields
+### 响应字段
 
-The text analysis endpoints return the following response fields.
+文本分析端点返回以下响应字段。
 
-Field | Data type | Description
+场地| 数据类型| 描述
 :--- | :--- | :---
-tokens | Array | Array of tokens derived from the `text`. See [token object](#token-object).
-detail | Object | Details about the analysis and each token. Included only when you request token details. See [detail object](#detail-object).
+令牌| 大批| 从`text`。看[令牌对象](#token-object)。
+细节| 目的| 有关分析和每个令牌的详细信息。仅当您请求令牌详细信息时才包括。看[细节对象](#detail-object)。
 
-#### Token object
+#### 令牌对象
 
-Field | Data type | Description
+场地| 数据类型| 描述
 :--- | :--- | :---
-token  | String | The token's text.
-start_offset | Integer | The token's starting position within the original text string. Offsets are zero-based.
-end_offset | Integer | The token's ending position within the original text string.
-type | String | Classification of the token: `<ALPHANUM>`, `<NUM>`, and so on. The tokenizer usually sets the type, but some filters define their own types. For example, the synonym filter defines the `<SYNONYM>` type.
-position |  Integer | The token's position within the `tokens` array.
+令牌| 细绳| 令牌的文字。
+start_offset| 整数| 令牌在原始文本字符串中的起始位置。偏移为零-基于。
+end_offset| 整数| 令牌在原始文本字符串中的结尾位置。
+类型| 细绳| 令牌的分类：`<ALPHANUM>`，`<NUM>`， 等等。令牌器通常设置该类型，但是有些过滤器定义了自己的类型。例如，同义词过滤器定义`<SYNONYM>` 类型。
+位置|  整数| 令牌在`tokens` 大批。
 
-#### Detail object
+#### 细节对象
 
-Field | Data type | Description
+场地| 数据类型| 描述
 :--- | :--- | :---
-custom_analyzer | Boolean | Whether the analyzer applied to the text is custom or built in.
-charfilters | Array | List of character filters applied to the text.
-tokenizer | Object | Name of the tokenizer applied to the text and a list of tokens<sup>*</sup> with content before the token filters were applied.
-tokenfilters | Array | List of token filters applied to the text. Each token filter includes the filter's name and a list of tokens<sup>*</sup> with content after the filters were applied. Token filters are listed in the order they are specified in the request. 
+custom_analyzer| 布尔| 分析仪是在文本上应用的还是内置的。
+charlingters| 大批| 应用于文本的字符过滤器列表。
+令牌| 目的| 将令牌的名称应用于文本，并在应用令牌过滤器之前使用内容的令牌<sup>*</sup>列表。
+tokenfilters| 大批| 应用于文本的令牌过滤器列表。每个令牌过滤器都包含过滤器的名称和一个令牌<sup>*</sup>的列表，并在应用过滤器后具有内容。令牌过滤器按请求中指定的顺序列出。
 
-See [token object](#token-object) for token field descriptions.
+看[令牌对象](#token-object) 对于令牌字段描述。
 {: .note}
+

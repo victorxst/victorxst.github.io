@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Nodes usage
-parent: Nodes APIs
+title: 节点用法
+parent: 节点API
 nav_order: 40
 ---
 
-# Nodes usage
-**Introduced 1.0**
+# 节点用法
+**引入1.0**
 {: .label .label-purple }
 
-The nodes usage endpoint returns low-level information about REST action usage on nodes.
+节点的使用端点返回低-有关节点上的休息操作使用情况的关卡信息。
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 GET _nodes/usage
@@ -20,36 +20,36 @@ GET _nodes/usage/<metric>
 GET _nodes/<nodeId>/usage/<metric>
 ```
 
-## Path parameters
+## 路径参数
 
-You can include the following optional path parameters in your request.
+您可以在请求中包含以下可选路径参数。
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- | :--- | :---
-nodeId | String | A comma-separated list of nodeIds used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). Defaults to `_all`.
-metric | String | The metrics that will be included in the response. You can set the string to either `_all` or `rest_actions`. `rest_actions` returns the total number of times an action has been called on the node. `_all` returns all stats from the node. Defaults to `_all`.
+nodeid| 细绳| 逗号-用于过滤结果的节点的分离列表。支持[节点过滤器]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters)。默认为`_all`。
+公制| 细绳| 响应中将包含的指标。您可以将字符串设置为`_all` 或者`rest_actions`。`rest_actions` 返回在节点上调用操作的总数。`_all` 从节点返回所有统计数据。默认为`_all`。
 
-## Query parameters
+## 查询参数
 
-You can include the following optional query parameters in your request.
+您可以在请求中包含以下可选查询参数。
 
-Parameter | Type | Description
-:--- | :---| :---
-timeout | Time | Sets the time limit for a response from the node. Default is `30s`.
-cluster_manager_timeout | Time | Sets the time limit for a response from the cluster manager. Default is `30s`.
+范围| 类型| 描述
+:--- | :---| ：---
+暂停| 时间| 设置节点响应的时间限制。默认为`30s`。
+cluster_manager_timeout| 时间| 设置群集管理器响应的时间限制。默认为`30s`。
 
-#### Example request
+#### 示例请求
 
-The following request returns usage details for all nodes:
+以下请求返回所有节点的使用详细信息：
 
 ```
 GET _nodes/usage
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
-The following is an example response:
+以下是一个示例响应：
 
 ```json
 {
@@ -92,6 +92,7 @@ The following is an example response:
 }
 ```
 
-## Required permissions
+## 所需的权限
 
-If you use the Security plugin, make sure you set the following permissions: `cluster:manage/nodes` or `cluster:monitor/nodes`.
+如果使用安全插件，请确保设置以下权限：`cluster:manage/nodes` 或者`cluster:monitor/nodes`
+

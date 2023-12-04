@@ -1,6 +1,6 @@
 ---
 layout: default
-title: CAT thread pool
+title: CAT 线程池
 parent: CAT API
 nav_order: 75
 has_children: false
@@ -8,52 +8,52 @@ redirect_from:
 - /opensearch/rest-api/cat/cat-thread-pool/
 ---
 
-# CAT thread pool
-**Introduced 1.0**
+# 猫线池
+**引入1.0**
 {: .label .label-purple }
 
-The CAT thread pool operation lists the active, queued, and rejected threads of different thread pools on each node.
+CAT线程池操作列出了每个节点上不同线程池的活动，排队和拒绝的线程。
 
-## Example
+## 例子
 
 ```
 GET _cat/thread_pool?v
 ```
 {% include copy-curl.html %}
 
-If you want to get information for more than one thread pool, separate the thread pool names with commas:
+如果要获取多个线程池的信息，请将线程池名称与逗号分开：
 
 ```
 GET _cat/thread_pool/thread_pool_name_1,thread_pool_name_2,thread_pool_name_3
 ```
 {% include copy-curl.html %}
 
-If you want to limit the information to a specific thread pool, add the thread pool name after your query:
+如果要将信息限制到特定的线程池中，请在查询之后添加线程池名称：
 
 ```
 GET _cat/thread_pool/<thread_pool_name>?v
 ```
 {% include copy-curl.html %}
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 GET _cat/thread_pool
 ```
 
-## URL parameters
+## URL参数
 
-All CAT thread pool URL parameters are optional.
+所有CAT线程池URL参数都是可选的。
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
+除了[常见的URL参数]({{site.url}}{{site.baseurl}}/api-reference/cat/index)，您可以指定以下参数：
 
-Parameter | Type | Description
+范围| 类型| 描述
 :--- | :--- | :---
-local | Boolean | Whether to return information from the local node only instead of from the cluster_manager node. Default is false.
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster_manager node. Default is 30 seconds.
+当地的| 布尔| 是否仅从本地节点返回信息，而不是从cluster_manager节点返回。默认值为false。
+cluster_manager_timeout| 时间| 等待连接到cluster_manager节点的时间。默认值为30秒。
 
 
-## Response
+## 回复
 
 ```json
 node_name  name                      active queue rejected
@@ -61,3 +61,4 @@ odfe-node2 ad-batch-task-threadpool    0     0        0
 odfe-node2 ad-threadpool               0     0        0
 odfe-node2 analyze                     0     0        0s
 ```
+

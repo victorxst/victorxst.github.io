@@ -1,40 +1,40 @@
 ---
 layout: default
-title: Get Stored Script
-parent: Script APIs
+title: 获取存储的脚本
+parent: 脚本API
 nav_order: 3
 ---
 
-# Get stored script
-**Introduced 1.0**
+# 获取存储的脚本
+**引入1.0**
 {: .label .label-purple }
 
-Retrieves a stored script.
+检索存储的脚本。
 
-## Path parameters
+## 路径参数
 
-| Parameter | Data type | Description | 
+| 范围| 数据类型| 描述| 
 :--- | :--- | :---
-| script | String | Stored script or search template name. Required.|
+| 脚本| 细绳| 存储的脚本或搜索模板名称。必需的。|
 
-## Query parameters
+## 查询参数
 
-| Parameter | Data type | Description | 
+| 范围| 数据类型| 描述| 
 :--- | :--- | :---
-| cluster_manager_timeout | Time | Amount of time to wait for a connection to the cluster manager. Optional, defaults to `30s`. |
+| cluster_manager_timeout| 时间| 等待与群集管理器连接的时间。可选，默认为`30s`。|
 
-#### Example request
+#### 示例请求
 
-The following retrieves the `my-first-script` stored script.
+以下取回`my-first-script` 存储的脚本。
 
 ````json
 GET _scripts/my-first-script
 ````
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
-The `GET _scripts/my-first-script` request returns the following fields:
+这`GET _scripts/my-first-script` 请求返回以下字段：
 
 ````json
 {
@@ -53,19 +53,20 @@ The `GET _scripts/my-first-script` request returns the following fields:
 }
 ````
 
-## Response fields
+## 响应字段
 
-The `GET _scripts/my-first-script` request returns the following response fields:
+这`GET _scripts/my-first-script` 请求返回以下响应字段：
 
-| Field | Data type | Description | 
+| 场地| 数据类型| 描述| 
 :--- | :--- | :---
-| _id | String | The script's name. |
-| found | Boolean | The requested script exists and was retrieved. |
-| script | Object | The script definition. See [Script object](#script-object).  |
+| _ID| 细绳| 脚本的名称。|
+| 成立| 布尔| 请求的脚本存在并被检索。|
+| 脚本| 目的| 脚本定义。看[脚本对象](#script-object)。|
 
-#### Script object
+#### 脚本对象
 
-| Field | Data type | Description | 
+| 场地| 数据类型| 描述| 
 :--- | :--- | :---
-| lang | String | The script's language. |
-|  source | String | The script's body. |
+| 朗| 细绳| 脚本的语言。|
+|  来源| 细绳| 剧本的身体。
+
