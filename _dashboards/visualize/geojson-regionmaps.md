@@ -1,69 +1,69 @@
 ---
 layout: default
-title: Using coordinate and region maps
-parent: Building data visualizations
+title: 使用坐标和区域图
+parent: 构建数据可视化
 has_children: true
 nav_order: 15
 redirect_from:
   - /dashboards/geojson-regionmaps/
 ---
 
-# Using coordinate and region maps
+# 使用坐标和区域图
 
-OpenSearch has a standard set of GeoJSON files that provide a vector map with each region map. OpenSearch Dashboards also provides basic map tiles with a standard vector map to create region maps. You can configure the base map tiles using [Web Map Service (WMS)](https://www.ogc.org/standards/wms). For more information, see [Configuring WMS in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/maptiles/). 
+OpenSearch具有一组标准的Geojson文件，可为每个区域映射提供矢量图。OpenSearch仪表板还提供了基本的地图图块，并提供标准向量图来创建区域地图。您可以使用[网络地图服务（WMS）](https://www.ogc.org/standards/wms)。有关更多信息，请参阅[在OpenSearch仪表板中配置WMS]({{site.url}}{{site.baseurl}}/dashboards/maptiles/)。
 
-For air gapped environments, OpenSearch Dashboards provides a self-host maps server. For more information, see [Using the self-host maps server]({{site.url}}{{site.baseurl}}/dashboards/selfhost-maps-server/)
+对于空隙环境，OpenSearch仪表板提供了自我-主机地图服务器。有关更多信息，请参阅[使用自我-主机地图服务器]({{site.url}}{{site.baseurl}}/dashboards/selfhost-maps-server/)
 
-While you can't configure a server to support user-defined vector map layers, you can configure your own GeoJSON file and upload it for this purpose. 
+虽然您无法配置服务器来支持用户-定义的矢量图层，您可以配置自己的Geojson文件并为此目的上传。
 {: .note}
 
-## Customizing vector maps with GeoJSON
+## 使用Geojson自定义向量图
 
-If you have a specific locale that is not provided by OpenSearch Dashboards vector maps, such as a US county or US ZIP Code, you can create your own custom vector map with a GeoJSON file. To create a custom region map you would define a geographic shape such as a polygon with multiple coordinates. To learn more about the various geographic shapes that support a custom region map location, see [Geoshape field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/).
+如果您具有OpenSearch Dashboards向量图（例如美国县或美国邮政编码）未提供的特定环境，则可以使用Geojson文件创建自己的自定义矢量图。要创建自定义区域图，您将定义一个地理形状，例如具有多个坐标的多边形。要了解有关支持自定义区域地图位置的各种地理形状的更多信息，请参见[Geoshape字段类型]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/)。
 
-GeoJSON format allows you to encode geographic data structures. To learn more about the GeoJSON specification, go to [geojson.org](https://geojson.org/).
+Geojson格式允许您编码地理数据结构。要了解有关Geojson规范的更多信息，请转到[geojson.org](https://geojson.org/)。
 
-You can use [geojson.io](https://geojson.io/#map=2/20.0/0.0) to extract GeoJSON files.
+您可以使用[geojson.io](https://geojson.io/#map=2/20.0/0.0) 提取Geojson文件。
 
->   **PREREQUISITE**
->   To use a custom vector map with GeoJSON, install these two required plugins:
->   * OpenSearch Dashboards Maps [`dashboards-maps`](https://github.com/opensearch-project/dashboards-maps) front-end plugin
->   * OpenSearch [`geospatial`](https://github.com/opensearch-project/geospatial) backend plugin
+>   **先决条件**
+>   要使用Geojson使用自定义矢量映射，请安装这两个必需的插件：
+>   * OpenSearch仪表板地图[`dashboards-maps`](https://github.com/opensearch-project/dashboards-maps) 正面-结束插件
+>   * OpenSearch[`geospatial`](https://github.com/opensearch-project/geospatial) 后端插件
 {: .note}
 
-### Step 1: Creating a region map visualization
+### 步骤1：创建区域图可视化
 
-To create your own custom vector map, upload a JSON file that contains GEO data for your customized regional maps. The JSON file contains vector layers for visualization.
+要创建您自己的自定义向量图，请上传一个JSON文件，该文件包含定制区域地图的地理数据。JSON文件包含可视化的矢量层。
 
-1. Prepare a JSON file to upload. Make sure the file has either a .geojson or .json extension.
-1. On the top menu bar, go to **OpenSearch Dashboards > Visualize**.
-1. Select the **Create Visualization** button.
-1. Select **Region Map**.
-1. Choose a source. For example, **[Flights] Flight Log**.
-1. In the right panel, select **Import Vector Map**.
-1. In **Upload map**, select or drag and drop your JSON file and then enter **Map name prefix** (for example, `usa-counties`). Your map will have the prefix that you defined followed by the `-map` suffix (for example, `usa-counties-map`), as shown in the following image: 
+1. 准备一个JSON文件以上传。确保文件具有.geojson或.json扩展名。
+1. 在顶部菜单栏上，转到**OpenSearch仪表板>可视化**。
+1. 选择**创建可视化** 按钮。
+1. 选择**区域图**。
+1. 选择一个来源。例如，**[航班]航班日志**。
+1. 在右面板中，选择**导入向量图**。
+1. 在**上传地图**，选择或拖放JSON文件，然后输入**地图名称前缀** （例如，`usa-counties`）。您的地图将具有您定义的前缀，然后是`-map` 后缀（例如，`usa-counties-map`），如下图所示：
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/import-geojson-file.png" alt="Importing a GeoJSON file" width="300"/>
+   <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/import-geojson-file.png" alt ="Importing a GeoJSON file" 宽度="300"/>
 
-1. Select the **Import file** button and then select the **Refresh** button in the pop-up window confirming successful upload, as shown in the following image. 
+1. 选择**导入文件** 按钮，然后选择**刷新** 流行中的按钮-向上窗口确认成功上传，如下图所示。
   
-  <img src="{{site.url}}{{site.baseurl}}/images/dashboards/upload-success.png" alt="Message confirming successful file upload" width="300"/>
+  <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/upload-success.png" alt ="Message confirming successful file upload" 宽度="300"/>
 
-### Step 2: Viewing the custom region map in OpenSearch Dashboards
+### 步骤2：在OpenSearch仪表板中查看自定义区域图
 
-After you upload a custom GeoJSON file, you need to set the vector map layer to custom, and select your vector map:
+上传自定义Geojson文件后，您需要将矢量映射层设置为自定义，然后选择矢量映射：
 
-1. From **Layer Options > Layer settings**, select **Custom vector map**.
-1. Under **Vector map**, select the name of the vector map that you just uploaded.
-1. Optional: Under **Style settings**, increase **Border thickness** to see the borders more clearly.
-1. Select the **Update** button.
-1. View your region map in the Dashboards. For example, the following image shows the Los Angeles and San Diego county regions:
+1. 从**图层选项>图层设置**， 选择**自定义向量图**。
+1. 在下面**向量图**，选择您刚刚上传的向量图的名称。
+1. 可选：下**样式设置**， 增加**边界厚度** 更清楚地看到边界。
+1. 选择**更新** 按钮。
+1. 在仪表板中查看您的区域图。例如，下图显示了洛杉矶和圣地亚哥县地区：
 
-  <img src="{{site.url}}{{site.baseurl}}/images/dashboards/county-region-map.png" alt="Custom GeoJSON region map" width="600"/>
+  <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/county-region-map.png" alt ="Custom GeoJSON region map" 宽度="600"/>
 
-#### Example GeoJSON file
+#### 示例Geojson文件
 
-The following example GeoJSON file provides coordinates for two US counties.
+下面的示例Geojson文件提供了两个美国县的坐标。
 
 ```json
 {
@@ -76,4 +76,5 @@ The following example GeoJSON file provides coordinates for two US counties.
 }
 
 ```
+
 

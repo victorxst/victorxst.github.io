@@ -1,60 +1,61 @@
 ---
 layout: default
-title: Notification settings
-parent: Index Management
+title: 通知设置
+parent: 索引管理
 nav_order: 60
 ---
 
-# Notification settings
+# 通知设置
 
-You can configure global default notification settings for index operations on the **Notification settings** page. You can also configure additional notification settings for individual index operations.
+您可以为索引操作配置全局默认通知设置**通知设置** 页。您还可以为单个索引操作配置其他通知设置。
 
-## Configuring default notification settings
+## 配置默认通知设置
 
-In the **Notification settings** interface, you can configure the default notification settings for the following index operations that may take longer to complete:
+在里面**通知设置** 接口，您可以为以下索引操作配置默认通知设置，该设置可能需要更长的时间才能完成：
 
-- Open
-- Reindex
-- Split
-- Shrink
-- Clone
-- Force merge
+- 打开
+- reindex
+- 分裂
+- 收缩
+- 克隆
+- 力合并
 
-To get started, from the OpenSearch Dashboards main menu, select **OpenSearch Plugins** > **Index Management**. Under **Index Management**, select **Notification settings**. 
+要开始，从OpenSearch仪表板主菜单中，选择**OpenSearch插件** >**索引管理**。在下面**索引管理**， 选择**通知设置**。
 
-You can choose to be notified when the operation has completed or failed. Additionally, you can select the notification channels for this notification, as shown in the following image.
+当操作完成或失败后，您可以选择通知。此外，您可以选择此通知的通知通道，如下图所示。
 
-![Default notification settings]({{site.url}}{{site.baseurl}}/images/admin-ui-index/notifications.png)
+![默认通知设置]({{site.url}}{{site.baseurl}}/images/admin-ui-index/notifications.png)
 
-If you don't have permission to view notification settings, you cannot view the default settings. 
+如果您没有权限查看通知设置，则无法查看默认设置。
 {: .note}
 
-## Configuring notification settings for an individual operation
+## 配置单个操作的通知设置
 
-You can view default notification settings when you perform an indexing operation as well as set up additional notifications. For example, if you want to configure an additional notification for a reindex operation, perform the following steps:
+执行索引操作并设置其他通知时，您可以查看默认通知设置。例如，如果要为reindex操作配置其他通知，请执行以下步骤：
 
-1. Select **OpenSearch Plugins** > **Index Management**.
+1. 选择**OpenSearch插件** >**索引管理**。
 
-1. In the **Index Management** interface, select **Indices**.
+1. 在里面**索引管理** 接口，选择**指数**。
 
-1. Select the index you want to reindex.
+1. 选择要重新索引的索引。
 
-1. Select **Reindex** from the **Actions** dropdown list.
+1. 选择**reindex** 来自**动作** 下拉列表。
 
-1. After selecting all reindex options, expand **Advanced settings**. Under **Notifications**, default notifications are listed. 
+1. 选择所有ReIndex选项后，展开**高级设置**。在下面**通知**，列出了默认通知。
     
-    If you don't have permission to view notification settings, you will not be able to view the default settings. 
+    如果您没有权限查看通知设置，则将无法查看默认设置。
     {: .note}
 
-1. To receive additional notifications, select **Send additional notifications**, as shown in the following image.
+1. 要接收其他通知，请选择**发送其他通知**，如下图所示。
 
-    ![Individual notification settings]({{site.url}}{{site.baseurl}}/images/admin-ui-index/notifications-individual.png)
+    ![个人通知设置]({{site.url}}{{site.baseurl}}/images/admin-ui-index/notifications-individual.png)
 
-1. Select whether you want to be notified when the operation has failed or completed.
+1. 选择在操作失败或完成时是否要通知您是否要通知。
 
-1. Select a channel from the **Notification channels** dropdown list. If you want to configure a new notification channel, select **Manage channels**.
+1. 从**通知渠道** 下拉列表。如果要配置新的通知频道，请选择**管理频道**。
     
-    To configure a new notification channel, confirm that the `dashboards-notification` plugin is enabled in OpenSearch Dashboards. 
+    要配置新的通知渠道，请确认`dashboards-notification` 插件在OpenSearch仪表板中启用。
     {: .note}
     
-1. Select the **Reindex** button.
+1. 选择**reindex** 按钮。
+

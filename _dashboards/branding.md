@@ -1,44 +1,44 @@
 ---
 layout: default
-title: Custom branding
+title: 定制品牌
 nav_order: 130
 ---
 
-# Custom branding
-Introduced 1.2
+# 定制品牌
+引入了1.2
 {: .label .label-purple }
 
-By default, OpenSearch Dashboards uses the OpenSearch logo, but if you want to use custom branding elements such as the favicon or main Dashboards logo, you can do so by editing `opensearch_dashboards.yml` or by including a custom `opensearch_dashboards.yml` file when you start your OpenSearch cluster.
+默认情况下，OpenSearch仪表板使用OpenSearch徽标，但是如果要使用自定义的品牌元素，例如Favicon或Main Dashboards徽标，则可以通过编辑来做到这一点`opensearch_dashboards.yml` 或包括自定义`opensearch_dashboards.yml` 启动OpenSearch cluster时文件。
 
-For example, if you're using Docker to start your OpenSearch cluster, include the following lines in the `opensearch-dashboards` section of your `docker-compose.yml` file:
+例如，如果您使用Docker启动OpenSearch群集，请在`opensearch-dashboards` 您的部分`docker-compose.yml` 文件：
 
 ```
 volumes:
   - ./opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
 ```
 
-Doing so replaces the Docker image's default `opensearch_dashboards.yml` with your custom `opensearch_dashboards.yml` file, so be sure to include your desired settings as well. For example, if you want to configure TLS for OpenSearch Dashboards, see [Configure TLS for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/tls).
+这样做可以替换Docker映像的默认值`opensearch_dashboards.yml` 习惯`opensearch_dashboards.yml` 文件，因此请确保还包括您所需的设置。例如，如果要为OpenSearch仪表板配置TLS，请参见[为OpenSearch仪表板配置TLS]({{site.url}}{{site.baseurl}}/dashboards/install/tls)。
 
-Re-launch OpenSearch Dashboards, and OpenSearch Dashboards now uses your custom elements.
+关于-启动OpenSearch仪表板，OpenSearch仪表板现在使用您的自定义元素。
 
-## Branding elements
+## 品牌元素
 
-The following elements in OpenSearch Dashboards are customizable:
+OpenSearch仪表板中的以下元素可自定义：
 
-![OpenSearch customizable branding elements]({{site.url}}{{site.baseurl}}/images/dashboards-branding-labels.png)
+![OpenSearch可自定义的品牌元素]({{site.url}}{{site.baseurl}}/images/dashboards-branding-labels.png)
 
-Setting | Corresponding branding element
+环境| 相应的品牌元素
 :--- | :---
-logo | Header logo. See #1 in the image.
-mark | OpenSearch Dashboards mark. See #2 in the image.
-loadingLogo | Loading logo used when OpenSearch Dashboards is starting. See #3 in the image.
-faviconUrl | Website icon. Loads next to the application title. See #4 in the image.
-applicationTitle | The application's title. See #5 in the image.
+标识| 标题徽标。看#图像中的1。
+标记| OpenSearch仪表板标记。看#图像中的2。
+LoadingLogo| OpenSearch仪表板启动时使用的加载徽标。看#图像中的3。
+Faviconurl| 网站图标。加载应用程序标题旁边。看#图像中的4。
+ApplicationTitle| 应用程序的标题。看#图像中的5。
 
-To consolidate navigation controls and reduce the space the header takes up on the page, see [Condensed header](#condensed-header).
+要合并导航控件并减少标头在页面上占用的空间，请参见[凝结的标头](#condensed-header)。
 {: .note}
 
-To start using your own branding elements in OpenSearch Dashboards, first uncomment this section of `opensearch_dashboards.yml`:
+要开始在OpenSearch仪表板中使用您自己的品牌元素`opensearch_dashboards.yml`：
 
 ```yml
 # opensearchDashboards.branding:
@@ -55,11 +55,11 @@ To start using your own branding elements in OpenSearch Dashboards, first uncomm
   # applicationTitle: ""
 ```
 
-Add the URLs you want to use as branding elements to the appropriate setting. Valid image types are `SVG`, `PNG`, and `GIF`.
+将要用作品牌元素的URL添加到适当的设置中。有效的图像类型是`SVG`，，，，`PNG`， 和`GIF`。
 
-Customization of dark mode Dashboards is also available, but you first must supply a valid link to `defaultUrl`, and then link to your preferred image with `darkModeUrl`. If you don't provide a `darkModeUrl` link, then Dashboards uses the provided `defaultUrl` element for dark mode. You are not required to customize all branding elements, so if you wanted to, it's perfectly valid to change just the logo or any other element. Leave unchanged elements as commented.
+还提供了深色模式仪表板的自定义，但是您首先必须提供有效的链接`defaultUrl`，然后链接到您首选的图像与`darkModeUrl`。如果您不提供`darkModeUrl` 链接，然后仪表板使用提供的`defaultUrl` 黑暗模式的元素。您无需自定义所有品牌元素，因此，如果您愿意，只需更改徽标或任何其他元素是完全有效的。如评论，留下不变的元素。
 
-The following example demonstrates how to use `SVG` files as logos but leaves the other elements as defaults.
+以下示例演示了如何使用`SVG` 文件作为徽标，但将其他元素作为默认值留下。
 
 ```yml
 logo:
@@ -75,9 +75,9 @@ logo:
 applicationTitle: "My custom application"
 ```
 
-We recommend linking to images that are hosted on a web server, but if you really want to use locally hosted images, save your images inside `assets`, and then configure `opensearch_dashboards.yml` to use the correct paths. You can access locally stored images through the `ui/assets` folder.
+我们建议链接到Web服务器上托管的图像，但是如果您确实想使用本地托管的图像，请将图像保存在其中`assets`，然后配置`opensearch_dashboards.yml` 使用正确的路径。您可以通过`ui/assets` 文件夹。
 
-The following example assumes the default port of 5601 that Dashboards uses and demonstrates how to link to locally stored images.
+下面的示例假定仪表板使用并演示如何链接到本地存储的图像的5601的默认端口。
 
 ```yml
 logo:
@@ -93,26 +93,26 @@ mark:
 applicationTitle: "My custom application"
 ```
 
-### Condensed header
+### 凝结的标头
 
-The condensed header view reduces the footprint of the header and frees up space on the page by combining navigational elements into a single header bar.
+凝结的标头视图通过将导航元素组合到单个标头栏中，减少了标头的足迹，并释放了页面上的空间。
 
-The current default view remains close in appearance to the two-bar header offered in the previous version of Dashboards, with minor differences. To specify the condensed header, add the configuration property `useExpandedHeader` to the `opensearch_dashboards.yml` file and set the value to `false`, as the following example illustrates.
+当前的默认视图在外观上保持接近-Bar标头在先前版本的仪表板上提供，差异很小。要指定冷凝标头，请添加配置属性`useExpandedHeader` 到`opensearch_dashboards.yml` 提交并将值设置为`false`，如以下示例所示。
 
- ```yml
-# opensearchDashboards.branding:
-  # logo:
-    defaultUrl: "https://example.com/sample.svg"
-    darkModeUrl: "https://example.com/dark-mode-sample.svg"
-  # mark:
-    # defaultUrl: ""
-    # darkModeUrl: ""
-  # loadingLogo:
-    # defaultUrl: ""
-    # darkModeUrl: ""
-  # faviconUrl: ""
-  applicationTitle: "my custom application"
-  useExpandedHeader: false
+ ```YML
+# OpenSearchDashboards.Branding：
+  # 标识：
+    Defaulturl："https://example.com/sample.svg"
+    Darkmodeurl："https://example.com/dark-mode-sample.svg"
+  # 标记：
+    # Defaulturl：""
+    # Darkmodeurl：""
+  # LoadingLogo：
+    # Defaulturl：""
+    # Darkmodeurl：""
+  # Faviconurl：""
+  ApplicationTitle："my custom application"
+  USE ExpandedHeader：false
 ```
 
 In a future release, default behavior will become `useExpandedHeader: false`. If you want to retain the default view in subsequent releases, you can explicitly set the property to `true` in advance. Alternatively, you can also do this when upgrading.
@@ -150,32 +150,33 @@ You can continue using the top header bar in the default view for custom navigat
 The following configuration enables the Security plugin and SSL within OpenSearch Dashboards and uses custom branding elements to replace the OpenSearch logo and application title.
 
 ```yml
-server.host: "0"
-opensearch.hosts: ["https://localhost:9200"]
-opensearch.ssl.verificationMode: none
-opensearch.username: "kibanaserver"
-opensearch.password: "kibanaserver"
-opensearch.requestHeadersAllowlist: [ authorization,securitytenant ]
-#server.ssl.enabled: true
-#server.ssl.certificate: /path/to/your/server/certificate
-#server.ssl.key: /path/to/your/server/key
+server.host："0"
+OpenSearch.Hosts：["https://localhost:9200"这是给出的
+opensearch.ssl.verificationmode：无
+opensearch.username："kibanaserver"
+OpenSearch.Password："kibanaserver"
+opensearch.requestheaderslowerlist：[授权，安全士兵]
+#server.ssl.enabled: 真的
+#server.ssl.certificate: /path/to/your/server/证书
+#server.ssl.key: /path/to/your/server/键
 
-opensearch_security.multitenancy.enabled: true
-opensearch_security.multitenancy.tenants.preferred: ["Private", "Global"]
-opensearch_security.readonly_mode.roles: ["kibana_read_only"]
-# Use this setting if you are running opensearch-dashboards without https
-opensearch_security.cookie.secure: false
+opensearch_security.multitenancy.enabled：true
+opensearch_security.multitenancy.tenants.preferred：["Private"，，，，"Global"这是给出的
+opensearch_security.readonly_mode.roles：[["kibana_read_only"这是给出的
+# 如果您正在运行OpenSearch，请使用此设置-仪表板没有HTTPS
+opensearch_security.cookie.secure：false
 
-opensearchDashboards.branding:
-  logo:
-    defaultUrl: "https://example.com/sample.svg"
-    darkModeUrl: "https://example.com/dark-mode-sample.svg"
-  # mark:
-  #   defaultUrl: ""
-  #   darkModeUrl: ""
-  # loadingLogo:
-  #   defaultUrl: ""
-  #   darkModeUrl: ""
-  # faviconUrl: ""
-  applicationTitle: "Just some testing"
+OpenSearchDashboards.Branding：
+  标识：
+    Defaulturl："https://example.com/sample.svg"
+    Darkmodeurl："https://example.com/dark-mode-sample.svg"
+  # 标记：
+  #   Defaulturl：""
+  #   Darkmodeurl：""
+  # LoadingLogo：
+  #   Defaulturl：""
+  #   Darkmodeurl：""
+  # Faviconurl：""
+  ApplicationTitle："Just some testing"
 ```
+

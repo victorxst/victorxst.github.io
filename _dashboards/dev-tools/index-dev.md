@@ -1,21 +1,22 @@
 ---
 layout: default
-title: Dev Tools
+title: 开发工具
 nav_order: 120
 has_children: true
 ---
 
-# Dev Tools
+# 开发工具
 
-**Dev Tools** is a development environment that lets you set up your OpenSearch Dashboards environment, run queries, explore data, and debug problems. You can use the Dev Tools console to: 
+**开发工具** 是一个开发环境，可让您设置OpenSearch仪表板环境，运行查询，探索数据和调试问题。您可以使用开发工具控制台：
 
-- **Set up your OpenSearch Dashboards environment.** For example, you can use the console to configure authentication settings for your OpenSearch Dashboards instance. 
-- **[Run queries to explore your data]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/run-queries/).** For example, you can use the console to tune your queries for relevance.
-- **Debug problems with your queries.** For example, if your query is not returning the results you expect, you can use the console to identify the problem.
-- **Learn about the APIs in OpenSearch.** For example, you can use the API reference documentation linked in the console to look up the syntax for different API calls (select the question circle icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/question-circle.png" class="inline-icon" alt="question circle icon"/>{:/})).
-- **Develop custom visualizations.** For example, you can use the console to create [Vega visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/#vega). 
-- **Customize the appearance and behavior of dashboards.** For example, you can use the console to customize dashboard visualization colors or to add new filters. 
+- **设置您的OpenSearch仪表板环境。** 例如，您可以使用控制台为OpenSearch仪表板实例配置身份验证设置。
+- **[运行查询以探索您的数据]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/run-queries/)。** 例如，您可以使用控制台调整查询以获得相关性。
+- **调试您的查询问题。** 例如，如果您的查询没有返回您期望的结果，则可以使用控制台来识别问题。
+- **了解OpenSearch中的API。** 例如，您可以使用控制台中链接的API参考文档来查找不同API调用的语法（选择问题Circle Icon（{:: NOMARKDOWN} <IMG SRC ="{{site.url}}{{site.baseurl}}/images/icons/question-circle.png" class ="inline-icon" alt ="question circle icon"/> {：/}））。
+- **开发自定义可视化。** 例如，您可以使用控制台创建[Vega可视化]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/#vega)。
+- **自定义仪表板的外观和行为。** 例如，您可以使用控制台自定义仪表板可视化颜色或添加新过滤器。
 
-To access the console, go to the OpenSearch Dashboards main menu and select **Management** > **Dev Tools**. An example is shown in the following image.
+要访问控制台，请转到OpenSearch仪表板主菜单，然后选择**管理** >**开发工具**。下图显示了一个示例。
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dev-tools-ui.png" alt="Dev Tools console interface" width="700"/>
+

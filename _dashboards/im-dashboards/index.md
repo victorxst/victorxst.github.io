@@ -1,52 +1,53 @@
 ---
 layout: default
-title: Index Management
+title: 索引管理
 nav_order: 80
 has_children: true
 redirect_from:
   - /dashboards/admin-ui-index/
 ---
 
-# Index Management
-Introduced 2.5
+# 索引管理
+引入2.5
 {: .label .label-purple }
 
-The Index Management interface in OpenSearch Dashboards provides a unified solution for managing common indexing and data stream operations. The interface allows you to perform create, read, update, and delete (CRUD) and mapping operations for indexes, index templates, and aliases instead of using REST APIs or YAML configurations for basic administrative operations and interventions, along with other operations such as open, close, reindex, shrink, and split indexes. The interface also provides you with the capabilities to run index status and data validation before submitting requests and compare changes with previously saved settings before making updates.
+OpenSearch仪表板中的索引管理接口为管理通用索引和数据流操作提供了统一的解决方案。该界面允许您执行索引，索引模板和别名的创建，读取，更新和删除（crud）以及映射操作，而不是使用REST API或YAML配置进行基本的管理操作和干预措施，以及其他操作，例如Open Open，关闭，reindex，收缩和分裂索引。该界面还为您提供了在提交请求之前在提交请求之前运行索引状态和数据验证的功能，并在进行更新之前将更改与先前保存的设置进行比较。
 
-An example of the interface is shown in the following image.
+接口的示例如下图所示。
 
-![Index Management user interface]({{site.url}}{{site.baseurl}}/images/dashboards/index-management-UI.png)
+![索引管理用户界面]({{site.url}}{{site.baseurl}}/images/dashboards/index-management-UI.png)
 
-## Get started with Index Management using Dashboards
+## 使用仪表板开始使用索引管理
 
-**Step 1: Open Index Management** 
+**步骤1：打开索引管理** 
 
-- Once you're in OpenSearch Dashboards, select **Index Management** from the **OpenSearch Plugins** main menu. Then select **Indices**.
+- 进入OpenSearch仪表板后，请选择**索引管理** 来自**OpenSearch插件** 主菜单。然后选择**指数**。
 
-**Step 2: View indexes** 
+**步骤2：查看索引** 
 
-- In the **Indices** interface you will see a list of existing indexes in your OpenSearch cluster. The list provides information such as index name, health state, document count, index size, and other relevant details.  
+- 在里面**指数** 接口您将在OpenSearch群中看到现有索引的列表。该列表提供了诸如索引名称，健康状态，文档计数，索引大小和其他相关详细信息之类的信息。
 
-**Step 3: Create an index** 
+**步骤3：创建索引** 
 
-- To create a new index, select the **Create index** button in the upper-right corner. You will be prompted to enter the index name and configure the index settings, such as number of shards and replicas. Fill in the required information and select **Create** to create the index.
+- 要创建一个新索引，请选择**创建索引** upper-右上角。将提示您输入索引名称并配置索引设置，例如碎片和副本的数量。填写所需信息并选择**创造** 创建索引。
 
-**Step 4: Delete an index** 
+**步骤4：删除索引** 
 
-- To delete an index, locate the index and select the checkbox next to it. Then select the **Actions** button and choose **Delete** from the dropdown list. Use caution when deleting indexes because this action is irreversible. 
+- 要删除索引，请找到索引，然后选择其旁边的复选框。然后选择**动作** 按钮并选择**删除** 从下拉列表中。删除索引时要谨慎，因为此操作是不可逆转的。
 
-**Step 5: Modify an index** 
+**步骤5：修改索引** 
 
-- To modify the settings of an existing index, locate the index in the list and select its name. This takes you to the index details page. Here you can update settings such as the numbers of shards, replicas, and other advanced configurations. After making the desired changes, select **Save**.
+- 要修改现有索引的设置，请在列表中找到索引并选择其名称。这将带您进入索引详细信息页面。在这里，您可以更新设置，例如碎片，复制品和其他高级配置的数量。进行所需的更改后，选择**节省**。
 
-**Step 7: Refresh indexes** 
+**步骤7：刷新索引** 
 
-- To refresh an index, locate the index and select the checkbox next to it. Then select the **Actions** button and choose **Refresh** from the dropdown list.
+- 要刷新索引，请找到索引，然后选择其旁边的复选框。然后选择**动作** 按钮并选择**刷新** 从下拉列表中。
 
-**Step 8: Filter and search indexes** 
+**步骤8：过滤和搜索索引** 
 
-- If you have a large number of indexes and want to filter or search for specific indexes, you can use the search bar located above the list of indexes. Enter the relevant keywords or filters to narrow the list of indexes.
+- 如果您有大量的索引并想要过滤或搜索特定索引，则可以使用位于索引列表上方的搜索栏。输入相关的关键字或过滤器以缩小索引列表。
 
-**Step 9: Additional operations** 
+**步骤9：其他操作** 
 
-- Index Management provides additional functionalities such as creating index patterns, managing lifecycle policies, and configuring index templates. These options are available in their respective sections of the Index Management interface. 
+- 索引管理提供了其他功能，例如创建索引模式，管理生命周期策略和配置索引模板。这些选项可在索引管理接口的各个部分中找到。
+

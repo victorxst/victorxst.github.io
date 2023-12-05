@@ -1,54 +1,55 @@
 ---
 layout: default
-title: Rollover
-parent: Index Management
+title: 滚动
+parent: 索引管理
 nav_order: 40
 redirect_from:
   - /dashboards/admin-ui-index/rollover/
 ---
 
-# Rollover
-Introduced 2.6
+# 滚动
+引入2.6
 {: .label .label-purple }
 
-OpenSearch Dashboards allows you to perform an [index rollover]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/index/#rollover) operation with **Index Management**.
+OpenSearch仪表板允许您执行[索引滚动]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/index/#rollover) 使用**索引管理**。
 
-## Data streams
+## 数据流
 
-To perform a rollover operation on a data stream, perform the following steps:
+要在数据流上执行翻转操作，请执行以下步骤：
 
-1. Under **Index Management**, choose **Data streams**.
+1. 在下面**索引管理**， 选择**数据流**。
 
-1. Choose **Actions**, and then choose **Roll over**, as shown in the following image.
+1. 选择**动作**，然后选择**滚下**，如下图所示。
 
-    ![Roll over]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover1.png)
+    ![滚下]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover1.png)
 
-1. Under **Configure source**, select the source data stream on which you want to perform the rollover operation.
+1. 在下面**配置源**，选择要执行翻转操作的源数据流。
 
-1. Choose **Roll over**, as shown in the following image.
+1. 选择**滚下**，如下图所示。
 
-    ![Roll over]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover3.png)
+    ![滚下]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover3.png)
 
-## Aliases
+## 别名
 
-To perform a rollover operation on an alias, perform the following steps:
+要在别名上执行转盘操作，请执行以下步骤：
 
-1. Under **Index Management**, choose **Aliases**.
+1. 在下面**索引管理**， 选择**别名**。
 
-1. Choose **Actions**, and then choose **Roll over**, as shown in the following image.
+1. 选择**动作**，然后选择**滚下**，如下图所示。
 
-    ![Roll over]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover2.png)
+    ![滚下]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover2.png)
 
-1. Under **Configure source**, select the source alias on which you want to perform the rollover operation.
+1. 在下面**配置源**，选择要执行翻转操作的源别名。
 
-1. If the alias does not contain a write index, you are prompted to assign a write index, as shown in the following image. 
+1. 如果别名不包含写入索引，请提示您分配写索引，如下图所示。
 
-    ![Roll over]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover4.png)
+    ![滚下]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover4.png)
 
-1. Under **Configure a new rollover index** and on the **Define index** pane, specify an index name and an optional index alias.
+1. 在下面**配置新的翻车索引** 在**定义索引** 窗格，指定索引名称和可选索引别名。
 
-1. Under **Index settings**, specify the number of primary shards, the number of replicas, and the refresh interval, as shown in the following image.
+1. 在下面**索引设置**，指定主碎片的数量，副本的数量和刷新间隔，如下图所示。
 
-    ![Roll over]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover5.png)
+    ![滚下]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover5.png)
 
-1. Choose **Roll over**.
+1. 选择**滚下**。
+

@@ -1,66 +1,67 @@
 ---
 layout: default
-title: Component templates
-parent: Index Management
+title: 组件模板
+parent: 索引管理
 nav_order: 50
 ---
 
-# Component templates
-Introduced 2.7
+# 组件模板
+引入2.7
 {: .label .label-purple }
 
-Component templates allow you to create a single index pattern that matches multiple indexes. This pattern can include wildcards or regular expressions, enabling you to apply the same setting or mapping to multiple indexes simultaneously.
+组件模板允许您创建与多个索引匹配的单个索引模式。此模式可以包括通配符或正则表达式，使您能够同时应用相同的设置或映射到多个索引。
 
-Using them with [index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/) can provide a powerful tool for managing large volumes of data. You can create an index template that defines the basic structure and settings of your indexes and then use the component templates to apply the settings to all indexes that match a specific pattern or set of criteria.
+与它们一起使用[索引模板]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/) 可以提供一个强大的工具来管理大量数据。您可以创建一个定义索引的基本结构和设置的索引模板，然后使用组件模板将设置应用于符合特定模式或一组标准的所有索引。
 
-You can create component templates using the Index Management UI. The UI maximizes ease of use for common indexing and data stream administrative operations such as create, read, update, delete (CRUD) and mapping indexes; CRUD and mapping aliases; reindexing; and open/close, shrink, and split indexes, along with the monitoring of actions and logging of audit records.
+您可以使用索引管理UI创建组件模板。UI最大化通用索引和数据流管理操作（例如创建，读取，更新，删除（crud）和映射索引）的易用性；crud和映射别名；重新索引；并关闭/关闭，收缩和拆分索引，以及对动作的监视和审计记录的记录。
 
-The following GIF demonstrates creating a component template.
+以下GIF演示了创建组件模板。
 
-![Component template demo]({{site.url}}{{site.baseurl}}/images/admin-ui-index/component.gif)
+![组件模板演示]({{site.url}}{{site.baseurl}}/images/admin-ui-index/component.gif)
 
-## Prerequisites
+## 先决条件
 
-This tutorial is intended for admin users who [manage OpenSearch clusters]({{site.url}}{{site.baseurl}}/tuning-your-cluster/cluster/) and are familiar with [index management in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/).
+本教程适用于管理用户[管理OpenSearch群集]({{site.url}}{{site.baseurl}}/tuning-your-cluster/cluster/) 并熟悉[OpenSearch仪表板中的索引管理]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/)。
 
-## Key terms
+## 关键术语
 
-It's helpful to understand the following terms before starting this tutorial:
+在启动本教程之前，了解以下条款很有帮助：
 
-- *Component template* refers to a reusable building block with settings, mappings, and aliases that can be attached to an index template.
-- *Index template* refers to a predefined structure used to organize and store data in a database or search index.
+- *组件模板*指的是一个可重复使用的构建块，该构建块具有设置，映射和可以连接到索引模板的别名。
+- *索引模板*是指用于在数据库或搜索索引中组织和存储数据的预定义结构。
 
-## Creating component templates using the Index Management UI
+## 使用索引管理UI创建组件模板
 
-You can use predefined OpenSearch Dashboards component templates or customize your own, either by creating original templates or by modifying existing templates. Predefined component templates include preconfigured charts, tables, and graphs and are a good starting point for users who are new to OpenSearch Dashboards. Alternatively, customized template components provide you with options for tailoring reports and visualizations that meet your specific requirements and preferences.
+您可以通过创建原始模板或通过修改现有模板来使用预定义的Opensearch仪表板组件模板或自定义自己的。预定义的组件模板包括预配置的图表，表和图形，对于启用OpenSearch仪表板的用户来说，是一个很好的起点。另外，自定义模板组件为您提供了剪裁报告和可视化的选项，以满足您的特定要求和偏好。
 
-To create template components using the UI, follow these steps:
+要使用UI创建模板组件，请按照以下步骤：
 
-1. On the OpenSearch Dashboards main page, select **Index Management** in the navigation menu.
-1. In the Index Management window, select **Templates** > **Component templates**.
-1. Select **Create** and then define the component template settings. 
-1. To configure aliases, settings, and mappings, toggle **Use configuration**, as shown in the following image.
+1. 在OpenSearch仪表板主页上，选择**索引管理** 在“导航”菜单中。
+1. 在索引管理窗口中，选择**模板** >**组件模板**。
+1. 选择**创造** 然后定义组件模板设置。
+1. 要配置别名，设置和映射，请切换**使用配置**，如下图所示。
 
-    ![Component template use configuration]({{site.url}}{{site.baseurl}}/images/admin-ui-index/component_use_config.png)
+    ![组件模板使用配置]({{site.url}}{{site.baseurl}}/images/admin-ui-index/component_use_config.png)
 
-1. Enter details in the aliases, settings, and mappings fields.
-1. Select **Create component template**.
+1. 在别名，设置和映射字段中输入详细信息。
+1. 选择**创建组件模板**。
 
-When you create component templates, those templates apply only to new index templates that you create and not to existing index templates.
-{: .note }
+创建组件模板时，这些模板仅适用于您创建的新索引模板，而不是现有索引模板。
+{： 。笔记 }
 
-## Associating component templates with index templates
+## 将组件模板与索引模板关联
 
-To associate a component template with an index template, follow these steps:  
+要将组件模板与索引模板相关联，请按照以下步骤：
 
-1. In the **Index Management** navigation menu, select **Templates**.
-1. In the Templates window, select **Create template**.
-1. Select **Component template** as the method for defining your template.
-1. In the **Component template** pane, select **Associate component template**, as shown in the following image.
+1. 在里面**索引管理** 导航菜单，选择**模板**。
+1. 在模板窗口中，选择**创建模板**。
+1. 选择**组件模板** 作为定义模板的方法。
+1. 在里面**组件模板** 窗格，选择**关联组件模板**，如下图所示。
 
-    ![Component template associate configuration]({{site.url}}{{site.baseurl}}/images/admin-ui-index/associate_component.png)
+    ![组件模板关联配置]({{site.url}}{{site.baseurl}}/images/admin-ui-index/associate_component.png)
 
-1. In the **Associate component template** pop-up window, select the component templates that you want to associate with your index template.
-1. Select **Associate**.
-1. Select **Preview template** to view the template settings.
-1. Select **Create template**.
+1. 在里面**关联组件模板** 流行音乐-向上窗口，选择要与索引模板关联的组件模板。
+1. 选择**联系**。
+1. 选择**预览模板** 查看模板设置。
+1. 选择**创建模板**
+

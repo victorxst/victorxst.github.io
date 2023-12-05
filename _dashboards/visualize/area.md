@@ -1,60 +1,61 @@
 ---
 layout: default
-title: Using area charts
-parent: Building data visualizations
+title: 使用区域图
+parent: 构建数据可视化
 nav_order: 5
 ---
 
-# Using area charts
+# 使用区域图
 
-An area chart is a line chart with the area between the line and the axis shaded with a color, and is a primary visualization type used to display time series data. You can create area charts in Dashboards using the Area visualization type or using the Time Series Visual Builder (TSVB), Vega, or VisBuilder visualization tools. For this tutorial, you'll use the Area visualization type.
+区域图是一个线图，其区域在线和轴之间用颜色阴影，是用于显示时间序列数据的主要可视化类型。您可以使用区域可视化类型在仪表板中创建区域图表，也可以使用时间序列的Visual Visual Builder（TSVB），VEGA或Visbuilder可视化工具创建区域图。对于本教程，您将使用区域可视化类型。
 
-![Demonstration of the area chart tutorial steps]({{site.url}}{{site.baseurl}}/images/dashboards/area-tutorial.gif)
+![区域图教程步骤的演示]({{site.url}}{{site.baseurl}}/images/dashboards/area-tutorial.gif)
 
-# Try it: Create a simple aggregation-based area chart
+# 尝试：创建一个简单的聚合-基于区域图
 
-In this tutorial you'll create a simple area chart using sample data and aggregations in OpenSearch Dashboards by connecting to [http://localhost:5601](http://localhost:5601) from a browser.
+在本教程中[http：// localhost：5601](http://localhost:5601) 从浏览器。
 
-You have several aggregation options in Dashboards, and the choice influences your analysis. The use cases for aggregations vary from analyzing data in real time to using Dashboards to create a visualization dashboard. If you need an overview of aggregations in OpenSearch, see [Aggregations]({{site.url}}{{site.baseurl}}/opensearch/aggregations/) before starting this tutorial.
+您在仪表板中有几个聚合选项，选择会影响您的分析。聚合的用例从实时分析数据到使用仪表板创建可视化仪表板的用例不等。如果您需要OpenSearch中的聚合概述，请参见[聚合]({{site.url}}{{site.baseurl}}/opensearch/aggregations/) 在启动本教程之前。
 
-Make sure you have [installed the latest version of Dashboards](https://opensearch.org/docs/latest/install-and-configure/install-dashboards/index/) and added the sample data before continuing with this tutorial. _This tutorial uses Dashboards version 2.4.1_.
+确保你有[安装了最新版本的仪表板](https://opensearch.org/docs/latest/install-and-configure/install-dashboards/index/) 并在继续本教程之前添加了示例数据。_本教程使用仪表板版本2.4.1_。
 {: .note}
 
-## Set up the area chart
+## 设置区域图表
 
-1. Access Dashboards by connecting to [http://localhost:5601](http://localhost:5601) from a browser.
-1. Select **Visualize** from the menu and then select **Create visualization**.
-1. Select **Area** from the window.
-1. Select **opensearch_dashboards_sample_data_flights** in the **New Area/Choose a source** window.
-1. Select the calendar icon and set the time filter to **Last 7 days**.
-1. Select **Update**.
+1. 连接到[http：// localhost：5601](http://localhost:5601) 从浏览器。
+1. 选择**可视化** 从菜单中选择**创建可视化**。
+1. 选择**区域** 从窗户。
+1. 选择**opensearch_dashboards_sample_data_flights** 在里面**新区域/选择一个来源** 窗户。
+1. 选择日历图标并将时间过滤器设置为**最近7天**。
+1. 选择**更新**。
 
-## Add aggregations to the area chart
+## 将聚合添加到区域图表
 
-Continuing with the area chart created in the preceding steps, you'll create a visualization that displays the top five logs for flights delayed for every three hours over the last seven days:
+继续使用前面步骤中创建的区域图表，您将创建一个可视化，该可视化显示过去7天内每三个小时延迟的航班前五个日志：
 
-1. Add a **Metrics** aggregation.
-   1. Under **Metrics**, select the **Aggregation** dropdown list and choose **Average** and then select the **Field** dropdown list and choose **FlightDelayMin**.
-   1. Under **Metrics**, select **Add** to add another Y-axis aggregation. 
-   1. Select the **Aggregation** dropdown list and choose **Max** and then select the **Field** dropdown list and choose **FlightDelayMin**.
-1. Add a **Buckets** aggregation.
-   1. Select **Add** to open the **Add Bucket** window and then select **X-axis**.
-   2. From the **Aggregation** dropdown list, select **Date Histogram**. 
-   3. From the **Field** dropdown list, select **timestamp**. 
-   4. Select **Update**. 
-2. Add a sub-aggregation.
-   1. Select **Add** to open the **Add Sub-Buckets** window and then select **Split series**.
-   2. From the **Sub aggregation** dropdown list, select **Terms**.
-   3. From the **Field** dropdown list, select **FlightDelay**.
-   4. Select **Update** to reflect these parameters in the graph.  
+1. 添加一个**指标** 聚合。
+   1.下**指标**，选择**聚合** 下拉列表并选择**平均的** 然后选择**场地** 下拉列表并选择**FlightDelaymin**。
+   1.下**指标**， 选择**添加** 添加另一个y-轴聚集。
+   1.选择**聚合** 下拉列表并选择**最大限度** 然后选择**场地** 下拉列表并选择**FlightDelaymin**。
+1. 添加一个**水桶** 聚合。
+   1.选择**添加** 打开**添加水桶** 窗口，然后选择**X-轴**。
+   2.从**聚合** 下拉列表，选择**日期直方图**。
+   3.从**场地** 下拉列表，选择**时间戳**。
+   4.选择**更新**。
+2. 添加一个子-聚合。
+   1.选择**添加** 打开**添加子-水桶** 窗口，然后选择**拆分系列**。
+   2.从**子聚集** 下拉列表，选择**术语**。
+   3.从**场地** 下拉列表，选择**飞机延迟**。
+   4.选择**更新** 在图中反映这些参数。
 
-You've now created the following aggregation-based area chart.
+您现在创建了以下汇总-基于区域图。
 
-![Resulting aggregation-based area chart]({{site.url}}{{site.baseurl}}/images/area-aggregation-tutorial.png)
+![产生的聚合-基于区域图]({{site.url}}{{site.baseurl}}/images/area-aggregation-tutorial.png)
 
-# Related links
+# 相关链接
 
-- [Visualize]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/)
-- [Visualization types in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/)
-- [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
-- [Aggregations]({{site.url}}{{site.baseurl}}/opensearch/aggregations/)
+- [可视化]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/)
+- [OpenSearch仪表板中的可视化类型]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/)
+- [安装和配置OpenSearch仪表板]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
+- [gentregations]（{{stite.url}}} {{site.baseurl}}/openSearch/gentregations/[聚合]({{site.url}}{{site.baseurl}}/opensearch/aggregations/)[gentregations]（{{stite.url}}} {{site.baseurl}}/openSearch/gentregations/
+

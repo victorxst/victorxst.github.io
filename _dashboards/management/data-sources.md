@@ -1,73 +1,74 @@
 ---
 layout: default
-title: Data sources
+title: 数据源
 nav_order: 110
 has_children: true
 ---
 
-# Data sources
+# 数据源
 
-OpenSearch data sources are the applications that OpenSearch can connect to and ingest data from. Once your data sources have been connected and your data has been ingested, it can be indexed, searched, and analyzed using [REST APIs]({{site.url}}{{site.baseurl}}/api-reference/index/) or the OpenSearch Dashboards UI. 
+OpenSearch数据源是OpenSearch可以连接到并摄入数据的应用程序。一旦您的数据源连接并摄入了数据，就可以使用索引，搜索和分析。[REST API]({{site.url}}{{site.baseurl}}/api-reference/index/) 或OpenSearch仪表板UI。
 
-This documentation focuses on using the OpenSeach Dashboards interface to connect and manage your data sources. For information about using an API to connect data sources, see the developer resources linked under [Next steps](#next-steps).
+该文档重点是使用OpenSeach仪表板接口来连接和管理您的数据源。有关使用API连接数据源的信息，请参见链接的开发人员资源[下一步](#next-steps)。
 
-## Prerequisites
+## 先决条件
 
-The first step in connecting your data sources to OpenSearch is to install OpenSearch and OpenSearch Dashboards on your system. You can follow the installation instructions in the [OpenSearch documentation]({{site.url}}{{site.baseurl}}/install-and-configure/index/) to install these tools.
+将数据源连接到OpenSearch的第一步是在系统上安装OpenSearch和OpenSearch仪表板。您可以按照[OpenSearch文档]({{site.url}}{{site.baseurl}}/install-and-configure/index/) 安装这些工具。
 
-Once you have installed OpenSearch and OpenSearch Dashboards, you can use Dashboards to connect your data sources to OpenSearch and then use Dashboards to manage data sources, create index patterns based on those data sources, run queries against a specific data source, and combine visualizations in one dashboard.
+安装了OpenSearch和OpenSearch仪表板后，您可以使用仪表板将数据源连接到OpenSearch，然后使用仪表板来管理数据源，根据这些数据源创建索引模式，对特定数据源运行查询，并在特定的数据源中运行查询，然后在组合可视化的数据。一个仪表板。
 
-Configuration of the [YAML files]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/#configuration-file) and installation of the `dashboards-observability` and `opensearch-sql` plugins is necessary. For more information, see [OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
+配置[YAML文件]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/#configuration-file) 和安装`dashboards-observability` 和`opensearch-sql` 插件是必要的。有关更多信息，请参阅[OpenSearch插件]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/)。
 
-## Create a data source connection
+## 创建数据源连接
 
-A data source connection specifies the parameters needed to connect to a data source. These parameters form a connection string for the data source. Using Dashboards, you can add new data source connections or manage existing ones.
+数据源连接指定连接到数据源所需的参数。这些参数形成了数据源的连接字符串。使用仪表板，您可以添加新的数据源连接或管理现有的连接。
 
-The following steps guide you through the basics of creating a data source connection:
+以下步骤指导您介绍创建数据源连接的基础知识：
 
-1. From the OpenSearch Dashboards main menu, select **Dashboards Management** > **Data sources** > **Create data source connection**. The UI is shown in the following image.
+1. 在OpenSearch仪表板主菜单中，选择**仪表板管理** >**数据源** >**创建数据源连接**。UI如下图所示。
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/data-source-UI.png" alt="Connecting a data source UI" width="700"/>
+    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/data-source-UI.png" alt ="Connecting a data source UI" 宽度="700"/>
 
-2. Create the data source connection by entering the appropriate information into the **Connection Details** and **Authentication Method** fields. 
+2. 通过将适当的信息输入到该数据源连接**连接详细信息** 和**身份验证方法** 字段。
    
-   - Under **Connection Details**, enter a title and endpoint URL. For this tutorial, use the URL `http://localhost:5601/app/management/opensearch-dashboards/dataSources`. Entering a description is optional.
+   - 在下面**连接详细信息**，输入标题和端点URL。对于本教程，使用URL`http://localhost:5601/app/management/opensearch-dashboards/dataSources`。输入描述是可选的。
 
-   - Under **Authentication Method**, select an authentication method from the dropdown list. Once an authentication method is selected, the applicable fields for that method appear. You can then enter the required details. The authentication method options are:
-       - **No authentication**: No authentication is used to connect to the data source.
-       - **Username & Password**: A basic username and password are used to connect to the data source.
-       - **AWS SigV4**: An AWS Signature Version 4 authenticating request is used to connect to the data source. AWS Signature Version 4 requires an access key and a secret key. 
-         - For AWS Signature Version 4 authentication, first specify the **Region**. Next, select the OpenSearch service in the **Service Name** list. The options are **Amazon OpenSearch Service** and **Amazon OpenSearch Serverless**. Lastly, enter the **Access Key** and **Secret Key** for authorization.
+   - 在下面**身份验证方法**，从下拉列表中选择一个身份验证方法。选择身份验证方法后，将出现该方法的适用字段。然后，您可以输入所需的详细信息。身份验证方法选项是：
+       - **没有身份验证**：没有使用身份验证来连接到数据源。
+       - **用户名密码**：基本的用户名和密码用于连接到数据源。
+       - **AWS SIGV4**：AWS签名版本4认证请求用于连接到数据源。AWS签名版本4需要一个访问密钥和秘密键。
+         - 对于AWS签名版本4身份验证，首先指定**地区**。接下来，在**服务名称** 列表。选项是**Amazon OpenSearch服务** 和**Amazon OpenSearch无服务器**。最后，输入**访问密钥** 和**密钥** 用于授权。
 
-    After you have populated the required fields, the **Test connection** and **Create data source** buttons become active. You can select **Test connection** to confirm that the connection is valid.
+    填充所需字段后，**测试连接** 和**创建数据源** 按钮变得活跃。您可以选择**测试连接** 确认连接有效。
 
-3. Select **Create data source** to save your settings. The connection is created. The active window returns to the **Data sources** main page, and the new connection appears in the list of data sources.
+3. 选择**创建数据源** 保存您的设置。连接是创建的。活动窗口返回到**数据源** 主页和新连接出现在数据源列表中。
 
-4. To delete a data source connection, select the checkbox to the left of the data source **Title** and then select the **Delete 1 connection** button. Selecting multiple checkboxes for multiple connections is supported. An example UI is shown in the following image.
+4. 要删除数据源连接，请选择数据源左侧的复选框**标题** 然后选择**删除1连接** 按钮。支持为多个连接选择多个复选框。下图显示了一个示例UI。
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/delete-data-source.png" alt="Deleting a data source UI" width="700"/>
+    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/delete-data-source.png" alt ="Deleting a data source UI" 宽度="700"/>
 
-### Modify a data source connection
+### 修改数据源连接
 
-To make changes to a data source connection, select a connection in the list on the **Data sources** main page. The **Connection Details** window opens.
+要更改数据源连接，请在列表中选择一个连接**数据源** 主页。这**连接详细信息** 窗口打开。
 
-To make changes to **Connection Details**, edit one or both of the **Title** and **Description** fields and select **Save changes** in the lower-right corner of the screen. You can also cancel changes here. To change the **Authentication Method**, choose a different authentication method, enter your credentials (if applicable), and then select **Save changes** in the lower-right corner of the screen. The changes are saved.
+进行更改**连接详细信息**，编辑一个或两个**标题** 和**描述** 字段和选择**保存更改** 在较低-屏幕的右角。您也可以在此处取消更改。更改**身份验证方法**，选择其他身份验证方法，输入您的凭据（如果适用），然后选择**保存更改** 在较低-屏幕的右角。更改已保存。
 
-When **Username & Password** is the selected authentication method, you can update the password by choosing **Update stored password** next to the **Password** field. In the pop-up window, enter a new password in the first field and then enter it again in the second field to confirm. Select **Update stored password** in the pop-up window. The new password is saved. Select **Test connection** to confirm that the connection is valid.
+什么时候**用户名密码** 是选定的身份验证方法，您可以通过选择来更新密码**更新存储的密码** 旁边**密码** 场地。在流行音乐中-向上窗口，在第一个字段中输入新密码，然后再次在第二个字段中输入以确认。选择**更新存储的密码** 在流行音乐中-向上窗口。新密码已保存。选择**测试连接** 确认连接有效。
 
-When **AWS SigV4** is the selected authentication method, you can update the credentials by selecting **Update stored AWS credential**. In the pop-up window, enter a new access key in the first field and a new secret key in the second field. Select **Update stored AWS credential** in the pop-up window. The new credentials are saved. Select **Test connection** in the upper-right corner of the screen to confirm that the connection is valid.
+什么时候**AWS SIGV4** 是所选的身份验证方法，您可以通过选择来更新凭据**更新存储的AWS凭据**。在流行音乐中-向上窗口，在第一个字段中输入新的访问密钥，并在第二字段中输入一个新的秘密密钥。选择**更新存储的AWS凭据** 在流行音乐中-向上窗口。新的凭据被保存。选择**测试连接** 在上部-屏幕的右角确认连接有效。
 
-To delete the data source connection, select the delete icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="delete icon"/>{:/}).
+要删除数据源连接，请选择“删除图标”（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class ="inline-icon" alt ="delete icon"/> {：/}）。
 
-## Create an index pattern
+## 创建索引模式
 
-Once you've created a data source connection, you can create an index pattern for the data source. An _index pattern_ is a template that OpenSearch uses to create indexes for data from the data source. See [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/) for more information and a tutorial. 
+创建数据源连接后，您可以为数据源创建索引模式。_index模式_是一个模板，OpenSearch用来从数据源创建数据索引。看[索引模式]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/) 有关更多信息和教程。
 
-## Next steps
+## 下一步
 
-- Learn about [managing index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/) through OpenSearch Dashboards.
-- Learn about [indexing data using Index Management]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/) through OpenSearch Dashboards.
-- Learn about how to connect [multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/).
-- Learn about how to [connect OpenSearch and Amazon S3 through OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/management/S3-data-source/).
-- Learn about the [Integrations]({{site.url}}{{site.baseurl}}/integrations/index/) tool, which gives you the flexibility to use various data ingestion methods and connect data from the Dashboards UI.
+- 学习关于[管理索引模式]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/) 通过OpenSearch仪表板。
+- 学习关于[使用索引管理索引数据]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/) 通过OpenSearch仪表板。
+- 了解如何连接[多个数据源]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/)。
+- 了解如何[通过OpenSearch仪表板连接OpenSearch和Amazon S3]({{site.url}}{{site.baseurl}}/dashboards/management/S3-data-source/)。
+- 了解[集成]({{site.url}}{{site.baseurl}}/integrations/index/) 工具，它使您可以灵活地使用各种数据摄入方法并连接仪表板UI的数据。
+
 

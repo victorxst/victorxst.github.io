@@ -1,43 +1,44 @@
 ---
 layout: default
-title: Integrating plugins into a dashboard
-parent: Observability
+title: 将插件集成到仪表板中
+parent: 可观察性
 nav_order: 5
 ---
 
-# Integrating plugins into a dashboard
+# 将插件集成到仪表板中
 
-Observability is a collection of plugins and applications that let you visualize data-driven events by using [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) to explore, discover, and query data stored in OpenSearch. Observability provides a unified experience for collecting and monitoring metrics, logs, and traces from common data sources. With data collection and monitoring in one place, you have full-stack, end-to-end observability of your entire infrastructure. 
+可观察性是插件和应用程序的集合，可让您可视化数据-通过使用驱动的事件[管道处理语言]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) 探索，发现和查询存储在OpenSearch中的数据。可观察性为收集和监视共同数据源的指标，日志和痕迹提供了统一的经验。随着数据收集和监视，您可以满足-堆栈，结束-到-结束整个基础设施的可观察性。
 
-As of OpenSearch 2.7, you can manage your observability plugins with **Observability Dashboards** or **Dashboard** instead of the plugins page. This feature provides you:
+从OpenSearch 2.7开始，您可以使用可观察性插件**可观察性仪表板** 或者**仪表板** 而不是插件页面。此功能为您提供：
 
-- **Instant access to installed plugins:** The dashboard displays all installed plugins in one place.
-- **Improved efficiency:** With a list of plugins readily available from a dashboard, you can enable, disable, update, or remove plugins in the OpenSearch Dashboards UI.
-- **Better troubleshooting:** Viewing a list of plugins from a dashboard can help you quickly identify which plugins may be causing a problem.
-- **Enhanced security:** With a list of plugins readily available from a dashboard, you can easily see if any outdated or vulnerable plugins are present and then quickly remove or update them, minimizing or avoiding security risks.
-- **Improved website performance:** Viewing a list of plugins from a dashboard can help you identify any plugins that may be slowing down your website or causing performance issues.
+- **即时访问安装插件：** 仪表板在一个地方显示所有已安装的插件。
+- **提高效率：** 借助仪表板可用的插件列表，您可以在OpenSearch仪表板UI中启用，禁用，更新或删除插件。
+- **更好的故障排除：** 从仪表板中查看插件列表可以帮助您快速识别哪些插件可能导致问题。
+- **增强的安全性：** 借助仪表板可用的插件列表，您可以轻松查看是否存在任何过时或易受伤害的插件，然后快速删除或更新它们，最大程度地减少或避免安全风险。
+- **改进的网站性能：** 从仪表板中查看插件列表可以帮助您识别任何可能减慢网站或引起性能问题的插件。
 
-Get familiar with the basics of managing plugins from the Dashboard app in less than 20 seconds in the following video.
+在以下视频中不到20秒内，熟悉从仪表板应用程序管理插件的基础知识。
 
-![Demo of using Dashboard to view a list of observability plugins](https://user-images.githubusercontent.com/105296784/234345611-50beb9a6-6118-449a-b015-b9f9e90b525e.gif)
+![使用仪表板查看可观察性插件列表的演示](https://user-images.githubusercontent.com/105296784/234345611-50beb9a6-6118-449a-b015-b9f9e90b525e.gif)
 
-## Viewing a list of installed plugins
+## 查看已安装插件的列表
 
-To view a list of installed plugins from the Dashboard app, follow these steps:
+要查看仪表板应用程序中已安装插件的列表，请按照以下步骤：
 
-1. From the OpenSearch Dashboards main menu, select **Dashboard**.
-2. View the list of items and select your plugin. Plugins are categorized automatically as the Observability Dashboard data type, which you can filter in order to concentrate on just what you want to see.
+1. 在OpenSearch仪表板主菜单中，选择**仪表板**。
+2. 查看项目列表，然后选择您的插件。插件会自动将其分类为可观察性仪表板数据类型，您可以过滤以专注于您想要看到的内容。
 
-## Adding and removing plugins
+## 添加和删除插件
 
-To add a plugin from the Dashboard app, follow these steps:
+要在仪表板应用中添加插件，请按照以下步骤：
 
-1. From the OpenSearch Dashboards main menu, select **Dashboard**.
-2. In the **Dashboards** window, select **Create** > **Dashboard**.
-3. In the **Create operational panel** window, enter a name in the **Name** field and then select **Create**. The plugin is added to both the Observability app and the Dashboard app.
+1. 在OpenSearch仪表板主菜单中，选择**仪表板**。
+2. 在里面**仪表板** 窗口，选择**创造** >**仪表板**。
+3. 在里面**创建操作面板** 窗口，在**姓名** 字段，然后选择**创造**。将插件添加到可观察性应用程序和仪表板应用中。
 
-You can remove a plugin from the Dashboard app by selecting the edit icon under the **Actions** column and then selecting **Delete**.
+您可以通过选择“仪表板”应用程序删除插件**动作** 列，然后选择**删除**。
 
-## Staying updated about OpenSearch Dashboards plugins
+## 保持有关OpenSearch仪表板插件的更新
 
-The [OpenSearch plugins repository](https://github.com/opensearch-project/opensearch-plugins) on GitHub is a great way to keep track of and contribute to tasks, features, enhancements, and bugs. The OpenSearch Project team welcomes your input.
+这[OpenSearch插件存储库](https://github.com/opensearch-project/opensearch-plugins) 在Github上，是跟踪和为任务，功能，增强功能和错误做出贡献的好方法。OpenSearch项目团队欢迎您的意见。
+

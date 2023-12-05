@@ -1,302 +1,302 @@
 ---
 layout: default
-title: Indexes
-parent: Index Management
+title: 索引
+parent: 索引管理
 nav_order: 16
 redirect_from:
   - /dashboards/admin-ui-index/index-management/
 ---
 
-# Indexes
-Introduced 2.5
+# 索引
+引入2.5
 {: .label .label-purple }
 
-In the **Index Management** section, you can perform the operations available in the [Index API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/).
+在里面**索引管理** 部分，您可以执行可用的操作[索引API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/)。
 
-## Index policies
+## 索引政策
 
-[Policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/) are configurations that define the possible states of an index, the actions to perform when an index enters a given state, and the conditions that must be met to transition between states:
+[政策]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/) 是定义索引可能状态的配置，当索引进入给定状态时要执行的操作以及必须满足的条件以在状态之间过渡：
 
-1. **States**: The possible states of an index, including the default state for new indexes. For example, you might name your states `hot`, `warm`, or `delete`. For more information, see [States]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#states).
-2. **Actions**: Any actions that you want the plugin to take when an index enters a given state, such as performing a rollover. For more information, see [Actions]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#actions).
-3. **Transitions**: The conditions that must be met for an index to move into a new state. For example, if an index is more than 8 weeks old, you might want to move it to the `delete` state. For more information, see [Transitions]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#transitions).
+1. **状态**：索引的可能状态，包括新索引的默认状态。例如，您可能会命名您的状态`hot`，，，，`warm`， 或者`delete`。有关更多信息，请参阅[状态]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#states)。
+2. **动作**：当索引进入给定状态时，例如执行汇总时，您希望插件采取的任何操作。有关更多信息，请参阅[动作]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#actions)。
+3. **过渡**：必须满足索引进入新状态必须满足的条件。例如，如果指数超过8周，您可能需要将其移至`delete` 状态。有关更多信息，请参阅[过渡]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#transitions)。
 
-You can also upload a JSON document to specify an index policy.
+您还可以上传JSON文档以指定索引策略。
 {: .note}
 
-You have complete flexibility in designing your policies. You can create any state, transition to any other state, and specify any number of actions in each state.
+您在设计政策方面具有完全的灵活性。您可以创建任何状态，过渡到任何其他状态，并在每个状态中指定任何数量的操作。
 
-To attach policies to indexes, perform the following steps:
+要将策略附加到索引，请执行以下步骤：
 
-1. Under **Index Management**, choose **Index policies**.
-2. Select the index or indexes to which you want to attach your policy.
-3. Choose the **Apply policy** button.
-4. From the **Policy ID** menu, select the policy that you created.
-    View the preview of your policy.
-5. (Optional): Specify a rollover alias if your policy includes a rollover operation. Make sure that the alias already exists. For more information about the rollover operation, see [rollover]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#rollover).
-6. Choose the **Apply** button.
+1. 在下面**索引管理**， 选择**索引政策**。
+2. 选择要附加策略的索引或索引。
+3. 选择**申请政策** 按钮。
+4. 来自**政策ID** 菜单，选择您创建的策略。
+    查看政策的预览。
+5. （可选）：如果您的策略包括翻车操作，请指定翻转别名。确保别名已经存在。有关翻转操作的更多信息，请参阅[滚下]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#rollover)。
+6. 选择**申请** 按钮。
 
-After you attach a policy to an index, Index State Management (ISM) creates a job that runs every 5 minutes by default to perform policy actions, check conditions, and transition the index into different states. To change the default time interval for this job, see [Settings]({{site.url}}{{site.baseurl}}/im-plugin/ism/settings/).
+将策略附加到索引之后，索引状态管理（ISM）将创建一个作业，该作业默认情况下每5分钟运行一次，以执行策略操作，检查条件并将索引过渡到不同状态。要更改此作业的默认时间间隔，请参见[设置]({{site.url}}{{site.baseurl}}/im-plugin/ism/settings/)。
 
-Policy jobs don't run if the cluster state is red.
+如果群集状态为红色，则政策作业不会运行。
 {: .note}
 
-## Managed indexes
+## 托管索引
 
-To attach policies to indexes, perform the following steps:
+要将策略附加到索引，请执行以下步骤：
 
-1. Under **Index Management**, choose **Manage Indices**.
-2. Select the index or indexes to which you want to attach your policy.
-3. Choose the **Change policy** button.
-4. Choose the **Apply policy** button.
+1. 在下面**索引管理**， 选择**管理索引**。
+2. 选择要附加策略的索引或索引。
+3. 选择**更改政策** 按钮。
+4. 选择**申请政策** 按钮。
 
-## Indexes
+## 索引
 
-The **Indices** section displays a list of indexes in your OpenSearch cluster. For each index, you can see its health status (`green`, `yellow`, or `red`), policy (if the index is managed by a policy), status, total size, primary sizes, total documents, deleted documents, primaries, and replicas.
+这**指数** 部分显示OpenSearch集群中的索引列表。对于每个指数，您都可以看到其健康状况（`green`，，，，`yellow`， 或者`red`），策略（如果索引是由策略管理的），状态，总规模，初级规模，总文件，删除的文档，初选和副本。
 
-The following are the three index health statuses:
+以下是三个指数健康状况：
 
-- Green: All primary and replica shards are assigned.
-- Yellow: At least one replica shard is not assigned.
-- Red: At least one primary shard is not assigned.
+- 绿色：分配了所有主要和复制碎片。
+- 黄色：至少没有分配一个复制碎片。
+- 红色：至少没有分配一个主碎片。
 
-### Creating an index
+### 创建索引
 
-While you can [create an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/) by using a document as a base, you can also create an empty index for later use. 
+虽然可以[创建一个索引]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/) 通过使用文档作为基础，您还可以创建一个空索引供以后使用。
 
-To create an index, select the **Create Index** button located under the **Indices** section of **Index Management**. Then define the index by setting the following parameters:
+要创建索引，请选择**创建索引** 按钮位于**指数** 部分**索引管理**。然后通过设置以下参数来定义索引：
 
-- Index name
-- Number of primary shards
-- Number of replicas
-- Refresh interval
+- 索引名称
+- 主要碎片数
+- 复制品数量
+- 刷新间隔
 
-You can also add fields and objects using either the visual editor or the JSON editor.
+您还可以使用Visual Editor或JSON编辑器添加字段和对象。
 
-The **Advanced settings** allow you to upload a JSON configuration.
+这**高级设置** 允许您上传JSON配置。
 
-### Applying a policy
+### 应用政策
 
-If you analyze time-series data, you likely want to prioritize new data over old data. You might periodically perform certain operations on older indexes, such as reducing replica count or deleting them.
+如果分析时间-串联数据，您可能希望优先考虑新数据而不是旧数据。您可能会定期在较旧的索引上执行某些操作，例如减少副本计数或删除它们。
 
-[ISM]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) is a plugin that lets you automate these periodic administrative operations by triggering them based on changes in the index age, index size, or number of documents. You can define policies that automatically handle index rollovers or deletions to fit your use case.
+[主义]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) 是一个插件，可让您根据索引年龄，索引大小或文档数量触发这些定期管理操作来自动化这些定期管理操作。您可以定义自动处理索引翻转或删除以适合您的用例的策略。
 
-For example, you can define a policy that moves your index into a **read_only** state after 30 days and then deletes it after a set period of 90 days. You can also set up the policy to send you a notification message when the index is deleted.
+例如，您可以定义将您的索引移至一个的策略**只读** 30天后状态，然后在设定的90天后将其删除。您还可以设置策略，以在删除索引时向您发送通知消息。
 
-You might want to perform an index rollover after a certain amount of time or run a **force_merge** operation on an index during off-peak hours to improve search performance during peak hours.
+您可能需要在一定时间后执行索引转盘或运行一个**force_merge** 关闭期间在索引上操作-高峰时间以提高高峰时段的搜索性能。
 
-To apply a policy, select the index to which you want to apply the policy from the **Indices** list under **Index Management**. Then select the **Actions** button and select **Apply policy** from the dropdown list as shown in the following image.
+要应用策略，请选择要应用于该策略的索引**指数** 列表下**索引管理**。然后选择**动作** 按钮并选择**申请政策** 从下拉列表中，如下图所示。
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/apply-policy.PNG" alt="User interface showing apply policy prompt">
 
-### Closing an index
+### 关闭索引
 
-The [close index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index/) operation closes an index. Once an index is closed, you cannot add data to it or search for any data within the index.
+这[关闭索引]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index/) 操作关闭索引。关闭索引后，您将无法向其添加数据或搜索索引中的任何数据。
 
-To close an index, select the index you want to close from the **Indices** list under **Index Management**. Then select the **Actions** button and select **Close** from the dropdown list.
+要关闭索引，请选择要关闭的索引**指数** 列表下**索引管理**。然后选择**动作** 按钮并选择**关闭** 从下拉列表中。
 
-### Opening an index
+### 打开索引
 
-The [open index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/open-index/) operation opens a closed index, letting you add data to it or search for data within the index.
+这[打开索引]({{site.url}}{{site.baseurl}}/api-reference/index-apis/open-index/) 操作打开封闭索引，让您向其添加数据或在索引中搜索数据。
 
-To open an index, select the index you want to open from the **Indices** list under **Index Management**. Then select the **Actions** button and select **Open** from the dropdown list.
+要打开索引，请选择要从**指数** 列表下**索引管理**。然后选择**动作** 按钮并选择**打开** 从下拉列表中。
 
-### Reindexing an index
+### 重新索引索引
 
-The [reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) operation lets you copy all of your data or a subset of data from a source index into a destination index.
+这[reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) 操作使您可以将所有数据或数据子从源索引复制到目标索引中。
 
-To reindex an index, select the index from the **Indices** list under **Index Management**. Then select the **Actions** button and select **Reindex** from the dropdown list as shown in the following image.
+要重新索引索引，请从**指数** 列表下**索引管理**。然后选择**动作** 按钮并选择**reindex** 从下拉列表中，如下图所示。
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/reindex-expanded.png" alt="User interface showing reindex prompt">
 
-### Shrinking an index
+### 收缩索引
 
-The [shrink]({{site.url}}{{site.baseurl}}/api-reference/index-apis/shrink-index/) index operation copies all of the data in an existing index into a new index with fewer primary shards.
+这[收缩]({{site.url}}{{site.baseurl}}/api-reference/index-apis/shrink-index/) 索引操作将现有索引中的所有数据复制为具有较少主要碎片的新索引。
 
-To shrink an index, select the index you want to shrink from the **Indices** list under **Index Management**. Then choose the **Actions** button and choose **Shrink** from the dropdown list as shown in the following image.
+要收缩索引，请选择要从**指数** 列表下**索引管理**。然后选择**动作** 按钮并选择**收缩** 从下拉列表中，如下图所示。
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/shrink.png" alt="User interface showing shrink prompt">
 
-### Splitting an index
+### 拆分索引
 
-The [split index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/split/) operation splits an existing read-only index into a new index, splitting each primary shard into a number of primary shards in the new index.
+这[拆分索引]({{site.url}}{{site.baseurl}}/api-reference/index-apis/split/) 操作分解现有读取-仅将索引分为一个新索引，将每个主要碎片分成新索引中的许多主要碎片。
 
-To split an index, select the index you want to split from the **Indices** list under **Index Management**. Then choose the **Actions** button and choose **Split** from the dropdown list as shown in the following image.
+要拆分索引，请选择要从**指数** 列表下**索引管理**。然后选择**动作** 按钮并选择**分裂** 从下拉列表中，如下图所示。
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/split-expanded.png" alt="User interface showing split page">
 
-### Refreshing an index
+### 刷新索引
 
-Refreshing an index makes new updates to the index visible to search operations. 
+刷新索引为搜索操作可见的索引提供了新的更新。
 
-The refresh operation can be applied only to open indexes. 
+刷新操作只能应用于打开索引。
 
-To refresh all indexes, select **Refresh** from the **Actions** dropdown list.
+要刷新所有索引，请选择**刷新** 来自**动作** 下拉列表。
 
-To refresh a particular index, select the index from the **Indices** list under **Index Management**. Then select **Refresh** from the **Actions** dropdown list. 
+要刷新特定索引，请从**指数** 列表下**索引管理**。然后选择**刷新** 来自**动作** 下拉列表。
 
-### Flushing an index
+### 冲洗索引
 
-The flush operation performs a Lucene commit, writing segments to disk and starting a new translog. 
+冲洗操作执行了Lucene提交，为磁盘编写细分市场并启动了新的翻译。
 
-The flush operation can be applied only to open indexes. 
+冲洗操作只能应用于打开索引。
 
-To flush all indexes, select **Flush** from the **Actions** dropdown list.
+要冲洗所有索引，请选择**冲洗** 来自**动作** 下拉列表。
 
-To flush a particular index, select the index from the **Indices** list under **Index Management**. Then select **Flush** from the **Actions** dropdown list. 
+要冲洗特定索引，请从**指数** 列表下**索引管理**。然后选择**冲洗** 来自**动作** 下拉列表。
 
-### Clearing an index cache
+### 清除索引缓存
 
-The [clear cache operation]({{site.url}}{{site.baseurl}}/api-reference/index-apis/clear-index-cache/) can be applied only to open indexes. 
+这[清除缓存操作]({{site.url}}{{site.baseurl}}/api-reference/index-apis/clear-index-cache/) 只能应用于打开索引。
 
-To clear all index caches, select **Clear cache** from the **Actions** dropdown list.
+要清除所有索引缓存，请选择**清除缓存** 来自**动作** 下拉列表。
 
-To clear a particular index cache, select the index from the **Indices** list under **Index Management**. Then select **Clear cache** from the **Actions** dropdown list. 
+要清除特定的索引缓存，请从**指数** 列表下**索引管理**。然后选择**清除缓存** 来自**动作** 下拉列表。
 
-### Deleting an index
+### 删除索引
 
-If you no longer need an index, you can use the [delete index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/delete-index/) operation to delete it.
+如果您不再需要索引，则可以使用[删除索引]({{site.url}}{{site.baseurl}}/api-reference/index-apis/delete-index/) 删除它的操作。
 
-To delete an index, select the index you want to delete from the **Indices** list under **Index Management**. Then select the **Actions** button and select **Delete** from the dropdown list.
+要删除索引，请选择要从**指数** 列表下**索引管理**。然后选择**动作** 按钮并选择**删除** 从下拉列表中。
 
-## Templates
+## 模板
 
-[Index templates]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) let you initialize new indexes with predefined mappings and settings. For example, if you continuously index log data, you can define an index template so that all of the indexes have the same number of shards and replicas as shown in the following image.
+[索引模板]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) 让您用预定义的映射和设置初始化新索引。例如，如果您连续索引日志数据，则可以定义索引模板，以便所有索引具有与下图中所示的相同数量的碎片和副本。
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/templates.PNG" alt="User interface showing Templates page">
 
-### Creating a template
+### 创建模板
 
-To create a template, choose the **Create template** button on the **Templates** page under **Index Management**.
+要创建模板，请选择**创建模板** 按钮在**模板** 页面下**索引管理**。
 
-Next, define the template:
+接下来，定义模板：
 
-1. Enter the template name.
-1. Select the template type.
-1. Specify any index patterns you would like to use.
-1. Set the priority of the template.
-1. Select an index alias.
-1. Set the number of primary shards.
-1. Set the number of replicas.
-1. Set the refresh intervals.
-1. Add fields and objects for your index mapping using either the visual editor or the JSON editor.
-1. Under **Advanced Settings** you can specify advanced index settings with a comma-delimited list as shown in the following image.
+1. 输入模板名称。
+1. 选择模板类型。
+1. 指定您要使用的任何索引模式。
+1. 设置模板的优先级。
+1. 选择一个索引别名。
+1. 设置主碎片的数量。
+1. 设置副本的数量。
+1. 设置刷新间隔。
+1. 使用Visual Editor或JSON编辑器添加索引映射的字段和对象。
+1. 在下面**高级设置** 您可以使用逗号指定高级索引设置-划界列表如下图所示。
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/create-template-expanded.png" alt="User interface showing Create Template page">
 
-### Editing a template
+### 编辑模板
 
-To edit a template, select the template you want to edit from the list of templates. Next, select the **Actions** dropdown list and select the **Edit** option.
+要编辑模板，请选择要从模板列表中编辑的模板。接下来，选择**动作** 下拉列表并选择**编辑** 选项。
 
-### Deleting a template
+### 删除模板
 
-To delete a template, select the template you want to delete from the list of templates. Next, select the **Actions** dropdown list and select the **Delete** option.
+要删除模板，请从模板列表中选择要删除要删除的模板。接下来，选择**动作** 下拉列表并选择**删除** 选项。
 
-## Aliases
+## 别名
 
-An alias is a virtual index name that can point to one or more indexes. If your data is spread across multiple indexes, rather than keeping track of which indexes to query, you can create an alias and query it instead as shown in the following image.
+别名是一个虚拟索引名称，可以指向一个或多个索引。如果您的数据分布在多个索引上，而不是跟踪要查询的索引，则可以创建一个别名并查询它，如下图所示。
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/aliases.PNG" alt="User interface showing Alias page">
 
-### Creating an alias
+### 创建一个别名
 
-To create an alias, perform the following steps:
+要创建一个别名，请执行以下步骤：
 
-1. Choose the **Create Alias** button on the **Aliases** page under **Index Management**.
-2. Specify the alias name.
-3. Enter the index, or index patterns, to be included in the alias.
-4. Choose **Create alias** as shown in the following image.
+1. 选择**创建别名** 按钮在**别名** 页面下**索引管理**。
+2. 指定别名名称。
+3. 输入将包含在别名中的索引或索引模式。
+4. 选择**创建别名** 如下图所示。
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/create-alias.PNG" alt="User interface showing create Alias page">
 
-### Editing an alias
+### 编辑别名
 
-To edit an alias, perform the following steps:
+要编辑别名，请执行以下步骤：
 
-1. Select the alias you want to edit.
-2. Choose the **Actions** button.
-3. Choose **Edit** from the dropdown list.
+1. 选择要编辑的别名。
+2. 选择**动作** 按钮。
+3. 选择**编辑** 从下拉列表中。
 
-### Deleting an alias
+### 删除别名
 
-To delete an alias, perform the following steps:
+要删除别名，请执行以下步骤：
 
-1. Select the alias you want to edit.
-2. Choose the **Actions** button.
-3. Choose **Delete** from the dropdown list.
+1. 选择要编辑的别名。
+2. 选择**动作** 按钮。
+3. 选择**删除** 从下拉列表中。
 
-### Refreshing an alias
+### 刷新一个别名
 
-Refreshing an alias makes new updates to the index visible to search operations. 
+刷新别名为搜索操作可见的索引提供了新的更新。
 
-The refresh operation can be applied only to open indexes associated with the specified aliases.
+刷新操作只能应用于打开与指定别名相关的索引。
 
-To refresh a particular alias, select the alias from the **Aliases** list under **Index Management**. Then select **Refresh** from the **Actions** dropdown list. 
+要刷新特定的别名，请从**别名** 列表下**索引管理**。然后选择**刷新** 来自**动作** 下拉列表。
 
-### Flushing an alias
+### 冲洗别名
 
-The flush operation performs a Lucene commit, writing segments to disk and starting a new translog. 
+冲洗操作执行了Lucene提交，为磁盘编写细分市场并启动了新的翻译。
 
-The flush operation can be applied only to open indexes associated with the specified aliases.
+冲洗操作只能应用于打开与指定别名相关的索引。
 
-To flush an alias, select the alias from the **Aliases** list under **Index Management**. Then select **Flush** from the **Actions** dropdown list. 
+要冲洗别名，请从**别名** 列表下**索引管理**。然后选择**冲洗** 来自**动作** 下拉列表。
 
-### Clearing an alias cache
+### 清除别名缓存
 
-The [clear cache operation]({{site.url}}{{site.baseurl}}/api-reference/index-apis/clear-index-cache/) can be applied only to open indexes associated with the specified aliases.
+这[清除缓存操作]({{site.url}}{{site.baseurl}}/api-reference/index-apis/clear-index-cache/) 只能应用于打开与指定别名相关的索引。
 
-To clear an alias cache, select the alias from the **Aliases** list under **Index Management**. Then select **Clear cache** from the **Actions** dropdown list. 
+要清除别名缓存，请从**别名** 列表下**索引管理**。然后选择**清除缓存** 来自**动作** 下拉列表。
 
-## Rollup jobs
+## 滚动工作
 
-The **Rollup Jobs** section under **Index Management** allows you to create or update index rollup jobs.
+这**滚动工作** 部分**索引管理** 允许您创建或更新索引汇总作业。
 
-To create a rollup job, perform the following steps:
+要创建汇总作业，请执行以下步骤：
 
-1. Choose the **Create rollup job** button on the **Rollup Jobs** page under **Index Management**.
-2. Set the name, source index, and target index.
-3. Choose **Next**.
-4. Set the timestamp field and interval type.
-5. Optionally, set additional aggregations and metrics.
-6. Choose **Next**.
-7. Under **Schedule**, check or uncheck **Enable job by default**.
-8. Set the **Continuous**, **Execution frequency**, **Rollup interval**, and **Pages per execution** settings.
-9. Additionally, you can set an execution delay.
-10. Choose **Next**.
-11. Review the settings for the rollup job and choose **Create**.
+1. 选择**创建汇总作业** 按钮在**滚动工作** 页面下**索引管理**。
+2. 设置名称，源索引和目标索引。
+3. 选择**下一个**。
+4. 设置时间戳字段和间隔类型。
+5. 可选，设置其他聚合和指标。
+6. 选择**下一个**。
+7. 在下面**日程**，检查或取消选中**默认启用工作**。
+8. 设置**连续的**，，，，**执行频率**，，，，**滚动间隔**， 和**每个执行页** 设置。
+9. 此外，您可以设置执行延迟。
+10. 选择**下一个**。
+11. 查看汇总作业的设置，然后选择**创造**。
 
-You can also enable and disable rollup jobs by choosing the corresponding buttons on the **Rollup Jobs** page.
+您还可以通过选择相应的按钮来启用和禁用汇总作业**滚动工作** 页。
 
-## Transform jobs
+## 改变工作
 
-You can create, start, stop, and complete operations with [transform]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/) jobs.
+您可以使用[转换]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/) 工作。
 
-To create a transform job, perform the following steps:
+要创建转换作业，请执行以下步骤：
 
-1. Choose the **Create transform job** button on the **Transform Jobs** page under **Index Management**.
-2. Set the name, source index, and target index.
-3. Choose **Next**.
-4. Select the fields to transform. From the table, select a field you want to transform by choosing **+** next to the field name.
-5. Choose **Next**.
-6. Check or uncheck **Job enabled by default**.
-7. Set the transform execution interval and whether the schedule is continuous.
-8. Optionally, set pages per execution under the **Advanced** dropdown list.
-9. Choose **Next**.
-10. Review the settings for the rollup job and choose **Create**.
+1. 选择**创建变换作业** 按钮在**改变工作** 页面下**索引管理**。
+2. 设置名称，源索引和目标索引。
+3. 选择**下一个**。
+4. 选择要转换的字段。从表中，选择要通过选择要转换的字段**+** 字段名称旁边。
+5. 选择**下一个**。
+6. 检查或取消选中**默认启用作业**。
+7. 设置转换执行间隔以及时间表是否连续。
+8. 可选地，在**先进的** 下拉列表。
+9. 选择**下一个**。
+10. 查看汇总作业的设置，然后选择**创造**。
 
-You can also enable and disable rollup jobs by choosing the corresponding buttons on the **Transform Jobs** page.
+您还可以通过选择相应的按钮来启用和禁用汇总作业**改变工作** 页。
 
-## Long-running operation status check 
+## 长的-运行操作状态检查
 
-Certain index operations take additional time to complete (usually more than 30 seconds, but up to tens of minutes or hours). This is tracked in the index status column on the **Indices** page.
+某些索引操作需要额外的时间来完成（通常超过30秒，但最多数十分钟或数小时）。这是在索引状态列中跟踪的**指数** 页。
 
-You can check the status of the reindex, shrink, and split operations because they are one-time, non-recursive operations.
+您可以检查勒索，收缩和分裂操作的状态，因为它们是一个-时间，非-递归操作。
 
-## Security integration
+## 安全集成
 
-  Permission control is managed with existing [permissions]({{site.url}}{{site.baseurl}}/security-plugin/access-control/permissions/) or action groups that are enforced at the API level. There is currently no UI-level permission control. Users with permission to access the ISM plugin are able to view new pages. They can also make changes if they have permission to run the related APIs.
+  权限控制由现有[权限]({{site.url}}{{site.baseurl}}/security-plugin/access-control/permissions/) 或在API级别执行的动作组。目前没有UI-级别权限控制。有权访问ISM插件的用户可以查看新页面。如果他们有权运行相关的API，他们也可以进行更改。
 
-## Error handling
+## 错误处理
 
-Similar to API calls, if the operation fails immediately, you will be notified with an error message. However, if it is a long-running operation, you will be notified of the failure at the time of failure, or you can check the index status on the **Indices** page.
+与API调用类似，如果操作立即失败，则会通过错误消息通知您。但是，如果这很长-运行操作，您将在失败时通知您的故障，或者您可以检查索引状态**指数** 页。
  

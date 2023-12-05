@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Advanced settings
-parent: Dashboards Management
+parent: 仪表板管理
 nav_order: 40
 ---
 

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: OpenSearch Dashboards
+title: OpenSearch仪表板
 nav_order: 1
 has_children: false
 nav_exclude: true

@@ -1,263 +1,264 @@
 ---
 layout: default
-title: Using maps 
-grand_parent: Building data visualizations
-parent: Using coordinate and region maps
+title: 使用地图 
+grand_parent: 构建数据可视化
+parent: 使用坐标和区域图
 nav_order: 10
 redirect_from:
   - /dashboards/maps/
 ---
 
-# Using maps 
+# 使用地图
 
-With OpenSearch Dashboards, you can create maps to visualize your geographical data. OpenSearch lets you construct map visualizations with multiple layers, combining data across different indexes. You can build each layer from a different index pattern. Additionally, you can configure maps to show specific data at different zoom levels. OpenSearch maps are powered by the OpenSearch maps service, which uses vector tiles to render maps. 
+使用OpenSearch仪表板，您可以创建地图以可视化地理数据。OpenSearch允许您使用多层构建MAP可视化，并将数据组合到不同索引。您可以从不同的索引模式构建每一层。此外，您可以配置地图以在不同的缩放级别显示特定数据。OpenSearch Maps由OpenSearch Maps Service提供动力，该搜索地图服务使用向量图块呈现映射。
 
-## Creating a new map
+## 创建新地图
 
-You can create a new map from the **Maps** or **Visualize** workflows by performing the following steps: 
+您可以从**地图** 或者**可视化** 通过执行以下步骤来工作流程：
 
-- To create a new map from the **Maps** workflow, perform the following steps:
+- 从**地图** 工作流程，执行以下步骤：
 
-  1. On the top menu bar, go to **OpenSearch Plugins > Maps**. 
-  1. Choose the **Create map** button. 
+  1.在顶部菜单栏上，转到**OpenSearch插件>地图**。
+  1.选择**创建地图** 按钮。
 
-- To create a new map from the **Visualize** workflow, perform the following steps:
+- 从**可视化** 工作流程，执行以下步骤：
 
-  1. On the top menu bar, go to **OpenSearch Dashboards > Visualize**.
-  1. Choose the **Create visualization** button.
-  1. In the **New Visualization** dialog, choose **Maps**.
+  1.在顶部菜单栏上，转到**OpenSearch仪表板>可视化**。
+  1.选择**创建可视化** 按钮。
+  1.在**新的可视化** 对话框，选择**地图**。
 
-You can now see the default OpenSearch basemap.
+现在，您可以查看默认的OpenSearch BaseMap。
 
-To examine the **Default map** layer configuration, in the **Layers** panel on the upper left of the map, select **Default map**, as shown in the following image.
+检查**默认地图** 图层配置，在**层** 地图左上方的面板，选择**默认地图**，如下图所示。
 
 <img src="{{site.url}}{{site.baseurl}}/images/maps/maps-default.png" alt="Default map" width="900">
 
-To hide the **Layers** panel, select the collapse (arrow) icon in the panel's upper-right corner.
+隐藏**层** 面板，选择面板鞋面中的崩溃（箭头）图标-右上角。
 {: .tip}
 
-## Layer settings
+## 图层设置
 
-To change the default map settings, select **Default map** in the **Layers** panel. Under **Layer settings**, you can change the layer name and description and configure zoom levels and opacity for your layer:
+要更改默认地图设置，请选择**默认地图** 在里面**层** 控制板。在下面**图层设置**，您可以更改图层名称和描述，并为您的图层配置缩放级别和不透明度：
 
-- **Zoom levels**: By default, a layer is visible at all zoom levels. If you want to make a layer visible only for a certain range of zoom levels, you can specify the zoom levels either by entering them in the text boxes or by sliding the range slider to the desired values.
+- **变焦级别**：默认情况下，在所有变焦级别上都可以看到一层。如果要使仅在一定范围的缩放级别上看到一层，则可以通过在文本框中输入或将范围滑块滑入所需值来指定缩放级别。
 
-- **Opacity**: If your map contains multiple layers, one layer can obscure another one. In this case, you may want to reduce the opacity of the top layer so you can see both layers at the same time.
+- **不透明度**：如果您的地图包含多层，则一层会掩盖另一层。在这种情况下，您可能需要降低顶层的不透明度，以便同时看到这两个层。
 
-## Adding layers
+## 添加图层
 
-To add a layer to the map, in the **Layers** panel, select the **Add layer** button. The **Add layer** dialog is shown in the following image.
+在地图中添加一层**层** 面板，选择**添加图层** 按钮。这**添加图层** 对话框如下图所示。
 
 <img src="{{site.url}}{{site.baseurl}}/images/maps/add-layer.png" alt="Add layer" width="450">
 
-You can add **base layers** or **data layers** to the map:
+你可以加**基层** 或者**数据层** 到地图：
 
-- A **base layer** serves as a basemap. To use your own or a third-party map as a base layer, [add it as a **Custom map**](#adding-a-custom-map).
+- A**基层** 用作基础。使用自己或第三-聚会图作为基础层，[将其添加为**自定义地图**](#adding-a-custom-map)。
 
-- **Data layers** let you visualize data from various data sources. 
+- **数据层** 让您从各种数据源可视化数据。
 
-## Adding a custom map
+## 添加自定义地图
 
-OpenSearch supports Web Map Service (WMS) or Tile Map Service (TMS) custom maps. To add a TMS custom map, perform the following steps:
+OpenSearch支持Web Map Service（WMS）或Tile Map Service（TMS）自定义地图。要添加TMS自定义映射，请执行以下步骤：
 
-1. In the **Layers** panel, select the **Add layer** button.
-1. From the **Add layer** dialog, select **Base layer > Custom map**.
-    Follow the next steps in the **New layer** dialog, which is shown in the following image.
+1. 在里面**层** 面板，选择**添加图层** 按钮。
+1. 来自**添加图层** 对话框，选择**基础层>自定义地图**。
+    按照下一步**新层** 对话框，如下图所示。
 
-    <img src="{{site.url}}{{site.baseurl}}/images/maps/custom-map.png" alt="Add custom map">
+    <img src ="{{site.url}}{{site.baseurl}}/images/maps/custom-map.png" alt ="Add custom map">
 
-1. In the **Custom type** dropdown list, select **Tile Map Service (TMS)**. 
-1. Enter the TMS URL.
-1. (Optional) In **TMS attribution**, enter a TMS attribution for the basemap. For example, if you're using a custom basemap, enter the custom map name. This name will be displayed in the lower-right corner of the map.
-1. Select the **Settings** tab to edit the layer settings.
-1. Enter the layer name in **Name**.
-1. (Optional) Enter the layer description in **Description**.
-1. (Optional) Select the zoom levels and opacity for this layer.
-1. Select the **Update** button.
+1. 在里面**自定义类型** 下拉列表，选择**瓷砖地图服务（TMS）**。
+1. 输入TMS URL。
+1. （可选）**TMS归因**，输入基础图的TMS归因。例如，如果您使用的是自定义基础图，请输入自定义地图名称。此名称将显示在较低的-地图的右角。
+1. 选择**设置** 选项卡以编辑图层设置。
+1. 在**姓名**。
+1. （可选）在**描述**。
+1. （可选）选择此层的变焦级别和不透明度。
+1. 选择**更新** 按钮。
 
-## Adding a document layer
+## 添加文档层
 
-Adding document layers lets you visualize your data. You can add one index pattern per document layer. To view multiple index patterns, create multiple layers.
+添加文档层使您可以可视化数据。您可以每个文档层添加一个索引模式。要查看多个索引模式，请创建多个层。
 
-Document layers can display geopoint and geoshape document fields.
+文档层可以显示GeoPoint和GeoShape文档字段。
 {: .note}
 
-The following example assumes that you have the `opensearch_dashboards_sample_data_flights` dataset installed. If you don't have this dataset installed, perform the following steps:
+以下示例假设您有`opensearch_dashboards_sample_data_flights` 已安装数据集。如果您没有安装此数据集，请执行以下步骤：
 
-1. On the top left, select the home icon.
-1. Select **Add sample data**.
-1. In the **Sample flight data** panel, select the **Add data** button.
+1. 在左上方，选择家庭图标。
+1. 选择**添加示例数据**。
+1. 在里面**示例飞行数据** 面板，选择**添加数据** 按钮。
 
-Add a document layer as follows:
+添加文档层如下：
 
-1. In the **Layers** panel, select the **Add layer** button.
-1. From the **Add layer** dialog, select **Data layer > Documents**.
-1. In **Data source**, select `opensearch_dashboards_sample_data_flights`. Alternatively, you can enter another index pattern to visualize.
-1. In **Geospatial field**, select a geospatial field (geopoint or geoshape) to be displayed in the visualization. In this example, select `DestLocation`.
-1. (Optional) Select the **Style** tab to change the fill color, border color, border thickness, or marker size.
-1. Select the **Settings** tab to edit layer settings.
-1. Enter `Flight destination` in **Name**.
-1. Select the **Update** button.
-1. To see more data, in the upper-right corner select the calendar icon dropdown list, then under **Quick select**, choose **Last 15 days** and select the **Apply** button. 
+1. 在里面**层** 面板，选择**添加图层** 按钮。
+1. 来自**添加图层** 对话框，选择**数据层>文档**。
+1. 在**数据源**， 选择`opensearch_dashboards_sample_data_flights`。另外，您可以输入另一个索引模式进行可视化。
+1. 在**地理空间领域**，选择一个在可视化中显示的地理空间场（地理位置或Geoshape）。在此示例中，选择`DestLocation`。
+1. （可选）选择**风格** 选项卡以更改填充颜色，边框颜色，边框厚度或标记尺寸。
+1. 选择**设置** 选项卡以编辑图层设置。
+1. 进入`Flight destination` 在**姓名**。
+1. 选择**更新** 按钮。
+1. 要查看更多数据，-右角选择日历图标下拉列表，然后在下面**快速选择**， 选择**最近15天** 并选择**申请** 按钮。
 
-You should see the flight destination data, as in the following image.
+如下图所示，您应该看到飞行目的地数据。
 
 <img src="{{site.url}}{{site.baseurl}}/images/maps/new-layer.png" alt="Flight destination map">
 
-## Filtering data
+## 过滤数据
 
-To show a subset of the data in the index, filter the data. You can either filter data at the layer level or draw shapes on the map to filter all layer data globally. 
+要在索引中显示数据子集，请过滤数据。您可以在图层级别过滤数据，也可以在地图上绘制形状以在全球范围内过滤所有图层数据。
 
-### Filtering data at the layer level
+### 在层级别过滤数据
 
-To filter data at the layer level, select the layer and add a filter to it.
+要在图层级别过滤数据，请选择图层并向其添加过滤器。
 
-The following example shows how to filter the flight destination data to display only United States destinations:
+以下示例显示了如何过滤飞行目的地数据以仅显示美国目的地：
 
-1. In the **Layers** panel, select **Flight destination**.
-1. Select **Filters**.
-1. Select **Add filter**.
-1. In **Edit filter**, select **DestCountry** in **Field**.
-1. In **Operator**, select **is**.
-1. In **Value**, select **US**.
-1. Select the **Save** button.
-1. Select the **Update** button.
+1. 在里面**层** 面板，选择**飞行目的地**。
+1. 选择**过滤器**。
+1. 选择**添加过滤器**。
+1. 在**编辑过滤器**， 选择**德国人** 在**场地**。
+1. 在**操作员**， 选择**是**。
+1. 在**价值**， 选择**我们**。
+1. 选择**节省** 按钮。
+1. 选择**更新** 按钮。
 
-For large datasets, you may want to avoid loading data for the full map. To load data only for a specific geographic area, select **Only request data around map extent**.
+对于大型数据集，您可能需要避免为完整地图加载数据。要仅加载特定地理区域的数据，请选择**仅在地图范围内请求数据**。
 {: .tip}
 
-### Drawing shapes to filter data
+### 绘制形状以过滤数据
 
-You can filter your data globally by drawing [shapes]({{site.url}}{{site.baseurl}}/field-types/geo-shape) on the map. To draw a rectangle or polygon on the map, perform the following steps:
+您可以通过绘画在全球过滤数据[形状]({{site.url}}{{site.baseurl}}/field-types/geo-shape) 在地图上。要在地图上绘制矩形或多边形，请执行以下步骤：
 
-1. Select the **Rectangle** or **Polygon** icon on the right side of the map. 
-1. In the **Filter label** field, enter a name for the filter. 
-1. Choose a spatial relation type. By default, **Intersects** is selected. See [Spatial relations]({{site.url}}{{site.baseurl}}/query-dsl/geo-and-xy/xy#spatial-relations) for more information about spatial relationship types.
-1. Select the **Draw Rectangle** or **Draw Polygon** button.
-1. Draw the shape over the map area that you want to select:
-  - For a rectangle, select any starting point on the map (this point becomes a rectangle vertex). Then hover (do not drag) to another point on the map and select it (this point becomes the opposite vertex).  
-  - For a polygon, select any starting point on the map (this point becomes a polygon vertex) and hover (do not drag) to each subsequent vertex and select that point. Finally, make sure to select the starting point again to close the polygon, as shown in the following image.
+1. 选择**长方形** 或者**多边形** 图标位于地图的右侧。
+1. 在里面**过滤标签** 字段，输入过滤器的名称。
+1. 选择一种空间关系类型。默认情况下，**相交** 选择。看[空间关系]({{site.url}}{{site.baseurl}}/query-dsl/geo-and-xy/xy#spatial-relations) 有关空间关系类型的更多信息。
+1. 选择**绘制矩形** 或者**绘制多边形** 按钮。
+1. 在您要选择的地图区域上绘制形状：
+  - 对于矩形，选择地图上的任何起点（此点成为矩形顶点）。然后将悬停（不要将其拖动）到地图上的另一个点并选择它（该点变成相反的顶点）。
+  - 对于多边形，选择地图上的任何起点（此点变为多边形顶点），然后将悬停（不要拖动）到每个后续顶点，然后选择该点。最后，确保再次选择起点以关闭多边形，如下图所示。
 
 <img src="{{site.url}}{{site.baseurl}}/images/maps/draw-shape.png" alt="Drawing a polygon on a map">
 
-### Disabling the shape filter for a map layer
+### 禁用形状滤波器以作为地图层
 
-By default, the shape filter is applied globally to all layers on the map. If you want to disable your shape filter for a map layer, perform the following steps:
-1. Select the layer from the **Layers** panel.
-1. In the **Filters** section, deselect **Apply global filters**. 
-1. Select the **Update** button. 
+默认情况下，将形状过滤器全球应用于地图上的所有层。如果要禁用形状过滤器以获取地图层，请执行以下步骤：
+1. 从**层** 控制板。
+1. 在里面**过滤器** 部分，取消选择**应用全球过滤器**。
+1. 选择**更新** 按钮。
 
-### Modifying an existing shape filter
+### 修改现有形状过滤器
 
-To modify an existing shape filter, select your filter on the top left above the map. You can perform the following operations on an existing filter:
+要修改现有的形状过滤器，请在地图上方左上方选择过滤器。您可以在现有过滤器上执行以下操作：
 
-- **Edit filter**: Change the filter name or modify the shape's coordinates.
-- **Exclude results**: Negate the filter, that is, show all data points _except_ those to which the filter applies.
-- **Temporarily disable**: Disable the filter until you select **Re-enable**.
-- **Delete**: Remove your filter completely.
+- **编辑过滤器**：更改过滤器名称或修改形状的坐标。
+- **排除结果**：否定过滤器，即显示所有数据点_except_滤波器应用的那些。
+- **暂时禁用**：禁用过滤器，直到您选择**关于-使能够**。
+- **删除**：完全卸下过滤器。
 
-## Using tooltips to visualize additional data
+## 使用工具提示可视化其他数据
 
-Document layers show geopoint and geoshape document fields as locations on the map. To add more information to the locations, you can use tooltips. For example, you may want to show flight delay, destination weather, and destination country information in the **Flight destination** layer. Perform the following steps to configure tooltips to show additional data:
+文档层显示地图上的GeoPoint和Geoshape文档字段作为地图上的位置。为了向位置添加更多信息，您可以使用工具提示。例如，您可能需要在此处显示飞行延迟，目的地天气和目的地国家信息**飞行目的地** 层。执行以下步骤以配置工具提示以显示其他数据：
 
-1. In the **Layers** panel, select **Flight destination**.
-1. Select **Tooltips**. 
-1. Select the **Show tooltips** checkbox.
-1. In the **Tooltip fields** dropdown list, select the fields that you'd like to display. In this example, select `FlightDelay`, `DestWeather`, and `DestCountry`.
-1. Select the **Update** button.
+1. 在里面**层** 面板，选择**飞行目的地**。
+1. 选择**工具提示**。
+1. 选择**显示工具提示** 复选框。
+1. 在里面**工具提示字段** 下拉列表，选择要显示的字段。在此示例中，选择`FlightDelay`，，，，`DestWeather`， 和`DestCountry`。
+1. 选择**更新** 按钮。
 
-To view tooltips, hover over the geographical point you're interested in. One tooltip can display many data points. For example, in the **Flight destination** layer there are multiple flights for a single destination city. To paginate over the flights, select the city you're interested in and use the arrows in the tooltip, as shown in the following image.
+要查看工具提示，请将悬停在您感兴趣的地理点上。一个工具提示可以显示许多数据点。例如，在**飞行目的地** 层有多个目的地城市的飞行。要在航班上铺平，请选择您感兴趣的城市并使用工具提示中的箭头，如下图所示。
 
 <img src="{{site.url}}{{site.baseurl}}/images/maps/tooltip.png" alt="Flight destination tooltip" width="450">
 
-If a point on the map contains data from multiple layers, one tooltip can display data from multiple layers. To see all layers, select **All layers**. To choose a particular layer, select the layer name in the tooltip layer selection panel, as shown in the following image.
+如果地图上的点包含来自多层的数据，则一个工具提示可以显示多层的数据。要查看所有层，请选择**所有层**。要选择特定图层，请在工具提示层选择面板中选择图层名称，如下图所示。
 
 <img src="{{site.url}}{{site.baseurl}}/images/maps/layer-selection-panel.png" alt="Tooltip with a layer selection panel" width="450">
 
-## Adding labels to layers
+## 将标签添加到层
 
-Adding a label to a layer lets you visualize additional data on the map. For example, you may want to see the origin weather in the **Flight destination** layer. Perform the following steps to add a label to the **Flight destination** layer:
+将标签添加到一层中，您可以在地图上可视化其他数据。例如，您可能希望看到**飞行目的地** 层。执行以下步骤将标签添加到**飞行目的地** 层：
 
-1. In the **Layers** panel, select **Flight destination**.
-1. In the **Style** tab, select the **Add label** checkbox.
-1. You can choose to add a label based on fixed text to all data points in the layer or to use a field value as the label text.
-  - To add a fixed-text label, under **Label text**, select **Fixed** and enter your desired label text.
-  - To add a label based on a field value, under **Label text**, select **Field value** and select the field name. In this example, select `OriginWeather`.
-1. (Optional) Change the label size, color, border color, or border width.
-1. Select the **Update** button.
+1. 在里面**层** 面板，选择**飞行目的地**。
+1. 在里面**风格** 选项卡，选择**添加标签** 复选框。
+1. 您可以选择根据固定文本添加标签到图层中的所有数据点，也可以将字段值作为标签文本使用。
+  - 添加固定-文字标签，下**标签文字**， 选择**固定的** 并输入您所需的标签文本。
+  - 要根据字段值添加标签，**标签文字**， 选择**场值** 并选择字段名称。在此示例中，选择`OriginWeather`。
+1. （可选）更改标签尺寸，颜色，边框颜色或边框宽度。
+1. 选择**更新** 按钮。
 
-The label with the origin weather is visible on the map and also added to the tooltips, as shown in the following image.
+如下图所示，在地图上可见具有原始天气的标签，并添加到工具提示中。
 
 <img src="{{site.url}}{{site.baseurl}}/images/maps/label.png" alt="Label based on field type added to map and tooltips" width="450">
 
-## Reordering, hiding, and deleting layers
+## 重新排序，隐藏和删除层
 
-The **Layers** panel lets you reorder, hide, and delete layers:
+这**层** 面板可让您重新排序，隐藏和删除图层：
 
-- Layers on a map are stacked on top of each other. To reorder layers, use the handlebar (two horizontal lines) icon next to the layer name to drag the layer to the desired position. 
+- 地图上的层彼此堆叠。要重新排序层，请使用层名称旁边的车把（两个水平线）图标将图层拖到所需的位置。
 
-- If you'd like to hide a layer, select the show/hide (eye) icon next to the layer name. Toggle the show/hide icon to show the layer again.
+- 如果您想隐藏一层，请选择图层名称旁边的show/hide（眼）图标。切换显示/隐藏图标以再次显示图层。
 
-- To delete a layer, select the delete (trash can) icon next to the layer name.
+- 要删除图层，请选择图层名称旁边的删除（垃圾桶）图标。
 
-## Refreshing data for a real-time dataset
+## 真实的刷新数据-时间数据集
 
-If you want to visualize a real-time dataset, after adding layers to the map, perform the following steps to set the refresh interval:
+如果您想可视化真实-时间数据集（将图层添加到地图上）执行以下步骤来设置刷新间隔：
 
-1. Select the calendar icon in the upper-right corner.
-1. Under **Refresh every**, select or enter the refresh interval (for example, 1 second).
-1. Select the **Start** button.
+1. 在鞋面中选择日历图标-右上角。
+1. 在下面**刷新每个**，选择或输入刷新间隔（例如，1秒）。
+1. 选择**开始** 按钮。
 
 <img src="{{site.url}}{{site.baseurl}}/images/maps/refresh.png" alt="Refreshing a map" width="450">
 
-## Saving a map
+## 保存地图
 
-To save a map with all the layers that you set up, perform the following steps:
+要保存使用您设置的所有层的地图，请执行以下步骤：
 
-1. Select the **Save** button in the upper-right corner.
-1. In the **Save map** dialog, enter the map name in the **Title** text box.
-1. (Optional) In the **Description** text box, enter the map description.
-1. Select the **Save** button.
+1. 选择**节省** upper-右上角。
+1. 在里面**保存地图** 对话框，输入地图名称**标题** 文本框。
+1. （可选）**描述** 文本框，输入地图描述。
+1. 选择**节省** 按钮。
 
-To open your saved map, choose **Maps** in the upper-left corner. The list of saved maps is displayed.
+要打开保存的地图，请选择**地图** 在上部-左角。显示了保存的地图列表。
 
-## Adding a map to a dashboard
+## 将地图添加到仪表板
 
-You can add a new or existing map to a new or existing dashboard by performing the following steps:
+您可以通过执行以下步骤将新的或现有的地图添加到新的或现有的仪表板：
 
-- To add a map to a new dashboard, first create the dashboard as follows:
+- 要在新的仪表板中添加地图，请首先创建仪表板，如下所示：
 
-  1. On the top menu bar, go to **OpenSearch Dashboards > Dashboard**.
-  1. Choose the **Create dashboard** button.
-  1. Choose the **Create new** button.
+  1.在顶部菜单栏上，转到**OpenSearch仪表板>仪表板**。
+  1.选择**创建仪表板** 按钮。
+  1.选择**创建新的** 按钮。
 
-- To add a map to an existing dashboard, first open the dashboard as follows:
-  1. On the top menu bar, go to **OpenSearch Dashboards > Dashboard**.
-  1. Select the dashboard you want to open from the list.
-  1. In the upper-right corner, choose **Edit**.
+- 要向现有仪表板添加地图，请首先打开仪表板，如下所示：
+  1.在顶部菜单栏上，转到**OpenSearch仪表板>仪表板**。
+  1.选择要从列表中打开的仪表板。
+  1.在上部-右角，选择**编辑**。
 
-Once you've opened a dashboard, you can add a new or existing map to it.
+打开仪表板后，您可以向其添加新的或现有的地图。
 
-### Adding an existing map
+### 添加现有地图
 
-1. From the top menu, choose **Add**.
-1. In the **Types** dropdown list, select **Maps**.
-1. Select the map you want to add from the list.
+1. 从顶部菜单中选择**添加**。
+1. 在里面**类型** 下拉列表，选择**地图**。
+1. 选择要从列表中添加的地图。
 
-### Adding a new map
+### 添加新地图
 
-1. From the top menu, choose the **Create new** button.
-1. In the **New Visualization** dialog, choose **Maps**.
-1. Edit the default map by adding a basemap, layers, or tooltips.
-1. In the upper-right corner, choose the **Save** button.
-1. In the **Save map** dialog, enter the **Title** and optional **Description** of the map.
-1. Select **Add to Dashboard after saving** (this option is selected by default).
-1. Choose the **Save and return** button.
+1. 从顶部菜单中选择**创建新的** 按钮。
+1. 在里面**新的可视化** 对话框，选择**地图**。
+1. 通过添加基础图，图层或工具提示来编辑默认地图。
+1. 在上部-右角，选择**节省** 按钮。
+1. 在里面**保存地图** 对话框，输入**标题** 和可选**描述** 地图。
+1. 选择**保存后添加到仪表板** （默认情况下选择此选项）。
+1. 选择**保存并返回** 按钮。
 
-## Editing a map from a dashboard
+## 从仪表板编辑地图
 
-1. In the dashboard, choose the gear icon in the upper-right corner of the map you want to edit.
-1. Choose **Edit maps**.
-1. Edit the map.
-1. In the upper-right corner, choose the **Save** button.
-1. In the **Save map** dialog, choose the **Save and return** button.
+1. 在仪表板中，选择上部的齿轮图标-您要编辑的地图的右角。
+1. 选择**编辑地图**。
+1. 编辑地图。
+1. 在上部-右角，选择**节省** 按钮。
+1. 在里面**保存地图** 对话，选择**保存并返回** 按钮
+

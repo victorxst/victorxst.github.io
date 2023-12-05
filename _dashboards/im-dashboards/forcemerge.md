@@ -1,48 +1,49 @@
 ---
 layout: default
-title: Force merge
-parent: Index Management
+title: 强制合并
+parent: 索引管理
 nav_order: 30
 redirect_from:
   - /dashboards/admin-ui-index/forcemerge/
 ---
 
-# Force merge
-Introduced 2.6
+# 强制合并
+引入2.6
 {: .label .label-purple }
 
-OpenSearch Dashboards allows you to perform a [force merge]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/index#force_merge) operation on two or more indexes with **Index Management**.
+OpenSearch仪表板允许您执行[强制合并]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/index#force_merge) 在两个或多个索引上操作**索引管理**。
 
-## Force merging indexes
+## 强制合并索引
 
-To perform a force merge operation on two or more indexes, perform the following steps:
+要在两个或多个索引上执行强制合并操作，请执行以下步骤：
 
-1. Under **Index Management**, choose **Indices**.
+1. 在下面**索引管理**， 选择**指数**。
 
-1. Select the indexes you want to force merge.
+1. 选择要强制合并的索引。
 
-1. Choose **Actions**, and then choose **Force merge**, as shown in the following image.
+1. 选择**动作**，然后选择**强制合并**，如下图所示。
 
-    ![Force Merge]({{site.url}}{{site.baseurl}}/images/admin-ui-index/forcemerge1.png)
+    ![强制合并]({{site.url}}{{site.baseurl}}/images/admin-ui-index/forcemerge1.png)
 
-1. Under **Configure source index**, specify the indexes you want to force merge.
+1. 在下面**配置源索引**，指定要强制合并的索引。
 
-1. Optionally, under **Advanced settings** you can to choose to **Flush indices** or **Only expunge delete** and then specify the **Max number of segments** to merge to as shown in the following image.
+1. 可选，下**高级设置** 您可以选择**冲洗指数** 或者**仅删除删除** 然后指定**最大段数** 如下图所示，合并到。
 
-    ![Force Merge]({{site.url}}{{site.baseurl}}/images/admin-ui-index/forcemerge2.png)
+    ![强制合并]({{site.url}}{{site.baseurl}}/images/admin-ui-index/forcemerge2.png)
 
-## Force merging data streams
+## 强制合并数据流
 
-To perform a force merge operation on two or more indexes, perform the following steps:
+要在两个或多个索引上执行强制合并操作，请执行以下步骤：
 
-1. Under **Index Management**, choose **Data streams**.
+1. 在下面**索引管理**， 选择**数据流**。
 
-1. Select the data streams you want to force merge.
+1. 选择要强制合并的数据流。
 
-1. Choose **Actions**, and then choose **Force merge**.
+1. 选择**动作**，然后选择**强制合并**。
 
-1. Under **Configure source index**, specify the data streams you want to force merge.
+1. 在下面**配置源索引**，指定要强制合并的数据流。
 
-1. Optionally, under **Advanced settings** you can to choose to **Flush indices** or **Only expunge delete** and then specify the **Max number of segments** to merge to as shown in the following image.
+1. 可选，下**高级设置** 您可以选择**冲洗指数** 或者**仅删除删除** 然后指定**最大段数** 如下图所示，合并到。
 
-    ![Force Merge]({{site.url}}{{site.baseurl}}/images/admin-ui-index/forcemerge2.png)
+    ![强制合并]({{site.url}}{{site.baseurl}}/images/admin-ui-index/forcemerge2.png)
+

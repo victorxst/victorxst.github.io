@@ -1,142 +1,143 @@
 ---
 layout: default
-title: Creating dashboards
+title: 创建仪表板
 nav_order: 30
 has_children: false
 ---
 
-# Creating dashboards
+# 创建仪表板
 
-The **Dashboard** application in OpenSearch Dashboards lets you visually represent your analytical, operational, and strategic data to help you quickly understand the trends in your data, giving you a high-level view of key metrics, simplifying data exploration, and delivering insights when and where you need them.
+这**仪表板** 在OpenSearch仪表板中的应用使您可以在视觉上表示您的分析，操作和战略数据，以帮助您快速了解数据中的趋势，从而使您有很高的-关键指标的级别视图，简化数据探索以及在需要的时间和地点提供见解。
 
-In this tutorial you'll learn the basics of creating a dashboard using the **Dashboard** application and OpenSearch sample data. The sample dataset has existing sample visualizations, and you can use those visualizations or create new visualizations for the dashboard. In this tutorial, you'll do both. Once you've completed this tutorial, you'll have learned the foundations of creating a new dashboard with multiple panels in OpenSearch Dashboards. 
+在本教程中，您将学习使用使用该仪表板的基础知识**仪表板** 应用程序和OpenSearch示例数据。示例数据集具有现有的示例可视化，您可以使用这些可视化或为仪表板创建新的可视化。在本教程中，您将同时做。完成本教程后，您将学习在OpenSearch仪表板中创建带有多个面板的新仪表板的基础。
 
-This OpenSearch Playground [dashboard example](https://playground.opensearch.org/app/dashboards#/view/722b74f0-b882-11e8-a6d9-e546fe2bba5f?_g=(filters:!(),refreshInterval:(pause:!f,value:900000),time:(from:now-7d,to:now))&_a=(description:'Analyze%20mock%20eCommerce%20orders%20and%20revenue',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!t,title:'%5BeCommerce%5D%20Revenue%20Dashboard',viewMode:view)) shows you what's possible with OpenSearch Dashboards.
+这个开放式搜索游乐场[仪表板示例](https://playground.opensearch.org/app/dashboards#/view/722b74f0-b882-11e8-a6d9-e546fe2bba5f?_g=(filters:!()，RefReshInterval ：（暂停：！F，值：900000），时间：（从：现在：现在-7d，to：now））＆_ a =（描述：'Analyaze％20 -mock％20户外％20个订单％20 and％20 and％20revenue'，过滤器：！（），fullScreenMode：！f，options ：（ hidepaneltitles：！，查询：（语言：Kuery，查询：''），TimeRestore：！t，标题：'％5Becommerce％5D％20 Revenue％20Dashboard'，viewMode：view Mode：view））向您展示OpenSearch搜索仪表板的可能性。
 {: .note}
 
-## Getting familiar with the UI
+## 熟悉UI
 
-Before getting started, let's get familiar with the **Dashboard** UI. The UI comprises the following main components:
+在开始之前，让我们熟悉**仪表板** UI。UI包括以下主要组件：
 
-![Dashboard user interface]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-UI.png)
+![仪表板用户界面]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-UI.png)
 
-- The **navigation panel** (A) on the left contains the OpenSearch Dashboards applications.
-- The **search** bar (B) lets you search for documents and other objects and add filters.
-- The **filter** (C) lets you narrow a dashboard's results.
-- The **toolbar** (D) contains frequently used commands and shortcuts.
-- The **time filter** (E) lets you customize the time and date.
-- The **panel** (F) allows you to add existing visualizations to the dashboard or create new ones for the dashboard.
+- 这**导航面板** （a）左侧包含OpenSearch仪表板应用程序。
+- 这**搜索** bar（b）可让您搜索文档和其他对象并添加过滤器。
+- 这**筛选** （c）让您缩小仪表板的结果。
+- 这**工具栏** （d）包含经常使用的命令和快捷方式。
+- 这**时间过滤器** （e）让您自定义时间和日期。
+- 这**控制板** （f）允许您在仪表板中添加现有的可视化或为仪表板创建新的可视化。
 
-## Defining terminology
+## 定义术语
 
-The following is some useful terminology for working with OpenSearch Dashboards and the **Dashboard** application:
+以下是与OpenSearch仪表板合作的一些有用的术语和**仪表板** 应用：
 
-- _Dashboards_ is the abbreviated name for OpenSearch Dashboards. OpenSearch Dashboards is an open-source visualization tool designed to work with OpenSearch.
-- _Dashboard_ is the OpenSearch Dashboards application used to track, analyze, and display data.
-- _dashboard_ or _dashboards_ are common names for a tool used to visually display data.
-- _Panel_ is a term used to refer to a visualization displayed on a dashboard. The terms _panel_ and _visualization_ may be used interchangeably throughout this and other Dashboards documentation.
+- _dashboards_是OpenSearch仪表板的缩写名称。OpenSearch仪表板是开放的-来源可视化工具旨在与Opensearch合作。
+- _dashboard_是用于跟踪，分析和显示数据的OpenSearch仪表板应用程序。
+- _dashboard_或_dashboards_是用于视觉显示数据的工具的通用名称。
+- _panel_是一个术语，用于参考仪表板上显示的可视化。_ panel_和_visualization术语可以在此和其他仪表板文档中互换使用。
 
-The following tutorial assumes you're either using your existing installation of OpenSearch Dashboards or using the [OpenSearch Playground](https://playground.opensearch.org/app/home#/). Depending on which one you use, certain capabilities may not be available. For example, sample datasets may not be included in your existing installation, and saving a dashboard isn't an option in the OpenSearch Playground.
+以下教程假设您要么使用openSearch仪表板的现有安装，要么使用[OpenSearch Playground](https://playground.opensearch.org/app/home#/)。根据您使用哪一个，可能无法使用某些功能。例如，示例数据集可能不包含在您现有的安装中，并且在OpenSearch Playground中保存仪表板不是一个选项。
 {: .note}
 
-## Creating a dashboard and adding an existing visualization
+## 创建仪表板并添加现有的可视化
 
-To create a dashboard and add a sample visualization:
+要创建仪表板并添加示例可视化：
 
-1. Connect to `https://localhost:5601`. The username and password are `admin`. Alternatively, go to the [OpenSearch Playground](https://playground.opensearch.org/app/home#/).
-1. On the top menu, go to **OpenSearch Dashboards > Dashboard**.
-1. From the **Dashboards** panel, choose **Create Dashboard**.
-1. Choose the calendar icon and set the time filter to **Last 30 days**.
-1. From the panel, choose **Add an existing**.
-1. From the **Add panels** window, choose **[eCommerce] Promotion Tracking**, and then choose `x` to close the panel.
+1. 连接到`https://localhost:5601`。用户名和密码是`admin`。或者，去[OpenSearch Playground](https://playground.opensearch.org/app/home#/)。
+1. 在顶部菜单上，转到**OpenSearch仪表板>仪表板**。
+1. 来自**仪表板** 面板，选择**创建仪表板**。
+1. 选择日历图标并将时间过滤器设置为**最近30天**。
+1. 从面板中选择**添加现有**。
+1. 来自**添加面板** 窗口，选择**[电子商务]促销跟踪**，然后选择`x` 关闭面板。
 
-You've now created the following basic dashboard with a single panel, which you'll continue using throughout this tutorial.
+现在，您已经使用一个面板创建了以下基本仪表板，您将在本教程中继续使用。
 
-![Basic dashboard with single panel]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-basic.png)
+![带有单个面板的基本仪表板]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-basic.png)
 
-## Creating visualizations
+## 创建可视化
 
-Continuing with the dashboard you created in the preceding steps, you'll create a new visualization and save it to the dashboard:
+继续使用前面的步骤创建的仪表板，您将创建一个新的可视化，并将其保存到仪表板：
 
-1. From the dashboard toolbar, choose **Create new**.
-1. From the **New Visualization** window, choose **Gauge** and then select the index pattern **opensearch_dashboards_sample_data_ecommerce**. 
-1. From the toolbar, choose **Save**.
-1. In the **Save visualization** window, enter a title for the visualization. For example, the title for the gauge chart panel is [eCommerce] Orders.
-1. Choose **Save and return**.  
+1. 从仪表板工具栏中，选择**创建新的**。
+1. 来自**新的可视化** 窗口，选择**测量** 然后选择索引模式**opensearch_dashboards_sample_data_ecommerce**。
+1. 从工具栏中选择**节省**。
+1. 在里面**保存可视化** 窗口，输入可视化的标题。例如，仪表图表面板的标题是[电子商务]订单。
+1. 选择**保存并返回**。
 
-The gauge chart visualization is now saved and you are taken back to the dashboard. You'll see two visualizations on the dashboard, like the following.
+现在保存了量规图的可视化，您将被带回仪表板。如下所示，您将在仪表板上看到两个可视化。
 
-![Dashboard showing visualizations combined in a single view]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-combined.png)
+![仪表板显示可视化的单个视图]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-combined.png)
 
-## Adding subsequent panels
+## 添加随后的面板
 
-Continuing with the dashboard you created in the preceding steps, you'll add an existing visualization to the dashboard:
+继续使用前面的步骤创建的仪表板，您将在仪表板中添加现有的可视化：
 
-1. From the dashboard toolbar, choose **Add**.
-1. From the **Add panels** window, choose **[eCommerce] Sales by Category**.
-1. Choose `x` to close the **Add panels** window. 
+1. 从仪表板工具栏中，选择**添加**。
+1. 来自**添加面板** 窗口，选择**[电子商务]按类别销售**。
+1. 选择`x` 关闭**添加面板** 窗户。
 
-You'll see an area chart visualization display on the dashboard, as shown in the following image. 
+如下图所示，您将在仪表板上看到区域图可视化显示。
 
-![Adding another panel to the dashboard]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-adding-panels.png)
+![将另一个面板添加到仪表板]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-adding-panels.png)
 
-## Saving dashboards
+## 保存仪表板
 
-When you've finalized your dashboard, save it. If you're saving a new dashboard:
+完成仪表板时，保存。如果您要保存新的仪表板：
 
-1. In the toolbar, choose **Save**.
-2. In the **Save dashboard** window, enter the **Title**. The **Description** is optional.
-3. To save the time filter to the dashboard, select **Store time with dashboard**.
-4. Choose **Save**.
+1. 在工具栏中，选择**节省**。
+2. 在里面**保存仪表板** 窗口，输入**标题**。这**描述** 是可选的。
+3. 要将时间过滤器保存到仪表板，请选择**用仪表板存储时间**。
+4. 选择**节省**。
 
-## Customizing the look of a panel
+## 定制面板的外观
 
-To customize the panels, you'll need to be in edit mode:
+要自定义面板，您需要处于编辑模式：
 
-- Choose **Edit** at the top right of the toolbar. 
+- 选择**编辑** 在工具栏的右上角。
 
-If you see **Create new** at the top right of the toolbar, you're already in edit mode.
+如果你看到**创建新的** 在工具栏的右上角，您已经处于编辑模式。
 {: .note}
 
-Displaying a legend can give readers more information, while hiding a legend can give the panel a cleaner look. If you want to display or hide the panel legend:
+展示传奇可以为读者提供更多信息，同时隐藏传奇可以使面板看起来更清洁。如果要显示或隐藏面板传奇：
 
-- Choose the list icon in the panel's lower left corner.
+- 选择面板左下角的列表图标。
 
-If you want to change the color of the panel legend:
+如果您想更改面板传奇的颜色：
 
-- From the visualization legend, select a category and then select a color from the flyout. The area chart updates with your change.
+- 从可视化的传奇中，选择一个类别，然后从飞行中选择颜色。区域图随您的更改更新。
 
-This color change is only saved for the current panel and dashboard and doesn't affect the saved visualization.
+此颜色更改仅用于当前面板和仪表板，并且不会影响保存的可视化。
 {: .note}
 
-If you want to change the color of the panel legend in the visualization:
+如果您想在可视化中更改面板传奇的颜色：
 
-1. Choose the gear icon on the area chart panel.
-2. From the **Options** window, select **Edit visualization**.
-3. From the visualization legend, select a category and then select a color from the flyout. The area chart updates with your change.
-4. Choose **Save and return**. 
+1. 在区域图表面板上选择齿轮图标。
+2. 来自**选项** 窗口，选择**编辑可视化**。
+3. 从可视化的传奇中，选择一个类别，然后从飞行中选择颜色。区域图随您的更改更新。
+4. 选择**保存并返回**。
 
-This color change affects the saved visualization and any dashboard that links to the visualization.
+这种颜色变化会影响保存的可视化和链接到可视化的任何仪表板。
 {: .note}
 
-If you want to display, hide, or customize the panel title:
+如果要显示，隐藏或自定义面板标题：
 
-1. Choose the gear icon on the panel.
-2. From the **Options** window, select **Edit panel title**.
-3. From the **Customize panel**, enter a title under **Panel title** or toggle the **Show panel title** to hide the title.
-4. Choose **Save**.
+1. 选择面板上的齿轮图标。
+2. 来自**选项** 窗口，选择**编辑面板标题**。
+3. 来自**自定义面板**，在下面输入标题**面板标题** 或切换**展示面板标题** 隐藏标题。
+4. 选择**节省**。
 
-Changing panel titles only affects the particular panel on the particular dashboard and won't affect any other panel containing that same visualization or any other dashboard.
+更改面板标题仅影响特定仪表板上的特定面板，并且不会影响任何其他包含相同可视化或任何其他仪表板的面板。
 {: .note}
 
-## Arranging panels
+## 布置面板
 
-To organize panels, arrange them side by side, or resize them, you can use these options:
+要整理面板，并将其并排排列或调整大小，您可以使用以下选项：
 
-- To move a panel, select and hold the panel title or the top of the panel and drag to the new location.
-- To resize a panel, choose the resize icon in the panel's lower-right corner and drag to the new dimensions.
-- To view a panel in full screen mode, choose the gear icon (edit mode) or vertical ellipsis (⋮) at the top right of the panel and select **Maximize panel**. To minimize the full screen mode, choose the gear icon or vertical ellipsis and select **Minimize**.
+- 要移动面板，请选择并保留面板标题或面板的顶部，然后拖动到新位置。
+- 要调整面板的大小-右下角并拖到新的维度。
+- 要在全屏模式下查看面板，请在面板右上方选择齿轮图标（编辑模式）或垂直省略号（⋮），然后选择**最大化面板**。要最大程度地减少全屏模式，请选择齿轮图标或垂直省略号，然后选择**最小化**。
 
-The following is an example of a customized dashboard created by using this tutorial.
+以下是使用本教程创建的自定义仪表板的示例。
 
-![Customized dashboard with panels arranged side by side and without legends]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-customized.png)
+![定制的仪表板，带有并排布置的面板，没有传奇]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-customized.png)
+

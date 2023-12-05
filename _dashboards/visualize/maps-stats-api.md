@@ -1,42 +1,42 @@
 ---
 layout: default
-title: Maps Stats API
+title: 地图统计API
 nav_order: 20
-grand_parent: Building data visualizations
-parent: Using coordinate and region maps 
+grand_parent: 构建数据可视化
+parent: 使用坐标和区域图
 has_children: false
 ---
 
-# Maps Stats API
-Introduced 2.7
+# 地图统计API
+引入2.7
 {: .label .label-purple }
 
-When you create and save a [map]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/) in OpenSearch Dashboards, the map becomes a saved object of type `map`. The Maps Stats API provides information about such saved objects in OpenSearch Dashboards. 
+当您创建并保存一个[地图]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/) 在OpenSearch仪表板中，该地图变成了类型的保存对象`map`。地图统计信息API在OpenSearch仪表板中提供了有关此类保存对象的信息。
 
-#### Example request
+#### 示例请求
 
-You can access the Maps Stats API by providing its URL address in the following format:
+您可以通过以下格式提供其URL地址来访问MAPS统计信息：
 
 ```
 <opensearch-dashboards-endpoint-address>/api/maps-dashboards/stats
 ```
 
-The OpenSearch Dashboards endpoint address may contain a port number if it is specified in the OpenSearch configuration file. The specific URL format depends on the type of OpenSearch deployment and the network environment in which it is hosted.
-{: .note}  
+如果OpenSearch Configuration文件中指定了OpenSearch仪表板端点地址，则可能包含一个端口号。特定的URL格式取决于OpenSearch部署的类型及其托管的网络环境的类型。
+{: .note}
 
-You can query the endpoint in two ways:
+您可以通过两种方式查询端点：
   
-  - By accessing the endpoint address (for example, `http://localhost:5601/api/maps-dashboards/stats`) in a browser
+  - 通过访问端点地址（例如，`http://localhost:5601/api/maps-dashboards/stats`）在浏览器中
 
-  - By using the `curl` command in the terminal:
+  - 通过使用`curl` 终端中的命令：
     ```bash
     curl -X GET http://localhost:5601/api/maps-dashboards/stats
     ```
-    {% include copy.html %}
+    {％include copy.html％}
 
-#### Example response
+#### 示例响应
 
-The following is the response for the preceding request:
+以下是前面请求的响应：
 
 ```json
 {
@@ -93,44 +93,45 @@ The following is the response for the preceding request:
 }
 ```
 
-## Response fields
+## 响应字段
 
-The response contains statistics for the following layer types:
+响应包含以下层类型的统计信息：
 
-- Basemaps: Either a default OpenSearch map or custom base layer maps.
+- 基础胶质：默认的OpenSearch地图或自定义基本层映射。
 
-- WMS layers: Custom WMS base layer maps.
+- WMS层：自定义WMS基层图。
 
-- TMS layers: Custom TMS base layer maps.
+- TMS层：自定义TMS基层图。
 
-- Document layers: The map's data layers.
+- 文档层：地图的数据层。
 
-For more information about the layer types, see [Adding layers]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/#adding-layers).
+有关图层类型的更多信息，请参见[添加图层]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/#adding-layers)。
 
-The following table lists all response fields.
+下表列出了所有响应字段。
 
-| Field | Data type | Description |
+| 场地| 数据类型| 描述|
 | :--- | :--- | :--- | 
-| `maps_total` | Integer | The total number of maps registered as saved objects with the Maps plugin. |
-| `layers_filters_total` | Integer | The total number of filters for all layers in all maps. This includes [layer-level filters]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/#filtering-data-at-the-layer-level) but excludes global filters like [shape filters]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/#drawing-shapes-to-filter-data). |
-| `layers_total` | Object | Totals statistics for all layers in all maps. |
-| `layers_total.opensearch_vector_tile_map` | Integer | The total number of OpenSearch basemaps in all maps. |
-| `layers_total.documents` | Integer | The total number of document layers in all maps. |
-| `layers_total.wms` | Integer | The total number of WMS layers in all maps. |
-| `layers_total.tms` | Integer | The total number of TMS layers in all maps. |
-| `maps_list` | Array | A list of all maps saved in OpenSearch Dashboards. |
+| `maps_total` | 整数| 用地图插件注册为保存对象的地图总数。|
+| `layers_filters_total` | 整数| 所有地图中所有层的过滤器总数。这包括[层-级过滤器]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/#filtering-data-at-the-layer-level) 但不包括全球过滤器[形状过滤器]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/#drawing-shapes-to-filter-data)。|
+| `layers_total` | 目的| 所有地图中所有图层的总统计信息。|
+| `layers_total.opensearch_vector_tile_map` | 整数| 所有地图中的OpenSearch基础胶质总数。|
+| `layers_total.documents` | 整数| 所有地图中的文档层总数。|
+| `layers_total.wms` | 整数| 所有地图中的WMS层总数。|
+| `layers_total.tms` | 整数| 所有地图中TMS层的总数。|
+| `maps_list` | 大批| 保存在OpenSearch仪表板中的所有地图的列表。|
 
-Each map in the `map_list` contains the following fields.
+每个地图`map_list` 包含以下字段。
 
-| Field | Data type | Description |
+| 场地| 数据类型| 描述|
 | :--- | :--- | :--- | 
-| `id` | String | The map's saved object ID. |
-| `layers_filters_total` | Integer | The total number of filters for all layers in the map. This includes [layer-level filters]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/#filtering-data-at-the-layer-level) but excludes global filters like [shape filters]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/#drawing-shapes-to-filter-data) . |
-| `layers_total` | Object | Totals statistics for all layers in the map. |
-| `layers_total.opensearch_vector_tile_map` | Integer | The total number of OpenSearch basemaps in the map. |
-| `layers_total.documents` | Integer | The total number of document layers in the map. |
-| `layers_total.wms` | Integer | The total number of WMS layers in the map. |
-| `layers_total.tms` | Integer | The total number of TMS layers in the map. |
+| `id` | 细绳| 地图保存的对象ID。|
+| `layers_filters_total` | 整数| 地图中所有层的过滤器总数。这包括[层-级过滤器]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/#filtering-data-at-the-layer-level) 但不包括全球过滤器[形状过滤器]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/#drawing-shapes-to-filter-data) 。|
+| `layers_total` | 目的| 地图中所有层的总统计信息。|
+| `layers_total.opensearch_vector_tile_map` | 整数| 地图中的OpenSearch基本封面总数。|
+| `layers_total.documents` | 整数| 地图中文档层的总数。|
+| `layers_total.wms` | 整数| 地图中的WMS层的总数。|
+| `layers_total.tms` | 整数| 地图中TMS的总数。|
 
-The saved object ID helps you navigate to a particular map because the ID is the last part of the map's URL. For example, in OpenSearch Playground, the address of the `[Flights] Flights Status on Maps Destination Location` map is `https://playground.opensearch.org/app/maps-dashboards/88a24e6c-0216-4f76-8bc7-c8db6c8705da`, where `88a24e6c-0216-4f76-8bc7-c8db6c8705da` is the saved object ID for this map.
+保存的对象ID可帮助您导航到特定地图，因为ID是地图URL的最后部分。例如，在OpenSearch游乐场，地址`[Flights] Flights Status on Maps Destination Location` 地图是`https://playground.opensearch.org/app/maps-dashboards/88a24e6c-0216-4f76-8bc7-c8db6c8705da`， 在哪里`88a24e6c-0216-4f76-8bc7-c8db6c8705da` 是此地图的保存对象ID。
 {: .tip}
+

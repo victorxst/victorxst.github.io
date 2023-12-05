@@ -1,44 +1,44 @@
 ---
 layout: default
-title: Search telemetry
+title: 搜索遥测
 nav_order: 140
 ---
 
 
-# Search telemetry
+# 搜索遥测
 
-You can use search telemetry to analyze search request performance by success or failure in OpenSearch Dashboards. OpenSearch stores telemetry data in the `.kibana_1` index.
+您可以使用搜索遥测来通过OpenSearch仪表板中的成功或失败来分析搜索请求性能。OpenSearch将遥测数据存储在`.kibana_1` 指数。
 
-Because there are thousands of concurrent search requests from OpenSearch Dashboards, the heavy traffic can cause significant load in an OpenSearch cluster.
+由于OpenSearch仪表板有成千上万的并发搜索请求，因此流量繁忙可能会在OpenSearch集群中造成重大负载。
 
-OpenSearch clusters perform better with search telemetry turned off.
-{: .tip }
+OpenSearch群集在关闭搜索遥测时性能更好。
+{： 。提示 }
 
-## Turning on search telemetry
+## 打开搜索遥测
 
-Search usage telemetry is turned off by default. To turn it on, you need to set `data.search.usageTelemetry.enabled` to `true` in the `opensearch_dashboards.yml` file.
+默认情况下，搜索用法遥测将关闭。要打开它，您需要设置`data.search.usageTelemetry.enabled` 到`true` 在里面`opensearch_dashboards.yml` 文件。
 
-You can find the [OpenSearch Dashboards YAML file](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml) in the opensearch-project repository on GitHub.
+你可以找到[OpenSearch Dashboards yaml文件](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml) 在OpenSearch中-GitHub上的项目存储库。
 
-Turning on telemetry in the `opensearch_dashboards.yml` file overrides the default search telemetry setting of `false` in the [Data plugin configuration file](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/data/config.ts).
-{: .note }
+打开遥测`opensearch_dashboards.yml` 文件覆盖默认搜索遥测设置`false` 在里面[数据插件配置文件](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/data/config.ts)。
+{： 。笔记 }
 
-### Turning search telemetry on or off
+### 打开或关闭搜索遥测
 
-The following table shows the `data.search.usageTelemetry.enabled` values you can set in `opensearch_dashboards.yml` to turn search telemetry on or off.
+下表显示了`data.search.usageTelemetry.enabled` 您可以设置的值`opensearch_dashboards.yml` 打开或关闭搜索遥测。
 
-OpenSearch Dashboards YAML value  | Search telemetry status: on or off
-:--- |  :---
- `true`  | On
- `false` | Off
- `none`  | Off
+OpenSearch仪表板YAML值| 搜索遥测状态：开机或关闭
+：--- |  ：---
+ `true`  | 在
+ `false` | 离开
+ `none`  | 离开
 
-#### Sample opensearch_dashboards.yml with telemetry enabled
+#### sample opensearch_dashboards.yml启用了遥测
 
- This OpenSearch Dashboards YAML file excerpt shows the telemetry setting set to `true` to turn on search telemetry:
+ 此OpenSearch Dashboards yaml文件摘录显示遥测设置设置为`true` 打开搜索遥测：
 
- ```json
-# Set the value of this setting to false to suppress 
-# search usage telemetry to reduce the load of the OpenSearch cluster.
- data.search.usageTelemetry.enabled: true
+ ```JSON
+# 将此设置的值设置为false以抑制
+# 搜索用法遥测以减少OpenSearch群集的负载。
+ data.search.usagetelemetry.enabled：true
 ```

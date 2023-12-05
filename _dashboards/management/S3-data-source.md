@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Connecting Amazon S3 to OpenSearch
-parent: Data sources
+parent: 数据源
 nav_order: 15
 has_children: true
 ---

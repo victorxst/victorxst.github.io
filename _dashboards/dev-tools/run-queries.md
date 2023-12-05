@@ -1,43 +1,43 @@
 ---
 layout: default
-title: Running queries in the Dev Tools console
-parent: Dev Tools
+title: 在开发工具控制台中运行查询
+parent: 开发工具
 nav_order: 10
 redirect_from:
   - /dashboards/run-queries/
 ---
 
-# Running queries in the Dev Tools console
+# 在开发工具控制台中运行查询
 
-The Dev Tools console can be used to send queries to OpenSearch. To access the console, go to the OpenSearch Dashboards main menu and select **Management** > **Dev Tools**.
-## Writing queries
+开发工具控制台可用于将查询发送到OpenSearch。要访问控制台，请转到OpenSearch仪表板主菜单，然后选择**管理** >**开发工具**。
+## 编写查询
 
-OpenSearch provides a query domain-specific language (DSL) called [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/). It is a flexible language with a JSON interface. 
+OpenSearch提供了一个查询域-特定语言（DSL）称为[查询DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/)。这是一种具有JSON接口的灵活语言。
 
-To write your queries, use the editor pane on the left side of the console. To send a query to OpenSearch, select the query by placing the cursor in the query text and then selecting the play icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/play-icon.png" class="inline-icon" alt="play icon"/>{:/}) on the upper right of the request or press `Ctrl/Cmd+Enter`. The response from OpenSearch is displayed in the response pane on the right side of the console. To run multiple commands simultaneously, select all the commands in the editor pane, and then select the play icon or press `Ctrl/Cmd+Enter`. 
+要编写查询，请使用控制台左侧的编辑窗格。要将查询发送到OpenSearch，请通过将光标放置在查询文本中，然后选择“ play图标”（{:: :: NOMARKDOWN} <img src =来选择查询。"{{site.url}}{{site.baseurl}}/images/icons/play-icon.png" class ="inline-icon" alt ="play icon"/> {：/}）在请求的右上角或按`Ctrl/Cmd+Enter`。OpenSearch的响应显示在控制台右侧的响应窗格中。要同时运行多个命令，请在编辑器窗格中选择所有命令，然后选择“播放”图标或按下`Ctrl/Cmd+Enter`。
 
-An example of the query and response panes is shown in the following image.
+以下图像显示了查询和响应窗格的一个示例。
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/query-request-ui.png" alt="Console UI with query and request">
 
-### Query options 
+### 查询选项
 
-When writing queries using the console, there are common actions that can help you write queries more efficiently and accurately. The following table describes these features and how you can use them.
+在使用控制台编写查询时，有一些常见的操作可以帮助您更有效，准确地编写查询。下表描述了这些功能以及如何使用它们。
 
-Feature | How to use |
+特征| 如何使用|
 --------|------------|
-**Collapsing or expanding a query** | To hide or show details of your query, select the expander arrow ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/arrow-down-icon.png" class="inline-icon" alt="arrow down icon"/>{:/}) next to the line number. |
-**Auto indenting** | To use auto indent, select the queries that you want to format, then select the wrench icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/wrench-icon.png" class="inline-icon" alt="wrench icon"/>{:/}), and choose **Auto indent**. |
-**Autocomplete** | To define your preferences for autocomplete suggestions, configure them in **Settings**. |
-**Request history** | To view request history, select **History** from the top menu. If you select the request you want to view from the left pane, the query is shown in the right pane. To copy the query into the editor pane, select the query text and then select **Apply**. To clear the history, select **Clear**. |
-**Keyboard shortcuts** | To view all available keyboard shortcuts, select **Help** from the top menu. |
-**Documentation access from the console** | To access OpenSearch documentation from the console, select the wrench icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/wrench-icon.png" class="inline-icon" alt="wrench icon"/>{:/}) and choose **Open documentation**. |
+**崩溃或扩展查询** | 要隐藏或显示查询的详细信息，请选择“ expander箭头”（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/arrow-down-icon.png" class ="inline-icon" alt ="arrow down icon"/> {：/}）在行号旁边。|
+**自动缩进** | 要使用自动缩进，请选择要格式化的查询，然后选择扳手图标（{:: NOMARKDOWN} <img src ="{{site.url}}{{site.baseurl}}/images/icons/wrench-icon.png" class ="inline-icon" alt ="wrench icon"/> {：/}），然后选择**自动凹痕**。|
+**自动完成** | 要定义您对自动完成建议的偏好，请在**设置**。|
+**请求历史记录** | 要查看请求历史记录，请选择**历史** 从顶部菜单。如果选择要从左窗格查看的请求，则查询在右窗格中显示。要将查询复制到编辑器窗格中，请选择查询文本，然后选择**申请**。要清理历史，请选择**清除**。|
+**键盘快捷键** | 要查看所有可用的键盘快捷键，请选择**帮助** 从顶部菜单。|
+**从控制台访问文档** | 要从控制台访问OpenSearch文档，请选择“扳手”图标（{:: NOMARKDOWN} <IMG SRC ="{{site.url}}{{site.baseurl}}/images/icons/wrench-icon.png" class ="inline-icon" alt ="wrench icon"/> {：/}），然后选择**打开文档**。|
 
-## Working in the cURL and console formats
+## 以卷发和控制台格式工作
 
-The console uses a simplified syntax to format REST requests instead of the `curl` command. If you paste a `curl` command directly into the console, the command is automatically converted into the format used by the console. To import a query in cURL format, select the query, then select the wrench icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/wrench-icon.png" class="inline-icon" alt="wrench icon"/>{:/}), and choose **Copy as cURL**. 
+该控制台使用简化的语法将REST请求格式化，而不是`curl` 命令。如果你粘贴`curl` 命令直接进入控制台，将命令自动转换为控制台使用的格式。要以卷曲格式导入查询，请选择查询，然后选择扳手图标（{:: :: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/wrench-icon.png" class ="inline-icon" alt ="wrench icon"/> {：/}），然后选择**复制为卷发**。
 
-For example, the following `curl` command runs a search query:
+例如，以下`curl` 命令运行搜索查询：
 
 ```bash
 curl -XGET http://localhost:9200/shakespeare/_search?pretty -H 'Content-Type: application/json' -d'
@@ -49,9 +49,9 @@ curl -XGET http://localhost:9200/shakespeare/_search?pretty -H 'Content-Type: ap
   }
 }'
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-The same query has a simplified syntax in the console format, as shown in the following example:
+同一查询具有控制台格式的简化语法，如下所示：
 
 ```json
 GET shakespeare/_search
@@ -63,4 +63,5 @@ GET shakespeare/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html %}}
+

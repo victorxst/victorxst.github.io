@@ -1,32 +1,32 @@
 ---
 layout: default
-title: Using VisBuilder
-parent: Building data visualizations
+title: 使用visbuilder
+parent: 构建数据可视化
 nav_order: 100
 redirect_from:
   - /dashboards/drag-drop-wizard/
 ---
 
-# Using VisBuilder
+# 使用visbuilder
 
-VisBuilder is an experimental feature and shouldn't be used in a production environment. For updates on its progress, or if you want to leave feedback that helps improve the feature, see the [GitHub issue](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/2280).
+Visbuilder是一个实验特征，不应在生产环境中使用。有关其进度的最新信息，或者如果要留下有助于改进功能的反馈，请参阅[Github问题](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/2280)。
 {: .warning}
 
-You can use the VisBuilder visualization type in OpenSearch Dashboards to create data visualizations by using a drag-and-drop gesture. With VisBuilder you have:
+您可以在OpenSearch仪表板中使用Visbuilder可视化类型来创建数据可视化-和-掉落的手势。有了visbuilder，您有：
 
-* An immediate view of your data without the need to preselect the visualization output.
-* The flexibility to change visualization types and index patterns quickly.
-* The ability to easily navigate between multiple screens.
+*即时视图，无需预先选择可视化输出。
+*快速更改可视化类型和索引模式的灵活性。
+*在多个屏幕之间轻松导航的能力。
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/vis-builder-2.png" alt="VisBuilder new visualization start page">
 
-## Try VisBuilder in the OpenSearch Dashboards playground
+## 尝试在OpenSearch仪表板游乐场中的Visbuilder
 
-If you'd like to try out VisBuilder without installing OpenSearch locally, you can do so in the [Dashboards playground](https://playground.opensearch.org/app/vis-builder#/). VisBuilder is enabled by default.
+如果您想在不本地安装OpenSearch的情况下尝试Visbuilder，则可以在[仪表板操场](https://playground.opensearch.org/app/vis-builder#/)。默认情况下启用Visbuilder。
 
-## Try VisBuilder locally
+## 在本地尝试粘粘器
 
-VisBuilder is enabled by default. If you want to disable it, set the feature `flag vis_builder.enabled:` to `false` in the `opensearch_dashboards.yml` file as follows:
+默认情况下启用Visbuilder。如果要禁用它，请设置功能`flag vis_builder.enabled:` 到`false` 在里面`opensearch_dashboards.yml` 文件如下：
 
 ```
 # Set the value of this setting to false to disable VisBuilder
@@ -34,24 +34,25 @@ VisBuilder is enabled by default. If you want to disable it, set the feature `fl
 vis_builder.enabled: false
 ``` 
 
-Follow these steps to create a new visualization using VisBuilder in your environment:
+请按照以下步骤在您的环境中使用Visbuilder创建新的可视化：
 
-1. Open Dashboards:
-    - If you're not running the Security plugin, go to http://localhost:5601.
-    - If you're running the Security plugin, go to https://localhost:5601 and log in with your username and password (default is admin/admin).
+1. 开放仪表板：
+    - 如果您不运行安全插件，请访问http：// localhost：5601。
+    - 如果您正在运行安全插件，请访问https：// localhost：5601，并使用您的用户名和密码登录（默认为admin/admin）。
 
-2. Confirm that the **Enable experimental visualizations** option is turned on.
-   - From the top menu, select **Management** > **Dashboards Management** > **Advanced Settings**.
-   - Select **Visualization** and verify that the option is turned on.
+2. 确认**启用实验可视化** 选项已打开。
+   - 从顶部菜单中选择**管理** >**仪表板管理** >**高级设置**。
+   - 选择**可视化** 并验证该选项是否已打开。
    
-   <img src="{{site.url}}{{site.baseurl}}/images/enable-experimental-viz.png" alt="Enable experimental visualizations" width="600">
+   <img src ="{{site.url}}{{site.baseurl}}/images/enable-experimental-viz.png" alt ="Enable experimental visualizations" 宽度="600">
 
-3. From the top menu, select **Visualize** **>** **Create visualization** **>** **VisBuilder**.
+3. 从顶部菜单中选择**可视化** **>** **创建可视化** **>** **visbuilder**。
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/vis-builder-1.png" alt="Select the VisBuilder visualization type" width="550">  
+   <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/vis-builder-1.png" alt ="Select the VisBuilder visualization type" 宽度="550">
 
-4. Drag and drop field names from the left column into the **Configuration** panel to generate a visualization.
+4. 将左列的字段名称拖动到**配置** 面板生成可视化。
 
-Here’s an example visualization. Your visualization will look different depending on your data and the fields you select.
+这是一个示例可视化。根据您的数据和选择的字段，您的可视化看起来会有所不同。
 
 <img src="{{site.url}}{{site.baseurl}}/images/drag-drop-generated-viz.png" alt="Visualization generated using sample data">
+

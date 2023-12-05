@@ -1,119 +1,120 @@
 ---
 layout: default
-title: Quickstart guide
+title: 快速入门指南
 nav_order: 2
 has_children: false
 redirect_from:
    - /dashboards/quickstart-dashboards/
 ---
 
-# Quickstart guide
+# 快速入门指南
 
-This quickstart guide covers the core concepts that you need to understand to get started with OpenSearch Dashboards. You'll learn how to:
+该快速启动指南涵盖了您需要了解的核心概念，以便从OpenSearch仪表板开始。您将学习如何：
 
-- Add sample data.
-- Explore and inspect data.
-- Visualize data.
+- 添加示例数据。
+- 探索和检查数据。
+- 可视化数据。
 
-Here's a glance at the view you see when you open the **Dashboard** or **Discover** tool.
+这是您打开时看到的视图**仪表板** 或者**发现** 工具。
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/new-look.png" alt="Light and dark mode UI on Discover and Dashboard tools' home page" width="700">
 
-{::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class="inline-icon" alt="alert icon"/>{:/} **Note**<br>Before you get started, make sure you've installed OpenSearch and OpenSearch Dashboards. For information about installation and configuration, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/).
+{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class ="inline-icon" alt ="alert icon"/> {：/}**笔记**<br>在开始之前，请确保已安装了OpenSearch和OpenSearch仪表板。有关安装和配置的信息，请参阅[安装和配置OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) 和[安装和配置OpenSearch仪表板]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)。
 {: .note}
-# Adding sample data
+# 添加样本数据
 
-Sample datasets come with visualizations, dashboards, and other tools to help you explore Dashboards before you add your own data. To add sample data, perform the following steps:
+示例数据集配备了可视化，仪表板和其他工具，可以在添加自己的数据之前帮助您探索仪表板。要添加示例数据，请执行以下步骤：
 
-1. Verify access to OpenSearch Dashboards by connecting to [http://localhost:5601](http://localhost:5601) from a browser. The default username and password are `admin`.
-1. On the OpenSearch Dashboards **Home** page, choose **Add sample data**.
-2. Choose **Add data** to add the datasets, as shown in the following image.
+1. 通过连接到OpenSearch仪表板的访问[http：// localhost：5601](http://localhost:5601) 从浏览器。默认用户名和密码是`admin`。
+1. 在OpenSearch仪表板上**家** 页面，选择**添加示例数据**。
+2. 选择**添加数据** 添加数据集，如下图所示。
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-sample-data.png" alt="Sample datasets" width="700">
+    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/add-sample-data.png" alt ="Sample datasets" 宽度="700">
 
-# Exploring and inspecting data
+# 探索和检查数据
 
-In [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/), you can: 
+在[**发现**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/)， 你可以：
 
-- Choose data to explore, set a time range for that data, search it using [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/), and filter the results.
-- Explore the data, view individual documents, and create tables summarizing the data's contents.
-- Visualize your findings.
+- 选择要探索的数据，为该数据设置时间范围，请使用[仪表板查询语言（DQL）]({{site.url}}{{site.baseurl}}/dashboards/dql/)并过滤结果。
+- 探索数据，查看各个文档，并创建表总结数据内容。
+- 可视化您的发现。
 
-## Try it: Getting familiar with Discover
+## 尝试：熟悉发现
 
-1. On the OpenSearch Dashboards **Home** page, choose **Discover**.
-1. Change the [time filter]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) to **Last 7 days**, as shown in the following image.
+1. 在OpenSearch仪表板上**家** 页面，选择**发现**。
+1. 更改[时间过滤器]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) 到**最近7天**，如下图所示。
 
-    <img src="{{site.url}}{{site.baseurl}}/images/last-7--days.png" alt="Time filter interface" width="250"/>
+    <img src ="{{site.url}}{{site.baseurl}}/images/last-7--days.png" alt ="Time filter interface" 宽度="250"/>
 
-2. Search using the DQL query `FlightDelay:true AND DestCountry: US AND FlightDelayMin >= 60` and then choose **Update**. You should see results for US-bound flights delayed by 60 minutes or more, as shown in the following image.
+2. 使用DQL查询搜索`FlightDelay:true AND DestCountry: US AND FlightDelayMin >= 60` 然后选择**更新**。你应该为我们看到结果-如下图所示，绑定的航班延迟了60分钟或更长时间。
    
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dql-search-field.png" alt="DQL search field example" width="700"/>
+    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/dql-search-field.png" alt ="DQL search field example" 宽度="700"/>
 
-3. To filter data, choose **Add filter** and then select an **Available field**. For example, select `FlightDelayType`, **is**, and **Weather delay** from the **Field**, **Operator**, and **Value** dropdown lists, as shown in the following image.
+3. 要过滤数据，请选择**添加过滤器** 然后选择一个**可用字段**。例如，选择`FlightDelayType`，，，，**是**， 和**天气延迟** 来自**场地**，，，，**操作员**， 和**价值** 下拉列表，如下图所示。
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/filter-data-discover.png" alt="Filter data by FlightDelayType field" width="250"/>
+    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/filter-data-discover.png" alt ="Filter data by FlightDelayType field" 宽度="250"/>
 
-# Visualizing data
+# 可视化数据
 
-Raw data can be difficult to comprehend and use. Data visualizations help you prepare and present data in a visual form. In **Dashboard** you can:
+原始数据可能很难理解和使用。数据可视化可帮助您以视觉形式准备和呈现数据。在**仪表板** 你可以：
 
-- Display data in a single view.
-- Build dynamic dashboards.
-- Create and share reports.
-- Embed analytics to differentiate your applications.
+- 在单个视图中显示数据。
+- 构建动态仪表板。
+- 创建和共享报告。
+- 嵌入分析以区分您的应用程序。
 
-## Try it: Getting familiar with Dashboard
+## 尝试：熟悉仪表板
 
-1. On the OpenSearch Dashboards **Home** page, choose **Dashboard**.
-1. Choose **[Flights] Global Flight Data** in the **Dashboards** window, as shown in the following image.
+1. 在OpenSearch仪表板上**家** 页面，选择**仪表板**。
+1. 选择**[航班]全球航班数据** 在里面**仪表板** 窗口，如下图所示。
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboard-flight-quickstart.png" alt="Data visualization dashboard" width="700"/>
+    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/dashboard-flight-quickstart.png" alt ="Data visualization dashboard" 宽度="700"/>
 
-1. To add panels to the dashboard, choose **Edit** and then **Add** from the toolbar.
-1. In the **Add panels** window, choose the existing panel **[Flights] Delay Buckets**. You'll see a pop-up window on the lower right confirming that you've added the panel.
-1. Select `x` to close the **Add panels** window.
-1. View the added panel **[Flights] Delay Buckets**, which is added as the last panel on the dashboard, as shown in the following image.
+1. 要将面板添加到仪表板中，请选择**编辑** 进而**添加** 从工具栏。
+1. 在里面**添加面板** 窗口，选择现有面板**[航班]延迟存储桶**。您会看到流行音乐-向上右下方的窗口确认您已经添加了面板。
+1. 选择`x` 关闭**添加面板** 窗户。
+1. 查看添加的面板**[航班]延迟存储桶**，如下图所示，它是仪表板上的最后一个面板。
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-panel.png" alt="Add panel to dashboard" width="700"/>
+    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/add-panel.png" alt ="Add panel to dashboard" 宽度="700"/>
 
-## Try it: Creating a visualization panel
+## 尝试：创建一个可视化面板
 
-Continuing with the preceding dashboard, you'll create a bar chart comparing the number of canceled flights and delayed flights to delay type and then add the panel to the dashboard:
+继续前面的仪表板，您将创建一个条形图，比较取消的航班数量和延迟航班的延迟类型，然后将面板添加到仪表板中：
 
-1. Change the default [time range]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) from **24 hours** to **Last 7 days**. 
-1. In the toolbar, choose **Edit**, then **Create new**.
-1. Select **VisBuilder** in the **New Visualizations** window.
-1. In the **Data Source** dropdown list, choose `opensearch_dashboards_sample_data_flights`.
-1. Drag the fields **Cancelled** and **FlightDelay** to the y-axis column.
-1. Drag the field **FlightDelayType** to the x-axis column.
-1. Choose **Save** and name the visualization in the **Title** field.
-2. Choose **Save and return**. The following bar chart is added as the last panel on the dashboard, as shown in the following image.
+1. 更改默认值[时间范围]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) 从**24小时** 到**最近7天**。
+1. 在工具栏中，选择**编辑**， 然后**创建新的**。
+1. 选择**visbuilder** 在里面**新的可视化** 窗户。
+1. 在里面**数据源** 下拉列表，选择`opensearch_dashboards_sample_data_flights`。
+1. 拖动字段**取消** 和**飞机延迟** 到y-轴列。
+1. 拖动字段**FlightDelayType** 到X-轴列。
+1. 选择**节省** 并在**标题** 场地。
+2. 选择**保存并返回**。如下图所示，以下条形图添加为仪表板上的最后一个面板。
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/viz-panel-quickstart.png" alt="Creating a visualization panel" width="700"/>
 
-# Interacting with data
+# 与数据互动
 
-Interactive dashboards allow you analyze data in more depth and filter it in several ways. In Dashboards, you can interact directly with data on a dashboard by using dashboard-level filters. For example, continuing with the preceding dashboard, you can filter to show delays and cancellations for a specific airline.
+交互式仪表板使您可以更深入地分析数据，并以多种方式过滤数据。在仪表板中，您可以使用仪表板直接与仪表板上的数据进行交互-级过滤器。例如，继续使用前面的仪表板，您可以过滤以显示特定航空公司的延迟和取消。
 
-## Try it: Interacting with the sample flight data
+## 尝试：与样品飞行数据进行互动
 
-1. On the **[Flights] Airline Carrier** panel, choose **OpenSearch-Air**. The dashboard updates automatically.
-1. Choose **Save** to save the customized dashboard.
+1. 在**[航班]航空公司航空公司** 面板，选择**OpenSearch-空气**。仪表板自动更新。
+1. 选择**节省** 保存自定义的仪表板。
 
-Alternatively, you can apply filters using the dashboard toolbar:
+另外，您可以使用仪表板工具栏应用过滤器：
 
-1. In the dashboard toolbar, choose **Add filter**.
-1. From the **Field**, **Operator**, and **Value** dropdown lists, choose **Carrier**, **is**, and **OpenSearch-Air**, respectively, as shown in the following image.
+1. 在仪表板工具栏中，选择**添加过滤器**。
+1. 来自**场地**，，，，**操作员**， 和**价值** 下拉列表，选择**载体**，，，，**是**， 和**OpenSearch-空气**，分别如下图所示。
 
-    <img src="{{site.url}}{{site.baseurl}}/images/edit-filter.png" alt="Edit field interface" width="400"/>
+    <img src ="{{site.url}}{{site.baseurl}}/images/edit-filter.png" alt ="Edit field interface" 宽度="400"/>
 
-1. Choose **Save**. The dashboard updates automatically, and the result is the dashboard shown in the following image.
+1. 选择**节省**。仪表板自动更新，结果是下图中显示的仪表板。
 
-  <img src="{{site.url}}{{site.baseurl}}/images/interact-filter-dashboard.png" alt="Dashboard view after applying Carrier filter" width="700"/>
+  <img src ="{{site.url}}{{site.baseurl}}/images/interact-filter-dashboard.png" alt ="Dashboard view after applying Carrier filter" 宽度="700"/>
 
-# Next steps
+# 下一步
 
-- **Visualize data**. To learn more about data visualizations in OpenSearch Dashboards, see [**Building data visualizations**]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
-- **Create dashboards**. To learn more about creating dashboards in OpenSearch Dashboards, see [**Creating dashboards**]({{site.url}}{{site.baseurl}}/dashboards/quickstart-dashboards/).
-- **Explore data**. To learn more about exploring data in OpenSearch Dashboards, see [**Exploring data**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/). 
+- **可视化数据**。要了解有关OpenSearch仪表板中数据可视化的更多信息，请参见[**构建数据可视化**]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/)。
+- **创建仪表板**。要了解有关在OpenSearch仪表板中创建仪表板的更多信息，请参见[**创建仪表板**]({{site.url}}{{site.baseurl}}/dashboards/quickstart-dashboards/)。
+- **探索数据**。要了解有关在OpenSearch仪表板中探索数据的更多信息，请参见[**探索数据**]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/)。
+

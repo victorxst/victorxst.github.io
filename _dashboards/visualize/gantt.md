@@ -1,28 +1,29 @@
 ---
 layout: default
-title: Using Gantt charts
-parent: Building data visualizations
+title: 使用甘特图
+parent: 构建数据可视化
 nav_order: 30
 redirect_from:
   - /dashboards/gantt/
 ---
 
-# Gantt charts
+# 甘特图
 
-OpenSearch Dashboards includes a Gantt chart visualization. Gantt charts show the start, end, and duration of unique events in a sequence. Gantt charts are useful in trace analytics, telemetry, and anomaly detection use cases, where you want to understand interactions and dependencies between various events in a schedule.
+OpenSearch仪表板包括甘特图可视化。甘特图显示了序列中独特事件的开始，结束和持续时间。甘特图在痕量分析，遥测和异常检测用例中很有用，您想了解时间表中各种事件之间的互动和依赖关系。
 
-For example, consider an index of log data. The fields in a typical set of log data, especially audit logs, contain a specific operation or event with a start time and duration.
+例如，考虑日志数据的索引。一组典型的日志数据（尤其是审核日志）中的字段包含具有开始时间和持续时间的特定操作或事件。
 
-To create a Gantt chart, perform the following steps:
+要创建甘特图，请执行以下步骤：
 
-1. In the visualizations menu, choose **Create visualization** and **Gantt Chart**.
-1. Choose a source for the chart (e.g. some log data).
-1. Under **Metrics**, choose **Event**. For log data, each log is an event.
-1. Select the **Start Time** and **Duration** fields from your data set. The start time is the timestamp for the beginning of an event. The duration is the amount of time to add to the start time.
-1. Under **Results**, choose the number of events to display on the chart. Gantt charts sequence events from earliest to latest based on start time.
-1. Choose **Panel settings** to adjust axis labels, time format, and colors.
-1. Choose **Update**.
+1. 在可视化菜单中，选择**创建可视化** 和**甘特图**。
+1. 选择图表的源（例如，一些日志数据）。
+1. 在下面**指标**， 选择**事件**。对于日志数据，每个日志都是事件。
+1. 选择**开始时间** 和**期间** 数据集中的字段。开始时间是事件开始的时间戳。持续时间是增加开始时间的时间。
+1. 在下面**结果**，选择要在图表上显示的事件数量。甘特（Gantt）根据开始时间将序列事件从最早到最新事件。
+1. 选择**面板设置** 调整轴标签，时间格式和颜色。
+1. 选择**更新**。
 
-![Gantt Chart]({{site.url}}{{site.baseurl}}/images/dashboards/gantt-chart.png)
+![甘特图]({{site.url}}{{site.baseurl}}/images/dashboards/gantt-chart.png)
 
-This Gantt chart displays the ID of each log on the y-axis. Each bar is a unique event that spans some amount of time. Hover over a bar to see the duration of that event.
+此甘特图显示y上的每个日志的ID-轴。每个酒吧都是跨越一些时间的独特事件。悬停在酒吧上，以查看该事件的持续时间。
+

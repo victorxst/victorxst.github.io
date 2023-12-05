@@ -1,127 +1,128 @@
 ---
 layout: default
-title: Discover
+title: 发现
 nav_order: 20
 has_children: true
 ---
 
-# Discover
+# 发现
 
-**Discover** is a tool for exploring your data in OpenSearch Dashboards. You can use **Discover** to visually represent your data on a dashboard and provide a high-level view of key metrics. 
+**发现** 是在OpenSearch仪表板中探索数据的工具。您可以使用**发现** 在仪表板上以视觉表示您的数据并提供高度-关键指标的级别视图。
 
-The following image represents a typical **Discover** page using sample data.
+以下图像代表典型的**发现** 使用示例数据的页面。
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/discover-app.png" alt="Discover start screen" width="700">
 
-## Getting started
+## 入门
 
-In this tutorial, you'll learn about using **Discover** to:
+在本教程中，您将了解使用**发现** 到：
 
-- Add data.
-- Interpret and visualize data.
-- Share the data findings.
-- Set alerts.
+- 添加数据。
+- 解释和可视化数据。
+- 分享数据发现。
+- 设置警报。
 
-## Prerequisites
+## 先决条件
 
-The following are prerequisites for using **Discover**:
+以下是使用的先决条件**发现**：
 
-- Install [OpenSearch Dashboards 2.10 or later](https://opensearch.org/downloads.html).
-- Add OpenSearch [sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart/) or import your own data into OpenSearch.
-- Have a foundational understanding of OpenSearch [documents and indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/).   
+- 安装[OpenSearch仪表板2.10或更高版本](https://opensearch.org/downloads.html)。
+- 添加OpenSearch[样本数据]({{site.url}}{{site.baseurl}}/dashboards/quickstart/) 或将您自己的数据导入OpenSearch。
+- 对OpenSearch有基本的理解[文档和索引]({{site.url}}{{site.baseurl}}/im-plugin/index/)。
 
-## Adding data
+## 添加数据
 
-Data must be added to OpenSearch before it can be analyzed. In this tutorial, you'll use the sample data. To learn about importing your own data, see [Managing indexes]({{site.url}}{{site.baseurl}}/im-plugin/index/).
+必须将数据添加到OpenSearch进行分析之前。在本教程中，您将使用示例数据。要了解导入您自己的数据，请参阅[管理索引]({{site.url}}{{site.baseurl}}/im-plugin/index/)。
 
-To add the sample data, follow these steps:
+要添加示例数据，请遵循以下步骤：
 
-1. On the OpenSearch Dashboards home page, choose **Add sample data**.
-2. Choose the desired sample data and select the **Add data** button. A screenshot of the **Add sample data** interface is shown in the following image.
+1. 在OpenSearch仪表板主页上，选择**添加示例数据**。
+2. 选择所需的示例数据，然后选择**添加数据** 按钮。屏幕截图**添加示例数据** 接口如下图所示。
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-sample.png" alt="Add sample data interface"  width="700">
 
-## Defining the search
+## 定义搜索
 
-To define a search, follow these steps:  
+要定义搜索，请执行以下步骤：
 
-1. On the OpenSearch Dashboards navigation menu, select **Discover**.
-2. Choose the data you want to work with. In this case, choose `opensearch_dashboards_sample_data_flights` from the upper-left dropdown menu. 
-3. Select the calendar icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/calendar-oui.png" class="inline-icon" alt="calendar icon"/>{:/}) to change the time range of your search and then select **Refresh**.
+1. 在OpenSearch仪表板导航菜单上，选择**发现**。
+2. 选择要使用的数据。在这种情况下，选择`opensearch_dashboards_sample_data_flights` 从鞋面-左下拉菜单。
+3. 选择日历图标（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/calendar-oui.png" class ="inline-icon" alt ="calendar icon"/> {：/}）更改搜索的时间范围，然后选择**刷新**。
 
-You'll see a view similar to the one in the following image. 
+您会看到与下图中类似的视图。
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/define-search.png" alt="Discover interface showing search of flight sample data for Last 7 days"  width="700">
 
-## Adding data fields and viewing data details
+## 添加数据字段并查看数据详细信息
 
-The document table contains document data. Each row represents a single document, and each column contains a different document field representing metrics such as flight destination, average ticket price, and flight delay. You can add, delete, or modify data fields in a document table as needed to meet your data analysis requirements. 
+文档表包含文档数据。每行代表一个文档，每一列包含一个不同的文档字段，代表指标，例如飞行目的地，平均票价和飞行延迟。您可以根据需要在文档表中添加，删除或修改数据字段，以满足您的数据分析要求。
 
-To add or delete fields in a document table, follow these steps:
+要在文档表中添加或删除字段，请按照以下步骤：
 
-1. View the data fields listed under **Available fields** and select the plus icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/plus-icon.png" class="inline-icon" alt="plus icon"/>{:/}) to add the desired fields to the document table. The field will be automatically added to both **Selected fields** and the document table. For this example, choose the fields `Carrier`, `AvgTicketPrice`, and `Dest`.
-2. To arrange or sort the columns, select **Sort fields** > **Pick fields to sort by** and then drag and drop the fields in the order you want them to be ordered.
+1. 查看下列出的数据字段**可用字段** 并选择加号图标（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/plus-icon.png" class ="inline-icon" alt ="plus icon"/> {：/}）将所需字段添加到文档表中。该字段将自动添加到两个**选定字段** 和文档表。对于此示例，选择字段`Carrier`，，，，`AvgTicketPrice`， 和`Dest`。
+2. 要安排或排序列，请选择**排序字段** >**选择要排序的字段** 然后按照您希望订购的顺序拖放字段。
 
-You'll see a view similar to the one in the following image.
+您会看到与下图中类似的视图。
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-data-fields.png" alt="Discover interface showing adding and sorting data fields"  width="700">
 
-You can view individual or multiple fields in the document table. To gather information about the data in the document table, follow these steps: 
+您可以在文档表中查看个人或多个字段。要在文档表中收集有关数据的信息，请按照以下步骤：
 
-1. From the data table's left-side column, choose the inspect icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/inspect-icon.png" class="inline-icon" alt="inspect icon"/>{:/}) to open the **Document Details** window. Select the minimize icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/minimize-icon.png" class="inline-icon" alt="minimize icon"/>{:/}) to close the **Document Details** window.
-2. Review the data details. You can switch between the **Table** and **JSON** tabs to view the data in your preferred format. 
-3. Select **View surrounding documents** to view data for other log entries either preceding or following your current document or select **View single document** to view a particular log entry.
+1. 从数据表的左边-侧列，选择Inspect ICON（{:: NOMARKDOWN} <IMG SRC ="{{site.url}}{{site.baseurl}}/images/icons/inspect-icon.png" class ="inline-icon" alt ="inspect icon"/> {：/}）打开**文档详细信息** 窗户。选择最小化图标（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/minimize-icon.png" class ="inline-icon" alt ="minimize icon"/> {：/}）关闭**文档详细信息** 窗户。
+2. 查看数据详细信息。您可以在**桌子** 和**JSON** 标签以您首选格式查看数据。
+3. 选择**查看周围的文件** 查看其他日志条目的数据，要么在当前文档之前或遵循您的当前文档或选择**查看单个文档** 查看特定的日志条目。
 
-You'll see a view similar to the one in the following image.
+您会看到与下图中类似的视图。
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/doc-details.png" alt="Document details interface"  width="700">
 
-## Searching the data
+## 搜索数据
 
-You can use the search toolbar or enter a [DQL]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) query using the **DevTools** console to search data. While the search toolbar is best for basic queries, such as field name queries, DQL is best for complex queries, such as term, string, Boolean, date, range, or nested queries. DQL provides suggestions for fields and operators as you type, helping you build structured queries.
+您可以使用搜索工具栏或输入[DQL]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) 使用**DevTools** 控制台搜索数据。尽管搜索工具栏最适合基本查询，例如字段名称查询，但DQL最适合复杂查询，例如术语，字符串，布尔值，日期，范围或嵌套查询。DQL在输入时为字段和操作员提供建议，以帮助您构建结构化查询。
 
-To search data, follow these steps:
+要搜索数据，请执行以下步骤：
 
-1. Enter a simple query in the DQL search bar. For example, enter `FlightDelay:true`, which searches for delayed flights.
-2. Select the **Update** button to the right of the search bar.
-3. Enter a more complex query in the DQL search bar, and then select **Update**. For example, enter `FlightDelay:true AND FlightDelayMin >= 60`, which searches the data for flights delayed by 60 minutes or more.
+1. 在DQL搜索栏中输入简单的查询。例如，输入`FlightDelay:true`，搜索延迟的航班。
+2. 选择**更新** 搜索栏右侧的按钮。
+3. 在DQL搜索栏中输入更复杂的查询，然后选择**更新**。例如，输入`FlightDelay:true AND FlightDelayMin >= 60`，搜索数据是否延迟60分钟或更长时间。
 
-## Filtering the data
+## 过滤数据
 
-Filters allow you to narrow the results of a query by specifying certain criteria. You can filter by field, value, or range. The **Add filter** pop-up suggests the available fields and operators.
+过滤器允许您通过指定某些标准来缩小查询的结果。您可以按字段，值或范围过滤。这**添加过滤器** 流行音乐-UP建议可用的字段和运营商。
 
-To filter your data, follow these steps:
+要过滤您的数据，请执行以下步骤：
 
-1. Under the DQL search bar, choose **Add filter**.
-2. Select the desired options from the **Field**, **Operator**, and **Value** dropdown lists. For example, select `Cancelled`, `is`, and `true`.
-3. Choose **Save**.
-4. To remove the filter, choose the cross icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/cross-icon.png" class="inline-icon" alt="cross icon"/>{:/}) next to the filter name.
-5. Add more filters to further explore the data.  
+1. 在DQL搜索栏下，选择**添加过滤器**。
+2. 从**场地**，，，，**操作员**， 和**价值** 下拉列表。例如，选择`Cancelled`，，，，`is`， 和`true`。
+3. 选择**节省**。
+4. 要删除过滤器，请选择“交叉图标”（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/cross-icon.png" class ="inline-icon" alt ="cross icon"/> {：/}）旁边的过滤器名称。
+5. 添加更多过滤器以进一步探索数据。
 
-## Saving a search
+## 保存搜索
 
-To save your search, including the query text, filters, and current data view, follow these steps:  
+为了保存您的搜索，包括查询文本，过滤器和当前数据视图，请遵循以下步骤：
 
-1. Select **Save** in the upper-right corner. 
-2. Give the search a title, and then choose **Save**. 
-3. Select **Open** to access the saved search. 
+1. 选择**节省** 在上部-右上角。
+2. 给搜索一个标题，然后选择**节省**。
+3. 选择**打开** 访问保存的搜索。
 
-## Creating data visualizations through Discover
+## 通过发现创建数据可视化
 
-To create visualizations of the data findings using the **Discover** app, follow these steps:
+使用**发现** 应用程序，请执行以下步骤：
 
-1. Select the inspect icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/inspect-icon.png" class="inline-icon" alt="inspect icon"/>{:/}) next to the field you want to visualize. 
+1. 选择“检查”图标（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/inspect-icon.png" class ="inline-icon" alt ="inspect icon"/> {：/}）要可视化的字段旁边。
 
-   You'll see a view similar to the following image.
+   您会看到类似于下图的视图。
    
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/visualize-discover.png" alt="Visualize data findings interface" width="700"/>
+   <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/visualize-discover.png" alt ="Visualize data findings interface" 宽度="700"/>
 
-2. Select the **Visualize** button. The **Visualize** app opens and a visualization is displayed. Learn more about the **Visualize** app and data visualizations in [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/). 
+2. 选择**可视化** 按钮。这**可视化** 打开应用程序并显示可视化。了解更多有关**可视化** 应用程序和数据可视化[构建数据可视化]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/)。
 
-   You'll see a view similar to the following image.
+   您会看到类似于下图的视图。
 
-   <img src="{{site.url}}{{site.baseurl}}/images/dashboards/visualization-flight.png" alt="Data visualization of flight sample data field destination" width="700"/>
+   <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/visualization-flight.png" alt ="Data visualization of flight sample data field destination" 宽度="700"/>
 
-## Setting alerts
+## 设置警报
 
-You can set alerts to notify you when your data changes beyond the thresholds you define. To learn more about using **Discover** to create and manage alerts, see [Alerting dashboards and visualizations]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/dashboards-alerting/).
+当数据更改超出定义的阈值时，您可以设置警报以通知您。了解有关使用的更多信息**发现** 要创建和管理警报，请参阅[警告仪表板和可视化]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/dashboards-alerting/)。
+
