@@ -1,41 +1,41 @@
 ---
 layout: default
-title: PHP client
+title: PHP客户端
 nav_order: 70
 ---
 
-# PHP client
+# PHP客户端
 
-The OpenSearch PHP client provides a safer and easier way to interact with your OpenSearch cluster. Rather than using OpenSearch from a browser and potentially exposing your data to the public, you can build an OpenSearch client that takes care of sending requests to your cluster. The client contains a library of APIs that let you perform different operations on your cluster and return a standard response body.
+OpenSearch PHP客户端提供了一种与OpenSearch集群交互的更安全，更简单的方法。您可以构建一个openSearch客户端，该客户端将请求将请求发送到群集。客户端包含一个API库，可让您在群集上执行不同的操作并返回标准响应主体。
 
-This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-php repo](https://github.com/opensearch-project/opensearch-php).
+该入门指南说明了如何连接到OpenSearch，索引文档和运行查询。有关客户端源代码，请参阅[OpenSearch-php回购](https://github.com/opensearch-project/opensearch-php)。
 
-## Setup
+## 设置
 
-To add the client to your project, install it using [composer](https://getcomposer.org/):
+要将客户端添加到您的项目中，请使用[作曲家](https://getcomposer.org/)：
 
 ```bash
 composer require opensearch-project/opensearch-php
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-To install a specific major version of the client, run the following command:
+要安装客户端的特定主要版本，请运行以下命令：
 
 ```bash
 composer require opensearch-project/opensearch-php:<version>
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-Then require the autload file from composer in your code:
+然后在您的代码中需要从作曲家的自动加载文件：
 
 ```php
 require __DIR__ . '/vendor/autoload.php';
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Connecting to OpenSearch
+## 连接到OpenSearch
 
-To connect to the default OpenSearch host, create a client object with the address `https://localhost:9200` if you are using the Security plugin:  
+要连接到默认的OpenSearch主机，请使用地址创建客户端对象`https://localhost:9200` 如果您使用的是安全插件：
 
 ```php
 $client = (new \OpenSearch\ClientBuilder())
@@ -44,11 +44,11 @@ $client = (new \OpenSearch\ClientBuilder())
     ->setSSLVerification(false) // For testing only. Use certificate for validation
     ->build();
 ```
-{% include copy.html %} 
+{％include copy.html％}
 
-## Connecting to Amazon OpenSearch Service
+## 连接到Amazon OpenSearch服务
 
-The following example illustrates connecting to Amazon OpenSearch Service:
+下面的示例说明了连接到Amazon OpenSearch服务：
 
 ```php
 $client = (new \OpenSearch\ClientBuilder())
@@ -67,11 +67,11 @@ $client = (new \OpenSearch\ClientBuilder())
     
     ->build();
 ```
-{% include copy.html %} 
+{％include copy.html％}
 
-## Connecting to Amazon OpenSearch Serverless
+## 连接到Amazon OpenSearch无服务器
 
-The following example illustrates connecting to Amazon OpenSearch Serverless Service:
+以下示例说明了连接到Amazon OpenSearch无服务器服务：
 
 ```php
 $client = (new \OpenSearch\ClientBuilder())
@@ -90,12 +90,12 @@ $client = (new \OpenSearch\ClientBuilder())
     
     ->build();
 ```
-{% include copy.html %} 
+{％include copy.html％}
 
 
-## Creating an index
+## 创建索引
 
-To create an OpenSearch index with custom settings, use the following code:
+要创建具有自定义设置的OpenSearch索引，请使用以下代码：
 
 ```php
 $indexName = 'test-index-name';
@@ -112,11 +112,11 @@ $client->indices()->create([
     ]
 ]);
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Indexing a document
+## 索引文档
 
-You can index a document into OpenSearch using the following code:
+您可以使用以下代码将文档索引到OpenSearch：
 
 ```php
 $client->create([
@@ -129,11 +129,11 @@ $client->create([
     ]
 ]);
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Searching for documents
+## 搜索文档
 
-The following code uses a `multi_match` query to search for "miller" in the title and director fields. It boosts the documents where "miller" appears in the title field:
+以下代码使用`multi_match` 查询搜索"miller" 在标题和导演领域。它增加了文件"miller" 出现在标题字段中：
 
 ```php
 var_dump(
@@ -151,11 +151,11 @@ var_dump(
     ])
 );
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Deleting a document
+## 删除文档
 
-You can delete a document using the following code:
+您可以使用以下代码删除文档：
 
 ```php
 $client->delete([
@@ -163,22 +163,22 @@ $client->delete([
     'id' => 1,
 ]);
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Deleting an index
+## 删除索引
 
-You can delete an index using the following code:
+您可以使用以下代码删除索引：
 
 ```php
 $client->indices()->delete([
     'index' => $indexName
 ]);
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Sample program
+## 样本程序
 
-The following sample program creates a client, adds an index with non-default settings, inserts a document, searches for the document, deletes the document, and then deletes the index:
+以下示例程序创建了一个客户端，添加了一个非索引-默认设置，插入文档，搜索文档，删除文档，然后删除索引：
 
 ```php
 <?php
@@ -248,4 +248,5 @@ $client->indices()->delete([
 
 ?>
 ```
-{% include copy.html %}
+{％包括copy.html％
+

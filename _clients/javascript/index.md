@@ -1,48 +1,48 @@
 ---
 layout: default
-title: JavaScript client
+title: JavaScript客户端
 has_children: true
 nav_order: 40
 redirect_from:
   - /clients/javascript/
 ---
 
-# JavaScript client
+# JavaScript客户端
 
-The OpenSearch JavaScript (JS) client provides a safer and easier way to interact with your OpenSearch cluster. Rather than using OpenSearch from the browser and potentially exposing your data to the public, you can build an OpenSearch client that takes care of sending requests to your cluster. For the client's complete API documentation and additional examples, see the [JS client API documentation](https://opensearch-project.github.io/opensearch-js/2.2/index.html).
+OpenSearch JavaScript（JS）客户端提供了一种与OpenSearch集群交互的更安全，更轻松的方法。您可以构建一个opensearch客户端，该客户端将请求将请求发送到群集。有关客户的完整API文档和其他示例，请参见[JS客户端API文档](https://opensearch-project.github.io/opensearch-js/2.2/index.html)。
 
-The client contains a library of APIs that let you perform different operations on your cluster and return a standard response body. The example here demonstrates some basic operations like creating an index, adding documents, and searching your data. 
+客户端包含一个API库，可让您在群集上执行不同的操作并返回标准响应主体。这里的示例演示了一些基本操作，例如创建索引，添加文档和搜索数据。
 
-You can use helper methods to simplify the use of complicated API tasks. For more information, see [Helper methods]({{site.url}}{{site.baseurl}}/clients/javascript/helpers/). For more advanced index actions, see the [`opensearch-js` guides](https://github.com/opensearch-project/opensearch-js/tree/main/guides) in GitHub.  
+您可以使用辅助方法来简化复杂的API任务的使用。有关更多信息，请参阅[辅助方法]({{site.url}}{{site.baseurl}}/clients/javascript/helpers/)。有关更高级的索引操作，请参阅[`opensearch-js` 向导](https://github.com/opensearch-project/opensearch-js/tree/main/guides) 在github。
 
-## Setup
+## 设置
 
-To add the client to your project, install it from [npm](https://www.npmjs.com):
+要将客户端添加到您的项目中，请从[NPM](https://www.npmjs.com)：
 
 ```bash
 npm install @opensearch-project/opensearch
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-To install a specific major version of the client, run the following command:
+要安装客户端的特定主要版本，请运行以下命令：
 
 ```bash
 npm install @opensearch-project/opensearch@<version>
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-If you prefer to add the client manually or just want to examine the source code, see [opensearch-js](https://github.com/opensearch-project/opensearch-js) on GitHub.
+如果您希望手动添加客户端或只想检查源代码，请参见[OpenSearch-JS](https://github.com/opensearch-project/opensearch-js) 在github上。
 
-Then require the client:
+然后需要客户：
 
 ```javascript
 const { Client } = require("@opensearch-project/opensearch");
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Connecting to OpenSearch
+## 连接到OpenSearch
 
-To connect to the default OpenSearch host, create a client object with the address `https://localhost:9200` if you are using the Security plugin:  
+要连接到默认的OpenSearch主机，请使用地址创建客户端对象`https://localhost:9200` 如果您使用的是安全插件：
 
 ```javascript
 var host = "localhost";
@@ -69,11 +69,11 @@ var client = new Client({
   },
 });
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Authenticating with Amazon OpenSearch Service – AWS Sigv4
+## 使用Amazon OpenSearch服务进行身份验证 -  AWS SIGV4
 
-Use the following code to authenticate with AWS V2 SDK:
+使用以下代码通过AWS V2 SDK进行身份验证：
 
 ```javascript
 const AWS = require('aws-sdk'); // V2 SDK.
@@ -106,9 +106,9 @@ const client = new Client({
   node: 'https://search-xxx.region.es.amazonaws.com', // OpenSearch domain URL
 });
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-AWS V2 SDK for Amazon OpenSearch Serverless
+AWS V2 SDK用于Amazon OpenSearch无服务器
 
 ```javascript
 const AWS = require('aws-sdk'); // V2 SDK.
@@ -141,9 +141,9 @@ const client = new Client({
   node: "https://xxx.region.aoss.amazonaws.com" // OpenSearch domain URL
 });
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-Use the following code to authenticate with AWS V3 SDK:
+使用以下代码通过AWS V3 SDK进行身份验证：
 
 ```javascript
 const { defaultProvider } = require('@aws-sdk/credential-provider-node'); // V3 SDK.
@@ -171,9 +171,9 @@ const client = new Client({
   // node: "https://xxx.region.aoss.amazonaws.com" for OpenSearch Serverless
 });
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-AWS V3 SDK for Amazon OpenSearch Serverless
+AWS V3 SDK Amazon OpenSearch无服务器
 
 ```javascript
 const { defaultProvider } = require('@aws-sdk/credential-provider-node'); // V3 SDK.
@@ -200,11 +200,11 @@ const client = new Client({
   node: "https://xxx.region.aoss.amazonaws.com" // OpenSearch domain URL
 });
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Creating an index
+## 创建索引
 
-To create an OpenSearch index, use the `indices.create()` method. You can use the following code to construct a JSON object with custom settings:
+要创建OpenSearch索引，请使用`indices.create()` 方法。您可以使用以下代码构建具有自定义设置的JSON对象：
 
 ```javascript
 var index_name = "books";
@@ -223,11 +223,11 @@ var response = await client.indices.create({
   body: settings,
 });
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Indexing a document
+## 索引文档
 
-You can index a document into OpenSearch using the client's `index` method:
+您可以使用客户端的文档进行索引`index` 方法：
 
 ```javascript
 var document = {
@@ -246,11 +246,11 @@ var response = await client.index({
   refresh: true,
 });
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Searching for documents
+## 搜索文档
 
-The easiest way to search for documents is to construct a query string. The following code uses a `match` query to search for "The Outsider" in the title field:
+搜索文档的最简单方法是构建查询字符串。以下代码使用`match` 查询搜索"The Outsider" 在标题字段中：
 
 ```javascript
 var query = {
@@ -268,11 +268,11 @@ var response = await client.search({
   body: query,
 });
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Deleting a document
+## 删除文档
 
-You can delete a document using the client's `delete` method:
+您可以使用客户端的文档删除文档`delete` 方法：
 
 ```javascript
 var response = await client.delete({
@@ -280,22 +280,22 @@ var response = await client.delete({
   id: id,
 });
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Deleting an index
+## 删除索引
 
-You can delete an index using the `indices.delete()` method:
+您可以使用`indices.delete()` 方法：
 
 ```javascript
 var response = await client.indices.delete({
   index: index_name,
 });
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Sample program
+## 样本程序
 
-The following sample program creates a client, adds an index with non-default settings, inserts a document, searches for the document, deletes the document, and then deletes the index:
+以下示例程序创建了一个客户端，添加了一个非索引-默认设置，插入文档，搜索文档，删除文档，然后删除索引：
 
 ```javascript
 "use strict";
@@ -404,17 +404,17 @@ async function search() {
 
 search().catch(console.log);
 ```
-{% include copy.html %}
-## Circuit breaker
+{％include copy.html％}
+## 断路器
 
-The `memoryCircuitBreaker` option can be used to prevent errors caused by a response payload being too large to fit into the heap memory available to the client.
+这`memoryCircuitBreaker` 选项可用于防止响应有效载荷太大而无法适应客户可用的堆内存的错误。
 
-The `memoryCircuitBreaker` object contains two fields:
+这`memoryCircuitBreaker` 对象包含两个字段：
 
-- `enabled`: A Boolean used to turn the circuit breaker on or off. Defaults to `false`.
-- `maxPercentage`: The threshold that determines whether the circuit breaker engages. Valid values are floats in the [0, 1] range that represent percentages in decimal form. Any value that exceeds that range will correct to `1.0`.
+- `enabled`：用于打开或关闭断路器的布尔人。默认为`false`。
+- `maxPercentage`：决定断路器是否参与的阈值。有效值是[0，1]范围内的浮子，该范围代表小数形式的百分比。超过该范围的任何值都将纠正到`1.0`。
 
-The following example instantiates a client with the circuit breaker enabled and its threshold set to 80% of the available heap size limit:
+以下示例实例化了启用断路器的客户端，其阈值设置为可用堆尺寸限制的80％：
 
 ```javascript
 var client = new Client({
@@ -424,4 +424,5 @@ var client = new Client({
   },
 });
 ```
-{% include copy.html %}
+{％包括copy.html％
+

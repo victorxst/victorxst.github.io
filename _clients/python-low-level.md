@@ -1,36 +1,36 @@
 ---
 layout: default
-title: Low-level Python client
+title: 低级 Python 客户端
 nav_order: 10
 redirect_from: 
   - /clients/python/
 ---
 
-# Low-level Python client
+# 低级 Python 客户端
 
-The OpenSearch low-level Python client (`opensearch-py`) provides wrapper methods for the OpenSearch REST API so that you can interact with your cluster more naturally in Python. Rather than sending raw HTTP requests to a given URL, you can create an OpenSearch client for your cluster and call the client's built-in functions. For the client's complete API documentation and additional examples, see the [`opensearch-py` API documentation](https://opensearch-project.github.io/opensearch-py/).
+opensearch low-级Python客户端（`opensearch-py`）为OpenSearch REST API提供包装方法，以便您可以在Python中更自然地与群集进行交互。您可以为群集创建一个OpenSearch客户端并调用客户端的构建客户端，而不是向给定的URL发送RAW HTTP请求-在功能中。有关客户的完整API文档和其他示例，请参见[`opensearch-py` API文档](https://opensearch-project.github.io/opensearch-py/)。
 
-This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-py repo](https://github.com/opensearch-project/opensearch-py).
+该入门指南说明了如何连接到OpenSearch，索引文档和运行查询。有关客户端源代码，请参阅[OpenSearch-PY仓库](https://github.com/opensearch-project/opensearch-py)。
 
-## Setup
+## 设置
 
-To add the client to your project, install it using [pip](https://pip.pypa.io/):
+要将客户端添加到您的项目中，请使用[pip](https://pip.pypa.io/)：
 
 ```bash
 pip install opensearch-py
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-After installing the client, you can import it like any other module:
+安装客户端后，您可以像其他任何模块一样导入它：
 
 ```python
 from opensearchpy import OpenSearch
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Connecting to OpenSearch
+## 连接到OpenSearch
 
-To connect to the default OpenSearch host, create a client object with SSL enabled if you are using the Security plugin. You can use the default credentials for testing purposes:
+要连接到默认的OpenSearch主机，请在使用安全插件时使用SSL创建客户对象。您可以将默认凭据用于测试目的：
 
 ```python
 host = 'localhost'
@@ -50,9 +50,9 @@ client = OpenSearch(
     ca_certs = ca_certs_path
 )
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-If you have your own client certificates, specify them in the `client_cert_path` and `client_key_path` parameters:
+如果您有自己的客户证书，请在`client_cert_path` 和`client_key_path` 参数：
 
 ```python
 host = 'localhost'
@@ -78,9 +78,9 @@ client = OpenSearch(
     ca_certs = ca_certs_path
 )
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-If you are not using the Security plugin, create a client object with SSL disabled:
+如果您不使用安全插件，请使用禁用SSL创建客户端对象：
 
 ```python
 host = 'localhost'
@@ -96,11 +96,11 @@ client = OpenSearch(
     ssl_show_warn = False
 )
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Connecting to Amazon OpenSearch Service
+## 连接到Amazon OpenSearch服务
 
-The following example illustrates connecting to Amazon OpenSearch Service:
+下面的示例说明了连接到Amazon OpenSearch服务：
 
 ```python
 from opensearchpy import OpenSearch, RequestsHttpConnection, AWSV4SignerAuth
@@ -121,11 +121,11 @@ client = OpenSearch(
     pool_maxsize = 20
 )
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Connecting to Amazon OpenSearch Serverless
+## 连接到Amazon OpenSearch无服务器
 
-The following example illustrates connecting to Amazon OpenSearch Serverless Service:
+以下示例说明了连接到Amazon OpenSearch无服务器服务：
 
 ```python
 from opensearchpy import OpenSearch, RequestsHttpConnection, AWSV4SignerAuth
@@ -146,12 +146,12 @@ client = OpenSearch(
     pool_maxsize = 20
 )
 ```
-{% include copy.html %}
+{％include copy.html％}
 
 
-## Creating an index
+## 创建索引
 
-To create an OpenSearch index, use the `client.indices.create()` method. You can use the following code to construct a JSON object with custom settings:
+要创建OpenSearch索引，请使用`client.indices.create()` 方法。您可以使用以下代码构建具有自定义设置的JSON对象：
 
 ```python
 index_name = 'python-test-index'
@@ -165,11 +165,11 @@ index_body = {
 
 response = client.indices.create(index_name, body=index_body)
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Indexing a document
+## 索引文档
 
-You can index a document using the `client.index()` method:
+您可以使用`client.index()` 方法：
 
 ```python
 document = {
@@ -185,22 +185,22 @@ response = client.index(
     refresh = True
 )
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Performing bulk operations
+## 执行批量操作
 
-You can perform several operations at the same time by using the `bulk()` method of the client. The operations may be of the same type or of different types. Note that the operations must be separated by a `\n` and the entire string must be a single line:
+您可以同时使用`bulk()` 客户的方法。操作可能是相同类型的或不同类型的。请注意，操作必须由`\n` 整个字符串必须是一行：
 
 ```python
 movies = '{ "index" : { "_index" : "my-dsl-index", "_id" : "2" } } \n { "title" : "Interstellar", "director" : "Christopher Nolan", "year" : "2014"} \n { "create" : { "_index" : "my-dsl-index", "_id" : "3" } } \n { "title" : "Star Trek Beyond", "director" : "Justin Lin", "year" : "2015"} \n { "update" : {"_id" : "3", "_index" : "my-dsl-index" } } \n { "doc" : {"year" : "2016"} }'
 
 client.bulk(movies)
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Searching for documents
+## 搜索文档
 
-The easiest way to search for documents is to construct a query string. The following code uses a multi-match query to search for “miller” in the title and director fields. It boosts the documents that have “miller” in the title field:
+搜索文档的最简单方法是构建查询字符串。以下代码使用多个-匹配查询以在标题和导演字段中搜索“ Miller”。它增加了标题字段中具有“米勒”的文档：
 
 ```python
 q = 'miller'
@@ -219,11 +219,11 @@ response = client.search(
     index = 'python-test-index'
 )
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Deleting a document
+## 删除文档
 
-You can delete a document using the `client.delete()` method:
+您可以使用`client.delete()` 方法：
 
 ```python
 response = client.delete(
@@ -231,22 +231,22 @@ response = client.delete(
     id = '1'
 )
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Deleting an index
+## 删除索引
 
-You can delete an index using the `client.indices.delete()` method:
+您可以使用`client.indices.delete()` 方法：
 
 ```python
 response = client.indices.delete(
     index = 'python-test-index'
 )
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Sample program
+## 样本程序
 
-The following sample program creates a client, adds an index with non-default settings, inserts a document, performs bulk operations, searches for the document, deletes the document, and then deletes the index:
+以下示例程序创建了一个客户端，添加了一个非索引-默认设置，插入文档，执行批量操作，搜索文档，删除文档，然后删除索引：
 
 ```python
 from opensearchpy import OpenSearch
@@ -348,4 +348,5 @@ response = client.indices.delete(
 print('\nDeleting index:')
 print(response)
 ```
-{% include copy.html %}
+{％包括copy.html％
+

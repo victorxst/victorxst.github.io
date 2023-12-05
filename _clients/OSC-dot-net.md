@@ -1,25 +1,25 @@
 ---
 layout: default
-title: Getting started with the high-level .NET client
+title: 开始使用高级的.net客户端
 nav_order: 10
 has_children: false
-parent: .NET clients
+parent: .NET客户端
 ---
 
-# Getting started with the high-level .NET client (OpenSearch.Client)
+# 开始使用高级的.net客户端 (OpenSearch.Client)
 
-OpenSearch.Client is a high-level .NET client. It provides strongly typed requests and responses as well as Query DSL. It frees you from constructing raw JSON requests and parsing raw JSON responses by providing models that parse and serialize/deserialize requests and responses automatically. OpenSearch.Client also exposes the OpenSearch.Net low-level client if you need it. For the client's complete API documentation, see the [OpenSearch.Client API documentation](https://opensearch-project.github.io/opensearch-net/api/OpenSearch.Client.html).
+openSearch.client是高的-级别.NET客户端。它提供了强烈键入的请求和响应以及查询DSL。它可以通过提供模型来自动解析和序列化/序列化请求和响应，从而使您无法构建RAW JSON请求和解析RAW JSON响应。openSearch.client还公开了opensearch.net low-如果需要，请级别客户端。有关客户的完整API文档，请参阅[OpenSearch.Client API文档](https://opensearch-project.github.io/opensearch-net/api/OpenSearch.Client.html)。
 
 
-This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-net repo](https://github.com/opensearch-project/opensearch-net).
+该入门指南说明了如何连接到OpenSearch，索引文档和运行查询。有关客户端源代码，请参阅[OpenSearch-净仓库](https://github.com/opensearch-project/opensearch-net)。
 
-## Installing OpenSearch.Client
+## 安装OpenSearch.Client
 
-To install OpenSearch.Client, download the [OpenSearch.Client NuGet package](https://www.nuget.org/packages/OpenSearch.Client/) and add it to your project in an IDE of your choice. In Microsoft Visual Studio, follow the steps below: 
-- In the **Solution Explorer** panel, right-click on your solution or project and select **Manage NuGet Packages for Solution**.
-- Search for the OpenSearch.Client NuGet package, and select **Install**.
+要安装OpenSearch.Client，请下载[OpenSearch.Client Nuget软件包](https://www.nuget.org/packages/OpenSearch.Client/) 并将其添加到您的项目中。在Microsoft Visual Studio中，请执行以下步骤：
+- 在里面**解决方案资源管理器** 面板，对-单击您的解决方案或项目并选择**管理Nuget软件包用于解决方案**。
+- 搜索openSearch.client nuget软件包，然后选择**安装**。
 
-Alternatively, you can add OpenSearch.Client to your .csproj file:
+另外，您可以将OpenSearch.Client添加到.csproj文件：
 ```xml
 <Project>
   ...
@@ -28,11 +28,11 @@ Alternatively, you can add OpenSearch.Client to your .csproj file:
   </ItemGroup>
 </Project>
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Example
+## 例子
 
-The following example illustrates connecting to OpenSearch, indexing documents, and sending queries on the data. It uses the Student class to represent one student, which is equivalent to one document in the index.
+以下示例说明了连接到OpenSearch，索引文档并在数据上发送查询。它使用学生班来代表一个学生，这等同于索引中的一个文档。
 
 ```cs
 public class Student
@@ -44,29 +44,29 @@ public class Student
     public double Gpa { get; init; }
 }
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-By default, OpenSearch.Client uses camel case to convert property names to field names.
+默认情况下，OpenSearch.Client使用Camel Case将属性名称转换为字段名称。
 {: .note}
 
-## Connecting to OpenSearch
+## 连接到OpenSearch
 
-Use the default constructor when creating an OpenSearchClient object to connect to the default OpenSearch host (`http://localhost:9200`). 
+创建OpenSearchClient对象时，请使用默认构造函数连接到默认OpenSearch host（`http://localhost:9200`）。
 
 ```cs
 var client  = new OpenSearchClient();
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-To connect to your OpenSearch cluster through a single node with a known address, specify this address when creating an instance of OpenSearch.Client:
+要通过带有已知地址的单个节点连接到OpenSearch cluster，请在创建openSearch.client的实例时指定此地址：
 
 ```cs
 var nodeAddress = new Uri("http://myserver:9200");
 var client = new OpenSearchClient(nodeAddress);
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-You can also connect to OpenSearch through multiple nodes. Connecting to your OpenSearch cluster with a node pool provides advantages like load balancing and cluster failover support. To connect to your OpenSearch cluster using multiple nodes, specify their addresses and create a `ConnectionSettings` object for the OpenSearch.Client instance:
+您也可以通过多个节点连接到OpenSearch。使用节点池连接到OpenSearch集群，提供了诸如负载平衡和集群故障转移支持之类的优点。要使用多个节点连接到OpenSearch集群，请指定其地址并创建一个`ConnectionSettings` openSearch.client实例的对象：
 
 ```cs
 var nodes = new Uri[]
@@ -80,48 +80,48 @@ var pool = new StaticConnectionPool(nodes);
 var settings = new ConnectionSettings(pool);
 var client = new OpenSearchClient(settings);
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Using ConnectionSettings
+## 使用Connectionsettings
 
-`ConnectionConfiguration` is used to pass configuration options to the low-level OpenSearch.Net client. `ConnectionSettings` inherits from `ConnectionConfiguration` and provides additional configuration options.
-To set the address of the node and the default index name for requests that don't specify the index name, create a `ConnectionSettings` object:
+`ConnectionConfiguration` 用于将配置选项传递给低点-Level OpenSearch.net客户端。`ConnectionSettings` 继承`ConnectionConfiguration` 并提供其他配置选项。
+要设置没有指定索引名称的请求的节点的地址和默认索引名称，请创建一个`ConnectionSettings` 目的：
 
 ```cs
 var node = new Uri("http://myserver:9200");
 var config = new ConnectionSettings(node).DefaultIndex("students");
 var client = new OpenSearchClient(config);
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Indexing one document
+## 索引一个文档
 
-Create one instance of Student:
+创建一个学生实例：
 
 ```cs
 var student = new Student { Id = 100, FirstName = "Paulo", LastName = "Santos", Gpa = 3.93, GradYear = 2021 };
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-To index one document, you can use either fluent lambda syntax or object initializer syntax.
+要索引一个文档，您可以使用Fluent Lambda语法或对象初始化器语法。
 
-Index this Student into the `students` index using fluent lambda syntax:
+将这个学生索引到`students` 使用Fluent Lambda语法的索引：
 
 ```cs
 var response = client.Index(student, i => i.Index("students"));
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-Index this Student into the `students` index using object initializer syntax:
+将这个学生索引到`students` 使用对象初始化器语法的索引：
 
 ```cs
 var response = client.Index(new IndexRequest<Student>(student, "students"));
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Indexing many documents
+## 索引许多文件
 
-You can index many documents from a collection at the same time by using the OpenSearch.Client's `IndexMany` method: 
+您可以使用opensearch.client的同时从集合中索引许多文档`IndexMany` 方法：
 
 ```cs
 var studentArray = new Student[]
@@ -132,11 +132,11 @@ var studentArray = new Student[]
 
 var manyResponse = client.IndexMany(studentArray, "students");
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Searching for a document
+## 搜索文档
 
-To search for a student indexed above, you want to construct a query that is analogous to the following Query DSL query:
+要搜索上面的学生，您想构建一个类似于以下查询DSL查询的查询：
 
 ```json
 GET students/_search
@@ -149,7 +149,7 @@ GET students/_search
 }
 ```
 
-The query above is a shorthand version of the following explicit query:
+上面的查询是以下显式查询的速记版：
 
 ```json
 GET students/_search
@@ -164,7 +164,7 @@ GET students/_search
 }
 ```
 
-In OpenSearch.Client, this query looks like this:
+在opensearch.client中，此查询看起来像这样：
 
 ```cs
 var searchResponse = client.Search<Student>(s => s
@@ -174,9 +174,9 @@ var searchResponse = client.Search<Student>(s => s
                                         .Field(fld => fld.LastName)
                                         .Query("Santos"))));
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-You can print out the results by accessing the documents in the response:
+您可以通过在响应中访问文档来打印结果：
 
 ```cs
 if (searchResponse.IsValid)
@@ -187,15 +187,15 @@ if (searchResponse.IsValid)
     }
 }
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-The response contains one document, which corresponds to the correct student:
+响应包含一个文档，与正确的学生相对应：
 
 `100 Santos Paulo 3.93 2021`
 
-## Using OpenSearch.Client methods asynchronously
+## 使用openSearch.client方法异步
 
-For applications that require asynchronous code, all method calls in OpenSearch.Client have asynchronous counterparts:
+对于需要异步代码的应用程序，OpenSearch中的所有方法调用都具有异步对应物：
 
 ```cs
 // synchronous method
@@ -205,9 +205,9 @@ var response = client.Index(student, i => i.Index("students"));
 var response = await client.IndexAsync(student, i => i.Index("students"));
 ```
 
-## Falling back on the low-level OpenSearch.Net client
+## 倒下-Level OpenSearch.net客户端
 
-OpenSearch.Client exposes the low-level the OpenSearch.Net client you can use if anything is missing:
+openSearch.client暴露了低-将opensearch.net客户端升级，如果丢失了任何东西，可以使用：
 
 ```cs
 var lowLevelClient = client.LowLevel;
@@ -236,11 +236,11 @@ if (searchResponseLow.IsValid)
     }
 }
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Sample program
+## 样本程序
 
-The following is a complete sample program that illustrates all of the concepts described above. It uses the Student class defined above.
+以下是一个完整的示例程序，该程序说明了上述所有概念。它使用上面定义的学生课程。
 
 ```cs
 using OpenSearch.Client;
@@ -354,4 +354,5 @@ internal class Program
     }
 }
 ```
-{% include copy.html %}
+{％include copy.html％}
+

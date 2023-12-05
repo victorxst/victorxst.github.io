@@ -1,35 +1,35 @@
 ---
 layout: default
-title: Go client
+title: GO客户端
 nav_order: 50
 ---
 
-# Go client
+# GO客户端
 
-The OpenSearch Go client lets you connect your Go application with the data in your OpenSearch cluster. This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client's complete API documentation and additional examples, see the [Go client API documentation](https://pkg.go.dev/github.com/opensearch-project/opensearch-go/v2).
+OpenSearch GO客户端可让您将GO应用程序与OpenSearch集群中的数据联系起来。该入门指南说明了如何连接到OpenSearch，索引文档和运行查询。有关客户的完整API文档和其他示例，请参见[获取客户端API文档](https://pkg.go.dev/github.com/opensearch-project/opensearch-go/v2)。
 
-For the client source code, see the [opensearch-go repo](https://github.com/opensearch-project/opensearch-go).
+有关客户端源代码，请参阅[OpenSearch-去回购](https://github.com/opensearch-project/opensearch-go)。
 
 
-## Setup
+## 设置
 
-If you're starting a new project, create a new module by running the following command:
+如果您要启动一个新项目，请通过运行以下命令来创建一个新模块：
 
 ```go
 go mod init <mymodulename>
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-To add the Go client to your project, import it like any other module:
+要将GO客户端添加到您的项目中，请像其他任何模块一样导入它：
 
 ```go
 go get github.com/opensearch-project/opensearch-go
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Connecting to OpenSearch
+## 连接到OpenSearch
 
-To connect to the default OpenSearch host, create a client object with the address `https://localhost:9200` if you are using the Security plugin:  
+要连接到默认的OpenSearch主机，请使用地址创建客户端对象`https://localhost:9200` 如果您使用的是安全插件：
 
 ```go
 client, err := opensearch.NewClient(opensearch.Config{
@@ -41,9 +41,9 @@ client, err := opensearch.NewClient(opensearch.Config{
         Password:  "admin",
     })
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-If you are not using the Security plugin, create a client object with the address `http://localhost:9200`:
+如果您不使用安全插件，请使用地址创建客户端对象`http://localhost:9200`：
 
 ```go
 client, err := opensearch.NewClient(opensearch.Config{
@@ -53,11 +53,11 @@ client, err := opensearch.NewClient(opensearch.Config{
         Addresses: []string{"http://localhost:9200"},
     })
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Connecting to Amazon OpenSearch Service
+## 连接到Amazon OpenSearch服务
 
-The following example illustrates connecting to Amazon OpenSearch Service:
+下面的示例说明了连接到Amazon OpenSearch服务：
 
 ```go
 package main
@@ -115,11 +115,11 @@ func getCredentialProvider(accessKey, secretAccessKey, token string) aws.Credent
 	}
 }
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Connecting to Amazon OpenSearch Serverless
+## 连接到Amazon OpenSearch无服务器
 
-The following example illustrates connecting to Amazon OpenSearch Serverless Service:
+以下示例说明了连接到Amazon OpenSearch无服务器服务：
 
 ```go
 package main
@@ -177,11 +177,11 @@ func getCredentialProvider(accessKey, secretAccessKey, token string) aws.Credent
 	}
 }
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-The Go client constructor takes an `opensearch.Config{}` type, which can be customized using options such as a list of OpenSearch node addresses or a username and password combination.
+Go客户端构造函数采用`opensearch.Config{}` 类型，可以使用选项（例如OpenSearch节点地址列表或用户名和密码组合）进行自定义。
 
-To connect to multiple OpenSearch nodes, specify them in the `Addresses` parameter:
+要连接到多个OpenSearch节点，请在`Addresses` 范围：
 
 ```go
 var (
@@ -195,9 +195,9 @@ client, err := opensearch.NewClient(opensearch.Config{
         Addresses: urls,
 })
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-The Go client retries requests for a maximum of three times by default. To customize the number of retries, set the `MaxRetries` parameter. Additionally, you can change the list of response codes for which a request is retried by setting the `RetryOnStatus` parameter. The following code snippet creates a new Go client with custom `MaxRetries` and `RetryOnStatus` values: 
+默认情况下，GO客户端重试的请求最多三次。要自定义重试的数量，请设置`MaxRetries` 范围。此外，您可以更改通过设置请求的响应代码列表`RetryOnStatus` 范围。以下代码段使用自定义创建一个新的GO客户端`MaxRetries` 和`RetryOnStatus` 值：
 
 ```go
 client, err := opensearch.NewClient(opensearch.Config{
@@ -209,11 +209,11 @@ client, err := opensearch.NewClient(opensearch.Config{
         RetryOnStatus: []int{502, 503, 504},
     })
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Creating an index
+## 创建索引
 
-To create an OpenSearch index, use the `IndicesCreateRequest` method. You can use the following code to construct a JSON object with custom settings :
+要创建OpenSearch索引，请使用`IndicesCreateRequest` 方法。您可以使用以下代码构建具有自定义设置的JSON对象：
 
 ```go
 settings := strings.NewReader(`{
@@ -230,11 +230,11 @@ res := opensearchapi.IndicesCreateRequest{
     Body:  settings,
 }
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Indexing a document
+## 索引文档
 
-You can index a document into OpenSearch using the `IndexRequest` method:
+您可以使用`IndexRequest` 方法：
 
 ```go
 document := strings.NewReader(`{
@@ -251,11 +251,11 @@ req := opensearchapi.IndexRequest{
 }
 insertResponse, err := req.Do(context.Background(), client)
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Performing bulk operations
+## 执行批量操作
 
-You can perform several operations at the same time by using the `Bulk` method of the client. The operations may be of the same type or of different types.
+您可以同时使用`Bulk` 客户的方法。操作可能是相同类型的或不同类型的。
 
 ```go
 blk, err := client.Bulk(
@@ -269,11 +269,11 @@ blk, err := client.Bulk(
 `),
 	)
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Searching for documents
+## 搜索文档
 
-The easiest way to search for documents is to construct a query string. The following code uses a `multi_match` query to search for "miller" in the title and director fields. It boosts the documents where "miller" appears in the title field:
+搜索文档的最简单方法是构建查询字符串。以下代码使用`multi_match` 查询搜索"miller" 在标题和导演领域。它增加了文件"miller" 出现在标题字段中：
 
 ```go
 content := strings.NewReader(`{
@@ -293,11 +293,11 @@ search := opensearchapi.SearchRequest{
 
 searchResponse, err := search.Do(context.Background(), client)
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Deleting a document
+## 删除文档
 
-You can delete a document using the `DeleteRequest` method:
+您可以使用`DeleteRequest` 方法：
 
 ```go
 delete := opensearchapi.DeleteRequest{
@@ -307,11 +307,11 @@ delete := opensearchapi.DeleteRequest{
 
 deleteResponse, err := delete.Do(context.Background(), client)
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Deleting an index
+## 删除索引
 
-You can delete an index using the `IndicesDeleteRequest` method:
+您可以使用`IndicesDeleteRequest` 方法：
 
 ```go
 deleteIndex := opensearchapi.IndicesDeleteRequest{
@@ -320,11 +320,11 @@ deleteIndex := opensearchapi.IndicesDeleteRequest{
 
 deleteIndexResponse, err := deleteIndex.Do(context.Background(), client)
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Sample program
+## 样本程序
 
-The following sample program creates a client, adds an index with non-default settings, inserts a document, performs bulk operations, searches for the document, deletes the document, and then deletes the index:
+以下示例程序创建了一个客户端，添加了一个非索引-默认设置，插入文档，执行批量操作，搜索文档，删除文档，然后删除索引：
 
 ```go
 package main
@@ -471,4 +471,5 @@ func main() {
     defer deleteIndexResponse.Body.Close()
 }
 ```
-{% include copy.html %}
+{％包括copy.html％
+

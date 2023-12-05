@@ -1,67 +1,67 @@
 ---
 layout: default
-title: Rust client
+title: Rust客户端
 nav_order: 100
 ---
 
-# Rust client
+# Rust客户端
 
-The OpenSearch Rust client lets you connect your Rust application with the data in your OpenSearch cluster. For the client's complete API documentation and additional examples, see the [OpenSearch docs.rs documentation](https://docs.rs/opensearch/).
+OpenSearch Rust客户端可让您将Rust应用程序与OpenSearch集群中的数据联系起来。有关客户的完整API文档和其他示例，请参见[OpenSearch Docs.rs文档](https://docs.rs/opensearch/)。
 
-This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-rs repo](https://github.com/opensearch-project/opensearch-rs).
+该入门指南说明了如何连接到OpenSearch，索引文档和运行查询。有关客户端源代码，请参阅[OpenSearch-RS回购](https://github.com/opensearch-project/opensearch-rs)。
 
-## Setup
+## 设置
 
-If you're starting a new project, add the `opensearch` crate to Cargo.toml:
+如果您正在开始一个新项目，请添加`opensearch` 箱子到货物.toml：
 
 ```rust
 [dependencies]
 opensearch = "1.0.0"
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-Additionally, you may want to add the following `serde` dependencies that help serialize types to JSON and deserialize JSON responses:
+此外，您可能需要添加以下内容`serde` 有助于将类型序列化的依赖项和json的应对响应：
 
 ```rust
 serde = "~1"
 serde_json = "~1"
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-The Rust client uses the higher-level [`reqwest`](https://crates.io/crates/reqwest) HTTP client library for HTTP requests, and reqwest uses the [`tokio`](https://crates.io/crates/tokio) platform to support asynchronous requests. If you are planning to use asynchronous functions, you need to add the `tokio` dependency to Cargo.toml:
+生锈客户使用更高的-等级[`reqwest`](https://crates.io/crates/reqwest) HTTP客户库http请求，ReqWest使用[`tokio`](https://crates.io/crates/tokio) 支持异步请求的平台。如果您打算使用异步功能，则需要添加`tokio` 对货物的依赖。
 
 ```rust
 tokio = { version = "*", features = ["full"] }
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-See the [Sample program](#sample-program) section for the complete Cargo.toml file.
+看到[样本程序](#sample-program) 完整货物文件的部分。
 
-To use the Rust client API, import the modules, structs, and enums you need:
+要使用Rust Client API，请导入您需要的模块，结构和枚举：
 
 ```rust
 use opensearch::OpenSearch;
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Connecting to OpenSearch
+## 连接到OpenSearch
 
-To connect to the default OpenSearch host, create a default client object that connects to OpenSearch at the address `http://localhost:9200`:
+要连接到默认的OpenSearch主机，请创建一个默认客户端对象，该对象连接到地址的OpenSearch`http://localhost:9200`：
 
 ```rust
 let client = OpenSearch::default();
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-To connect to an OpenSearch host that is running at a different address, create a client with the specified address:
+要连接到以不同地址运行的OpenSearch主机，请使用指定地址创建客户端：
 
 ```rust
 let transport = Transport::single_node("http://localhost:9200")?;
 let client = OpenSearch::new(transport);
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-Alternatively, you can customize the URL and use a connection pool by creating a `TransportBuilder` struct and passing it to `OpenSearch::new` to create a new instance of the client: 
+另外，您可以自定义URL并通过创建一个连接池`TransportBuilder` 结构并将其传递给`OpenSearch::new` 创建客户端的新实例：
 
 ```rust
 let url = Url::parse("http://localhost:9200")?;
@@ -69,11 +69,11 @@ let conn_pool = SingleNodeConnectionPool::new(url);
 let transport = TransportBuilder::new(conn_pool).disable_proxy().build()?;
 let client = OpenSearch::new(transport);
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Connecting to Amazon OpenSearch Service
+## 连接到Amazon OpenSearch服务
 
-The following example illustrates connecting to Amazon OpenSearch Service:
+下面的示例说明了连接到Amazon OpenSearch服务：
 
 ```rust
 let url = Url::parse("https://...");
@@ -87,11 +87,11 @@ let transport = TransportBuilder::new(conn_pool)
     .build()?;
 let client = OpenSearch::new(transport);
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Connecting to Amazon OpenSearch Serverless
+## 连接到Amazon OpenSearch无服务器
 
-The following example illustrates connecting to Amazon OpenSearch Serverless Service:
+以下示例说明了连接到Amazon OpenSearch无服务器服务：
 
 ```rust
 let url = Url::parse("https://...");
@@ -105,12 +105,12 @@ let transport = TransportBuilder::new(conn_pool)
     .build()?;
 let client = OpenSearch::new(transport);
 ```
-{% include copy.html %}
+{％include copy.html％}
 
 
-## Creating an index
+## 创建索引
 
-To create an OpenSearch index, use the `create` function of the `opensearch::indices::Indices` struct. You can use the following code to construct a JSON object with custom mappings:
+要创建OpenSearch索引，请使用`create` 函数`opensearch::indices::Indices` 结构。您可以使用以下代码构建具有自定义映射的JSON对象：
 
 ```rust
 let response = client
@@ -126,11 +126,11 @@ let response = client
     .send()
     .await?;
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Indexing a document
+## 索引文档
 
-You can index a document into OpenSearch using the client's `index` function:
+您可以使用客户端的文档进行索引`index` 功能：
 
 ```rust
 let response = client
@@ -144,11 +144,11 @@ let response = client
     .send()
     .await?;
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Performing bulk operations
+## 执行批量操作
 
-You can perform several operations at the same time by using the client's `bulk` function. First, create the JSON body of a Bulk API call, and then pass it to the `bulk` function:
+您可以通过使用客户端同时执行多个操作`bulk` 功能。首先，创建散装API调用的JSON主体，然后将其传递给`bulk` 功能：
 
 ```rust
 let mut body: Vec<JsonBody<_>> = Vec::with_capacity(4);
@@ -177,11 +177,11 @@ let response = client
     .send()
     .await?;
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Searching for documents
+## 搜索文档
 
-The easiest way to search for documents is to construct a query string. The following code uses a `multi_match` query to search for "miller" in the title and director fields. It boosts the documents where "miller" appears in the title field: 
+搜索文档的最简单方法是构建查询字符串。以下代码使用`multi_match` 查询搜索"miller" 在标题和导演领域。它增加了文件"miller" 出现在标题字段中：
 
 ```rust
 response = client
@@ -199,9 +199,9 @@ response = client
     .send()
     .await?;
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-You can then read the response body as JSON and iterate over the `hits` array to read all the `_source` documents:
+然后，您可以阅读响应主体，并在JSON上迭代`hits` 数组阅读所有`_source` 文件：
 
 ```rust
 let response_body = response.json::<Value>().await?;
@@ -210,11 +210,11 @@ for hit in response_body["hits"]["hits"].as_array().unwrap() {
     println!("{}", serde_json::to_string_pretty(&hit["_source"]).unwrap());
 }
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Deleting a document
+## 删除文档
 
-You can delete a document using the client's `delete` function:
+您可以使用客户端的文档删除文档`delete` 功能：
 
 ```rust
 let response = client
@@ -222,11 +222,11 @@ let response = client
     .send()
     .await?;
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Deleting an index
+## 删除索引
 
-You can delete an index using the `delete` function of the `opensearch::indices::Indices` struct:
+您可以使用`delete` 函数`opensearch::indices::Indices` 结构：
 
 ```rust
 let response = client
@@ -235,11 +235,11 @@ let response = client
     .send()
     .await?;
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Sample program
+## 样本程序
 
-The sample program uses the following Cargo.toml file with all dependencies described in the [Setup](#setup) section:
+示例程序使用以下货物.toml文件，其中包括[设置](#setup) 部分：
 
 ```rust
 [package]
@@ -255,9 +255,9 @@ tokio = { version = "*", features = ["full"] }
 serde = "~1"
 serde_json = "~1"
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-The following sample program creates a client, adds an index with non-default mappings, inserts a document, performs bulk operations, searches for the document, deletes the document, and then deletes the index:
+以下示例程序创建了一个客户端，添加了一个非索引-默认映射，插入文档，执行批量操作，搜索文档，删除文档，然后删除索引：
 
 ```rust
 use opensearch::{DeleteParts, OpenSearch, IndexParts, http::request::JsonBody, BulkParts, SearchParts};
@@ -413,4 +413,5 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 ```
-{% include copy.html %}
+{％包括copy.html％
+

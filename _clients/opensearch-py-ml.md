@@ -6,39 +6,40 @@ nav_order: 11
 
 # opensearch-py-ml
 
-`opensearch-py-ml` is a Python client that provides a suite of data analytics and natural language processing (NLP) support tools for OpenSearch. It provides data analysts with the ability to:
+`opensearch-py-ml` 是Python客户端，提供一套数据分析和自然语言处理（NLP）支持工具的套件。它为数据分析师提供了：
 
-- Call OpenSearch indexes and manipulate them using the opensearch-py-ml [DataFrame](https://opensearch-project.github.io/opensearch-py-ml/reference/dataframe.html) APIs. The opensearch-py-ml DataFrame wraps an OpenSearch index into an API similar to [pandas](https://pandas.pydata.org/), giving you the ability to process large amounts of data from OpenSearch inside a Jupyter Notebook.
-- Upload NLP [SentenceTransformer](https://www.sbert.net/) models into OpenSearch using the [ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/).
-- Train and tune SentenceTransformer models with synthetic queries.
+- 调用OpenSearch索引并使用OpenSearch操纵它们-py-ML[数据框架](https://opensearch-project.github.io/opensearch-py-ml/reference/dataframe.html) 蜜蜂。OpenSearch-py-ML DataFrame将OpenSearch索引包装到类似的API中[熊猫](https://pandas.pydata.org/)，使您能够从jupyter笔记本中处理大量数据。
+- 上传NLP[vencentansformer](https://www.sbert.net/) 使用模型使用[ML Commons插件]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/)。
+- 带有合成查询的训练和调整录音词反应器模型。
 
-## Prerequisites 
+## 先决条件
 
-To use `opensearch-py-ml`, install the [OpenSearch Python client]({{site.url}}{{site.baseurl}}/clients/python-low-level#setup). The Python client allows OpenSearch to use the Python syntax required to run DataFrames in `opensearch-py-ml`.
+使用`opensearch-py-ml`，安装[OpenSearch Python客户端]({{site.url}}{{site.baseurl}}/clients/python-low-level#setup)。Python客户端允许OpenSearch使用在运行数据范围所需的Python语法`opensearch-py-ml`。
 
-## Install `opensearch-py-ml`
+## 安装`opensearch-py-ml`
 
-To add the client to your project, install it using [pip](https://pip.pypa.io/):
+要将客户端添加到您的项目中，请使用[pip](https://pip.pypa.io/)：
 
 ```bash
 pip install opensearch-py-ml
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-Then import the client into OpenSearch like any other module:
+然后像其他任何模块一样将客户端导入到OpenSearch中：
 
 ```python
 from opensearchpy import OpenSearch
 import opensearch_py_ml as oml
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## API reference
+## API参考
 
-For information on all opensearch-py-ml objects, functions, and methods, see the [opensearch-py-ml API reference](https://opensearch-project.github.io/opensearch-py-ml/reference/index.html).
+有关所有OpenSearch的信息-py-ML对象，功能和方法，请参阅[OpenSearch-py-ML API参考](https://opensearch-project.github.io/opensearch-py-ml/reference/index.html)。
 
-## Next steps
+## 下一步
 
-If you want to track or contribute to the development of the `opensearch-py-ml` client, see the [opensearch-py-ml GitHub repository](https://github.com/opensearch-project/opensearch-py-ml).
+如果您想跟踪或为发展`opensearch-py-ml` 客户，请参阅[OpenSearch-py-ML GitHub存储库](https://github.com/opensearch-project/opensearch-py-ml)。
 
-For example Python notebooks to use with the client, see [Examples](https://opensearch-project.github.io/opensearch-py-ml/examples/index.html).
+例如，与客户一起使用的Python笔记本电脑，请参阅[例子](https://opensearch-project.github.io/opensearch-py-ml/examples/index.html)。
+

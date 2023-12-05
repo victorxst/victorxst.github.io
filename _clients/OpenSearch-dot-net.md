@@ -1,24 +1,24 @@
 ---
 layout: default
-title: Low-level .NET client
+title: 低层.NET客户端
 nav_order: 30
 has_children: false
-parent: .NET clients
+parent: .NET客户端
 ---
 
-# Low-level .NET client (OpenSearch.Net)
+# 低层.NET客户端(OpenSearch.Net)
 
-OpenSearch.Net is a low-level .NET client that provides the foundational layer of communication with OpenSearch. It is dependency free, and it can handle round-robin load balancing, transport, and the basic request/response cycle. OpenSearch.Net contains all OpenSearch API endpoints as methods. When using OpenSearch.Net, you need to construct the queries yourself.
+opensearch.net很低-Level .NET客户端，可通过OpenSearch提供通信的基础层。它是无依赖性的，它可以处理圆-罗宾负载平衡，运输和基本请求/响应周期。OpenSearch.net包含所有OpenSearch API端点作为方法。使用OpenSearch.net时，您需要自己构建查询。
 
-This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-net repo](https://github.com/opensearch-project/opensearch-net).
+该入门指南说明了如何连接到OpenSearch，索引文档和运行查询。有关客户端源代码，请参阅[OpenSearch-净仓库](https://github.com/opensearch-project/opensearch-net)。
 
-## Stable Release
+## 稳定版本
 
-This documentation reflects the latest updates available in the [GitHub repository](https://github.com/opensearch-project/opensearch-net) and may include changes unavailable in the current stable release. The current stable release in NuGet is [1.2.0](https://www.nuget.org/packages/OpenSearch.Net.Auth.AwsSigV4/1.2.0).
+本文档反映了该文档中可用的最新更新[GitHub存储库](https://github.com/opensearch-project/opensearch-net) 并可能包括当前稳定版本中无法使用的更改。Nuget当前的稳定版本是[1.2.0](https://www.nuget.org/packages/OpenSearch.Net.Auth.AwsSigV4/1.2.0)。
 
-## Example
+## 例子
 
-The following example illustrates connecting to OpenSearch, indexing documents, and sending queries on the data. It uses the Student class to represent one student, which is equivalent to one document in the index.
+以下示例说明了连接到OpenSearch，索引文档并在数据上发送查询。它使用学生班来代表一个学生，这等同于索引中的一个文档。
 
 ```cs
 public class Student
@@ -30,15 +30,15 @@ public class Student
     public double Gpa { get; init; }
 }
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Installing the Opensearch.Net client
+## 安装opensearch.net客户端
 
-To install Opensearch.Net, download the [Opensearch.Net NuGet package](https://www.nuget.org/packages/OpenSearch.Net) and add it to your project in an IDE of your choice. In Microsoft Visual Studio, follow the steps below: 
-- In the **Solution Explorer** panel, right-click on your solution or project and select **Manage NuGet Packages for Solution**.
-- Search for the OpenSearch.Net NuGet package, and select **Install**.
+要安装opensearch.net，请下载[opensearch.net nuget软件包](https://www.nuget.org/packages/OpenSearch.Net) 并将其添加到您的项目中。在Microsoft Visual Studio中，请执行以下步骤：
+- 在里面**解决方案资源管理器** 面板，对-单击您的解决方案或项目并选择**管理Nuget软件包用于解决方案**。
+- 搜索opensearch.net nuget软件包，然后选择**安装**。
 
-Alternatively, you can add OpenSearch.Net to your .csproj file:
+另外，您可以将OpenSearch.net添加到.csproj文件：
 
 ```xml
 <Project>
@@ -48,27 +48,27 @@ Alternatively, you can add OpenSearch.Net to your .csproj file:
   </ItemGroup>
 </Project>
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Connecting to OpenSearch
+## 连接到OpenSearch
 
-Use the default constructor when creating an OpenSearchLowLevelClient object to connect to the default OpenSearch host (`http://localhost:9200`). 
+创建OpenSearchLowlevelClient对象时，请使用默认构造函数连接到默认的OpenSearch Host（`http://localhost:9200`）。
 
 ```cs
 var client  = new OpenSearchLowLevelClient();
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-To connect to your OpenSearch cluster through a single node with a known address, create a ConnectionConfiguration object with that address and pass it to the OpenSearch.Net constructor:
+要通过带有已知地址的单个节点连接到OpenSearch cluster，请使用该地址创建一个连接configuration对象，然后将其传递到OpenSearch.net constructor：
 
 ```cs
 var nodeAddress = new Uri("http://myserver:9200");
 var config = new ConnectionConfiguration(nodeAddress);
 var client = new OpenSearchLowLevelClient(config);
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-You can also use a [connection pool]({{site.url}}{{site.baseurl}}/clients/dot-net-conventions#connection-pools) to manage the nodes in the cluster. Additionally, you can set up a connection configuration to have OpenSearch return the response as formatted JSON.
+您也可以使用[连接池]({{site.url}}{{site.baseurl}}/clients/dot-net-conventions#connection-pools) 管理集群中的节点。此外，您可以设置连接配置，以使OpenSearch返回响应为格式的JSON。
 
 ```cs
 var uri = new Uri("http://localhost:9200");
@@ -76,9 +76,9 @@ var connectionPool = new SingleNodeConnectionPool(uri);
 var settings = new ConnectionConfiguration(connectionPool).PrettyJson();
 var client = new OpenSearchLowLevelClient(settings);
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-To connect to your OpenSearch cluster using multiple nodes, create a connection pool with their addresses. In this example, a [`SniffingConnectionPool`]({{site.url}}{{site.baseurl}}/clients/dot-net-conventions#connection-pools) is used because it keeps track of nodes being removed or added to the cluster, so it works best for clusters that scale automatically. 
+要使用多个节点连接到OpenSearch集群，请创建一个带有其地址的连接池。在此示例中，[`SniffingConnectionPool`]({{site.url}}{{site.baseurl}}/clients/dot-net-conventions#connection-pools) 之所以使用，是因为它可以跟踪被删除或添加到群集中的节点，因此它最适合自动扩展的群集。
 
 ```cs
 var uris = new[]
@@ -91,11 +91,11 @@ var connectionPool = new SniffingConnectionPool(uris);
 var settings = new ConnectionConfiguration(connectionPool).PrettyJson();
 var client = new OpenSearchLowLevelClient(settings);
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Connecting to Amazon OpenSearch Service
+## 连接到Amazon OpenSearch服务
 
-The following example illustrates connecting to Amazon OpenSearch Service:
+下面的示例说明了连接到Amazon OpenSearch服务：
 
 ```cs
 using OpenSearch.Client;
@@ -117,11 +117,11 @@ namespace Application
     }
 }
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Connecting to Amazon OpenSearch Serverless
+## 连接到Amazon OpenSearch无服务器
 
-The following example illustrates connecting to Amazon OpenSearch Serverless Service:
+以下示例说明了连接到Amazon OpenSearch无服务器服务：
 
 ```cs
 using OpenSearch.Client;
@@ -143,17 +143,17 @@ namespace Application
     }
 }
 ```
-{% include copy.html %}
+{％include copy.html％}
 
 
-## Using ConnectionSettings
+## 使用Connectionsettings
 
-`ConnectionConfiguration` is used to pass configuration options to the OpenSearch.Net client. `ConnectionSettings` inherits from `ConnectionConfiguration` and provides additional configuration options.
-The following example uses `ConnectionSettings` to:
-- Set the default index name for requests that don't specify the index name.
-- Enable gzip-compressed requests and responses.
-- Signal to OpenSearch to return formatted JSON. 
-- Make field names lowercase.
+`ConnectionConfiguration` 用于将配置选项传递给opensearch.net客户端。`ConnectionSettings` 继承`ConnectionConfiguration` 并提供其他配置选项。
+以下示例使用`ConnectionSettings` 到：
+- 设置未指定索引名称的请求的默认索引名称。
+- 启用Gzip-压缩请求和响应。
+- 信号向OpenSearch返回格式的JSON。
+- 使字段名称小写。
 
 ```cs
 var uri = new Uri("http://localhost:9200");
@@ -166,11 +166,11 @@ var settings = new ConnectionSettings(connectionPool)
 
 var client = new OpenSearchLowLevelClient(settings);
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Indexing one document
+## 索引一个文档
 
-To index a document, you first need to create an instance of the Student class:
+要索引文档，您首先需要创建学生班的实例：
 
 ```cs
 var student = new Student { 
@@ -181,9 +181,9 @@ var student = new Student {
     GradYear = 2021 
 };
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-Alternatively, you can create an instance of Student using an anonymous type:
+另外，您可以使用匿名类型创建学生的实例：
 
 ```cs
 var student = new { 
@@ -194,22 +194,22 @@ var student = new {
     GradYear = 2021 
 };
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-Next, upload this Student into the `students` index using the `Index` method:
+接下来，将这个学生上传到`students` 使用`Index` 方法：
 
 ```cs
 var response = client.Index<StringResponse>("students", "100", 
                                 PostData.Serializable(student));
 Console.WriteLine(response.Body);
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-The generic type parameter of the `Index` method specifies the response body type. In the example above, the response is a string.
+的通用类型参数`Index` 方法指定响应身体类型。在上面的示例中，响应是字符串。
 
-## Indexing many documents using the Bulk API
+## 使用批量API索引许多文档
 
-To index many documents, use the Bulk API to bundle many operations into one request:
+要索引许多文档，请使用批量API将许多操作捆绑到一个请求中：
 
 ```cs
 var studentArray = new object[]
@@ -232,13 +232,13 @@ var studentArray = new object[]
 
 var manyResponse = client.Bulk<StringResponse>(PostData.MultiJson(studentArray));
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-You can send the request body as an anonymous object, string, byte array, or stream in APIs that take a body. For APIs that take multiline JSON, you can send the body as a list of bytes or a list of objects, like in the example above. The `PostData` class has static methods to send the body in all of these forms. 
+您可以将请求主体作为一个匿名对象，字符串，字节数组或流中的流式传输。对于使用Multiline JSON的API，您可以将其发送为字节列表或对象列表，例如上面的示例。这`PostData` 班级具有静态方法，可以以所有这些形式发送身体。
 
-## Searching for a document
+## 搜索文档
 
-To construct a Query DSL query, use anonymous types within the request body. The following query searches for all students who graduated in 2021:
+要构建查询DSL查询，请在请求主体中使用匿名类型。以下查询搜索所有2021年毕业的学生：
 
 ```cs
 var searchResponseLow = client.Search<StringResponse>("students",
@@ -262,9 +262,9 @@ var searchResponseLow = client.Search<StringResponse>("students",
 
 Console.WriteLine(searchResponseLow.Body);
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-Alternatively, you can use strings to construct the request. When using strings, you have to escape the `"` character:
+另外，您可以使用字符串来构建请求。使用字符串时，您必须逃脱`"` 特点：
 
 ```cs
 var searchResponse = client.Search<StringResponse>("students",
@@ -283,11 +283,11 @@ var searchResponse = client.Search<StringResponse>("students",
 
 Console.WriteLine(searchResponse.Body);
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Using OpenSearch.Net methods asynchronously
+## 使用opensearch.net方法异步
 
-For applications that require asynchronous code, all method calls in OpenSearch.Client have asynchronous counterparts:
+对于需要异步代码的应用程序，OpenSearch中的所有方法调用都具有异步对应物：
 
 ```cs
 // synchronous method
@@ -298,11 +298,11 @@ var response = client.Index<StringResponse>("students", "100",
 var response = client.IndexAsync<StringResponse>("students", "100", 
                                     PostData.Serializable(student));
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Handling exceptions
+## 处理例外
 
-By default, OpenSearch.Net does not throw exceptions when an operation is unsuccessful. In particular, OpenSearch.Net does not throw exceptions if the response status code has one of the expected values for this request. For example, the following query searches for a document in an index that does not exist:
+默认情况下，当操作不成功时，OpenSearch.net不会引发异常。特别是，如果响应状态代码具有此请求的预期值之一，则OpenSearch.net不会引发异常。例如，以下查询搜索不存在的索引中的文档：
 
 ```cs
 var searchResponse = client.Search<StringResponse>("students1",
@@ -321,9 +321,9 @@ var searchResponse = client.Search<StringResponse>("students1",
 
 Console.WriteLine(searchResponse.Body);
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-The response contains an error status code 404, which is one of the expected error codes for search requests, so no exception is thrown. You can see the status code in the `status` field:
+响应包含错误状态代码404，这是搜索请求的预期错误代码之一，因此没有例外。您可以在`status` 场地：
 
 ```json
 {
@@ -349,7 +349,7 @@ The response contains an error status code 404, which is one of the expected err
 }
 ```
 
-To configure OpenSearch.Net to throw exceptions, turn on the `ThrowExceptions()` setting on `ConnectionConfiguration`:
+要配置opensearch.net以抛出异常，请打开`ThrowExceptions()` 设置`ConnectionConfiguration`：
 
 ```cs
 var uri = new Uri("http://localhost:9200");
@@ -358,9 +358,9 @@ var settings = new ConnectionConfiguration(connectionPool)
                         .PrettyJson().ThrowExceptions();
 var client = new OpenSearchLowLevelClient(settings);
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-You can use the following properties of the response object to determine response success:
+您可以使用响应对象的以下属性来确定响应成功：
 
 ```cs
 Console.WriteLine("Success: " + searchResponse.Success);
@@ -368,13 +368,13 @@ Console.WriteLine("SuccessOrKnownError: " + searchResponse.SuccessOrKnownError);
 Console.WriteLine("Original Exception: " + searchResponse.OriginalException);
 ```
 
-- `Success` returns true if the response code is in the 2xx range or the response code has one of the expected values for this request.
-- `SuccessOrKnownError` returns true if the response is successful or the response code is in the 400–501 or 505–599 ranges. If SuccessOrKnownError is true, the request is not retried.
-- `OriginalException` holds the original exception for the unsuccessful responses.
+- `Success` 如果响应代码在2xx范围内，则返回true或响应代码具有此请求的预期值之一。
+- `SuccessOrKnownError` 如果响应成功或响应代码在400-501或505–599范围内，则返回为TRUE。如果Successorknownerror是正确的，则请求未重述。
+- `OriginalException` 对不成功的响应持有原始例外。
 
-## Sample program 
+## 样本程序
 
-The following program creates an index, indexes data, and searches for documents.
+以下程序创建索引，索引数据并搜索文档。
 
 ```cs
 using OpenSearch.Net;
@@ -471,4 +471,5 @@ internal class Program
     }
 }
 ```
-{% include copy.html %}
+{％include copy.html％}
+

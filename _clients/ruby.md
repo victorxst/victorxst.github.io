@@ -1,42 +1,42 @@
 ---
 layout: default
-title: Ruby client
+title: Ruby客户端 
 nav_order: 60
 has_children: false
 ---
 
-# Ruby client
+# Ruby客户端
 
-The OpenSearch Ruby client allows you to interact with your OpenSearch clusters through Ruby methods rather than HTTP methods and raw JSON. For the client's complete API documentation and additional examples, see the [`opensearch-transport`](https://rubydoc.info/gems/opensearch-transport), [`opensearch-api`](https://rubydoc.info/gems/opensearch-api), [`opensearch-dsl`](https://rubydoc.info/gems/opensearch-dsl), and [`opensearch-ruby`](https://rubydoc.info/gems/opensearch-ruby/) gem documentation.
+OpenSearch Ruby客户端使您可以通过Ruby方法而不是HTTP方法和RAW JSON与OpenSearch群集进行交互。有关客户的完整API文档和其他示例，请参见[`opensearch-transport`](https://rubydoc.info/gems/opensearch-transport)，，，，[`opensearch-api`](https://rubydoc.info/gems/opensearch-api)，，，，[`opensearch-dsl`](https://rubydoc.info/gems/opensearch-dsl)， 和[`opensearch-ruby`](https://rubydoc.info/gems/opensearch-ruby/) 宝石文档。
 
-This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-ruby repo](https://github.com/opensearch-project/opensearch-ruby).
+该入门指南说明了如何连接到OpenSearch，索引文档和运行查询。有关客户端源代码，请参阅[OpenSearch-Ruby Repo](https://github.com/opensearch-project/opensearch-ruby)。
 
-## Installing the Ruby client
+## 安装Ruby客户端
 
-To install the Ruby gem for the Ruby client, run the following command:
+要为Ruby客户端安装Ruby Gem，请运行以下命令：
 
 ```bash
 gem install opensearch-ruby
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-To use the client, import it as a module:
+要使用客户端，请将其导入一个模块：
 
 ```ruby
 require 'opensearch'
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Connecting to OpenSearch
+## 连接到OpenSearch
 
-To connect to the default OpenSearch host, create a client object, passing the default host address in the constructor:
+要连接到默认的OpenSearch主机，请创建一个客户端对象，传递构造函数中的默认主机地址：
 
 ```ruby
 client = OpenSearch::Client.new(host: 'http://localhost:9200')
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-The following example creates a client object with a custom URL and the `log` option set to `true`. It sets the `retry_on_failure` parameter to retry a failed request five times rather than the default three times. Finally, it increases the timeout by setting the `request_timeout` parameter to 120 seconds. It then returns the basic cluster health information:
+以下示例使用自定义URL创建客户端对象和`log` 选项设置为`true`。它设置了`retry_on_failure` 重试失败请求的参数五次而不是默认的三次。最后，通过设置`request_timeout` 参数至120秒。然后，它返回基本的群集健康信息：
 
 ```ruby
 client = OpenSearch::Client.new(
@@ -48,9 +48,9 @@ client = OpenSearch::Client.new(
 
 client.cluster.health
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-The output is as follows:
+输出如下：
 
 ```bash
 2022-08-25 14:24:52 -0400: GET http://localhost:9200/ [status:200, request:0.048s, query:n/a]
@@ -76,9 +76,9 @@ The output is as follows:
 2022-08-25 14:24:52 -0400: < {"cluster_name":"docker-cluster","status":"yellow","timed_out":false,"number_of_nodes":1,"number_of_data_nodes":1,"discovered_master":true,"discovered_cluster_manager":true,"active_primary_shards":10,"active_shards":10,"relocating_shards":0,"initializing_shards":0,"unassigned_shards":8,"delayed_unassigned_shards":0,"number_of_pending_tasks":0,"number_of_in_flight_fetch":0,"task_max_waiting_in_queue_millis":0,"active_shards_percent_as_number":55.55555555555556}
 ```
 
-## Connecting to Amazon OpenSearch Service
+## 连接到Amazon OpenSearch服务
 
-To connect to Amazon OpenSearch Service, first install the `opensearch-aws-sigv4` gem:
+要连接到Amazon OpenSearch服务，请首先安装`opensearch-aws-sigv4` 宝石：
 
 ```bash
 gem install opensearch-aws-sigv4
@@ -114,11 +114,11 @@ client.delete(index: index, id: '1')
 # delete the index
 client.indices.delete(index: index)
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Connecting to Amazon OpenSearch Serverless
+## 连接到Amazon OpenSearch无服务器
 
-To connect to Amazon OpenSearch Serverless Service, first install the `opensearch-aws-sigv4` gem:
+要连接到Amazon OpenSearch无用服务，请首先安装`opensearch-aws-sigv4` 宝石：
 
 ```bash
 gem install opensearch-aws-sigv4
@@ -154,12 +154,12 @@ client.delete(index: index, id: '1')
 # delete the index
 client.indices.delete(index: index)
 ```
-{% include copy.html %}
+{％include copy.html％}
 
 
-## Creating an index 
+## 创建索引
 
-You don't need to create an index explicitly in OpenSearch. Once you upload a document into an index that does not exist, OpenSearch creates the index automatically. Alternatively, you can create an index explicitly to specify settings like the number of primary and replica shards. To create an index with non-default settings, create an index body hash with those settings:
+您无需在OpenSearch中明确创建索引。一旦将文档上传到不存在的索引中，OpenSearch就会自动创建索引。另外，您可以明确创建一个索引，以指定设置，例如主和复制碎片的数量。用非-默认设置，使用这些设置创建索引主体哈希：
 
 ```ruby
 index_body = {
@@ -176,11 +176,11 @@ client.indices.create(
     body: index_body
 )
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Mappings
+## 映射
 
-OpenSearch uses dynamic mapping to infer field types of the documents that are indexed. However, to have more control over the schema of your document, you can pass an explicit mapping to OpenSearch. You can define data types for some or all fields of your document in this mapping. To create a mapping for an index, use the `put_mapping` method:
+OpenSearch使用动态映射来推断索引的文档的字段类型。但是，要对文档的架构进行更多控制，您可以将明确的映射传递给OpenSearch。您可以在此映射中为文档的某些字段定义数据类型。要为索引创建映射，请使用`put_mapping` 方法：
 
 ```ruby
 client.indices.put_mapping(
@@ -193,18 +193,18 @@ client.indices.put_mapping(
     }
 )
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-By default, string fields are mapped as `text`, but in the mapping above, the `first_name` and `last_name` fields are mapped as `keyword`. This mapping signals to OpenSearch that these fields should not be analyzed and should support only full case-sensitive matches.
+默认情况下，字符串字段映射为`text`，但在上面的映射中`first_name` 和`last_name` 字段被映射为`keyword`。该映射信号向OpenSearch进行了搜索，说这些字段不应进行分析，并且仅支持完整案例-敏感匹配。
 
-You can verify the index's mappings using the `get_mapping` method:
+您可以使用该索引来验证索引的映射`get_mapping` 方法：
 
 ```ruby
 response = client.indices.get_mapping(index: 'students')
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-If you know the mapping of your documents in advance and want to avoid mapping errors (for example, misspellings of a field name), you can set the `dynamic` parameter to `strict`:
+如果您提前知道文档的映射并想要避免映射错误（例如，字段名称的拼写错误），则可以设置`dynamic` 参数为`strict`：
 
 ```ruby
 client.indices.put_mapping(
@@ -220,9 +220,9 @@ client.indices.put_mapping(
     }
 )
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-With strict mapping, you can index a document with a missing field, but you cannot index a document with a new field. For example, indexing the following document with a misspelled `grad_yea` field fails:
+使用严格的映射，您可以将文档索引，但您无法用新字段索引文档。例如，用拼写错误为以下文档索引`grad_yea` 字段失败：
 
 ```ruby
 document = {
@@ -239,17 +239,17 @@ client.index(
     refresh: true
 )
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-OpenSearch returns a mapping error:
+OpenSearch返回映射错误：
 
 ```bash
 {"error":{"root_cause":[{"type":"strict_dynamic_mapping_exception","reason":"mapping set to strict, dynamic introduction of [grad_yea] within [_doc] is not allowed"}],"type":"strict_dynamic_mapping_exception","reason":"mapping set to strict, dynamic introduction of [grad_yea] within [_doc] is not allowed"},"status":400}
 ```
 
-## Indexing one document
+## 索引一个文档
 
-To index one document, use the `index` method:
+要索引一个文档，请使用`index` 方法：
 
 ```ruby
 document = {
@@ -266,11 +266,11 @@ client.index(
     refresh: true
 )
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Updating a document
+## 更新文档
 
-To update a document, use the `update` method:
+要更新文档，请使用`update` 方法：
 
 ```ruby
 client.update(index: 'students', 
@@ -278,11 +278,11 @@ client.update(index: 'students',
               body: { doc: { gpa: 3.25 } }, 
               refresh: true)
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Deleting a document
+## 删除文档
 
-To delete a document, use the `delete` method:
+要删除文档，请使用`delete` 方法：
 
 ```ruby
 client.delete(
@@ -291,13 +291,13 @@ client.delete(
     refresh: true
 )
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Bulk operations
+## 批量操作
 
-You can perform several operations at the same time by using the `bulk` method. The operations may be of the same type or of different types.
+您可以同时使用`bulk` 方法。操作可能是相同类型的或不同类型的。
 
-You can index multiple documents using the `bulk` method:
+您可以使用`bulk` 方法：
 
 ```ruby
 actions = [
@@ -308,9 +308,9 @@ actions = [
 ]
 client.bulk(body: actions, refresh: true)
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-You can delete multiple documents as follows:
+您可以删除多个文档，如下所示：
 
 ```ruby
 # Deleting multiple documents.
@@ -320,9 +320,9 @@ actions = [
 ]
 client.bulk(body: actions, refresh: true)
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-You can perform different operations when using `bulk` as follows:
+使用时，您可以执行不同的操作`bulk` 如下：
 
 ```ruby
 actions = [
@@ -337,13 +337,13 @@ actions = [
 ]
 client.bulk(body: actions, refresh: true)
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-In the above example, you pass the data and the header together and you denote the data with the `data:` key.
+在上面的示例中，您将数据和标头传递在一起，然后用`data:` 钥匙。
 
-## Searching for a document
+## 搜索文档
 
-To search for a document, use the `search` method. The following example searches for a student whose first or last name is "James." It uses a `multi_match` query to search for two fields (`first_name` and `last_name`), and it is boosting the `last_name` field in relevance with a caret notation (`last_name^2`). 
+要搜索文档，请使用`search` 方法。以下示例搜索一个学生的名字或姓氏为"James." 它使用一个`multi_match` 查询搜索两个字段（`first_name` 和`last_name`），这正在提高`last_name` 与符合符号相关的字段（`last_name^2`）。
 
 ```ruby
 q = 'James'
@@ -362,18 +362,18 @@ response = client.search(
   index: 'students'
 )
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-If you omit the request body in the `search` method, your query becomes a `match_all` query and returns all documents in the index:
+如果您省略了请求主体`search` 方法，您的查询变成了`match_all` 查询并返回索引中的所有文档：
 
 ```ruby
 client.search(index: 'students')
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Boolean query
+## 布尔查询
 
-The Ruby client exposes full OpenSearch query capability. In addition to simple searches that use the match query, you can create a more complex Boolean query to search for students who graduated in 2022 and sort them by last name. In the example below, search is limited to 10 documents.
+Ruby客户端公开了完整的OpenSearch查询功能。除了使用匹配查询的简单搜索外，您还可以创建一个更复杂的布尔查询，以搜索2022年毕业并按姓氏对其进行排序的学生。在下面的示例中，搜索仅限于10个文档。
 
 ```ruby
 query = {
@@ -396,11 +396,11 @@ query = {
 
 response = client.search(index: 'students', from: 0, size: 10, body: query)
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Multi-search
+## 并发-搜索
 
-You can bulk several queries together and perform a multi-search using the `msearch` method. The following code searches for students whose GPAs are outside the 3.1&ndash;3.9 range:
+您可以一起进行几个查询，并执行多个查询-使用`msearch` 方法。以下代码搜索GPA的学生不在3.1; 3.9范围内：
 
 ```ruby
 actions = [
@@ -411,11 +411,11 @@ actions = [
 ]
 response = client.msearch(index: 'students', body: actions)
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Scroll
+## 滚动
 
-You can paginate your search results using the Scroll API:
+您可以使用Scroll API分页搜索结果：
 
 ```ruby
 response = client.search(index: index_name, scroll: '2m', size: 2)
@@ -426,24 +426,24 @@ while response['hits']['hits'].size.positive?
     response = client.scroll(scroll: '1m', body: { scroll_id: scroll_id })
 end
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-First, you issue a search query, specifying the `scroll` and `size` parameters. The `scroll` parameter tells OpenSearch how long to keep the search context. In this case, it is set to two minutes. The `size` parameter specifies how many documents you want to return in each request. 
+首先，您发出搜索查询，指定`scroll` 和`size` 参数。这`scroll` 参数告诉OpenSearch保持搜索上下文多长时间。在这种情况下，将其设置为两分钟。这`size` 参数指定您要在每个请求中返回多少文档。
 
-The response to the initial search query contains a `_scroll_id` that you can use to get the next set of documents. To do this, you use the `scroll` method, again specifying the `scroll` parameter and passing the `_scroll_id` in the body. You don't need to specify the query or index to the `scroll` method. The `scroll` method returns the next set of documents and the `_scroll_id`. It's important to use the latest `_scroll_id` when requesting the next batch of documents because `_scroll_id` can change between requests.
+对初始搜索查询的响应包含一个`_scroll_id` 您可以使用下一组文档。为此，您使用`scroll` 方法，再次指定`scroll` 参数和通过`_scroll_id` 在身体里。您无需指定查询或索引`scroll` 方法。这`scroll` 方法返回下一组文档和`_scroll_id`。使用最新`_scroll_id` 要求下一批文档时，因为`_scroll_id` 可以在请求之间更改。
 
-## Deleting an index
+## 删除索引
 
-You can delete the index using the `delete` method:
+您可以使用`delete` 方法：
 
 ```ruby
 response = client.indices.delete(index: index_name)
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Sample program
+## 样本程序
 
-The following is a complete sample program that illustrates all of the concepts described in the preceding sections. The Ruby client's methods return responses as Ruby hashes, which are hard to read. To display JSON responses in a pretty format, the sample program uses the `MultiJson.dump` method.
+以下是一个完整的示例程序，该程序说明了前节中描述的所有概念。Ruby客户端的方法将响应返回为Ruby Hashes，很难阅读。要以漂亮的格式显示JSON响应，示例程序使用`MultiJson.dump` 方法。
 
 ```ruby
 require 'opensearch'
@@ -630,11 +630,11 @@ response = client.indices.delete(index: index_name)
 
 puts MultiJson.dump(response, pretty: "true")
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-# Ruby AWS Sigv4 Client
+# Ruby AWS SIGV4客户
 
-The [opensearch-aws-sigv4](https://github.com/opensearch-project/opensearch-ruby-aws-sigv4) gem provides the `OpenSearch::Aws::Sigv4Client` class, which has all features of `OpenSearch::Client`. The only difference between these two clients is that `OpenSearch::Aws::Sigv4Client` requires an instance of `Aws::Sigv4::Signer` during instantiation to authenticate with AWS:
+这[OpenSearch-AWS-SIGV4](https://github.com/opensearch-project/opensearch-ruby-aws-sigv4) 宝石提供`OpenSearch::Aws::Sigv4Client` 班级，具有所有功能`OpenSearch::Client`。这两个客户之间的唯一区别是`OpenSearch::Aws::Sigv4Client` 需要一个实例`Aws::Sigv4::Signer` 在实例化期间与AWS进行身份验证：
 
 ```ruby
 require 'opensearch-aws-sigv4'
@@ -653,4 +653,5 @@ client.transport.reload_connections!
 
 client.search q: 'test'
 ```
-{% include copy.html %}
+{％包括copy.html％
+

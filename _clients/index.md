@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Language clients
+title: 语言客户端
 nav_order: 1
 has_children: false
 nav_exclude: true
@@ -8,56 +8,56 @@ redirect_from:
   - /clients/
 ---
 
-# OpenSearch language clients
+# OpenSearch语言客户端
 
-OpenSearch provides clients in JavaScript, Python, Ruby, Java, PHP, .NET, Go and Rust.
+OpenSearch为JavaScript，Python，Ruby，Java，Php，.net，Go and Rust提供了客户。
 
-## OpenSearch clients
+## OpenSearch客户端
 
-OpenSearch provides clients for the following programming languages and platforms: 
+OpenSearch为客户提供以下编程语言和平台的客户：
 
-* **Python**
-  * [OpenSearch high-level Python client]({{site.url}}{{site.baseurl}}/clients/python-high-level/)
-  * [OpenSearch low-level Python client]({{site.url}}{{site.baseurl}}/clients/python-low-level/)
-  * [`opensearch-py-ml` client]({{site.url}}{{site.baseurl}}/clients/opensearch-py-ml/)
-* **Java**
-  * [OpenSearch Java client]({{site.url}}{{site.baseurl}}/clients/java/)
-* **JavaScript**
-  * [OpenSearch JavaScript (Node.js) client]({{site.url}}{{site.baseurl}}/clients/javascript/index)
-* **Go**
-  * [OpenSearch Go client]({{site.url}}{{site.baseurl}}/clients/go/)
-* **Ruby**
-  * [OpenSearch Ruby client]({{site.url}}{{site.baseurl}}/clients/ruby/)
-* **PHP**
-  * [OpenSearch PHP client]({{site.url}}{{site.baseurl}}/clients/php/)
-* **.NET**
-  * [OpenSearch .NET clients]({{site.url}}{{site.baseurl}}/clients/dot-net/)
-* **Rust**
-  * [OpenSearch Rust client]({{site.url}}{{site.baseurl}}/clients/rust/)
+***Python**
+  *[OpenSearch High-python客户端]({{site.url}}{{site.baseurl}}/clients/python-high-level/)
+  *[OpenSearch低-python客户端]({{site.url}}{{site.baseurl}}/clients/python-low-level/)
+  *[`opensearch-py-ml` 客户]({{site.url}}{{site.baseurl}}/clients/opensearch-py-ml/)
+***爪哇**
+  *[OpenSearch Java客户端]({{site.url}}{{site.baseurl}}/clients/java/)
+***JavaScript**
+  *[OpenSearch JavaScript（node.js）客户端]({{site.url}}{{site.baseurl}}/clients/javascript/index)
+***去**
+  *[OpenSearch Go客户端]({{site.url}}{{site.baseurl}}/clients/go/)
+***红宝石**
+  *[OpenSearch Ruby客户端]({{site.url}}{{site.baseurl}}/clients/ruby/)
+***php**
+  *[OpenSearch PHP客户端]({{site.url}}{{site.baseurl}}/clients/php/)
+***。网**
+  *[OpenSearch .NET客户端]({{site.url}}{{site.baseurl}}/clients/dot-net/)
+***锈**
+  *[OpenSearch Rust客户端]({{site.url}}{{site.baseurl}}/clients/rust/)
 
-All clients are compatible with any version of OpenSearch.
+所有客户端都与任何版本的OpenSearch兼容。
 {: .note}
 
 
-## Legacy clients
+## 旧客户
 
-Most clients that work with Elasticsearch OSS 7.10.2 *should* work with OpenSearch, but the latest versions of those clients might include license or version checks that artificially break compatibility. This page includes recommendations around which versions of those clients to use for best compatibility with OpenSearch.
+与Elasticsearch OSS 7.10.2 *合作的大多数客户都应该与OpenSearch一起使用，但是这些客户的最新版本可能包括人为折断兼容性的许可证或版本检查。此页面包括围绕哪些客户使用的建议，以与OpenSearch的最佳兼容性。
 
-Client | Recommended version
+客户| 推荐版本
 :--- | :---
-[Elasticsearch Java low-level REST client](https://search.maven.org/artifact/org.elasticsearch.client/elasticsearch-rest-client/7.13.4/jar) | 7.13.4
-[Elasticsearch Java high-level REST client](https://search.maven.org/artifact/org.elasticsearch.client/elasticsearch-rest-high-level-client/7.13.4/jar) | 7.13.4
-[Elasticsearch Python client](https://pypi.org/project/elasticsearch/7.13.4/) | 7.13.4
-[Elasticsearch Node.js client](https://www.npmjs.com/package/@elastic/elasticsearch/v/7.13.0) | 7.13.0
-[Elasticsearch Ruby client](https://rubygems.org/gems/elasticsearch/versions/7.13.0) | 7.13.0
+[Elasticsearch Java Low-级别休息客户端](https://search.maven.org/artifact/org.elasticsearch.client/elasticsearch-rest-client/7.13.4/jar) | 7.13.4
+[Elasticsearch Java High-级别休息客户端](https://search.maven.org/artifact/org.elasticsearch.client/elasticsearch-rest-high-level-client/7.13.4/jar) | 7.13.4
+[Elasticsearch Python客户端](https://pypi.org/project/elasticsearch/7.13.4/) | 7.13.4
+[Elasticsearch Node.js客户端](https://www.npmjs.com/package/@elastic/elasticsearch/v/7.13.0) | 7.13.0
+[Elasticsearch Ruby客户端](https://rubygems.org/gems/elasticsearch/versions/7.13.0) | 7.13.0
 
-If you test a legacy client and verify that it works, please [submit a PR](https://github.com/opensearch-project/documentation-website/pulls) and add it to this table.
+如果您测试旧的客户端并确认其有效，请[提交公关](https://github.com/opensearch-project/documentation-website/pulls) 并将其添加到此表中。
 
 
-{% comment %}
-## Python 3 test code
+{％ 评论 ％}
+## Python 3测试代码
 
-This code indexes a single document and is equivalent to `PUT /python-test-index1/_doc/1`.
+该代码索引一个文档，相当于`PUT /python-test-index1/_doc/1`。
 
 ```python
 from elasticsearch import Elasticsearch
@@ -86,9 +86,9 @@ print(response)
 ```
 
 
-## Node.js test code
+## Node.js测试代码
 
-This code is equivalent to `GET /`.
+此代码等同于`GET /`。
 
 ```js
 const { Client } = require('@elastic/elasticsearch')
@@ -112,4 +112,5 @@ async function run () {
 
 run().catch(console.log)
 ```
-{% endcomment %}
+{％endcomment％}
+

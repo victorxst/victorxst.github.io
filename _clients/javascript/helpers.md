@@ -1,21 +1,21 @@
 ---
 layout: default
-title: Helper methods
-parent: JavaScript client
+title: 辅助方法
+parent: JavaScript客户端
 nav_order: 2
 ---
 
-# Helper methods
+# 辅助方法
 
-Helper methods simplify the use of complicated API tasks. For the client's complete API documentation and additional examples, see the [JS client API documentation](https://opensearch-project.github.io/opensearch-js/2.2/index.html).
+辅助方法简化了复杂的API任务的使用。有关客户的完整API文档和其他示例，请参见[JS客户端API文档](https://opensearch-project.github.io/opensearch-js/2.2/index.html)。
 
-## Bulk helper
+## 散装助手
 
-The bulk helper simplifies making complex bulk API requests.
+批量助手简化了提出复杂的散装API请求。
 
-### Usage
+### 用法
 
-The following code creates a bulk helper instance:
+以下代码创建了一个批量的助手实例：
 
 ```javascript
 const { Client } = require('@opensearch-project/opensearch')
@@ -34,9 +34,9 @@ const result = await client.helpers.bulk({
 
 console.log(result)
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-Bulk helper operations return an object with the following fields:
+批量助手操作返回具有以下字段的对象：
 
 ```json
 {
@@ -50,31 +50,31 @@ Bulk helper operations return an object with the following fields:
 }
 ```
 
-#### Bulk helper configuration options
+#### 批量辅助配置选项
 
-When creating a new bulk helper instance, you can use the following configuration options.
+创建新的散装助手实例时，您可以使用以下配置选项。
 
-| Option | Data type | Required/Default | Description 
+| 选项| 数据类型| 必需/默认| 描述
 | :--- | :--- | :--- | :---
-| `datasource` | An array, async generator or a readable stream of strings or objects | Required | Represents the documents you need to create, delete, index, or update. 
-| `onDocument` | Function | Required | A function to be invoked with each document in the given `datasource`. It returns the operation to be executed for this document. Optionally, the document can be manipulated for `create` and `index` operations by returning a new document as part of the function's result.
-| `concurrency` | Integer | Optional. Default is 5. | The number of requests to be executed in parallel. 
-| `flushBytes` | Integer |  Optional. Default is 5,000,000. | Maximum bulk body size to send in bytes.
-| `flushInterval` | Integer |  Optional. Default is 30,000. | Time in milliseconds to wait before flushing the body after the last document has been read.
-| `onDrop` | Function | Optional. Default is `noop`. | A function to be invoked for every document that can’t be indexed after reaching the maximum number of retries. 
-| `refreshOnCompletion` | Boolean | Optional. Default is false. | Whether or not a refresh should be run on all affected indexes at the end of the bulk operation. 
-| `retries` | Integer |  Optional. Defaults to the client's  `maxRetries` value. | The number of times an operation is retried before `onDrop` is called for that document.
-| `wait` | Integer |  Optional. Default is 5,000. | Time in milliseconds to wait before retrying an operation.
+| `datasource` | 数组，异步发电机或可读的字符串或对象流| 必需的| 表示您需要创建，删除，索引或更新的文档。
+| `onDocument` | 功能| 必需的| 在给定的每个文档中调用的函数`datasource`。它返回为此文档执行的操作。可选地，可以操纵文档`create` 和`index` 通过返回新文档作为函数结果的一部分操作。
+| `concurrency` | 整数| 选修的。默认值为5。| 并行执行的请求数。
+| `flushBytes` | 整数|  选修的。默认值为5,000,000。| 最大散装体大小以发送字节。
+| `flushInterval` | 整数|  选修的。默认值为30,000。| 在阅读最后一份文档后，毫秒毫秒的时间才能等待尸体。
+| `onDrop` | 功能| 选修的。默认为`noop`。| 每个文档要调用最大恢复次数后无法索引的每个文档的函数。
+| `refreshOnCompletion` | 布尔| 选修的。默认值为false。| 是否应在批量操作结束时对所有受影响的索引进行刷新。
+| `retries` | 整数|  选修的。默认为客户的`maxRetries` 价值。| 在操作之前进行操作的次数`onDrop` 被称为该文档。
+| `wait` | 整数|  选修的。默认值为5,000。| 在重试操作之前等待毫秒的时间。
 
-### Examples
+### 例子
 
-The following examples illustrate the index, create, update, and delete bulk helper operations. For more information and advanced index actions, see the [`opensearch-js` guides](https://github.com/opensearch-project/opensearch-js/tree/main/guides) in GitHub.  
+以下示例说明了索引，创建，更新和删除散装助手操作。有关更多信息和高级索引操作，请参阅[`opensearch-js` 向导](https://github.com/opensearch-project/opensearch-js/tree/main/guides) 在github。
 
-#### Index
+#### 指数
 
-The index operation creates a new document if it doesn’t exist and recreates the document if it already exists.
+索引操作如果不存在，则会创建一个新文档，如果文档已经存在，则将重新创建文档。
 
-The following bulk operation indexes documents into `example-index`:
+以下批量操作将文档索引到`example-index`：
 
 ```javascript
 client.helpers.bulk({
@@ -86,9 +86,9 @@ client.helpers.bulk({
   }
 })
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-The following bulk operation indexes documents into `example-index` with document overwrite:
+以下批量操作将文档索引到`example-index` 使用文档覆盖：
 
 ```javascript
 client.helpers.bulk({
@@ -103,13 +103,13 @@ client.helpers.bulk({
   }
 })
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-#### Create
+#### 创造
 
-The create operation creates a new document only if the document does not already exist.
+创建操作只有在尚不存在的文档时才创建一个新文档。
 
-The following bulk operation creates documents in the `example-index`:
+以下批量操作在`example-index`：
 
 ```javascript
 client.helpers.bulk({
@@ -121,9 +121,9 @@ client.helpers.bulk({
   }
 })
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-The following bulk operation creates documents in the `example-index` with document overwrite:
+以下批量操作在`example-index` 使用文档覆盖：
 
 ```javascript
 client.helpers.bulk({
@@ -138,13 +138,13 @@ client.helpers.bulk({
   }
 })
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-#### Update
+#### 更新
 
-The update operation updates the document with the fields being sent. The document must already exist in the index.
+更新操作更新文档，并发送了字段。该文档必须已经存在于索引中。
 
-The following bulk operation updates documents in the `arrayOfDocuments`:
+以下批量操作更新了文档`arrayOfDocuments`：
 
 ```javascript
 client.helpers.bulk({
@@ -161,9 +161,9 @@ client.helpers.bulk({
   }
 })
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-The following bulk operation updates documents in the `arrayOfDocuments` with document overwrite:
+以下批量操作更新了文档`arrayOfDocuments` 使用文档覆盖：
 
 ```javascript
 client.helpers.bulk({
@@ -181,13 +181,13 @@ client.helpers.bulk({
   }
 })
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-#### Delete
+#### 删除
 
-The delete operation deletes a document.
+删除操作删除文档。
 
-The following bulk operation deletes documents from the `example-index`:
+以下批量操作从`example-index`：
 
 ```javascript
 client.helpers.bulk({
@@ -199,4 +199,5 @@ client.helpers.bulk({
   }
 })
 ```
-{% include copy.html %}
+{％包括copy.html％
+

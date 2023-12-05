@@ -1,38 +1,38 @@
 ---
 layout: default
-title: High-level Python client
+title: 高级Python客户端
 nav_order: 5
 ---
 
-The OpenSearch high-level Python client (`opensearch-dsl-py`) will be deprecated after version 2.1.0. We recommend switching to the [Python client (`opensearch-py`)]({{site.url}}{{site.baseurl}}/clients/python-low-level/), which now includes the functionality of `opensearch-dsl-py`.
+OpenSearch High-级Python客户端（`opensearch-dsl-py`）将在版本2.1.0之后进行弃用。我们建议切换到[Python客户（`opensearch-py`）]({{site.url}}{{site.baseurl}}/clients/python-low-level/)，现在包括`opensearch-dsl-py`。
 {: .warning}
 
-# High-level Python client
+# 高的-python客户端
 
-The OpenSearch high-level Python client (`opensearch-dsl-py`) provides wrapper classes for common OpenSearch entities, like documents, so you can work with them as Python objects. Additionally, the high-level client simplifies writing queries and supplies convenient Python methods for common OpenSearch operations. The high-level Python client supports creating and indexing documents, searching with and without filters, and updating documents using queries.
+OpenSearch High-级Python客户端（`opensearch-dsl-py`）为通用搜索实体（例如文档）提供包装类别，因此您可以将其作为python对象合作。此外，高-Level Client简化了为常见OpenSearch操作的方便的Python方法编写查询和供应。高-级别Python客户端支持创建和索引文档，在有或没有过滤器的情况下进行搜索以及使用查询更新文档。
 
-This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-dsl-py repo](https://github.com/opensearch-project/opensearch-dsl-py).
+该入门指南说明了如何连接到OpenSearch，索引文档和运行查询。有关客户端源代码，请参阅[OpenSearch-DSL-PY仓库](https://github.com/opensearch-project/opensearch-dsl-py)。
 
-## Setup
+## 设置
 
-To add the client to your project, install it using [pip](https://pip.pypa.io/):
+要将客户端添加到您的项目中，请使用[pip](https://pip.pypa.io/)：
 
 ```bash
 pip install opensearch-dsl
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-After installing the client, you can import it like any other module:
+安装客户端后，您可以像其他任何模块一样导入它：
 
 ```python
 from opensearchpy import OpenSearch
 from opensearch_dsl import Search
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Connecting to OpenSearch
+## 连接到OpenSearch
 
-To connect to the default OpenSearch host, create a client object with SSL enabled if you are using the Security plugin. You can use the default credentials for testing purposes:
+要连接到默认的OpenSearch主机，请在使用安全插件时使用SSL创建客户对象。您可以将默认凭据用于测试目的：
 
 ```python
 host = 'localhost'
@@ -52,9 +52,9 @@ client = OpenSearch(
     ca_certs = ca_certs_path
 )
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-If you have your own client certificates, specify them in the `client_cert_path` and `client_key_path` parameters:
+如果您有自己的客户证书，请在`client_cert_path` 和`client_key_path` 参数：
 
 ```python
 host = 'localhost'
@@ -80,9 +80,9 @@ client = OpenSearch(
     ca_certs = ca_certs_path
 )
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-If you are not using the Security plugin, create a client object with SSL disabled:
+如果您不使用安全插件，请使用禁用SSL创建客户端对象：
 
 ```python
 host = 'localhost'
@@ -98,11 +98,11 @@ client = OpenSearch(
     ssl_show_warn = False
 )
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Creating an index
+## 创建索引
 
-To create an OpenSearch index, use the `client.indices.create()` method. You can use the following code to construct a JSON object with custom settings:
+要创建OpenSearch索引，请使用`client.indices.create()` 方法。您可以使用以下代码构建具有自定义设置的JSON对象：
 
 ```python
 index_name = 'my-dsl-index'
@@ -116,11 +116,11 @@ index_body = {
 
 response = client.indices.create(index_name, body=index_body)
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Indexing a document
+## 索引文档
 
-You can create a class to represent the documents that you'll index in OpenSearch by extending the `Document` class:
+您可以创建一个类来表示您在OpenSearch中您将索引的文档，通过扩展`Document` 班级：
 
 ```python
 class Movie(Document):
@@ -134,9 +134,9 @@ class Movie(Document):
     def save(self, ** kwargs):
         return super(Movie, self).save(** kwargs)
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-To index a document, create an object of the new class and call its `save()` method:
+要索引文档，请创建一个新类的对象，然后调用其`save()` 方法：
 
 ```python
 # Set up the opensearch-py version of the document
@@ -144,22 +144,22 @@ Movie.init(using=client)
 doc = Movie(meta={'id': 1}, title='Moneyball', director='Bennett Miller', year='2011')
 response = doc.save(using=client)
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Performing bulk operations
+## 执行批量操作
 
-You can perform several operations at the same time by using the `bulk()` method of the client. The operations may be of the same type or of different types. Note that the operations must be separated by a `\n` and the entire string must be a single line:
+您可以同时使用`bulk()` 客户的方法。操作可能是相同类型的或不同类型的。请注意，操作必须由`\n` 整个字符串必须是一行：
 
 ```python
 movies = '{ "index" : { "_index" : "my-dsl-index", "_id" : "2" } } \n { "title" : "Interstellar", "director" : "Christopher Nolan", "year" : "2014"} \n { "create" : { "_index" : "my-dsl-index", "_id" : "3" } } \n { "title" : "Star Trek Beyond", "director" : "Justin Lin", "year" : "2015"} \n { "update" : {"_id" : "3", "_index" : "my-dsl-index" } } \n { "doc" : {"year" : "2016"} }'
 
 client.bulk(movies)
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Searching for documents
+## 搜索文档
 
-You can use the `Search` class to construct a query. The following code creates a Boolean query with a filter:
+您可以使用`Search` 构建查询的类。以下代码通过过滤器创建布尔查询：
 
 ```python
 s = Search(using=client, index=index_name) \
@@ -168,9 +168,9 @@ s = Search(using=client, index=index_name) \
 
 response = s.execute()
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-The preceding query is equivalent to the following query in OpenSearch domain-specific language (DSL):
+前面的查询等效于OpenSearch域中的以下查询-特定语言（DSL）：
 
 ```json
 GET my-dsl-index/_search 
@@ -192,9 +192,9 @@ GET my-dsl-index/_search
 }
 ```
 
-## Deleting a document
+## 删除文档
 
-You can delete a document using the `client.delete()` method:
+您可以使用`client.delete()` 方法：
 
 ```python
 response = client.delete(
@@ -202,22 +202,22 @@ response = client.delete(
     id = '1'
 )
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Deleting an index
+## 删除索引
 
-You can delete an index using the `client.indices.delete()` method:
+您可以使用`client.indices.delete()` 方法：
 
 ```python
 response = client.indices.delete(
     index = 'my-dsl-index'
 )
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Sample program
+## 样本程序
 
-The following sample program creates a client, adds an index with non-default settings, inserts a document, performs bulk operations, searches for the document, deletes the document, and then deletes the index:
+以下示例程序创建了一个客户端，添加了一个非索引-默认设置，插入文档，执行批量操作，搜索文档，删除文档，然后删除索引：
 
 ```python
 from opensearchpy import OpenSearch
@@ -303,4 +303,5 @@ response = client.indices.delete(
 print('\nDeleting index:')
 print(response)
 ```
-{% include copy.html %}
+{％包括copy.html％
+

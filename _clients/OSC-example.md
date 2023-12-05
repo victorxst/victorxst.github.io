@@ -1,14 +1,14 @@
 ---
 layout: default
-title: More advanced features of the high-level .NET client
+title: 高级 .NET 客户端的更多高级功能
 nav_order: 12
 has_children: false
-parent: .NET clients
+parent: .NET客户端
 ---
 
-# More advanced features of the high-level .NET client (OpenSearch.Client)
+# 高级 .NET 客户端的更多高级功能 (OpenSearch.Client)
 
-The following example illustrates more advanced features of OpenSearch.Client. For a simple example, see the [Getting started guide]({{site.url}}{{site.baseurl}}/clients/OSC-dot-net/). This example uses the following Student class.
+以下示例说明了opensearch.client的更高级功能。对于一个简单的示例，请参阅[入门指南]({{site.url}}{{site.baseurl}}/clients/OSC-dot-net/)。此示例使用以下学生课程。
 
 ```cs
 public class Student
@@ -20,21 +20,21 @@ public class Student
     public double Gpa { get; init; }
 }
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Mappings
+## 映射
 
-OpenSearch uses dynamic mapping to infer field types of the documents that are indexed. However, to have more control over the schema of your document, you can pass an explicit mapping to OpenSearch. You can define data types for some or all fields of your document in this mapping. 
+OpenSearch使用动态映射来推断索引的文档的字段类型。但是，要对文档的架构进行更多控制，您可以将明确的映射传递给OpenSearch。您可以在此映射中为文档的某些字段定义数据类型。
 
-Similarly, OpenSearch.Client uses auto mapping to infer field data types based on the types of the class's properties. To use auto mapping, create a `students` index using the AutoMap's default constructor:
+同样，OpenSearch.Client使用自动映射根据类的属性类型推断字段数据类型。要使用自动映射，请创建一个`students` 使用Automap的默认构造函数的索引：
 
 ```cs
 var createResponse = await osClient.Indices.CreateAsync("students",
     c => c.Map(m => m.AutoMap<Student>()));
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-If you use auto mapping, Id and GradYear are mapped as integers, Gpa is mapped as a double, and FirstName and LastName are mapped as text with a keyword subfield. If you want to search for FirstName and LastName and allow only case-sensitive full matches, you can suppress analyzing by mapping these fields as keyword only. In Query DSL, you can accomplish this using the following query:
+如果您使用自动映射，则将ID和Gradyear映射为整数，GPA被映射为双重映射，而FirstName和LastSname则作为带有关键字子字段的文本映射为文本。如果您想搜索firstName和lastname，并且仅允许案例-敏感的完整匹配，您可以通过将这些字段映射为关键字来抑制分析。在查询DSL中，您可以使用以下查询来完成此操作：
 
 ```json
 PUT students
@@ -52,7 +52,7 @@ PUT students
 }
 ```
 
-In OpenSearch.Client, you can use fluid lambda syntax to mark these fields as keywords:
+在OpenSearch.Client中，您可以使用流体lambda语法将这些字段标记为关键字：
 
 ```cs
 var createResponse = await osClient.Indices.CreateAsync(index,
@@ -61,11 +61,11 @@ var createResponse = await osClient.Indices.CreateAsync(index,
                 .Keyword(k => k.Name(f => f.FirstName))
                 .Keyword(k => k.Name(f => f.LastName)))));
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Settings
+## 设置
 
-In addition to mappings, you can specify settings like the number of primary and replica shards when creating an index. The following query sets the number of primary shards to 1 and the number of replica shards to 2:
+除映射外，您还可以在创建索引时指定设置，例如主和副本碎片的数量。以下查询将主要碎片的数量设置为1，将复制碎片的数量设置为2：
 
 ```json
 PUT students
@@ -87,7 +87,7 @@ PUT students
 }
 ```
 
-In OpenSearch.Client, the equivalent of the above query is the following:
+在openSearch.client中，相当于上述查询的等效内容如下：
 
 ```cs
 var createResponse = await osClient.Indices.CreateAsync(index,
@@ -97,18 +97,18 @@ var createResponse = await osClient.Indices.CreateAsync(index,
                             .Keyword(k => k.Name(f => f.LastName))))
                             .Settings(s => s.NumberOfShards(1).NumberOfReplicas(2)));
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Indexing multiple documents using the Bulk API
+## 使用批量API索引多个文档
 
-In addition to indexing one document using `Index` and `IndexDocument` and indexing multiple documents using `IndexMany`, you can gain more control over document indexing by using `Bulk` or `BulkAll`. Indexing documents individually is inefficient because it creates an HTTP request for every document sent. The BulkAll helper frees you from handling retry, chunking or back off request functionality. It automatically retries if the request fails, backs off if the server is down, and controls how many documents are sent in one HTTP request. 
+除了使用一个文档索引`Index` 和`IndexDocument` 并使用多个文档索引`IndexMany`，您可以通过使用对文档索引的更多控制`Bulk` 或者`BulkAll`。索引文档单独效率低下，因为它会为发送的每个文档创建HTTP请求。Bulkall Helper使您无法处理重试，分块或退缩请求功能。如果请求发生故障，它将自动重新检索，如果服务器下降，请备份，并控制一个HTTP请求中发送了多少个文档。
 
-In the following example, `BulkAll` is configured with the index name, number of back off retries, and back off time. Additionally, the maximum degrees of parallelism setting controls the number of parallel HTTP requests containing the data. Finally, the size parameter signals how many documents are sent in one HTTP request. 
+在以下示例中，`BulkAll` 配置有索引名称，返回次数的数量以及返回时间。此外，并行性设置的最大程度控制包含数据的并行HTTP请求的数量。最后，大小参数信号在一个HTTP请求中发送了多少个文档。
 
-We recommend setting the size to 100–1000 documents in production. 
+我们建议将大小设置为生产中的100–1000个文档。
 {: .tip}
 
-`BulkAll` takes a stream of data and returns an Observable that you can use to observe the background operation.
+`BulkAll` 获取数据流并返回可观察到的可观察到背景操作的可观察到的。
 
 ```cs
 var bulkAll = osClient.BulkAll(ReadData(), r => r
@@ -118,11 +118,11 @@ var bulkAll = osClient.BulkAll(ReadData(), r => r
             .MaxDegreeOfParallelism(4)
             .Size(100));
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Searching with Boolean query
+## 与布尔查询一起搜索
 
-OpenSearch.Client exposes full OpenSearch query capability. In addition to simple searches that use the match query, you can create a more complex Boolean query to search for students who graduated in 2022 and sort them by last name. In the example below, search is limited to 10 documents, and the scroll API is used to control the pagination of results.
+OpenSearch.Client公开完整的OpenSearch查询功能。除了使用匹配查询的简单搜索外，您还可以创建一个更复杂的布尔查询，以搜索2022年毕业并按姓氏对其进行排序的学生。在下面的示例中，搜索仅限于10个文档，并且滚动API用于控制结果的分页。
 
 ```cs
 var gradResponse = await osClient.SearchAsync<Student>(s => s
@@ -136,15 +136,15 @@ var gradResponse = await osClient.SearchAsync<Student>(s => s
                         .Term(t => t.Field(fld => fld.GradYear).Value(2022)))))
                         .Sort(srt => srt.Ascending(f => f.LastName)));
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-The response contains the Documents property with matching documents from OpenSearch. The data is in the form of deserialized JSON objects of Student type, so you can access their properties in a strongly typed fashion. All serialization and deserialization is handled by OpenSearch.Client.
+响应包含文档属性，其中包含来自OpenSearch的匹配文档。这些数据是学生类型的必不可少的JSON对象的形式，因此您可以以强烈的打字方式访问其属性。所有序列化和避难所都由OpenSearch.Client处理。
 
-## Aggregations
+## 聚合
 
-OpenSearch.Client includes the full OpenSearch query functionality, including aggregations. In addition to grouping search results into buckets (for example, grouping students by GPA ranges), you can calculate metrics like sum or average. The following query calculates the average GPA of all students in the index. 
+OpenSearch.Client包括完整的OpenSearch查询功能，包括聚合。除了将搜索结果分组到水桶中（例如，按GPA范围对学生进行分组），您还可以计算诸如总和或平均值之类的指标。以下查询计算了索引中所有学生的平均GPA。
 
-Setting Size to 0 means OpenSearch will only return the aggregation, not the actual documents.
+将大小设置为0表示OpenSearch只能返回聚合，而不是实际文档。
 {: .tip}
 
 ```cs
@@ -155,11 +155,11 @@ var aggResponse = await osClient.SearchAsync<Student>(s => s
                                 .Average("average gpa", 
                                             avg => avg.Field(fld => fld.Gpa))));
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Sample program for creating an index and indexing data
+## 用于创建索引和索引数据的示例程序
 
-The following program creates an index, reads a stream of student records from a comma-separated file and indexes this data into OpenSearch.
+以下程序创建索引，读取逗号的学生记录流-将文件分开，并将这些数据索引到OpenSearch中。
 
 ```cs
 using OpenSearch.Client;
@@ -222,11 +222,11 @@ internal class Program
     }
 }
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Sample program for search
+## 搜索样本程序
 
-The following program searches students by name and graduation date and calculates the average GPA.
+以下程序按名称和毕业日期搜索学生，并计算平均GPA。
 
 ```cs
 using OpenSearch.Client;
@@ -325,4 +325,5 @@ internal class Program
     }
 }
 ```
-{% include copy.html %}
+{％包括copy.html％
+

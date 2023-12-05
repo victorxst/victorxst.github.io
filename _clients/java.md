@@ -1,18 +1,18 @@
 ---
 layout: default
-title: Java client
+title: Java客户端
 nav_order: 30
 ---
 
-# Java client
+# Java客户端
 
-The OpenSearch Java client allows you to interact with your OpenSearch clusters through Java methods and data structures rather than HTTP methods and raw JSON. For example, you can submit requests to your cluster using objects to create indexes, add data to documents, or complete some other operation using the client's built-in methods. For the client's complete API documentation and additional examples, see the [javadoc](https://www.javadoc.io/doc/org.opensearch.client/opensearch-java/latest/index.html).
+OpenSearch Java客户端使您可以通过Java方法和数据结构而不是HTTP方法和RAW JSON与OpenSearch群集进行交互。例如，您可以使用对象将请求提交到群集，以创建索引，将数据添加到文档中，或使用客户端的构建-在方法中。有关客户的完整API文档和其他示例，请参见[Javadoc](https://www.javadoc.io/doc/org.opensearch.client/opensearch-java/latest/index.html)。
 
-This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-java repo](https://github.com/opensearch-project/opensearch-java).
+该入门指南说明了如何连接到OpenSearch，索引文档和运行查询。有关客户端源代码，请参阅[OpenSearch-Java Repo](https://github.com/opensearch-project/opensearch-java)。
 
-## Installing the client using Apache HttpClient 5 Transport
+## 使用Apache HTTPClient 5 Transport安装客户端
 
-To start using the OpenSearch Java client, you need to provide a transport. The default `ApacheHttpClient5TransportBuilder` transport comes with the Java client. To use the OpenSearch Java client with the default transport, add it to your `pom.xml` file as a dependency:
+要开始使用OpenSearch Java客户端，您需要提供运输。默认值`ApacheHttpClient5TransportBuilder` 运输带有Java客户。要使用默认传输的OpenSearch Java客户端，请将其添加到您的`pom.xml` 文件作为依赖性：
 
 ```xml
 <dependency>
@@ -27,22 +27,22 @@ To start using the OpenSearch Java client, you need to provide a transport. The 
   <version>5.2.1</version>
 </dependency>
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-If you're using Gradle, add the following dependencies to your project:
+如果您使用的是Gradle，请将以下依赖项添加到您的项目中：
 
 ```
 dependencies {
   implementation 'org.opensearch.client:opensearch-java:2.6.0'
 }
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-You can now start your OpenSearch cluster.
+现在，您可以启动OpenSearch cluster。
 
-## Installing the client using RestClient Transport
+## 使用RESTCLIENT运输安装客户端
 
-Alternatively, you can create a Java client by using the `RestClient`-based transport. In this case, make sure that you have the following dependencies in your project's `pom.xml` file:
+另外，您可以使用`RestClient`-基于运输。在这种情况下，请确保您的项目中有以下依赖关系`pom.xml` 文件：
 
 ```xml
 <dependency>
@@ -57,9 +57,9 @@ Alternatively, you can create a Java client by using the `RestClient`-based tran
   <version>2.6.0</version>
 </dependency>
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-If you're using Gradle, add the following dependencies to your project"
+如果您使用的是Gradle，请将以下依赖项添加到您的项目中”
 
 ```
 dependencies {
@@ -67,30 +67,30 @@ dependencies {
   implementation 'org.opensearch.client:opensearch-java:2.6.0'
 }
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-You can now start your OpenSearch cluster.
+现在，您可以启动OpenSearch cluster。
 
-## Security
+## 安全
 
-Before using the REST client in your Java application, you must configure the application's truststore to connect to the Security plugin. If you are using self-signed certificates or demo configurations, you can use the following command to create a custom truststore and add in root authority certificates.
+在Java应用程序中使用REST客户端之前，您必须配置应用程序的信托存储店以连接到安全插件。如果您正在使用自我-签名的证书或演示配置，您可以使用以下命令来创建自定义信托存储并添加根权限证书。
 
-If you're using certificates from a trusted Certificate Authority (CA), you don't need to configure the truststore.
+如果您使用来自受信任证书授权（CA）的证书，则无需配置信托店。
 
 ```bash
 keytool -import <path-to-cert> -alias <alias-to-call-cert> -keystore <truststore-name>
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-You can now point your Java client to the truststore and set basic authentication credentials that can access a secure cluster (refer to the sample code below on how to do so).
+现在，您可以将Java客户端指向TrustStore，并设置可以访问安全群集的基本身份验证凭据（请参阅下面的示例代码有关方法）。
 
-If you run into issues when configuring security, see [common issues]({{site.url}}{{site.baseurl}}/troubleshoot/index) and [troubleshoot TLS]({{site.url}}{{site.baseurl}}/troubleshoot/tls).
+如果您在配置安全性时会遇到问题，请参阅[常见问题]({{site.url}}{{site.baseurl}}/troubleshoot/index) 和[故障排除TLS]({{site.url}}{{site.baseurl}}/troubleshoot/tls)。
 
-## Sample data
+## 样本数据
 
-This section uses a class called `IndexData`, which is a simple Java class that stores basic data and methods. For your own OpenSearch cluster, you might find that you need a more robust class to store your data.
+本节使用称为`IndexData`，这是一个简单的Java类，它存储基本的数据和方法。对于自己的OpenSearch集群，您可能会发现您需要一个更强大的类来存储数据。
 
-### IndexData class
+### indexdata类
 
 ```java
 static class IndexData {
@@ -124,13 +124,13 @@ static class IndexData {
   }
 }
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Initializing the client with SSL and TLS enabled using Apache HttpClient 5 Transport
+## 使用Apache HTTPClient 5 Transpers启用SSL和TLS初始化客户端
 
-This code example uses basic credentials that come with the default OpenSearch configuration. If you’re using the Java client with your own OpenSearch cluster, be sure to change the code so that it uses your own credentials.
+此代码示例使用默认OpenSearch配置随附的基本凭据。如果您使用自己的OpenSearch集群使用Java客户端，请确保更改代码，以便使用您自己的凭据。
 
-The following sample code initializes a client with SSL and TLS enabled:
+以下示例代码启用了SSL和TLS的客户端：
 
 
 ```java
@@ -197,11 +197,11 @@ public class OpenSearchClientExample {
 
 ```
 
-## Initializing the client with SSL and TLS enabled using RestClient Transport
+## 使用RESTCLIENT TRANSPORM启用SSL和TLS初始化客户端
 
-This code example uses basic credentials that come with the default OpenSearch configuration. If you’re using the Java client with your own OpenSearch cluster, be sure to change the code so that it uses your own credentials.
+此代码示例使用默认OpenSearch配置随附的基本凭据。如果您使用自己的OpenSearch集群使用Java客户端，请确保更改代码，以便使用您自己的凭据。
 
-The following sample code initializes a client with SSL and TLS enabled:
+以下示例代码启用了SSL和TLS的客户端：
 
 ```java
 import org.apache.http.HttpHost;
@@ -240,11 +240,11 @@ public class OpenSearchClientExample {
   }
 }
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Connecting to Amazon OpenSearch Service
+## 连接到Amazon OpenSearch服务
 
-The following example illustrates connecting to Amazon OpenSearch Service:
+下面的示例说明了连接到Amazon OpenSearch服务：
 
 ```java
 SdkHttpClient httpClient = ApacheHttpClient.builder().build();
@@ -264,11 +264,11 @@ System.out.println(info.version().distribution() + ": " + info.version().number(
 
 httpClient.close();
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Connecting to Amazon OpenSearch Serverless
+## 连接到Amazon OpenSearch无服务器
 
-The following example illustrates connecting to Amazon OpenSearch Serverless Service:
+以下示例说明了连接到Amazon OpenSearch无服务器服务：
 
 ```java
 SdkHttpClient httpClient = ApacheHttpClient.builder().build();
@@ -288,12 +288,12 @@ System.out.println(info.version().distribution() + ": " + info.version().number(
 
 httpClient.close();
 ```
-{% include copy.html %}
+{％include copy.html％}
 
 
-## Creating an index 
+## 创建索引
 
-You can create an index with non-default settings using the following code:
+您可以使用非-使用以下代码的默认设置：
 
 ```java
 String index = "sample-index";
@@ -304,22 +304,22 @@ IndexSettings indexSettings = new IndexSettings.Builder().autoExpandReplicas("0-
 PutIndicesSettingsRequest putIndicesSettingsRequest = new PutIndicesSettingsRequest.Builder().index(index).value(indexSettings).build();
 client.indices().putSettings(putIndicesSettingsRequest);
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Indexing data
+## 索引数据
 
-You can index data into OpenSearch using the following code:
+您可以使用以下代码将数据索引到OpenSearch：
 
 ```java
 IndexData indexData = new IndexData("first_name", "Bruce");
 IndexRequest<IndexData> indexRequest = new IndexRequest.Builder<IndexData>().index(index).id("1").document(indexData).build();
 client.index(indexRequest);
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Searching for documents
+## 搜索文档
 
-You can search for a document using the following code:
+您可以使用以下代码搜索文档：
 
 ```java
 SearchResponse<IndexData> searchResponse = client.search(s -> s.index(index), IndexData.class);
@@ -327,30 +327,30 @@ for (int i = 0; i< searchResponse.hits().hits().size(); i++) {
   System.out.println(searchResponse.hits().hits().get(i).source());
 }
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Deleting a document
+## 删除文档
 
-The following sample code deletes a document whose ID is 1:
+以下示例代码删除ID为1的文档：
 
 ```java
 client.delete(b -> b.index(index).id("1"));
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-### Deleting an index
+### 删除索引
 
-The following sample code deletes an index:
+以下示例代码删除索引：
 
 ```java
 DeleteIndexRequest deleteIndexRequest = new DeleteRequest.Builder().index(index).build();
 DeleteIndexResponse deleteIndexResponse = client.indices().delete(deleteIndexRequest);
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Sample program
+## 样本程序
 
-The following sample program creates a client, adds an index with non-default settings, inserts a document, searches for the document, deletes the document, and then deletes the index:
+以下示例程序创建了一个客户端，添加了一个非索引-默认设置，插入文档，搜索文档，删除文档，然后删除索引：
 
 ```java
 import org.apache.http.HttpHost;
@@ -438,4 +438,5 @@ public class OpenSearchClientExample {
   }
 }
 ```
-{% include copy.html %}
+{％include copy.html％}
+

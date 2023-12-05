@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Java high-level REST client
+title: Java高层REST客户端
 nav_order: 20
 ---
 
-# Java high-level REST client
+# Java高层REST客户端
 
-The OpenSearch Java high-level REST client is deprecated. Support will be removed in OpenSearch version 3.0.0. We recommend switching to the [Java client]({{site.url}}{{site.baseurl}}/clients/java/) instead.
+OpenSearch Java高-级别的REST客户端被弃用。支持将在OpenSearch版本3.0.0中删除。我们建议切换到[Java客户端]({{site.url}}{{site.baseurl}}/clients/java/) 反而。
 {: .warning}
 
-The OpenSearch Java high-level REST client lets you interact with your OpenSearch clusters and indexes through Java methods and data structures rather than HTTP methods and JSON.
+OpenSearch Java高-Level REST客户端可让您通过Java方法和数据结构而不是HTTP方法和JSON与OpenSearch群集和索引进行交互。
 
-## Setup
+## 设置
 
-To start using the OpenSearch Java high-level REST client, ensure that you have the following dependency in your project's `pom.xml` file:
+开始使用OpenSearch Java高-升级休息客户端，确保您的项目具有以下依赖性`pom.xml` 文件：
 
 ```
 <dependency>
@@ -23,25 +23,25 @@ To start using the OpenSearch Java high-level REST client, ensure that you have 
 </dependency>
 ```
 
-You can now start your OpenSearch cluster. The OpenSearch 1.x high-level REST client works with the 1.x versions of OpenSearch.
+现在，您可以启动OpenSearch cluster。OpenSearch 1.x高-Level REST客户端可与OpenSearch的1.x版本一起使用。
 
-## Security
+## 安全
 
-Before using the REST client in your Java application, you must configure the application's truststore to connect to the Security plugin. If you are using self-signed certificates or demo configurations, you can use the following command to create a custom truststore and add in root authority certificates.
+在Java应用程序中使用REST客户端之前，您必须配置应用程序的信托存储店以连接到安全插件。如果您正在使用自我-签名的证书或演示配置，您可以使用以下命令来创建自定义信托存储并添加根权限证书。
 
-If you're using certificates from a trusted Certificate Authority (CA), you don't need to configure the truststore.
+如果您使用来自受信任证书授权（CA）的证书，则无需配置信托店。
 
 ```bash
 keytool -import <path-to-cert> -alias <alias-to-call-cert> -keystore <truststore-name>
 ```
 
-You can now point your Java client to the truststore and set basic authentication credentials that can access a secure cluster (refer to the sample code below on how to do so).
+现在，您可以将Java客户端指向TrustStore，并设置可以访问安全群集的基本身份验证凭据（请参阅下面的示例代码有关方法）。
 
-If you run into issues when configuring security, see [common issues]({{site.url}}{{site.baseurl}}/troubleshoot/index) and [troubleshoot TLS]({{site.url}}{{site.baseurl}}/troubleshoot/tls).
+如果您在配置安全性时会遇到问题，请参阅[常见问题]({{site.url}}{{site.baseurl}}/troubleshoot/index) 和[故障排除TLS]({{site.url}}{{site.baseurl}}/troubleshoot/tls)。
 
-## Sample program
+## 样本程序
 
-This code example uses basic credentials that come with the default OpenSearch configuration. If you’re using the OpenSearch Java high-level REST client with your own OpenSearch cluster, be sure to change the code to use your own credentials.
+此代码示例使用默认OpenSearch配置随附的基本凭据。如果您使用的是opensearch java高-使用您自己的OpenSearch集群将REST客户端放置，请确保更改代码以使用您自己的凭据。
 
 ```java
 import org.apache.http.HttpHost;
@@ -139,12 +139,13 @@ public class RESTClientSample {
 }
 ```
 
-## Elasticsearch OSS Java high-level REST client
+## Elasticsearch Oss Java高-级别休息客户端
 
-We recommend using the OpenSearch client to connect to OpenSearch clusters, but if you must use the Elasticsearch OSS Java high-level REST client, version 7.10.2 of the Elasticsearch OSS client also works with the 1.x versions of OpenSearch.
+我们建议使用OpenSearch客户端连接到OpenSearch群集，但是如果您必须使用Elasticsearch OSS Java High-Level REST客户端，Elasticsearch OSS客户端的7.10.2版本还可以与OpenSearch的1.x版本一起使用。
 
-### Migrating to the OpenSearch Java high-level REST client
+### 迁移到OpenSearch Java高-级别休息客户端
 
-Migrating from the Elasticsearch OSS client to the OpenSearch high-level REST client is as simple as changing your Maven dependency to one that references [OpenSearch's dependency](#setup).
+从Elasticsearch OSS客户端迁移到OpenSearch High-级别的rest客户端就像将Maven依赖性更改为引用的依赖性一样简单[OpenSearch的依赖性](#setup)。
 
-Afterward, change all references of `org.elasticsearch` to `org.opensearch`, and you're ready to start submitting requests to your OpenSearch cluster.
+之后，更改所有参考`org.elasticsearch` 到`org.opensearch`，您准备开始向OpenSearch群集提交请求。
+
