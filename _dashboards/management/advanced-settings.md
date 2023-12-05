@@ -1,23 +1,24 @@
 ---
 layout: default
-title: Advanced settings
+title: 高级设置
 parent: 仪表板管理
 nav_order: 40
 ---
 
-# Advanced settings
-Updated 2.10
+# 高级设置
+更新2.10
 {: .label .label-purple }
 
-Use the **Advanced settings** page to modify settings that govern OpenSearch Dashboards behavior. These settings can be used to customize the look and feel of the application, change the behavior of certain features, and more. A view of the interface is shown in the following image.
+使用**高级设置** 页面以修改控制OpenSearch仪表板行为的设置。这些设置可用于自定义应用程序的外观，更改某些功能的行为等等。接口的视图如下图所示。
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/advanced-settings-ui.png" alt="Advanced settings interface" width="700"/>
 
-To access **Advanced settings**, go to **Dashboards Management** and select **Advanced settings**. The page is divided into several sections, each containing a set of related settings. You can modify these settings by editing their fields. Once you've made the changes, select **Save** to apply them.  
+访问**高级设置**， 去**仪表板管理** 并选择**高级设置**。该页面分为几个部分，每个部分包含一组相关设置。您可以通过编辑其字段来修改这些设置。进行更改后，选择**节省** 应用它们。
 
-{::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class="inline-icon" alt="alert icon"/>{:/} **Note**<br>Certain settings require you to modify [the `opensearch_dashboards.yml` file](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml) and restart OpenSearch Dashboards.
+{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class ="inline-icon" alt ="alert icon"/> {：/}**笔记**<br>某些设置要求您修改[这`opensearch_dashboards.yml` 文件](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml) 并重新启动OpenSearch仪表板。
 {: .note}
 
-## Required permissions
+## 所需的权限
 
-To modify settings, you must have permission to make changes. See [Multi-tenancy configuration](https://opensearch.org/docs/latest/security/multi-tenancy/multi-tenancy-config/#give-roles-access-to-tenants) for guidance about assigning role access to tenants.
+要修改设置，您必须有权进行更改。看[并发-租赁配置](https://opensearch.org/docs/latest/security/multi-tenancy/multi-tenancy-config/#give-roles-access-to-tenants) 有关向租户分配角色访问的指导。
+

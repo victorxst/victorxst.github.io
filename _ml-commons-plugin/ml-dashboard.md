@@ -1,69 +1,70 @@
 ---
 layout: default
-title: Managing ML models in OpenSearch Dashboards
+title: 在OpenSearch仪表板中管理ML模型
 nav_order: 120
 redirect_from:
   - /ml-commons-plugin/ml-dashbaord/
 ---
 
-The ML dashboard was taken out of experimental status and released as Generally Available in OpenSearch 2.9.  
+ML仪表板被从实验状态中取出，并在OpenSearch 2.9中通常可用。
 {: .note}
 
-Administrators of machine learning (ML) clusters can use OpenSearch Dashboards to manage and check the status of ML models running inside a cluster. This can help ML developers provision nodes to ensure their models run efficiently.
+机器学习（ML）群集的管理员可以使用OpenSearch仪表板来管理和检查集群中运行的ML模型的状态。这可以帮助ML开发人员提供节点，以确保其模型有效运行。
 
-You can register and deploy models using the API only. For more information, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
+您只能使用API注册和部署模型。有关更多信息，请参阅[在OpenSearch中使用ML模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/)。
 
-## Enabling ML in Dashboards
+## 在仪表板中启用ML
 
-In OpenSearch 2.6, ML functionality is disabled by default. To enable it, you need to edit the configuration in `opensearch_dashboards.yml` and then restart your cluster.
+在OpenSearch 2.6中，默认情况下禁用ML功能。要启用它，您需要在`opensearch_dashboards.yml` 然后重新启动您的群集。
 
-To enable the feature:
+启用该功能：
 
-1. In your OpenSearch cluster, navigate to your Dashboards home directory; for example, in Docker, `/usr/share/opensearch-dashboards`.
-2. Open your local copy of the Dashboards configuration file `opensearch_dashboards.yml`. If you don't have a copy, get one from GitHub: [`opensearch_dashboards.yml`](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml).
-3. Add the setting `ml_commons_dashboards.enabled:`  to `opensearch_dashboards.yml`. Then, set it to  `ml_commons_dashboards.enabled: true` and save the configuration file.
-4. Restart the Dashboards container.
-5. Verify that the feature configuration settings were created and configured properly by launching OpenSearch Dashboards. The Machine Learning section should appear under **OpenSearch plugins**.
+1. 在您的OpenSearch集群中，导航到仪表板主目录；例如，在Docker中，`/usr/share/opensearch-dashboards`。
+2. 打开仪表板配置文件的本地副本`opensearch_dashboards.yml`。如果您没有副本，请从Github获取一份：[`opensearch_dashboards.yml`](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml)。
+3. 添加设置`ml_commons_dashboards.enabled:`  到`opensearch_dashboards.yml`。然后，将其设置为`ml_commons_dashboards.enabled: true` 并保存配置文件。
+4. 重新启动仪表板容器。
+5. 通过启动OpenSearch仪表板来验证功能配置设置是创建并正确配置的。机器学习部分应在**OpenSearch插件**。
 
-## Accessing ML functionality in Dashboards
+## 访问仪表板中的ML功能
 
-To access ML functionality in OpenSearch Dashboards,select **OpenSearch plugins** > **Machine Learning**. 
+要访问OpenSearch仪表板中的ML功能，请选择**OpenSearch插件** >**机器学习**。
 
 <img src="{{site.url}}{{site.baseurl}}/images/ml/ml-dashboard/ml-dashboard.png" alt="Machine Learning section in OpenSearch dashboards">
 
-In the Machine Learning section, you now have access to the **Deployed models** dashboard.
+在机器学习部分中，您现在可以访问**部署的模型** 仪表板。
 
-## Deployed models dashboard
+## 部署的型号仪表板
 
-The deployed models dashboard gives admins the ability to check the status of any models stored inside your OpenSearch cluster. 
+部署的型号仪表板使Admins能够检查OpenSearch集群中存储的任何型号的状态。
 
 <img src="{{site.url}}{{site.baseurl}}/images/ml/ml-dashboard/deployed-models.png" alt="The deployed models view.">
 
-The dashboard includes the following information about the model:
+仪表板包括有关该模型的以下信息：
 
-- **Name**: The name of the model given upon upload.
-- **Status**: The number of nodes for which the model responds. 
-   - When all nodes are responsive, the status is **Green**.
-   - When some nodes are responsive,the status is **Yellow**.
-   - When all nodes are unresponsive,the  status is **Red**.
-- **Model ID**: The model ID.
-- **Action**: What actions you can take with the model.
+- **姓名**：上传时给出的模型名称。
+- **地位**：模型响应的节点数量。
+   - 当所有节点响应迅速时，状态为**绿色的**。
+   - 当某些节点响应迅速时，状态为**黄色的**。
+   - 当所有节点无反应时，状态为**红色的**。
+- **模型ID**：模型ID。
+- **行动**：您可以采取哪些动作。
 
-As of OpenSearch 2.6, the only action available is **View Status Details**, shown in the following image. 
+从OpenSearch 2.6开始，唯一可用的操作是**查看状态详细信息**，如下图所示。
 
 <img src="{{site.url}}{{site.baseurl}}/images/ml/ml-dashboard/view-status-details.png" alt="You can view status details under actions.">
 
-When selected, the Status Details panel appears.
+选择时，将出现状态详细信息面板。
 
-The panel provides the following details inside the panel:
+该面板在面板内提供以下详细信息：
 
-- **Model ID**
-- **Model status by node**: The number of nodes for which the model is responsive.
+- **模型ID**
+- **模型状态通过节点**：该模型响应的节点数量。
 
-A list of nodes gives you a view of each node the model is running on, including each node’s **Node ID** and status, as shown in the following image. This is useful if you want to use the node's **Node ID** to determine why a node is unresponsive.
+一个节点列表可让您视图模型正在运行的每个节点的视图，包括每个节点**节点ID** 和状态，如下图所示。如果您想使用节点的**节点ID** 确定为什么节点没有反应。
 
 <img src="{{site.url}}{{site.baseurl}}/images/ml/ml-dashboard/model-node-details.png" alt="The status of each node running the model.">
 
-## Next steps
+## 下一步
 
-For more information about how to manage ML models in OpenSearch, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
+有关如何在OpenSearch中管理ML模型的更多信息，请参见[在OpenSearch中使用ML模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/)。
+

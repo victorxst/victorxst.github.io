@@ -1,23 +1,24 @@
 ---
 layout: default
-title: Using ML models within OpenSearch
+title: 在OpenSearch中使用ML模型
 has_children: true
 nav_order: 50
 redirect_from:
    - /ml-commons-plugin/model-serving-framework/
 ---
 
-# Using ML models within OpenSearch
-**Generally available 2.9**
+# 在OpenSearch中使用ML模型
+**通常可用2.9**
 {: .label .label-purple }
 
-To integrate machine learning (ML) models into your OpenSearch cluster, you can upload and serve them locally. Choose one of the following options:
+要将机器学习（ML）模型集成到您的OpenSearch集群中，您可以在本地上传并为其提供服务。选择以下选项之一：
 
-- **Pretrained models provided by OpenSearch**: To learn more, see [OpenSearch-provided pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/). For a list of supported models, see [Supported pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#supported-pretrained-models). 
+- **审计的模型由OpenSearch提供**：要了解更多，请参阅[OpenSearch-提供了预告片的模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/)。有关支持模型的列表，请参见[支持的预贴模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#supported-pretrained-models)。
 
-- **Custom models** such as PyTorch deep learning models: To learn more, see [Custom models](http://localhost:4000/docs/latest/ml-commons-plugin/custom-local-models/).
+- **自定义模型** 例如Pytorch深度学习模型：要了解更多信息，请参阅[自定义模型](http://localhost:4000/docs/latest/ml-commons-plugin/custom-local-models/)。
 
-## GPU acceleration
+## GPU加速度
 
-For better performance, you can take advantage of GPU acceleration on your ML node. For more information, see [GPU acceleration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/gpu-acceleration/).
+为了获得更好的性能，您可以利用ML节点上的GPU加速度。有关更多信息，请参阅[GPU加速度]({{site.url}}{{site.baseurl}}/ml-commons-plugin/gpu-acceleration/)。
+
 

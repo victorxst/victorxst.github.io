@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Profile
+title: 轮廓
 parent: ML Commons API
 nav_order: 40
 ---
 
-# Profile
+# 轮廓
 
-The profile API operation returns runtime information about ML tasks and models. The profile operation can help debug model issues at runtime. 
+配置文件API操作返回有关ML任务和模型的运行时信息。配置文件操作可以帮助运行时调试模型问题。
 
-## The number of requests returned
+## 返回的请求数量
 
-By default, the Profile API monitors the last 100 requests. To change the number of monitoring requests, update the following cluster setting:
+默认情况下，配置文件API监视最后100个请求。要更改监视请求的数量，请更新以下群集设置：
 
 ```json
 PUT _cluster/settings
@@ -22,9 +22,9 @@ PUT _cluster/settings
 }
 ```
 
-To clear all monitoring requests, set `plugins.ml_commons.monitoring_request_count` to `0`. 
+要清除所有监视请求，请设置`plugins.ml_commons.monitoring_request_count` 到`0`。
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```json
 GET /_plugins/_ml/profile
@@ -32,26 +32,26 @@ GET /_plugins/_ml/profile/models
 GET /_plugins/_ml/profile/tasks
 ```
 
-## Path parameters
+## 路径参数
 
-Parameter | Data type | Description
+范围| 数据类型| 描述
 :--- | :--- | :---
-`model_id` | String | Returns runtime data for a specific model. You can string together multiple `model_id`s to return multiple model profiles.
-`tasks`| String | Returns runtime data for a specific task. You can string together multiple `task_id`s to return multiple task profiles.
+`model_id` | 细绳| 返回特定模型的运行时数据。您可以将多个串在一起`model_id`s返回多个模型配置文件。
+`tasks`| 细绳| 返回特定任务的运行时数据。您可以将多个串在一起`task_id`s返回多个任务配置文件。
 
-### Request fields
+### 请求字段
 
-All profile body request fields are optional.
+所有个人资料主体请求字段都是可选的。
 
-Field | Data type | Description
+场地| 数据类型| 描述
 :--- | :--- | :--- 
-`node_ids` | String | Returns all tasks and profiles from a specific node. 
-`model_ids` | String | Returns runtime data for a specific model. You can string together multiple model IDs to return multiple model profiles.
-`task_ids` | String | Returns runtime data for a specific task. You can string together multiple task IDs to return multiple task profiles.
-`return_all_tasks` | Boolean | Determines whether or not a request returns all tasks. When set to `false`, task profiles are left out of the response.
-`return_all_models` | Boolean | Determines whether or not a profile request returns all models. When set to `false`, model profiles are left out of the response.
+`node_ids` | 细绳| 从特定节点返回所有任务和配置文件。
+`model_ids` | 细绳| 返回特定模型的运行时数据。您可以将多个模型ID串在一起以返回多个模型配置文件。
+`task_ids` | 细绳| 返回特定任务的运行时数据。您可以将多个任务ID串在一起以返回多个任务配置文件。
+`return_all_tasks` | 布尔| 确定请求是否返回所有任务。设置为`false`，任务配置文件被排除在响应之外。
+`return_all_models` | 布尔| 确定配置文件请求是否返回所有模型。设置为`false`，模型配置文件被排除在响应之外。
 
-#### Example request: Returning all tasks and models on a specific node
+#### 示例请求：在特定节点上返回所有任务和模型
 
 ```json
 GET /_plugins/_ml/profile
@@ -63,7 +63,7 @@ GET /_plugins/_ml/profile
 ```
 {% include copy-curl.html %}
 
-#### Example response 
+#### 示例响应
 
 ```json
 {

@@ -1,38 +1,38 @@
 ---
 layout: default
-title: Get model
-parent: Model APIs
+title: 获取模型
+parent: 模型API
 grand_parent: ML Commons API
 nav_order: 20
 ---
 
-# Get a model
+# 获取模型
 
-To retrieve information about a model, you can:
+要检索有关模型的信息，您可以：
 
-- [Get a model by ID](#get-a-model-by-id)
-- [Search for a model](#search-for-a-model)
+- [通过ID获取模型](#get-a-model-by-id)
+- [搜索模型](#search-for-a-model)
 
-## Get a model by ID
+## 通过ID获取模型
 
-You can retrieve model information using the `model_id`.
+您可以使用`model_id`。
 
-For information about user access for this API, see [Model access control considerations]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations).
+有关此API的用户访问的信息，请参见[模型访问控制注意事项]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations)。
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```json
 GET /_plugins/_ml/models/<model-id>
 ```
 
-#### Example request
+#### 示例请求
 
 ```json
 GET /_plugins/_ml/models/N8AE1osB0jLkkocYjz7D
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -56,26 +56,26 @@ GET /_plugins/_ml/models/N8AE1osB0jLkkocYjz7D
 }
 ```
 
-## Search for a model
+## 搜索模型
 
-Use this command to search for models you've already created.
+使用此命令搜索您已经创建的模型。
 
-The response will contain only those model versions to which you have access. For example, if you send a match all query, model versions for the following model group types will be returned:
+响应将仅包含您可以访问的那些模型版本。例如，如果您发送匹配所有查询，则将返回以下模型组类型的模型版本：
 
-- All public model groups in the index.
-- Private model groups for which you are the model owner.
-- Model groups that share at least one backend role with your backend roles.
+- 索引中的所有公共模型组。
+- 您是模型所有者的私人模型组。
+- 模型组在您的后端角色中至少具有一个后端角色。
 
-For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
+有关更多信息，请参阅[模型访问控制]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/)。
 
-### Path and HTTP methods
+### 路径和HTTP方法
 
 ```json
 GET /_plugins/_ml/models/_search
 POST /_plugins/_ml/models/_search
 ```
 
-#### Example request: Searching for all models
+#### 示例请求：搜索所有模型
 
 ```json
 POST /_plugins/_ml/models/_search
@@ -88,7 +88,7 @@ POST /_plugins/_ml/models/_search
 ```
 {% include copy-curl.html %}
 
-#### Example request: Searching for models with algorithm "FIT_RCF"
+#### 示例请求：搜索使用算法的模型"FIT_RCF"
 
 ```json
 POST /_plugins/_ml/models/_search
@@ -104,7 +104,7 @@ POST /_plugins/_ml/models/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 {

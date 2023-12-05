@@ -1,21 +1,21 @@
 ---
 layout: default
-title: Train 
-parent: Train and Predict APIs
+title: 训练 
+parent: 训练和预测API
 grand_parent: ML Commons API
 has_children: true
 nav_order: 10
 ---
 
-# Train 
+# 训练 
 
-The train API operation trains a model based on a selected algorithm. Training can occur both synchronously and asynchronously.
+训练API操作基于选定的算法训练模型。训练可以同步和异步进行。
 
-#### Example request 
+#### 示例请求
 
-The following examples use the k-means algorithm to train index data.
+以下示例使用k-表示训练索引数据的算法。
 
-**Train with k-means synchronously** 
+**与K一起训练-表示同步** 
 
 ```json
 POST /_plugins/_ml/_train/kmeans
@@ -36,7 +36,7 @@ POST /_plugins/_ml/_train/kmeans
 ```
 {% include copy-curl.html %}
 
-**Train with k-means asynchronously**
+**与K一起训练-表示异步**
 
 ```json
 POST /_plugins/_ml/_train/kmeans?async=true
@@ -57,11 +57,11 @@ POST /_plugins/_ml/_train/kmeans?async=true
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
-**Synchronous**
+**同步**
 
-For synchronous responses, the API returns the `model_id`, which can be used to get or delete a model.
+对于同步响应，API返回`model_id`，可用于获取或删除模型。
 
 ```json
 {
@@ -70,9 +70,9 @@ For synchronous responses, the API returns the `model_id`, which can be used to 
 }
 ```
 
-**Asynchronous**
+**异步**
 
-For asynchronous responses, the API returns the `task_id`, which can be used to get or delete a task.
+对于异步响应，API返回`task_id`，可用于获取或删除任务。
 
 ```json
 {

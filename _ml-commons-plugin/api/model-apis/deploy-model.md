@@ -1,35 +1,35 @@
 ---
 layout: default
-title: Deploy model
-parent: Model APIs
+title: 部署模型
+parent: 模型API
 grand_parent: ML Commons API
 nav_order: 30
 ---
 
-# Deploy a model
+# 部署模型
 
-The deploy model operation reads the model's chunks from the model index and then creates an instance of the model to cache into memory. This operation requires the `model_id`.
+部署模型操作从模型索引中读取模型的块，然后创建模型的实例，以缓存到内存中。此操作需要`model_id`。
 
-For information about user access for this API, see [Model access control considerations]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations).
+有关此API的用户访问的信息，请参见[模型访问控制注意事项]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations)。
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```json
 POST /_plugins/_ml/models/<model_id>/_deploy
 ```
 
-#### Example request: Deploying to all available ML nodes
+#### 示例请求：部署到所有可用的ML节点
 
-In this example request, OpenSearch deploys the model to any available OpenSearch ML node:
+在此示例请求中，OpenSearch将模型部署到任何可用的OpenSearch ML节点：
 
 ```json
 POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_deploy
 ```
 {% include copy-curl.html %}
 
-#### Example request: Deploying to a specific node
+#### 示例请求：部署到特定节点
 
-If you want to reserve the memory of other ML nodes within your cluster, you can deploy your model to a specific node(s) by specifying the `node_ids` in the request body:
+如果要在群集中保留其他ML节点的内存，则可以通过指定该模型将模型部署到特定节点`node_ids` 在请求主体中：
 
 ```json
 POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_deploy
@@ -39,7 +39,7 @@ POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_deploy
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -48,16 +48,16 @@ POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_deploy
 }
 ```
 
-## Check the status of model deployment
+## 检查模型部署的状态
 
-To see the status of your model deployment and retrieve the model ID created for the new model version, pass the `task_id` as a path parameter to the Tasks API:
+要查看模型部署的状态并检索为新模型版本创建的模型ID，请通过`task_id` 作为任务API的路径参数：
 
 ```json
 GET /_plugins/_ml/tasks/hA8P44MBhyWuIwnfvTKP
 ```
 {% include copy-curl.html %}
 
-The response contains the model ID of the model version:
+响应包含模型版本的模型ID：
 
 ```json
 {

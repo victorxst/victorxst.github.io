@@ -1,31 +1,31 @@
 ---
 layout: default
-title: Undeploy model
-parent: Model APIs
+title: Uneploy模型
+parent: 模型API
 grand_parent: ML Commons API
 nav_order: 40
 ---
 
-# Undeploy a model
+# Uneploy A模型
 
-To undeploy a model from memory, use the undeploy operation.
+为了使内存中的模型不乏力，请使用Undeploy操作。
 
-For information about user access for this API, see [Model access control considerations]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations).
+有关此API的用户访问的信息，请参见[模型访问控制注意事项]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations)。
 
-### Path and HTTP methods
+### 路径和HTTP方法
 
 ```json
 POST /_plugins/_ml/models/<model_id>/_undeploy
 ```
 
-#### Example request: Undeploying a model from all ML nodes
+#### 示例请求：不启用所有ML节点的模型
 
 ```json
 POST /_plugins/_ml/models/MGqJhYMBbbh0ushjm8p_/_undeploy
 ```
 {% include copy-curl.html %}
 
-#### Example request: Undeploying specific models from specific nodes
+#### 示例请求：从特定节点中不剥削特定模型
 
 ```json
 POST /_plugins/_ml/models/_undeploy
@@ -36,7 +36,7 @@ POST /_plugins/_ml/models/_undeploy
 ```
 {% include copy-curl.html %}
 
-#### Example request: Undeploying specific models from all nodes
+#### 示例请求：所有节点的特定模型都不张紧
 
 ```json
 {
@@ -45,7 +45,7 @@ POST /_plugins/_ml/models/_undeploy
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -56,3 +56,4 @@ POST /_plugins/_ml/models/_undeploy
   }
 }
 ```
+

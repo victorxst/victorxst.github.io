@@ -1,36 +1,36 @@
 ---
 layout: default
-title: Get task
-parent: Tasks APIs
+title: 得到任务
+parent: 任务API
 grand_parent: ML Commons API
 nav_order: 10
 ---
 
-# Get task
+# 得到任务
 
-To retrieve information about a model, you can:
+要检索有关模型的信息，您可以：
 
-- [Get a task by ID](#get-a-task-by-id)
-- [Search for a task](#search-for-a-task)
+- [通过ID完成任务](#get-a-task-by-id)
+- [搜索任务](#search-for-a-task)
 
-## Get a task by ID
+## 通过ID完成任务
 
-You can retrieve information about a task using the `task_id`.
+您可以使用`task_id`。
 
-### Path and HTTP methods
+### 路径和HTTP方法
 
 ```json
 GET /_plugins/_ml/tasks/<task_id>
 ```
 
-#### Example request
+#### 示例请求
 
 ```json
 GET /_plugins/_ml/tasks/MsBi1YsB0jLkkocYjD5f
 ```
 {% include copy-curl.html %}
 
-The response includes information about the task.
+响应包括有关任务的信息。
 
 ```json
 {
@@ -46,17 +46,17 @@ The response includes information about the task.
 }
 ```
 
-## Search for a task
+## 搜索任务
 
-Searches tasks based on parameters indicated in the request body.
+根据请求主体中指示的参数来搜索任务。
 
-### Path and HTTP methods
+### 路径和HTTP方法
 
 ```json
 GET /_plugins/_ml/tasks/_search
 ```
 
-#### Example request: Search for a task in which `function_name` is `KMEANS`
+#### 示例请求：搜索一个任务`function_name` 是`KMEANS`
 
 ```json
 GET /_plugins/_ml/tasks/_search
@@ -76,7 +76,7 @@ GET /_plugins/_ml/tasks/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 {

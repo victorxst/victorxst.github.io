@@ -8,33 +8,33 @@ nav_order: 58
 
 # list_to_map
 
-The `list_to_map` processor converts a list of objects from an event, where each object contains a `key` field, into a map of target keys.
+这`list_to_map` 处理器转换一个从事件的对象列表，每个对象都包含一个`key` 字段，进入目标键的地图。
 
-## Configuration
+## 配置
 
-The following table describes the configuration options used to generate target keys for the mappings.
+下表描述了用于生成映射的目标键的配置选项。
 
-Option | Required | Type | Description
-:--- | :--- | :--- | :---
-`key` | Yes | String | The key of the fields to be extracted as keys in the generated mappings.
-`source` | Yes | String | The list of objects with `key` fields to be converted into keys for the generated map.
-`target` | No | String | The target for the generated map. When not specified, the generated map will be placed in the root node.
-`value_key` | No | String | When specified, values given a `value_key` in objects contained in the source list will be extracted and converted into the value specified by this option based on the generated map. When not specified, objects contained in the source list retain their original value when mapped.
-`flatten` | No | Boolean | When `true`, values in the generated map output flatten into single items based on the `flattened_element`. Otherwise, objects mapped to values from the generated map appear as lists.
-`flattened_element` | Conditionally | String | The element to keep, either `first` or `last`, when `flatten` is set to `true`.
+选项| 必需的| 类型| 描述
+：--- | ：--- | ：--- | ：---
+`key` | 是的| 细绳| 在生成的映射中将要提取为键的字段的钥匙。
+`source` | 是的| 细绳| 具有的对象列表`key` 要转换为生成地图的键的字段。
+`target` | 不| 细绳| 生成地图的目标。如果未指定，生成的地图将放在根节点中。
+`value_key` | 不| 细绳| 指定时，值给定一个`value_key` 在源列表中包含的对象中，将根据生成的映射提取并将其转换为该选项指定的值。如果未指定，源列表中包含的对象将在映射时保留其原始值。
+`flatten` | 不| 布尔| 什么时候`true`，生成的地图输出中的值将基于`flattened_element`。否则，从生成地图中映射到值的对象显示为列表。
+`flattened_element` | 有条件的| 细绳| 要保留的元素`first` 或者`last`， 什么时候`flatten` 被设定为`true`。
 
-## Usage
+## 用法
 
-The following example shows how to test the usage of the `list_to_map` processor before using the processor on your own source. 
+以下示例显示了如何测试使用`list_to_map` 在您自己的来源使用处理器之前，处理器。
 
-Create a source file named `logs_json.log`. Because the `file` source reads each line in the `.log` file as an event, the object list appears as one line even though it contains multiple objects:
+创建一个名为的源文件`logs_json.log`。因为`file` 来源在`.log` 文件作为事件，即使包含多个对象，对象列表也以一行的形式出现：
 
 ```json
 {"mylist":[{"name":"a","value":"val-a"},{"name":"b","value":"val-b1"},{"name":"b",  "value":"val-b2"},{"name":"c","value":"val-c"}]}
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-Next, create a `pipeline.yaml` file that uses the `logs_json.log` file as the `source` by pointing to the `.log` file's correct path:  
+接下来，创建一个`pipeline.yaml` 使用的文件`logs_json.log` 文件作为`source` 通过指向`.log` 文件的正确路径：
 
 ```yaml
 pipeline:
@@ -52,9 +52,9 @@ pipeline:
   sink:
     - stdout:
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-Run the pipeline. If successful, the processor returns the generated map with objects mapped according to their `value_key`. Similar to the original source, which contains one line and therefore one event, the processor returns the following JSON as one line. For readability, the following example and all subsequent JSON examples have been adjusted to span multiple lines:
+运行管道。如果成功，处理器将返回生成的映射，并根据其对象根据其映射的对象`value_key`。类似于原始源，其中包含一行，因此，处理器将以下JSON作为一行返回。为了可读性，已调整了以下示例和所有随后的JSON示例以跨越多行：
 
 ```json
 {
@@ -82,9 +82,9 @@ Run the pipeline. If successful, the processor returns the generated map with ob
 }
 ```
 
-### Example: Maps set to `target`
+### 示例：设置为`target`
 
-The following example `pipeline.yaml` file shows the `list_to_map` processor when set to a specified target, `mymap`:
+以下示例`pipeline.yaml` 文件显示`list_to_map` 处理器设置为指定目标时，`mymap`：
 
 ```yaml
 pipeline:
@@ -103,9 +103,9 @@ pipeline:
   sink:
     - stdout:
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-The generated map appears under the target key:
+生成的地图出现在目标密钥下：
 
 ```json
 {
@@ -135,9 +135,9 @@ The generated map appears under the target key:
 }
 ```
 
-### Example: No `value_key` specified
+### 示例：否`value_key` 指定的
 
-The follow example `pipeline.yaml` file shows the `list_to_map` processor with no `value_key` specified. Because `key` is set to `name`, the processor extracts the object names to use as keys in the map. 
+以下示例`pipeline.yaml` 文件显示`list_to_map` 没有否`value_key` 指定的。因为`key` 被设定为`name`，处理器提取对象名称在地图中用作密钥。
 
 ```yaml
 pipeline:
@@ -154,9 +154,9 @@ pipeline:
   sink:
     - stdout:
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-The values from the generated map appear as original objects from the `.log` source, as shown in the following example response:
+来自生成地图的值出现为原始对象`.log` 来源，如以下示例响应所示：
 
 ```json
 {
@@ -193,9 +193,9 @@ The values from the generated map appear as original objects from the `.log` sou
 }
 ```
 
-### Example: `flattened_element` set to `last`
+### 例子：`flattened_element` 设置`last`
 
-The following example `pipeline.yaml` file sets the `flattened_element` to last, therefore flattening the processor output based on each value's last element: 
+以下示例`pipeline.yaml` 文件设置`flattened_element` 最后，因此，基于每个值的最后一个元素对处理器输出进行弄平：
 
 ```yaml
 pipeline:
@@ -215,9 +215,9 @@ pipeline:
   sink:
     - stdout:
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-The processor maps object `b` to value `val-b2` because `val-b2` is the last element in object `b`, as shown in the following output:
+处理器地图对象`b` 值`val-b2` 因为`val-b2` 是对象中的最后一个元素`b`，如以下输出所示：
 
 ```json
 {
@@ -246,9 +246,9 @@ The processor maps object `b` to value `val-b2` because `val-b2` is the last ele
 ```
 
 
-### Example: `flatten` set to false
+### 例子：`flatten` 设置为false
 
-The following example `pipeline.yaml` file sets `flatten` to `false`, causing the processor to output values from the generated map as a list: 
+以下示例`pipeline.yaml` 文件集`flatten` 到`false`，导致处理器从生成的地图作为列表中输出值：
 
 ```yaml
 pipeline:
@@ -267,9 +267,9 @@ pipeline:
   sink:
     - stdout:
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-Some objects in the response may have more than one element in their values, as shown in the following response:
+响应中的某些对象的值可能具有多个元素，如以下响应所示：
 
 ```json
 {

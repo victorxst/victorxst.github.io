@@ -1,34 +1,34 @@
 ---
 layout: default
-title: Delete model
-parent: Model APIs
+title: 删除模型
+parent: 模型API
 grand_parent: ML Commons API
 nav_order: 50
 ---
 
-# Delete a model
+# 删除模型
 
-Deletes a model based on the `model_id`.
+删除基于`model_id`。
 
-When you delete the last model version in a model group, that model group is automatically deleted from the index.
-{: .important}
+当您在模型组中删除最后一个模型版本时，该模型组将自动从索引中删除。
+{： 。重要的}
 
-For information about user access for this API, see [Model access control considerations]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations).
+有关此API的用户访问的信息，请参见[模型访问控制注意事项]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations)。
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```json
 DELETE /_plugins/_ml/models/<model_id>
 ```
 
-#### Example request
+#### 示例请求
 
 ```json
 DELETE /_plugins/_ml/models/MzcIJX8BA7mbufL6DOwl
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 {

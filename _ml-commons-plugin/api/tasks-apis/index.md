@@ -1,14 +1,15 @@
 ---
 layout: default
-title: Tasks APIs
+title: 任务API
 parent: ML Commons API
 has_children: true
 nav_order: 30
 ---
 
-# Tasks APIs
+# 任务API
 
-ML Commons supports the following Tasks APIs:
+ML Commons支持以下任务API：
 
-- [Get task]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/)
-- [Delete task]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/delete-task/)
+- [得到任务]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/)
+- [删除任务]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/delete-task/)
+

@@ -1,49 +1,49 @@
 ---
 layout: default
-title: Get connector
-parent: Connector APIs
+title: 获取连接器
+parent: 连接器API
 grand_parent: ML Commons API
 nav_order: 20
 ---
 
-# Get a connector
+# 获取连接器
 
-Use the `_search` endpoint to search for a connector.
+使用`_search` 搜索连接器的端点。
 
-To retrieve information about a connector, you can:
+要检索有关连接器的信息，您可以：
 
-- [Get a connector by ID](#get-a-connector-by-id)
-- [Search for a connector](#search-for-a-connector)
+- [通过ID获取连接器](#get-a-connector-by-id)
+- [搜索连接器](#search-for-a-connector)
 
-# Get a connector by ID
+# 通过ID获取连接器
 
-This API retrieves a connector by its ID.
+该API通过其ID检索连接器。
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```json
 GET /_plugins/_ml/connectors/<connector_id>
 ```
 
-#### Example request
+#### 示例请求
 
 ```json
 GET /_plugins/_ml/connectors/N8AE1osB0jLkkocYjz7D
 ```
 {% include copy-curl.html %}
 
-## Search for a connector
+## 搜索连接器
 
-This API searches for matching connectors using a query.
+此API使用查询搜索匹配的连接器。
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```json
 POST /_plugins/_ml/connectors/_search
 GET /_plugins/_ml/connectors/_search
 ```
 
-#### Example request
+#### 示例请求
 
 ```json
 POST /_plugins/_ml/connectors/_search
@@ -55,4 +55,5 @@ POST /_plugins/_ml/connectors/_search
 }
 ```
 {% include copy-curl.html %}
+
 

@@ -1,16 +1,17 @@
 ---
 layout: default
-title: Model group APIs
+title: 模型组API
 parent: ML Commons API
 has_children: true
 nav_order: 20
 ---
 
-# Model group APIs
+# 模型组API
 
-ML Commons supports the following model-group-level APIs:
+ML Commons支持以下模型-团体-级别API：
 
-- [Register model group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/register-model-group/)
-- [Update model group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/update-model-group/)
-- [Search for a model group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/search-model-group/)
-- [Delete model group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/delete-model-group/)
+- [注册模型组]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/register-model-group/)
+- [更新模型组]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/update-model-group/)
+- [搜索模型组]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/search-model-group/)
+- [删除模型组]({{site.url}}) {{site.baseurl}}/ml-下议院-插件/API/型号-团体-API/DELETE-模型-团体/[删除模型组]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/delete-model-group/)[删除模型组]({{site.url}}) {{site.baseurl}}/ml-下议院-插件/API/型号-团体-API/DELETE-模型-团体/
+

@@ -1,23 +1,24 @@
 ---
 layout: default
-title: Train and Predict APIs
+title: 训练和预测API
 parent: ML Commons API
 has_children: true
 nav_order: 30
 ---
 
-# Train and Predict APIs
+# 训练和预测API
 
-The ML Commons API lets you train machine learning (ML) algorithms synchronously and asynchronously, make predictions with that trained model, and train and predict with the same dataset.
+ML Commons API使您可以同步和异步训练机器学习（ML）算法，使用该训练的模型进行预测，并使用相同的数据集进行训练和预测。
 
-To train tasks through the API, three inputs are required: 
+要通过API训练任务，需要三个输入：
 
-- Algorithm name: Must be one of a [FunctionName](https://github.com/opensearch-project/ml-commons/blob/1.3/common/src/main/java/org/opensearch/ml/common/parameter/FunctionName.java). This determines what algorithm the ML Engine runs. To add a new function, see [How To Add a New Function](https://github.com/opensearch-project/ml-commons/blob/main/docs/how-to-add-new-function.md).
-- Model hyperparameters: Adjust these parameters to improve model accuracy.  
-- Input data: The data that trains the ML model, or applies the ML models to predictions. You can input data in two ways, query against your index or use a data frame.
+- 算法名称：必须是[函数名称](https://github.com/opensearch-project/ml-commons/blob/1.3/common/src/main/java/org/opensearch/ml/common/parameter/FunctionName.java)。这确定了ML引擎运行的算法。要添加一个新功能，请参阅[如何添加新功能](https://github.com/opensearch-project/ml-commons/blob/main/docs/how-to-add-new-function.md)。
+- 模型超参数：调整这些参数以提高模型精度。
+- 输入数据：训练ML模型或将ML模型应用于预测的数据。您可以通过两种方式输入数据，对索引查询或使用数据框架。
 
-ML Commons supports the following Train and Predict APIs:
+ML Commons支持以下火车并预测API：
 
-- [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/train/)
-- [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/)
-- [Train and Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/train-and-predict/)
+- [火车]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/train/)
+- [预测]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/)
+- [训练和预测]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/train-and-predict/)
+

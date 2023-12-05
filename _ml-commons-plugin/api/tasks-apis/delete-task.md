@@ -1,32 +1,32 @@
 ---
 layout: default
-title: Delete task
-parent: Tasks APIs
+title: 删除任务
+parent: 任务API
 grand_parent: ML Commons API
 nav_order: 20
 ---
 
-# Delete a task
+# 删除任务
 
-Deletes a task based on the `task_id`.
+根据`task_id`。
 
-ML Commons does not check the task status when running the delete request. There is a risk that a currently running task could be deleted before the task completes. To check the status of a task, run `GET /_plugins/_ml/tasks/<task_id>` before task deletion.
+运行删除请求时，ML Commons不会检查任务状态。在任务完成之前，可以删除当前正在运行的任务的风险。要检查任务的状态，请运行`GET /_plugins/_ml/tasks/<task_id>` 在任务删除之前。
 {: .note}
 
-### Path and HTTP methods
+### 路径和HTTP方法
 
 ```json
 DELETE /_plugins/_ml/tasks/<task_id>
 ```
 
-#### Example request
+#### 示例请求
 
 ```json
 DELETE /_plugins/_ml/tasks/xQRYLX8BydmmU1x6nuD3
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 {

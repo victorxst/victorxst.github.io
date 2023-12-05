@@ -1,36 +1,36 @@
 ---
 layout: default
-title: Delete model group
-parent: Model group APIs
+title: 删除模型组
+parent: 模型组API
 grand_parent: ML Commons API
 nav_order: 40
 ---
 
-# Delete a model group
+# 删除模型组
 
-You can only delete a model group if it does not contain any model versions. 
-{: .important}
+您只能在不包含任何模型版本的情况下删除该模型组。
+{： 。重要的}
 
-If model access control is enabled on your cluster, only the owner or users with matching backend roles can delete the model group. Any users can delete any public model group.
+如果在群集上启用了模型访问控制，则只有具有匹配后端角色的所有者或用户才能删除模型组。任何用户都可以删除任何公共模型组。
 
-If model access control is disabled on your cluster, users with the `delete model group API` permission can delete any model group. 
+如果在群集上禁用模型访问控制，则用用户`delete model group API` 权限可以删除任何模型组。
 
-Admin users can delete any model group.
+管理用户可以删除任何模型组。
 {: .note}
 
-When you delete the last model version in a model group, that model group is automatically deleted from the index.
-{: .important}
+当您在模型组中删除最后一个模型版本时，该模型组将自动从索引中删除。
+{： 。重要的}
 
-For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
+有关更多信息，请参阅[模型访问控制]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/)。
 
-#### Example request
+#### 示例请求
 
 ```json
 DELETE _plugins/_ml/model_groups/<model_group_id>
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -47,3 +47,4 @@ DELETE _plugins/_ml/model_groups/<model_group_id>
   "_primary_term": 23
 }
 ```
+

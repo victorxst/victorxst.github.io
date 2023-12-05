@@ -1,57 +1,57 @@
 ---
 layout: default
-title: Custom models
-parent: Using ML models within OpenSearch
+title: 自定义模型
+parent: 在OpenSearch中使用ML模型
 nav_order: 120
 ---
 
-# Custom local models
-**Generally available 2.9**
+# 自定义本地型号
+**通常可用2.9**
 {: .label .label-purple }
 
-To use a custom model locally, you can upload it to the OpenSearch cluster.
+要在本地使用自定义模型，您可以将其上传到OpenSearch集群。
 
-## Model support
+## 模型支持
 
-As of OpenSearch 2.6, OpenSearch supports local text embedding models.
+从OpenSearch 2.6开始，OpenSearch支持本地文本嵌入模型。
 
-As of OpenSearch 2.11, OpenSearch supports local sparse encoding models.
+从OpenSearch 2.11开始，OpenSearch支持本地稀疏编码模型。
 
-## Preparing a model
+## 准备模型
 
-For both text embedding and sparse encoding models, you must provide a tokenizer JSON file within the model zip file.
+对于文本嵌入和稀疏编码模型，您必须在模型zip文件中提供令牌json文件。
 
-For sparse encoding models, make sure your output format is `{"output":<sparse_vector>}` so that ML Commons can post-process the sparse vector.
+对于稀疏编码模型，请确保您的输出格式为`{"output":<sparse_vector>}` 以便ML Commons可以发布-处理稀疏矢量。
 
-If you fine-tune a sparse model on your own dataset, you may also want to use your own sparse tokenizer model. It is preferable to provide your own [IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) JSON file in the tokenizer model zip file because this increases query performance when you use the tokenizer model in the query. Alternatively, you can use an OpenSearch-provided generic [IDF from MSMARCO](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1/1.0.0/torch_script/opensearch-neural-sparse-tokenizer-v1-1.0.0.zip). If the IDF file is not provided, the default weight of each token is set to 1, which may influence sparse neural search performance.  
+如果你很好-调整自己的数据集上的稀疏模型，您可能还需要使用自己的稀疏令牌模型。最好提供自己的[IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) 令牌模型zip文件中的JSON文件，因为当您在查询中使用令牌模型时，这会增加查询性能。另外，您可以使用OpenSearch-提供通用[来自MSMARCO的IDF](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1/1.0.0/torch_script/opensearch-neural-sparse-tokenizer-v1-1.0.0.zip)。如果未提供IDF文件，则将每个令牌的默认权重设置为1，这可能会影响稀疏的神经搜索性能。
 
-### Model format
+### 模型格式
 
-To use a model in OpenSearch, you'll need to export the model into a portable format. As of Version 2.5, OpenSearch only supports the [TorchScript](https://pytorch.org/docs/stable/jit.html) and [ONNX](https://onnx.ai/) formats.
+要在OpenSearch中使用模型，您需要将模型导出到便携式格式中。从2.5版开始，OpenSearch仅支持[Torchscript](https://pytorch.org/docs/stable/jit.html) 和[onnx](https://onnx.ai/) 格式。
 
-You must save the model file as zip before uploading it to OpenSearch. To ensure that ML Commons can upload your model, compress your TorchScript file before uploading. For an example, download a TorchScript [model file](https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/all-MiniLM-L6-v2_torchscript_sentence-transformer.zip).
+在将其上传到OpenSearch之前，您必须将模型文件作为zip保存为zip。为确保ML Commons可以上传您的模型，请在上传之前压缩Torchscript文件。例如，下载火有关[型号文件](https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/all-MiniLM-L6-v2_torchscript_sentence-transformer.zip)。
 
-Additionally, you must calculate a SHA256 checksum for the model zip file that you'll need to provide when registering the model. For example, on UNIX, use the following command to obtain the checksum:
+此外，您必须为型号zip文件计算SHA256校验和在注册模型时需要提供的sha256校验和。例如，在UNIX上，使用以下命令获得校验和：
 
 ```bash
 shasum -a 256 sentence-transformers_paraphrase-mpnet-base-v2-1.0.0-onnx.zip
 ```
 
-### Model size
+### 型号大小
 
-Most deep learning models are more than 100 MB, making it difficult to fit them into a single document. OpenSearch splits the model file into smaller chunks to be stored in a model index. When allocating ML or data nodes for your OpenSearch cluster, make sure you correctly size your ML nodes so that you have enough memory when making ML inferences.
+大多数深度学习模型都超过100 MB，因此很难将它们放入单个文档中。OpenSearch将模型文件拆分为较小的块，以存储在模型索引中。在为OpenSearch群集分配ML或数据节点时，请确保正确大小的ML节点，以便在进行ML推断时具有足够的内存。
 
-## Prerequisites 
+## 先决条件
 
-To upload a custom model to OpenSearch, you need to prepare it outside of your OpenSearch cluster. You can use a pretrained model, like one from [Hugging Face](https://huggingface.co/), or train a new model in accordance with your needs.
+要将自定义模型上传到OpenSearch，您需要在OpenSearch集群之外准备它。您可以使用审计的模型，例如[拥抱脸](https://huggingface.co/)，或根据您的需求训练新模型。
 
-### Cluster settings
+### 集群设置
 
-This example uses a simple setup with no dedicated ML nodes and allows running a model on a non-ML node. 
+此示例使用一个没有专用ML节点的简单设置-ML节点。
 
-On clusters with dedicated ML nodes, specify `"only_run_on_ml_node": "true"` for improved performance. For more information, see [ML Commons cluster settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/).
+在具有专用ML节点的群集上，指定`"only_run_on_ml_node": "true"` 以提高性能。有关更多信息，请参阅[ML Commons集群设置]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/)。
 
-To ensure that this basic local setup works, specify the following cluster settings:
+为了确保此基本本地设置有效，请指定以下群集设置：
 
 ```json
 PUT _cluster/settings
@@ -70,14 +70,14 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-## Step 1: Register a model group
+## 步骤1：注册模型组
 
-To register a model, you have the following options:
+要注册模型，您有以下选项：
 
-- You can use `model_group_id` to register a model version to an existing model group.
-- If you do not use `model_group_id`, ML Commons creates a model with a new model group.
+- 您可以使用`model_group_id` 向现有模型组注册模型版本。
+- 如果您不使用`model_group_id`，ML Commons使用新的模型组创建模型。
 
-To register a model group, send the following request:
+要注册模型组，请发送以下请求：
 
 ```json
 POST /_plugins/_ml/model_groups/_register
@@ -88,7 +88,7 @@ POST /_plugins/_ml/model_groups/_register
 ```
 {% include copy-curl.html %}
 
-The response contains the model group ID that you'll use to register a model to this model group:
+响应包含您将用于将模型注册到此模型组的模型组ID：
 
 ```json
 {
@@ -97,11 +97,11 @@ The response contains the model group ID that you'll use to register a model to 
 }
 ```
 
-To learn more about model groups, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
+要了解有关模型组的更多信息，请参阅[模型访问控制]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/)。
 
-## Step 2: Register a local model
+## 步骤2：注册本地模型
 
-To register a remote model to the model group created in step 1, provide the model group ID from step 1 in the following request:
+要向步骤1中创建的模型组注册远程模型，请在以下请求中从步骤1提供模型组ID：
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -126,9 +126,9 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-For a description of Register API parameters, see [Register a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/).
+有关寄存器API参数的说明，请参阅[注册模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/)。
 
-OpenSearch returns the task ID of the register operation:
+OpenSearch返回寄存器操作的任务ID：
 
 ```json
 {
@@ -137,14 +137,14 @@ OpenSearch returns the task ID of the register operation:
 }
 ```
 
-To check the status of the operation, provide the task ID to the [Get task]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
+要检查操作的状态，将任务ID提供给[得到任务]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/)：
 
 ```bash
 GET /_plugins/_ml/tasks/cVeMb4kBJ1eYAeTMFFgj
 ```
 {% include copy-curl.html %}
 
-When the operation is complete, the state changes to `COMPLETED`:
+操作完成后，状态会更改为`COMPLETED`：
 
 ```json
 {
@@ -161,20 +161,20 @@ When the operation is complete, the state changes to `COMPLETED`:
 }
 ```
 
-Take note of the returned `model_id` because you’ll need it to deploy the model.
+注意返回的`model_id` 因为您需要它来部署模型。
 
-## Step 3: Deploy the model
+## 步骤3：部署模型
 
-The deploy operation reads the model's chunks from the model index and then creates an instance of the model to load into memory. The bigger the model, the more chunks the model is split into and longer it takes for the model to load into memory.
+部署操作从模型索引中读取模型的块，然后创建一个模型的实例，以加载到内存中。模型越大，模型将模型加载到内存所需的时间越长。
 
-To deploy the registered model, provide its model ID from step 3 in the following request:
+要部署注册模型，请在以下请求中从步骤3提供其模型ID：
 
 ```bash
 POST /_plugins/_ml/models/cleMb4kBJ1eYAeTMFFg4/_deploy
 ```
 {% include copy-curl.html %}
 
-The response contains the task ID that you can use to check the status of the deploy operation:
+响应包含您可以使用的任务ID来检查部署操作的状态：
 
 ```json
 {
@@ -183,14 +183,14 @@ The response contains the task ID that you can use to check the status of the de
 }
 ```
 
-As in the previous step, check the status of the operation by calling the Tasks API:
+与上一步一样，通过调用任务API来检查操作的状态：
 
 ```bash
 GET /_plugins/_ml/tasks/vVePb4kBJ1eYAeTM7ljG
 ```
 {% include copy-curl.html %}
 
-When the operation is complete, the state changes to `COMPLETED`:
+操作完成后，状态会更改为`COMPLETED`：
 
 ```json
 {
@@ -207,11 +207,11 @@ When the operation is complete, the state changes to `COMPLETED`:
 }
 ```
 
-## Step 4 (Optional): Test the model
+## 步骤4（可选）：测试模型
 
-Use the [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) to test the model.
+使用[预测API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) 测试模型。
 
-For a text embedding model, send the following request:
+对于文本嵌入模型，请发送以下请求：
 
 ```json
 POST /_plugins/_ml/_predict/text_embedding/cleMb4kBJ1eYAeTMFFg4
@@ -223,7 +223,7 @@ POST /_plugins/_ml/_predict/text_embedding/cleMb4kBJ1eYAeTMFFg4
 ```
 {% include copy-curl.html %}
 
-The response contains text embeddings for the provided sentence:
+响应包含提供句子的文本嵌入：
 
 ```json
 {
@@ -249,7 +249,7 @@ The response contains text embeddings for the provided sentence:
 }
 ```
 
-For a sparse encoding model, send the following request:
+对于稀疏编码模型，发送以下请求：
 
 ```json
 POST /_plugins/_ml/_predict/sparse_encoding/cleMb4kBJ1eYAeTMFFg4
@@ -259,7 +259,7 @@ POST /_plugins/_ml/_predict/sparse_encoding/cleMb4kBJ1eYAeTMFFg4
 ```
 {% include copy-curl.html %}
 
-The response contains the tokens and weights:
+响应包含令牌和权重：
 
 ```json
 {
@@ -284,10 +284,11 @@ The response contains the tokens and weights:
 }
 ```
 
-## Step 5: Use the model for search
+## 步骤5：使用模型进行搜索
 
-To learn how to set up a vector index and use text embedding models for search, see [Neural text search]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/).
+要了解如何设置向量索引并使用文本嵌入模型进行搜索，请参见[神经文本搜索]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/)。
 
-To learn how to set up a vector index and use sparse encoding models for search, see [Neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
+要了解如何设置向量索引并使用稀疏编码模型进行搜索，请参见[神经稀疏搜索]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/)。
 
-To learn how to set up a vector index and use multimodal embedding models for search, see [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
+要了解如何设置向量索引并使用多模式嵌入模型进行搜索，请参见[多模式搜索]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/)。
+

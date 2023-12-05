@@ -1,31 +1,32 @@
 ---
 layout: default
-title: Model APIs
+title: 模型API
 parent: ML Commons API
 has_children: true
 nav_order: 10
 ---
 
-# Model APIs
+# 模型API
 
-ML Commons supports the following model-level APIs:
+ML Commons支持以下模型-级别API：
 
-- [Register model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/)
-- [Get model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/get-model/)
-- [Deploy model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/deploy-model/)
-- [Undeploy model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/)
-- [Delete model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/delete-model/)
+- [注册型号]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/)
+- [获取模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/get-model/)
+- [部署模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/deploy-model/)
+- [Uneploy模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/)
+- [删除模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/delete-model/)
 
-## Model access control considerations
+## 模型访问控制注意事项
 
-For clusters with model access control enabled, users can perform API operations on models in model groups with specified access levels as follows:
+对于启用模型访问控制的群集，用户可以在具有指定访问级别的模型组中对模型进行API操作，如下所示：
 
-- `public` model group: Any user.
-- `restricted` model group: Only the model owner or users who share at least one backend role with the model group.
-- `private` model group: Only the model owner. 
+- `public` 模型组：任何用户。
+- `restricted` 模型组：只有与模型组共享至少一个后端角色的模型所有者或用户。
+- `private` 模型组：仅模型所有者。
 
-For clusters with model access control disabled, any user can perform API operations on models in any model group. 
+对于具有模型访问控制禁用的群集，任何用户都可以在任何模型组中对模型执行API操作。
 
-Admin users can perform API operations for models in any model group. 
+管理员可以在任何模型组中对模型执行API操作。
 
-For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
+有关更多信息，请参阅[模型访问控制]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/)。
+

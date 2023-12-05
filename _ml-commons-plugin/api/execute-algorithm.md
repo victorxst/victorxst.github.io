@@ -1,23 +1,23 @@
 ---
 layout: default
-title: Execute algorithm 
+title: 执行算法 
 parent: ML Commons API
 nav_order: 30
 ---
 
-# Execute algorithm
+# 执行算法
 
-Some algorithms, such as [Localization]({{site.url}}{{site.baseurl}}/ml-commons-plugin/algorithms#localization), don't require trained models. You can run no-model-based algorithms using the `execute` API.
+一些算法，例如[本土化]({{site.url}}{{site.baseurl}}/ml-commons-plugin/algorithms#localization)，不需要训练有素的模型。你可以不运行-模型-使用的算法使用`execute` API。
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```json
 POST _plugins/_ml/_execute/<algorithm_name>
 ```
 
-#### Example request: Execute localization 
+#### 示例请求：执行本地化
 
-The following example uses the Localization algorithm to find subset-level information for aggregate data (for example, aggregated over time) that demonstrates the activity of interest, such as spikes, drops, changes, or anomalies.
+以下示例使用本地化算法查找子集-汇总数据的级别信息（例如，随着时间的推移汇总）证明了感兴趣的活动，例如尖峰，下降，变化或异常。
 
 ```json
 POST /_plugins/_ml/_execute/anomaly_localization
@@ -44,7 +44,7 @@ POST /_plugins/_ml/_execute/anomaly_localization
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -152,4 +152,5 @@ POST /_plugins/_ml/_execute/anomaly_localization
   ]
 }
 ```
+
 

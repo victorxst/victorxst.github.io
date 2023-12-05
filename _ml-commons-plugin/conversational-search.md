@@ -1,31 +1,31 @@
 ---
 layout: default
-title: Conversational search
+title: 会话搜索
 has_children: false
 nav_order: 200
 ---
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://forum.opensearch.org/t/feedback-conversational-search-and-retrieval-augmented-generation-using-search-pipeline-experimental-release/16073). 
+这是一个实验特征，不建议在生产环境中使用。有关功能进度或要留下反馈的更新，请参阅关联[Github问题](https://forum.opensearch.org/t/feedback-conversational-search-and-retrieval-augmented-generation-using-search-pipeline-experimental-release/16073)。
 {: .warning}
 
-# Conversational search
+# 会话搜索
 
-Conversational search is an experimental machine learning (ML) feature that enables a new search interface. Whereas traditional document search allows you to ask a question and receive a list of documents that might contain the answer to that question, conversational search uses large language models (LLMs) to read the top N documents and synthesizes those documents into a plaintext "answer" to your question.
+会话搜索是一种实验机学习（ML）功能，可实现新的搜索接口。尽管传统的文档搜索使您可以提出问题并收到可能包含该问题答案的文档列表，但会话搜索使用大型语言模型（LLMS）读取顶级n个文档并将这些文档综合为专业"answer" 问你的问题。
 
-Currently, conversational search uses two systems to synthesize documents:
+当前，对话搜索使用两个系统来合成文档：
 
-- [Conversation memory](#conversation-memory)
-- [Retrieval Augmented Generation (RAG) pipeline](#rag-pipeline)
+- [对话记忆](#conversation-memory)
+- [检索增强发电（RAG）管道](#rag-pipeline)
 
-## Conversation memory
+## 对话记忆
 
-Conversation memory consists of a simple CRUD-like API comprising two resources: **Conversations** and **Interactions**. Conversations are made up of interactions. An interaction represents a pair of messages: a human input and an artificial intelligence (AI) response. You cannot create any interactions until you've created a conversation. 
+对话记忆包括一个简单的碎屑-就像API包括两个资源：**对话** 和**互动**。对话是由互动组成的。互动代表一对消息：人类输入和人工智能（AI）响应。在创建对话之前，您无法创建任何交互。
 
-To make it easier to build and debug applications that use conversation memory, `conversation-meta` and `conversation-interactions` are stored in two system indexes.
+为了使使用对话内存的构建和调试应用程序更容易，`conversation-meta` 和`conversation-interactions` 存储在两个系统索引中。
 
-### `conversation-meta` index
+### `conversation-meta` 指数
 
-In the `conversation-meta` index, you can customize the `name` field to make it easier for end users to know how to continue a conversation with the AI, as shown in the following schema:
+在里面`conversation-meta` 索引，您可以自定义`name` 字段使最终用户更容易知道如何继续与AI进行对话，如以下模式所示：
 
 ```jsx
 .plugins-ml-conversation-meta
@@ -41,19 +41,19 @@ In the `conversation-meta` index, you can customize the `name` field to make it 
 }
 ```
 
-### `conversation-interactions` index
+### `conversation-interactions` 指数
 
-In the `conversation-interactions` index, all of the following fields are set by the user or AI application. Each field is entered as a string.
+在里面`conversation-interactions` 索引，以下所有字段均由用户或AI应用程序设置。每个字段以字符串输入。
 
-| Field | Description |
+| 场地| 描述|
 | :--- | :--- |
-| `input` | The question that forms the basis for an interaction. |
-| `prompt_template` | The prompt template that was used as the framework for this interaction. |
-| `response` | The AI response to the prompt. |
-| `origin` | The name of the AI or other system that generated the response. |
-| `additional_info` | Any other information that was sent to the "origin" in the prompt. |
+| `input` | 构成互动基础的问题。|
+| `prompt_template` | 用作此交互的框架的提示模板。|
+| `response` | AI对提示的响应。|
+| `origin` | 生成响应的AI或其他系统的名称。|
+| `additional_info` | 发送给的任何其他信息"origin" 在提示中。|
 
-The `conversation-interactions` index creates a clean interaction abstraction and make it easy for the index to reconstruct the exact prompts sent to the LLM, enabling robust debugging and explainability, as shown in the following schema:
+这`conversation-interactions` 索引创建了一个干净的交互抽象，并使索引可以轻松地重建发送到LLM的确切提示，从而实现了可靠的调试和解释性，如以下模式：
 
 ```jsx
 .plugins-ml-conversation-interactions
@@ -73,12 +73,12 @@ The `conversation-interactions` index creates a clean interaction abstraction an
 }
 ```
 
-## Working with conversations and interactions
+## 处理对话和互动
 
-When the Security plugin is enabled, all conversations in ML Commons exist in a "private" security mode. Only the user who created a conversation can interact with that conversation. No users on the cluster can see another user's conversation.
+启用安全插件后，ML Commons中的所有对话都存在于"private" 安全模式。只有创建对话的用户才能与该对话进行交互。集群上没有用户可以看到另一个用户的对话。
 {: .note}
 
-To begin using conversation memory, enable the following cluster setting:
+要开始使用对话内存，请启用以下群集设置：
 
 ```json
 PUT /_cluster/settings
@@ -90,9 +90,9 @@ PUT /_cluster/settings
 ```
 {% include copy-curl.html %}
 
-After conversation memory is enabled, you can use the Memory API to create a conversation. 
+启用对话内存后，您可以使用内存API创建对话。
 
-To make the conversation easily identifiable, use the optional `name` field in the Memory API, as shown in the following example. This will be your only opportunity to name your conversation.
+要使对话易于识别，请使用可选的`name` 内存API中的字段，如下面的示例所示。这将是您命名对话的唯一机会。
 
 
 
@@ -104,13 +104,13 @@ POST /_plugins/_ml/memory/conversation
 ```
 {% include copy-curl.html %}
 
-The Memory API responds with the conversation ID, as shown in the following example response:
+内存API使用对话ID响应，如以下示例响应所示：
 
 ```json
 { "conversation_id": "4of2c9nhoIuhcr" }
 ```
 
-You'll use the `conversation_id` to create interactions inside the conversation. To create interactions, enter the `conversation_id` into the Memory API path. Then customize the [fields](#conversation-interactions-index) in the request body, as shown in the following example:
+您将使用`conversation_id` 在对话中创建互动。要创建互动，请输入`conversation_id` 进入内存API路径。然后自定义[字段](#conversation-interactions-index) 在请求主体中，如下所示：
 
 ```json
 POST /_plugins/_ml/memory/conversation/4of2c9nhoIuhcr
@@ -127,29 +127,29 @@ POST /_plugins/_ml/memory/conversation/4of2c9nhoIuhcr
 ```
 {% include copy-curl.html %}
 
-The Memory API then responds with an interaction ID, as shown in the following example response:
+然后，内存API以相互作用ID响应，如以下示例响应所示：
 
 ```json
 { "interaction_id": "948vh_PoiY2hrnpo" }
 ```
 
-### Getting conversations
+### 进行对话
 
-You can get a list of conversations using the following Memory API operation:
+您可以使用以下内存API操作获取对话列表：
 
 ```json
 GET /_plugins/_ml/memory/conversation?max_results=3&next_token=0
 ```
 {% include copy-curl.html %}
 
-Use the following path parameters to customize your results.
+使用以下路径参数自定义结果。
 
-Parameter | Data type | Description
+范围| 数据类型| 描述
 :--- | :--- | :---
-`max_results` | Integer | The maximum number of results returned by the response. Default is `10`.
-`next_token` | Integer | Represents the conversation order position that will be retrieved. For example, if conversations A, B, and C exist, `next_token=1` would return conversations B and C. Default is `0`.
+`max_results` | 整数| 响应返回的最大结果数。默认为`10`。
+`next_token` | 整数| 表示将要检索的对话顺序位置。例如，如果对话A，B和C存在，`next_token=1` 将返回对话b和C.默认值为`0`。
 
-The Memory API responds with the most recent conversation, as indicated in the `create_time` field of the following example response:
+内存API通过最近的对话做出响应，如`create_time` 以下示例响应的字段：
 
 ```json
 {
@@ -165,7 +165,7 @@ The Memory API responds with the most recent conversation, as indicated in the `
 ```
 
 
-If there are fewer conversations than the number set in `max_results`, the response only returns the number of conversations that exist. Lastly, `next_token` provides an ordered position of the sorted list of conversations. When a conversation is added between subsequent GET conversation calls, one of the listed conversations will be duplicated in the results, for example:
+如果对话少于设置的数字`max_results`，响应仅返回存在的对话数量。最后，`next_token` 提供对话的排序列表的有序位置。当随后的获取对话呼叫之间添加对话时，结果将在结果中重复：
 
 ```plaintext
 GetConversations               -> [BCD]EFGH
@@ -173,16 +173,16 @@ CreateConversation             -> ABCDEFGH
 GetConversations(next_token=3) -> ABC[DEF]GH
 ```
 
-### Getting interactions
+### 获得互动
 
-To see a list of interactions in a conversation, enter the `conversation_id` at the end of the API request, as shown in the following example. You can use `max_results` and `next_token` to sort the response:
+要查看对话中的互动列表，请输入`conversation_id` 在API请求结束时，如下示例所示。您可以使用`max_results` 和`next_token` 对响应进行排序：
 
 ```json
 GET /_plugins/_ml/memory/conversation/4of2c9nhoIuhcr
 ```
 {% include copy-curl.html %}
 
-The Memory API returns the following interaction information:
+内存API返回以下交互信息：
 
 ```json
 {
@@ -205,31 +205,31 @@ The Memory API returns the following interaction information:
 }
 ```
 
-### Deleting conversations
+### 删除对话
 
-To delete a conversation, use the `DELETE` operation, as shown in the following example:
+要删除对话，请使用`DELETE` 操作，如以下示例所示：
 
 ```json
 DELETE /_plugins/_ml/memory/conversation/4of2c9nhoIuhcr
 ```
 {% include copy-curl.html %}
 
-The Memory API responds with the following:
+内存API响应以下响应：
 
 ```json
 { "success": true }
 ```
 
-## RAG pipeline
+## 破布管道
 
-RAG is a technique that retrieves documents from an index, passes them through a seq2seq model, such as an LLM, and then supplements the static LLM information with the dynamically retrieved data in context.
+RAG是一种从索引中检索文档的技术，通过SEQ2SEQ模型（例如LLM）将其传递，然后在上下文中使用动态检索的数据来补充静态LLM信息。
 
-As of OpenSearch 2.11, the RAG technique has only been tested with OpenAI models and the Anthropic Claude model on Amazon Bedrock.
+从OpenSearch 2.11开始，仅使用OpenAI型号和Amazon Bedrock上的Anthropic Claude模型对RAG技术进行了测试。
 {: .warning}
 
-### Enabling RAG
+### 启用抹布
 
-Use the following cluster setting to enable the RAG pipeline feature:
+使用以下群集设置启用RAG管道功能：
 
 ```json
 PUT /_cluster/settings
@@ -239,56 +239,56 @@ PUT /_cluster/settings
 ```
 {% include copy-curl.html %}
 
-### Connecting the model
+### 连接模型
 
-RAG requires an LLM in order to function. We recommend using a [connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
+RAG需要LLM才能运行。我们建议使用[连接器]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/)。
 
-Use the following steps to set up an HTTP connector using the OpenAI GPT 3.5 model:
+使用以下步骤使用OpenAI GPT 3.5模型设置HTTP连接器：
 
-1. Use the Connector API to create the HTTP connector:
+1. 使用连接器API创建HTTP连接器：
 
-    ```json
-    POST /_plugins/_ml/connectors/_create
+    ```JSON
+    post/_plugins/_ml/connectors/_ create
     {
-        "name": "OpenAI Chat Connector",
-        "description": "The connector to public OpenAI model service for GPT 3.5",
-        "version": 2,
-        "protocol": "http",
-        "parameters": {
-            "endpoint": "api.openai.com",
-            "model": "gpt-3.5-turbo",
-      "temperature": 0
-        },
-        "credential": {
-            "openAI_key": "<your OpenAI key>"
-        },
-        "actions": [
+        "name"："OpenAI Chat Connector"，
+        "description"："The connector to public OpenAI model service for GPT 3.5"，
+        "version"：2，
+        "protocol"："http"，
+        "parameters"：{
+            "endpoint"："api.openai.com"，
+            "model"："gpt-3.5-turbo"，
+      "temperature"：0
+        }，，
+        "credential"：{
+            "openAI_key"："<your OpenAI key>"
+        }，，
+        "actions"：[[
             {
-                "action_type": "predict",
-                "method": "POST",
-                "url": "https://${parameters.endpoint}/v1/chat/completions",
-                "headers": {
-                    "Authorization": "Bearer ${credential.openAI_key}"
-                },
-                "request_body": "{ \"model\": \"${parameters.model}\", \"messages\": ${parameters.messages}, \"temperature\": ${parameters.temperature} }"
+                "action_type"："predict"，
+                "method"："POST"，
+                "url"："https://${parameters.endpoint}/v1/chat/completions"，
+                "headers"：{
+                    "Authorization"："Bearer ${credential.openAI_key}"
+                }，，
+                "request_body"："{ \"模型\": \"$ {parameters.model} \", \"消息\": ${parameters.messages}, \"温度\": ${parameters.temperature} }"
             }
-        ]
+        这是给出的
     }
     ```
     {% include copy-curl.html %}
 
 1. Create a new model group for the connected model. You'll use the `model_group_id` returned by the Register API to register the model:
 
-    ```json
-    POST /_plugins/_ml/model_groups/_register
+    ```JSON
+    post/_plugins/_ml/model_groups/_register
     {
-      "name": "public_model_group", 
-      "description": "This is a public model group"
+      "name"："public_model_group"，
+      "description"："This is a public model group"
     }
     ```
     {% include copy-curl.html %}
 
-1. Register and deploy the model using the `connector_id` from the Connector API response in Step 1 and the `model_group_id` returned in Step 2:
+1. Register and deploy the model using the `connector_id` from the Connector API response in Step 1 and the `model_group_id` 在步骤2中返回：
 
     ```json
     POST /_plugins/_ml/models/_register
@@ -302,17 +302,17 @@ Use the following steps to set up an HTTP connector using the OpenAI GPT 3.5 mod
     ``` 
     {% include copy-curl.html %}
 
-1. With the model registered, use the `task_id` returned in the registration response to get the `model_id`. You'll use the `model_id` to deploy the model to OpenSearch:
+1. 在注册模型后，使用`task_id` 在注册响应中返回以获取`model_id`。您将使用`model_id` 将模型部署到OpenSearch：
 
-    ```json
-    GET /_plugins/_ml/tasks/<task_id>
+    ```JSON
+    get/_plugins/_ml/task/<task_id>
     ```
     {% include copy-curl.html %}
 
 1. Using the `model_id` from step 4, deploy the model:
 
-    ```json
-    POST /_plugins/_ml/models/<model_id>/_deploy
+    ```JSON
+    POST/_PLUGINS/_ML/型号/<型号_id>/_部署
     ```
     {% include copy-curl.html %}
 
@@ -341,7 +341,7 @@ PUT /_search/pipeline/<pipeline_name>
 
 ### Context field list
 
-`context_field_list` is the list of fields in document sources that the pipeline uses as context for the RAG. For example, when `context_field_list` parses through the following document, the pipeline sends the `text` field from the response to OpenAI model:
+`context_field_list` is the list of fields in document sources that the pipeline uses as context for the RAG. For example, when `context_field_list` parses through the following document, the pipeline sends the `文本` 从响应对OpenAI模型的范围：
 
 ```json
 {
@@ -354,24 +354,24 @@ PUT /_search/pipeline/<pipeline_name>
 }
 ```
 
-You can customize `context_field_list` in your RAG pipeline to send any fields that exist in your documents to the LLM.
+您可以自定义`context_field_list` 在您的RAG管道中，将文档中存在的任何字段发送到LLM。
 
-### RAG parameter options
+### RAG参数选项
 
-Use the following options when setting up a RAG pipeline under the `retrieval_augmented_generation` argument.
+在设置RAG管道下方时使用以下选项`retrieval_augmented_generation` 争论。
 
-Parameter | Required | Description
+范围| 必需的| 描述
 :--- | :--- | :---
-`tag` | No | A tag to help identify the pipeline.
-`description` | Yes | A description of the pipeline.
-`model_id` | Yes | The ID of the model used in the pipeline.
-`context_field_list` | Yes | The list of fields in document sources that the pipeline uses as context for the RAG. For more information, see [Context Field List](#context-field-list).
-`system_prompt` | No | The message sent to the LLM with a `system` role. This is the message the user sees when the LLM receives an interaction.
-`user_instructions` | No | An additional message sent by the LLM with a `user` role. This parameter allows for further customization of what the user receives when interacting with the LLM.
+`tag` | 不| 标签以帮助识别管道。
+`description` | 是的| 管道的描述。
+`model_id` | 是的| 管道中使用的模型的ID。
+`context_field_list` | 是的| 管道来源中的字段列表将管道用作抹布的上下文。有关更多信息，请参阅[上下文字段列表](#context-field-list)。
+`system_prompt` | 不| 消息发送给LLM的消息`system` 角色。这是用户在LLM接收交互时看到的消息。
+`user_instructions` | 不| LLM发送的另一条消息`user` 角色。此参数允许进一步自定义用户与LLM交互时收到的内容。
 
-### Using the pipeline
+### 使用管道
 
-Using the pipeline is similar to submitting [search queries]({{site.url}}{{site.baseurl}}/api-reference/search/#example) to OpenSearch, as shown in the following example:
+使用管道类似于提交[搜索查询]({{site.url}}{{site.baseurl}}/api-reference/search/#example) 进行搜索，如以下示例所示：
 
 ```json
 GET /<index_name>/_search?search_pipeline=<pipeline_name>
@@ -391,21 +391,22 @@ GET /<index_name>/_search?search_pipeline=<pipeline_name>
 ```
 {% include copy-curl.html %}
 
-The RAG search query uses the following request objects under the `generative_qa_parameters` option.
+抹布搜索查询使用以下请求对象`generative_qa_parameters` 选项。
 
-Parameter | Required | Description
+范围| 必需的| 描述
 :--- | :--- | :---
-`llm_question` | Yes | The question the LLM must answer. 
-`llm_model` | No | Overrides the original model set in the connection in cases where you want to use a different model (for example, GPT 4 instead of GPT 3.5). This option is required if a default model is not set during pipeline creation.
-`conversation_id` | No | Integrates conversation memory into your RAG pipeline by adding the 10 most recent conversations into the context of the search query to the LLM. 
-`context_size` | No | The number of search results sent to the LLM. This is typically needed in order to meet the token size limit, which can vary by model. Alternatively, you can use the `size` parameter in the Search API to control the amount of information sent to the LLM.
-`interaction_size` | No | The number of interactions sent to the LLM. Similarly to the number of search results, this affects the total number of tokens seen by the LLM. When not set, the pipeline uses the default interaction size of `10`.
-`timeout` | No | The number of seconds that the pipeline waits for the remote model using a connector to respond. Default is `30`.
+`llm_question` | 是的| LLM必须回答的问题。
+`llm_model` | 不| 在您要使用其他模型的情况下（例如，GPT 4而不是GPT 3.5），在连接中设置了原始模型。如果未在管道创建期间设置默认模型，则需要此选项。
+`conversation_id` | 不| 通过将对话内存添加到LLM的搜索查询上下文中，将对话存储器集成到您的破布管道中。
+`context_size` | 不| 发送到LLM的搜索结果数量。为了满足令牌尺寸限制，通常需要这这可能会因模型而异。或者，您可以使用`size` 搜索API中的参数以控制发送到LLM的信息量。
+`interaction_size` | 不| 发送到LLM的互动数量。与搜索结果的数量相似，这会影响LLM看到的令牌总数。当未设置时，管道使用默认交互的大小`10`。
+`timeout` | 不| 管道使用连接器响应远程模型的秒数。默认为`30`。
 
-If your LLM includes a set token limit, set the `size` field in your OpenSearch query to limit the number of documents used in the search response. Otherwise, the RAG pipeline will send every document in the search results to the LLM.
+如果您的LLM包含集合令牌限制，请设置`size` OpenSearch查询中的字段以限制搜索响应中使用的文档数量。否则，RAG管道将将搜索结果中的每个文档发送到LLM。
 
-## Next steps
+## 下一步
 
-- To learn more about connecting to models on external platforms, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
-- To learn more about using custom models within your OpenSearch cluster, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
+- 要了解有关连接到外部平台上的模型的更多信息，请参见[连接器]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/)。
+- 要了解有关在OpenSearch集群中使用自定义模型的更多信息，请参见[在OpenSearch中使用ML模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/)。
+
 

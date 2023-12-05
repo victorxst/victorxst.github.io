@@ -1,31 +1,31 @@
 ---
 layout: default
-title: Connecting to remote models 
+title: 连接到远程模型
 has_children: true
 has_toc: false
 nav_order: 60
 ---
 
-# Connecting to remote models
-**Introduced 2.9**
+# 连接到远程型号
+**引入2.9**
 {: .label .label-purple }
 
-Machine learning (ML) extensibility enables ML developers to create integrations with other ML services, such as Amazon SageMaker or OpenAI. These integrations provide system administrators and data scientists the ability to run ML workloads outside of their OpenSearch cluster. 
+机器学习（ML）可扩展性使ML开发人员能够与其他ML服务（例如Amazon Sagemaker或OpenAI）建立集成。这些集成使系统管理员和数据科学家能够在其OpenSearch集群之外运行ML工作负载。
 
-To get started with ML extensibility, choose from the following options:
+要开始使用ML可扩展性，请从以下选项中选择：
 
-- If you're an ML developer wanting to integrate with your specific ML services, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
-- If you're a system administrator or data scientist wanting to create a connection to an ML service, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
+- 如果您是ML的开发人员，希望与您的特定ML服务集成，请参见[连接器蓝图]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/)。
+- 如果您是系统管理员或数据科学家，希望创建与ML服务的连接，请参见[连接器]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/)。
 
-## Prerequisites
+## 先决条件
 
-If you're an admin deploying an ML connector, make sure that the target model of the connector has already been deployed on your chosen platform. Furthermore, make sure that you have permissions to send and receive data to the third-party API for your connector. 
+如果您是部署ML连接器的管理员，请确保连接器的目标模型已在您选择的平台上部署。此外，请确保您有权将数据发送和接收到第三-连接器的派对API。
 
-When access control is enabled on your third-party platform, you can enter your security settings using the `authorization` or `credential` settings inside the connector API.
+当您的第三次启用访问控制时-派对平台，您可以使用`authorization` 或者`credential` 连接器API中的设置。
 
-### Adding trusted endpoints
+### 添加可信赖的端点
 
-To configure connectors in OpenSearch, add the trusted endpoints to your cluster settings by using the `plugins.ml_commons.trusted_connector_endpoints_regex` setting, which supports Java regex expressions:
+要配置OpenSearch中的连接器`plugins.ml_commons.trusted_connector_endpoints_regex` 设置，支持Java Regex表达式：
 
 ```json
 PUT /_cluster/settings
@@ -44,12 +44,12 @@ PUT /_cluster/settings
 
 
 
-### Setting up connector access control
+### 设置连接器访问控制
 
-If you plan on using a remote connector, make sure to use an OpenSearch cluster with the Security plugin enabled. Using the Security plugin gives you access to connector access control, which is required when using a remote connector.
+如果您打算使用远程连接器，请确保使用启用安全插件的OpenSearch集群。使用安全插件可让您访问连接器访问控制，这是使用远程连接器时所需的。
 {: .warning}
 
-If you require granular access control for your connectors, use the following cluster setting:
+如果您需要连接器的粒度访问控件，请使用以下群集设置：
 
 ```json
 PUT /_cluster/settings
@@ -61,7 +61,7 @@ PUT /_cluster/settings
 ```
 {% include copy-curl.html %}
 
-When access control is enabled, you can install the [Security plugin]({{site.url}}{{site.baseurl}}/security/index/). This makes the `backend_roles`, `add_all_backend_roles`, or `access_model` options required in order to use the connector API. If successful, OpenSearch returns the following response:
+启用访问控制时，您可以安装[安全插件]({{site.url}}{{site.baseurl}}/security/index/)。这使得`backend_roles`，`add_all_backend_roles`， 或者`access_model` 为了使用连接器API所需的选项。如果成功，OpenSearch返回以下回复：
 
 ```json
 {
@@ -77,9 +77,9 @@ When access control is enabled, you can install the [Security plugin]({{site.url
 }
 ```
 
-### Node settings
+### 节点设置
 
-Remote models based on external connectors consume fewer resources. Therefore, you can deploy any model from a standalone connector using data nodes. To make sure that your standalone connection uses data nodes, set `plugins.ml_commons.only_run_on_ml_node` to `false`:
+基于外部连接器的远程模型消耗的资源较少。因此，您可以使用数据节点从独立连接器中部署任何模型。为了确保您的独立连接使用数据节点，请设置`plugins.ml_commons.only_run_on_ml_node` 到`false`：
 
 ```json
 PUT /_cluster/settings
@@ -92,14 +92,14 @@ PUT /_cluster/settings
 ```
 {% include copy-curl.html %}
 
-## Step 1: Register a model group
+## 步骤1：注册模型组
 
-To register a model, you have the following options:
+要注册模型，您有以下选项：
 
-- You can use `model_group_id` to register a model version to an existing model group.
-- If you do not use `model_group_id`, ML Commons creates a model with a new model group.
+- 您可以使用`model_group_id` 向现有模型组注册模型版本。
+- 如果您不使用`model_group_id`，ML Commons使用新的模型组创建模型。
 
-To register a model group, send the following request:
+要注册模型组，请发送以下请求：
 
 ```json
 POST /_plugins/_ml/model_groups/_register
@@ -110,7 +110,7 @@ POST /_plugins/_ml/model_groups/_register
 ```
 {% include copy-curl.html %}
 
-The response contains the model group ID that you'll use to register a model to this model group:
+响应包含您将用于将模型注册到此模型组的模型组ID：
 
 ```json
 {
@@ -119,13 +119,13 @@ The response contains the model group ID that you'll use to register a model to 
 }
 ```
 
-To learn more about model groups, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
+要了解有关模型组的更多信息，请参阅[模型访问控制]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/)。
 
-## Step 2: Create a connector
+## 步骤2：创建一个连接器
 
-You can create a standalone connector or an internal connector as part of a specific model. For more information about connectors and connector examples, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
+您可以作为特定模型的一部分创建独立的连接器或内部连接器。有关连接器和连接器示例的更多信息，请参见[连接器]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/)。
 
-The Connectors Create API, `/_plugins/_ml/connectors/_create`, creates connectors that facilitate registering and deploying external models in OpenSearch. Using the `endpoint` parameter, you can connect ML Commons to any supported ML tool by using its specific API endpoint. For example, you can connect to a ChatGPT model by using the `api.openai.com` endpoint:
+连接器创建API，`/_plugins/_ml/connectors/_create`，创建连接器，以促进OpenSearch中的注册和部署外部模型。使用`endpoint` 参数，您可以使用其特定的API端点将ML Commons连接到任何受支持的ML工具。例如，您可以使用`api.openai.com` 端点：
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -156,7 +156,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-The response contains the connector ID for the newly created connector:
+响应包含新创建的连接器的连接器ID：
 
 ```json
 {
@@ -164,9 +164,9 @@ The response contains the connector ID for the newly created connector:
 }
 ```
 
-## Step 3: Register a remote model
+## 步骤3：注册远程模型
 
-To register a remote model to the model group created in step 1, provide the model group ID from step 1 and the connector ID from step 2 in the following request:
+要向步骤1中创建的模型组注册远程模型，请在以下请求中从步骤1提供模型组ID，并从步骤2提供连接器ID：
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -180,7 +180,7 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-OpenSearch returns the task ID of the register operation:
+OpenSearch返回寄存器操作的任务ID：
 
 ```json
 {
@@ -189,14 +189,14 @@ OpenSearch returns the task ID of the register operation:
 }
 ```
 
-To check the status of the operation, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/#get-a-task-by-id):
+要检查操作的状态，将任务ID提供给[任务API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/#get-a-task-by-id)：
 
 ```bash
 GET /_plugins/_ml/tasks/cVeMb4kBJ1eYAeTMFFgj
 ```
 {% include copy-curl.html %}
 
-When the operation is complete, the state changes to `COMPLETED`:
+操作完成后，状态会更改为`COMPLETED`：
 
 ```json
 {
@@ -213,18 +213,18 @@ When the operation is complete, the state changes to `COMPLETED`:
 }
 ```
 
-Take note of the returned `model_id` because you’ll need it to deploy the model.
+注意返回的`model_id` 因为您需要它来部署模型。
 
-## Step 4: Deploy the remote model
+## 步骤4：部署远程模型
 
-To deploy the registered model, provide its model ID from step 3 in the following request:
+要部署注册模型，请在以下请求中从步骤3提供其模型ID：
 
 ```bash
 POST /_plugins/_ml/models/cleMb4kBJ1eYAeTMFFg4/_deploy
 ```
 {% include copy-curl.html %}
 
-The response contains the task ID that you can use to check the status of the deploy operation:
+响应包含您可以使用的任务ID来检查部署操作的状态：
 
 ```json
 {
@@ -233,14 +233,14 @@ The response contains the task ID that you can use to check the status of the de
 }
 ```
 
-As in the previous step, check the status of the operation by calling the Tasks API:
+与上一步一样，通过调用任务API来检查操作的状态：
 
 ```bash
 GET /_plugins/_ml/tasks/vVePb4kBJ1eYAeTM7ljG
 ```
 {% include copy-curl.html %}
 
-When the operation is complete, the state changes to `COMPLETED`:
+操作完成后，状态会更改为`COMPLETED`：
 
 ```json
 {
@@ -257,9 +257,9 @@ When the operation is complete, the state changes to `COMPLETED`:
 }
 ```
 
-## Step 5 (Optional): Test the remote model
+## 步骤5（可选）：测试远程模型
 
-Use the [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) to test the model:
+使用[预测API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) 测试模型：
 
 ```json
 POST /_plugins/_ml/models/cleMb4kBJ1eYAeTMFFg4/_predict
@@ -280,9 +280,9 @@ POST /_plugins/_ml/models/cleMb4kBJ1eYAeTMFFg4/_predict
 ```
 {% include copy-curl.html %}
 
-To learn more about chat functionality within OpenAI, see the [OpenAI Chat API](https://platform.openai.com/docs/api-reference/chat).
+要了解OpenAI中有关聊天功能的更多信息，请参阅[Openai Chat API](https://platform.openai.com/docs/api-reference/chat)。
 
-The response contains the inference results provided by the OpenAI model:
+响应包含OpenAI模型提供的推论结果：
 
 ```json
 {
@@ -319,16 +319,17 @@ The response contains the inference results provided by the OpenAI model:
 }
 ```
 
-## Step 6: Use the model for search
+## 步骤6：使用模型进行搜索
 
-To learn how to set up a vector index and use text embedding models for search, see [Neural text search]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/).
+要了解如何设置向量索引并使用文本嵌入模型进行搜索，请参见[神经文本搜索]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/)。
 
-To learn how to set up a vector index and use sparse encoding models for search, see [Neural sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
+要了解如何设置向量索引并使用稀疏编码模型进行搜索，请参见[神经稀疏搜索]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/)。
 
-To learn how to set up a vector index and use multimodal embedding models for search, see [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
+要了解如何设置向量索引并使用多模式嵌入模型进行搜索，请参见[多模式搜索]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/)。
 
-## Next steps
+## 下一步
 
-- For more information about connectors, including connector examples, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
-- For more information about connector parameters, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
-- For more information about interacting with ML models in OpenSearch, see [Managing ML models in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-dashboard/)
+- 有关连接器的更多信息，包括连接器示例，请参阅[连接器]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/)。
+- 有关连接器参数的更多信息，请参阅[连接器蓝图]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/)。
+- 有关在OpenSearch中与ML模型互动的更多信息，请参见[在OpenSearch仪表板中管理ML模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-dashboard/)
+

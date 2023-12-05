@@ -1,192 +1,192 @@
 ---
 layout: default
-title: ML Commons cluster settings
+title: ML Commons集群设置
 has_children: false
 nav_order: 10
 ---
 
-# ML Commons cluster settings
+# ML Commons集群设置
 
 
-To enhance and customize your OpenSearch cluster for machine learning (ML), you can add and modify several configuration settings for the ML Commons plugin in your 'opensearch.yml' file. 
+为了增强和自定义用于机器学习的OpenSearch集群（ML），您可以在“ OpenSearch.yml”文件中为ML Commons插件添加并修改多个配置设置。
 
-To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+要了解有关静态和动态设置的更多信息，请参阅[配置OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/)。
 
-## ML node
+## ML节点
 
-By default, ML tasks and models only run on ML nodes. When configured without the `data` node role, ML nodes do not store any shards and instead calculate resource requirements at runtime. To use an ML node, create a node in your `opensearch.yml` file. Give your node a custom name and define the node role as `ml`:
+默认情况下，ML任务和模型仅在ML节点上运行。当配置没有`data` 节点角色，ML节点不存储任何碎片，而是在运行时计算资源需求。要使用ML节点，请在您的`opensearch.yml` 文件。给您的节点一个自定义名称，并将节点角色定义为`ml`：
 
 ```yml
 node.roles: [ ml ]
 ```
 
-## Run tasks and models on ML nodes only
+## 仅在ML节点上运行任务和模型
 
-If `true`, ML Commons tasks and models run ML tasks on ML nodes only. If `false`, tasks and models run on ML nodes first. If no ML nodes exist, tasks and models run on data nodes. 
+如果`true`，ML Commons任务和模型仅在ML节点上运行ML任务。如果`false`，任务和模型首先在ML节点上运行。如果不存在ML节点，则在数据节点上运行任务和模型。
 
-We recommend setting `plugins.ml_commons.only_run_on_ml_node` to `true` on production clusters. 
+我们建议设置`plugins.ml_commons.only_run_on_ml_node` 到`true` 在生产集群上。
 {: .tip}
 
 
-### Setting
+### 环境
 
 ```
 plugins.ml_commons.only_run_on_ml_node: true
 ```
 
-### Values
+### 值
 
-- Default value: `true`
-- Value range: `true` or `false`
+- 默认值：`true`
+- 价值范围：`true` 或者`false`
 
-## Dispatch tasks to ML node 
+## 调度任务到ML节点
 
-`round_robin` dispatches ML tasks to ML nodes using round robin routing. `least_load` gathers runtime information from all ML nodes, like JVM heap memory usage and running tasks, and then dispatches the tasks to the ML node with the lowest load.
+`round_robin` 使用循环路由将ML任务分配给ML节点。`least_load` 收集来自所有ML节点的运行时信息，例如JVM HEAP内存使用和运行任务，然后将任务分配给最低负载的ML节点。
 
 
-### Setting
+### 环境
 
 ```
 plugins.ml_commons.task_dispatch_policy: round_robin
 ```
 
 
-### Values
+### 值
 
-- Default value: `round_robin`
-- Value range: `round_robin` or `least_load`
+- 默认值：`round_robin`
+- 价值范围：`round_robin` 或者`least_load`
 
-## Set number of ML tasks per node
+## 设置每个节点的ML任务数
 
-Sets the number of ML tasks that can run on each ML node. When set to `0`, no ML tasks run on any nodes.
+设置可以在每个ML节点上运行的ML任务数。设置为`0`，任何节点上没有ML任务。
 
-### Setting
+### 环境
 
 ```
 plugins.ml_commons.max_ml_task_per_node: 10
 ```
 
-### Values
+### 值
 
-- Default value: `10`
-- Value range: [0, 10,000]
+- 默认值：`10`
+- 价值范围：[0，10,000]
 
-## Set number of ML models per node
+## 设置每个节点的ML型号
 
-Sets the number of ML models that can be deployed to each ML node. When set to `0`, no ML models can deploy on any node.
+设置可以部署到每个ML节点的ML模型的数量。设置为`0`，没有ML模型可以在任何节点上部署。
 
-### Setting
+### 环境
 
 ```
 plugins.ml_commons.max_model_on_node: 10
 ```
 
-### Values
+### 值
 
-- Default value: `10`
-- Value range: [0, 10,000]
+- 默认值：`10`
+- 价值范围：[0，10,000]
 
-## Set sync job intervals 
+## 设置同步工作间隔
 
-When returning runtime information with the [Profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/profile/), ML Commons will run a regular job to sync newly deployed or undeployed models on each node. When set to `0`, ML Commons immediately stops sync-up jobs.
+返回运行时信息时[配置文件API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/profile/)，ML Commons将执行常规工作，以在每个节点上同步新部署或未剥削的模型。设置为`0`，ML Commons立即停止同步-工作。
 
 
-### Setting
+### 环境
 
 ```
 plugins.ml_commons.sync_up_job_interval_in_seconds: 3
 ```
 
-### Values
+### 值
 
-- Default value: `3`
-- Value range: [0, 86,400]
+- 默认值：`3`
+- 值范围：[0，86,400]
 
-## Predict monitoring requests
+## 预测监视请求
 
-Controls how many predict requests are monitored on one node. If set to `0`, OpenSearch clears all monitoring predict requests in cache and does not monitor for new predict requests.
+控制一个节点上监视多少预测请求。如果设置为`0`，OpenSearch清除所有监视预测缓存中的请求，并且不会监视新的预测请求。
 
-### Setting
+### 环境
 
 ```
 plugins.ml_commons.monitoring_request_count: 100
 ```
 
-### Value range
+### 价值范围
 
-- Default value: `100`
-- Value range: [0, 10,000,000]
+- 默认值：`100`
+- 价值范围：[0，10,000,000]
 
-## Register model tasks per node
+## 每个节点的注册模型任务
 
-Controls how many register model tasks can run in parallel on one node. If set to `0`, you cannot run register model tasks on any node.
+控制一个可以在一个节点上并行运行的寄存器模型任务。如果设置为`0`，您无法在任何节点上运行注册模型任务。
 
-### Setting
+### 环境
 
 ```
 plugins.ml_commons.max_register_model_tasks_per_node: 10
 ```
 
 
-### Values 
+### 值
 
-- Default value: `10`
-- Value range: [0, 10]
+- 默认值：`10`
+- 价值范围：[0，10]
 
 
-## Deploy model tasks per node
+## 每个节点部署模型任务
 
-Controls how many deploy model tasks can run in parallel on one node. If set to 0, you cannot deploy models to any node.
+控制一个节点可以并行运行多少个部署模型任务。如果设置为0，则无法将模型部署到任何节点。
 
-### Setting
+### 环境
 
 ```
 plugins.ml_commons.max_deploy_model_tasks_per_node: 10
 ```
 
-### Values 
+### 值
 
-- Default value: `10`
-- Value range: [0, 10]
+- 默认值：`10`
+- 价值范围：[0，10]
 
-## Register models using URLs
+## 使用URL注册模型
 
-This setting gives you the ability to register models using a URL. By default, ML Commons only allows registration of [pretrained]({{site.url}}{{site.baseurl}}//ml-commons-plugin/pretrained-models/) models from the OpenSearch model repository.
+此设置使您能够使用URL注册模型。默认情况下，ML Commons仅允许注册[预估计]({{site.url}}{{site.baseurl}}//ml-commons-plugin/pretrained-models/) 来自OpenSearch模型存储库中的模型。
 
-### Setting
+### 环境
 
 ```
 plugins.ml_commons.allow_registering_model_via_url: false
 ```
 
-### Values
+### 值
 
-- Default value: false
-- Valid values: `false`, `true`
+- 默认值：false
+- 有效值：`false`，`true`
 
-## Register models using local files
+## 使用本地文件注册模型
 
-This setting gives you the ability to register a model using a local file. By default, ML Commons only allows registration of [pretrained]({{site.url}}{{site.baseurl}}//ml-commons-plugin/pretrained-models/) models from the OpenSearch model repository.
+此设置使您能够使用本地文件注册模型。默认情况下，ML Commons仅允许注册[预估计]({{site.url}}{{site.baseurl}}//ml-commons-plugin/pretrained-models/) 来自OpenSearch模型存储库中的模型。
 
-### Setting
+### 环境
 
 ```
 plugins.ml_commons.allow_registering_model_via_local_file: false
 ```
 
-### Values
+### 值
 
-- Default value: false
-- Valid values: `false`, `true`
+- 默认值：false
+- 有效值：`false`，`true`
 
-## Add trusted URL
+## 添加可信赖的URL
 
-The default value allows you to register a model file from any http/https/ftp/local file. You can change this value to restrict trusted model URLs.
+默认值允许您从任何HTTP/HTTP/FTP/本地文件中注册模型文件。您可以将此值更改为限制可信赖的模型URL。
 
 
-### Setting
+### 环境
 
-The default URL value for this trusted URL setting is not secure. For security, use you own regex string to the trusted repository that contains your models, for example `https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/*`.
+此值得信赖的URL设置的默认URL值不安全。为了安全性，请使用您自己的正则正子字符串到包含您的模型的受信任的存储库中，例如`https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/*`。
 {: .warning }
 
 
@@ -194,132 +194,133 @@ The default URL value for this trusted URL setting is not secure. For security, 
 plugins.ml_commons.trusted_url_regex: <model-repository-url>
 ```
 
-### Values
+### 值
 
-- Default value: `"^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]"`
-- Value range: Java regular expression (regex) string
+- 默认值：`"^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]"`
+- 值范围：Java正则表达式（REGEX）字符串
 
-## Assign task timeout
+## 分配任务超时
 
-Assigns how long in seconds an ML task will live. After the timeout, the task will fail.
+分配ML任务将在几秒钟内进行多长时间。超时后，任务将失败。
 
-### Setting
+### 环境
 
 ```
 plugins.ml_commons.ml_task_timeout_in_seconds: 600
 ```
 
-### Values
+### 值
 
-- Default value: 600
-- Value range: [1, 86,400]
+- 默认值：600
+- 价值范围：[1，86,400]
 
-## Set native memory threshold 
+## 设置本机内存阈值
 
-Sets a circuit breaker that checks all system memory usage before running an ML task. If the native memory exceeds the threshold, OpenSearch throws an exception and stops running any ML task. 
+设置断路器，该断路器在运行ML任务之前检查所有系统内存使用情况。如果本机内存超过阈值，则OpenSearch会引发异常，并停止运行任何ML任务。
 
-Values are based on the percentage of memory available. When set to `0`, no ML tasks will run. When set to `100`, the circuit breaker closes and no threshold exists.
+值基于可用内存的百分比。设置为`0`，不会运行ML任务。设置为`100`，断路器关闭，没有阈值。
 
-### Setting
+### 环境
 
 ```
 plugins.ml_commons.native_memory_threshold: 90
 ```
 
-### Values
+### 值
 
-- Default value: 90
-- Value range: [0, 100]
+- 默认值：90
+- 价值范围：[0，100]
 
-## Allow custom deployment plans
+## 允许自定义部署计划
 
-When enabled, this setting grants users the ability to deploy models to specific ML nodes according to that user's permissions.
+启用后，此设置使用户能够根据用户的权限将模型部署到特定的ML节点。
 
-### Setting
+### 环境
 
 ```
 plugins.ml_commons.allow_custom_deployment_plan: false
 ```
 
-### Values
+### 值
 
-- Default value: false
-- Valid values: `false`, `true`
+- 默认值：false
+- 有效值：`false`，`true`
 
-## Enable auto redeploy
+## 启用自动重新部署
 
-This setting automatically redeploys deployed or partially deployed models upon cluster failure. If all ML nodes inside a cluster crash, the model switches to the `DEPLOYED_FAILED` state, and the model must be deployed manually.
+此设置会在集群故障时自动重新部署或部分部署模型。如果集群崩溃中的所有ML节点，则模型切换到`DEPLOYED_FAILED` 状态，模型必须手动部署。
 
-### Setting
+### 环境
 
 ```
 plugins.ml_commons.model_auto_redeploy.enable: false
 ```
 
-### Values
+### 值
 
-- Default value: false
-- Valid values: `false`, `true`
+- 默认值：false
+- 有效值：`false`，`true`
 
-## Set retires for auto redeploy
+## 为汽车重新部署设置退休
 
-This setting sets the limit for the number of times a deployed or partially deployed model will try and redeploy when ML nodes in a cluster fail or new ML nodes join the cluster.
+此设置设置了部署或部分部署模型的次数的限制，当群集失败或新的ML节点中的ML节点加入群集时，将尝试重新部署。
 
-### Setting
+### 环境
 
 ```
 plugins.ml_commons.model_auto_redeploy.lifetime_retry_times: 3
 ```
 
-### Values
+### 值
 
-- Default value: 3
-- Value range: [0, 100]
+- 默认值：3
+- 价值范围：[0，100]
 
-## Set auto redeploy success ratio
+## 设置自动重新部署成功率
 
-This setting sets the ratio of success for the auto-redeployment of a model based on the available ML nodes in a cluster. For example, if ML nodes crash inside a cluster, the auto redeploy protocol adds another node or retires a crashed node. If the ratio is `0.7` and 70% of all ML nodes successfully redeploy the model on auto-redeploy activation, the redeployment is a success. If the model redeploys on fewer than 70% of available ML nodes, the auto-redeploy retries until the redeployment succeeds or OpenSearch reaches [the maximum number of retries](#set-retires-for-auto-redeploy).
+此设置设置了自动的成功之比-基于群集中可用的ML节点的模型重新部署。例如，如果ML节点在集群中崩溃，则自动还原协议会添加另一个节点或退休崩溃的节点。如果比率为`0.7` 和所有ML节点的70％成功重新部署了该模型-重新部署激活，重新部署是成功的。如果模型重新部署在不到70％的可用ML节点上，则自动-重新部署重新恢复直到重新部署成功或开放搜索到达[最大恢复次数](#set-retires-for-auto-redeploy)。
 
-### Setting
+### 环境
 
 ```
 plugins.ml_commons.model_auto_redeploy_success_ratio: 0.8
 ```
 
-### Values
+### 值
 
-- Default value: 0.8
-- Value range: [0, 1]
+- 默认值：0.8
+- 值范围：[0，1]
 
-## Run Python-based models
+## 运行Python-基于模型
 
-When set to `true`, this setting enables the ability to run Python-based models supported by OpenSearch, such as [Metrics correlation]({{site.url}}{{site.baseurl}}/ml-commons-plugin/algorithms/#metrics-correlation).
+设置为`true`，此设置使能够运行Python-由OpenSearch支持的基于模型，例如[指标相关]({{site.url}}{{site.baseurl}}/ml-commons-plugin/algorithms/#metrics-correlation)。
 
-### Setting
+### 环境
 
 ```
 plugins.ml_commons.enable_inhouse_python_model: false
 ```
 
-### Values
+### 值
 
-- Default value: false
-- Valid values: `false`, `true`
+- 默认值：false
+- 有效值：`false`，`true`
 
-## Enable access control for connectors
+## 启用连接器的访问控制
 
-When set to `true`, the setting allows admins to control access and permissions to the connector API using `backend_roles`.
+设置为`true`，该设置允许管理员使用使用的访问和权限`backend_roles`。
 
-### Setting
+### 环境
 
 ```
 plugins.ml_commons.connector_access_control_enabled: true
 ```
 
-### Values
+### 值
 
-- Default value: false
-- Valid values: `false`, `true`
+- 默认值：false
+- 有效值：`false`，`true`
+
 
 
 

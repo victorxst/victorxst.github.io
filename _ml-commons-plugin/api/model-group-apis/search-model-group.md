@@ -1,31 +1,31 @@
 ---
 layout: default
-title: Search for a model group
-parent: Model group APIs
+title: 搜索模型组
+parent: 模型组API
 grand_parent: ML Commons API
 nav_order: 30
 ---
 
-# Search for a model group
+# 搜索模型组
 
-When you search for a model group, only those model groups to which you have access will be returned. For example, for a match all query, model groups that will be returned are:
+当您搜索模型组时，只有那些访问访问的模型组将被返回。例如，对于所有查询，将返回的模型组为：
 
-- All public model groups in the index 
-- Private model groups for which you are the owner 
-- Model groups that share at least one of the `backend_roles` with you
+- 索引中的所有公共模型组
+- 您是所有者的私人模型组
+- 与至少共享一个的模型组`backend_roles` 与你
 
-For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
+有关更多信息，请参阅[模型访问控制]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/)。
 
-## Path and HTTP method
+## 路径和HTTP方法
 
 ```json
 POST /_plugins/_ml/model_groups/_search
 GET /_plugins/_ml/model_groups/_search
 ```
 
-#### Example request: Match all
+#### 示例请求：匹配全部
 
-The following request is sent by `user1` who has the `IT` and `HR` roles:
+以下请求由`user1` 谁有`IT` 和`HR` 角色：
 
 ```json
 POST /_plugins/_ml/model_groups/_search
@@ -38,7 +38,7 @@ POST /_plugins/_ml/model_groups/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -130,9 +130,9 @@ POST /_plugins/_ml/model_groups/_search
 }
 ```
 
-#### Example request: Search for model groups with an owner name
+#### 示例请求：搜索带有所有者名称的模型组
 
-The following request to search for model groups of `user` is sent by `user2` who has the `IT` backend role:
+以下要求搜索模型组的请求`user` 发送`user2` 谁有`IT` 后端角色：
 
 ```json
 GET /_plugins/_ml/model_groups/_search
@@ -163,7 +163,7 @@ GET /_plugins/_ml/model_groups/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -222,7 +222,7 @@ GET /_plugins/_ml/model_groups/_search
 }
 ```
 
-#### Example request: Search for model groups with a model group ID
+#### 示例请求：搜索具有模型组ID的模型组
 
 ```json
 GET /_plugins/_ml/model_groups/_search
@@ -244,7 +244,7 @@ GET /_plugins/_ml/model_groups/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 {

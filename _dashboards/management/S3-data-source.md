@@ -1,61 +1,62 @@
 ---
 layout: default
-title: Connecting Amazon S3 to OpenSearch
+title: 将Amazon S3连接到OpenSearch
 parent: 数据源
 nav_order: 15
 has_children: true
 ---
 
-# Connecting Amazon S3 to OpenSearch
-Introduced 2.11
+# 将Amazon S3连接到OpenSearch
+引入2.11
 {: .label .label-purple }
 
-Starting with OpenSearch 2.11, you can connect OpenSearch to your Amazon Simple Storage Service (Amazon S3) data source using the OpenSearch Dashboards UI. You can then query that data, optimize query performance, define tables, and integrate your S3 data within a single UI.  
-Starting with OpenSearch 2.11, you can connect OpenSearch to your Amazon S3 data source using the OpenSearch Dashboards user interface (UI). You can then query that data, optimize query performance, define tables, and integrate your S3 data from a single UI.  
+从OpenSearch 2.11开始，您可以使用OpenSearch Dashboards UI连接OpenSearch与Amazon Simple Storage Service（Amazon S3）数据源。然后，您可以查询该数据，优化查询性能，定义表并将S3数据集成到单个UI中。
+从OpenSearch 2.11开始，您可以使用OpenSearch仪表板用户界面（UI）将OpenSearch连接到Amazon S3数据源。然后，您可以查询该数据，优化查询性能，定义表并从单个UI集成S3数据。
 
-## Prerequisites
+## 先决条件
 
-To connect data from Amazon S3 to OpenSearch using OpenSearch Dashboards, you must have:
+要使用OpenSearch仪表板将来自Amazon S3的数据连接到OpenSearch，您必须有：
 
-- Access to Amazon S3 and the [AWS Glue Data Catalog](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/s3glue_connector.rst#id2).
-- Access to OpenSearch and OpenSearch Dashboards.
-- An understanding of OpenSearch data source and connector concepts. See the [developer documentation](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/datasources.rst#introduction) for information about these concepts.
+- 访问Amazon S3和[AWS胶水数据目录](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/s3glue_connector.rst#id2)。
+- 访问OpenSearch和OpenSearch仪表板。
+- 对OpenSearch数据源和连接器概念的理解。看到[开发人员文档](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/datasources.rst#introduction) 有关这些概念的信息。
 
-## Connect your Amazon S3 data source 
+## 连接您的Amazon S3数据源
 
-To connect your Amazon S3 data source, follow these steps:
+要连接您的Amazon S3数据源，请执行以下步骤：
 
-1. From the OpenSearch Dashboards main menu, select **Management** > **Data sources**.
-2. On the **Data sources** page, select **New data source** > **S3**. An example UI is shown in the following image.
+1. 在OpenSearch仪表板主菜单中，选择**管理** >**数据源**。
+2. 在**数据源** 页面，选择**新数据源** >**S3**。下图显示了一个示例UI。
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/data-sources-UI.png" alt="Amazon S3 data sources UI" width="700"/>
+    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/data-sources-UI.png" alt ="Amazon S3 data sources UI" 宽度="700"/>
 
-3. On the **Configure Amazon S3 data source** page, enter the required **Data source details**, **AWS Glue authentication details**, **AWS Glue index store details**, and **Query permissions**. An example UI is shown in the following image.
+3. 在**配置Amazon S3数据源** 页面，输入所需的**数据源详细信息**，，，，**AWS胶认证细节**，，，，**AWS GLUE索引商店详细信息**， 和**查询权限**。下图显示了一个示例UI。
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/S3-config-UI.png" alt="Amazon S3 configuration UI" width="700"/>
+    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/S3-config-UI.png" alt ="Amazon S3 configuration UI" 宽度="700"/>
 
-4. Select the **Review Configuration** button and verify the details.
-5. Select the **Connect to Amazon S3** button.
+4. 选择**查看配置** 按钮并验证详细信息。
+5. 选择**连接到Amazon S3** 按钮。
 
-## Manage your Amazon S3 data source
+## 管理您的Amazon S3数据源
 
-Once you've connected your Amazon S3 data source, you can explore your data through the **Manage data sources** tab. The following steps guide you through using this functionality:
+连接Amazon S3数据源后，您可以通过**管理数据源** 标签。以下步骤指导您使用此功能：
 
-1. On the **Manage data sources** tab, choose a date source from the list. 
-2. On that data source's page, you can manage the data source, choose a use case, and manage access controls and configurations. An example UI is shown in the following image.
+1. 在**管理数据源** 选项卡，从列表中选择一个日期源。
+2. 在该数据源的页面上，您可以管理数据源，选择用例并管理访问控件和配置。下图显示了一个示例UI。
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/manage-data-source-UI.png" alt="Manage data sources UI" width="700"/>
+    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/manage-data-source-UI.png" alt ="Manage data sources UI" 宽度="700"/>
 
-3. (Optional) Explore the Amazon S3 use cases, including querying your data and optimizing query performance. Go to **Next steps** to learn more about each use case.
+3. （可选）探索Amazon S3用例，包括查询数据并优化查询性能。去**下一步** 要了解有关每种用例的更多信息。
 
-## Limitations
+## 限制
 
-This feature is still under development, including the data integration functionality. For real-time updates, see the [developer documentation on GitHub](https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md#limitations).
+此功能仍在开发中，包括数据集成功能。真正的-时间更新，请参阅[GitHub上的开发人员文档](https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md#limitations)。
 
-## Next steps
+## 下一步
 
-- Learn about [querying your data in Data Explorer]({{site.url}}{{site.baseurl}}/dashboards/management/query-data-source/) through OpenSearch Dashboards.
-- Learn about ways to [optimize the query performance of your external data sources]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/), such as Amazon S3, through Query Workbench. 
-- Learn about [Amazon S3 and AWS Glue Data Catalog](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/s3glue_connector.rst) and the APIS used with Amazon S3 data sources, including configuration settings and query examples.
-- Learn about [managing your indexes]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/) through OpenSearch Dashboards.
+- 学习关于[在数据资源管理器中查询您的数据]({{site.url}}{{site.baseurl}}/dashboards/management/query-data-source/) 通过OpenSearch仪表板。
+- 了解方法[优化外部数据源的查询性能]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/)，例如Amazon S3，通过查询工作台。
+- 学习关于[Amazon S3和AWS胶水数据目录](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/s3glue_connector.rst) 以及与Amazon S3数据源一起使用的API，包括配置设置和查询示例。
+- 学习关于[管理您的索引]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/) 通过OpenSearch仪表板。
   
+

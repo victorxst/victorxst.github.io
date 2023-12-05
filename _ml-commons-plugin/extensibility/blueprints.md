@@ -1,18 +1,18 @@
 ---
 layout: default
-title: Connector blueprints
+title: 连接器蓝图
 has_children: false
 nav_order: 65
-parent: Connecting to remote models 
+parent: 连接到远程模型
 ---
 
-# Connector blueprints
-**Introduced 2.9**
+# 连接器蓝图
+**引入2.9**
 {: .label .label-purple }
 
-All connectors consist of a JSON blueprint created by machine learning (ML) developers. The blueprint allows administrators and data scientists to make connections between OpenSearch and an AI service or model-serving technology. 
+所有连接器均由机器学习（ML）开发人员创建的JSON蓝图组成。蓝图允许管理员和数据科学家在OpenSearch和AI服务或模型之间建立联系-服务技术。
 
-The following example shows a blueprint of an Amazon SageMaker connector:
+以下示例显示了亚马逊萨吉式制造商连接器的蓝图：
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -45,59 +45,59 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-## Example blueprints
+## 示例蓝图
 
-You can find blueprints for each connector in the [ML Commons repository](https://github.com/opensearch-project/ml-commons/tree/2.x/docs/remote_inference_blueprints). 
+您可以在每个连接器中找到蓝图[ML Commons存储库](https://github.com/opensearch-project/ml-commons/tree/2.x/docs/remote_inference_blueprints)。
 
-## Configuration options
+## 配置选项
 
-The following configuration options are **required** in order to build a connector blueprint. These settings can be used for both standalone and internal connectors.
+以下配置选项是**必需的** 为了构建连接器蓝图。这些设置可用于独立和内部连接器。
 
-| Field | Data type | Description |
-| :---  | :--- | :--- |
-| `name` | String | The name of the connector. |
-| `description` | String | A description of the connector. |
-| `version` | Integer | The version of the connector. |
-| `protocol` | String | The protocol for the connection. For AWS services such as Amazon SageMaker and Amazon Bedrock, use `aws_sigv4`. For all other services, use `http`. |
-| `parameters` | JSON object | The default connector parameters, including `endpoint` and `model`. Any parameters indicated in this field can be overridden by parameters specified in a predict request. |
-| `credential` | JSON object | Defines any credential variables required in order to connect to your chosen endpoint. ML Commons uses **AES/GCM/NoPadding** symmetric encryption to encrypt your credentials. When the connection to the cluster first starts, OpenSearch creates a random 32-byte encryption key that persists in OpenSearch's system index. Therefore, you do not need to manually set the encryption key. |
-| `actions` | JSON array | Define what actions can run within the connector. If you're an administrator making a connection, add the [blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/) for your desired connection. |
-| `backend_roles` | JSON array | A list of OpenSearch backend roles. For more information about setting up backend roles, see [Assigning backend roles to users]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#assigning-backend-roles-to-users). |
-| `access_mode` | String | Sets the access mode for the model, either `public`, `restricted`, or `private`. Default is `private`. For more information about `access_mode`, see [Model groups]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#model-groups). |
-| `add_all_backend_roles` | Boolean | When set to `true`, adds all `backend_roles` to the access list, which only a user with admin permissions can adjust. When set to `false`, non-admins can add `backend_roles`. |
+| 场地| 数据类型| 描述|
+| ：---  | :--- | :--- |
+| `name` | 细绳| 连接器的名称。|
+| `description` | 细绳| 连接器的描述。|
+| `version` | 整数| 连接器的版本。|
+| `protocol` | 细绳| 连接的协议。对于AWS服务，例如Amazon Sagemaker和Amazon Bedrock，请使用`aws_sigv4`。对于所有其他服务，请使用`http`。|
+| `parameters` | JSON对象| 默认连接器参数，包括`endpoint` 和`model`。该字段中指示的任何参数都可以被预测请求中指定的参数覆盖。|
+| `credential` | JSON对象| 定义为连接到所选端点所需的任何凭证变量。ML Commons使用**AES/GCM/nopadding** 对称加密以加密您的凭据。当与群集的连接首次启动时，OpenSearch创建了一个随机32-在OpenSearch的系统索引中持续存在的字节加密密钥。因此，您无需手动设置加密密钥。|
+| `actions` | Json Array| 定义连接器内可以进行哪些操作。如果您是建立连接的管理员，请添加[蓝图]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/) 为您所需的连接。|
+| `backend_roles` | Json Array| OpenSearch后端角色的列表。有关设置后端角色的更多信息，请参见[将后端角色分配给用户]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#assigning-backend-roles-to-users)。|
+| `access_mode` | 细绳| 设置模型的访问模式`public`，`restricted`， 或者`private`。默认为`private`。有关有关的更多信息`access_mode`， 看[模型组]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#model-groups)。|
+| `add_all_backend_roles` | 布尔| 设置为`true`，添加全部`backend_roles` 到“访问列表”，只有具有管理权限的用户才能调整。设置为`false`，非-管理员可以添加`backend_roles`。|
 
-The `action` parameter supports the following options.
+这`action` 参数支持以下选项。
 
-| Field | Data type | Description |
-| :---  | :--- | :--- |
-| `action_type` | String | Required. Sets the ML Commons API operation to use upon connection. As of OpenSearch 2.9, only `predict` is supported. |
-| `method` | String | Required. Defines the HTTP method for the API call. Supports `POST` and `GET`. |
-| `url` | String | Required. Sets the connection endpoint at which the action takes place. This must match the regex expression for the connection used when [adding trusted endpoints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index#adding-trusted-endpoints). |
-| `headers` | JSON object | Sets the headers used inside the request or response body. Default is `ContentType: application/json`. If your third-party ML tool requires access control, define the required `credential` parameters in the `headers` parameter. |
-| `request_body` | String | Required. Sets the parameters contained inside the request body of the action. The parameters must include `\"inputText\`, which specifies how users of the connector should construct the request payload for the `action_type`. |
-| `pre_process_function` | String |  Optional. A built-in or custom Painless script used to preprocess the input data. OpenSearch provides the following built-in preprocess functions that you can call directly:<br> - `connector.pre_process.cohere.embedding` for [Cohere](https://cohere.com/) embedding models<br> - `connector.pre_process.openai.embedding` for [OpenAI](https://openai.com/) embedding models <br> - `connector.pre_process.default.embedding`, which you can use to preprocess documents in neural search requests so that they are in the format that ML Commons can process with the default preprocessor (OpenSearch 2.11 or later). For more information, see [built-in functions](#built-in-pre--and-post-processing-functions).  |
-| `post_process_function` | String | Optional. A built-in or custom Painless script used to post-process the model output data. OpenSearch provides the following built-in post-process functions that you can call directly:<br> - `connector.pre_process.cohere.embedding` for [Cohere text embedding models](https://docs.cohere.com/reference/embed)<br> - `connector.pre_process.openai.embedding` for [OpenAI text embedding models](https://platform.openai.com/docs/api-reference/embeddings) <br> - `connector.post_process.default.embedding`, which you can use to post-process documents in the model response so that they are in the format that neural search expects (OpenSearch 2.11 or later). For more information, see [built-in functions](#built-in-pre--and-post-processing-functions).  |
+| 场地| 数据类型| 描述|
+| ：---  | :--- | :--- |
+| `action_type` | 细绳| 必需的。设置ML CONSONS API操作以在连接时使用。从OpenSearch 2.9开始，仅`predict` 得到支持。|
+| `method` | 细绳| 必需的。定义API调用的HTTP方法。支持`POST` 和`GET`。|
+| `url` | 细绳| 必需的。设置操作发生的连接端点。这必须匹配当时使用的连接的正则表达式[添加可信赖的端点]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index#adding-trusted-endpoints)。|
+| `headers` | JSON对象| 设置请求或响应主体内使用的标头。默认为`ContentType: application/json`。如果你的第三-政党ML工具需要访问控制，定义所需的`credential` 参数`headers` 范围。|
+| `request_body` | 细绳| 必需的。设置操作请求主体内包含的参数。参数必须包括`\"inputText\`，指定连接器的用户应如何构建请求有效负载`action_type`。|
+| `pre_process_function` | 细绳|  选修的。一个建筑-在或定制的无痛脚本中，用于预处理数据。OpenSearch提供以下构建的-在可以直接调用的预处理功能中：<br>- `connector.pre_process.cohere.embedding` 为了[共同](https://cohere.com/) 嵌入模型<br>- `connector.pre_process.openai.embedding` 为了[Openai](https://openai.com/) 嵌入模型<br>- `connector.pre_process.default.embedding`，您可以在神经搜索请求中使用它来预处理文档，以便它们以ML Commons可以使用默认的预处理程序进行处理（OpenSearch 2.11或更高版本）。有关更多信息，请参阅[建造-在功能中](#built-in-pre--and-post-processing-functions)。|
+| `post_process_function` | 细绳| 选修的。一个建筑-在或定制的无痛脚本中用于发布-处理模型输出数据。OpenSearch提供以下构建的-在帖子中-您可以直接调用的过程功能：<br>- `connector.pre_process.cohere.embedding` 为了[共同文字嵌入模型](https://docs.cohere.com/reference/embed)<br>- `connector.pre_process.openai.embedding` 为了[Openai文本嵌入模型](https://platform.openai.com/docs/api-reference/embeddings) <br>- `connector.post_process.default.embedding`，您可以用来发布-模型响应中的处理文档，使它们处于神经搜索期望的格式（OpenSearch 2.11或更高版本）。有关更多信息，请参阅[建造-在功能中](#built-in-pre--and-post-processing-functions)。|
 
-## Built-in pre- and post-processing functions
+## 建造-在pre- 和张贴-处理功能
 
-Call the built-in pre- and post-processing functions instead of writing a custom Painless script when connecting to the following text embedding models or your own text embedding models deployed on a remote server (for example, Amazon SageMaker):
+打电话给内置-在pre- 和张贴-处理功能，而不是在连接到以下文本嵌入模型或您自己的文本嵌入模型时，而不是编写自定义的无痛脚本（例如，亚马逊萨吉马克）：
 
-- [OpenAI remote models](https://platform.openai.com/docs/api-reference/embeddings)
-- [Cohere remote models](https://docs.cohere.com/reference/embed)
+- [OpenAI远程型号](https://platform.openai.com/docs/api-reference/embeddings)
+- [共同远程模型](https://docs.cohere.com/reference/embed)
 
-OpenSearch provides the following pre- and post-processing functions:
+OpenSearch提供以下PRE- 和张贴-处理功能：
 
-- OpenAI: `connector.pre_process.openai.embedding` and `connector.post_process.openai.embedding`
-- Cohere: `connector.pre_process.cohere.embedding` and `connector.post_process.cohere.embedding`
-- [Default](#default-pre--and-post-processing-functions) (for neural search): `connector.pre_process.default.embedding` and `connector.post_process.default.embedding`
+- Openai：`connector.pre_process.openai.embedding` 和`connector.post_process.openai.embedding`
+- cohere：`connector.pre_process.cohere.embedding` 和`connector.post_process.cohere.embedding`
+- [默认](#default-pre--and-post-processing-functions) （用于神经搜索）：`connector.pre_process.default.embedding` 和`connector.post_process.default.embedding`
 
-### Default pre- and post-processing functions
+### 默认pre- 和张贴-处理功能
 
-When you perform vector search using [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/), the neural search request is routed first to ML Commons and then to the model. If the model is one of the [pretrained models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/), it can parse the ML Commons request and return the response in the format that ML Commons expects. However, for a remote model, the expected format may be different from the ML Commons format. The default pre- and post-processing functions translate between the format that the model expects and the format that neural search expects. 
+当您使用矢量搜索时[神经搜索]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/)，首先将神经搜索请求路由到ML CONSON，然后将其连接到模型。如果模型是[审计的模型由OpenSearch提供]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/)，它可以解析ML Commons请求，并以ML Commons期望的格式返回响应。但是，对于远程模型，预期格式可能与ML Commons格式不同。默认pre- 和张贴-处理功能转化为模型期望的格式和神经搜索期望的格式。
 
-#### Example request
+#### 示例请求
 
-The following example request creates a SageMaker text embedding connector and calls the default post-processing function:
+以下示例请求创建一个sagemaker文本嵌入连接器并调用默认帖子-处理功能：
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -131,14 +131,14 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-The `request_body` template must be `${parameters.input}`. 
-{: .important}
+这`request_body` 模板必须是`${parameters.input}`。
+{： 。重要的}
 
-### Preprocessing function 
+### 预处理功能
 
-The `connector.pre_process.default.embedding` default preprocessing function parses the neural search request and transforms it into the format that the model expects as input.
+这`connector.pre_process.default.embedding` 默认的预处理函数解析了神经搜索请求，并将其转换为模型期望为输入的格式。
 
-The ML Commons [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) provides parameters in the following format:
+ML共同体[预测API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) 提供以下格式的参数：
 
 ```json
 {
@@ -148,17 +148,17 @@ The ML Commons [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/
 }
 ```
 
-The default preprocessing function sends the `input` field contents to the model. Thus, the model input format must be a list of strings, for example:
+默认的预处理函数发送`input` 模型的字段内容。因此，模型输入格式必须是字符串列表，例如：
 
 ```json
 ["hello", "world"]
 ```
 
-### Post-processing function 
+### 邮政-处理功能
 
-The `connector.post_process.default.embedding` default post-processing function parses the model response and transforms it into the format that neural search expects as input.
+这`connector.post_process.default.embedding` 默认帖子-处理函数解析模型响应，并将其转换为神经搜索所期望的输入的格式。
 
-The remote text embedding model output must be a two-dimensional float array, each element of which represents an embedding of a string from the input list. For example, the following two-dimensional array corresponds to the embedding of the list `["hello", "world"]`:
+远程文本嵌入模型输出必须是两个-维浮点数组，每个元素代表输入列表中字符串的嵌入。例如，以下两个-尺寸数组对应于列表的嵌入`["hello", "world"]`：
 
 ```json
 [
@@ -175,9 +175,9 @@ The remote text embedding model output must be a two-dimensional float array, ea
 ]
 ```
 
-## Custom pre- and post-processing functions
+## 自定义pre- 和张贴-处理功能
 
-You can write your own pre- and post-processing functions specifically for your model format. For example, the following Amazon Bedrock connector definition contains custom pre- and post-processing functions for the Amazon Bedrock Titan embedding model:
+你可以写自己的前- 和张贴-处理专门针对模型格式的功能。例如，以下亚马逊基石连接器定义包含自定义PRE- 和张贴-亚马逊基岩泰坦嵌入模型的处理功能：
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -213,6 +213,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-## Next step
+## 下一步
 
-For examples of creating various connectors, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
+有关创建各种连接器的示例，请参见[连接器]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/)。
+

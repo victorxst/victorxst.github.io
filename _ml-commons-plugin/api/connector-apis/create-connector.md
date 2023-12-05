@@ -1,24 +1,24 @@
 ---
 layout: default
-title: Create connector
-parent: Connector APIs
+title: 创建连接器
+parent: 连接器API
 grand_parent: ML Commons API
 nav_order: 10
 ---
 
-# Create a connector
+# 创建一个连接器
 
-Creates a standalone connector. For more information, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
+创建一个独立的连接器。有关更多信息，请参阅[连接器]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/)。
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```json
 POST /_plugins/_ml/connectors/_create
 ```
 
-#### Example request
+#### 示例请求
 
-To create a standalone connector, send a request to the `connectors/_create` endpoint and provide all of the parameters described in [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/):
+要创建独立的连接器，请将请求发送到`connectors/_create` 端点并提供所有描述的参数[连接器蓝图]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/)：
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -49,7 +49,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 {

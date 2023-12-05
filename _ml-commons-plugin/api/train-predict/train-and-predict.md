@@ -1,21 +1,21 @@
 ---
 layout: default
-title: Train and predict 
-parent: Train and Predict APIs
+title: 训练和预测
+parent: 训练和预测API
 grand_parent: ML Commons API
 has_children: true
 nav_order: 10
 ---
 
-## Train and predict
+## 训练和预测
 
-Use to train and then immediately predict against the same training dataset. Can only be used with unsupervised learning models and the following algorithms:
+用于训练，然后立即预测相同的培训数据集。只能与无监督的学习模型和以下算法一起使用：
 
 - `BATCH_RCF`
 - `FIT_RCF`
 - `k-means`
 
-#### Example request: Train and predict with indexed data
+#### 示例请求：用索引数据进行训练和预测
 
 ```json
 POST /_plugins/_ml/_train_predict/kmeans
@@ -48,7 +48,7 @@ POST /_plugins/_ml/_train_predict/kmeans
 ```
 {% include copy-curl.html %}
 
-#### Example request: Train and predict with data directly
+#### 示例请求：直接使用数据训练和预测
 
 ```json
 POST /_plugins/_ml/_train_predict/kmeans
@@ -148,7 +148,7 @@ POST /_plugins/_ml/_train_predict/kmeans
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 {

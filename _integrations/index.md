@@ -1,65 +1,66 @@
 ---
 layout: default
-title: OpenSearch Integrations
+title: OpenSearch集成
 nav_order: 1
 has_children: false
 nav_exclude: true
 ---
 
-# OpenSearch Integrations
-Introduced 2.9
+# OpenSearch集成
+引入2.9
 {: .label .label-purple }
 
-OpenSearch Integrations is a straightforward starting point that OpenSearch and OpenSearch Dashboards users can use to visualize and understand log and metric data for a particular resource, such as NGINX. An _integration_ contains a bundle of metadata, data mappings, and visualizations that make it simple to monitor data from the Integrations resource.
+OpenSearch Integrations是一个简单的起点，OpenSearch和OpenSearch仪表板用户可以用来可视化和了解特定资源（例如Nginx）的日志和度量数据。 _ Integration_包含一束元数据，数据映射和可视化，使从集成资源监视数据变得易于易于监视。
 
-The OpenSearch Project seeks your feedback on this feature. Let us know on the [OpenSearch forum](https://forum.opensearch.org/) how OpenSearch Integrations works for you or how it can be improved. 
-{: .label-yellow}
+OpenSearch项目向您寻求有关此功能的反馈。让我们知道[OpenSearch论坛](https://forum.opensearch.org/) OpenSearch集成对您有效或如何改进。
+{： 。标签-黄色的}
 
-## Setting up OpenSearch Integrations
+## 设置OpenSearch集成
 
-For the latest developer information, including sample code, articles, tutorials, and an API reference, see the following resources:
+有关最新开发人员信息，包括示例代码，文章，教程和API参考，请参见以下资源：
 
-- [Integrations repository](https://github.com/opensearch-project/observability/tree/e18cf354fd7720a6d5df6a6de5d53e51a9d43127/integrations) on GitHub
-- [Integration Creation Guide](https://github.com/opensearch-project/dashboards-observability/wiki/Integration-Creation-Guide)
-- [Integration Documentation Reference](https://github.com/opensearch-project/dashboards-observability/wiki/Integration-Documentation-Reference)
-- [Observability plugin for OpenSearch Dashboards](https://github.com/opensearch-project/dashboards-observability/wiki)
+- [集成存储库](https://github.com/opensearch-project/observability/tree/e18cf354fd7720a6d5df6a6de5d53e51a9d43127/integrations) 在github上
+- [集成创建指南](https://github.com/opensearch-project/dashboards-observability/wiki/Integration-Creation-Guide)
+- [集成文档参考](https://github.com/opensearch-project/dashboards-observability/wiki/Integration-Documentation-Reference)
+- [OpenSearch仪表板的可观察性插件](https://github.com/opensearch-project/dashboards-observability/wiki)
  
-## Integrations schema
+## 集成模式
 
-The OpenSearch Integrations schema outlines how to capture, analyze, and visualize data. It includes the selection and configuration of monitoring tools, data collection methods, data storage and retention strategies, and visualization and alerting mechanisms. It follows the [OpenTelemetry Protocol convention](https://github.com/open-telemetry), with OpenSearch [Simple Schema for Observability](https://opensearch.org/docs/latest/observing-your-data/ssfo/) handling the translation from the OpenTelemetry (OTel) schema to the physical index mapping templates. 
+OpenSearch集成模式概述了如何捕获，分析和可视化数据。它包括监视工具的选择和配置，数据收集方法，数据存储和保留策略以及可视化和警报机制。它遵循[OpentElemetry协议约定](https://github.com/open-telemetry)，使用OpenSearch[简单的模式可观察到](https://opensearch.org/docs/latest/observing-your-data/ssfo/) 处理从OpenTelemetry（Otel）模式到物理索引映射模板的翻译。
 
-Find detailed information about the schema, including schema examples, in the [OpenSearch Observability READ.me file](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/schema/observability/README.md) and on the [OpenSearch Observability wiki](https://github.com/opensearch-project/dashboards-observability/wiki/OpenSearch-Observability--Home#observability-schema).
+在[OpenSearch可观察性read.me文件](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/schema/observability/README.md) 在[OpenSearch可观察性Wiki](https://github.com/opensearch-project/dashboards-observability/wiki/OpenSearch-Observability--Home#observability-schema)。
 
-## Get started
+## 开始
 
-Using the OpenSearch Dashboards interface, you can connect your data, applications, and processes so that you can centrally manage the services you use. All integrations are available in a single view, and OpenSearch Dashboards guides you there from the home page and main menu. 
+使用OpenSearch仪表板接口，您可以连接数据，应用程序和进程，以便您可以集中管理所使用的服务。所有集成都可以在单个视图中使用，并且OpenSearch仪表板从主页和主菜单从那里引导您那里。
 
-Learn how to do the following using the OpenSearch Dashboards interface:
+了解如何使用OpenSearch仪表板接口进行以下操作：
 
-- Access integrations
-- View integrations
-- Add integrations 
+- 访问集成
+- 查看集成
+- 添加集成
 
-The following image gives you a snapshot of the Integrations interface: 
+以下图像为您提供了集成接口的快照：
 
-![Get started with Integrations demo]({{site.url}}{{site.baseurl}}/images/integrations/nginx-integration.gif)
+![开始进行集成演示]({{site.url}}{{site.baseurl}}/images/integrations/nginx-integration.gif)
 
-### Access integrations
+### 访问集成
 
-To access integrations, open OpenSearch Dashboards and select **Integrations** from the **Management** menu. The interface displays installed and available integrations.
+要访问集成，请打开OpenSearch仪表板并选择**集成** 来自**管理** 菜单。接口显示已安装和可用集成。
 
-## View integrations
+## 查看集成
 
-To view an integration, view the dashboard associated with the integration. If the integration doesn't have an associated dashboard, select the desired integration listed under the **Installed** window. View the integration details, such as assets and fields. 
+要查看集成，请查看与集成关联的仪表板。如果集成没有关联的仪表板，请选择下列出的所需集成**安装** 窗户。查看集成细节，例如资产和字段。
 
-## Add integrations
+## 添加集成
 
-If you have not installed any integrations, you'll be prompted to install them from the Integrations interface. Supported integrations are listed in the **Available** window. 
+如果您没有安装任何集成，则会提示您从集成接口安装它们。支持的集成在**可用的** 窗户。
 
-To add an integration, select the desired prepackaged assets. Currently, OpenSearch Integrations has two flows: Add or Try it. The following example uses the Try it flow:
+要添加集成，请选择所需的预包装资产。当前，OpenSearch集成有两个流：添加或尝试。以下示例使用尝试流动：
 
-1. On the **Integrations** page, select **NginX Dashboard**.
-2. Select the **Try it** button. _The Try it flow automatically creates a sample index template, adds sample data to the template, and then creates the integration based on that data._
-3. View the asset list and select a dashboard asset.
-4. Preview the data visualizations and sample data details.  
+1. 在**集成** 页面，选择**nginx仪表板**。
+2. 选择**尝试一下** 按钮。 _尝试自动创建样本索引模板，将示例数据添加到模板中，然后基于该数据创建集成。_
+3. 查看资产列表，然后选择仪表板资产。
+4. 预览数据可视化和示例数据详细信息。
+
 

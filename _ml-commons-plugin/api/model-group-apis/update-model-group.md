@@ -1,34 +1,34 @@
 ---
 layout: default
-title: Update model group
-parent: Model group APIs
+title: 更新模型组
+parent: 模型组API
 grand_parent: ML Commons API
 nav_order: 20
 ---
 
-# Update a model group
+# 更新模型组
 
-To update a model group, send a `PUT` request to the `model_groups` endpoint and provide the ID of the model group you want to update.
+要更新模型组，请发送`PUT` 请求`model_groups` 端点并提供要更新的模型组的ID。
 
-When updating a model group, the following restrictions apply:
+更新模型组时，适用以下限制：
 
-- The model owner or an admin user can update all fields. Any user who shares one or more backend roles with the model group can update the `name` and `description` fields only.
-- When updating the `access_mode` to `restricted`, you must specify either `backend_roles` or `add_all_backend_roles` but not both.
-- When updating the `name`, ensure the name is globally unique in the cluster.
+- 模型所有者或管理员用户可以更新所有字段。任何与模型组共享一个或多个后端角色的用户都可以更新`name` 和`description` 仅字段。
+- 更新时`access_mode` 到`restricted`，您必须指定`backend_roles` 或者`add_all_backend_roles` 但不是两者。
+- 更新时`name`，确保该名称在集群中是全球唯一的。
 
-For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
+有关更多信息，请参阅[模型访问控制]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/)。
 
-## Path and HTTP method
+## 路径和HTTP方法
 
 ```json
 PUT /_plugins/_ml/model_groups/<model_group_id>
 ```
 
-## Request fields
+## 请求字段
 
-Refer to [Request fields](#request-fields) for request field descriptions. 
+参考[请求字段](#request-fields) 用于请求字段说明。
 
-#### Example request
+#### 示例请求
 
 ```json
 PUT /_plugins/_ml/model_groups/<model_group_id>
@@ -40,6 +40,7 @@ PUT /_plugins/_ml/model_groups/<model_group_id>
 ```
 {% include copy-curl.html %}
 
-## Updating a model group in a cluster where model access control is disabled
+## 在禁用模型访问控制的集群中更新模型组
 
-If model access control is disabled on your cluster (one of the [prerequisites](ml-commons-plugin/model-access-control/#model-access-control-prerequisites) is not met), you can update only the `name` and `description` of a model group but cannot update any of the access parameters (`model_access_name`, `backend_roles`, or `add_backend_roles`). 
+如果在群集上禁用模型访问控制（其中之一[先决条件](ml-commons-plugin/model-access-control/#model-access-control-prerequisites) 未满足），您只能更新`name` 和`description` 模型组但无法更新任何访问参数（`model_access_name`，`backend_roles`， 或者`add_backend_roles`）。
+

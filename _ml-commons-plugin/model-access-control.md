@@ -1,59 +1,59 @@
 ---
 layout: default
-title: Model access control
+title: 模型访问控制
 has_children: false
 nav_order: 20
 ---
 
-# Model access control
-**Introduced 2.9**
+# 模型访问控制
+**引入2.9**
 {: .label .label-purple }
 
-You can use the Security plugin with ML Commons to manage access to specific models for non-admin users. For example, one department in an organization might want to restrict users in other departments from accessing their models.
+您可以将带有ML Commons的安全插件用于管理对非特定型号的访问-管理用户。例如，组织中的一个部门可能希望限制其他部门的用户访问其模型。
 
-To accomplish this, users are assigned one or more [_backend roles_]({{site.url}}{{site.baseurl}}/security/access-control/index/). Rather than assign individual roles to individual users during user configuration, backend roles provide a way to map a set of users to a role by assigning the backend role to users when they log in. For example, users may be assigned an `IT` backend role that includes the `ml_full_access` role and have full access to all ML Commons features. Alternatively, other users may be assigned an `HR` backend role that includes the `ml_readonly_access` role and be limited to read-only access to machine learning (ML) features. Given this flexibility, backend roles can provide finer-grained access to models and make it easier to assign multiple users to a role rather than mapping a user and role individually.
+为此，将用户分配一个或多个[_backend角色_]({{site.url}}{{site.baseurl}}/security/access-control/index/)。后备角色不是在用户配置期间为单个用户分配各个用户的角色，而是通过在用户登录时将后端角色分配给角色来映射一组用户的方法。例如，可以为用户分配一个用户`IT` 后端角色包括`ml_full_access` 角色，并具有完全访问所有ML Commons功能。或者，其他用户可以分配`HR` 后端角色包括`ml_readonly_access` 角色并限制阅读-仅访问机器学习（ML）功能。鉴于这种灵活性，后端角色可以提供更精细的-粒度访问模型，并使将多个用户分配到角色而不是单独映射角色和角色更容易。
 
-## ML Commons roles
+## ML Commons角色
 
-The ML Commons plugin has two reserved roles:
+ML CONSONS插件具有两个保留角色：
 
-- `ml_full_access`: Grants full access to all ML features, including starting new ML tasks and reading or deleting models.
-- `ml_readonly_access`: Grants read-only access to ML tasks, trained models, and statistics relevant to the model's cluster. Does not grant permissions to start or delete ML tasks or models.
+- `ml_full_access`：授予对所有ML功能的完全访问权限，包括启动新的ML任务以及阅读或删除模型。
+- `ml_readonly_access`：赠款阅读-仅访问与模型集群相关的ML任务，训练有素的模型和统计信息。不授予启动或删除ML任务或模型的权限。
 
-## Model groups
+## 模型组
 
-For access control, models are organized into _model groups_---collections of versions of a particular model. Like users, model groups can be assigned one or more backend roles. All versions of the same model share the same model name and have the same backend role or roles. 
+对于访问控制，模型被组织成_ model groups _---特定模型的版本集合。像用户一样，模型组可以分配一个或多个后端角色。同一型号的所有版本共享相同的模型名称，并具有相同的后端角色或角色。
 
-You are considered a model _owner_ when you create a new model group. You remain the owner of the model and all its versions even if another user registers a model to this model group. When a model owner creates a model group, the owner can specify one of the following _access modes_ for this model group:
+创建一个新的模型组时，您将被视为模型_owner_。即使其他用户将模型注册到此模型组，您仍然是模型及其所有版本的所有者。当模型所有者创建模型组时，所有者可以为此模型组指定以下_access模式：
 
-- `public`: All users who have access to the cluster can access this model group.
-- `private`: Only the model owner or an admin user can access this model group.
-- `restricted`: The owner, an admin user, or any user who shares one of the model group's backend roles can access any model in this model group. When creating a `restricted` model group, the owner must attach one or more of the owner's backend roles to the model. 
+- `public`：所有可以访问集群的用户都可以访问此模型组。
+- `private`：只有模型所有者或管理员用户才能访问此模型组。
+- `restricted`：所有者，管理用户或共享模型组的后端角色之一的任何用户都可以访问此模型组中的任何模型。创建一个`restricted` 模型组，所有者必须将一个或多个所有者的后端角色附加到模型上。
 
-An admin can access all model groups in the cluster regardless of their access mode.
+管理员可以在集群中访问所有模型组，而不管其访问模式如何。
 {: .note}
 
-## Model access control prerequisites
+## 模型访问控制先决条件
 
-Before using model access control, you must satisfy the following prerequisites:
+在使用模型访问控制之前，您必须满足以下先决条件：
 
-1. Enable the Security plugin on your cluster. For more information, see [Security in OpenSearch]({{site.url}}{{site.baseurl}}/security/). 
-2. For `restricted` model groups, ensure that an admin has [assigned backend roles to users](#assigning-backend-roles-to-users).
-3. [Enable model access control](#enabling-model-access-control) on your cluster.
+1. 在群集上启用安全插件。有关更多信息，请参阅[OpenSearch中的安全性]({{site.url}}{{site.baseurl}}/security/)。
+2. 为了`restricted` 模型组，确保管理员具有[分配给用户的后端角色](#assigning-backend-roles-to-users)。
+3. [启用模型访问控制](#enabling-model-access-control) 在你的集群上。
 
-If any of the prerequisites are not met, all models in the cluster are `public` and can be accessed by any user who has access to the cluster.
+如果未满足任何先决条件，则集群中的所有模型均为`public` 任何有访问群集的用户都可以访问。
 {: .note}
 
-## Assigning backend roles to users
+## 将后端角色分配给用户
 
-Create the appropriate backend roles and assign those roles to users. Backend roles usually come from an [LDAP server]({{site.url}}{{site.baseurl}}/security/configuration/ldap/) or [SAML provider]({{site.url}}{{site.baseurl}}/security/configuration/saml/), but if you use the internal user database, you can use the REST API to [add them manually]({{site.url}}{{site.baseurl}}/security/access-control/api#create-user).
+创建适当的后端角色并将这些角色分配给用户。后端角色通常来自[LDAP服务器]({{site.url}}{{site.baseurl}}/security/configuration/ldap/) 或者[SAML提供商]({{site.url}}{{site.baseurl}}/security/configuration/saml/)，但是如果使用内部用户数据库，则可以将REST API使用[手动添加它们]({{site.url}}{{site.baseurl}}/security/access-control/api#create-user)。
 
-Only admin users can assign backend roles to users.
+只有管理员用户才能为用户分配后端角色。
 {: .note}
 
-When assigning backend roles, consider the following example of two users: `alice` and `bob`.
+分配后端角色时，请考虑两个用户的以下示例：`alice` 和`bob`。
 
-The following request assigns the user `alice` the `analyst` backend role:
+以下请求分配用户`alice` 这`analyst` 后端角色：
 
 ```json
 PUT _plugins/_security/api/internalusers/alice
@@ -66,7 +66,7 @@ PUT _plugins/_security/api/internalusers/alice
 }
 ```
 
-The next request assigns the user `bob` the `human-resources` backend role:
+下一个请求分配用户`bob` 这`human-resources` 后端角色：
 
 ```json
 PUT _plugins/_security/api/internalusers/bob
@@ -79,7 +79,7 @@ PUT _plugins/_security/api/internalusers/bob
 }
 ```
 
-Finally, the last request assigns both `alice` and `bob` the role that gives them full access to ML Commons:
+最后，最后一个请求都分配了`alice` 和`bob` 使他们完全访问ML Commons的角色：
 
 ```json
 PUT _plugins/_security/api/rolesmapping/ml_full_access
@@ -93,11 +93,11 @@ PUT _plugins/_security/api/rolesmapping/ml_full_access
 }
 ```
 
-If `alice` creates a model group and assigns it the `analyst` backend role, `bob` cannot access this model.
+如果`alice` 创建一个模型组并分配`analyst` 后端角色，`bob` 无法访问此模型。
 
-## Enabling model access control
+## 启用模型访问控制
 
-You can enable model access control dynamically as follows:
+您可以动态启用模型访问控制，如下所示：
 
 ```json
 PUT _cluster/settings
@@ -109,8 +109,9 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-## Model access control API
+## 模型访问控制API
 
-Model access control is achieved through the Model Group APIs. These APIs include the register, search, update, and delete model group operations.
+模型访问控制是通过模型组API实现的。这些API包括寄存器，搜索，更新和删除模型组操作。
 
-For information about model access control API, see [Model group APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/index/).
+有关模型访问控制API的信息，请参阅[模型组API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/index/)
+

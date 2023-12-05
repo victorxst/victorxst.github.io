@@ -1,45 +1,45 @@
 ---
 layout: default
-title: Connectors
+title: 连接器
 has_children: false
 has_toc: false
 nav_order: 61
-parent: Connecting to remote models 
+parent: 连接到远程模型
 ---
 
-# Creating connectors for third-party ML platforms
-**Introduced 2.9**
+# 创建第三个连接器-政党ML平台
+**引入2.9**
 {: .label .label-purple }
 
-Connectors facilitate access to remote models hosted on third-party platforms. 
+连接器有助于访问第三托托的远程模型-派对平台。
 
-You can provision connectors in two ways:
+您可以通过两种方式提供连接器：
 
-1. Create a [standalone connector](#standalone-connector): A standalone connector can be reused and shared by multiple remote models but requires access to both the model and connector in OpenSearch and the third-party platform, such as OpenAI or Amazon SageMaker, that the connector is accessing. Standalone connectors are saved in a connector index.
+1. 创建一个[独立连接器](#standalone-connector)：可以通过多个远程模型重复使用并共享独立的连接器，但需要访问OpenSearch中的模型和连接器和第三个连接器-派对平台（例如OpenAI或Amazon Sagemaker）正在访问连接器。独立连接器保存在连接器索引中。
 
-2. Create a remote model with an [internal connector](#internal-connector): An internal connector can only be used with the remote model in which it was created. To access an internal connector, you only need access to the model itself because the connection is established inside the model. Internal connectors are saved in the model index.
+2. 使用一个远程模型[内部连接器](#internal-connector)：只能与创建其创建的远程模型一起使用内部连接器。要访问内部连接器，您只需要访问模型本身，因为该连接是在模型内建立的。内部连接器保存在模型索引中。
 
-## Supported connectors
+## 支持的连接器
 
-As of OpenSearch 2.9, connectors have been tested for the following ML services, though it is possible to create connectors for other platforms not listed here:
+从OpenSearch 2.9开始，已经对连接器进行了以下ML服务的测试，尽管可以为此处未列出的其他平台创建连接器：
 
-- [Amazon SageMaker](https://aws.amazon.com/sagemaker/) allows you to host and manage the lifecycle of text embedding models, powering semantic search queries in OpenSearch. When connected, Amazon SageMaker hosts your models and OpenSearch is used to query inferences. This benefits Amazon SageMaker users who value its functionality, such as model monitoring, serverless hosting, and workflow automation for continuous training and deployment.
-- [OpenAI ChatGPT](https://openai.com/blog/chatgpt) enables you to invoke an OpenAI chat model from inside an OpenSearch cluster.
-- [Cohere](https://cohere.com/) allows you to use data from OpenSearch to power the Cohere large language models.
-- The [Bedrock Titan Embeddings](https://aws.amazon.com/bedrock/titan/) model can drive semantic search and retrieval-augmented generation in OpenSearch.
+- [亚马逊射手制造商](https://aws.amazon.com/sagemaker/) 允许您托管和管理文本嵌入模型的生命周期，并在OpenSearch中为语义搜索查询提供动力。连接后，Amazon Sagemaker托管您的模型，OpenSearch用于查询推断。这使重视其功能的Amazon Sagemaker用户（例如模型监视，无服务器托管以及用于连续培训和部署的工作流程自动化）。
+- [Openai Chatgpt](https://openai.com/blog/chatgpt) 使您可以从OpenSearch集群中调用OpenAI聊天模型。
+- [共同](https://cohere.com/) 允许您使用OpenSearch的数据为Cohere大型语言模型供电。
+- 这[基岩泰坦嵌入](https://aws.amazon.com/bedrock/titan/) 模型可以推动语义搜索和检索-OpenSearch中的增强产生。
 
-All connectors consist of a JSON blueprint created by machine learning (ML) developers. The blueprint allows administrators and data scientists to make connections between OpenSearch and an AI service or model-serving technology. 
+所有连接器均由机器学习（ML）开发人员创建的JSON蓝图组成。蓝图允许管理员和数据科学家在OpenSearch和AI服务或模型之间建立联系-服务技术。
 
-You can find blueprints for each connector in the [ML Commons repository](https://github.com/opensearch-project/ml-commons/tree/2.x/docs/remote_inference_blueprints). 
+您可以在每个连接器中找到蓝图[ML Commons存储库](https://github.com/opensearch-project/ml-commons/tree/2.x/docs/remote_inference_blueprints)。
 
-For more information about blueprint parameters, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
+有关蓝图参数的更多信息，请参见[连接器蓝图]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/)。
 
-Admins are only required to enter their `credential` settings, such as `"openAI_key"`, for the service they are connecting to. All other parameters are defined within the [blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/).
+管理员只需要输入他们的`credential` 设置，例如`"openAI_key"`，对于他们正在连接的服务。所有其他参数均在[蓝图]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/)。
 {: .note}
 
-## Standalone connector
+## 独立连接器
 
-To create a standalone connector, send a request to the `connectors/_create` endpoint and provide all of the parameters described in [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/):
+要创建独立的连接器，请将请求发送到`connectors/_create` 端点并提供所有描述的参数[连接器蓝图]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/)：
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -70,9 +70,9 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-## Internal connector
+## 内部连接器
 
-To create an internal connector, provide all of the parameters described in [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/) within the `connector` object of a request to the `models/_register` endpoint:
+要创建内部连接器，请提供所有描述的参数[连接器蓝图]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/) 在`connector` 请求的对象`models/_register` 端点：
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -111,9 +111,9 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-## OpenAI chat connector
+## OpenAI聊天连接器
 
-The following example creates a standalone OpenAI chat connector. The same options can be used for an internal connector under the `connector` parameter:
+以下示例创建了独立的OpenAI聊天连接器。可以将相同的选项用于内部连接器下的内部连接器`connector` 范围：
 
 
 ```json
@@ -144,12 +144,12 @@ POST /_plugins/_ml/connectors/_create
 }
 ```
 
-After creating the connector, you can retrieve the `task_id` and `connector_id` to register and deploy the model and then use the Predict API, similarly to a standalone connector.
+创建连接器后，您可以检索`task_id` 和`connector_id` 注册和部署模型，然后使用预测API，类似于独立的连接器。
 
 
-## Amazon SageMaker connector
+## Amazon Sagemaker连接器
 
-The following example creates a standalone Amazon SageMaker connector. The same options can be used for an internal connector under the `connector` parameter:
+以下示例创建了独立的Amazon Sagemaker连接器。可以将相同的选项用于内部连接器下的内部连接器`connector` 范围：
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -181,20 +181,20 @@ POST /_plugins/_ml/connectors/_create
 }
 ```
 
-The `credential` parameter contains the following options reserved for `aws_sigv4` authentication:
+这`credential` 参数包含以下选项保留的选项`aws_sigv4` 验证：
 
-- `access_key`: Required. Provides the access key for the AWS instance.
-- `secret_key`: Required. Provides the secret key for the AWS instance.
-- `session_token`: Optional. Provides a temporary set of credentials for the AWS instance.
+- `access_key`： 必需的。提供AWS实例的访问密钥。
+- `secret_key`： 必需的。为AWS实例提供了秘密键。
+- `session_token`： 选修的。为AWS实例提供了一套临时凭据。
 
-The `parameters` section requires the following options when using `aws_sigv4` authentication:
+这`parameters` 使用时需要以下选项`aws_sigv4` 验证：
 
-- `region`: The AWS Region in which the AWS instance is located.
-- `service_name`: The name of the AWS service for the connector.
+- `region`：AWS实例所在的AWS区域。
+- `service_name`：连接器的AWS服务的名称。
 
-## Cohere connector
+## cohere连接器
 
-The following example request creates a standalone Cohere connector:
+以下示例请求创建一个独立的cohere连接器：
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -227,9 +227,9 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-## Amazon Bedrock connector
+## 亚马逊基岩连接器
 
-The following example request creates a standalone Amazon Bedrock connector:
+以下示例请求创建独立的Amazon基岩连接器：
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -265,7 +265,8 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-## Next steps
+## 下一步
 
-- To learn more about using models in OpenSearch, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
-- To learn more about model access control and model groups, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
+- 要了解有关在OpenSearch中使用模型的更多信息，请参见[在OpenSearch中使用ML模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/)。
+- 要了解有关模型访问控制和模型组的更多信息，请参见[模型访问控制]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/)。
+

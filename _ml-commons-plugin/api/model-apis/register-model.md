@@ -1,57 +1,57 @@
 ---
 layout: default
-title: Register model
-parent: Model APIs
+title: 注册模型
+parent: 模型API
 grand_parent: ML Commons API
 nav_order: 10
 ---
 
-# Register a model
+# 注册模型
 
-All versions of a particular model are held in a model group. You can either [register a model group]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/register-model-group/) before registering a model to the group or register a first version of a model, thereby creating the group. Each model group name in the cluster must be globally unique. 
+特定模型的所有版本均在模型组中保存。你也可以[注册模型组]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-group-apis/register-model-group/) 在将模型注册到组或注册模型的第一个版本之前，请创建组。集群中的每个模型组名称必须在全球范围内唯一。
 
-If you are registering the first version of a model without first registering the model group, a new model group is created automatically with the following name and access level:
+如果您在不首先注册模型组的情况下注册模型的第一个版本，则将自动创建一个新的模型组，并使用以下名称和访问级别：
 
-- Name: The new model group will have the same name as the model. Because the model group name must be unique, ensure that your model name does not have the same name as any model groups in the cluster. 
-- Access level: The access level for the new model group is determined using the `access_mode`, `backend_roles`, and `add_all_backend_roles` parameters that you pass in the request. If you provide none of the three parameters, the new model group will be `private` if model access control is enabled on your cluster and `public` if model access control is disabled. The newly registered model is the first model version assigned to that model group. 
+- 名称：新型号组将与模型具有相同的名称。因为模型组名称必须是唯一的，请确保您的型号名称与群集中的任何模型组没有相同的名称。
+- 访问级别：新模型组的访问级别是使用`access_mode`，`backend_roles`， 和`add_all_backend_roles` 您在请求中传递的参数。如果您没有提供这三个参数，那么新模型组将是`private` 如果在群集上启用了模型访问控制`public` 如果禁用了模型访问控制。新注册的模型是分配给该模型组的第一个模型版本。
 
-Once a model group is created, provide its `model_group_id` to register a new model version to the model group. In this case, the model name does not need to be unique.
+创建模型组后，提供其`model_group_id` 向模型组注册新的型号版本。在这种情况下，模型名称不需要唯一。
 
-If you're using [pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models#supported-pretrained-models) provided by OpenSearch, we recommend that you first register a model group with a unique name for these models. Then register the pretrained models as versions to that model group. This ensures that every model group has a globally unique model group name.
+如果您正在使用[预验证的模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models#supported-pretrained-models) 由OpenSearch提供，我们建议您首先注册一个模型组，其中唯一名称为这些型号。然后注册验证的模型作为该模型组的版本。这样可以确保每个模型组都有一个全球唯一的模型组名称。
 {: .tip}
 
-For information about user access for this API, see [Model access control considerations]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations).
+有关此API的用户访问的信息，请参见[模型访问控制注意事项]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations)。
 
-If the model is more than 10 MB in size, ML Commons splits it into smaller chunks and saves those chunks in the model's index.
+如果模型的尺寸超过10 MB，则ML Commons将其分为较小的块，并将这些块保存在模型的索引中。
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```json
 POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-## Register an OpenSearch-provided pretrained model
+## 注册opensearch-提供了预验证的模型
 
-OpenSearch provides several pretrained models. For more information, see [OpenSearch-provided pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/).
+OpenSearch提供了几种审慎的模型。有关更多信息，请参阅[OpenSearch-提供了预告片的模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/)。
 
-### Register a pretrained text embedding model
+### 注册据审计的文本嵌入模型
 
-To register a pretrained text embedding model, the only required parameters are `name`, `version`, and `model_format`.
+要注册预验证的文本嵌入模型，唯一需要的参数是`name`，`version`， 和`model_format`。
 
-#### Request fields
+#### 请求字段
 
-The following table lists the available request fields.
+下表列出了可用的请求字段。
 
-Field | Data type | Required/Optional | Description
-:---  | :--- | :--- 
-`name`| String | Required | The model name. |
-`version` | Integer | Required | The model version number. |
-`model_format` | String | Required | The portable format of the model file. Valid values are `TORCH_SCRIPT` and `ONNX`. |
-`description` | String | Optional| The model description. |
-`model_group_id` | String | Optional | The model group ID of the model group to register this model to. 
+场地| 数据类型| 必需/可选| 描述
+：---  | :--- | :--- 
+`name`| 细绳| 必需的| 模型名称。|
+`version` | 整数| 必需的| 型号版本号。|
+`model_format` | 细绳| 必需的| 模型文件的便携式格式。有效值是`TORCH_SCRIPT` 和`ONNX`。|
+`description` | 细绳| 选修的| 模型描述。|
+`model_group_id` | 细绳| 选修的| 模型组的模型组ID将此模型注册为。
 
-#### Example request: OpenSearch-provided text embedding model
+#### 示例请求：OpenSearch-提供文本嵌入模型
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -64,26 +64,26 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-### Register a pretrained sparse encoding model
+### 注册预验证的稀疏编码模型
 
-To register a pretrained sparse encoding model, you must set the function name to `SPARSE_ENCODING` or `SPARSE_TOKENIZE`.
+要注册预估计的稀疏编码模型，您必须将功能名称设置为`SPARSE_ENCODING` 或者`SPARSE_TOKENIZE`。
 
-#### Request fields
+#### 请求字段
 
-The following table lists the available request fields.
+下表列出了可用的请求字段。
 
-Field | Data type | Required/Optional | Description
-:---  | :--- | :--- 
-`name`| String | Required | The model name. |
-`version` | Integer | Required | The model version number. |
-`model_format` | String | Required | The portable format of the model file. Valid values are `TORCH_SCRIPT` and `ONNX`. |
-`function_name` | String | Required | Set this parameter to `SPARSE_ENCODING` or `SPARSE_TOKENIZE`.
-`model_content_hash_value` | String | Required | The model content hash generated using the SHA-256 hashing algorithm.
-`url` | String | Required | The URL that contains the model. |
-`description` | String | Optional| The model description. |
-`model_group_id` | String | Optional | The model group ID of the model group to register this model to. 
+场地| 数据类型| 必需/可选| 描述
+：---  | :--- | :--- 
+`name`| 细绳| 必需的| 模型名称。|
+`version` | 整数| 必需的| 型号版本号。|
+`model_format` | 细绳| 必需的| 模型文件的便携式格式。有效值是`TORCH_SCRIPT` 和`ONNX`。|
+`function_name` | 细绳| 必需的| 将此参数设置为`SPARSE_ENCODING` 或者`SPARSE_TOKENIZE`。
+`model_content_hash_value` | 细绳| 必需的| 使用SHA生成的模型内容哈希-256哈希算法。
+`url` | 细绳| 必需的| 包含模型的URL。|
+`description` | 细绳| 选修的| 模型描述。|
+`model_group_id` | 细绳| 选修的| 模型组的模型组ID将此模型注册为。
 
-#### Example request: OpenSearch-provided sparse encoding model
+#### 示例请求：OpenSearch-提供了稀疏编码模型
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -100,45 +100,45 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-## Register a custom model 
+## 注册自定义模型
 
-To use a custom model locally within the OpenSearch cluster, you need to provide a URL and a config object for that model. For more information, see [Custom local models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom-local-models/).
+要在OpenSearch Cluster中本地使用自定义模型，您需要为该模型提供URL和配置对象。有关更多信息，请参阅[自定义本地型号]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom-local-models/)。
 
-### Request fields
+### 请求字段
 
-The following table lists the available request fields.
+下表列出了可用的请求字段。
 
-Field | Data type | Required/Optional | Description
-:---  | :--- | :--- 
-`name`| String | Required | The model name. |
-`version` | Integer | Required | The model version number. |
-`model_format` | String | Required | The portable format of the model file. Valid values are `TORCH_SCRIPT` and `ONNX`. |
-`function_name` | String | Required | Set this parameter to `SPARSE_ENCODING` or `SPARSE_TOKENIZE`.
-`model_content_hash_value` | String | Required | The model content hash generated using the SHA-256 hashing algorithm.
-[`model_config`](#the-model_config-object)  | Object | Required | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. `all_config` is an optional JSON string that contains all model configurations. |
-`url` | String | Required | The URL that contains the model. |
-`description` | String | Optional| The model description. |
-`model_group_id` | String | Optional | The model group ID of the model group to register this model to. 
+场地| 数据类型| 必需/可选| 描述
+：---  | :--- | :--- 
+`name`| 细绳| 必需的| 模型名称。|
+`version` | 整数| 必需的| 型号版本号。|
+`model_format` | 细绳| 必需的| 模型文件的便携式格式。有效值是`TORCH_SCRIPT` 和`ONNX`。|
+`function_name` | 细绳| 必需的| 将此参数设置为`SPARSE_ENCODING` 或者`SPARSE_TOKENIZE`。
+`model_content_hash_value` | 细绳| 必需的| 使用SHA生成的模型内容哈希-256哈希算法。
+[`model_config`](#the-model_config-object)  | 目的| 必需的| 模型的配置，包括`model_type`，`embedding_dimension`， 和`framework_type`。`all_config` 是一个可选的JSON字符串，包含所有模型配置。|
+`url` | 细绳| 必需的| 包含模型的URL。|
+`description` | 细绳| 选修的| 模型描述。|
+`model_group_id` | 细绳| 选修的| 模型组的模型组ID将此模型注册为。
 
-#### The `model_config` object
+#### 这`model_config` 目的
 
-| Field | Data type | Description |
+| 场地| 数据类型| 描述|
 | :--- | :--- | :--- 
-| `model_type` | String | The model type, such as `bert`. For a Hugging Face model, the model type is specified in `config.json`. For an example, see the [`all-MiniLM-L6-v2` Hugging Face model `config.json`](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/blob/main/config.json#L15). Required. |
-| `embedding_dimension` | Integer | The dimension of the model-generated dense vector. For a Hugging Face model, the dimension is specified in the model card. For example, in the [`all-MiniLM-L6-v2` Hugging Face model card](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2), the statement `384 dimensional dense vector space` specifies 384 as the embedding dimension. Required. |
-| `framework_type` | String  | The framework the model is using. Currently, OpenSearch supports `sentence_transformers` and `huggingface_transformers` frameworks. The `sentence_transformers` model outputs text embeddings directly, so ML Commons does not perform any post processing. For `huggingface_transformers`, ML Commons performs post processing by applying mean pooling to get text embeddings. See the example [`all-MiniLM-L6-v2` Hugging Face model](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) for more details. Required. |
-| `all_config` | String | This field is used for reference purposes. You can specify all model configurations in this field. For example, if you are using a Hugging Face model, you can minify the `config.json` file to one line and save its contents in the `all_config` field. Once the model is uploaded, you can use the get model API operation to get all model configurations stored in this field. Optional. |
+| `model_type` | 细绳| 模型类型，例如`bert`。对于拥抱的面部模型，模型类型已在`config.json`。例如，请参见[`all-MiniLM-L6-v2` 拥抱面部模型`config.json`](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/blob/main/config.json#L15)。必需的。|
+| `embedding_dimension` | 整数| 模型的维度-生成密集的矢量。对于拥抱面部模型，尺寸是在模型卡中指定的。例如，在[`all-MiniLM-L6-v2` 拥抱面部型号卡](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)， 该声明`384 dimensional dense vector space` 将384指定为嵌入尺寸。必需的。|
+| `framework_type` | 细绳| 模型正在使用的框架。目前，OpenSearch支持`sentence_transformers` 和`huggingface_transformers` 构架。这`sentence_transformers` 模型输出文本嵌入直接，因此ML Commons不会执行任何后处理。为了`huggingface_transformers`，ML Commons通过应用平均合并以获取文本嵌入来执行后处理。请参阅示例[`all-MiniLM-L6-v2` 拥抱面部模型](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) 更多细节。必需的。|
+| `all_config` | 细绳| 该字段用于参考目的。您可以在此字段中指定所有模型配置。例如，如果您使用的是拥抱面部模型，则可以缩小`config.json` 文件到一行，并将其内容保存在`all_config` 场地。上传模型后，您可以使用GET模型API操作来获取该字段中存储的所有模型配置。选修的。|
 
-You can further customize a pretrained sentence transformer model's post-processing logic with the following optional fields in the `model_config` object.
+您可以进一步自定义审慎的句子变压器模型的帖子-处理以下可选字段的处理逻辑`model_config` 目的。
 
-| Field | Data type | Description |
+| 场地| 数据类型| 描述|
 | :--- | :--- | :--- |
-| `pooling_mode` | String | The post-process model output, either `mean`, `mean_sqrt_len`, `max`, `weightedmean`, or `cls`.|
-| `normalize_result` | Boolean | When set to `true`, normalizes the model output in order to scale to a standard range for the model. |
+| `pooling_mode` | 细绳| 帖子-过程模型输出，要么`mean`，`mean_sqrt_len`，`max`，`weightedmean`， 或者`cls`。|
+| `normalize_result` | 布尔| 设置为`true`，使模型输出归一化，以扩展到模型的标准范围。|
 
-#### Example request: Custom model
+#### 示例请求：自定义模型
 
-The following example request registers a version `1.0.0` of an NLP sentence transformation model named `all-MiniLM-L6-v2`.
+以下示例请求登记一个版本`1.0.0` NLP句子转换模型的名称`all-MiniLM-L6-v2`。
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -160,24 +160,24 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-## Register a model hosted on a third-party platform
+## 注册在第三个托管的模型-派对平台
 
-To register a model hosted on a third-party platform, you can either first create a standalone connector and provide the ID of that connector or specify an internal connector for the model. For more information, see [Creating connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/).
+注册在第三个托管的模型-派对平台，您可以首先创建一个独立的连接器，并提供该连接器的ID，也可以为模型指定内部连接器。有关更多信息，请参阅[创建第三个连接器-政党ML平台]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/)。
 
-### Request fields
+### 请求字段
 
-The following table lists the available request fields.
+下表列出了可用的请求字段。
 
-Field | Data type | Required/Optional | Description
-:---  | :--- | :--- 
-`name`| String | Required | The model name. |
-`function_name` | String | Required | Set this parameter to `SPARSE_ENCODING` or `SPARSE_TOKENIZE`.
-`connector_id` | Optional | Required | The connector ID of a standalone connector to a model hosted on a third-party platform. For more information, see [Standalone connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/#standalone-connector). You must provide either `connector_id` or `connector`.
-`connector` | Object | Required | Contains specifications for an internal connector to a model that is hosted on a third-party platform. For more information, see [Internal connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/#internal-connector). You must provide either `connector_id` or `connector`.
-`description` | String | Optional| The model description. |
-`model_group_id` | String | Optional | The model group ID of the model group to register this model to. 
+场地| 数据类型| 必需/可选| 描述
+：---  | :--- | :--- 
+`name`| 细绳| 必需的| 模型名称。|
+`function_name` | 细绳| 必需的| 将此参数设置为`SPARSE_ENCODING` 或者`SPARSE_TOKENIZE`。
+`connector_id` | 选修的| 必需的| 独立连接器的连接器ID与托管在第三个型号的型号-派对平台。有关更多信息，请参阅[独立连接器]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/#standalone-connector)。您必须提供任何`connector_id` 或者`connector`。
+`connector` | 目的| 必需的| 包含内部连接器的规格，该连接器与第三个模型托管的模型-派对平台。有关更多信息，请参阅[内部连接器]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/connectors/#internal-connector)。您必须提供任何`connector_id` 或者`connector`。
+`description` | 细绳| 选修的| 模型描述。|
+`model_group_id` | 细绳| 选修的| 模型组的模型组ID将此模型注册为。
 
-#### Example request: Remote model with a standalone connector
+#### 示例请求：带独立连接器的远程模型
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -191,7 +191,7 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-#### Example request: Remote model with an internal connector
+#### 示例请求：带有内部连接器的远程模型
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -230,9 +230,9 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
-OpenSearch responds with the `task_id` and task `status`.
+OpenSearch用`task_id` 和任务`status`。
 
 ```json
 {
@@ -241,16 +241,16 @@ OpenSearch responds with the `task_id` and task `status`.
 }
 ```
 
-## Check the status of model registration
+## 检查模型注册的状态
 
-To see the status of your model registration and retrieve the model ID created for the new model version, pass the `task_id` as a path parameter to the Tasks API:
+要查看模型注册的状态并检索为新模型版本创建的模型ID，请通过`task_id` 作为任务API的路径参数：
 
 ```json
 GET /_plugins/_ml/tasks/<task_id>
 ```
 {% include copy-curl.html %}
 
-The response contains the model ID of the model version:
+响应包含模型版本的模型ID：
 
 ```json
 {
@@ -266,3 +266,4 @@ The response contains the model ID of the model version:
   "is_async": true
 }
 ```
+

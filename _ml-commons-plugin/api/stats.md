@@ -1,15 +1,15 @@
 ---
 layout: default
-title: Stats 
+title: 统计 
 parent: ML Commons API
 nav_order: 50
 ---
 
-# Stats
+# 统计
 
-Gets statistics related to the number of tasks. 
+获取与任务数量相关的统计信息。
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```json
 GET /_plugins/_ml/stats
@@ -18,14 +18,14 @@ GET /_plugins/_ml/<nodeId>/stats/
 GET /_plugins/_ml/<nodeId>/stats/<stat>
 ```
 
-#### Example request: Get all stats for all nodes
+#### 示例请求：获取所有节点的所有统计信息
 
 ```json
 GET /_plugins/_ml/stats
 ```
 {% include copy-curl.html %}
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -53,26 +53,27 @@ GET /_plugins/_ml/stats
 }
 ```
 
-#### Example request: Get all stats for a specific node
+#### 示例请求：获取特定节点的所有统计信息
 
 ```json
 GET /_plugins/_ml/<nodeId>/stats/
 ```
 {% include copy-curl.html %}
 
-#### Example request: Get a specified stat for a specific node 
+#### 示例请求：获取特定节点的指定统计信息
 
 ```json
 GET /_plugins/_ml/<nodeId>/stats/<stat>
 ```
 {% include copy-curl.html %}
 
-#### Example request: Get a specified stat for all nodes
+#### 示例请求：获取所有节点的指定统计信息
 
 ```json
 GET /_plugins/_ml/stats/<stat>
 ```
 {% include copy-curl.html %}
+
 
 
 
