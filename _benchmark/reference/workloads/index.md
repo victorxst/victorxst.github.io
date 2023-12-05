@@ -1,31 +1,31 @@
 ---
 layout: default
-title: Workload reference
+title: 工作负载参考
 nav_order: 60
-parent: OpenSearch Benchmark Reference
+parent: OpenSearch基准参考
 has_children: true
 redirect_from: /benchmark/workloads/index/
 ---
 
-# OpenSearch Benchmark workload reference
+# OpenSearch基准工作负载参考
 
-A workload is a specification of one or more benchmarking scenarios. A workload typically includes the following:
+工作量是一个或多个基准测试方案的规范。工作负载通常包括以下内容：
 
-- One or more data streams that are ingested into indices
-- A set of queries and operations that are invoked as part of the benchmark
+- 一个或多个被摄入索引的数据流
+- 作为基准的一部分调用的一组查询和操作
 
-This section provides a list of options and examples you can use when customizing or using a workload.
+本节提供了您在自定义或使用工作负载时可以使用的选项和示例的列表。
 
-For more information about what comprises a workload, see [Anatomy of a workload]({{site.url}}{{site.baseurl}}/benchmark/user-guide/concepts#anatomy-of-a-workload). 
+有关构成工作负载的更多信息，请参阅[解剖]({{site.url}}{{site.baseurl}}/benchmark/user-guide/concepts#anatomy-of-a-workload)。
 
 
-## Workload examples
+## 工作量示例
 
-If you want to try certain workloads before creating your own, use the following examples.
+如果您想在创建自己的工作量之前尝试某些工作负载，请使用以下示例。
 
-### Running unthrottled
+### 跑步
 
-In the following example, OpenSearch Benchmark runs an unthrottled bulk index operation for 1 hour against the `movies` index:
+在下面的示例中，OpenSearch基准测试对未爆炸的批量操作进行1小时`movies` 指数：
 
 ```json
 {
@@ -59,9 +59,9 @@ In the following example, OpenSearch Benchmark runs an unthrottled bulk index op
 }
 ```
 
-### Workload with a single task
+### 一项任务的工作量
 
-The following workload runs a benchmark with a single task: a `match_all` query. Because no `clients` are indicated, only one client is used. According to the `schedule`, the workload runs the `match_all` query at 10 operations per second with 1 client, uses 100 iterations to warm up, and uses the next 100 iterations to measure the benchmark:
+以下工作负载运行具有一个任务的基准：a`match_all` 询问。因为没有`clients` 指示，仅使用一个客户。根据`schedule`，工作负载运行`match_all` 查询每秒10次操作，使用1个客户端，使用100个迭代进行预热，并使用接下来的100个迭代来测量基准：
 
 ```json
 {
@@ -105,7 +105,8 @@ The following workload runs a benchmark with a single task: a `match_all` query.
 }
 ```
 
-## Next steps
+## 下一步
 
-- For more information about configuring OpenSearch Benchmark, see [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/). 
-- For a list of prepackaged workloads for OpenSearch Benchmark, see the [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository. 
+- 有关配置OpenSearch基准测试的更多信息，请参阅[配置OpenSearch基准测试]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/)。
+- 有关OpenSearch基准测试的预包装工作负载列表，请参阅[OpenSearch-基准-工作负载](https://github.com/opensearch-project/opensearch-benchmark-workloads) 存储库。
+

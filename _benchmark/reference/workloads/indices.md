@@ -1,17 +1,17 @@
 ---
 layout: default
-title: indices
-parent: Workload reference
-grand_parent: OpenSearch Benchmark Reference
+title: 指数
+parent: 工作负载参考
+grand_parent: OpenSearch基准参考
 nav_order: 65
 redirect_from: /benchmark/workloads/indices/
 ---
 
-# indices
+# 指数
 
-The `indices` element contains a list of all indices used in the workload. 
+这`indices` 元素包含工作负载中使用的所有索引的列表。
 
-## Example
+## 例子
 
 ```json
 "indices": [
@@ -22,11 +22,12 @@ The `indices` element contains a list of all indices used in the workload.
 ]
 ```
 
-## Configuration options
+## 配置选项
 
-Use the following options with `indices`:
+使用以下选项与`indices`：
 
-Parameter | Required | Type | Description
+范围| 必需的| 类型| 描述
 :--- | :--- | :--- | :---
-`name` | Yes | String | The name of the index template. 
-`body` | No | String | The file name corresponding to the index definition used in the body of the Create Index API. 
+`name` | 是的| 细绳| 索引模板的名称。
+`body` | 不| 细绳| 与Create Index API正文中使用的索引定义相对应的文件名。
+

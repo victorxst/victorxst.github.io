@@ -1,25 +1,25 @@
 ---
 layout: default
-title: info
+title: 信息
 nav_order: 75
-parent: Command reference
-grand_parent: OpenSearch Benchmark Reference
+parent: 命令参考
+grand_parent: OpenSearch基准参考
 redirect_from: /benchmark/commands/info/
 ---
 
-# info
+# 信息
 
-The `info` command prints details about an OpenSearch Benchmark component. 
+这`info` 命令打印有关OpenSearch基准组件的详细信息。
 
-## Usage
+## 用法
 
-The following example returns information about a workload named `nyc_taxis`: 
+以下示例返回有关名为工作负载的信息`nyc_taxis`：
 
 ```
 opensearch-benchmark info --workload=nyc_taxis
 ```
 
-OpenSearch Benchmark returns information about the workload, as shown in the following example response: 
+OpenSearch Benchmark返回有关工作量的信息，如以下示例响应中所示：
 
 ```
    ____                  _____                      __       ____                  __                         __
@@ -146,15 +146,16 @@ Schedule:
 -------------------------------
 ```
 
-## Options
+## 选项
 
-You can use the following options with the `info` command: 
+您可以使用以下选项与`info` 命令：
 
 
-- `--workload-repository`: Defines the repository from where OpenSearch Benchmark loads workloads.
-- `--workload-path`: Defines the path to a downloaded or custom workload. 
-- `--workload-revision`: Defines a specific revision from the workload source tree that OpenSearch Benchmark should use.
-- `--workload`: Defines the workload to use based on the workload's name. You can find a list of preloaded workloads using `opensearch-benchmark list workloads`. 
-- `--test-procedure`: Defines a test procedure to use. You can find a list of test procedures using `opensearch-benchmark list test_procedures`.
-- `--include-tasks`: Defines a comma-separated list of test procedure tasks to run. By default, all tasks listed in a test procedure array are run.
-- `--exclude-tasks`: Defines a comma-separated list of test procedure tasks not to run. 
+- `--workload-repository`：从OpenSearch基准加载工作负载的位置定义存储库。
+- `--workload-path`：定义下载或自定义工作负载的路径。
+- `--workload-revision`：定义了OpenSearch基准应使用的工作负载源树的特定修订。
+- `--workload`：定义要根据工作负载的名称使用的工作负载。您可以使用`opensearch-benchmark list workloads`。
+- `--test-procedure`：定义使用的测试过程。您可以使用`opensearch-benchmark list test_procedures`。
+- `--include-tasks`：定义逗号-分开运行的测试过程列表。默认情况下，运行测试过程中列出的所有任务均已运行。
+- `--exclude-tasks`：定义逗号-分开的测试过程任务列表不运行。
+

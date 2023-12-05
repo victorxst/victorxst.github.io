@@ -1,178 +1,178 @@
 ---
 layout: default
-title: Installing OpenSearch Benchmark
+title: 安装OpenSearch基准测试
 nav_order: 5
-parent: User guide
+parent: 用户指南
 redirect_from: /benchmark/installing-benchmark/
 ---
 
-# Installing OpenSearch Benchmark
+# 安装OpenSearch基准测试
 
-You can install OpenSearch Benchmark directly on a host running Linux or macOS, or you can run OpenSearch Benchmark in a Docker container on any compatible host. This page provides general considerations for your OpenSearch Benchmark host as well as instructions for installing OpenSearch Benchmark.
+您可以直接在运行Linux或MACOS的主机上安装OpenSearch基准测试，也可以在任何兼容主机上的Docker容器中运行OpenSearch Benchmark。此页面为您的OpenSearch基准主机提供了一般注意事项，以及用于安装OpenSearch基准测试的说明。
 
 
-## Choosing appropriate hardware
+## 选择适当的硬件
 
-OpenSearch Benchmark can be used to provision OpenSearch nodes for testing. If you intend to use OpenSearch Benchmark to provision nodes in your environment, then install OpenSearch Benchmark directly on each host in the cluster. Additionally, you must configure each host in the cluster for OpenSearch. See [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) for guidance on important host settings.
+OpenSearch基准测试可用于为测试提供OpenSearch节点。如果您打算使用OpenSearch基准测试来在环境中提供节点，请直接在群集中的每个主机上安装OpenSearch基准测试。此外，您必须在群集中配置每个主机进行opensearch。看[安装OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) 有关重要主机设置的指导。
 
-Remember that OpenSearch Benchmark cannot be used to provision OpenSearch nodes when you run OpenSearch Benchmark in a Docker container. If you want to use OpenSearch Benchmark to provision nodes, or if you want to distribute the benchmark workload with the OpenSearch Benchmark daemon, then you must install OpenSearch Benchmark directly on each host using Python and pip.
-{: .important}
+请记住，当您在Docker容器中运行OpenSearch Benchmark时，OpenSearch Benchmark不能用于提供OpenSearch节点。如果要使用OpenSearch基准测试来提供节点，或者要使用OpenSearch基准守护程序分发基准工作负载，则必须使用Python和pip直接在每个主机上安装OpenSearch基准。
+{： 。重要的}
 
-When you select a host, you should also think about which workloads you want to run. To see a list of default benchmark workloads, visit the [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository on GitHub. As a general rule, make sure that the OpenSearch Benchmark host has enough free storage space to store the compressed data and the fully decompressed data corpus once OpenSearch Benchmark is installed.
+选择主机时，您还应该考虑要运行哪些工作负载。要查看默认基准工作负载列表，请访问[OpenSearch-基准-工作负载](https://github.com/opensearch-project/opensearch-benchmark-workloads) github上的存储库。通常，请确保OpenSearch基准主机具有足够的免费存储空间来存储压缩数据，并且一旦安装了OpenSearch基准，就可以完全解压缩数据语料库。
 
-If you want to benchmark with a default workload, then use the following table to determine the approximate minimum amount of required free space needed by adding the compressed size with the uncompressed size.
+如果您想用默认工作量进行基准测试，请使用下表来确定与未压缩尺寸添加压缩尺寸所需的最小最小自由空间量。
 
-| Workload name | Document count | Compressed size | Uncompressed size |
-| :----: | :----: | :----: | :----: |
-| eventdata | 20,000,000 | 756.0 MB | 15.3 GB |
-| geonames | 11,396,503 | 252.9 MB | 3.3 GB |
-| geopoint | 60,844,404 | 482.1 MB | 2.3 GB |
-| geopointshape | 60,844,404 | 470.8 MB | 2.6 GB |
-| geoshape | 60,523,283 | 13.4 GB | 45.4 GB |
-| http_logs | 247,249,096 | 1.2 GB | 31.1 GB |
-| nested | 11,203,029 | 663.3 MB | 3.4 GB |
-| noaa | 33,659,481 | 949.4 MB | 9.0 GB |
-| nyc_taxis | 165,346,692 | 4.5 GB | 74.3 GB |
-| percolator | 2,000,000 | 121.1 kB | 104.9 MB |
-| pmc | 574,199 | 5.5 GB | 21.7 GB |
-| so | 36,062,278 | 8.9 GB | 33.1 GB |
+| 工作负载名称| 文档计数| 压缩大小| 未压缩的尺寸|
+| ：----：| ：----：| ：----：| ：----：|
+| EventData| 20,000,000| 756.0 MB| 15.3 GB|
+| Geonames| 11,396,503| 252.9 MB| 3.3 GB|
+| 地理点| 60,844,404| 482.1 MB| 2.3 GB|
+| 地理点尺| 60,844,404| 470.8 MB| 2.6 GB|
+| Geoshape| 60,523,283| 13.4 GB| 45.4 GB|
+| http_logs| 247,249,096| 1.2 GB| 31.1 GB|
+| 嵌套| 11,203,029| 663.3 MB| 3.4 GB|
+| NOAA| 33,659,481| 949.4 MB| 9.0 GB|
+| nyc_taxis| 165,346,692| 4.5 GB| 74.3 GB|
+| 渗滤剂| 2,000,000| 121.1 kb| 104.9 MB|
+| PMC| 574,199| 5.5 GB| 21.7 GB|
+| 所以| 36,062,278| 8.9 GB| 33.1 GB|
 
-Your OpenSearch Benchmark host should use solid-state drives (SSDs) for storage because they perform read and write operations significantly faster than traditional spinning-disk hard drives. Spinning-disk hard drives can introduce performance bottlenecks, which can make benchmark results unreliable and inconsistent.
+您的OpenSearch基准主机应使用固体-国家驱动器（SSD）用于存储-磁盘硬盘驱动器。旋转-磁盘硬盘驱动器可以引入性能瓶颈，这可能会使基准结果不可靠且不一致。
 {: .tip}
 
-## Installing on Linux and macOS
+## 在Linux和MacOS上安装
 
-If you want to run OpenSearch Benchmark in a Docker container, see [Installing with Docker](#installing-with-docker). The OpenSearch Benchmark Docker image includes all of the required software, so there are no additional steps required.
-{: .important}
+如果要在Docker容器中运行OpenSearch Benchmark，请参阅[使用Docker安装](#installing-with-docker)。OpenSearch基准Docker映像包含所有必需的软件，因此无需其他步骤。
+{： 。重要的}
 
-To install OpenSearch Benchmark directly on a UNIX host, such as Linux or macOS, make sure you have **Python 3.8 or later** installed. 
+要直接在Unix主机（例如Linux或MacOS）上安装OpenSearch基准测试，请确保您有**Python 3.8或更高版本** 安装。
 
-If you need help installing Python, refer to the official [Python Setup and Usage](https://docs.python.org/3/using/index.html) documentation. 
+如果您需要安装Python的帮助，请参考官方[Python设置和用法](https://docs.python.org/3/using/index.html) 文档。
 
-### Checking software dependencies
+### 检查软件依赖性
 
-Before you begin installing OpenSearch Benchmark, check the following software dependencies.
+在开始安装OpenSearch基准测试之前，请检查以下软件依赖项。
 
-Use [pyenv](https://github.com/pyenv/pyenv) to manage multiple versions of Python on your host. This is especially useful if your "system" version of Python is earlier than version 3.8.
+使用[Pyenv](https://github.com/pyenv/pyenv) 在主机上管理多个版本的Python。如果您的"system" Python的版本早于版本3.8。
 {: .tip}
 
-- Check that Python 3.8 or later is installed:
+- 检查是否安装了Python 3.8或以后：
 
   ```bash
   python3 --version
   ```
-  {% include copy.html %}
+  {％include copy.html％}
 
-- Check that `pip` is installed and functional:
+- 检查一下`pip` 已安装和功能：
 
   ```bash
   pip --version
   ```
-  {% include copy.html %}
+  {％include copy.html％}
 
-- _Optional_: Check that your installed version of `git` is **Git 1.9 or later** using the following command. `git` is not required for OpenSearch Benchmark installation, but it is required in order to fetch benchmark workload resources from a repository when you want to perform tests. See the official Git [Documentation](https://git-scm.com/doc) for help installing Git. 
+- _optional_：检查您的安装版本是否`git` 是**git 1.9或更高版本** 使用以下命令。`git` OpenSearch基准安装并不需要，但是在要执行测试时，需要从存储库中获取基准工作负载资源。看到官方git[文档](https://git-scm.com/doc) 为了帮助安装git。
 
   ```bash
   git --version
   ```
-  {% include copy.html %}
+  {％include copy.html％}
 
-### Completing the installation
+### 完成安装
 
-After the required software is installed, you can install OpenSearch Benchmark using the following command:
+安装所需软件后，您可以使用以下命令安装OpenSearch基准：
 
 ```bash
 pip install opensearch-benchmark
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-After the installation completes, you can use the following command to display help information:
+安装完成后，您可以使用以下命令显示帮助信息：
 
 ```bash
 opensearch-benchmark -h
 ```
-{% include copy.html %}
+{％include copy.html％}
 
 
-Now that OpenSearch Benchmark is installed on your host, you can learn about [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/).
+现在，OpenSearch基准已安装在主机上，您可以了解[配置OpenSearch基准测试]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/)。
 
-## Installing with Docker
+## 使用Docker安装
 
-You can find the official Docker images for OpenSearch Benchmark on [Docker Hub](https://hub.docker.com/r/opensearchproject/opensearch-benchmark) or on the [Amazon ECR Public Gallery](https://gallery.ecr.aws/opensearchproject/opensearch-benchmark).
+您可以在OpenSearch Benchmark上找到官方的Docker图像[Docker Hub](https://hub.docker.com/r/opensearchproject/opensearch-benchmark) 或在[亚马逊ECR公共画廊](https://gallery.ecr.aws/opensearchproject/opensearch-benchmark)。
 
 
-### Docker limitations
+### Docker限制
 
-Some OpenSearch Benchmark functionality is unavailable when you run OpenSearch Benchmark in a Docker container. Specifically, the following restrictions apply:
+当您在Docker容器中运行OpenSearch Benchmark时，某些OpenSearch基准功能不可用。具体而言，以下限制适用：
 
-- OpenSearch Benchmark cannot distribute load from multiple hosts, such as load worker coordinator hosts.
-- OpenSearch Benchmark cannot provision OpenSearch nodes and can only run tests on previously existing clusters. You can only invoke OpenSearch Benchmark commands using the `benchmark-only` pipeline.
+- OpenSearch Benchmark无法从多个主机（例如负载工人协调器主机）分发负载。
+- OpenSearch基准测试无法提供OpenSearch节点，并且只能在先前现有的群集上进行测试。您只能使用该基准命令调用OpenSearch基准命令`benchmark-only` 管道。
 
-### Pulling the Docker images
+### 拉码头图像
 
-To pull the image from Docker Hub, run the following command:
+要从Docker Hub中汲取图像，请运行以下命令：
 
 ```bash
 docker pull opensearchproject/opensearch-benchmark:latest
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-To pull the image from Amazon Elastic Container Registry (Amazon ECR):
+从Amazon弹性容器注册表（Amazon ECR）中提取图像：
 
 ```bash
 docker pull public.ecr.aws/opensearchproject/opensearch-benchmark:latest
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-### Running Benchmark with Docker
+### 与Docker一起运行基准
 
-To run OpenSearch Benchmark, use `docker run` to launch a container. OpenSearch Benchmark subcommands are passed as arguments when you start the container. OpenSearch Benchmark then processes the command and stops the container after the requested operation completes.
+要运行OpenSearch基准测试，请使用`docker run` 启动一个容器。启动容器时，OpenSearch基准子标准子命令将作为参数传递。然后，OpenSearch基准测试处理命令并在请求操作完成后停止容器。
 
-For example, the following command prints the help text for OpenSearch Benchmark to the command line and then stops the container:
+例如，以下命令在命令行中打印为OpenSearch基准测试的帮助文本，然后停止容器：
 
 ```bash
 docker run opensearchproject/opensearch-benchmark -h
 ```
-{% include copy.html %}
+{％include copy.html％}
 
 
-### Establishing volume persistence in a Docker container
+### 在Docker容器中建立音量持久性
 
-To make sure your benchmark data and logs persist after your Docker container stops, specify a Docker volume to mount to the image when you work with OpenSearch Benchmark.
+为了确保在Docker容器停止之后确保您的基准数据和日志持续存在，请在使用OpenSearch基准测试时指定码头音量以安装到图像。
 
-Use the `-v` option to specify a local directory to mount and a directory in the container where the volume is attached.
+使用`-v` 选项，在附加卷的容器中指定安装的本地目录和一个目录。
 
-The following example command creates a volume in a user's home directory, mounts the volume to the OpenSearch Benchmark container at `/opensearch-benchmark/.benchmark`, and then runs a test benchmark using the geonames workload. Some client options are also specified:
+以下示例命令在用户的主目录中创建卷`/opensearch-benchmark/.benchmark`，然后使用Geonames Workload运行测试基准。还指定了一些客户选项：
 
 ```bash
 docker run -v $HOME/benchmarks:/opensearch-benchmark/.benchmark opensearchproject/opensearch-benchmark execute_test --target-hosts https://198.51.100.25:9200 --pipeline benchmark-only --workload geonames --client-options basic_auth_user:admin,basic_auth_password:admin,verify_certs:false --test-mode
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-See [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/) to learn more about the files and subdirectories located in `/opensearch-benchmark/.benchmark`.
+看[配置OpenSearch基准测试]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/) 要了解有关文件和子目录的更多信息`/opensearch-benchmark/.benchmark`。
 
-## Provisioning an OpenSearch cluster with a test
+## 用测试配置OpenSearch集群
 
-OpenSearch Benchmark is compatible with JDK versions 17, 16, 15, 14, 13, 12, 11, and 8.
+OpenSearch基准测试与JDK版本17、16、15、14、13、12、11和8兼容。
 {: .note}
 
-If you installed OpenSearch with PyPi, you can also provision a new OpenSearch cluster by specifying a `distribution-version` in the `execute-test` command.
+如果您使用PYPI安装了OpenSearch，则还可以通过指定一个`distribution-version` 在里面`execute-test` 命令。
 
-If you plan on having Benchmark provision a cluster, you'll need to inform Benchmark of the location of the `JAVA_HOME` path for the Benchmark cluster. To set the `JAVA_HOME` path and provision a cluster:
+如果您打算为基准提供一个集群，则需要将基准告知基准。`JAVA_HOME` 基准群集的路径。设置`JAVA_HOME` 路径和配置集群：
 
-1. Find the `JAVA_HOME` path you're currently using. Open a terminal and enter `/usr/libexec/java_home`.
+1. 找出`JAVA_HOME` 您当前正在使用的路径。打开终端并输入`/usr/libexec/java_home`。
 
-2. Set your corresponding JDK version environment variable by entering the path from the previous step. Enter `export JAVA17_HOME=<Java Path>`.
+2. 通过从上一步输入路径来设置您的相应JDK版本环境变量。进入`export JAVA17_HOME=<Java Path>`。
 
-3. Run the `execute-test` command and indicate the distribution version of OpenSearch you want to use: 
+3. 跑过`execute-test` 命令并指示您要使用的OpenSearch的发行版：
 
   ```bash
   opensearch-benchmark execute-test --distribution-version=2.3.0 --workload=geonames --test-mode 
   ```
 
-## Directory structure
+## 目录结构
 
-After running OpenSearch Benchmark for the first time, you can search through all related files, including configuration files, in the `~/.benchmark` directory. The directory includes the following file tree:
+首次运行OpenSearch基准测试后，您可以在所有相关文件（包括配置文件）中搜索`~/.benchmark` 目录。该目录包括以下文件树：
 
 ```
 # ~/.benchmark Tree
@@ -195,16 +195,17 @@ After running OpenSearch Benchmark for the first time, you can search through al
 │   └── benchmark.log
 ```
 
-* `benchmark.ini`: Contains any adjustable configurations for tests. For information about how to configure OpenSearch Benchmark, see [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/).
-* `data`: Contains all the data corpora and documents related to OpenSearch Benchmark's [official workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/geonames).
-* `distributions`: Contains all the OpenSearch distributions downloaded from [OpenSearch.org](http://opensearch.org/) and used to provision clusters.
-* `test_executions`: Contains all the test `execution_id`s from previous runs of OpenSearch Benchmark.
-* `workloads`: Contains all files related to workloads, except for the data corpora.
-* `logging.json`: Contains all of the configuration options related to how logging is performed within OpenSearch Benchmark.
-* `logs`: Contains all the logs from OpenSearch Benchmark runs. This can be helpful when you've encountered errors during runs.
+*`benchmark.ini`：包含用于测试的任何可调节配置。有关如何配置OpenSearch基准测试的信息，请参阅[配置OpenSearch基准测试]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/)。
+*`data`：包含与OpenSearch基准测试的所有数据语料库和文档[官方工作负载](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/geonames)。
+*`distributions`：包含从[opensearch.org](http://opensearch.org/) 并用于提供簇。
+*`test_executions`：包含所有测试`execution_id`从先前运行的OpenSearch基准测试中。
+*`workloads`：包含与工作负载相关的所有文件，除了数据语料库。
+*`logging.json`：包含与OpenSearch基准中如何执行记录有关的所有配置选项。
+*`logs`：包含来自OpenSearch基准测试的所有日志运行。当您在运行过程中遇到错误时，这可能会有所帮助。
 
 
-## Next steps
+## 下一步
 
-- [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/)
-- [Creating custom workloads]({{site.url}}{{site.baseurl}}/benchmark/creating-custom-workloads/)
+- [配置OpenSearch基准测试]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/)
+- [创建自定义工作负载]({{site.url}}{{site.baseurl}}/benchmark/creating-custom-workloads/)
+

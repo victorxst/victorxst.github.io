@@ -1,27 +1,28 @@
 ---
 layout: default
-title: Command reference
+title: 命令参考
 nav_order: 50
 has_children: true
-parent: OpenSearch Benchmark Reference
+parent: OpenSearch基准参考
 redirect_from: /benchmark/commands/index/
 ---
 
-# OpenSearch Benchmark command reference
+# OpenSearch基准命令参考
 
-This section provides a list of commands supported by OpenSearch Benchmark, including commonly used commands such as `execute-test` and `list`.
+本节提供了OpenSearch基准测试支持的命令列表，包括常用命令，例如`execute-test` 和`list`。
 
-- [compare]({{site.url}}{{site.baseurl}}/benchmark/commands/compare/)
-- [download]({{site.url}}{{site.baseurl}}/benchmark/commands/download/)
-- [execute-test]({{site.url}}{{site.baseurl}}/benchmark/commands/execute-test/)
-- [info]({{site.url}}{{site.baseurl}}/benchmark/commands/info/)
-- [list]({{site.url}}{{site.baseurl}}/benchmark/commands/list/)
+- [比较]({{site.url}}{{site.baseurl}}/benchmark/commands/compare/)
+- [下载]({{site.url}}{{site.baseurl}}/benchmark/commands/download/)
+- [执行-测试]({{site.url}}{{site.baseurl}}/benchmark/commands/execute-test/)
+- [信息]({{site.url}}{{site.baseurl}}/benchmark/commands/info/)
+- [列表]({{site.url}}{{site.baseurl}}/benchmark/commands/list/)
 
-## List of common options
+## 共同选择列表
 
-All OpenSearch Benchmark commands support the following options:
+所有OpenSearch基准命令支持以下选项：
 
-- `--h` or `--help`: Provides options and other useful information about each command.
-- `--quiet`: Hides as much of the results output as possible. Default is `false`.
-- `--offline`: Indicates whether OpenSearch Benchmark has a connection to the internet. Default is `false`.
+- `--h` 或者`--help`：提供有关每个命令的选项和其他有用信息。
+- `--quiet`：隐藏尽可能多的结果。默认为`false`。
+- `--offline`：指示OpenSearch基准测试是否与Internet连接。默认为`false`。
+
 

@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Metric records
+title: 指标记录
 nav_order: 30
-parent: Metrics reference
-grand_parent: OpenSearch Benchmark Reference
+parent: 指标参考
+grand_parent: OpenSearch基准参考
 redirect_from: /benchmark/metrics/metric-records/
 ---
 
-# Metric records
+# 指标记录
 
 OpenSearch Benchmark stores metrics in the `benchmark-metrics-*` indexes. A new index is created each month. The following is an example metric record stored in the `benchmark-metrics-2023-08` index:
 

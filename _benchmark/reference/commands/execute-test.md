@@ -1,25 +1,25 @@
 ---
 layout: default
-title: execute-test
+title: 执行-测试
 nav_order: 65
-parent: Command reference
-grand_parent: OpenSearch Benchmark Reference
+parent: 命令参考
+grand_parent: OpenSearch基准参考
 redirect_from: /benchmark/commands/execute-test/
 ---
 
-# execute-test
+# 执行-测试
 
-Whether you're using the included [OpenSearch Benchmark workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) or a [custom workload]({{site.url}}{{site.baseurl}}/benchmark/creating-custom-workloads/), use the `execute-test` command to gather data about the performance of your OpenSearch cluster according to the selected workload. 
+您是否正在使用随附的[OpenSearch基准测试工作负载](https://github.com/opensearch-project/opensearch-benchmark-workloads) 或a[定制工作量]({{site.url}}{{site.baseurl}}/benchmark/creating-custom-workloads/)， 使用`execute-test` 命令根据所选的工作负载收集有关OpenSearch Cluster的性能的数据。
 
-## Usage
+## 用法
 
-The following example executes a test using the `geonames` workload in test mode: 
+以下示例使用`geonames` 在测试模式下工作量：
 
 ```
 opensearch-benchmark execute-test --workload=geonames --test-mode 
 ```
 
-After the test runs, OpenSearch Benchmark responds with a summary of the benchmark metrics: 
+测试运行后，OpenSearch Benchmark以基准指标的摘要做出响应：
 
 ```
 ------------------------------------------------------
@@ -81,100 +81,101 @@ After the test runs, OpenSearch Benchmark responds with a summary of the benchma
 ----------------------------------
 ```
 
-## Options
+## 选项
 
-Use the following options to customize the `execute-test` command for your use case. Options in this section are categorized by their use case. 
+使用以下选项自定义`execute-test` 命令您的用例。本节中的选项按其用例进行分类。
 
-## General settings
+## 常规设置
 
-The following options shape how each test runs and how results appear: 
+以下选项塑造了每个测试的运行方式以及结果的显示方式：
 
-- `--test-mode`: Runs the given workload in test mode, which is useful when checking a workload for errors.
-- `--user-tag`: Defines user-specific key-value pairs to be used in metric record as meta information, for example, `intention:baseline-ticket-12345`.
-- `--results-format`: Defines the output format for the command line results, either `markdown` or `csv`. Default is `markdown`.
-- `--results-number-align`: Defines the column number alignment for when the `compare` command outputs results. Default is `right`. 
-- `--results-file`: When provided a file path, writes the compare results to the file indicated in the path.
-- `--show-in-results`: Determines whether or not to include the comparison in the results file. 
-
-
-### Distributions
-
-The following options set which version of OpenSearch and the OpenSearch plugins the benchmark test uses: 
-
-- `--distribution-version`: Downloads the specified OpenSearch distribution based on version number. For a list of released OpenSearch versions, see [Version history](https://opensearch.org/docs/version-history/). 
-- `--distribution-repository`: Defines the repository from where the OpenSearch distribution should be downloaded. Default is `release`.
-- `--revision`: Defines the current source code revision to use for running a benchmark test. Default is `current`.
-   - `current`: Uses the source tree's current revision based on your OpenSearch distribution. 
-   - `latest`: Fetches the latest revision from the main branch of the source tree. 
-   - You can also use a timestamp or commit ID from the source tree. When using a timestamp, specify `@ts`, where "ts" is a valid ISO 8601 timestamp, for example, `@2013-07-27T10:37:00Z`. 
--  `--opensearch-plugins`: Defines which [OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) to install. By default, no plugins are installed.
-- `--plugin-params:` Defines a comma-separated list of key:value pairs that are injected verbatim into all plugins as variables.
-- `--runtime-jdk`: The major version of JDK to use. 
-- `--client-options`: Defines a comma-separated list of clients to use. All options are passed to the OpenSearch Python client. Default is `timeout:60`.
-
-### Cluster
-
-The following option relates to the target cluster of the benchmark.
-
-- `--target-hosts`: Defines a comma-separated list of host-port pairs that should be targeted if using the pipeline `benchmark-only`. Default is `localhost:9200`. 
+- `--test-mode`：在测试模式下运行给定的工作负载，这在检查工作负载是否错误时很有用。
+- `--user-tag`：定义用户-具体键-值对公制记录中的价值对作为元信息，例如`intention:baseline-ticket-12345`。
+- `--results-format`：定义命令行结果的输出格式`markdown` 或者`csv`。默认为`markdown`。
+- `--results-number-align`：定义列的列号对齐`compare` 命令输出结果。默认为`right`。
+- `--results-file`：提供的文件路径后，将结果与路径中指示的文件进行比较。
+- `--show-in-results`：确定是否在结果文件中包括比较。
 
 
-### Distributed workload generation
+### 分布
 
-The following options help those who want to use multiple hosts to generate load to the benchmark cluster: 
+以下选项集，哪个版本的OpenSearch和OpenSearch插件基准测试使用：
 
-- `--load-worker-coordinator-hosts`: Defines a comma-separated list of hosts that coordinate loads. Default is `localhost`.
-- `--enable-worker-coordinator-profiling`: Enables an analysis of the performance of OpenSearch Benchmark's worker coordinator. Default is `false`.
+- `--distribution-version`：根据版本号下载指定的OpenSearch发行版。有关已发布的OpenSearch版本列表，请参见[版本历史记录](https://opensearch.org/docs/version-history/)。
+- `--distribution-repository`：定义了应下载OpenSearch发行版的存储库。默认为`release`。
+- `--revision`：定义用于运行基准测试的当前源代码修订版。默认为`current`。
+   - `current`：根据您的OpenSearch发行版，使用源树的当前修订版。
+   - `latest`：从源树的主要分支中获取最新的修订。
+   - 您也可以使用时间戳或从源树提交ID。使用时间戳时，指定`@ts`， 在哪里"ts" 是有效的ISO 8601时间戳，例如`@2013-07-27T10:37:00Z`。
+-  `--opensearch-plugins`：定义哪个[OpenSearch插件]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) 安装。默认情况下，没有安装插件。
+- `--plugin-params:` 定义一个逗号-键的分离列表：逐字注入所有插件的值对作为变量。
+- `--runtime-jdk`：使用JDK的主要版本。
+- `--client-options`：定义逗号-分开使用的客户列表。所有选项都传递给OpenSearch Python客户端。默认为`timeout:60`。
 
-### Provisioning
+### 簇
 
-The following options help customize how OpenSearch Benchmark provisions OpenSearch and workloads: 
+以下选项与基准的目标群集有关。
 
-- `--provision-config-repository`: Defines the repository from which OpenSearch Benchmark loads `provision-configs` and `provision-config-instances`. 
-- `--provision-config-path`: Defines the path to the `--provision-config-instance` and any OpenSearch plugin configurations to use.
-- `--provision-config-revision`: Defines a specific Git revision in the `provision-config` that OpenSearch Benchmark should use.
-- `--provision-config-instance`: Defines the `--provision-config-instance` to use. You can see possible configuration instances using the command `opensearch-benchmark list provision-config-instances`. 
-- `--provision-config-instance-params`: A comma-separated list of key-value pairs injected verbatim as variables for the `provision-config-instance`. 
-
-
-### Workload
-
-The following options determine which workload is used to run the test:
-
-- `--workload-repository`: Defines the repository from which OpenSearch Benchmark loads workloads. 
-- `--workload-path`: Defines the path to a downloaded or custom workload.
-- `--workload-revision`: Defines a specific revision from the workload source tree that OpenSearch Benchmark should use.
-- `--workload`: Defines the workload to use based on the workload's name. You can find a list of preloaded workloads using `opensearch-benchmark list workloads`.
-
-### Test procedures
-
-The following options define what test procedures the test uses and which operations are contained inside the procedure: 
-
-- `--test-execution-id`: Defines a unique ID for this test run.
-- `--test-procedure`: Defines a test procedure to use. You can find a list of test procedures using `opensearch-benchmark list test-procedures`.
-- `--include-tasks`: Defines a comma-separated list of test procedure tasks to run. By default, all tasks listed in a test procedure array are run.
-- `--exclude-tasks`: Defines a comma-separated list of test procedure tasks not to run.
-- `--enable-assertions`: Enables assertion checks for tasks. Default is `false`. 
-
-### Pipelines
-
-The `--pipeline` option selects a pipeline to run. You can find a list of pipelines supported by OpenSearch Benchmark by running `opensearch-benchmark list pipelines`.
+- `--target-hosts`：定义逗号-分开的主机列表-如果使用管道，则应针对的端口对`benchmark-only`。默认为`localhost:9200`。
 
 
-### Telemetry
+### 分布式工作量生成
 
-The following options enable telemetry devices on OpenSearch Benchmark: 
+以下选项可以帮助那些想使用多个主机为基准集群生成负载的人：
+
+- `--load-worker-coordinator-hosts`：定义逗号-分开的主机列表，这些主机坐标负载。默认为`localhost`。
+- `--enable-worker-coordinator-profiling`：启用OpenSearch基准的工人协调员的性能分析。默认为`false`。
+
+### 供应
+
+以下选项有助于自定义OpenSearch基准规定OpenSearch and Workloads：
+
+- `--provision-config-repository`：定义opensearch基准加载的存储库`provision-configs` 和`provision-config-instances`。
+- `--provision-config-path`：定义通往`--provision-config-instance` 以及要使用的任何OpenSearch插件配置。
+- `--provision-config-revision`：在`provision-config` 该OpenSearch基准应使用。
+- `--provision-config-instance`：定义`--provision-config-instance` 使用。您可以使用命令看到可能的配置实例`opensearch-benchmark list provision-config-instances`。
+- `--provision-config-instance-params`：逗号-钥匙的分开列表-价值对逐字注射为变量`provision-config-instance`。
+
+
+### 工作量
+
+以下选项确定使用哪个工作负载来运行测试：
+
+- `--workload-repository`：定义opensearch基准加载工作负载的存储库。
+- `--workload-path`：定义下载或自定义工作负载的路径。
+- `--workload-revision`：定义了OpenSearch基准应使用的工作负载源树的特定修订。
+- `--workload`：定义要根据工作负载的名称使用的工作负载。您可以使用`opensearch-benchmark list workloads`。
+
+### 测试程序
+
+以下选项定义了该过程中测试使用的测试过程以及该过程中包含哪些操作：
+
+- `--test-execution-id`：定义此测试运行的唯一ID。
+- `--test-procedure`：定义使用的测试过程。您可以使用`opensearch-benchmark list test-procedures`。
+- `--include-tasks`：定义逗号-分开运行的测试过程列表。默认情况下，运行测试过程中列出的所有任务均已运行。
+- `--exclude-tasks`：定义逗号-分开的测试过程任务列表不运行。
+- `--enable-assertions`：启用任务的断言检查。默认为`false`。
+
+### 管道
+
+这`--pipeline` 选项选择要运行的管道。您可以通过运行来找到由OpenSearch基准支持的管道列表`opensearch-benchmark list pipelines`。
+
+
+### 遥测
+
+以下选项可以在OpenSearch基准下启用遥测设备：
  
-- `--telemetry`: Enables the provided telemetry devices when the devices are provided using a comma-separated list. You can find a list of possible telemetry devices by using `opensearch-benchmark list telemetry`.
-- `--telemetry-params`: Defines a comma-separated list of key-value pairs that are injected verbatim into the telemetry devices as parameters.
+- `--telemetry`：当使用逗号提供设备时，启用提供的遥测设备-分开列表。您可以使用`opensearch-benchmark list telemetry`。
+- `--telemetry-params`：定义逗号-钥匙的分开列表-逐字注入遥测设备的值对作为参数。
 
 
-### Errors
+### 错误
 
-The following options set how OpenSearch Benchmark handles errors when running tests: 
+以下选项设置了运行测试时OpenSearch Benchmark如何处理错误：
 
-- `--on-error`: Controls how OpenSearch Benchmark responds to errors. Default is `continue`. 
-  - `continue`: Continues to run the test despite the error.
-  - `abort`: Aborts the test when an error occurs.
-- `--preserve-install`: Keeps the Benchmark candidate and its index. Default is `false`.
-- `--kill-running-processes`: When set to `true`, stops any OpenSearch Benchmark processes currently running and allows OpenSearch Benchmark to continue to run. Default is `false`. 
+- `--on-error`：控制OpenSearch基准测试方式如何响应错误。默认为`continue`。
+  - `continue`：尽管出错，仍继续进行测试。
+  - `abort`：在发生错误时中止测试。
+- `--preserve-install`：保持基准候选人及其指数。默认为`false`。
+- `--kill-running-processes`：设置为`true`，停止当前正在运行的任何OpenSearch基准进程，并允许OpenSearch基准测试继续运行。默认为`false`。
+

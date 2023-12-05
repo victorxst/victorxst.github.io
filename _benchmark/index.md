@@ -1,33 +1,34 @@
 ---
 layout: default
-title: OpenSearch Benchmark
+title: OpenSearch基准测试
 nav_order: 1
 has_children: false
 nav_exclude: true
 has_toc: false
 ---
 
-# OpenSearch Benchmark
+# OpenSearch基准测试
 
-OpenSearch Benchmark is a macrobenchmark utility provided by the [OpenSearch Project](https://github.com/opensearch-project). You can use OpenSearch Benchmark to gather performance metrics from an OpenSearch cluster for a variety of purposes, including:
+OpenSearch Benchmark是由该实用程序提供的。[OpenSearch项目](https://github.com/opensearch-project)。您可以使用OpenSearch基准测试从OpenSearch集群中收集性能指标，以进行各种目的，包括：
 
-- Tracking the overall performance of an OpenSearch cluster.
-- Informing decisions about when to upgrade your cluster to a new version.
-- Determining how changes to your workflow---such as modifying mappings or queries---might impact your cluster.
+- 跟踪OpenSearch集群的整体性能。
+- 告知有关何时将群集升级到新版本的决定。
+- 确定您的工作流程如何变化---例如修改映射或查询---可能会影响您的群集。
 
-OpenSearch Benchmark can be installed directly on a compatible host running Linux and macOS. You can also run OpenSearch Benchmark in a Docker container. See [Installing OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/installing-benchmark/) for more information.
+OpenSearch基准测试可以直接安装在运行Linux和MacOS的兼容主机上。您还可以在Docker容器中运行OpenSearch基准测试。看[安装OpenSearch基准测试]({{site.url}}{{site.baseurl}}/benchmark/installing-benchmark/) 了解更多信息。
 
-The following diagram visualizes how OpenSearch Benchmark works when run against a local host:
+以下图可视化OpenSearch基准测试在与本地主机相抵触时的工作方式：
 
-![Benchmark workflow]({{site.url}}{{site.baseurl}}/images/benchmark/OSB-workflow.png).
+![基准工作流程]({{site.url}}{{site.baseurl}}/images/benchmark/OSB-workflow.png).
 
-The OpenSearch Benchmark documentation is split into five sections:
+OpenSearch基准文档分为五个部分：
 
-- [Quickstart]({{site.url}}{{site.baseurl}}/benchmark/quickstart/): Learn how to quickly run and install OpenSearch Benchmark.
-- [User guide]({{site.url}}{{site.baseurl}}/benchmark/user-guide/index/): Dive deep into how OpenSearch Benchmark can help you track the performance of your cluster.
-- [Tutorials]({{site.url}}{{site.baseurl}}/benchmark/tutorials/index/): Use step-by-step guides for more advanced benchmarking configurations and functionality.
-- [Commands]({{site.url}}{{site.baseurl}}/benchmark/commands/index/): A detailed reference of commands and command options supported by OpenSearch.
-- [Workloads]({{site.url}}{{site.baseurl}}/benchmark/workloads/index/): A detailed reference of options available for both default and custom workloads.
+- [快速开始]({{site.url}}{{site.baseurl}}/benchmark/quickstart/)：了解如何快速运行和安装OpenSearch基准测试。
+- [用户指南]({{site.url}}{{site.baseurl}}/benchmark/user-guide/index/)：深入研究OpenSearch基准测试如何帮助您跟踪群集的性能。
+- [教程]({{site.url}}{{site.baseurl}}/benchmark/tutorials/index/)：使用步骤-经过-步骤指南，用于更高级的基准配置和功能。
+- [命令]({{site.url}}{{site.baseurl}}/benchmark/commands/index/)：OpenSearch支持的命令和命令选项的详细参考。
+- [工作负载]({{site.url}}{{site.baseurl}}/benchmark/workloads/index/)：可用于默认工作和自定义工作负载的选项的详细参考。
+
 
 
 

@@ -1,33 +1,33 @@
 ---
 layout: default
-title: list
+title: 列表
 nav_order: 80
-parent: Command reference
-grand_parent: OpenSearch Benchmark Reference
+parent: 命令参考
+grand_parent: OpenSearch基准参考
 redirect_from: /benchmark/commands/list/
 ---
 
-# list
+# 列表
 
-The `list` command lists the following elements used by OpenSearch Benchmark:
+这`list` 命令列出了OpenSearch基准测试使用的以下元素：
 
-- `telemetry`: Telemetry devices  
-- `workloads`: Workloads 
-- `pipelines`: Pipelines
-- `test_executions`: Single run of a workload 
-- `provision_config_instances`: Provisioned configuration instances
-- `opensearch-plugins`: OpenSearch plugins 
+- `telemetry`：遥测设备
+- `workloads`：工作负载
+- `pipelines`：管道
+- `test_executions`：单次工作量
+- `provision_config_instances`：配置实例
+- `opensearch-plugins`：OpenSearch插件
 
 
-## Usage
+## 用法
 
-The following example lists any workload test runs and detailed information about each test:
+以下示例列出了每个测试的任何工作负载测试和详细信息：
 
 ```
 `opensearch-benchmark list test_executions
 ```
 
-OpenSearch Benchmark returns information about each test. 
+OpenSearch基准测试返回有关每个测试的信息。
 
 ```
 benchmark list test_executions
@@ -60,13 +60,14 @@ ba643ed3-0db5-452e-a680-2b0dc0350cf2  20230522T224450Z           geonames       
 -------------------------------
 ```
 
-## Options
+## 选项
 
-You can use the following options with the `test` command: 
+您可以使用以下选项与`test` 命令：
 
-- `--limit`: Limits the number of search results for recent test runs. Default is `10`. 
-- `--workload-repository`: Defines the repository from where OpenSearch Benchmark loads workloads.
-- `--workload-path`: Defines the path to a downloaded or custom workload.
-- `--workload-revision`: Defines a specific revision from the workload source tree that OpenSearch Benchmark should use. 
+- `--limit`：限制最近测试运行的搜索结果数量。默认为`10`。
+- `--workload-repository`：从OpenSearch基准加载工作负载的位置定义存储库。
+- `--workload-path`：定义下载或自定义工作负载的路径。
+- `--workload-revision`：定义了OpenSearch基准应使用的工作负载源树的特定修订。
+
 
 

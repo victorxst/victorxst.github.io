@@ -1,10 +1,11 @@
 ---
 layout: default
-title: OpenSearch Benchmark Reference
+title: OpenSearch基准参考
 nav_order: 25
 has_children: true
 ---
 
-# OpenSearch Benchmark Reference
+# OpenSearch基准参考
 
-The following section contains reference materials for commands, metrics, and workloads for OpenSearch Benchmark.
+以下部分包含用于OpenSearch基准的命令，指标和工作负载的参考材料
+

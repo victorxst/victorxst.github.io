@@ -1,23 +1,23 @@
 ---
 layout: default
-title: Metrics reference
+title: 指标参考
 nav_order: 25
 has_children: true
-parent: OpenSearch Benchmark Reference
+parent: OpenSearch基准参考
 redirect_from: /benchmark/metrics/index/
 ---
 
-# Metrics
+# 指标
 
-After a workload completes, OpenSearch Benchmark stores all metric records within its metrics store. These metrics can be kept in memory or in an OpenSearch cluster. 
+工作量完成后，OpenSearch基准测试将所有度量记录存储在其指标商店中。这些指标可以将其保存在内存中，也可以保存在OpenSearch集群中。
 
-## Storing metrics
+## 存储指标
 
-You can specify whether metrics are stored in memory or in a metrics store while running the benchmark by setting the [`datastore.type`](https://opensearch.org/docs/latest/benchmark/configuring-benchmark/#results_publishing) parameter in your `benchmark.ini` file. 
+您可以在运行基准测试时指定指标是存储在内存还是指标存储中[`datastore.type`](https://opensearch.org/docs/latest/benchmark/configuring-benchmark/#results_publishing) 您的参数`benchmark.ini` 文件。
 
-### In memory
+### 在记忆中
 
-If you want to store metrics in memory while running the benchmark, provide the following settings in the `results_publishing` section of `benchmark.ini`:
+如果要在运行基准测试时将指标存储在内存中，请在`results_publishing` 部分`benchmark.ini`：
 
 ```ini
 [results_publishing]
@@ -32,7 +32,7 @@ datastore.password = <password>
 
 ### OpenSearch
 
-If you want to store metrics in an external OpenSearch memory store while running the benchmark, provide the following settings in the `results_publishing` section of `benchmark.ini`:
+如果要在运行基准时将指标存储在外部OpenSearch Memory商店中，请在`results_publishing` 部分`benchmark.ini`：
 
 ```ini
 [results_publishing]
@@ -46,18 +46,19 @@ datastore.password = <opensearch basic auth password>
 datastore.number_of_replicas = 
 datastore.number_of_shards = 
 ```
-When neither `datastore.number_of_replicas` nor `datastore.number_of_shards` is provided, OpenSearch uses the default values: `0` for the number of replicas and `1` for the number of shards. If these settings are changed after the data store cluster is created, the new replica and shard settings will only apply when new results indexes are created at the end of the month. 
+当两者都不`datastore.number_of_replicas` 也不`datastore.number_of_shards` 已提供，OpenSearch使用默认值：`0` 对于复制品的数量和`1` 用于碎片数。如果在创建数据存储集群之后更改了这些设置，则只有在本月底创建新的结果索引时，新的副本和碎片设置才能适用。
 
-After you run OpenSearch Benchmark configured to use OpenSearch as a data store, OpenSearch Benchmark creates three indexes:
+运行OpenSearch基准配置为使用OpenSearch用作数据存储后，OpenSearch基准标准创建了三个索引：
 
-- `benchmark-metrics-YYYY-MM`: Holds granular metric and telemetry data.
-- `benchmark-results-YYYY-MM`: Holds data based on final results.
-- `benchmark-test-executions-YYYY-MM`: Holds data about `execution-ids`.
+- `benchmark-metrics-YYYY-MM`：持有颗粒公制和遥测数据。
+- `benchmark-results-YYYY-MM`：根据最终结果保存数据。
+- `benchmark-test-executions-YYYY-MM`：持有有关的数据`execution-ids`。
 
-You can visualize data inside these indexes in OpenSearch Dashboards.
+您可以在OpenSearch仪表板中可视化这些索引中的数据。
 
 
-## Next steps
+## 下一步
 
-- For more information about how to design a metrics store, see [Metric records]({{site.url}}{{site.baseurl}}/benchmark/metrics/metric-records/).
-- For more information about what metrics are stored, see [Metric keys]({{site.url}}{{site.baseurl}}/benchmark/metrics/metric-keys/).
+- 有关如何设计指标商店的更多信息，请参阅[公制记录]({{site.url}}{{site.baseurl}}/benchmark/metrics/metric-records/)。
+- 有关存储哪些指标的更多信息，请参阅[公制键]({{site.url}}{{site.baseurl}}/benchmark/metrics/metric-keys/)。
+

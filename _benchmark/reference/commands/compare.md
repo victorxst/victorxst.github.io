@@ -1,19 +1,19 @@
 ---
 layout: default
-title: compare
+title: 比较
 nav_order: 55
-parent: Command reference
-grand_parent: OpenSearch Benchmark Reference
+parent: 命令参考
+grand_parent: OpenSearch基准参考
 redirect_from: /benchmark/commands/compare/
 ---
 
-# compare
+# 比较
 
-The `compare` command helps you analyze the difference between two benchmark tests. This can help you analyze the performance impact of changes made from a previous test based on a specific Git revision. 
+这`compare` 命令可帮助您分析两个基准测试之间的差异。这可以帮助您根据特定的GIT修订分析先前测试的更改的性能影响。
 
-## Usage
+## 用法
 
-You can compare two different workload tests using their `TestExecution IDs`. To find a list of tests run from a specific workload, use `opensearch-benchmark list test_executions`. You should receive an output similar to the following: 
+您可以使用他们的两个不同的工作负载测试`TestExecution IDs`。要查找从特定工作量运行的测试列表，请使用`opensearch-benchmark list test_executions`。您应该收到类似于以下输出的输出：
 
 
 ```
@@ -36,13 +36,13 @@ a33845cc-c2e5-4488-a2db-b0670741ff9b  20230523T213145Z           geonames       
 
 ```
 
-Then, use `compare` to call a `--baseline` test and a  `--contender` test for comparison.
+然后，使用`compare` 打电话`--baseline` 测试和`--contender` 测试进行比较。
 
 ```
 opensearch-benchmark compare --baseline=417ed42-6671-9i79-11a1-e367636068ce --contender=beb154e4-0a05-4f45-ad9f-e34f9a9e51f7
 ```
 
-You should receive the following response comparing the final benchmark metrics for both tests:
+您应该收到以下响应，以比较这两个测试的最终基准指标：
 
 ```
    ____                  _____                      __       ____                  __                         __
@@ -120,15 +120,16 @@ Query latency country_agg_cached (100.0 percentile) [ms]     3.42547      2.8681
                       Nodes Stats(100.0 percentile) [ms]     5.22527      5.66977    +0.44450
 ```
 
-## Options
+## 选项
 
-You can use the following options to customize the results of your test comparison: 
+您可以使用以下选项自定义测试比较的结果：
 
-- `--baseline`: The baseline TestExecution ID used to compare the contender TestExecution.  
-- `--contender`: The TestExecution ID for the contender being compared to the baseline. 
-- `--results-format`: Defines the output format for the command line results, either `markdown` or `csv`. Default is `markdown`.
-- `--results-number-align`: Defines the column number alignment for when the `compare` command outputs results. Default is `right`.
-- `--results-file`: When provided a file path, writes the compare results to the file indicated in the path. 
-- `--show-in-results`: Determines whether or not to include the comparison in the results file. 
+- `--baseline`：用于比较竞争者testexecution的基线测试脱透ID。
+- `--contender`：与基线相比，竞争者的testexecution ID。
+- `--results-format`：定义命令行结果的输出格式`markdown` 或者`csv`。默认为`markdown`。
+- `--results-number-align`：定义列的列号对齐`compare` 命令输出结果。默认为`right`。
+- `--results-file`：提供的文件路径后，将结果与路径中指示的文件进行比较。
+- `--show-in-results`：确定是否在结果文件中包括比较。
+
 
 

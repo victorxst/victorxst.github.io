@@ -1,10 +1,11 @@
 ---
 layout: default
-title: Tutorials
+title: 教程
 nav_order: 10
 has_children: true
 ---
 
-# Tutorial
+# 教程
 
-This section of the OpenSearch Benchmark documentation provides a set of tutorials for those who want to learn more advanced OpenSearch Benchmark concepts.
+OpenSearch基准文档的这一部分为那些想学习更多高级OpenSearch基准概念的人提供了一组教程
+

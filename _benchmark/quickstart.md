@@ -1,34 +1,34 @@
 ---
 layout: default
-title: Quickstart
+title: 快速开始
 nav_order: 2
 ---
 
-# OpenSearch Benchmark quickstart
+# OpenSearch基准QuickStart
 
-This tutorial outlines how to quickly install OpenSearch Benchmark and run your first OpenSearch Benchmark workload. 
+该教程概述了如何快速安装OpenSearch基准测试并运行您的第一个OpenSearch基准工作负载。
 
-## Prerequisites
+## 先决条件
 
-To perform the Quickstart steps, you'll need to fulfill the following prerequisites:
+要执行快速步骤，您需要实现以下先决条件：
 
-- A currently active OpenSearch cluster. For instructions on how to create an OpenSearch cluster, see [Creating a cluster]({{site.url}}{{site.baseurl}}//tuning-your-cluster/index/).
-- Git 2.3 or greater.
-- Python 3.8 or later
+- 当前活动的OpenSearch集群。有关如何创建OpenSearch集群的说明，请参阅[创建一个集群]({{site.url}}{{site.baseurl}}//tuning-your-cluster/index/)。
+- git 2.3或更大。
+- Python 3.8或更高版本
 
-## Set up an OpenSearch cluster
+## 设置OpenSearch集群
 
-If you don't already have an active OpenSearch cluster, you can launch a new OpenSearch cluster to use with OpenSerch Benchmark.
+如果您还没有活动的OpenSearch集群，则可以启动一个新的OpenSearch群集，以与OpenSerch Benchmark一起使用。
 
-- Using **Docker Compose**. For instructions on how to use Docker Compose, see [OpenSearch Quickstart]({{site.url}}{{site.baseurl}}/quickstart/).
-- Using **Tar**. For instructions on how to install OpenSearch with Tar, see [Installing OpenSearch > Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/tar#step-1-download-and-unpack-opensearch).
+- 使用**Docker组成**。有关如何使用Docker组成的说明，请参见[OpenSearch QuickStart]({{site.url}}{{site.baseurl}}/quickstart/)。
+- 使用**柏油**。有关如何使用TAR安装OpenSearch的说明，请参阅[安装OpenSearch> TARBALL]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/tar#step-1-download-and-unpack-opensearch)。
 
-OpenSearch Benchmark has not been tested with the Window's distribution of OpenSearch.
+OpenSearch基准测试尚未通过窗口的OpenSearch的分布进行测试。
 {: .note}
 
-After installation, you can verify OpenSearch is running by going to `localhost:9200`. If you're running your cluster with the Security plugin enabled, OpenSearch will expect SSL connections with the username "admin" and password "admin".  However, since the localhost address is not a unique public address, no certificate authority will issue an SSL certificate for it, so certificate checking will need to be disabled using the `-k` option.
+安装后，您可以验证OpenSearch正在运行`localhost:9200`。如果您正在使用启用安全插件运行群集，则OpenSearch将期望使用用户名SSL连接"admin" 和密码"admin"。但是，由于Localhost地址不是唯一的公共地址，因此任何证书机构都不会向其签发SSL证书，因此需要使用该证书检查`-k` 选项。
 
-Use the following command to verify OpenSearch is running with SSL certificate checks disabled:
+使用以下命令验证OpenSearch正在使用SSL证书检查禁用：
 
 ```bash
 curl -k -u admin:admin https://localhost:9200			# the "-k" option skips SSL certificate checks
@@ -52,27 +52,27 @@ curl -k -u admin:admin https://localhost:9200			# the "-k" option skips SSL cert
 }
 ```
 
-With your cluster running, you can now install OpenSearch Benchmark.
+在运行群集后，您现在可以安装OpenSearch基准测试。
 
-## Installing OpenSearch Benchmark
+## 安装OpenSearch基准测试
 
-To install OpenSearch Benchmark with Docker, see [Installing OpenSearch Benchmark > Installing with Docker]({{site.url}}{{site.baseurl}}/benchmark/user-guide/installing-benchmark/#installing-with-docker).
+要使用Docker安装OpenSearch基准测试，请参见[安装OpenSearch基准测试>与Docker安装]({{site.url}}{{site.baseurl}}/benchmark/user-guide/installing-benchmark/#installing-with-docker)。
 {: .tip}
 
-To install OpenSearch Benchmark from PyPi, enter the following `pip` command:
+要从PYPI安装OpenSearch基准测试，请输入以下内容`pip` 命令：
 
 ```bash
 pip3 install opensearch-benchmark
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-After the installation completes, verify that OpenSearch Benchmark is running by entering the following command:
+安装完成后，通过输入以下命令来验证OpenSearch基准测试：
 
 ```bash
 opensearch-benchmark --help
 ```
 
-If successful, OpenSearch returns the following response:
+如果成功，OpenSearch返回以下回复：
 
 ```bash
 $ opensearch-benchmark --help
@@ -107,40 +107,40 @@ subcommands:
 Find out more about Benchmark at https://opensearch.org/docs
 ```
 
-## Running your first benchmark
+## 运行您的第一个基准测试
 
-You can now run your first benchmark. The following benchmark uses the [percolator](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/percolator) workload.
+您现在可以运行第一个基准。以下基准使用[渗滤剂](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/percolator) 工作量。
 
 
-### Understanding workload command flags
+### 了解工作负载命令标志
 
-Benchmarks are run using the [`execute-test`]({{site.url}}{{site.baseurl}}/benchmark/commands/execute-test/) command with the following command flags:
+使用基准运行[`execute-test`]({{site.url}}{{site.baseurl}}/benchmark/commands/execute-test/) 带有以下命令标志的命令：
 
-For additional `execute_test` command flags, see the [execute-test]({{site.url}}{{site.baseurl}}/benchmark/commands/execute-test/) reference. Some commonly used options are `--workload-params`, `--exclude-tasks`, and `--include-tasks`.
+附加`execute_test` 命令标志，请参阅[执行-测试]({{site.url}}{{site.baseurl}}/benchmark/commands/execute-test/) 参考。一些常用的选项是`--workload-params`，`--exclude-tasks`， 和`--include-tasks`。
 {: .tip}
 
-* `--pipeline=benchmark-only` : Informs OSB that users wants to provide their own OpenSearch cluster.
-- `workload=percolator`: The name of workload used by OpenSearch Benchmark.
-* `--target-host="<OpenSearch Cluster Endpoint>"`: Indicates the target cluster or host that will be benchmarked. Enter the endpoint of your OpenSearch cluster here.
-* `--client-options="basic_auth_user:'<Basic Auth Username>',basic_auth_password:'<Basic Auth Password>'"`: The username and password for your OpenSearch cluster.
-* `--test-mode`: Allows a user to run the workload without running it for the entire duration. When this flag is present, Benchmark runs the first thousand operations of each task in the workload. This is only meant for sanity checks---the metrics produced are meaningless.
+*`--pipeline=benchmark-only` ：通知OSB用户想要提供自己的OpenSearch集群。
+- `workload=percolator`：OpenSearch基准测试使用的工作量名称。
+*`--target-host="<OpenSearch Cluster Endpoint>"`：指示将基准测试的目标群集或主机。在此处输入OpenSearch集群的端点。
+*`--client-options="basic_auth_user:'<Basic Auth Username>',basic_auth_password:'<Basic Auth Password>'"`：您的OpenSearch cluster的用户名和密码。
+*`--test-mode`：允许用户在整个持续时间内运行工作量而无需运行。当存在此标志时，基准将运行工作负载中每个任务的前一千个操作。这仅是为了理智检查---产生的指标毫无意义。
 
-The `--distribution-version`, which indicates which OpenSearch version Benchmark will use when provisioning. When run, the `execute-test` command will parse the correct distribution version when it connects to the OpenSearch cluster.
+这`--distribution-version`，这表明在配置时将使用哪种OpenSearch版本基准。运行时，`execute-test` 命令将在连接到OpenSearch集群时解析正确的分发版本。
 
-### Running the workload
+### 运行工作负载
 
-To run the [percolator](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/percolator) workload with OpenSearch Benchmark, use the following `execute-test` command: 
+运行[渗滤剂](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/percolator) 使用OpenSearch基准测试，使用以下内容`execute-test` 命令：
 
 ```bash
 opensearch-benchmark execute-test --pipeline=benchmark-only --workload=percolator --target-host=https://localhost:9200 --client-options=basic_auth_user:admin,basic_auth_password:admin,verify_certs:false --test-mode
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-When the `execute_test` command runs, all tasks and operations in the `percolator` workload run sequentially.
+当。。。的时候`execute_test` 命令运行，所有任务和操作`percolator` 工作负载依次运行。
 
-### Understanding the results
+### 了解结果
 
-Benchmark returns the following response once the benchmark completes:
+基准完成后，基准将返回以下响应：
 
 ```bash
 ------------------------------------------------------
@@ -241,34 +241,35 @@ Benchmark returns the following response once the benchmark completes:
 --------------------------------
 ```
 
-Each task run by the `percolator` workload represents a specific OpenSearch API operation---such as Bulk or Search---that was performed when the test was run. Each task in the output summary contains the following information: 
+每个任务由`percolator` 工作负载代表特定的OpenSearch API操作---例如散装或搜索---该测试进行时进行了。输出摘要中的每个任务都包含以下信息：
 
-* **Throughput:** The number of successful OpenSearch operations per second. 
-* **Latency:** The amount of time, including wait time, taken for the request and the response to be sent and received by Benchmark.
-* **Service Time:** The amount of time, excluding wait time, taken for the request and the response to be sent and received by Benchmark.
-* **Error Rate:** The percentage of operations run during the task that were not successful or returned a 200 error code.
+***吞吐量：** 每秒成功的OpenSearch操作数量。
+***潜伏：** 为请求所花费的时间（包括等待时间）以及基准发送和接收的响应。
+***服务时间：** 不包括等待时间，为请求和基准发送和接收的响应的时间。
+***错误率：** 在任务期间运行的百分比未成功或返回了200个错误代码。
 
 
-## Running OpenSearch Benchmark on your own cluster
+## 在自己的群集上运行OpenSearch基准测试
 
-Now that you're familiar with running OpenSearch Benchmark on a cluster, you can run OpenSearch Benchmark on your own cluster, using the same `execute-test` command, replacing the following settings.
+现在您已经熟悉在集群上运行OpenSearch Benchmark，您可以使用相同`execute-test` 命令，更换以下设置。
  
-  * Replace `https://localhost:9200` with your target cluster endpoint.  This could be a URI like `https://search.mydomain.com` or a `HOST:PORT` specification.
-  * If the cluster is configured with basic authentication, replace the username and password in the command line with the appropriate credentials.
-  * Remove the `verify_certs:false` directive if you are not specifying `localhost` as your target cluster.  This directive is needed only for clusters where SSL certificates are not set up.
-  * If you are using a `HOST:PORT`specification and plan to use SSL/TLS, either specify `https://`, or add the `use_ssl:true` directive to the `--client-options` string option.
-  * Remove the `--test-mode` flag to run the full workload, rather than an abbreviated test.
+  * 代替`https://localhost:9200` 使用目标群集端点。这可能是一个URI`https://search.mydomain.com` 或a`HOST:PORT` 规格。
+  *如果将群集配置为基本身份验证，请用适当的凭据替换命令行中的用户名和密码。
+  * 去除`verify_certs:false` 指令如果您没有指定`localhost` 作为目标群集。仅对于未设置SSL证书的集群才需要此指令。
+  *如果您正在使用`HOST:PORT`规格和计划使用SSL/TLS，要么指定`https://`，或添加`use_ssl:true` 指令`--client-options` 字符串选项。
+  * 去除`--test-mode` 标志以运行完整的工作量，而不是缩写测试。
 
-You can copy the following command template to use in your own terminal:
+您可以复制以下命令模板以在您自己的终端中使用：
 
 ```bash
 opensearch-benchmark execute-test --pipeline=benchmark-only --workload=percolator --target-host=<OpenSearch Cluster Endpoint> --client-options=basic_auth_user:admin,basic_auth_password:admin
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Next steps
+## 下一步
 
-See the following resources to learn more about OpenSearch Benchmark:
+请参阅以下资源以了解有关OpenSearch基准测试的更多信息：
 
-- [User guide]({{site.url}}{{site.baseurl}}/benchmark/user-guide/index/): Dive deep into how OpenSearch Benchmark can you help you track the performance of your cluster.
-- [Tutorials]({{site.url}}{{site.baseurl}}/benchmark/tutorials/index/): Use step-by-step guides for more advanced Benchmarking configurations and functionality.
+- [用户指南]({{site.url}}{{site.baseurl}}/benchmark/user-guide/index/)：深入了解如何开放搜索基准测试您可以帮助您跟踪群集的性能。
+- [教程]({{site.url}}{{site.baseurl}}/benchmark/tutorials/index/)：使用步骤-经过-步骤指南，用于更高级的基准配置和功能。
+

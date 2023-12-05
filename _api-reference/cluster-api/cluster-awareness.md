@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Cluster routing and awareness
+title: 集群路线和意识
 nav_order: 20
 parent: 群集API
 has_children: false
