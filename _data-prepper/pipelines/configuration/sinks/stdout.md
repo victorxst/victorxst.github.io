@@ -1,11 +1,12 @@
 ---
 layout: default
-title: stdout sink
-parent: Sinks
-grand_parent: Pipelines
+title: Stdout水槽
+parent: 下沉
+grand_parent: 管道
 nav_order: 45
 ---
 
-# stdout sink
+# Stdout水槽
 
-Use the `stdout` sink for console output and testing. It has no configurable options.
+使用`stdout` 接收器输出和测试。它没有可配置的选项。
+

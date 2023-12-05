@@ -1,8 +1,8 @@
 ---
 layout: default
 title: list_to_map 
-parent: Processors
-grand_parent: Pipelines
+parent: 处理器
+grand_parent: 管道
 nav_order: 58
 ---
 

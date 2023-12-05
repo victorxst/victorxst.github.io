@@ -1,64 +1,64 @@
 ---
 layout: default
-title: S3 logs
-parent: Common use cases
+title: S3日志
+parent: 常见用例
 nav_order: 20
 ---
 
-# S3 logs
+# S3日志
 
-Data Prepper allows you to load logs from [Amazon Simple Storage Service](https://aws.amazon.com/s3/) (Amazon S3), including traditional logs, JSON documents, and CSV logs.
+Data Prepper允许您从中加载日志[亚马逊简单存储服务](https://aws.amazon.com/s3/) （Amazon S3），包括传统日志，JSON文档和CSV日志。
 
 
-## Architecture
+## 建筑学
 
-Data Prepper can read objects from S3 buckets using an [Amazon Simple Queue Service (SQS)](https://aws.amazon.com/sqs/) (Amazon SQS) queue and [Amazon S3 Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/userguide/NotificationHowTo.html).
+数据Prepper可以使用一个[亚马逊简单队列服务（SQS）](https://aws.amazon.com/sqs/) （Amazon SQS）队列和[亚马逊S3事件通知](https://docs.aws.amazon.com/AmazonS3/latest/userguide/NotificationHowTo.html)。
 
-Data Prepper polls the Amazon SQS queue for S3 event notifications. When Data Prepper receives a notification that an S3 object was created, Data Prepper reads and parses that S3 object.
+Data Prepper对S3事件通知的Amazon SQS队列进行了调查。当Data Prepper收到一条通知时，就会创建S3对象时，数据预先读取和解析S3对象。
 
-The following diagram shows the overall architecture of the components involved.
+下图显示了所涉及的组件的整体体系结构。
 
 <img src="{{site.url}}{{site.baseurl}}/images/data-prepper/s3-source/s3-architecture.jpg" alt="S3 source architecture">{: .img-fluid}
 
-The flow of data is as follows.
+数据流量如下。
 
-1. A system produces logs into the S3 bucket.
-2. S3 creates an S3 event notification in the SQS queue.
-3. Data Prepper polls Amazon SQS for messages and then receives a message.
-4. Data Prepper downloads the content from the S3 object.
-5. Data Prepper sends a document to OpenSearch for the content in the S3 object.
+1. 系统将登录到S3存储桶中。
+2. S3在SQS队列中创建S3事件通知。
+3. Data Prepper对Amazon SQS进行了调查，以获取消息，然后收到消息。
+4. Data Prepper从S3对象下载内容。
+5. Data Prepper将文档发送给S3对象中内容的文档。
 
 
-## Pipeline overview
+## 管道概述
 
-Data Prepper supports reading data from S3 using the [`s3` source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/).
+数据Prepper支持使用S3读取数据[`s3` 来源]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/)。
 
-The following diagram shows a conceptual outline of a Data Prepper pipeline reading from S3.
+下图显示了S3的PEPEPPER管道读数的概念概述。
 
 <img src="{{site.url}}{{site.baseurl}}/images/data-prepper/s3-source/s3-pipeline.jpg" alt="S3 source architecture">{: .img-fluid}
 
-## Prerequisites
+## 先决条件
 
-Before Data Prepper can read log data from S3, you need the following prerequisites: 
+在数据Prepper可以读取S3的日志数据之前，您需要以下先决条件：
 
-- An S3 bucket.
-- A log producer that writes logs to S3. The exact log producer will vary depending on your specific use case, but could include writing logs to S3 or a service such as Amazon CloudWatch.
+- S3桶。
+- 将日志写入S3的日志生产商。确切的日志生产者将根据您的特定用例有所不同，但可以包括将日志写入S3或Amazon CloudWatch之类的服务。
 
 
-## Getting started
+## 入门
 
-Use the following steps to begin loading logs from S3 with Data Prepper.
+使用以下步骤开始使用Data Prepper从S3加载日志。
 
-1. Create an [SQS standard queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/step-create-queue.html) for your S3 event notifications. 
-2. Configure [bucket notifications](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ways-to-add-notification-config-to-bucket.html) for SQS. Use the `s3:ObjectCreated:*` event type.
-3. Grant [AWS IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html) permissions to Data Prepper for accessing SQS and S3.
-4. (Recommended) Create an [SQS dead-letter queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html) (DLQ).
-5. (Recommended) Configure an SQS re-drive policy to move failed messages into the DLQ.
+1. 创建一个[SQS标准队列](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/step-create-queue.html) 对于您的S3事件通知。
+2. 配置[水桶通知](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ways-to-add-notification-config-to-bucket.html) 对于SQS。使用`s3:ObjectCreated:*` 事件类型。
+3. 授予[aws iam](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html) 访问SQS和S3的数据预先权限的权限。
+4. （建议）创建一个[SQS死了-字母队列](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html) （DLQ）。
+5. （建议）配置平方英尺-驱动策略将失败消息移至DLQ。
 
-### Setting permissions for Data Prepper
+### 设置数据预先的权限
 
-To view S3 logs, Data Prepper needs access to Amazon SQS and S3.
-Use the following example to set up permissions:
+要查看S3日志，Data Prepper需要访问Amazon SQS和S3。
+使用以下示例设置权限：
 
 ```json
 {
@@ -89,28 +89,28 @@ Use the following example to set up permissions:
 }
 ```
 
-If your S3 objects or SQS queues do not use KMS, you can remove the `kms:Decrypt` permission.
+如果您的S3对象或SQS队列不使用KMS，则可以删除`kms:Decrypt` 允许。
 
-### SQS dead-letter queue
+### SQS死了-字母队列
 
-The are two options for how to handle errors resulting from processing S3 objects.
+这是如何处理处理S3对象产生的错误的两个选项。
 
-- Use an SQS dead-letter queue (DLQ) to track the failure. This is the recommended approach.
-- Delete the message from SQS. You must manually find the S3 object and correct the error.
+- 使用SQS死亡-字母队列（DLQ）跟踪故障。这是推荐的方法。
+- 从SQS删除该消息。您必须手动找到S3对象并纠正错误。
 
-The following diagram shows the system architecture when using SQS with DLQ.
+下图显示了与DLQ一起使用SQS时的系统体系结构。
 
 <img src="{{site.url}}{{site.baseurl}}/images/data-prepper/s3-source/s3-architecture-dlq.jpg" alt="S3 source architecture with dlq">{: .img-fluid}
 
-To use an SQS dead-letter queue, perform the following steps:
+使用SQS死亡-字母队列，执行以下步骤：
 
-1. Create a new SQS standard queue to act as your DLQ.
-2. Configure your SQS's redrive policy [to use your DLQ](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-dead-letter-queue.html). Consider using a low value such as 2 or 3 for the "Maximum Receives" setting.
-3. Configure the Data Prepper `s3` source to use `retain_messages` for `on_error`. This is the default behavior.
+1. 创建一个新的SQS标准队列以充当您的DLQ。
+2. 配置您的SQS的Redrive策略[使用您的DLQ](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-dead-letter-queue.html)。考虑使用低值，例如2或3"Maximum Receives" 环境。
+3. 配置数据预先`s3` 使用的来源`retain_messages` 为了`on_error`。这是默认行为。
 
-## Pipeline design
+## 管道设计
 
-Create a pipeline to read logs from S3, starting with an [`s3`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/) source plugin. Use the following example for guidance. 
+创建一个管道以从S3读取日志，从[`s3`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/) 源插件。使用以下示例进行指导。
 
 ```yaml
 s3-log-pipeline:
@@ -126,13 +126,13 @@ s3-log-pipeline:
          visibility_timeout: "2m"
 ```
 
-Configure the following options according to your use case:
+根据您的用例配置以下选项：
 
-* `queue_url`: This the SQS queue URL and is always unique to your pipeline.
-* `codec`: The codec determines how to parse the incoming data.
-* `visibility_timeout`: Configure this value to be large enough for Data Prepper to process 10 S3 objects. However, if you make this value too large, messages that fail to process will take at least as long as the specified value before Data Prepper retries.
+*`queue_url`：这是SQS队列URL，并且始终是您的管道所独有的。
+*`codec`：编解码器确定如何解析传入数据。
+*`visibility_timeout`：配置此值足够大，以便数据预先处理10个S3对象。但是，如果您使此值太大，则无法处理的消息至少在数据预先重试之前所需的时间与指定值一样长。
 
-The default values for each option work for the majority of use cases. For all available options for the S3 source, see [`s3`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/).
+大多数用例的每个选项的默认值工作。对于S3源的所有可用选项，请参阅[`s3`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/)。
 
 ```yaml
 s3-log-pipeline:
@@ -165,16 +165,17 @@ s3-log-pipeline:
          index: s3_logs
 ```
 
-## Multiple Data Prepper pipelines
+## 多个数据预备管道
 
-We recommend that you have one SQS queue per Data Prepper pipeline. In addition, you can have multiple nodes in the same cluster reading from the same SQS queue, which doesn't require additional configuration with Data Prepper.
+我们建议您每个数据Prepper管道都有一个平方英尺的队列。此外，您可以从同一SQS队列中的相同群集读取中具有多个节点，这不需要与Data Prepper进行其他配置。
 
-If you have multiple pipelines, you must create multiple SQS queues for each pipeline, even if both pipelines use the same S3 bucket.
+如果您有多个管道，则必须为每个管道创建多个SQS队列，即使两个管道都使用相同的S3存储桶。
 
-## Amazon SNS fanout pattern
+## 亚马逊SNS粉丝模式
 
-To meet the scale of logs produced by S3, some users require multiple SQS queues for their logs. You can use [Amazon Simple Notification Service](https://docs.aws.amazon.com/sns/latest/dg/welcome.html) (Amazon SNS) to route event notifications from S3 to an SQS [fanout pattern](https://docs.aws.amazon.com/sns/latest/dg/sns-common-scenarios.html). Using SNS, all S3 event notifications are sent directly to a single SNS topic, where you can subscribe to multiple SQS queues.
+为了满足S3产生的日志规模，一些用户需要多个SQS队列的日志。您可以使用[亚马逊简单通知服务](https://docs.aws.amazon.com/sns/latest/dg/welcome.html) （Amazon SNS）将事件通知从S3到SQS[粉丝模式](https://docs.aws.amazon.com/sns/latest/dg/sns-common-scenarios.html)。使用SNS，所有S3事件通知直接发送到单个SNS主题，您可以在其中订阅多个SQS队列。
 
-To make sure that Data Prepper can directly parse the event from the SNS topic, configure [raw message delivery](https://docs.aws.amazon.com/sns/latest/dg/sns-large-payload-raw-message-delivery.html) on the SNS to SQS subscription. Setting this option will not affect other SQS queues that are subscribed to that SNS topic.
+为确保数据预先可以直接从SNS主题解析事件，请配置[原始消息传递](https://docs.aws.amazon.com/sns/latest/dg/sns-large-payload-raw-message-delivery.html) 在sns to sqs订阅上。设置此选项不会影响订阅该SNS主题的其他SQS队列。
+
 
 

@@ -1,26 +1,26 @@
 ---
 layout: default
-title: file
-parent: Sinks
-grand_parent: Pipelines
+title: 文件
+parent: 下沉
+grand_parent: 管道
 nav_order: 45
 ---
 
-# file
+# 文件
 
-Use the `file` sink to create a flat file output, usually a `.log` file.
+使用`file` 下沉以创建一个平坦的文件输出，通常`.log` 文件。
 
-## Configuration options
+## 配置选项
 
-The following table describes options you can configure for the `file` sink.
+下表描述了您可以配置的选项`file` 下沉。
 
-Option | Required | Type | Description
-:--- | :--- | :--- | :---
-path | Yes | String | Path for the output file (e.g. `logs/my-transformed-log.log`).
+选项| 必需的| 类型| 描述
+：--- | ：--- | ：--- | ：---
+小路| 是的| 细绳| 输出文件的路径（例如`logs/my-transformed-log.log`）。
 
-## Usage
+## 用法
 
-The following example shows basic usage of the `file` sink:
+以下示例显示了的基本用法`file` 下沉：
 
 ```
 sample-pipeline:
@@ -28,4 +28,5 @@ sample-pipeline:
     - file:
         path: path/to/output-file
 ```
+
 

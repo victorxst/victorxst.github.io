@@ -1,19 +1,20 @@
 ---
 layout: default
-title: routes
-parent: Processors
-grand_parent: Pipelines
+title: 路线
+parent: 处理器
+grand_parent: 管道
 nav_order: 90
 ---
 
-# Routes
+# 路线
 
-Routes define conditions that can be used in sinks for conditional routing. Routes are specified at the same level as processors and sinks under the name `route` and consist of a list of key-value pairs, where the key is the name of a route and the value is a Data Prepper expression representing the routing condition.
+路由定义可用于有条件路由的水槽中的条件。路线的指定在与处理器和下沉的水平相同的水平上指定`route` 由密钥列表组成-值对，其中键是路由的名称，值是代表路由条件的数据预先表达式。
 
-<!---## Configuration
+<！---## 配置
 
-Content will be added to this section.
+内容将添加到本节中。
 
-## Metrics
+## 指标
 
-Content will be added to this section.--->
+内容将添加到本节中。---
+

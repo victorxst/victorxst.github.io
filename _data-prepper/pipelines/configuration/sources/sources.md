@@ -1,11 +1,12 @@
 ---
 layout: default
-title: Sources
-parent: Pipelines
+title: 来源
+parent: 管道
 has_children: true
 nav_order: 15
 ---
 
-# Sources
+# 来源
 
-Sources define where your data comes from within a Data Prepper pipeline.
+来源定义您的数据来自数据预先管道中的位置。
+

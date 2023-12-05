@@ -1,14 +1,15 @@
 ---
 layout: default
-title: Processors
+title: 处理器
 has_children: true
-parent: Pipelines
+parent: 管道
 nav_order: 25
 ---
 
-# Processors
+# 处理器
 
-Processors perform an action on your data, such as filtering, transforming, or enriching.
+处理器对您的数据执行操作，例如过滤，转换或丰富。
 
-Prior to Data Prepper 1.3, processors were named preppers. Starting in Data Prepper 1.3, the term *prepper* is deprecated in favor of the term *processor*. Data Prepper will continue to support the term *prepper* until 2.0, where it will be removed.
-{: .note }
+在数据PEPPPER 1.3之前，处理器被命名为Preppers。从数据prepper 1.3开始， *prepper *术语被弃用，以支持 *处理器 *一词。Data Prepper将继续支持 * Prepper *一词，直到2.0，在此将被删除。
+{： 。笔记
+

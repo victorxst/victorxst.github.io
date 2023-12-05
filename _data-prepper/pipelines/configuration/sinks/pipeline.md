@@ -1,26 +1,26 @@
 ---
 layout: default
-title: pipeline 
-parent: Sinks
-grand_parent: Pipelines
+title: 管道 
+parent: 下沉
+grand_parent: 管道
 nav_order: 55
 ---
 
-# pipeline
+# 管道
 
-Use the `pipeline` sink to write to another pipeline.
+使用`pipeline` 下沉以写入另一个管道。
 
-## Configuration options
+## 配置选项
 
-The `pipeline` sink supports the following configuration options.
+这`pipeline` 接收器支持以下配置选项。
 
-Option | Required | Type | Description
-:--- | :--- | :--- | :---
-name | Yes | String | Name of the pipeline to write to.
+选项| 必需的| 类型| 描述
+：--- | ：--- | ：--- | ：---
+姓名| 是的| 细绳| 要写的管道的名称。
 
-## Usage
+## 用法
 
-The following example configures a `pipeline` sink that writes to a pipeline named `movies`:
+以下示例配置了`pipeline` 写信给一个名字的管道的水槽`movies`：
 
 ```
 sample-pipeline:
@@ -28,3 +28,4 @@ sample-pipeline:
     - pipeline:
         name: movies
 ```
+

@@ -1,49 +1,49 @@
 ---
 layout: default
-title: Log analytics
-parent: Common use cases
+title: 日志分析
+parent: 常见用例
 nav_order: 10
 ---
 
-# Log analytics
+# 日志分析
 
-Data Prepper is an extendable, configurable, and scalable solution for log ingestion into OpenSearch and Amazon OpenSearch Service. Data Prepper supports receiving logs from [Fluent Bit](https://fluentbit.io/) through the [HTTP Source](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/http-source/README.md) and processing those logs with a [Grok Processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/grok-processor/README.md) before ingesting them into OpenSearch through the [OpenSearch sink](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/README.md).
+Data Prepper是一种可扩展，可配置和可扩展的解决方案，可将日志摄入到OpenSearch和Amazon OpenSearch服务中。数据预先支持从[流利的位](https://fluentbit.io/) 通过[HTTP源](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/http-source/README.md) 并用[Grok处理器](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/grok-processor/README.md) 在将它们摄入之前[OpenSearch水槽](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/README.md)。
 
-The following image shows all of the components used for log analytics with Fluent Bit, Data Prepper, and OpenSearch.
+以下图像显示了用于对数分析的所有组件，并显示了流利的位，数据预先搜索和opensearch。
 
-![Log analytics component]({{site.url}}{{site.baseurl}}/images/data-prepper/log-analytics/log-analytics-components.jpg)
+![日志分析组件]({{site.url}}{{site.baseurl}}/images/data-prepper/log-analytics/log-analytics-components.jpg)
 
-In the application environment, run Fluent Bit. Fluent Bit can be containerized through Kubernetes, Docker, or Amazon Elastic Container Service (Amazon ECS). You can also run Fluent Bit as an agent on Amazon Elastic Compute Cloud (Amazon EC2). Configure the [Fluent Bit http output plugin](https://docs.fluentbit.io/manual/pipeline/outputs/http) to export log data to Data Prepper. Then deploy Data Prepper as an intermediate component and configure it to send the enriched log data to your OpenSearch cluster. From there, use OpenSearch Dashboards to perform more intensive visualization and analysis. 
+在应用程序环境中，运行流利的位。可以通过Kubernetes，Docker或Amazon弹性容器服务（Amazon ECS）来容器。您也可以在Amazon Elastic Compute Cloud（Amazon EC2）上作为代理运行流利的位。配置[流利的位HTTP输出插件](https://docs.fluentbit.io/manual/pipeline/outputs/http) 将日志数据导出到数据PEPPPER。然后将DATA PREPPER部署为中间组件，然后将其配置为将丰富的日志数据发送到您的OpenSearch cluster。从那里，使用OpenSearch仪表板进行更深入的可视化和分析。
 
-## Log analytics pipeline 
+## 日志分析管道
 
-Log analytics pipelines in Data Prepper are extremely customizable. The following image shows a simple pipeline. 
+数据预珀中的日志分析管道非常可定制。下图显示了一个简单的管道。
 
-![Log analytics component]({{site.url}}{{site.baseurl}}/images/data-prepper/log-analytics/log-ingestion-pipeline.jpg)
+![日志分析组件]({{site.url}}{{site.baseurl}}/images/data-prepper/log-analytics/log-ingestion-pipeline.jpg)
 
-### HTTP source
+### HTTP源
 
-The [HTTP Source](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/http-source/README.md) accepts log data from Fluent Bit. This source accepts log data in a JSON array format and supports industry-standard encryption in the form of TLS/HTTPS and HTTP basic authentication.
+这[HTTP源](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/http-source/README.md) 接受来自Fluent位的日志数据。该来源以JSON阵列格式接受日志数据并支持行业-TLS/HTTPS和HTTP基本身份验证的形式的标准加密。
 
-### Processor
+### 处理器
 
-Data Prepper 1.2 and above come with a [Grok Processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/grok-processor/README.md). The Grok Processor is an invaluable tool for structuring and extracting important fields from your logs, making them more queryable.
+数据Prepper 1.2及以上带有[Grok处理器](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/grok-processor/README.md)。Grok处理器是从日志中构造和提取重要字段的宝贵工具，使其更可查询。
 
-The Grok Processor comes with a wide variety of [default patterns](https://github.com/thekrakken/java-grok/blob/master/src/main/resources/patterns/patterns) that match common log formats like Apache logs or syslogs, but it can easily accept any custom patterns that cater to your specific log format.
+Grok处理器带有各种各样的[默认模式](https://github.com/thekrakken/java-grok/blob/master/src/main/resources/patterns/patterns) 匹配通用日志格式（例如Apache Logs或Syslogs），但它可以轻松接受迎合您特定日志格式的任何自定义模式。
 
-For more information about Grok features, see the documentation.
+有关Grok功能的更多信息，请参见文档。
 
-### Sink
+### 下沉
 
-There is a generic sink that writes data to OpenSearch as the destination. The [OpenSearch sink](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/README.md) has configuration options related to an OpenSearch cluster, like endpoint, SSL/username, index name, index template, and index state management.
+有一个通用的水槽将数据写入OpenSearch作为目的地。这[OpenSearch水槽](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/README.md) 具有与OpenSearch集群相关的配置选项，例如端点，SSL/用户名，索引名称，索引模板和索引状态管理。
 
-## Pipeline configuration
+## 管道配置
 
-The following sections discuss pipeline configuration.
+以下各节讨论管道配置。
 
-### Example pipeline with SSL and basic authentication enabled
+### 带有SSL和基本身份验证的示例管道
 
-This example pipeline configuration comes with SSL and basic authentication enabled for the `http-source`:
+此示例管道配置随附SSL，并启用了基本身份验证`http-source`：
 
 ```yaml
 log-pipeline:
@@ -79,26 +79,26 @@ log-pipeline:
         index: apache_logs
 ```
 
-This pipeline configuration is an example of Apache log ingestion. Don't forget that you can easily configure the Grok Processor for your own custom logs. You will need to modify the configuration for your OpenSearch cluster.
+该管道配置是Apache日志摄入的示例。不要忘记，您可以轻松地为自己的自定义日志配置Grok处理器。您需要修改OpenSearch群集的配置。
 
-The following are the main changes you need to make:
+以下是您需要进行的主要更改：
 
-* `hosts` – Set to your hosts.
-* `index` – Change this to the OpenSearch index to which you want to send logs.
-* `username` – Provide your OpenSearch username.
-* `password` – Provide your OpenSearch password.
-* `aws_sigv4` – If you use Amazon OpenSearch Service with AWS signing, set this to true. It will sign requests with the default AWS credentials provider.
-* `aws_region` – If you use Amazon OpenSearch Service with AWS signing, set this value to the AWS Region in which your cluster is hosted.
+*`hosts`  - 设置为您的主机。
+*`index`  - 将其更改为要发送日志的OpenSearch索引。
+*`username`  - 提供您的OpenSearch用户名。
+*`password`  - 提供您的OpenSearch密码。
+*`aws_sigv4`  - 如果您使用AMAZON OPENSEARCH服务与AWS签名，请将其设置为true。它将与默认AWS凭据提供商签署请求。
+*`aws_region`  - 如果您使用AMAZON OPENSEARCH服务与AWS签名，请将此值设置为托管群集的AWS区域。
 
-## Fluent Bit
+## 流利的位
 
-You will need to run Fluent Bit in your service environment. See [Getting Started with Fluent Bit](https://docs.fluentbit.io/manual/installation/getting-started-with-fluent-bit) for installation instructions. Ensure that you can configure the [Fluent Bit http output plugin](https://docs.fluentbit.io/manual/pipeline/outputs/http) to your Data Prepper HTTP source. The following is an example `fluent-bit.conf` that tails a log file named `test.log` and forwards it to a locally running Data Prepper HTTP source, which runs by default on port 2021. 
+您需要在服务环境中流利。看[稍有刻度开始](https://docs.fluentbit.io/manual/installation/getting-started-with-fluent-bit) 用于安装说明。确保您可以配置[流利的位HTTP输出插件](https://docs.fluentbit.io/manual/pipeline/outputs/http) 您的数据PEPPER HTTP源。以下是一个例子`fluent-bit.conf` 尾随一个名为的日志文件`test.log` 并将其转发到本地运行的数据Prepper HTTP源，该源默认在端口2021上运行。
 
-Note that you should adjust the file `path`, output `Host`, and `Port` according to how and where you have Fluent Bit and Data Prepper running.
+请注意，您应该调整文件`path`， 输出`Host`， 和`Port` 根据您的方式和位置，您的位和数据预先运行。
 
-### Example: Fluent Bit file without SSL and basic authentication enabled
+### 示例：不带SSL的Fluent Bit文件，并启用了基本身份验证
 
-The following is an example `fluent-bit.conf` file without SSL and basic authentication enabled on the HTTP source:
+以下是一个例子`fluent-bit.conf` 在HTTP源上启用了没有SSL的文件，并启用了基本身份验证：
 
 ```
 [INPUT]
@@ -116,11 +116,11 @@ The following is an example `fluent-bit.conf` file without SSL and basic authent
   Format json
 ```
 
-If your HTTP source has SSL and basic authentication enabled, you will need to add the details of `http_User`, `http_Passwd`, `tls.crt_file`, and `tls.key_file` to the `fluent-bit.conf` file, as shown in the following example.
+如果您的HTTP源具有SSL和基本身份验证，则需要添加`http_User`，，，，`http_Passwd`，，，，`tls.crt_file`， 和`tls.key_file` 到`fluent-bit.conf` 文件，如下示例所示。
 
-### Example: Fluent Bit file with SSL and basic authentication enabled
+### 示例：使用SSL和基本身份验证的流利位文件
 
-The following is an example `fluent-bit.conf` file with SSL and basic authentication enabled on the HTTP source:
+以下是一个例子`fluent-bit.conf` 在HTTP源上启用了SSL和基本身份验证的文件：
 
 ```
 [INPUT]
@@ -143,10 +143,11 @@ The following is an example `fluent-bit.conf` file with SSL and basic authentica
   Format json
 ```
 
-# Next steps
+# 下一步
 
-See the [Data Prepper Log Ingestion Demo Guide](https://github.com/opensearch-project/data-prepper/blob/main/examples/log-ingestion/README.md) for a specific example of Apache log ingestion from `FluentBit -> Data Prepper -> OpenSearch` running through Docker.
+看到[数据预先日志摄入演示指南](https://github.com/opensearch-project/data-prepper/blob/main/examples/log-ingestion/README.md) 对于Apache日志摄入的特定示例`FluentBit -> Data Prepper -> OpenSearch` 穿过Docker。
 
-In the future, Data Prepper will offer additional sources and processors that will make more complex log analytics pipelines available. Check out the [Data Prepper Project Roadmap](https://github.com/opensearch-project/data-prepper/projects/1) to see what is coming.  
+将来，数据Prepper将提供其他来源和处理器，以使更复杂的日志分析管道可用。查看[数据预先项目路线图](https://github.com/opensearch-project/data-prepper/projects/1) 看看即将发生的事情。
 
-If there is a specific source, processor, or sink that you would like to include in your log analytics workflow and is not currently on the roadmap, please bring it to our attention by creating a GitHub issue. Additionally, if you are interested in contributing to Data Prepper, see our [Contributing Guidelines](https://github.com/opensearch-project/data-prepper/blob/main/CONTRIBUTING.md) as well as our [developer guide](https://github.com/opensearch-project/data-prepper/blob/main/docs/developer_guide.md) and [plugin development guide](https://github.com/opensearch-project/data-prepper/blob/main/docs/plugin_development.md).
+如果您想在日志分析工作流中包含的特定来源，处理器或水槽，并且目前不在路线图上，请通过创建GitHub问题引起我们的注意。此外，如果您有兴趣为Data Prepper做出贡献，请参阅我们的[贡献准则](https://github.com/opensearch-project/data-prepper/blob/main/CONTRIBUTING.md) 以及我们的[开发人员指南](https://github.com/opensearch-project/data-prepper/blob/main/docs/developer_guide.md) 和[插件开发指南](https://github.com/opensearch-project/data-prepper/blob/main/docs/plugin_development.md)。
+

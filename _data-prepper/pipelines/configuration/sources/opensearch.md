@@ -1,20 +1,20 @@
 ---
 layout: default
 title: opensearch
-parent: Sources
-grand_parent: Pipelines
+parent: 来源
+grand_parent: 管道
 nav_order: 30
 ---
 
-# opensearch
+# OpenSearch
 
-The `opensearch` source plugin is used to read indexes from an OpenSearch cluster, a legacy Elasticsearch cluster, an Amazon OpenSearch Service domain, or an Amazon OpenSearch Serverless collection.
+这`opensearch` 源插件用于从OpenSearch群集，Legacy Elasticsearch集群，Amazon OpenSearch Service Service域或Amazon OpenSearch无服务器集合中读取索引。
 
-The plugin supports OpenSearch 2.x and Elasticsearch 7.x.
+该插件支持OpenSearch 2.X和Elasticsearch 7.x。
 
-## Usage
+## 用法
 
-To use the `opensearch` source with the minimum required settings, add the following configuration to your `pipeline.yaml` file:
+使用`opensearch` 源具有最低要求的设置，将以下配置添加到您的`pipeline.yaml` 文件：
 
 ```yaml
 opensearch-source-pipeline:
@@ -26,7 +26,7 @@ opensearch-source-pipeline:
  ...
 ```
 
-To use the `opensearch` source with all configuration settings, including `indices`, `scheduling`, `search_options`, and `connection`, add the following example to your `pipeline.yaml` file:
+使用`opensearch` 所有配置设置，包括`indices`，，，，`scheduling`，，，，`search_options`， 和`connection`，将以下示例添加到您的`pipeline.yaml` 文件：
 
 ```yaml
 opensearch-source-pipeline:
@@ -53,9 +53,9 @@ opensearch-source-pipeline:
   ...
 ```
 
-## Amazon OpenSearch Service
+## Amazon OpenSearch服务
 
-The `opensearch` source can be configured for an Amazon OpenSearch Service domain by passing an `sts_role_arn` with access to the domain, as shown in the following example:
+这`opensearch` 可以通过通过一个`sts_role_arn` 随着访问域的访问，如以下示例所示：
 
 ```yaml
 opensearch-source-pipeline:
@@ -68,9 +68,9 @@ opensearch-source-pipeline:
   ...
 ```
 
-## Using metadata
+## 使用元数据
 
-When the `opensource` source constructs Data Prepper events from documents in the cluster, the document index is stored in the EventMetadata with an `opensearch-index` key, and the document_id is stored in the `EventMetadata` with the `opensearch-document_id` as the key. This allows for conditional routing based on the index or `document_id`. The following example pipeline configuration sends events to an `opensearch` sink and uses the same index and `document_id` from the source cluster as in the destination cluster:
+当。。。的时候`opensource` 源构造数据从集群中的文档中的PEPPPER事件，文档索引存储在EventMetadata中`opensearch-index` 键，并且document_id存储在`EventMetadata` 与`opensearch-document_id` 作为钥匙。这允许根据索引或`document_id`。以下示例管道配置将事件发送到`opensearch` 下沉并使用相同的索引和`document_id` 从源群集中，如目标群集中的那样：
 
 
 ```yaml
@@ -89,95 +89,95 @@ opensearch-migration-pipeline:
         index: "${getMetadata(\"opensearch-index\"}"
 ```
 
-## Configuration options
+## 配置选项
 
 
-The following table describes options you can configure for the `opensearch` source.
+下表描述了您可以配置的选项`opensearch` 来源。
 
-Option | Required | Type    | Description
-:--- | :--- |:--------| :---
-`hosts` | Yes | List    | A list of OpenSearch hosts to write to, for example, `["https://localhost:9200", "https://remote-cluster:9200"]`.
-`username` | No | String  | The username for HTTP basic authentication. Since Data Prepper 2.5, this setting can be refreshed at runtime if [AWS secrets reference]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#reference-secrets) is applied.
-`password` | No | String  | The password for HTTP basic authentication. Since Data Prepper 2.5, this setting can be refreshed at runtime if [AWS secrets reference]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#reference-secrets) is applied.
-`disable_authentication` | No | Boolean | Whether authentication is disabled. Defaults to `false`.
-`aws` | No | Object  | The AWS configuration. For more information, see [aws](#aws).
-`acknowledgments` | No | Boolean | When `true`, enables the `opensearch` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/#end-to-end-acknowledgments) when events are received by OpenSearch sinks. Default is `false`.
-`connection` | No | Object  | The connection configuration. For more information, see [Connection](#connection).
-`indices` | No | Object | The configuration for filtering which indexes are processed. Defaults to all indexes, including system indexes. For more information, see [indexes](#indices).
-`scheduling` | No | Object | The scheduling configuration. For more information, see [Scheduling](#scheduling).
-`search_options` | No | Object | A list of search options performed by the source. For more information, see [Search options](#search_options).
+选项| 必需的| 类型| 描述
+：--- | :--- |:--------| ：---
+`hosts` | 是的| 列表| openSearch主机的列表，例如`["https://localhost:9200", "https://remote-cluster:9200"]`。
+`username` | 不| 细绳| HTTP基本身份验证的用户名。由于Data Prepper 2.5，因此可以在运行时刷新此设置[AWS秘密参考]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#reference-secrets) 被申请;被应用。
+`password` | 不| 细绳| HTTP基本身份验证的密码。由于Data Prepper 2.5，因此可以在运行时刷新此设置[AWS秘密参考]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#reference-secrets) 被申请;被应用。
+`disable_authentication` | 不| 布尔| 身份验证是否被禁用。默认为`false`。
+`aws` | 不| 目的| AWS配置。有关更多信息，请参阅[AWS](#aws)。
+`acknowledgments` | 不| 布尔| 什么时候`true`，启用`opensearch` 接收的来源[结尾-到-结束致谢]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/#end-to-end-acknowledgments) 当通过OpenSearch水槽收到事件时。默认为`false`。
+`connection` | 不| 目的| 连接配置。有关更多信息，请参阅[联系](#connection)。
+`indices` | 不| 目的| 处理哪些索引的配置。默认为所有索引，包括系统索引。有关更多信息，请参阅[索引](#indices)。
+`scheduling` | 不| 目的| 调度配置。有关更多信息，请参阅[调度](#scheduling)。
+`search_options` | 不| 目的| 来源执行的搜索选项列表。有关更多信息，请参阅[搜索选项](#search_options)。
 
-### Scheduling
+### 调度
 
-The `scheduling` configuration allows the user to configure how indexes are reprocessed in the source based on the the `index_read_count` and recount time `interval`.
+这`scheduling` 配置允许用户根据源来配置如何在源中重新处理索引`index_read_count` 和叙述时间`interval`。
 
-For example, setting `index_read_count` to `3` with an `interval` of `1h` will result in all indexes being reprocessed 3 times, 1 hour apart. By default, indexes will only be processed once.
+例如，设置`index_read_count` 到`3` 与`interval` 的`1h` 将导致所有索引被重新处理3次，相距1小时。默认情况下，索引仅处理一次。
 
-Use the following options under the `scheduling` configuration.
+使用以下选项`scheduling` 配置。
 
-Option | Required | Type            | Description
-:--- | :--- |:----------------| :---
-`index_read_count` | No | Integer | The number of times each index will be processed. Default is `1`.
-`interval` | No | String | The interval that determines the amount of time between reprocessing. Supports ISO 8601 notation strings, such as "PT20.345S" or "PT15M", as well as simple notation strings for seconds ("60s") and milliseconds ("1500ms"). Defaults to `8h`.
-`start_time` | No | String | The time when processing should begin. The source will not start processing until this time. The string must be in ISO 8601 format, such as `2007-12-03T10:15:30.00Z`. The default option starts processing immediately.
-
-
-### indices
-
-The following options help the `opensearch` source determine which indexes are processed from the source cluster using regex patterns. An index will only be processed if it matches one of the `index_name_regex` patterns under the `include` setting and does not match any of the
-patterns under the `exclude` setting.
-
-Option | Required | Type  | Description
-:--- | :--- |:-----------------| :---
-`include` | No | Array of objects | A list of index configuration patterns that specifies which indexes will be processed.
-`exclude` | No | Array of Objects | A list of index configuration patterns that specifies which indexes will not be processed. For example, you can specify an `index_name_regex` pattern of `\..*` to exclude system indexes.
+选项| 必需的| 类型| 描述
+：--- | :--- |:----------------| ：---
+`index_read_count` | 不| 整数| 每个索引将处理的次数。默认为`1`。
+`interval` | 不| 细绳| 确定重新处理之间时间的时间间隔。支持ISO 8601符号字符串，例如"PT20.345S" 或者"PT15M"，以及几秒钟的简单符号字符串（"60s"）和毫秒（"1500ms"）。默认为`8h`。
+`start_time` | 不| 细绳| 应开始处理的时间。源直到这段时间才开始处理。字符串必须采用ISO 8601格式，例如`2007-12-03T10:15:30.00Z`。默认选项立即开始处理。
 
 
-Use the following setting under the `include` and `exclude` options to indicate the regex pattern for the index.
+### 指数
 
-Option | Required | Type    | Description
-:--- |:----|:-----------------| :---
-`index_name_regex` | Yes | Regex string | The regex pattern to match indexes against.
+以下选项有助于`opensearch` 源确定使用REGEX模式从源群集处理哪些索引。仅当索引匹配其中一个时，才会处理索引`index_name_regex` 下面的模式`include` 设置，不匹配任何
+下面的模式`exclude` 环境。
+
+选项| 必需的| 类型| 描述
+：--- | :--- |:-----------------| ：---
+`include` | 不| 对象数组| 指定将处理索引的索引配置模式的列表。
+`exclude` | 不| 对象数组| 指定索引的索引配置模式的列表将不处理索引。例如，您可以指定`index_name_regex` 模式`\..*` 排除系统索引。
+
+
+使用以下设置`include` 和`exclude` 指示索引的正则方式的选项。
+
+选项| 必需的| 类型| 描述
+:--- |:----|：-----------------| ：---
+`index_name_regex` | 是的| REGEX字符串| 将索引与索引相匹配的正则模式。
 
 ### search_options
 
-Use the following settings under the `search_options` configuration.
+使用以下设置`search_options` 配置。
 
-Option | Required | Type    | Description
-:--- |:---------|:--------| :---
-`batch_size` | No       | Integer | The number of documents to read while paginating from OpenSearch. Default is `1000`.
-`search_context_type` | No | Enum | An override for the type of search/pagination to use on indexes. Can be [point_in_time]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#point-in-time-with-search_after)), [scroll]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#scroll-search), or `none`. The `none` option will use the [search_after]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#the-search_after-parameter) parameter. For more information, see [Default Search Behavior](#default-search-behavior).
+选项| 必需的| 类型| 描述
+:--- |:---------|：--------| ：---
+`batch_size` | 不| 整数| 从OpenSearch进行拨号时要读取的文档数量。默认为`1000`。
+`search_context_type` | 不| 枚举| 用于在索引上使用的搜索/分页类型的替代。可[时间点]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#point-in-time-with-search_after)），[滚动]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#scroll-search)， 或者`none`。这`none` 选项将使用[search_after]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#the-search_after-parameter) 范围。有关更多信息，请参阅[默认搜索行为](#default-search-behavior)。
 
-### Default search behavior
+### 默认搜索行为
 
-By default, the `opensearch` source will look up the cluster version and distribution to determine
-which `search_context_type` to use. For versions and distributions that support [Point in Time](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#point-in-time-with-search_after), `point_in_time` will be used.
-If `point_in_time` is not supported by the cluster, then [scroll](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#scroll-search) will be used. For Amazon OpenSearch Serverless collections, [search_after](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#the-search_after-parameter) will be used because neither `point_in_time` nor `scroll` are supported by collections.
+默认情况下，`opensearch` 来源将查找群集版本和分发以确定
+哪个`search_context_type` 使用。用于支持的版本和发行版[时间点](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#point-in-time-with-search_after)，，，，`point_in_time` 将会被使用。
+如果`point_in_time` 不受集群的支持，然后[滚动](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#scroll-search) 将会被使用。对于Amazon OpenSearch无服务器集合，[search_after](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#the-search_after-parameter) 将使用，因为都不`point_in_time` 也不`scroll` 由收藏支持。
 
-### Connection
+### 联系
 
-Use the following settings under the `connection` configuration.
+使用以下设置`connection` 配置。
 
-Option | Required | Type    | Description
-:--- | :--- |:--------| :---
-`cert` | No | String  | The path to the security certificate, for example, `"config/root-ca.pem"`, when the cluster uses the OpenSearch Security plugin.
-`insecure` | No | Boolean | Whether or not to verify SSL certificates. If set to `true`, the certificate authority (CA) certificate verification is disabled and insecure HTTP requests are sent. Default is `false`.
+选项| 必需的| 类型| 描述
+：--- | :--- |:--------| ：---
+`cert` | 不| 细绳| 例如，安全证书的路径`"config/root-ca.pem"`，当群集使用OpenSearch安全插件时。
+`insecure` | 不| 布尔| 是否要验证SSL证书。如果设置为`true`，证书机构（CA）证书验证被禁用，并发送了不安全的HTTP请求。默认为`false`。
 
 
 ### AWS
 
-Use the following options when setting up authentication for `aws` services.
+设置身份验证时，请使用以下选项`aws` 服务。
 
-Option | Required | Type    | Description
-:--- | :--- |:--------| :---
-`region` | No | String  | The AWS Region to use for credentials. Defaults to [standard SDK behavior to determine the Region](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/region-selection.html).
-`sts_role_arn` | No | String  | The AWS Security Token Service (AWS STS) role to assume for requests to Amazon OpenSearch Service and Amazon OpenSearch Serverless. Default is `null`, which will use the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
-`serverless` | No | Boolean | Should be set to `true` when processing from an Amazon OpenSearch Serverless collection. Defaults to `false`.
+选项| 必需的| 类型| 描述
+：--- | :--- |:--------| ：---
+`region` | 不| 细绳| 用于凭证的AWS区域。默认为[标准SDK行为以确定该区域](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/region-selection.html)。
+`sts_role_arn` | 不| 细绳| AWS安全令牌服务（AWS STS）角色要为Amazon OpenSearch Service和Amazon OpenSearch无服务器的请求担任。默认为`null`，将使用[凭证的标准SDK行为](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html)。
+`serverless` | 不| 布尔| 应该设置为`true` 从Amazon OpenSearch无服务器集合进行处理时。默认为`false`。
 
 
-## OpenSearch cluster security
+## OpenSearch集群安全性
 
-In order to pull data from an OpenSearch cluster using the `opensearch` source plugin, you must specify your username and password within the pipeline configuration. The following example `pipeline.yaml` file demonstrates how to specify the default admin security credentials:
+以使用`opensearch` 源插件，您必须在管道配置中指定用户名和密码。以下示例`pipeline.yaml` 文件演示了如何指定默认管理安全凭据：
 
 ```yaml
 source:
@@ -187,11 +187,11 @@ source:
   ...
 ```
 
-### Amazon OpenSearch Service domain security
+### Amazon OpenSearch服务域安全性
 
-The `opensearch` source plugin can pull data from an [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/what-is.html) domain, which uses AWS Identity and Access Management (IAM) for security. The plugin uses the default Amazon OpenSearch Service credential chain. Run `aws configure` using the [AWS Command Line Interface (AWS CLI)](https://aws.amazon.com/cli/) to set your credentials.
+这`opensearch` 源插件可以从[Amazon OpenSearch服务](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/what-is.html) 域，使用AWS身份和访问管理（IAM）进行安全性。该插件使用默认的Amazon OpenSearch服务凭证链。跑步`aws configure` 使用[AWS命令线接口（AWS CLI）](https://aws.amazon.com/cli/) 设置您的凭据。
 
-Make sure the credentials that you configure have the required IAM permissions. The following domain access policy shows the minimum required permissions:
+确保您配置的凭据具有所需的IAM权限。以下域访问策略显示了所需的最低权限：
 
 ```json
 {
@@ -237,19 +237,19 @@ Make sure the credentials that you configure have the required IAM permissions. 
 }
 ```
 
-For instructions on how to configure the domain access policy, see [Resource-based policies
-](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ac.html#ac-types-resource) in the Amazon OpenSearch Service documentation.
+有关如何配置域访问策略的说明，请参见[资源-基于政策
+]（https://docs.aws.amazon.com/opensearch-服务/最新/developerguide/ac.html#交流-类型-Amazon OpenSearch服务文档中的资源）。
 
-### OpenSearch Serverless collection security
+### OpenSearch无服务器集合安全
 
-The `opensearch` source plugin can receive data from an [Amazon OpenSearch Serverless](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless.html) collection.
+这`opensearch` 源插件可以从一个[Amazon OpenSearch无服务器](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless.html) 收藏。
 
-You cannot read from a collection that uses virtual private cloud (VPC) access. The collection must be accessible from public networks.
-{: .warning}
+您无法从使用虚拟私有云（VPC）访问的集合中读取。必须从公共网络访问该集合。
+{： 。警告}
 
-#### Creating a pipeline role
+#### 创建管道角色
 
-To use OpenSearch Serverless collection security, create an IAM role that the pipeline will assume in order to read from the collection. The role must have the following minimum permissions:
+要使用OpenSearch无服务器集合安全性，请创建管道将假定的IAM角色，以便从集合中阅读。该角色必须具有以下最低权限：
 
 ```json
 {
@@ -266,44 +266,44 @@ To use OpenSearch Serverless collection security, create an IAM role that the pi
 }
 ```
 
-#### Creating a collection
+#### 创建一个集合
 
-Next, create a collection with the following settings:
+接下来，创建一个具有以下设置的集合：
 
-- Public [network access](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-network.html) to both the OpenSearch endpoint and OpenSearch Dashboards.
-- The following [data access policy](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html), which grants the required permissions to the pipeline role, as shown in the following configuration:
+- 民众[网络访问](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-network.html) 到OpenSearch Endpoint和OpenSearch仪表板。
+- 下列[数据访问策略](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html)，它可以将所需的权限授予管道角色，如以下配置所示：
 
-  ```json
+  ```JSON
   [
    {
-      "Rules":[
+      "Rules"：[[
          {
-            "Resource":[
+            "Resource"：[[
                "index/collection-name/*"
-            ],
-            "Permission":[
-               "aoss:ReadDocument",
+            ]，，
+            "Permission"：[[
+               "aoss:ReadDocument"，，，，
                "aoss:DescribeIndex"
-            ],
-            "ResourceType":"index"
+            ]，，
+            "ResourceType"："index"
          }
-      ],
-      "Principal":[
+      ]，，
+      "Principal"：[[
          "arn:aws:iam::<AccountId>:role/PipelineRole"
-      ],
-      "Description":"Pipeline role access"
+      ]，，
+      "Description"："Pipeline role access"
    }
-  ]
+  这是给出的
   ```
 
-Make sure to replace the Amazon Resource Name (ARN) in the `Principal` element with the ARN of the pipeline role that you created in the preceding step.
-{: .tip}
+Make sure to replace the Amazon Resource Name (ARN) in the `主要的` 元素具有您在上一步中创建的管道角色的ARN。
+{： 。提示}
 
-For instructions on how to create collections, see [Creating collections](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-create) in the Amazon OpenSearch Service documentation.
+有关如何创建收藏的说明，请参阅[创建收藏](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-create) 在Amazon OpenSearch服务文档中。
 
-#### Creating a pipeline
+#### 创建管道
 
-Within your `pipeline.yaml` file, specify the OpenSearch Serverless collection endpoint as the `hosts` option. In addition, you must set the `serverless` option to `true`. Specify the pipeline role in the `sts_role_arn` option, as shown in the following example:
+在你内`pipeline.yaml` 文件，指定OpenSearch serverless Collection端点为`hosts` 选项。此外，您必须设置`serverless` 选项`true`。指定管道角色`sts_role_arn` 选项，如下所示：
 
 ```yaml
 opensearch-source-pipeline:
@@ -321,3 +321,4 @@ opensearch-source-pipeline:
   sink:
     - stdout:
 ```
+

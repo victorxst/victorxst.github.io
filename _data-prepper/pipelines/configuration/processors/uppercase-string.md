@@ -1,23 +1,24 @@
 ---
 layout: default
 title: uppercase_string
-parent: Processors
-grand_parent: Pipelines
+parent: 处理器
+grand_parent: 管道
 nav_order: 125
 ---
 
 # uppercase_string
 
-The `uppercase_string` processor converts an entire string to uppercase and is a [mutate string](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) processor. The following table describes the option you can use to configure the `uppercase_string` processor.
+这`uppercase_string` 处理器将整个字符串转换为大写，是一个[突变字符串](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) 处理器。下表描述了您可以使用的选项来配置`uppercase_string` 处理器。
 
-Option | Required | Type | Description
-:--- | :--- | :--- | :---
-with_keys | Yes | List | A list of keys to convert to uppercase.
+选项| 必需的| 类型| 描述
+：--- | ：--- | ：--- | ：---
+使用_keys| 是的| 列表| 转换为大写的密钥列表。
 
-<!---## Configuration
+<！---## 配置
 
-Content will be added to this section.
+内容将添加到本节中。
 
-## Metrics
+## 指标
 
-Content will be added to this section.--->
+内容将添加到本节中。---
+

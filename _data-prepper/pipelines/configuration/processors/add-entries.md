@@ -1,29 +1,29 @@
 ---
 layout: default
 title: add_entries
-parent: Processors
-grand_parent: Pipelines
+parent: 处理器
+grand_parent: 管道
 nav_order: 40
 ---
 
 # add_entries
 
-The `add_entries` processor adds entries to an event.
+这`add_entries` 处理器将条目添加到事件中。
 
-### Configuration
+### 配置
 
-You can configure the `add_entries` processor with the following options.
+您可以配置`add_entries` 带有以下选项的处理器。
 
-| Option | Required | Description |
-| :--- | :--- | :--- |
-| `entries` | Yes | A list of entries to add to an event. |
-| `key` | Yes | The key of the new entry to be added. Some examples of keys include `my_key`, `myKey`, and `object/sub_Key`. |
-| `value` | Yes | The value of the new entry to be added. You can use the following data types: strings, Booleans, numbers, null, nested objects, and arrays. |
-| `overwrite_if_key_exists` | No | When set to `true`, the existing value is overwritten if `key` already exists in the event. The default value is `false`. |
+| 选项| 必需的| 描述|
+| ：--- | ：--- | ：--- |
+| `entries` | 是的| 添加到事件的条目列表。|
+| `key` | 是的| 要添加的新条目的关键。钥匙的一些示例包括`my_key`，，，，`myKey`， 和`object/sub_Key`。|
+| `value` | 是的| 要添加的新条目的价值。您可以使用以下数据类型：字符串，布尔值，数字，空，嵌套对象和数组。|
+| `overwrite_if_key_exists` | 不| 设置为`true`，如果现有值被覆盖`key` 在这种情况下已经存在。默认值是`false`。|
 
-### Usage
+### 用法
 
-To get started, create the following `pipeline.yaml` file:
+首先，创建以下内容`pipeline.yaml` 文件：
 
 ```yaml
 pipeline:
@@ -38,20 +38,21 @@ pipeline:
           overwrite_if_key_exists: true
   sink:
 ```
-{% include copy.html %}
+{％include copy.html％}
 
 
-For example, when your source contains the following event record:
+例如，当您的源包含以下事件记录时：
 
 ```json
 {"message": "hello"}
 ```
 
-And then you run the `add_entries` processor using the example pipeline, it adds a new entry, `{"newMessage": 3}`, to the existing event, `{"message": "hello"}`, so that the new event contains two entries in the final output:
+然后您运行`add_entries` 使用示例管道的处理器，它添加了一个新条目，`{"newMessage": 3}`，到现有事件，`{"message": "hello"}`，使得新事件在最终输出中包含两个条目：
 
 ```json
 {"message": "hello", "newMessage": 3}
 ```
 
-> If `newMessage` already exists, its existing value is overwritten with a value of `3`.
+> 如果`newMessage` 已经存在，其现有价值被覆盖`3`。
+
 

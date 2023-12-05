@@ -1,18 +1,18 @@
 ---
 layout: default
-title: dissect
-parent: Processors
-grand_parent: Pipelines
+title: 解剖
+parent: 处理器
+grand_parent: 管道
 nav_order: 52
 ---
 
-# dissect
+# 解剖
 
-The `dissect` processor extracts values from an event and maps them to individual fields based on user-defined `dissect` patterns. The processor is well suited for field extraction from log messages with a known structure. 
+这`dissect` 处理器从事件中提取值，并根据用户将其映射到单个字段-定义`dissect` 模式。该处理器非常适合从具有已知结构的日志消息中提取现场提取。
 
-## Basic usage
+## 基本用法
 
-To use the `dissect` processor, create the following `pipeline.yaml` file:
+使用`dissect` 处理器，创建以下`pipeline.yaml` 文件：
 
 ```yaml
 dissect-pipeline:
@@ -29,15 +29,15 @@ dissect-pipeline:
     - stdout:
 ```
 
-Then create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with the path of a file containing the following JSON data:
+然后创建以下文件名称`logs_json.log` 并更换`path` 在您的文件源中`pipeline.yaml` 文件包含包含以下JSON数据的文件路径：
 
 ```
 {"log": "07-25-2023 10:00:00 ERROR: error message"}
 ```
 
-The `dissect` processor will retrieve the fields (`Date`, `Time`, `Log_Type`, and `Message`) from the `log` message, based on the pattern `%{Date} %{Time} %{Type}: %{Message}` configured in the pipeline.
+这`dissect` 处理器将检索字段（`Date`，，，，`Time`，，，，`Log_Type`， 和`Message`） 来自`log` 消息，基于模式`%{Date} %{Time} %{Type}: %{Message}` 在管道中配置。
 
-After running the pipeline, you should receive the following standard output:
+运行管道后，您应该收到以下标准输出：
 
 ```
 {
@@ -49,48 +49,49 @@ After running the pipeline, you should receive the following standard output:
 }
 ```
 
-## Configuration
+## 配置
 
-You can configure the `dissect` processor with the following options.
+您可以配置`dissect` 带有以下选项的处理器。
 
-| Option | Required | Type | Description |
-| :--- | :--- | :--- | :--- |
-| `map` | Yes | Map | Defines the `dissect` patterns for specific keys. For details on how to define fields in the `dissect` pattern, see [Field notations](#field-notations). |
-| `target_types` | No | Map | Specifies the data types for extract fields. Valid options are `integer`, `double`, `string`, and `boolean`. By default, all fields are of the `string` type. |
-| `dissect_when` | No | String | Specifies a condition for performing the `dissect` operation using a [Data Prepper expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/). If specified, the `dissect` operation will only run when the expression evaluates to true. |
+| 选项| 必需的| 类型| 描述|
+| ：--- | ：--- | ：--- | ：--- |
+| `map` | 是的| 地图| 定义`dissect` 特定键的模式。有关如何在`dissect` 模式，请参阅[字段符号](#field-notations)。|
+| `target_types` | 不| 地图| 指定提取字段的数据类型。有效的选项是`integer`，，，，`double`，，，，`string`， 和`boolean`。默认情况下，所有字段均为`string` 类型。|
+| `dissect_when` | 不| 细绳| 指定执行的条件`dissect` 使用a的操作[数据预先表达]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/)。如果指定，`dissect` 仅当表达式评估为true时，操作才会运行。|
 
-### Field notations
+### 字段符号
 
-You can define `dissect` patterns with the following field types.
+您可以定义`dissect` 具有以下字段类型的模式。
 
-#### Normal field
+#### 普通场
 
-A field without a suffix or prefix. The field will be directly added to the output event. The format is `%{field_name}`.
+没有后缀或前缀的字段。该字段将直接添加到输出事件中。格式为`%{field_name}`。
 
-#### Skip field
+#### 跳过场
 
-A field that will not be included in the event. The format is `%{}` or `%{?field_name}`.
+活动将不包含的字段。格式为`%{}` 或者`%{?field_name}`。
 
-#### Append field
+#### 附加字段
 
-A field that will be combined with other fields. To append multiple values and include the final value in the field, use `+` before the field name in the `dissect` pattern. The format is `%{+field_name}`. 
+将与其他字段结合的字段。要附加多个值并在字段中包含最终值，请使用`+` 在字段名称之前`dissect` 图案。格式为`%{+field_name}`。
 
-For example, with the pattern `%{+field_name}, %{+field_name}`, log message `"foo, bar"` will parse into `{"field_name": "foobar"}`.
+例如，使用模式`%{+field_name}, %{+field_name}`，日志消息`"foo, bar"` 会解析`{"field_name": "foobar"}`。
 
-You can also define the order of the concatenation with the help of the suffix `/<integer>`. 
+您也可以在后缀的帮助下定义串联的顺序`/<integer>`。
 
-For example, with a pattern `"%{+field_name/2}, %{+field_name/1}"`, log message `"foo, bar"` will parse into `{"field_name": "barfoo"}`.
+例如，具有模式`"%{+field_name/2}, %{+field_name/1}"`，日志消息`"foo, bar"` 会解析`{"field_name": "barfoo"}`。
 
-If the order is not mentioned, the append operation will occur in the order of the fields specified in the `dissect` pattern. 
+如果未提及订单，则附加操作将按照在`dissect` 图案。
 
-#### Indirect field
+#### 间接字段
 
-A field that uses the value from another field as its field name. When defining a pattern, prefix the field with a `&` to assign the value found in the field as the key in the key-value pair.
+从另一个字段使用该值作为字段名称的字段。定义模式时，将字段前缀为`&` 为在字段中找到的值作为密钥中的键-价值对。
 
-For example, with a pattern `"%{?field_name}, %{&field_name}"`, the log message `"foo, bar"` will parse into `{“foo”: “bar”}`. In the log message, `foo` is captured from the skip field `%{?field_name}`. `foo` then serves as the key to the value captured from the field `%{&field_name}`.
+例如，具有模式`"%{?field_name}, %{&field_name}"`，日志消息`"foo, bar"` 会解析`{“foo”: “bar”}`。在日志消息中，`foo` 是从跳过场捕获的`%{?field_name}`。`foo` 然后用作从字段捕获的值的钥匙`%{&field_name}`。
 
-#### Padded field
+#### 填充字段
 
-A field with the paddings to the right removed. The `->` operator can be used as a suffix to indicate that white spaces after this field can be ignored.
+右侧的带有桨板的字段已移除。这`->` 操作员可以用作后缀，以表明该字段之后的白色空间可以忽略。
 
-For example, with a pattern `%{field1->} %{field2}`, log message `“firstname    lastname”` will parse into `{“field1”: “firstname”, “field2”: “lastname”}`.
+例如，具有模式`%{field1->} %{field2}`，日志消息`“firstname    lastname”` 会解析`{“field1”: “firstname”, “field2”: “lastname”}`。
+

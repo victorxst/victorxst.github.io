@@ -1,41 +1,41 @@
 ---
 layout: default
-title: aggregate
-parent: Processors
-grand_parent: Pipelines
+title: 总计的
+parent: 处理器
+grand_parent: 管道
 nav_order: 41
 ---
 
-# aggregate
+# 总计的
 
-The `aggregate` processor groups events based on the values of `identification_keys`. Then, the processor performs an action on each group, helping reduce unnecessary log volume and creating aggregated logs over time. You can use existing actions or create your own custom aggregations using Java code.
+这`aggregate` 处理器组事件基于`identification_keys`。然后，处理器对每个组执行一个操作，有助于减少不必要的日志量并随着时间的推移创建聚合日志。您可以使用现有操作或使用Java代码创建自己的自定义聚合。
 
 
-## Configuration
+## 配置
 
-The following table describes the options you can use to configure the `aggregate` processor.
+下表描述了您可以使用的选项来配置`aggregate` 处理器。
 
-Option | Required | Type | Description
-:--- | :--- | :--- | :---
-identification_keys | Yes | List | An unordered list by which to group events. Events with the same values as these keys are put into the same group. If an event does not contain one of the `identification_keys`, then the value of that key is considered to be equal to `null`. At least one identification_key is required (for example, `["sourceIp", "destinationIp", "port"]`).
-action | Yes | AggregateAction | The action to be performed on each group. One of the [available aggregate actions](#available-aggregate-actions) must be provided, or you can create custom aggregate actions. `remove_duplicates` and `put_all` are the available actions. For more information, see [Creating New Aggregate Actions](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#creating-new-aggregate-actions).
-group_duration | No | String | The amount of time that a group should exist before it is concluded automatically. Supports ISO_8601 notation strings ("PT20.345S", "PT15M", etc.) as well as simple notation for seconds (`"60s"`) and milliseconds (`"1500ms"`). Default value is `180s`.
+选项| 必需的| 类型| 描述
+：--- | ：--- | ：--- | ：---
+dissideification_keys| 是的| 列表| 一个无序的列表进行分组事件。与这些密钥相同的事件放入同一组中。如果事件不包含一个`identification_keys`，那么该密钥的价值被认为等于`null`。至少需要一个识别figation_key（例如，`["sourceIp", "destinationIp", "port"]`）。
+行动| 是的| 聚集| 每个组要执行的动作。中的一个[可用的汇总操作](#available-aggregate-actions) 必须提供，或者您可以创建自定义的汇总操作。`remove_duplicates` 和`put_all` 是可用的动作。有关更多信息，请参阅[创建新的汇总操作](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#creating-new-aggregate-actions)。
+group_duration| 不| 细绳| 组应自动结束之前应该存在的时间。支持ISO_8601符号字符串（"PT20.345S"，，，，"PT15M"等等）以及几秒钟的简单符号（`"60s"`）和毫秒（`"1500ms"`）。默认值是`180s`。
 
-## Available aggregate actions
+## 可用的汇总操作
 
-Use the following aggregate actions to determine how the `aggregate` processor processes events in each group.
+使用以下汇总操作来确定`aggregate` 处理器处理每个组中的事件。
 
-### remove_duplicates 
+### remove_duplicates
 
-The `remove_duplicates` action processes the first event for a group immediately and drops any events that duplicate the first event from the source. For example, when using `identification_keys: ["sourceIp", "destination_ip"]`:
+这`remove_duplicates` 动作处理一个小组的第一个事件，并删除从源复制第一个事件的所有事件。例如，使用`identification_keys: ["sourceIp", "destination_ip"]`：
 
-1. The `remove_duplicates` action processes `{ "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "status": 200 }`, the first event in the source.
-2. Data Prepper drops the `{ "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes": 1000 }` event because the `sourceIp` and `destinationIp` match the first event in the source.
-3. The `remove_duplicates` action processes the next event, `{ "sourceIp": "127.0.0.2", "destinationIp": "192.168.0.1", "bytes": 1000 }`. Because the `sourceIp` is different from the first event of the group, Data Prepper creates a new group based on the event.
+1. 这`remove_duplicates` 动作过程`{ "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "status": 200 }`，源中的第一个事件。
+2. 数据预先删除`{ "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes": 1000 }` 事件是因为`sourceIp` 和`destinationIp` 匹配源中的第一个事件。
+3. 这`remove_duplicates` 动作过程下一个事件，`{ "sourceIp": "127.0.0.2", "destinationIp": "192.168.0.1", "bytes": 1000 }`。因为`sourceIp` 与小组的第一个事件不同，Data Prepper根据事件创建了一个新组。
 
 ### put_all
 
-The `put_all` action combines events belonging to the same group by overwriting existing keys and adding new keys, similarly to the Java `Map.putAll`. The action drops all events that make up the combined event. For example, when using `identification_keys: ["sourceIp", "destination_ip"]`, the `put_all` action processes the following three events:
+这`put_all` 动作结合了属于同一组的事件，通过覆盖现有密钥和添加新密钥，类似于Java`Map.putAll`。动作丢弃了组成合并事件的所有事件。例如，使用`identification_keys: ["sourceIp", "destination_ip"]`， 这`put_all` 操作处理以下三个事件：
 
 ```
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "status": 200 }
@@ -43,24 +43,24 @@ The `put_all` action combines events belonging to the same group by overwriting 
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "http_verb": "GET" }
 ```
 
-Then the action combines the events into one. The pipeline then uses the following combined event:
+然后，动作将事件结合在一起。然后，管道使用以下组合事件：
 
 ```
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "status": 200, "bytes": 1000, "http_verb": "GET" }
 ```
 
-### count
+### 数数
 
-The `count` event counts events that belong to the same group and generates a new event with values of the `identification_keys` and the count, which indicates the number of new events. You can customize the processor with the following configuration options:
+这`count` 事件计算属于同一组的事件，并生成一个具有值的新事件`identification_keys` 和计数，指示新事件的数量。您可以使用以下配置选项自定义处理器：
 
 
- * `count_key`: Key used for storing the count. Default name is `aggr._count`.
-* `start_time_key`: Key used for storing the start time. Default name is `aggr._start_time`.
-* `output_format`: Format of the aggregated event.
-     * `otel_metrics`: Default output format. Outputs in OTel metrics SUM type with count as value.
-    * `raw` - Generates a JSON object with the `count_key` field as a count value and the `start_time_key` field with aggregation start time as value.
+ *`count_key`：用于存储计数的密钥。默认名称为`aggr._count`。
+*`start_time_key`：用于存储开始时间的密钥。默认名称为`aggr._start_time`。
+*`output_format`：聚合事件的格式。
+     *`otel_metrics`：默认输出格式。OTEL METICS SUM类型中的输出为值。
+    *`raw` - 用`count_key` 字段作为计数值和`start_time_key` 集合启动时间为值。
 
-For an example, when using `identification_keys: ["sourceIp", "destination_ip"]`, the `count` action counts and processes the following events:
+例如，使用`identification_keys: ["sourceIp", "destination_ip"]`， 这`count` 行动计算并处理以下事件：
 
 ```json
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "status": 200 }
@@ -68,29 +68,29 @@ For an example, when using `identification_keys: ["sourceIp", "destination_ip"]`
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "status": 400 }
 ```
 
-The processor creates the following event:
+处理器创建以下事件：
 
 ```json
 {"isMonotonic":true,"unit":"1","aggregationTemporality":"AGGREGATION_TEMPORALITY_DELTA","kind":"SUM","name":"count","description":"Number of events","startTime":"2022-12-02T19:29:51.245358486Z","time":"2022-12-02T19:30:15.247799684Z","value":3.0,"sourceIp":"127.0.0.1","destinationIp":"192.168.0.1"}
 ```
 
-### histogram
+### 直方图
 
-The `histogram` action aggregates events belonging to the same group and generates a new event with values of the `identification_keys` and histogram of the aggregated events based on a configured `key`. The histogram contains the number of events, sum, buckets, bucket counts, and optionally min and max of the values corresponding to the `key`. The action drops all events that make up the combined event.
+这`histogram` Action汇总属于同一组的事件，并生成一个具有值的新事件`identification_keys` 和基于配置的聚合事件的直方图`key`。直方图包含事件，总和，存储桶，计数，以及可选的与对应的值的最小和最大值`key`。动作丢弃了组成合并事件的所有事件。
 
-You can customize the processor with the following configuration options:
+您可以使用以下配置选项自定义处理器：
 
-* `key`: Name of the field in the events the histogram generates.
-* `generated_key_prefix`: `key_prefix` used by all the fields created in the aggregated event. Having a prefix ensures that the names of the histogram event do not conflict with the field names in the event.
-* `units`: The units for the values in the `key`.
-* `record_minmax`: A Boolean value indicating whether the histogram should include the min and max of the values in the aggregation.
-* `buckets`: A list of buckets (values of type `double`) indicating the buckets in the histogram.
-* `output_format`: Format of the aggregated event.
-    * `otel_metrics`: Default output format. Outputs in OTel metrics SUM type with count as value.
-    * `raw`: Generates a JSON object with `count_key` field with count as value and `start_time_key` field with aggregation start time as value.
+*`key`：直方图生成事件中的字段名称。
+*`generated_key_prefix`：`key_prefix` 在汇总事件中创建的所有字段使用。具有前缀可确保直方图事件的名称与事件中的字段名称不冲突。
+*`units`：在`key`。
+*`record_minmax`：一个布尔值，指示直方图是否应包括聚合中值的最小值和最大值。
+*`buckets`：一个存储桶列表（类型的值`double`）指示直方图中的存储桶。
+*`output_format`：聚合事件的格式。
+    *`otel_metrics`：默认输出格式。OTEL METICS SUM类型中的输出为值。
+    *`raw`：与`count_key` 具有数值的字段，并且`start_time_key` 集合启动时间为值。
 
 
-For example, when using `identification_keys: ["sourceIp", "destination_ip", "request"]`, `key: latency`, and `buckets: [0.0, 0.25, 0.5]`, the `histogram` action processes the following events:
+例如，使用`identification_keys: ["sourceIp", "destination_ip", "request"]`，，，，`key: latency`， 和`buckets: [0.0, 0.25, 0.5]`， 这`histogram` 操作处理以下事件：
 
 ```
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "request" : "/index.html", "latency": 0.2 }
@@ -99,7 +99,7 @@ For example, when using `identification_keys: ["sourceIp", "destination_ip", "re
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "request" : "/index.html", "latency": 0.15 }
 ```
 
-Then the processor creates the following event:
+然后处理器创建以下事件：
 
 ```json
 {"max":0.55,"kind":"HISTOGRAM","buckets":[{"min":-3.4028234663852886E38,"max":0.0,"count":0},{"min":0.0,"max":0.25,"count":2},{"min":0.25,"max":0.50,"count":1},{"min":0.50,"max":3.4028234663852886E38,"count":1}],"count":4,"bucketCountsList":[0,2,1,1],"description":"Histogram of latency in the events","sum":1.15,"unit":"seconds","aggregationTemporality":"AGGREGATION_TEMPORALITY_DELTA","min":0.15,"bucketCounts":4,"name":"histogram","startTime":"2022-12-14T06:43:40.848762215Z","explicitBoundsCount":3,"time":"2022-12-14T06:44:04.852564623Z","explicitBounds":[0.0,0.25,0.5],"request":"/index.html","sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "key": "latency"}
@@ -107,14 +107,14 @@ Then the processor creates the following event:
 
 ### rate_limiter
 
-The `rate_limiter` action controls the number of events aggregated per second. By default, `rate_limiter` blocks the `aggregate` processor from running if it receives more events than the configured number allowed. You can overwrite the number events that triggers the `rate_limited` by using the `when_exceeds` configuration option. 
+这`rate_limiter` 动作控制每秒汇总的事件数量。默认情况下，`rate_limiter` 阻止`aggregate` 如果处理器收到的事件比允许的配置数字更多，则该处理器的运行更多。您可以覆盖触发的数字事件`rate_limited` 通过使用`when_exceeds` 配置选项。
 
-You can customize the processor with the following configuration options:
+您可以使用以下配置选项自定义处理器：
 
-* `events_per_second`: The number of events allowed per second.
-* `when_exceeds`: Indicates what action the `rate_limiter` takes when the number of events received is greater than the number of events allowed per second. Default value is `block`, which blocks the processor from running after the maximum number of events allowed per second is reached until the next second. Alternatively, the `drop` option drops the excess events received in that second.
+*`events_per_second`：每秒允许的事件数量。
+*`when_exceeds`：指示什么动作`rate_limiter` 当收到的事件数量大于每秒允许的事件数量时进行。默认值是`block`，将阻止处理器在每秒允许的最大事件数量之后运行，直到下一秒钟。或者`drop` 选项会丢弃在第二个中收到的多余事件。
 
-For example, if `events_per_second` is set to `1` and `when_exceeds` is set to `drop`, the action tries to process the following events when received during the one second time interval:
+例如，如果`events_per_second` 被设定为`1` 和`when_exceeds` 被设定为`drop`，该操作试图在第二次间隔内收到以下事件处理以下事件：
 
 ```json
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "status": 200 }
@@ -122,21 +122,21 @@ For example, if `events_per_second` is set to `1` and `when_exceeds` is set to `
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "http_verb": "GET" }
 ```
 
-The following event is processed, but all other events are ignored because the `rate_limiter` blocks them:
+处理以下事件，但是所有其他事件都被忽略了，因为`rate_limiter` 阻止它们：
 
 ```json
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "status": 200 }
 ```
 
-If `when_exceeds` is set to `drop`, all three events are processed.
+如果`when_exceeds` 被设定为`drop`，所有三个事件均已处理。
 
-### percent_sampler
+### 百分比_sampler
 
-The `percent_sampler` action controls the number of events aggregated based on a percentage of events. The action drops any events not included in the percentage. 
+这`percent_sampler` 行动控制基于一定百分比的事件数量。该动作会删除百分比中未包含的任何事件。
 
-You can set the percentage of events using the `percent` configuration, which indicates the percentage of events processed during a one second interval (0%--100%).
+您可以使用`percent` 配置，该配置指示在一个秒间隔内处理的事件的百分比（0％--100％）。
 
-For example, if percent is set to `50`, the action tries to process the following events in the one-second interval:
+例如，如果将百分比设置为`50`，该动作试图处理一个事件-第二间隔：
 
 ```
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes": 2500 }
@@ -145,35 +145,36 @@ For example, if percent is set to `50`, the action tries to process the followin
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes": 3100 }
 ```
 
-The pipeline processes 50% of the events, drops the other events, and does not generate a new event:
+管道处理50％的事件，删除其他事件，并且不会产生新事件：
 
 ```
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes": 500 }
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes": 3100 }
 ```
 
-## Metrics
+## 指标
 
-The following table describes common [Abstract processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java) metrics.
+下表描述了常见[抽象处理器](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java) 指标。
 
-| Metric name | Type | Description |
+| 公制名称| 类型| 描述|
 | ------------- | ---- | -----------|
-| `recordsIn` | Counter | Metric representing the ingress of records to a pipeline component. |
-| `recordsOut` | Counter | Metric representing the egress of records from a pipeline component. |
-| `timeElapsed` | Timer | Metric representing the time elapsed during execution of a pipeline component. |
+| `recordsIn` | 柜台| 表示记录进入管道组件的公制。|
+| `recordsOut` | 柜台| 表示管道组件中记录出口的公制。|
+| `timeElapsed` | 计时器| 公制表示管道组件执行期间经过的时间。|
 
 
-The `aggregate` processor includes the following custom metrics.
+这`aggregate` 处理器包括以下自定义指标。
 
-**Counter**
+**柜台**
 
-* `actionHandleEventsOut`: The number of events that have been returned from the `handleEvent` call to the configured [action](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#action).
-* `actionHandleEventsDropped`: The number of events that have not been returned from the `handleEvent` call to the configured [action](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#action).
-* `actionHandleEventsProcessingErrors`: The number of calls made to `handleEvent` for the configured [action](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#action) that resulted in an error.
-* `actionConcludeGroupEventsOut`: The number of events that have been returned from the `concludeGroup` call to the configured [action](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#action).
-* `actionConcludeGroupEventsDropped`: The number of events that have not been returned from the `condludeGroup` call to the configured [action](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#action).
-* `actionConcludeGroupEventsProcessingErrors`: The number of calls made to `concludeGroup` for the configured [action](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#action) that resulted in an error.
+*`actionHandleEventsOut`：已从`handleEvent` 致电配置[行动](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#action)。
+*`actionHandleEventsDropped`：尚未从该事件中返回的事件数量`handleEvent` 致电配置[行动](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#action)。
+*`actionHandleEventsProcessingErrors`：拨打电话的数量`handleEvent` 对于配置[行动](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#action) 这导致了错误。
+*`actionConcludeGroupEventsOut`：已从`concludeGroup` 致电配置[行动](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#action)。
+*`actionConcludeGroupEventsDropped`：尚未从该事件中返回的事件数量`condludeGroup` 致电配置[行动](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#action)。
+*`actionConcludeGroupEventsProcessingErrors`：拨打电话的数量`concludeGroup` 对于配置[行动](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#action) 这导致了错误。
 
-**Gauge**
+**测量**
 
-* `currentAggregateGroups`: The current number of groups. This gauge decreases when a group concludes and increases when an event initiates the creation of a new group.
+*`currentAggregateGroups`：当前的组数。当一个小组结束并增加事件时，该量规会降低
+

@@ -1,24 +1,25 @@
 ---
 layout: default
 title: string_converter
-parent: Processors
-grand_parent: Pipelines
+parent: 处理器
+grand_parent: 管道
 nav_order: 105
 ---
 
-# string_converter
+# String_converter
 
 
-The `string_converter` processor converts a string to uppercase or lowercase. You can use it as an example for developing your own processor. The following table describes the option you can use to configure the `string_converter` processor.
+这`string_converter` 处理器将字符串转换为大写或小写。您可以将其用作开发自己的处理器的示例。下表描述了您可以使用的选项来配置`string_converter` 处理器。
 
-Option | Required | Type | Description
-:--- | :--- | :--- | :---
-upper_case | No | Boolean | Whether to convert to uppercase (`true`) or lowercase (`false`).
+选项| 必需的| 类型| 描述
+：--- | ：--- | ：--- | ：---
+upper_case| 不| 布尔| 是否转换为大写（`true`）或小写（`false`）。
 
-<!---## Configuration
+<！---## 配置
 
-Content will be added to this section.
+内容将添加到本节中。
 
-## Metrics
+## 指标
 
-Content will be added to this section.--->
+内容将添加到本节中。---
+

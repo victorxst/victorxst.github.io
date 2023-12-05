@@ -1,27 +1,28 @@
 ---
 layout: default
 title: split_string
-parent: Processors
-grand_parent: Pipelines
+parent: 处理器
+grand_parent: 管道
 nav_order: 100
 ---
 
 # split_string
 
 
-The `split_string` processor splits a field into an array using a delimiting character and is a [mutate string](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) processor. The following table describes the options you can use to configure the `split_string` processor.
+这`split_string` 处理器使用划界字符将字段分为数组，为[突变字符串](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) 处理器。下表描述了您可以使用的选项来配置`split_string` 处理器。
 
-Option | Required | Type | Description
-:--- | :--- | :--- | :---
-entries | Yes | List | List of entries. Valid values are `source`, `delimiter`, and `delimiter_regex`.
-source | N/A | N/A | The key to split.
-delimiter | No | N/A | The separator character responsible for the split. Cannot be defined at the same time as `delimiter_regex`. At least `delimiter` or `delimiter_regex` must be defined.
-delimiter_regex | No | N/A | The regex string responsible for the split. Cannot be defined at the same time as `delimiter`. At least `delimiter` or `delimiter_regex` must be defined.
+选项| 必需的| 类型| 描述
+：--- | ：--- | ：--- | ：---
+条目| 是的| 列表| 条目列表。有效值是`source`，，，，`delimiter`， 和`delimiter_regex`。
+来源| N/A。| N/A。| 拆分的钥匙。
+定界符| 不| N/A。| 分离器角色负责拆分。不能与`delimiter_regex`。至少`delimiter` 或者`delimiter_regex` 必须定义。
+delimiter_regex| 不| N/A。| 负责拆分的正则弦字符串。不能与`delimiter`。至少`delimiter` 或者`delimiter_regex` 必须定义。
 
-<!---## Configuration
+<！---## 配置
 
-Content will be added to this section.
+内容将添加到本节中。
 
-## Metrics
+## 指标
 
-Content will be added to this section.--->
+内容将添加到本节中。---
+

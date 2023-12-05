@@ -1,27 +1,27 @@
 ---
 layout: default
 title: convert_entry_type
-parent: Processors
-grand_parent: Pipelines
+parent: 处理器
+grand_parent: 管道
 nav_order: 47
 ---
 
 # convert_entry_type
 
-The `convert_entry_type` processor converts a value type associated with the specified key in a event to the specified type. It is a casting processor that changes the types of some fields in events. Some data must be converted to a different type, such as an integer to a double, or a string to an integer, so that it will pass the events through condition-based processors or perform conditional routing. 
+这`convert_entry_type` 处理器将与事件中指定键关联的值类型转换为指定类型。这是一个铸造处理器，它会更改事件中某些字段的类型。某些数据必须转换为其他类型，例如整数转换为double，或将字符串转换为整数，以便它可以通过条件传递事件-基于处理器或执行条件路由。
 
-## Configuration
+## 配置
 
-You can configure the `convert_entry_type` processor with the following options.
+您可以配置`convert_entry_type` 带有以下选项的处理器。
 
-| Option | Required | Description |
-| :--- | :--- | :--- |
-| `key`| Yes | Keys whose value needs to be converted to a different type. |
-| `type` | No | Target type for the key-value pair. Possible values are `integer`, `double`, `string`, and `Boolean`. Default value is `integer`. |
+| 选项| 必需的| 描述|
+| ：--- | ：--- | ：--- |
+| `key`| 是的| 值的键需要转换为其他类型。|
+| `type` | 不| 键的目标类型-价值对。可能的值是`integer`，，，，`double`，，，，`string`， 和`Boolean`。默认值是`integer`。|
 
-## Usage
+## 用法
 
-To get started, create the following `pipeline.yaml` file:
+首先，创建以下内容`pipeline.yaml` 文件：
 
 ```yaml
 type-conv-pipeline:
@@ -33,19 +33,20 @@ type-conv-pipeline:
         key: "response_status"
         type: "integer"
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with that filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper). 
+接下来，创建一个名为的日志文件`logs_json.log` 并更换`path` 在您的文件源中`pipeline.yaml` 用该文件备件提交。有关更多信息，请参阅[配置数据预备]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper)。
 
-For example, before you run the `convert_entry_type` processor, if the `logs_json.log` file contains the following event record:
+例如，在运行之前`convert_entry_type` 处理器，如果`logs_json.log` 文件包含以下事件记录：
 
 
 ```json
 {"message": "value", "response_status":"200"}
 ```
 
-The `convert_entry_type` processor converts the output received to the following output, where the type of `response_status` value changes from a string to an integer:
+这`convert_entry_type` 处理器将接收到的输出转换为以下输出，其中类型`response_status` 价值从字符串变为整数：
 
 ```json
 {"message":"value","response_status":200}
 ```
+

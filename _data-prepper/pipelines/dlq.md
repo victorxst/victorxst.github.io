@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Dead-letter queues 
-parent: Pipelines
+title: 死信队列
+parent: 管道
 nav_order: 13
 ---
 
-# Dead-letter queues
+# 死信队列
 
-Data Prepper pipelines support dead-letter queues (DLQs) for offloading failed events and making them accessible for analysis.
+数据预先管道支持死信队列（DLQ）用于卸载失败的事件并使其可访问以进行分析。
 
-As of Data Prepper 2.3, only the `s3` source supports DLQs.
+从数据Prepper 2.3开始，只有`s3` 来源支持DLQ。
 
-## Configure a DLQ writer
+## 配置DLQ作者
 
-To configure a DLQ writer for the `s3` source, add the following to your pipeline.yaml file:
+配置DLQ作者`s3` 来源，将以下内容添加到您的pipeline.yaml文件：
 
 ```yaml
   sink:
@@ -26,58 +26,59 @@ To configure a DLQ writer for the `s3` source, add the following to your pipelin
           sts_role_arn: "arn:aws:iam::123456789012:role/dlq-role"
 ```
 
-The resulting DLQ file outputs as a JSON array of DLQ objects. Any file written to the S3 DLQ contains the following name pattern:
+结果DLQ文件作为DLQ对象的JSON数组输出。写在S3 DLQ的任何文件都包含以下名称模式：
 
 ```
 dlq-v${version}-${pipelineName}-${pluginId}-${timestampIso8601}-${uniqueId}
 ```
-The following information is replaced in the name pattern:
+以下名称模式替换以下信息：
 
 
-- `version`: The Data Prepper version.
-- `pipelineName`: The pipeline name indicated in pipeline.yaml.
-- `pluginId`: The ID of the plugin associated with the DLQ event.
+- `version`：数据预先版本。
+- `pipelineName`：pipeline.yaml中指示的管道名称。
+- `pluginId`：与DLQ事件关联的插件的ID。
 
-## Configuration
+## 配置
 
-DLQ supports the following configuration options.
+DLQ支持以下配置选项。
 
-Option | Required | Type | Description
-:--- | :--- | :--- | :---
-bucket | Yes | String | The name of the bucket into which the DLQ outputs failed records.
-key_path_prefix | No | String | The `key_prefix` used in the S3 bucket. Defaults to `""`. Supports time value pattern variables, such as `/%{yyyy}/%{MM}/%{dd}`, including any variables listed in the [Java DateTimeFormatter](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html). For example, when using the `/%{yyyy}/%{MM}/%{dd}` pattern, you can set `key_prefix` as `/2023/01/24`.
-region | No | String | The AWS Region of the S3 bucket. Defaults to `us-east-1`.
-sts_role_arn | No | String | The STS role the DLQ assumes in order to write to an AWS S3 bucket. Default is `null`, which uses the standard SDK behavior for credentials. To use this option, the S3 bucket must have the `S3:PutObject` permission configured.
+选项| 必需的| 类型| 描述
+：--- | ：--- | ：--- | ：---
+桶| 是的| 细绳| DLQ输出失败记录的存储桶的名称。
+key_path_prefix| 不| 细绳| 这`key_prefix` 在S3桶中使用。默认为`""`。支持时间值模式变量，例如`/%{yyyy}/%{MM}/%{dd}`，包括在[Java DateTimeFormatter](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html)。例如，使用`/%{yyyy}/%{MM}/%{dd}` 模式，您可以设置`key_prefix` 作为`/2023/01/24`。
+地区| 不| 细绳| S3桶的AWS区域。默认为`us-east-1`。
+sts_role_arn| 不| 细绳| DLQ为了写入AWS S3存储桶而扮演的STS角色。默认为`null`，将标准SDK行为用于凭据。要使用此选项，S3存储桶必须具有`S3:PutObject` 配置了权限。
 
-When using DLQ with an OpenSearch sink, you can configure the [max_retries]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/opensearch/#configure-max_retries) option to send failed data to the DLQ when the sink reaches the maximum number of retries.
+与OpenSearch sink一起使用DLQ时，您可以配置[max_retries]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/opensearch/#configure-max_retries) 当接收器达到最大重试时，将失败数据发送到DLQ的选项。
 
 
-## Metrics
+## 指标
 
-DLQ supports the following metrics.
+DLQ支持以下指标。
 
-### Counter
+### 柜台
 
-- `dlqS3RecordsSuccess`: Measures the number of successful records sent to S3.
-- `dlqS3RecordsFailed`: Measures the number of records that failed to be sent to S3.
-- `dlqS3RequestSuccess`: Measures the number of successful S3 requests.
-- `dlqS3RequestFailed`: Measures the number of failed S3 requests.
+- `dlqS3RecordsSuccess`：测量发送给S3的成功记录的数量。
+- `dlqS3RecordsFailed`：测量未能发送到S3的记录数量。
+- `dlqS3RequestSuccess`：测量成功的S3请求的数量。
+- `dlqS3RequestFailed`：测量失败的S3请求的数量。
 
-### Distribution summary
+### 分销摘要
 
-- `dlqS3RequestSizeBytes`: Measures the distribution of the S3 request's payload size in bytes.
+- `dlqS3RequestSizeBytes`：测量S3请求的有效载荷大小在字节中的分布。
 
-### Timer
+### 计时器
 
-- `dlqS3RequestLatency`: Measures latency when sending each S3 request, including retries.
+- `dlqS3RequestLatency`：测量发送每个S3请求时的延迟，包括重试。
 
-## DLQ objects
+## DLQ对象
 
-DLQ supports the following DLQ objects:
+DLQ支持以下DLQ对象：
 
-* `pluginId`: The ID of the plugin that originated the event sent to the DLQ.
-* `pluginName`: The name of the plugin.
-* `failedData` : An object that contains the failed object and its options. This object is unique to each plugin.
-* `pipelineName`: The name of the Data Prepper pipeline in which the event failed.
-* `timestamp`: The timestamp of the failures in an `ISO8601` format.
+*`pluginId`：源自发送到DLQ的事件的插件的ID。
+*`pluginName`：插件的名称。
+*`failedData` ：一个包含失败对象及其选项的对象。此对象是每个插件所独有的。
+*`pipelineName`：事件失败的数据PEPPER管道的名称。
+*`timestamp`：失败的时间戳`ISO8601` 格式。
+
 

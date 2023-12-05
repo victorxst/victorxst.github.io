@@ -1,11 +1,12 @@
 ---
 layout: default
-title: Buffers
-parent: Pipelines
+title: 缓冲区
+parent: 管道
 has_children: true
 nav_order: 20
 ---
 
-# Buffers
+# 缓冲区
 
-Buffers store data as it passes through the pipeline. If you implement a custom buffer, it can be memory based, which provides better performance, or disk based, which is larger in size.
+缓冲区通过管道的数据存储数据。如果您实现自定义缓冲区，则可以基于内存，可提供更好的性能或基于磁盘的大小较大
+

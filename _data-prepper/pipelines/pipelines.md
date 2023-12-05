@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Pipelines
+title: 管道
 has_children: true
 nav_order: 10
 redirect_from:
@@ -8,13 +8,13 @@ redirect_from:
   - /clients/data-prepper/pipelines/
 ---
 
-# Pipelines
+# 管道
 
-The following image illustrates how a pipeline works. 
+下图说明了管道的工作原理。
 
 <img src="{{site.url}}{{site.baseurl}}/images/data-prepper-pipeline.png" alt="Data Prepper pipeline">{: .img-fluid}
 
-To use Data Prepper, you define pipelines in a configuration YAML file. Each pipeline is a combination of a source, a buffer, zero or more processors, and one or more sinks. For example:
+要使用PATA PEPPPER，您可以在配置YAML文件中定义管道。每个管道都是源，缓冲区，零或更多处理器以及一个或多个下沉的组合。例如：
 
 ```yml
 simple-sample-pipeline:
@@ -33,35 +33,35 @@ simple-sample-pipeline:
     - stdout:
 ```
 
-- Sources define where your data comes from. In this case, the source is a random UUID generator (`random`).
+- 来源定义了您的数据来自何处。在这种情况下，源是一个随机的UUID发生器（`random`）。
 
-- Buffers store data as it passes through the pipeline.
+- 缓冲区通过管道的数据存储数据。
 
-  By default, Data Prepper uses its one and only buffer, the `bounded_blocking` buffer, so you can omit this section unless you developed a custom buffer or need to tune the buffer settings.
+  默认情况下，Data Prepper使用其唯一的缓冲区，`bounded_blocking` 缓冲区，因此您可以省略此部分，除非您开发了自定义缓冲区或需要调整缓冲区设置。
 
-- Processors perform some action on your data: filter, transform, enrich, etc.
+- 处理器对您的数据执行一些操作：过滤，转换，丰富，等。
 
-  You can have multiple processors, which run sequentially from top to bottom, not in parallel. The `string_converter` processor transform the strings by making them uppercase.
+  您可以拥有多个处理器，这些处理器从上到下依次运行，而不是并行运行。这`string_converter` 处理器通过使它们的大写通过将其转换。
 
-- Sinks define where your data goes. In this case, the sink is stdout.
+- 接收器定义数据的去向。在这种情况下，水槽是Stdout。
 
-Starting from Data Prepper 2.0, you can define pipelines across multiple configuration YAML files, where each file contains the configuration for one or more pipelines. This gives you more freedom to organize and chain complex pipeline configurations. For Data Prepper to load your pipeline configuration properly, place your configuration YAML files in the `pipelines` folder under your application's home directory (e.g. `/usr/share/data-prepper`).
-{: .note }
+从数据Prepper 2.0开始，您可以在多个配置yaml文件上定义管道，其中每个文件包含一个或多个管道的配置。这为您提供了更多组织和链条复杂管道配置的自由。要正确加载管道配置，请将您的配置yaml文件放在`pipelines` 您应用程序主目录下的文件夹（例如`/usr/share/data-prepper`）。
+{： 。笔记 }
 
-## End-to-end acknowledgments
+## 结尾-到-结束致谢
 
-Data Prepper ensures the durability and reliability of data written from sources and delivered to sinks through end-to-end (E2E) acknowledgments. An E2E acknowledgment begins at the source, which monitors a batch of events set inside pipelines and waits for a positive acknowledgment when those events are successfully pushed to sinks. When a pipeline contains multiple sinks, including sinks set as additional Data Prepper pipelines, the E2E acknowledgment sends when events are received by the final sink in a pipeline chain.
+数据预先确保从源书写的数据的耐用性和可靠性-到-结束（E2E）致谢。E2E确认始于来源，该消息源是在管道内部设置的一批事件，并在成功将这些事件成功推向下沉时等待积极的确认。当管道包含多个接收器（包括设置为其他数据预先管道管道）的水槽时，在管道链中的最终水槽收到事件时，E2E确认会发送。
 
-Alternatively, the source sends a negative acknowledgment when an event cannot be delivered to a sink for any reason. 
+另外，当事件因任何原因无法传递到水槽时，源会发送负面确认。
 
-When any component of a pipeline fails and is unable to send an event, the source receives no acknowledgment. In the case of a failure, the pipeline's source times out. This gives you the ability to take any necessary actions to address the source failure, including rerunning the pipeline or logging the failure.
+当管道的任何组件失败并且无法发送事件时，源未收到确认。在失败的情况下，管道的来源会耗尽。这使您能够采取任何必要的措施来解决源失败，包括重新启动管道或记录故障。
 
 
-## Conditional routing
+## 条件路由
 
-Pipelines also support **conditional routing**  which allows you to route events to different sinks based on specific conditions. To add conditional routing to a pipeline, specify a list of named routes under the `route` component and add specific routes to sinks under the `routes` property. Any sink with the `routes` property will only accept events that match at least one of the routing conditions. 
+管道也支持**条件路由**  这使您可以根据特定条件将事件路由到不同的水槽。要将条件路由添加到管道中，请指定下方的指定路由列表`route` 组件并将特定路线添加到下沉`routes` 财产。与`routes` 属性只会接受与至少一个路由条件匹配的事件。
 
-In the following example, `application-logs` is a named route with a condition set to `/log_type == "application"`. The route uses [Data Prepper expressions](https://github.com/opensearch-project/data-prepper/tree/main/examples) to define the conditions. Data Prepper only routes events that satisfy the condition to the first OpenSearch sink. By default, Data Prepper routes all events to a sink which does not define a route. In the example, all events route into the third OpenSearch sink.
+在以下示例中，`application-logs` 是一个条件设置为条件的命名路线`/log_type == "application"`。路线使用[数据预先表达式](https://github.com/opensearch-project/data-prepper/tree/main/examples) 定义条件。Data Prepper仅将满足条件的事件路由到第一次开放搜索渠道。默认情况下，数据将所有事件的所有事件都路由到没有定义路线的水槽。在示例中，所有事件都路由到第三次开放式搜索接收器。
 
 ```yml
 conditional-routing-sample-pipeline:
@@ -86,20 +86,20 @@ conditional-routing-sample-pipeline:
 ```
 
 
-## Examples
+## 例子
 
-This section provides some pipeline examples that you can use to start creating your own pipelines. For more pipeline configurations, select from the following options for each component:
+本节提供了一些管道示例，您可以用来开始创建自己的管道。有关更多管道配置，请从每个组件中从以下选项中进行选择：
 
-- [Buffers]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/buffers/buffers/)
-- [Processors]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/)
-- [Sinks]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/sinks/)
-- [Sources]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/sources/)
+- [缓冲区]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/buffers/buffers/)
+- [处理器]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/)
+- [水槽]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/sinks/)
+- [来源]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/sources/)
 
-The Data Prepper repository has several [sample applications](https://github.com/opensearch-project/data-prepper/tree/main/examples) to help you get started.
+数据Prepper存储库有几个[样本应用](https://github.com/opensearch-project/data-prepper/tree/main/examples) 为了帮助您开始。
 
-### Log ingestion pipeline
+### 日志摄入管道
 
-The following example `pipeline.yaml` file with SSL and basic authentication enabled for the `http-source` demonstrates how to use the HTTP Source and Grok Prepper plugins to process unstructured log data:
+以下示例`pipeline.yaml` 使用SSL和基本身份验证的文件启用了`http-source` 演示如何使用HTTP源和Grok Prepper插件来处理非结构化日志数据：
 
 
 ```yaml
@@ -136,15 +136,15 @@ log-pipeline:
         index: apache_logs
 ```
 
-This example uses weak security. We strongly recommend securing all plugins which open external ports in production environments.
-{: .note}
+此示例使用弱安全性。我们强烈建议您确保在生产环境中打开外部端口的所有插件。
+{： 。笔记}
 
-### Trace analytics pipeline
+### 跟踪分析管道
 
-The following example demonstrates how to build a pipeline that supports the [Trace Analytics OpenSearch Dashboards plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/). This pipeline takes data from the OpenTelemetry Collector and uses two other pipelines as sinks. These two separate pipelines index trace and the service map documents for the dashboard plugin.
+以下示例演示了如何构建支持该管道的管道[跟踪分析opensearch仪表板插件]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/)。该管道从OpenTelemetry Collector中获取数据，并使用其他两个管道作为水槽。这两个单独的管道索引跟踪和仪表板插件的服务映射文档。
 
-Starting from Data Prepper 2.0, Data Prepper no longer supports `otel_trace_raw_prepper` processor due to the Data Prepper internal data model evolution. 
-Instead, users should use `otel_trace_raw`.
+从数据Prepper 2.0开始，Data Prepper不再支持`otel_trace_raw_prepper` 由于数据预先内部数据模型演变而引起的处理器。
+相反，用户应使用`otel_trace_raw`。
 
 ```yml
 entry-pipeline:
@@ -198,21 +198,21 @@ service-map-pipeline:
         index_type: trace-analytics-service-map
 ```
 
-To maintain similar ingestion throughput and latency, scale the `buffer_size` and `batch_size` by the estimated maximum batch size in the client request payload.
-{: .tip}
+要保持相似的摄入吞吐量和潜伏期，请扩展`buffer_size` 和`batch_size` 按照客户端请求有效载荷中估计的最大批量大小。
+{： 。提示}
 
-### Metrics pipeline
+### 指标管道
 
-Data Prepper supports metrics ingestion using OTel. It currently supports the following metric types:
+数据PEPPER支持使用Otel摄入指标。它目前支持以下指标类型：
 
-* Gauge
-* Sum
-* Summary
-* Histogram
+* 测量
+*总和
+* 概括
+*直方图
 
-Other types are not supported. Data Prepper drops all other types, including Exponential Histogram and Summary. Additionally, Data Prepper does not support Scope instrumentation.
+其他类型不支持。数据预先删除所有其他类型，包括指数直方图和摘要。此外，数据预先不支持范围仪器。
 
-To set up a metrics pipeline:
+设置指标管道：
 
 ```yml
 metrics-pipeline:
@@ -227,9 +227,9 @@ metrics-pipeline:
       password: admin
 ```
 
-### S3 log ingestion pipeline
+### S3日志摄入管道
 
-The following example demonstrates how to use the S3Source and Grok Processor plugins to process unstructured log data from [Amazon Simple Storage Service](https://aws.amazon.com/s3/) (Amazon S3). This example uses application load balancer logs. As the application load balancer writes logs to S3, S3 creates notifications in Amazon SQS. Data Prepper monitors those notifications and reads the S3 objects to get the log data and process it.
+以下示例演示了如何使用S3source和Grok处理器插件来处理非结构化日志数据[亚马逊简单存储服务](https://aws.amazon.com/s3/) （亚马逊S3）。此示例使用应用程序负载平衡器日志。当应用程序负载平衡器将日志写入S3时，S3在Amazon SQS中创建通知。数据PEPPER监视这些通知并读取S3对象以获取日志数据并处理它。
 
 ```yml
 log-pipeline:
@@ -268,9 +268,9 @@ log-pipeline:
         index: alb_logs
 ```
 
-## Migrating from Logstash
+## 从logstash迁移
 
-Data Prepper supports Logstash configuration files for a limited set of plugins. Simply use the logstash config to run Data Prepper.
+Data Prepper支持一组有限的插件的LogStash配置文件。只需使用LogStash配置即可运行数据预备。
 
 ```bash
 docker run --name data-prepper \
@@ -278,16 +278,16 @@ docker run --name data-prepper \
     opensearchproject/opensearch-data-prepper:latest
 ```
 
-This feature is limited by feature parity of Data Prepper. As of Data Prepper 1.2 release, the following plugins from the Logstash configuration are supported:
+此功能受数据预珀的特征均衡限制。在数据Prepper 1.2发布时，支持LogStash配置中的以下插件：
 
-- HTTP Input plugin
-- Grok Filter plugin
-- Elasticsearch Output plugin
-- Amazon Elasticsearch Output plugin
+- HTTP输入插件
+- Grok过滤器插件
+- Elasticsearch输出插件
+- Amazon Elasticsearch输出插件
 
-## Configure the Data Prepper server
+## 配置数据Prepper服务器
 
-Data Prepper itself provides administrative HTTP endpoints such as `/list` to list pipelines and `/metrics/prometheus` to provide Prometheus-compatible metrics data. The port that has these endpoints has a TLS configuration and is specified by a separate YAML file. By default, these endpoints are secured by Data Prepper docker images. We strongly recommend providing your own configuration file for securing production environments. Here is an example `data-prepper-config.yaml`:
+数据Prepper本身提供管理HTTP端点，例如`/list` 列出管道和`/metrics/prometheus` 提供普罗米修-兼容指标数据。具有这些端点的端口具有TLS配置，并由单独的YAML文件指定。默认情况下，这些端点是由Data Prepper Docker图像确保的。我们强烈建议您提供自己的配置文件，以保护生产环境。这是一个例子`data-prepper-config.yaml`：
 
 ```yml
 ssl: true
@@ -297,7 +297,7 @@ privateKeyPassword: "other_password"
 serverPort: 1234
 ```
 
-To configure the Data Prepper server, run Data Prepper with the additional yaml file.
+要配置数据Prepper服务器，请使用附加YAML文件运行Data Prepper。
 
 ```bash
 docker run --name data-prepper \
@@ -306,13 +306,13 @@ docker run --name data-prepper \
     opensearchproject/data-prepper:latest
 ```
 
-## Configure peer forwarder
+## 配置对等转发器
 
-Data Prepper provides an HTTP service to forward events between Data Prepper nodes for aggregation. This is required for operating Data Prepper in a clustered deployment. Currently, peer forwarding is supported in `aggregate`, `service_map_stateful`, and `otel_trace_raw` processors. Peer forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw` it's `traceId` by default and can not be configured. For `aggregate` processor, it is configurable using `identification_keys` option. 
+Data Prepper提供了HTTP服务，可在数据预先节点之间转发事件以进行聚合。这是在集群部署中操作数据预先操作所必需的。目前，支持同伴转发`aggregate`，，，，`service_map_stateful`， 和`otel_trace_raw` 处理器。同行转发器根据处理器提供的标识密钥将事件组成。为了`service_map_stateful` 和`otel_trace_raw` 它是`traceId` 默认情况下，无法配置。为了`aggregate` 处理器，可以使用`identification_keys` 选项。
 
-Peer forwarder supports peer discovery through one of three options: a static list, a DNS record lookup , or AWS Cloud Map. Peer discovery can be configured using `discovery_mode` option. Peer forwarder also supports SSL for verification and encryption, and mTLS for mutual authentication in a peer forwarding service.
+PEER Forwarder通过以下三个选项之一支持同行发现：静态列表，DNS记录查找或AWS云映射。可以使用同行发现使用`discovery_mode` 选项。Peer Fewracker还支持SSL进行验证和加密，以及在同伴转发服务中相互认证的MTL。
 
-To configure peer forwarder, add configuration options to `data-prepper-config.yaml` mentioned in the [Configure the Data Prepper server](#configure-the-data-prepper-server) section:
+要配置对等转发器，请将配置选项添加到`data-prepper-config.yaml` 在[配置数据Prepper服务器](#configure-the-data-prepper-server) 部分：
 
 ```yml
 peer_forwarder:
@@ -326,10 +326,10 @@ peer_forwarder:
 ```
 
 
-## Pipeline Configurations
+## 管道配置
 
-Since Data Prepper 2.5, shared pipeline components can be configured under the reserved section `pipeline_configurations` when all pipelines are defined in a single pipeline configuration YAML file. 
-Shared pipeline configurations can include certain components within [Extension Plugins]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#extension-plugins), as shown in the following example that refers to secrets configurations for an `opensearch` sink:
+由于数据Prepper 2.5，因此可以在“保留部分”下配置共享管道组件`pipeline_configurations` 当在单个管道配置yaml文件中定义所有管道时。
+共享管道配置可以包含某些组件[扩展插件]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#extension-plugins)，如以下示例所示，指的是秘密配置`opensearch` 下沉：
 
 ```json
 pipeline_configurations:
@@ -349,4 +349,5 @@ simple-sample-pipeline:
         index: "test-migration"
 ```
 
-When the same component is defined in both `pipelines.yaml` and `data-prepper-config.yaml`, the definition in the `pipelines.yaml` will overwrite the counterpart in `data-prepper-config.yaml`. For more information on shared pipeline components, see [AWS secrets extension plugin]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#aws-secrets-extension-plugin) for details.
+当两者中定义相同的组件时`pipelines.yaml` 和`data-prepper-config.yaml`，在`pipelines.yaml` 将覆盖对应物`data-prepper-config.yaml`。有关共享管道组件的更多信息，请参见[AWS Secrets扩展插件]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#aws-secrets-extension-plugin) 有关详细信息。
+

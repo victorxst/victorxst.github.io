@@ -1,25 +1,25 @@
 ---
 layout: default
-title: Peer forwarder
+title: 同行前锋
 nav_order: 12
-parent: Managing Data Prepper
+parent: 管理数据预先
 ---
 
-# Peer forwarder
+# 同行前锋
 
-Peer forwarder is an HTTP service that performs peer forwarding of an `event` between Data Prepper nodes for aggregation. This HTTP service uses a hash-ring approach to aggregate events and determine which Data Prepper node it should handle on a given trace before rerouting it to that node. Currently, peer forwarder is supported by the `aggregate`, `service_map_stateful`, and `otel_traces_raw` [processors]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/).
+Peer Fewracker是一项HTTP服务，可执行`event` 在数据预先淋巴结之间进行聚合。此HTTP服务使用哈希-汇总事件的环方法并确定在将其重新路由到该节点之前应在给定跟踪上处理的数据预先节点。目前，同行货运员得到`aggregate`，，，，`service_map_stateful`， 和`otel_traces_raw` [处理器]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/)。
 
-Peer Forwarder groups events based on the identification keys provided by the supported processors. For `service_map_stateful` and `otel_traces_raw`, the identification key is `traceId` by default and cannot be configured. The `aggregate` processor is configured using the `identification_keys` configuration option. From here, you can specify which keys to use for Peer Forwarder. See [Aggregate Processor page](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys) for more information about identification keys.
+同行转发器根据支持的处理器提供的标识密钥将事件分组。为了`service_map_stateful` 和`otel_traces_raw`，标识密钥是`traceId` 默认情况下，无法配置。这`aggregate` 处理器是使用`identification_keys` 配置选项。从这里，您可以指定用于Peer Forwarder的键。看[聚合处理器页面](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys) 有关识别键的更多信息。
 
-Peer discovery allows Data Prepper to find other nodes that it will communicate with. Currently, peer discovery is provided by a static list, a DNS record lookup, or AWS Cloud Map.  
+同行发现允许数据预先找到它将与之通信的其他节点。当前，同行发现由静态列表，DNS记录查找或AWS云图提供。
 
-## Discovery modes
+## 发现模式
 
-The following sections provide information about discovery modes.
+以下各节提供了有关发现模式的信息。
 
-### Static
+### 静止的
 
-Static discovery mode allows a Data Prepper node to discover nodes using a list of IP addresses or domain names. See the following YAML file for an example of static discovery mode:
+静态发现模式允许数据Prepper节点使用IP地址或域名列表来发现节点。有关静态发现模式的示例，请参见以下YAML文件：
 
 ```yaml
 peer_forwarder:4
@@ -27,9 +27,9 @@ peer_forwarder:4
   static_endpoints: ["data-prepper1", "data-prepper2"]
 ```
 
-### DNS lookup
+### DNS查找
 
-DNS discovery is preferred over static discovery when scaling out a Data Prepper cluster. DNS discovery configures a DNS provider to return a list of Data Prepper hosts when given a single domain name. This list consists of a [DNS A record](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/), and a list of IP addresses of a given domain. See the following YAML file for an example of DNS lookup:
+在扩展数据PEPPER群集时，DNS发现比静态发现更优选。DNS Discovery配置DNS提供商在给出单个域名时返回Prepper主机的列表。此列表包括一个[DNS记录](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/)，以及给定域的IP地址列表。有关DNS查找的示例，请参见以下YAML文件：
 
 ```yaml
 peer_forwarder:
@@ -37,24 +37,24 @@ peer_forwarder:
   domain_name: "data-prepper-cluster.my-domain.net"
 ```
 
-### AWS Cloud Map
+### AWS云图
 
-[AWS Cloud Map](https://docs.aws.amazon.com/cloud-map/latest/dg/what-is-cloud-map.html) provides API-based service discovery as well as DNS-based service discovery.
+[AWS云图](https://docs.aws.amazon.com/cloud-map/latest/dg/what-is-cloud-map.html) 提供API-基于服务发现以及DNS-基于服务发现。
 
-Peer forwarder can use the API-based service discovery in AWS Cloud Map. To support this, you must have an existing namespace configured for API instance discovery. You can create a new one by following the instructions provided by the [AWS Cloud Map documentation](https://docs.aws.amazon.com/cloud-map/latest/dg/working-with-namespaces.html).
+同行转发器可以使用API-AWS云图中的基于服务发现。为了支持这一点，您必须具有为API实例发现配置的现有名称空间。您可以通过按照该说明来创建一个新的说明[AWS云地图文档](https://docs.aws.amazon.com/cloud-map/latest/dg/working-with-namespaces.html)。
 
-Your Data Prepper configuration needs to include the following:
-* `aws_cloud_map_namespace_name` – Set to your AWS Cloud Map namespace name.
-* `aws_cloud_map_service_name` – Set to the service name within your specified namespace.
-* `aws_region` – Set to the AWS Region in which your namespace exists.
-* `discovery_mode` – Set to `aws_cloud_map`.
+您的数据预先配置需要包括以下内容：
+*`aws_cloud_map_namespace_name`  - 设置为AWS云地图名称名称。
+*`aws_cloud_map_service_name`  - 设置为指定名称空间中的服务名称。
+*`aws_region`  - 设置为存在您的命名空间的AWS区域。
+*`discovery_mode` - 设置`aws_cloud_map`。
 
-Your Data Prepper configuration can optionally include the following:
-* `aws_cloud_map_query_parameters` – Key-value pairs are used to filter the results based on the custom attributes attached to an instance. Results include only those instances that match all of the specified key-value pairs.
+您的数据Prepper配置可以选择包括以下内容：
+*`aws_cloud_map_query_parameters` - 钥匙-价值对用于根据附加到实例的自定义属性过滤结果。结果仅包括匹配所有指定密钥的实例-价值对。
 
-#### Example configuration
+#### 示例配置
 
-See the following YAML file example of AWS Cloud Map configuration:
+请参阅以下AWS云映射配置的YAML文件示例：
 
 ```yaml
 peer_forwarder:
@@ -66,9 +66,9 @@ peer_forwarder:
   aws_region: "us-east-1"
 ```
 
-### IAM policy with necessary permissions
+### IAM政策具有必要的许可
 
-Data Prepper must also be running with the necessary permissions. The following AWS Identity and Access Management (IAM) policy shows the necessary permissions:
+Data Prepper还必须在必要的权限下运行。以下AWS身份和访问管理（IAM）策略显示了必要的权限：
 
 ```json
 {
@@ -85,49 +85,49 @@ Data Prepper must also be running with the necessary permissions. The following 
 ```
 
 
-## Configuration
+## 配置
 
-The following table provides optional configuration values.
+下表提供了可选的配置值。
 
 
-| Value | Type | Description |
+| 价值| 类型| 描述|
 | ----  | --- |  ----------- |
-| `port` | Integer | A value between 0 and 65535 that represents the port that the peer forwarder server is running on. Default value is `4994`. |
-| `request_timeout` | Integer | Represents the request timeout duration in milliseconds for the peer forwarder HTTP server. Default value is `10000`. |
-| `server_thread_count` | Integer | Represents the number of threads used by the peer forwarder server. Default value is `200`.|
-| `client_thread_count` | Integer | Represents the number of threads used by the peer forwarder client. Default value is `200`.|
-| `maxConnectionCount`  | Integer | Represents the maximum number of open connections for the peer forwarder server. Default value is `500`. |
-| `discovery_mode` | String | Represents the peer discovery mode to be used. Allowable values are `local_node`, `static`, `dns`, and `aws_cloud_map`. Defaults to `local_node`, which processes events locally. |
-| `static_endpoints` | List | Contains the endpoints of all Data Prepper instances. Required if `discovery_mode` is set to `static`. |
-|  `domain_name` | String | Represents the single domain name to query DNS against. Typically used by creating multiple [DNS A records](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/) for the same domain. Required if `discovery_mode` is set to `dns`. |
-| `aws_cloud_map_namespace_name`  | String | Represents the AWS Cloud Map namespace when using AWS Cloud Map service discovery. Required if `discovery_mode` is set to `aws_cloud_map`.  |
-| `aws_cloud_map_service_name` | String | Represents the AWS Cloud Map service when using AWS Cloud Map service discovery. Required if `discovery_mode` is set to `aws_cloud_map`. |
-| `aws_cloud_map_query_parameters`  | Map | Key-value pairs used to filter the results based on the custom attributes attached to an instance. Only instances that match all the specified key-value pairs are returned. |
-| `buffer_size` | Integer | Represents the maximum number of unchecked records the buffer accepts (the number of unchecked records equals the number of records written into the buffer plus the number of records that are still processing and not yet checked by the Checkpointing API). Default is `512`. |
-| `batch_size` |  Integer | Represents the maximum number of records that the buffer returns on read. Default is `48`. |
-|  `aws_region` |  String | Represents the AWS Region that uses `ACM`, `Amazon S3`, or `AWS Cloud Map` and is required when any of the following conditions are met:<br> - The `use_acm_certificate_for_ssl` setting is set to `true`. <br> - Either `ssl_certificate_file` or `ssl_key_file` specifies an Amazon Simple Storage Service (Amazon S3) URI (for example, s3://mybucket/path/to/public.cert).<br> - The `discovery_mode` is set to `aws_cloud_map`. |
-| `drain_timeout`  | Duration | Represents the amount of time that peer forwarder will wait to complete data processing before shutdown. |
+| `port` | 整数| 0到65535之间的值表示对等转发器服务器正在运行的端口。默认值是`4994`。|
+| `request_timeout` | 整数| 代表对等转发器HTTP服务器的毫秒中的请求超时持续时间。默认值是`10000`。|
+| `server_thread_count` | 整数| 表示对等转发器服务器使用的线程数。默认值是`200`。|
+| `client_thread_count` | 整数| 表示对等转发器客户端使用的线程数。默认值是`200`。|
+| `maxConnectionCount`  | 整数| 代表对等转发器服务器的最大开放连接数量。默认值是`500`。|
+| `discovery_mode` | 细绳| 表示要使用的同伴发现模式。允许的值是`local_node`，，，，`static`，，，，`dns`， 和`aws_cloud_map`。默认为`local_node`，哪个在本地处理事件。|
+| `static_endpoints` | 列表| 包含所有数据预先实例的端点。如果需要`discovery_mode` 被设定为`static`。|
+|  `domain_name` | 细绳| 代表查询DNS的单个域名。通常通过创建多个[DNS记录](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/) 对于相同的域。如果需要`discovery_mode` 被设定为`dns`。|
+| `aws_cloud_map_namespace_name`  | 细绳| 使用AWS云映射服务发现时，表示AWS云映射名称空间。如果需要`discovery_mode` 被设定为`aws_cloud_map`。|
+| `aws_cloud_map_service_name` | 细绳| 使用AWS Cloud Map Service Discovery时，表示AWS云映射服务。如果需要`discovery_mode` 被设定为`aws_cloud_map`。|
+| `aws_cloud_map_query_parameters`  | 地图| 钥匙-值对，用于根据附加到实例的自定义属性过滤结果。只有匹配所有指定密钥的实例-返回价值对。|
+| `buffer_size` | 整数| 表示缓冲区接受的最大未检查记录数（未检查的记录的数量等于写入缓冲区中的记录数，以及仍在处理的记录数量，尚未由检查点API检查）。默认为`512`。|
+| `batch_size` |  整数| 表示缓冲区在读取时返回的最大记录数量。默认为`48`。|
+|  `aws_region` |  细绳| 代表使用的AWS区域`ACM`，，，，`Amazon S3`， 或者`AWS Cloud Map` 并且在满足以下任何条件时需要：<br>- 这`use_acm_certificate_for_ssl` 设置设置为`true`。<br>- 任何一个`ssl_certificate_file` 或者`ssl_key_file` 指定Amazon简单存储服务（Amazon S3）URI（例如，S3：//mybucket/path/to/to/public.cert）。<br>- 这`discovery_mode` 被设定为`aws_cloud_map`。|
+| `drain_timeout`  | 期间| 表示Peer Forwarder等待在关闭之前完成数据处理的时间。|
 
-## SSL configuration
+## SSL配置
 
-The following table provides optional SSL configuration values that allow you to set up a trust manager for the peer forwarder client in order to connect to other Data Prepper instances.
+下表提供了可选的SSL配置值，使您可以为PEER EXPRANER客户端设置信任管理器，以连接到其他数据预先实例。
 
-| Value | Type | Description |
+| 价值| 类型| 描述|
 | ----- | ---- | ----------- |
-| `ssl` | Boolean | Enables TLS/SSL. Default value is `true`. |
-| `ssl_certificate_file`| String | Represents the SSL certificate chain file path or Amazon S3 path. The following is an example of an Amazon S3 path: `s3://<bucketName>/<path>`. Defaults to the default certificate file,`config/default_certificate.pem`. See [Default Certificates](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates) for more information about how the certificate is generated. |
-| `ssl_key_file`| String | Represents the SSL key file path or Amazon S3 path. Amazon S3 path example: `s3://<bucketName>/<path>`. Defaults to `config/default_private_key.pem` which is the default private key file. See [Default Certificates](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates) for more information about how the private key file is generated. |
-| `ssl_insecure_disable_verification` | Boolean | Disables the verification of the server's TLS certificate chain. Default value is `false`. |
-| `ssl_fingerprint_verification_only` | Boolean | Disables the verification of the server's TLS certificate chain and instead verifies only the certificate fingerprint. Default value is `false`. |
-| `use_acm_certificate_for_ssl` | Boolean | Enables TLS/SSL using the certificate and private key from AWS Certificate Manager (ACM). Default value is `false`. |
-| `acm_certificate_arn`| String | Represents the ACM certificate Amazon Resource Name (ARN). The ACM certificate takes precedence over Amazon S3 or the local file system certificate. Required if `use_acm_certificate_for_ssl` is set to `true`. |
-| `acm_private_key_password` | String | Represents the ACM private key password that will be used to decrypt the private key. If it's not provided, a random password will be generated. |
-| `acm_certificate_timeout_millis` | Integer | Represents the timeout in milliseconds required for ACM to get certificates. Default value is `120000`. |
-| `aws_region` | String | Represents the AWS Region that uses ACM, Amazon S3, or AWS Cloud Map. Required if `use_acm_certificate_for_ssl` is set to `true` or `ssl_certificate_file`. Also required when the `ssl_key_file` is set to use the Amazon S3 path or if `discovery_mode` is set to `aws_cloud_map`. |
+| `ssl` | 布尔| 启用TLS/SSL。默认值是`true`。|
+| `ssl_certificate_file`| 细绳| 表示SSL证书链文件路径或Amazon S3路径。以下是Amazon S3路径的示例：`s3://<bucketName>/<path>`。默认为默认证书文件，`config/default_certificate.pem`。看[默认证书](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates) 有关如何生成证书的更多信息。|
+| `ssl_key_file`| 细绳| 表示SSL密钥文件路径或Amazon S3路径。亚马逊S3路径示例：`s3://<bucketName>/<path>`。默认为`config/default_private_key.pem` 这是默认的私钥文件。看[默认证书](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates) 有关如何生成私钥文件的更多信息。|
+| `ssl_insecure_disable_verification` | 布尔| 禁用服务器TLS证书链的验证。默认值是`false`。|
+| `ssl_fingerprint_verification_only` | 布尔| 禁用服务器的TLS证书链的验证，而仅验证证书指纹。默认值是`false`。|
+| `use_acm_certificate_for_ssl` | 布尔| 使用AWS证书经理（ACM）的证书和私钥启用TLS/SSL。默认值是`false`。|
+| `acm_certificate_arn`| 细绳| 代表ACM证书亚马逊资源名称（ARN）。ACM证书优先于Amazon S3或本地文件系统证书。如果需要`use_acm_certificate_for_ssl` 被设定为`true`。|
+| `acm_private_key_password` | 细绳| 表示将用于解密私钥的ACM私钥密码。如果未提供，将生成一个随机密码。|
+| `acm_certificate_timeout_millis` | 整数| 代表ACM获得证书所需的毫秒中的超时。默认值是`120000`。|
+| `aws_region` | 细绳| 代表使用ACM，Amazon S3或AWS云图的AWS区域。如果需要`use_acm_certificate_for_ssl` 被设定为`true` 或者`ssl_certificate_file`。也需要`ssl_key_file` 设置为使用Amazon S3路径或`discovery_mode` 被设定为`aws_cloud_map`。|
 
-#### Example configuration
+#### 示例配置
 
-The following YAML file provides an example configuration:
+以下YAML文件提供了一个示例配置：
 
 ```yaml
 peer_forwarder:
@@ -136,9 +136,9 @@ peer_forwarder:
   ssl_key_file: "<private-key-file-path>"
 ```
 
-## Authentication
+## 验证
 
-`Authentication` is optional and is a `Map` that enables mutual TLS (mTLS). It can either be `mutual_tls` or `unauthenticated`. The default value is `unauthenticated`. The following YAML file provides an example of authentication:
+`Authentication` 是可选的，是`Map` 这样可以实现相互的TLS（MTL）。可以是`mutual_tls` 或者`unauthenticated`。默认值是`unauthenticated`。以下YAML文件提供了身份验证的示例：
 
 ```yaml
 peer_forwarder:
@@ -146,37 +146,38 @@ peer_forwarder:
     mutual_tls:
 ```
 
-## Metrics
+## 指标
 
-Core peer forwarder introduces the following custom metrics. All the metrics are prefixed by `core.peerForwarder`.
+Core Peer Fewracker介绍以下自定义指标。所有指标都由`core.peerForwarder`。
 
-### Timer
+### 计时器
 
-Peer forwarder's timer capability provides the following information:
+PEER Forwarder的计时器功能提供以下信息：
 
-- `requestForwardingLatency`: Measures latency of requests forwarded by the peer forwarder client.
-- `requestProcessingLatency`: Measures latency of requests processed by the peer forwarder server.
+- `requestForwardingLatency`：衡量同伴转发器客户端转发的请求的延迟。
+- `requestProcessingLatency`：测量PEER Forwarder Server处理的请求的延迟。
 
-### Counter
+### 柜台
 
-The following table provides counter metric options.
+下表提供了计数器选项。
 
-| Value | Description |
+| 价值| 描述|
 | ----- | ----------- |
-| `requests`| Measures the total number of forwarded requests. |
-| `requestsFailed`| Measures the total number of failed requests. Applies to requests with an HTTP response code other than `200`. |
-| `requestsSuccessful`|  Measures the total number of successful requests. Applies to requests with HTTP response code `200`. |
-| `requestsTooLarge`| Measures the total number of requests that are too large to be written to the peer forwarder buffer. Applies to requests with HTTP response code `413`. |
-| `requestTimeouts`| Measures the total number of requests that time out while writing content to the peer forwarder buffer. Applies to requests with HTTP response code `408`. |
-| `requestsUnprocessable`| Measures the total number of requests that fail due to an unprocessable entity. Applies to requests with HTTP response code `422`. |
-| `badRequests`| Measures the total number of requests with a bad request format. Applies to requests with HTTP response code `400`. |
-| `recordsSuccessfullyForwarded`| Measures the total number of successfully forwarded records. |
-| `recordsFailedForwarding`| Measures the total number of records that fail to be forwarded. |
-| `recordsToBeForwarded` | Measures the total number of records to be forwarded. |
-| `recordsToBeProcessedLocally` | Measures the total number of records to be processed locally. |
-| `recordsActuallyProcessedLocally`| Measures the total number of records actually processed locally. This value is the sum of `recordsToBeProcessedLocally` and `recordsFailedForwarding`. |
-| `recordsReceivedFromPeers`| Measures the total number of records received from remote peers. |
+| `requests`| 衡量转发请求的总数。|
+| `requestsFailed`| 测量失败请求的总数。适用于具有HTTP响应代码的请求`200`。|
+| `requestsSuccessful`|  衡量成功请求的总数。适用于使用HTTP响应代码的请求`200`。|
+| `requestsTooLarge`| 衡量太大的请求总数，无法写入对等转发器缓冲区。适用于使用HTTP响应代码的请求`413`。|
+| `requestTimeouts`| 在将内容写入对等转发器缓冲区时，衡量该时间的请求总数。适用于使用HTTP响应代码的请求`408`。|
+| `requestsUnprocessable`| 衡量由于无法处理的实体而失败的请求总数。适用于使用HTTP响应代码的请求`422`。|
+| `badRequests`| 用不良的请求格式衡量请求总数。适用于使用HTTP响应代码的请求`400`。|
+| `recordsSuccessfullyForwarded`| 衡量成功转发记录的总数。|
+| `recordsFailedForwarding`| 衡量未转发的记录总数。|
+| `recordsToBeForwarded` | 衡量要转发的记录总数。|
+| `recordsToBeProcessedLocally` | 衡量要在本地处理的记录总数。|
+| `recordsActuallyProcessedLocally`| 衡量实际处理的记录总数。此值是`recordsToBeProcessedLocally` 和`recordsFailedForwarding`。|
+| `recordsReceivedFromPeers`| 测量从远程同行收到的记录总数。|
 
-### Gauge
+### 测量
 
-`peerEndpoints` Measures the number of dynamically discovered peer Data Prepper endpoints. For `static` mode, the size is fixed.
+`peerEndpoints` 测量动态发现的同行数据预先端点的数量。为了`static` 模式，大小是固定的。
+

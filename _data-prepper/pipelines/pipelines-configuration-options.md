@@ -1,18 +1,19 @@
 ---
 layout: default
-title: Pipeline options
-parent: Pipelines
+title: 管道选项
+parent: 管道
 nav_order: 11
 ---
 
-# Pipeline options
+# 管道选项
 
-This page provides information about pipeline configuration options in Data Prepper. 
+此页面提供了有关数据Prepper中管道配置选项的信息。
 
-## General pipeline options
+## 一般管道选项
 
-Option | Required | Type | Description
-:--- | :--- | :--- | :---
-workers | No | Integer | Essentially the number of application threads. As a starting point for your use case, try setting this value to the number of CPU cores on the machine. Default is 1.
-delay | No | Integer | Amount of time in milliseconds workers wait between buffer read attempts. Default is `3000`.
+选项| 必需的| 类型| 描述
+：--- | ：--- | ：--- | ：---
+工人| 不| 整数| 本质上是应用程序线程的数量。作为用例的起点，请尝试将此值设置为机器上的CPU核心数。默认值为1。
+延迟| 不| 整数| 在缓冲区读取尝试之间等待毫秒的工人的时间。默认为`3000`。
+
 

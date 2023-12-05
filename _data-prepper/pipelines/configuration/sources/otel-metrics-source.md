@@ -1,42 +1,43 @@
 ---
 layout: default
 title: otel_metrics_source
-parent: Sources
-grand_parent: Pipelines
+parent: 来源
+grand_parent: 管道
 nav_order: 10
 ---
 
 # otel_metrics_source
 
-`otel_metrics_source` is an OpenTelemetry Collector source that collects metric data. The following table describes options you can use to configure the `otel_metrics_source` source. 
+`otel_metrics_source` 是收集度量数据的OpenTelemetry收集器来源。下表描述了您可以使用的选项来配置`otel_metrics_source` 来源。
 
-Option | Required | Type | Description
-:--- | :--- | :--- | :---
-port | No | Integer | The port that the OpenTelemtry metrics source runs on. Default value is `21891`.
-request_timeout | No | Integer | The request timeout, in milliseconds. Default value is `10000`.
-health_check_service | No | Boolean | Enables a gRPC health check service under `grpc.health.v1/Health/Check`. Default value is `false`.
-proto_reflection_service | No | Boolean | Enables a reflection service for Protobuf services (see [gRPC reflection](https://github.com/grpc/grpc/blob/master/doc/server-reflection.md) and [gRPC Server Reflection Tutorial](https://github.com/grpc/grpc-java/blob/master/documentation/server-reflection-tutorial.md) docs). Default value is `false`.
-unframed_requests | No | Boolean | Enables requests not framed using the gRPC wire protocol.
-thread_count | No | Integer | The number of threads to keep in the `ScheduledThreadPool`. Default value is `200`.
-max_connection_count | No | Integer | The maximum allowed number of open connections. Default value is `500`.
-ssl | No | Boolean | Enables connections to the OpenTelemetry source port over TLS/SSL. Default value is `true`.
-sslKeyCertChainFile | Conditionally | String | File-system path or Amazon Simple Storage Service (Amazon S3) path to the security certificate (for example, `"config/demo-data-prepper.crt"` or `"s3://my-secrets-bucket/demo-data-prepper.crt"`). Required if `ssl` is set to `true`.
-sslKeyFile | Conditionally | String | File-system path or Amazon S3 path to the security key (for example, `"config/demo-data-prepper.key"` or `"s3://my-secrets-bucket/demo-data-prepper.key"`). Required if `ssl` is set to `true`.
-useAcmCertForSSL | No | Boolean | Whether to enable TLS/SSL using a certificate and private key from AWS Certificate Manager (ACM). Default value is `false`.
-acmCertificateArn | Conditionally | String | Represents the ACM certificate ARN. ACM certificate take preference over S3 or local file system certificates. Required if `useAcmCertForSSL` is set to `true`.
-awsRegion | Conditionally | String | Represents the AWS Region used by ACM or Amazon S3. Required if `useAcmCertForSSL` is set to `true` or `sslKeyCertChainFile` and `sslKeyFile` is the Amazon S3 path.
-authentication | No | Object | An authentication configuration. By default, an unauthenticated server is created for the pipeline. This uses pluggable authentication for HTTPS. To use basic authentication, define the `http_basic` plugin with a `username` and `password`. To provide customer authentication, use or create a plugin that implements [GrpcAuthenticationProvider](https://github.com/opensearch-project/data-prepper/blob/1.2.0/data-prepper-plugins/armeria-common/src/main/java/com/amazon/dataprepper/armeria/authentication/GrpcAuthenticationProvider.java).
+选项| 必需的| 类型| 描述
+：--- | ：--- | ：--- | ：---
+港口| 不| 整数| OpenTelemtry指标源运行的端口。默认值是`21891`。
+请求超时| 不| 整数| 请求超时，以毫秒为单位。默认值是`10000`。
+health_check_service| 不| 布尔| 在下面启用GRPC健康检查服务`grpc.health.v1/Health/Check`。默认值是`false`。
+proto_reflection_service| 不| 布尔| 启用Protobuf服务的反射服务（请参阅[GRPC反射](https://github.com/grpc/grpc/blob/master/doc/server-reflection.md) 和[GRPC服务器反射教程](https://github.com/grpc/grpc-java/blob/master/documentation/server-reflection-tutorial.md) 文档）。默认值是`false`。
+unframed_requests| 不| 布尔| 启用不使用GRPC线协议构成的请求。
+thread_count| 不| 整数| 要将线程保持在`ScheduledThreadPool`。默认值是`200`。
+max_connection_count| 不| 整数| 允许的最大开放连接数。默认值是`500`。
+SSL| 不| 布尔| 在TLS/SSL上启用与OpenTelemetry源端口的连接。默认值是`true`。
+sslkeycertchainfile| 有条件的| 细绳| 文件-系统路径或亚马逊简单存储服务（Amazon S3）安全证书的路径（例如，`"config/demo-data-prepper.crt"` 或者`"s3://my-secrets-bucket/demo-data-prepper.crt"`）。如果需要`ssl` 被设定为`true`。
+sslkeyfile| 有条件的| 细绳| 文件-系统路径或Amazon S3通往安全密钥的路径（例如，`"config/demo-data-prepper.key"` 或者`"s3://my-secrets-bucket/demo-data-prepper.key"`）。如果需要`ssl` 被设定为`true`。
+USEACMCERTFORSSL| 不| 布尔| 是否使用AWS证书经理（ACM）的证书和私钥启用TLS/SSL。默认值是`false`。
+acmcertificatearn| 有条件的| 细绳| 代表ACM证书ARN。ACM证书优先考虑S3或本地文件系统证书。如果需要`useAcmCertForSSL` 被设定为`true`。
+awsregion| 有条件的| 细绳| 代表ACM或Amazon S3使用的AWS区域。如果需要`useAcmCertForSSL` 被设定为`true` 或者`sslKeyCertChainFile` 和`sslKeyFile` 是亚马逊S3路径。
+验证| 不| 目的| 身份验证配置。默认情况下，为管道创建了一个未经身份验证的服务器。这使用HTTPS的可插入身份验证。要使用基本身份验证，请定义`http_basic` 带有插件`username` 和`password`。提供客户身份验证，使用或创建实施的插件[grpCauthentication -provider](https://github.com/opensearch-project/data-prepper/blob/1.2.0/data-prepper-plugins/armeria-common/src/main/java/com/amazon/dataprepper/armeria/authentication/GrpcAuthenticationProvider.java)。
 
-<!--- ## Configuration
+<！--- ## 配置
 
-Content will be added to this section.--->
+内容将添加到本节中。--->
 
-## Metrics
+## 指标
 
-The `otel_metrics_source` source includes the following metrics.
+这`otel_metrics_source` 来源包括以下指标。
 
-### Counters
+### 柜台
 
-- `requestTimeouts`: Measures the total number of requests that time out.
-- `requestsReceived`: Measures the total number of requests received by the OpenTelemetry metrics source.
+- `requestTimeouts`：测量超时的请求总数。
+- `requestsReceived`：测量OpenTelemetry指标来源收到的请求总数。
+
 

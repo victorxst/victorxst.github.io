@@ -1,24 +1,25 @@
 ---
 layout: default
-title: Migrating from Open Distro
+title: 从开放式发行中迁移
 nav_order: 30
 ---
 
-# Migrating from Open Distro
+# 从开放式发行中迁移
 
-Existing users can migrate from the Open Distro Data Prepper to OpenSearch Data Prepper. Beginning with Data Prepper version 1.1, there is only one distribution of OpenSearch Data Prepper. 
+现有用户可以从开放的发行数据预先迁移到OpenSearch Data Prepper。从数据Prepper版本1.1开始，只有一个OpenSearch Data Prepper的分布。
 
-## Change your pipeline configuration
+## 更改管道配置
 
-The `elasticsearch` sink has changed to `opensearch`. Therefore, change your existing pipeline to use the `opensearch` plugin instead of `elasticsearch`.
+这`elasticsearch` 水槽已更改为`opensearch`。因此，更改现有管道以使用`opensearch` 插件而不是`elasticsearch`。
 
-While the Data Prepper plugin is titled `opensearch`, it remains compatible with Open Distro and ElasticSearch 7.x.
-{: .note}
+数据预先插件的标题为`opensearch`，它与开放的发行版和Elasticsearch 7.x保持兼容。
+{： 。笔记}
 
-## Update Docker image
+## 更新Docker映像
 
-In your Data Prepper Docker configuration, adjust `amazon/opendistro-for-elasticsearch-data-prepper` to `opensearchproject/data-prepper`. This change will download the latest Data Prepper Docker image.
+在您的数据中，Prepper Docker配置，调整`amazon/opendistro-for-elasticsearch-data-prepper` 到`opensearchproject/data-prepper`。此更改将下载最新的数据Prepper Docker映像。
 
-## Next steps
+## 下一步
 
-For more information about Data Prepper configurations, see [Getting Started with Data Prepper]({{site.url}}{{site.baseurl}}/clients/data-prepper/get-started/).
+有关数据预先配置的更多信息，请参见[开始使用数据预先]({{site.url}}{{site.baseurl}}/clients/data-prepper/get-started/)。
+

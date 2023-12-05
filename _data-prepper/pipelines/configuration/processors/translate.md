@@ -1,18 +1,18 @@
 ---
 layout: default
-title: translate
-parent: Processors
-grand_parent: Pipelines
+title: 翻译
+parent: 处理器
+grand_parent: 管道
 nav_order: 117
 ---
 
-# translate
+# 翻译
 
-The `translate` processor transforms values in events into preconfigured values.
+这`translate` 处理器将事件中的值转换为预配置的值。
 
-## Basic usage
+## 基本用法
 
-To use the `translate` processor, create the following `pipeline.yaml` file:
+使用`translate` 处理器，创建以下`pipeline.yaml` 文件：
 
 ```yaml
 translate-pipeline:
@@ -33,16 +33,16 @@ translate-pipeline:
     - stdout:
 ```
 
-Then create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with the path of a file containing the following JSON data:
+然后创建以下文件名称`logs_json.log` 并更换`path` 在您的文件源中`pipeline.yaml` 文件包含包含以下JSON数据的文件路径：
 
 ```json
 { "status": "404" }
 ```
 
-The `translate` processor configuration in `pipeline.yaml` retrieves the `source` value from the event data and compares it against the keys specified under the `targets`. 
-When a match is found, the processor places the corresponding mapped value into the `target` key provided in the configuration.
+这`translate` 处理器配置在`pipeline.yaml` 检索`source` 事件数据的值，并将其与下指定的键进行比较`targets`。
+找到匹配时，处理器将相应的映射值放入`target` 配置中提供的密钥。
 
-When you run Data Prepper with the previous `pipeline.yaml` file, you should receive the following output:
+当您使用以前的数据进行数据预先`pipeline.yaml` 文件，您应该收到以下输出：
 
 ```json
 {
@@ -51,9 +51,9 @@ When you run Data Prepper with the previous `pipeline.yaml` file, you should rec
 }
 ```
 
-## Advanced options
+## 高级选项
 
-The following example shows a more involved mapping with additional configurations for the `translate` processor:
+下面的示例显示了更多涉及的映射，并具有其他配置`translate` 处理器：
 
 ```yaml
 processor:
@@ -81,75 +81,75 @@ processor:
           sts_role_arn: arn:aws:iam::123456789012:role/MyS3Role
 ```
 
-On the top level, specify `mappings` for inline mapping configurations, or `file` pull mapping configurations from a file. Both `mappings` and `file` options can be specified together, and the processor considers the mappings from both sources for translations. In instances where the pipeline configuration and file mappings share duplicate `source` and `target` pairs, the mappings specified within the pipeline configuration take precedence.
+在最高级别，指定`mappings` 用于内联映射配置，或`file` 从文件中提取映射配置。两个都`mappings` 和`file` 可以一起指定选项，并且处理器考虑了两个来源的映射以进行翻译。在管道配置和文件映射共享重复的情况下`source` 和`target` 对，管道配置中指定的映射优先。
 
 
-## Configuration
+## 配置
 
-You can use the following options to configure the `translate` processor.
+您可以使用以下选项来配置`translate` 处理器。
 
-| Parameter | Required | Type | Description |
-| :--- | :---  | :--- | :--- |
-| mappings | No | List | Defines inline mappings. For more information, see [mappings](#mappings). |
-| file | No | Map | Points to the file that contains mapping configurations. For more information, see [file](#file). |
+| 范围| 必需的| 类型| 描述|
+| ：--- | ：---  | ：--- | ：--- |
+| 映射| 不| 列表| 定义内联映射。有关更多信息，请参阅[映射](#mappings)。|
+| 文件| 不| 地图| 指向包含映射配置的文件。有关更多信息，请参阅[文件](#file)。|
 
-### mappings
+### 映射
 
-Each item in the `mappings` configuration contains the following options.
+每个项目`mappings` 配置包含以下选项。
 
-| Parameter | Required | Type | Description |
-| :--- | :--- | :--- | :--- |
-| source | Yes | String or list | The source field to translate. Can be a string or a list of strings. |
-| targets | Yes | List |  A list of target field configurations, such as the target field key or translation maps. |
+| 范围| 必需的| 类型| 描述|
+| ：--- | ：--- | ：--- | ：--- |
+| 来源| 是的| 字符串或列表| 源字段要翻译。可以是字符串或字符串列表。|
+| 目标| 是的| 列表|  目标字段配置的列表，例如目标字段键或翻译图。|
 
-Each item in the `targets` configuration contains the following options.
+每个项目`targets` 配置包含以下选项。
 
-| Parameter | Required | Type | Description |
-| :--- | :---  | :--- | :--- |
-| target | Yes | String | The key that specifies the field in the output in which the translated value will be placed. |
-| map | No | Map | A list of key-value pairs that define the translations. Each key represents a possible value in the source field, and the corresponding value represents what it should be translated to. For examples, see [map option](#map-option). At least one of `map` and `regex` should be configured. |
-| regex | No | Map | A map of keys that defines the translation map. For more options, see [regex option](#regex-option). At least one of `map` and `regex` should be configured. |
-| default | No | String | The default value to use when no match is found during translation. |
-| type | No | String | Specifies the data type for the target value. |
-| translate_when | No | String | Uses a [Data Prepper expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/) to specify a condition for performing the translation. When specified, the expression will only translate when the condition is met. |
+| 范围| 必需的| 类型| 描述|
+| ：--- | ：---  | ：--- | ：--- |
+| 目标| 是的| 细绳| 指定将放置翻译值的输出中字段的键。|
+| 地图| 不| 地图| 关键列表-定义翻译的价值对。每个键代表源字段中可能的值，相应的值表示应将其翻译成的值。有关示例，请参见[地图选项](#map-option)。至少之一`map` 和`regex` 应配置。|
+| 正则| 不| 地图| 定义翻译图的键图。有关更多选项，请参阅[REGEX选项](#regex-option)。至少之一`map` 和`regex` 应配置。|
+| 默认| 不| 细绳| 在翻译过程中找不到匹配时要使用的默认值。|
+| 类型| 不| 细绳| 指定目标值的数据类型。|
+| translate_when| 不| 细绳| 使用[数据预先表达]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/) 指定执行翻译的条件。指定时，只有在满足条件时，表达式才会翻译。|
 
-#### map option
+#### 地图选项
 
-You can use the following key types when using the map option:
+使用地图选项时，您可以使用以下密钥类型：
 
-* Individual keys
+*单个钥匙
   ```yaml
     map:
       ok : "Success"
       120: "Found"
   ```
-* Number ranges
+*数字范围
   ```yaml
-    map:
-      "100-200": "Success"
-      "400-499": "Error"
+    地图：
+      "100-200"："Success"
+      "400-499"："Error"
   ```
 * Comma-delimited keys
   ```yaml
-    map:
-      "key1,key2,key3": "value1"
-      "100-200,key4": "value2"
+    地图：
+      "key1,key2,key3"："value1"
+      "100-200,key4"："value2"
   ```
 
-When configuring the keys inside the `map` option, do not use any overlapping number ranges or duplicate keys.
+When configuring the keys inside the `地图` option, do not use any overlapping number ranges or duplicate keys.
 
 #### regex option
 
-You can use the following options with the `regex` option. 
+You can use the following options with the `正则` 选项。
 
-| Parameter | Required | Type | Description |
-| :--- | :---  | :--- | :--- |
-| patterns | Yes | Map | A map of key-value pairs defining the regex patterns of keys and the value to translate to for each pattern. |
-| exact | No | Boolean | Whether to use full string match or partial string match on the regex pattern. If `true`, the pattern is considered a match only when the entire key matches the pattern. Otherwise, the pattern is considered a match when a sub-string of the key matches the pattern. |
+| 范围| 必需的| 类型| 描述|
+| ：--- | ：---  | ：--- | ：--- |
+| 模式| 是的| 地图| 密钥地图-值对定义键的正则键模式和要转化为每个模式的值。|
+| 精确的| 不| 布尔| 是在Regex模式上使用完整的字符串匹配还是部分字符串匹配。如果`true`，仅当整个密钥与模式匹配时，该模式才被视为匹配。否则，当一个子时，该模式被认为是匹配的-钥匙的字符串与模式匹配。|
 
-### file
+### 文件
 
-The `file` option in the `translate` processor takes a local YAML file or an Amazon Simple Storage Service (Amazon S3) object containing translation mappings. The file's contents should be in the following format:
+这`file` 选项`translate` 处理器采用本地YAML文件或包含翻译映射的Amazon简单存储服务（Amazon S3）对象。文件的内容应采用以下格式：
 ```yaml
 mappings:
   - source: "status"
@@ -160,17 +160,18 @@ mappings:
         # Other configurations
 ```
 
-You can use the following options in the `file` configuration.
+您可以在`file` 配置。
 
-| Parameter | Required | Type | Description |
-| :--- | :---  | :--- | :--- |
-| name | Yes | String | The full path to a local file or key name for an S3 object. |
-| aws | No | Map | The AWS configuration when the file is an S3 object. See the following table for more information. |
+| 范围| 必需的| 类型| 描述|
+| ：--- | ：---  | ：--- | ：--- |
+| 姓名| 是的| 细绳| S3对象的本地文件或密钥名称的完整路径。|
+| AWS| 不| 地图| 当文件是S3对象时，AWS配置。有关更多信息，请参见下表。|
 
-You can use the following options with the `aws` configuration.
+您可以使用以下选项与`aws` 配置。
 
-| Parameter | Required | Type | Description |
-| :--- | :---  | :--- | :--- |
-| `bucket` | Yes | String | The Amazon S3 bucket name. |
-| `region` | Yes | String | The AWS Region to use for credentials. |
-| `sts_role_arn` | Yes | String | The AWS Security Token Service (AWS STS) role to assume for requests to Amazon S3. |
+| 范围| 必需的| 类型| 描述|
+| ：--- | ：---  | ：--- | ：--- |
+| `bucket` | 是的| 细绳| Amazon S3存储桶名。|
+| `region` | 是的| 细绳| 用于凭证的AWS区域。|
+| `sts_role_arn` | 是的| 细绳| AWS安全令牌服务（AWS STS）将要担任亚马逊S3的请求。|
+

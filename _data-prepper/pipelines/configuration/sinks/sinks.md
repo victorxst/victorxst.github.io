@@ -1,22 +1,23 @@
 ---
 layout: default
-title: Sinks
-parent: Pipelines
+title: 下沉
+parent: 管道
 has_children: true
 nav_order: 30
 ---
 
-# Sinks
+# 下沉
 
-Sinks define where Data Prepper writes your data to.
+sinks定义数据预先将数据写入的位置。
 
-## General options for all sink types
+## 所有水槽类型的一般选项
 
-The following table describes options you can use to configure the `sinks` sink.
+下表描述了您可以使用的选项来配置`sinks` 下沉。
 
-Option | Required | Type        | Description
-:--- | :--- |:------------| :---
-routes | No | String list | A list of routes for which this sink applies. If not provided, this sink receives all events. See [conditional routing]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#conditional-routing) for more information.
-tags_target_key | No | String   | When specified, includes event tags in the output of the provided key.
-include_keys | No | String list | When specified, provides the keys in this list in the data sent to the sink. Some codecs and sinks do not allow use of this field. 
-exclude_keys | No | String list | When specified, excludes the keys given from the data sent to the sink. Some codecs and sinks do not allow use of this field.
+选项| 必需的| 类型| 描述
+：--- | :--- |:------------| ：---
+路线| 不| 字符串列表| 该水槽适用的路线列表。如果没有提供，此水槽将接收所有事件。看[条件路由]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#conditional-routing) 了解更多信息。
+tags_target_key| 不| 细绳| 指定时，在提供的密钥的输出中包括事件标签。
+include_keys| 不| 字符串列表| 指定时，在发送到接收器的数据中提供此列表中的键。某些编解码器和水槽不允许使用此字段。
+dubl_keys| 不| 字符串列表| 指定时，排除从发送到接收器的数据中给出的密钥。某些编解码器和水槽不允许使用此字段。
+

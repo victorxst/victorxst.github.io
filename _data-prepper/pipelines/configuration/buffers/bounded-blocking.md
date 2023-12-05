@@ -1,26 +1,27 @@
 ---
 layout: default
-title: Bounded blocking
-parent: Buffers
-grand_parent: Pipelines
+title: 有界阻塞
+parent: 缓冲区
+grand_parent: 管道
 nav_order: 50
 ---
 
-# Bounded blocking
+# 有限的阻塞
 
-## Overview
+## 概述
 
-`Bounded blocking` is the default buffer and is memory based. The following table describes the `Bounded blocking` parameters.
+`Bounded blocking` 是默认缓冲区，是内存的。下表描述了`Bounded blocking` 参数。
 
-| Option | Required | Type | Description |
+| 选项| 必需的| 类型| 描述|
 | --- | --- | --- | --- |
-| buffer_size | No | Integer | The maximum number of records the buffer accepts. Default value is `12800`. |
-| batch_size | No | Integer | The maximum number of records the buffer drains after each read. Default value is `200`. |
+| 缓冲区大小| 不| 整数| 缓冲区接受的最大记录数量。默认值是`12800`。|
+| batch_size| 不| 整数| 每次读取后，缓冲区排水的最大记录数。默认值是`200`。|
 
-<!--- ## Configuration
+<！--- ## 配置
 
-Content will be added to this section.
+内容将添加到本节中。
 
-## Metrics
+## 指标
 
-Content will be added to this section. --->
+内容将添加到本节中。---
+

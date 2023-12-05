@@ -1,22 +1,22 @@
 ---
 layout: default
 title: trace_peer_forwarder
-parent: Processors
-grand_parent: Pipelines
+parent: 处理器
+grand_parent: 管道
 nav_order: 115
 ---
 
-# trace peer forwarder
+# 跟踪对等转发器
 
-The `trace_peer_forwarder` processor is used with [peer forwarder]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/peer-forwarder/) to reduce by half the number of events forwarded in a [Trace Analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/) pipeline. In Trace Analytics, each event is typically duplicated when it is sent from `otel-trace-pipeline` to `raw-pipeline` and `service-map-pipeline`. When pipelines forward events, this causes the core peer forwarder to send multiple HTTP requests for the same event. You can use `trace peer forwarder` to forward an event once through the `otel-trace-pipeline` instead of `raw-pipeline` and `service-map-pipeline`, which prevents unnecessary HTTP requests.
+这`trace_peer_forwarder` 处理器与[同行前锋]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/peer-forwarder/) 减少一半的事件数量[跟踪分析]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/) 管道。在跟踪分析中，每次事件通常都会重复`otel-trace-pipeline` 到`raw-pipeline` 和`service-map-pipeline`。当管道前进事件时，这会导致核心对等转发器发送多个HTTP请求对同一事件。您可以使用`trace peer forwarder` 一次通过`otel-trace-pipeline` 代替`raw-pipeline` 和`service-map-pipeline`，这阻止了不必要的HTTP请求。
 
-You should use `trace_peer_forwarder` for Trace Analytics pipelines when you have multiple nodes.
+您应该使用`trace_peer_forwarder` 对于有多个节点时，对于跟踪分析管道。
 
-## Usage
+## 用法
 
-To get started with `trace_peer_forwarder`, first configure [peer forwarder]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/peer-forwarder/). Then create a `pipeline.yaml` file and specify `trace peer forwarder` as the processor. You can configure `peer forwarder` in your `data-prepper-config.yaml` file. For more detailed information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
+开始`trace_peer_forwarder`，首先配置[同行前锋]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/peer-forwarder/)。然后创建一个`pipeline.yaml` 文件并指定`trace peer forwarder` 作为处理器。您可以配置`peer forwarder` 在你的`data-prepper-config.yaml` 文件。有关更多详细信息，请参阅[配置数据预备]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper)。
 
-See the following example `pipeline.yaml` file: 
+请参阅以下示例`pipeline.yaml` 文件：
 
 ```yaml
 otel-trace-pipeline:
@@ -49,4 +49,5 @@ service-map-pipeline:
     - opensearch:
 ```
 
-In the preceding `pipeline.yaml` file, events are forwarded in the `otel-trace-pipeline` to the target peer, and no forwarding is performed in `raw-pipeline` or `service-map-pipeline`. This process helps improve network performance by forwarding events (as HTTP requests) once instead of twice. 
+在上述`pipeline.yaml` 文件，事件在`otel-trace-pipeline` 到目标对等，并且没有进行转发`raw-pipeline` 或者`service-map-pipeline`。此过程有助于通过转发事件（作为HTTP请求）而不是两次来改善网络性能。
+

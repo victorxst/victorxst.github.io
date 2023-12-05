@@ -1,39 +1,39 @@
 ---
 layout: default
 title: otel_metrics
-parent: Processors
-grand_parent: Pipelines
+parent: 处理器
+grand_parent: 管道
 nav_order: 72
 ---
 
-# otel_metrics 
+# otel_metrics
 
-The `otel_metrics` processor serializes a collection of `ExportMetricsServiceRequest` records sent from the [OTel metrics source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otel-metrics-source/) into a collection of string records.
+这`otel_metrics` 处理器序列化的集合`ExportMetricsServiceRequest` 从[Otel指标来源]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otel-metrics-source/) 进入字符串记录的集合。
 
-## Usage
+## 用法
 
-To get started, add the following processor to your `pipeline.yaml` configuration file:
+首先，将以下处理器添加到您的`pipeline.yaml` 配置文件：
 
 ``` yaml
 processor:
     - otel_metrics_raw_processor:
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Configuration
+## 配置
 
-You can use the following optional parameters to configure histogram buckets and their default values. A histogram displays numerical data by grouping data into buckets. You can use histogram buckets to view sets of events that are organized by the total event count and aggregate sum for all events. For more detailed information, see [OpenTelemetry Histograms](https://opentelemetry.io/docs/reference/specification/metrics/data-model/#histogram).
+您可以使用以下可选参数来配置直方图及其默认值。直方图通过将数据分组到存储桶中显示数值数据。您可以使用直方图存储桶查看由总事件计数和所有事件的汇总总和组织的事件集。有关更多详细信息，请参阅[Opentelemetry直方图](https://opentelemetry.io/docs/reference/specification/metrics/data-model/#histogram)。
 
-| Parameter | Default value | Description |
-| :---    | :---    | :---    |
-| `calculate_histogram_buckets` | `True` | Whether or not to calculate histogram buckets. |
-| `calculate_exponential_histogram_buckets` | `True` | Whether or not to calculate exponential histogram buckets. |
-| `exponential_histogram_max_allowed_scale` | `10` | Maximum allowed scale in exponential histogram calculation. | 
-| `flatten_attributes` | `False` | Whether or not to flatten the `attributes` field in the JSON data. |
+| 范围| 默认值| 描述|
+| ：---    | ：---    | ：---    |
+| `calculate_histogram_buckets` | `True` | 是否计算直方图存储桶。|
+| `calculate_exponential_histogram_buckets` | `True` | 是否计算指数直方图存储桶。|
+| `exponential_histogram_max_allowed_scale` | `10` | 指数直方图计算中的最大允许比例。| 
+| `flatten_attributes` | `False` | 是否要弄平`attributes` JSON数据中的字段。|
 
 ### calculate_histogram_buckets
 
-If `calculate_histogram_buckets` is not set to `false`, then the following `JSON` file will be added to every histogram JSON. If `flatten_attributes` is set to `false`, the `JSON` string format of the metrics does not change the attributes field. If `flatten_attributes` is set to `true`, the values in the attributes field are placed in the parent `JSON` object. The default value is `true`. See the following `JSON` example:
+如果`calculate_histogram_buckets` 没有设置`false`，然后以下`JSON` 文件将添加到每个直方图JSON中。如果`flatten_attributes` 被设定为`false`， 这`JSON` 指标的字符串格式不会更改属性字段。如果`flatten_attributes` 被设定为`true`，属性字段中的值放在父`JSON` 目的。默认值是`true`。请参阅以下内容`JSON` 例子：
 
 ```json
  "buckets": [
@@ -50,7 +50,7 @@ If `calculate_histogram_buckets` is not set to `false`, then the following `JSON
   ]
 ```
 
-You can create detailed representations of histogram buckets and their boundaries. You can control this feature by using the following parameters in your `pipeline.yaml` file:
+您可以创建直方图及其边界的详细表示。您可以使用以下参数来控制此功能`pipeline.yaml` 文件：
 
 ```yaml
   processor:
@@ -60,9 +60,9 @@ You can create detailed representations of histogram buckets and their boundarie
         exponential_histogram_max_allowed_scale: 10
         flatten_attributes: false
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-Each array element describes one bucket. Each bucket contains the lower boundary, upper boundary, and its value count. This is a specific form of more detailed OpenTelemetry representation that is a part of the `JSON` output created by the `otel_metrics` processor. See the following `JSON` file, which is added to each `JSON` histogram by the `otel_metrics` processor:
+每个数组元素都描述一个水桶。每个桶包含下边界，上边界及其值计数。这是一种更详细的Opentelemetry表示形式的特定形式，是`JSON` 由`otel_metrics` 处理器。请参阅以下内容`JSON` 文件，每个文件都添加到每个`JSON` 直方图`otel_metrics` 处理器：
 
 ```json
  "explicitBounds": [
@@ -79,7 +79,7 @@ Each array element describes one bucket. Each bucket contains the lower boundary
 
 ### calculate_exponential_histogram_buckets
 
-If `calculate_exponential_histogram_buckets` is set to `true` (the default setting), the following `JSON` values are added to each `JSON` histogram:
+如果`calculate_exponential_histogram_buckets` 被设定为`true` （默认设置），以下`JSON` 值添加到每个`JSON` 直方图：
 
 ```json
 
@@ -110,7 +110,7 @@ If `calculate_exponential_histogram_buckets` is set to `true` (the default setti
     ],
 ```
 
-The following `JSON` file is a more detailed form of OpenTelemetry representation that consists of negative and positive buckets, a scale parameter, an offset, and a list of bucket counts: 
+下列`JSON` 文件是OpenTelemetry表示形式的一种更详细的形式，由负和正积分组成，比例参数，偏移量和存储桶计数列表：
 
 
 ```json
@@ -132,19 +132,20 @@ The following `JSON` file is a more detailed form of OpenTelemetry representatio
 
 ### exponential_histogram_max_allowed_scale
 
-The `exponential_histogram_max_allowed_scale` parameter defines the maximum allowed scale for an exponential histogram. If you increase this parameter, you will increase potential memory consumption. See the [OpenTelemetry specifications](https://github.com/open-telemetry/opentelemetry-proto/blob/main/opentelemetry/proto/metrics/v1/metrics.proto) for more information on exponential histograms and their computational complexity.
+这`exponential_histogram_max_allowed_scale` 参数定义了指数直方图的最大比例。如果增加此参数，则将增加潜在的内存消耗。看到[Opentelemetry规范](https://github.com/open-telemetry/opentelemetry-proto/blob/main/opentelemetry/proto/metrics/v1/metrics.proto) 有关指数直方图及其计算复杂性的更多信息。
 
-All exponential histograms that have a scale that is above the configured parameter (by default, a value of `10`) are discarded and logged with an error level. You can check the log that Data Prepper creates to see the `ERROR` log message.
+所有指数直方图，其比例比配置参数高于配置参数（默认情况下，`10`）丢弃并以错误级别记录。您可以检查数据Prepper创建的日志以查看`ERROR` 日志消息。
 
-The absolute scale value is used for comparison, so a scale of `-11` that is treated equally to `11` exceeds the configured value of `10` and can be discarded.
-{: .note}
+绝对比例值用于比较，因此`-11` 这是平等对待的`11` 超过了配置的值`10` 可以被丢弃。
+{： 。笔记}
 
-## Metrics
+## 指标
 
-The following table describes metrics that are common to all processors.
+下表描述了所有处理器共有的指标。
 
-| Metric name | Type | Description |
+| 公制名称| 类型| 描述|
 | ------------- | ---- | -----------|
-| `recordsIn` | Counter | Metric representing the number of ingress records. |
-| `recordsOut` | Counter | Metric representing the number of egress records. |
-| `timeElapsed` | Timer | Metric representing the time elapsed during execution of records. |
+| `recordsIn` | 柜台| 表示入口记录数量的公制。|
+| `recordsOut` | 柜台| 表示出口记录的数量。|
+| `timeElapsed` | 计时器| 表示执行记录期间经过的时间。|
+

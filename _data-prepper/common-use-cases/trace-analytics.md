@@ -1,120 +1,120 @@
 ---
 layout: default
-title: Trace analytics
-parent: Common use cases
+title: 跟踪分析
+parent: 常见用例
 nav_order: 5
 ---
 
-# Trace analytics
+# 跟踪分析
 
-Trace analytics allows you to collect trace data and customize a pipeline that ingests and transforms the data for use in OpenSearch. The following provides an overview of the trace analytics workflow in Data Prepper, how to configure it, and how to visualize trace data.
+Trace Analytics允许您收集跟踪数据并自定义一条管道，该管道摄入并转换数据以用于OpenSearch。以下内容概述了数据PEPPPER中的Trace Analytics工作流程，如何配置它以及如何可视化跟踪数据。
 
-## Introduction
+## 介绍
 
-When using Data Prepper as a server-side component to collect trace data, you can customize a Data Prepper pipeline to ingest and transform the data for use in OpenSearch. Upon transformation, you can visualize the transformed trace data for use with the Observability plugin inside of OpenSearch Dashboards. Trace data provides visibility into your application's performance, and helps you gain more information about individual traces.
+当使用Data Prepper作为服务器时-侧面组件要收集跟踪数据，您可以自定义数据预先管道，以摄入和转换用于OpenSearch的数据。转换后，您可以可视化转换的跟踪数据，以与OpenSearch仪表板内部的可观察性插件一起使用。跟踪数据提供了对应用程序性能的可见性，并帮助您获得有关单个痕迹的更多信息。
 
-The following flowchart illustrates the trace analytics workflow, from running OpenTelemetry Collector to using OpenSearch Dashboards for visualization.
+以下流程图说明了跟踪分析工作流程，从运行OpentElemetry Collector到使用OpenSearch仪表板进行可视化。
 
 <img src="{{site.url}}{{site.baseurl}}/images/data-prepper/trace-analytics/trace-analytics-components.jpg" alt="Trace analyticis component overview">{: .img-fluid}
 
-To monitor trace analytics, you need to set up the following components in your service environment:
-- Add **instrumentation** to your application so it can generate telemetry data and send it to an OpenTelemetry collector.
-- Run an **OpenTelemetry collector** as a sidecar or daemonset for Amazon Elastic Kubernetes Service (Amazon EKS), a sidecar for Amazon Elastic Container Service (Amazon ECS), or an agent on Amazon Elastic Compute Cloud (Amazon EC2). You should configure the collector to export trace data to Data Prepper. 
-- Deploy **Data Prepper** as the ingestion collector for OpenSearch. Configure it to send the enriched trace data to your OpenSearch cluster or to the Amazon OpenSearch Service domain.
-- Use **OpenSearch Dashboards** to visualize and detect problems in your distributed applications.
+要监视跟踪分析，您需要在服务环境中设置以下组件：
+- 添加**仪器** 到您的应用程序，以便它可以生成遥测数据并将其发送给OpentElemetry Collector。
+- 运行**Opentelemetry收集器** 作为Amazon Elastic Kubernetes服务（Amazon EKS）的边缘或Daemonset，Amazon弹性容器服务（Amazon ECS）的Sidecar或Amazon Elastic Compute Compute Cloud（Amazon EC2）上的代理商。您应该将收集器配置为将跟踪数据导出到数据PEPPER。
+- 部署**数据预先** 作为开放搜索的摄入收集器。将其配置为将富集的跟踪数据发送到您的OpenSearch群集或Amazon OpenSearch Service Service域。
+- 使用**OpenSearch仪表板** 可视化和检测分布式应用程序中的问题。
 
-## Trace analytics pipeline
+## 跟踪分析管道
 
-To monitor trace analytics in Data Prepper, we provide three pipelines: `entry-pipeline`, `raw-trace-pipeline`, and `service-map-pipeline`. The following image provides an overview of how the pipelines work together to monitor trace analytics. 
+为了监视数据预先数据的跟踪分析，我们提供了三个管道：`entry-pipeline`，，，，`raw-trace-pipeline`， 和`service-map-pipeline`。以下图像概述了管道如何共同工作以监视跟踪分析。
 
 <img src="{{site.url}}{{site.baseurl}}/images/data-prepper/trace-analytics/trace-analytics-pipeline.jpg" alt="Trace analytics pipeline overview">{: .img-fluid}
 
 
-### OpenTelemetry trace source
+### OpenTelemetry Trace源
  
-The [OpenTelemetry source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/otel-trace-raw/) accepts trace data from the OpenTelemetry Collector. The source follows the [OpenTelemetry Protocol](https://github.com/open-telemetry/opentelemetry-specification/tree/master/specification/protocol) and officially supports transport over gRPC and the use of industry-standard encryption (TLS/HTTPS).
+这[OpentElemetry源]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/otel-trace-raw/) 接受来自OpenTelemetry收集器的跟踪数据。来源遵循[OpentElemetry协议](https://github.com/open-telemetry/opentelemetry-specification/tree/master/specification/protocol) 并正式支持对GRPC的运输和行业的使用-标准加密（TLS/HTTPS）。
 
-### Processor
+### 处理器
 
-There are three processors for the trace analytics feature:
+Trace Analytics功能有三个处理器：
 
-* *otel_traces_raw* - The *otel_traces_raw* processor receives a collection of [span](https://github.com/opensearch-project/data-prepper/blob/fa65e9efb3f8d6a404a1ab1875f21ce85e5c5a6d/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records from [*otel-trace-source*]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otel-trace/), and performs stateful processing, extraction, and completion of trace-group-related fields.
-* *otel_traces_group* - The *otel_traces_group* processor fills in the missing trace-group-related fields in the collection of [span](https://github.com/opensearch-project/data-prepper/blob/298e7931aa3b26130048ac3bde260e066857df54/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend.
-* *service_map_stateful* – The *service_map_stateful* processor performs the required preprocessing for trace data and builds metadata to display the `service-map` dashboards.
-
-
-### OpenSearch sink
-
-OpenSearch provides a generic sink that writes data to OpenSearch as the destination. The [OpenSearch sink]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/opensearch/) has configuration options related to the OpenSearch cluster, such as endpoint, SSL, username/password, index name, index template, and index state management.
-
-The sink provides specific configurations for the trace analytics feature. These configurations allow the sink to use indexes and index templates specific to trace analytics. The following OpenSearch indexes are specific to trace analytics:
-
-* *otel-v1-apm-span* – The *otel-v1-apm-span* index stores the output from the [otel_traces_raw]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/otel-trace-raw/) processor.
-* *otel-v1-apm-service-map* – The *otel-v1-apm-service-map* index stores the output from the [service_map_stateful]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/service-map-stateful/) processor.
-
-## Trace tuning
-
-Starting with version 0.8.x, Data Prepper supports both vertical and horizontal scaling for trace analytics. You can adjust the size of a single Data Prepper instance to meet your workload's demands and scale vertically. 
-
-You can scale horizontally by using the core [peer forwarder]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/peer-forwarder/) to deploy multiple Data Prepper instances to form a cluster. This enables Data Prepper instances to communicate with instances in the cluster and is required for horizontally scaling deployments.
-
-### Scaling recommendations
-
-Use the following recommended configurations to scale Data Prepper. We recommend that you modify parameters based on the requirements. We also recommend that you monitor the Data Prepper host metrics and OpenSearch metrics to ensure that the configuration works as expected.
-
-#### Buffer
-
-The total number of trace requests processed by Data Prepper is equal to the sum of the `buffer_size` values in `otel-trace-pipeline` and `raw-pipeline`. The total number of trace requests sent to OpenSearch is equal to the product of `batch_size` and `workers` in `raw-trace-pipeline`. For more information about `raw-pipeline`, see [Trace analytics pipeline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines).
+* * otel_traces_raw *- * otel_traces_raw *处理器收到的集合[跨度](https://github.com/opensearch-project/data-prepper/blob/fa65e9efb3f8d6a404a1ab1875f21ce85e5c5a6d/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) 记录来自[*Otel-痕迹-来源*]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otel-trace/)，并执行迹线的状态处理，提取和完成-团体-相关字段。
+* * otel_traces_group *- * otel_traces_group *处理器填充缺少的跟踪-团体-集合中的相关领域[跨度](https://github.com/opensearch-project/data-prepper/blob/298e7931aa3b26130048ac3bde260e066857df54/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) 通过查找OpenSearch后端记录。
+* * service_map_stateful *  -  * service_map_statefl *处理器对跟踪数据执行所需的预处理，并构建元数据以显示`service-map` 仪表板。
 
 
-We recommend the following when making changes to buffer settings:
- * The `buffer_size` value in `otel-trace-pipeline` and `raw-pipeline` should be the same.
- * The `buffer_size` should be greater than or equal to `workers` * `batch_size` in the `raw-pipeline`.
+### OpenSearch水槽
+
+OpenSearch提供了一个通用的水槽，将数据写入OpenSearch作为目的地。这[OpenSearch水槽]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/opensearch/) 具有与OpenSearch集群相关的配置选项，例如端点，SSL，用户名/密码，索引名称，索引模板和索引状态管理。
+
+该水槽为跟踪分析功能提供了特定的配置。这些配置允许接收器使用特定于跟踪分析的索引和索引模板。以下OpenSearch索引特定于跟踪分析：
+
+* * Otel-V1-APM-跨度 *  -  * Otel-V1-APM-跨度*索引将输出存储在[otel_traces_raw]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/otel-trace-raw/) 处理器。
+* * Otel-V1-APM-服务-地图 *  -  * Otel-V1-APM-服务-MAP*索引存储输出[service_map_state]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/service-map-stateful/) 处理器。
+
+## 跟踪调整
+
+从0.8.x版本开始，Data Prepper支持跟踪分析的垂直和水平缩放。您可以调整单个数据PEPPER实例的大小，以满足工作量的需求并垂直扩展。
+
+您可以使用核心水平扩展[同行前锋]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/peer-forwarder/) 部署多个数据预先实例以形成集群。这使数据预先实例可以与集群中的实例进行通信，并且是水平扩展部署所必需的。
+
+### 扩展建议
+
+使用以下建议的配置来扩展数据预先缩放。我们建议您根据要求修改参数。我们还建议您监视PEPPPER主机指标和OpenSearch指标，以确保配置按预期工作。
+
+#### 缓冲
+
+数据预先处理处理的跟踪请求总数等于`buffer_size` 值`otel-trace-pipeline` 和`raw-pipeline`。发送给OpenSearch的跟踪请求的总数等于`batch_size` 和`workers` 在`raw-trace-pipeline`。有关有关的更多信息`raw-pipeline`， 看[跟踪分析管道]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines)。
+
+
+在更改缓冲区设置时，我们建议以下以下内容：
+ * 这`buffer_size` 价值`otel-trace-pipeline` 和`raw-pipeline` 应该是一样的。
+ * 这`buffer_size` 应该大于或等于`workers` *`batch_size` 在里面`raw-pipeline`。
  
 
-#### Workers 
+#### 工人
 
-The `workers` setting determines the number of threads that are used by Data Prepper to process requests from the buffer. We recommend that you set `workers` based on the CPU utilization. This value can be higher than the number of available processors because Data Prepper uses significant input/output time when sending data to OpenSearch.
+这`workers` 设置确定Data Prepper用于从缓冲区处理请求的线程数。我们建议您设置`workers` 基于CPU利用率。此值可以高于可用处理器的数量，因为数据Prepper在将数据发送到OpenSearch时会使用大量的输入/输出时间。
 
-#### Heap
+#### 堆
 
-Configure the Data Prepper heap by setting the `JVM_OPTS` environment variable. We recommend that you set the heap value to a minimum value of `4` * `batch_size` * `otel_send_batch_size` * `maximum size of indvidual span`.
+通过设置数据来配置数据预先堆`JVM_OPTS` 环境变量。我们建议您将堆值设置为最小值`4` *`batch_size` *`otel_send_batch_size` *`maximum size of indvidual span`。
 
-As mentioned in the [OpenTelemetry Collector](#opentelemetry-collector) section, set `otel_send_batch_size` to a value of `50` in your OpenTelemetry Collector configuration.
+如[Opentelemetry收集器](#opentelemetry-collector) 部分，设置`otel_send_batch_size` 价值`50` 在您的OpentElemetry集合配置中。
 
-#### Local disk
+#### 本地磁盘
 
-Data Prepper uses the local disk to store metadata required for service map processing, so we recommend storing only the following key fields: `traceId`, `spanId`, `parentSpanId`, `spanKind`, `spanName`, and `serviceName`. The `service-map` plugin stores only two files, each of which stores `window_duration` seconds of data. As an example, testing with a throughput of `3000 spans/second` resulted in the total disk usage of `4 MB`.
+Data Prepper使用本地磁盘来存储服务地图处理所需的元数据，因此我们建议仅存储以下关键字段：`traceId`，，，，`spanId`，，，，`parentSpanId`，，，，`spanKind`，，，，`spanName`， 和`serviceName`。这`service-map` 插件仅存储两个文件，每个文件存储`window_duration` 秒的数据。例如，用吞吐量进行测试`3000 spans/second` 导致总磁盘使用的`4 MB`。
 
-Data Prepper also uses the local disk to write logs. In the most recent version of Data Prepper, you can redirect the logs to your preferred path.
+Data Prepper还使用本地磁盘编写日志。在最新版本的Data Prepper中，您可以将日志重定向到首选的路径。
 
 
-### AWS CloudFormation template and Kubernetes/Amazon EKS configuration files
+### AWS CloudFormation模板和Kubernetes/Amazon EKS配置文件
 
-The [AWS CloudFormation](https://github.com/opensearch-project/data-prepper/blob/main/deployment-template/ec2/data-prepper-ec2-deployment-cfn.yaml) template provides a user-friendly mechanism for configuring the scaling attributes described in the [Trace tuning](#trace-tuning) section.
+这[AWS云形式](https://github.com/opensearch-project/data-prepper/blob/main/deployment-template/ec2/data-prepper-ec2-deployment-cfn.yaml) 模板提供用户-友好的机制，用于配置缩放属性[跟踪调整](#trace-tuning) 部分。
 
-The [Kubernetes configuration files](https://github.com/opensearch-project/data-prepper/blob/main/examples/dev/k8s/README.md) and [Amazon EKS configuration files](https://github.com/opensearch-project/data-prepper/blob/main/deployment-template/eks/README.md) are available for configuring these attributes in a cluster deployment.
+这[Kubernetes配置文件](https://github.com/opensearch-project/data-prepper/blob/main/examples/dev/k8s/README.md) 和[亚马逊EKS配置文件](https://github.com/opensearch-project/data-prepper/blob/main/deployment-template/eks/README.md) 可用于在集群部署中配置这些属性。
 
-### Benchmark tests
+### 基准测试
 
-The benchmark tests were performed on an `r5.xlarge` EC2 instance with the following configuration:
+基准测试是在`r5.xlarge` 带有以下配置的EC2实例：
  
- * `buffer_size`: 4096
- * `batch_size`: 256
- * `workers`: 8
- * `Heap`: 10 GB
+ *`buffer_size`：4096
+ *`batch_size`：256
+ *`workers`：8
+ *`Heap`：10 GB
  
-This setup was able to handle a throughput of `2100` spans/second at `20` percent CPU utilization.
+此设置能够处理`2100` 跨度/秒`20` CPU利用率百分比。
 
-## Pipeline configuration
+## 管道配置
 
-The following sections provide examples of different types of pipelines and how to configure each type. 
+以下各节提供了不同类型的管道以及如何配置每种类型的示例。
 
-### Example: Trace analytics pipeline
+### 示例：跟踪分析管道
 
-The following example demonstrates how to build a pipeline that supports the [OpenSearch Dashboards Observability plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/). This pipeline takes data from the OpenTelemetry Collector and uses two other pipelines as sinks. These two separate pipelines serve two different purposes and write to different OpenSearch indexes. The first pipeline prepares trace data for OpenSearch and enriches and ingests the span documents into a span index within OpenSearch. The second pipeline aggregates traces into a service map and writes service map documents into a service map index within OpenSearch.
+以下示例演示了如何构建支持该管道的管道[OpenSearch仪表板可观察性插件]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/)。该管道从OpenTelemetry Collector中获取数据，并使用其他两个管道作为水槽。这两个单独的管道有两个不同的目的，并写入不同的OpenSearch索引。第一个管道为opensearch准备跟踪数据，并丰富跨度文档，并将跨度文档摄入OpenSearch中的跨度索引。第二管道将轨迹汇总到服务映射中，并将服务图文档写入OpenSearch中的服务地图索引。
 
-Starting with Data Prepper version 2.0, Data Prepper no longer supports the `otel_traces_raw_prepper` processor. The `otel_traces_raw` processor replaces the `otel_traces_raw_prepper` processor and supports some of Data Prepper's recent data model changes. Instead, you should use the `otel_traces_raw` processor. See the following YAML file example:
+从数据Prepper版本2.0开始，Data Prepper不再支持`otel_traces_raw_prepper` 处理器。这`otel_traces_raw` 处理器替换`otel_traces_raw_prepper` 处理器并支持Prepper最近的一些数据模型更改。相反，您应该使用`otel_traces_raw` 处理器。请参阅以下YAML文件示例：
 
 ```yml
 entry-pipeline:
@@ -168,11 +168,11 @@ service-map-pipeline:
         index_type: trace-analytics-service-map
 ```
 
-To maintain similar ingestion throughput and latency, scale the `buffer_size` and `batch_size` by the estimated maximum batch size in the client request payload. {: .tip}
+要保持相似的摄入吞吐量和潜伏期，请扩展`buffer_size` 和`batch_size` 按照客户端请求有效载荷中估计的最大批量大小。{: .tip}
 
-#### Example: `otel trace`
+#### 例子：`otel trace`
 
-The following is an example `otel-trace-source` .yaml file with SSL and basic authentication enabled. Note that you will need to modify your `otel-collector-config.yaml` file so that it uses your own credentials. 
+以下是一个例子`otel-trace-source` .YAML文件带有SSL并启用基本身份验证。请注意，您需要修改您的`otel-collector-config.yaml` 文件以便使用您自己的凭据。
 
 ```yaml
 source:
@@ -187,9 +187,9 @@ source:
         password: "my_s3cr3t"
 ```
 
-#### Example: pipeline.yaml
+#### 示例：pipeline.yaml
 
-The following is an example `pipeline.yaml` file without SSL and basic authentication enabled for the `otel-trace-pipeline` pipeline:
+以下是一个例子`pipeline.yaml` 没有SSL的文件，并启用了基本身份验证`otel-trace-pipeline` 管道：
 
 ```yaml
 otel-trace-pipeline:
@@ -308,25 +308,25 @@ service-map-pipeline:
         #aws_region: us-east-1
 ```
 
-You need to modify the preceding configuration for your OpenSearch cluster so that the configuration matches your environment. Note that it has two `opensearch` sinks that need to be modified.
-{: .note}
+您需要修改OpenSearch集群的前面配置，以使配置匹配您的环境。请注意，它有两个`opensearch` 需要修改的水槽。
+{： 。笔记}
 
-You must make the following changes:
-* `hosts` – Set to your hosts.
-* `username` – Provide your OpenSearch username.
-* `password` – Provide your OpenSearch password.
-* `aws_sigv4` – If you are using Amazon OpenSearch Service with AWS signing, set this value to `true`. It will sign requests with the default AWS credentials provider.
-* `aws_region` – If you are using Amazon OpenSearch Service with AWS signing, set this value to your AWS Region.
+您必须进行以下更改：
+*`hosts`  - 设置为您的主机。
+*`username`  - 提供您的OpenSearch用户名。
+*`password`  - 提供您的OpenSearch密码。
+*`aws_sigv4`  - 如果您使用的是带有AWS签名的Amazon OpenSearch服务，请将此值设置为`true`。它将与默认AWS凭据提供商签署请求。
+*`aws_region`  - 如果您使用的是带有AWS签名的Amazon OpenSearch服务，请将此值设置为AWS区域。
 
-For other configurations available for OpenSearch sinks, see [Data Prepper OpenSearch sink]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/opensearch/).
+有关可用于OpenSearch水槽的其他配置，请参见[数据预先开放搜索水槽]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/opensearch/)。
 
-## OpenTelemetry Collector
+## Opentelemetry收集器
 
-You need to run OpenTelemetry Collector in your service environment. Follow [Getting Started](https://opentelemetry.io/docs/collector/getting-started/#getting-started) to install an OpenTelemetry collector.  Ensure that you configure the collector with an exporter configured for your Data Prepper instance. The following example `otel-collector-config.yaml` file receives data from various instrumentations and exports it to Data Prepper.
+您需要在服务环境中运行OpenTelemetry收集器。跟随[入门](https://opentelemetry.io/docs/collector/getting-started/#getting-started) 安装opentelemetry收集器。确保使用为数据预先实例配置的出口商配置收集器。以下示例`otel-collector-config.yaml` 文件从各种仪器中接收数据，并将其导出到数据PEPPPER中。
 
-### Example otel-collector-config.yaml file
+### 示例Otel-集电极-config.yaml文件
 
-The following is an example `otel-collector-config.yaml` file:
+以下是一个例子`otel-collector-config.yaml` 文件：
 
 ```
 receivers:
@@ -357,21 +357,21 @@ service:
       exporters: [otlp/data-prepper]
 ```
 
-After you run OpenTelemetry in your service environment, you must configure your application to use the OpenTelemetry Collector. The OpenTelemetry Collector typically runs alongside your application.
+在服务环境中运行OpenTelemetry后，必须配置应用程序以使用OpenTelemetry Collector。OpentElemetry收集器通常与您的应用程序一起运行。
 
-## Next steps and more information
+## 下一步和更多信息
 
-The [OpenSearch Dashboards Observability plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/) documentation provides additional information about configuring OpenSearch to view trace analytics in OpenSearch Dashboards.
+这[OpenSearch仪表板可观察性插件]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/) 文档提供了有关配置Opensearch以查看OpenSearch仪表板中的跟踪分析的其他信息。
 
-For more information about how to tune and scale Data Prepper for trace analytics, see [Trace tuning](#trace-tuning).
+有关如何调整和缩放数据预先痕迹分析的更多信息，请参见[跟踪调整](#trace-tuning)。
 
-## Migrating to Data Prepper 2.0
+## 迁移到数据Prepper 2.0
 
-Starting with Data Prepper version 1.4, trace processing uses Data Prepper's event model. This allows pipeline authors to configure other processors to modify spans or traces. To provide a migration path, Data Prepper version 1.4 introduced the following changes:
+从数据Prepper版本1.4开始，Trace Processing使用Data Prepper的事件模型。这允许管道作者配置其他处理器来修改跨度或跟踪。为了提供迁移路径，Data Prepper版本1.4引入了以下更改：
 
-* `otel_traces_source` has an optional `record_type` parameter that can be set to `event`. When configured, it will output event objects.
-* `otel_traces_raw` replaces `otel_traces_raw_prepper` for event-based spans.
-* `otel_traces_group` replaces `otel_traces_group_prepper` for event-based spans.
+*`otel_traces_source` 有一个可选的`record_type` 可以设置为`event`。配置后，它将输出事件对象。
+*`otel_traces_raw` 替换`otel_traces_raw_prepper` 事件-基于跨度。
+*`otel_traces_group` 替换`otel_traces_group_prepper` 事件-基于跨度。
 
-In Data Prepper version 2.0, `otel_traces_source` will only output events. Data Prepper version 2.0 also removes `otel_traces_raw_prepper` and `otel_traces_group_prepper` entirely. To migrate to Data Prepper version 2.0, you can configure your trace pipeline using the event model.
+在Data Prepper 2.0版中`otel_traces_source` 只会输出事件。Data Prepper版本2.0也已删除`otel_traces_raw_prepper` 和`otel_traces_group_prepper` 完全。要迁移到数据Prepper 2.0版，您可以使用事件模型配置跟踪管道。
  

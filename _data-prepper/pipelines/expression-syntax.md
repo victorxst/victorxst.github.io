@@ -1,71 +1,71 @@
 ---
 layout: default
-title: Expression syntax
-parent: Pipelines
+title: 表达语法
+parent: 管道
 nav_order: 12
 ---
 
-# Expression syntax 
+# 表达语法
 
-The following sections provide information about expression syntax in Data Prepper.
+以下各节提供了有关Data Prepper中表达语法的信息。
 
-## Supported operators
+## 支持运营商
 
-Operators are listed in order of precedence (top to bottom, left to right).
+按照优先顺序列出操作员（上到底，从左到右）。
 
-| Operator             | Description                                           | Associativity |
+| 操作员| 描述| 关联|
 |----------------------|-------------------------------------------------------|---------------|
-| `()`                 | Priority Expression                                   | left-to-right |
-| `not`<br> `+`<br>  `-`| Unary Logical NOT<br>Unary Positive<br>Unary negative | right-to-left |
-| `<`, `<=`, `>`, `>=` | Relational Operators                                  | left-to-right |
-| `==`, `!=`           | Equality Operators                                    | left-to-right |
-| `and`, `or`          | Conditional Expression                                | left-to-right |
+| `()`                 | 优先表达| 左边-到-正确的|
+| `not`<br>`+`<br>`-`| 一级逻辑不是<br>一元阳性<br>单位负面| 正确的-到-左边|
+| `<`，，，，`<=`，，，，`>`，，，，`>=` | 关系运营商| 左边-到-正确的|
+| `==`，，，，`!=`           | 平等操作员| 左边-到-正确的|
+| `and`，，，，`or`          | 条件表达| 左边-到-正确的|
 
-## Reserved for possible future functionality
+## 保留用于可能的未来功能
 
-Reserved symbol set: `^`, `*`, `/`, `%`, `+`, `-`, `xor`, `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `++`, `--`, `${<text>}`
+保留符号集：`^`，，，，`*`，，，，`/`，，，，`%`，，，，`+`，，，，`-`，，，，`xor`，，，，`=`，，，，`+=`，，，，`-=`，，，，`*=`，，，，`/=`，，，，`%=`，，，，`++`，，，，`--`，，，，`${<text>}`
 
-## Set initializer
+## 设置初始化器
 
-The set initializer defines a set or term and/or expressions.
+集合初始化器定义集合或术语和/或表达式。
 
-### Examples
+### 例子
 
-The following are examples of set initializer syntax.
+以下是设置初始化器语法的示例。
 
-#### HTTP status codes
+#### HTTP状态代码
 
 ```
 {200, 201, 202}
 ```
 
-#### HTTP response payloads
+#### HTTP响应有效载荷
 
 ```
 {"Created", "Accepted"}
 ```
 
-#### Handle multiple event types with different keys
+#### 用不同的键处理多种事件类型
 
 ```
 {/request_payload, /request_message}
 ```
 
-## Priority expression
+## 优先表达
 
-A priority expression identifies an expression that will be evaluated at the highest priority level. A priority expression must contain an expression or value; empty parentheses are not supported.
+优先表达式标识将在最高优先级评估的表达式。优先表达式必须包含表达式或值；不支持空括号。
 
-### Example
+### 例子
 
 ```
 /is_cool == (/name == "Steven")
 ```
 
-## Relational operators
+## 关系运营商
 
-Relational operators are used to test the relationship of two numeric values. The operands must be numbers or JSON Pointers that resolve to numbers.
+关系运算符用于测试两个数字值的关系。操作数必须是溶于数字的数字或JSON指针。
 
-### Syntax
+### 句法
 
 ```
 <Number | JSON Pointer> < <Number | JSON Pointer>
@@ -74,33 +74,33 @@ Relational operators are used to test the relationship of two numeric values. Th
 <Number | JSON Pointer> >= <Number | JSON Pointer>
 ```
 
-### Example
+### 例子
 
 ```
 /status_code >= 200 and /status_code < 300
 ```
 
-## Equality operators
+## 平等操作员
 
-Equality operators are used to test whether two values are equivalent.
+平等运算符用于测试两个值是否等效。
 
-### Syntax
+### 句法
 ```
 <Any> == <Any>
 <Any> != <Any>
 ```
 
-### Examples
+### 例子
 ```
 /is_cool == true
 3.14 != /status_code
 {1, 2} == /event/set_property
 ```
-## Using equality operators to check for a JSON Pointer 
+## 使用平等操作员检查JSON指针
 
-Equality operators can also be used to check whether a JSON Pointer exists by comparing the value with `null`.
+平等运算符也可以用于检查JSON指针是否通过将值与`null`。
 
-### Syntax
+### 句法
 ```
 <JSON Pointer> == null
 <JSON Pointer> != null
@@ -108,24 +108,24 @@ null == <JSON Pointer>
 null != <JSON Pointer>
 ```
 
-### Example
+### 例子
 ```
 /response == null
 null != /response
 ```
 
-#### Conditional expression
+#### 条件表达
 
-A conditional expression is used to chain together multiple expressions and/or values.
+有条件的表达式用于将多个表达式和/或值链在一起。
 
-#### Syntax
+#### 句法
 ```
 <Any> and <Any>
 <Any> or <Any>
 not <Any>
 ```
 
-### Example
+### 例子
 ```
 /status_code == 200 and /message == "Hello world"
 /status_code == 200 or /status_code == 202
@@ -134,114 +134,115 @@ not /status_code in {200, 202}
 /response != null
 ```
 
-## Definitions
+## 定义
 
-This section provides expression definitions. 
+本节提供表达定义。
 
-### Literal
-A literal is a fundamental value that has no children:
-- Float: Supports values from 3.40282347 &times; 10<sup>38</sup> to 1.40239846 &times; 10<sup>&minus;45</sup>.
-- Integer: Supports values from &minus;2,147,483,648 to 2,147,483,647.
-- Boolean: Supports true or false.
-- JSON Pointer: See the [JSON Pointer](#json-pointer) section for details.
-- String: Supports valid Java strings.
-- Null: Supports null check to see whether a JSON Pointer exists.
+### 文字
+字面意思是没有孩子的基本价值：
+- 浮点：支持3.40282347＆Times的值；10 <sup> 38 </sup>至1.40239846＆times;10 <sup>＆minus; 45 </sup>。
+- 整数：支持＆Minus的值; 2,147,483,648至2,147,483,647。
+- 布尔值：支持真或错误。
+- JSON指针：请参阅[JSON指针](#json-pointer) 详细信息部分。
+- 字符串：支持有效的Java字符串。
+- NULL：支持Null检查是否存在JSON指针。
 
-### Expression string
-An expression string takes the highest priority in a Data Prepper expression and only supports one expression string resulting in a return value. An _expression string_ is not the same as an _expression_.
+### 表达式字符串
+表达式字符串在数据PEPPER表达式中获得最高优先级，并且仅支持一个表达式字符串，从而导致返回值。_expression String_与_expression_不同。
 
-### Statement
-A statement is the highest-priority component of an expression string.
+### 陈述
+陈述是最高的-表达字符串的优先组件。
 
-### Expression
-An expression is a generic component that contains a _Primary_ or an _Operator_. Expressions may contain expressions. An expression's imminent children can contain 0–1 _Operators_.
+### 表达
+表达式是包含_primary_或_operator_的通用组件。表达可能包含表达式。表情的迫在眉睫的孩子可以包含0-1个_operators_。
 
-### Primary
+### 基本的
 
-- _Set_
-- _Priority Expression_
-- _Literal_
+- _放_
+- _ priority expression _
+- _文字_
 
-### Operator
-An operator is a hardcoded token that identifies the operation used in an _expression_.
+### 操作员
+操作员是一个硬编码令牌，可以标识_expression_中使用的操作。
 
-### JSON Pointer
-A JSON Pointer is a literal used to reference a value within an event and provided as context for an _expression string_. JSON Pointers are identified by a leading `/` containing alphanumeric characters or underscores, delimited by `/`. JSON Pointers can use an extended character set if wrapped in double quotes (`"`) using the escape character `\`. Note that JSON Pointers require `~` and `/` characters, which should be used as part of the path and not as a delimiter that needs to be escaped.
+### JSON指针
+JSON指针是一种文字，用于在事件中引用一个值，并作为_expression String_的上下文提供。JSON指针由领先者确定`/` 包含字母数字字符或下划线，由`/`。如果用双引号包装，JSON Pointers可以使用扩展字符集`"`）使用逃生角色`\`。请注意，JSON指针需要`~` 和`/` 字符，应用作路径的一部分，而不是需要逃脱的定界符。
 
-The following are examples of JSON Pointers:
+以下是JSON指针的例子：
 
-- `~0` representing `~`
-- `~1` representing `/`
+- `~0` 代表`~`
+- `~1` 代表`/`
 
-#### Shorthand syntax (Regex, `\w` = `[A-Za-z_]`)
+#### 速记语法（正则`\w` =`[A-Za-z_]`）
 ```
 /\w+(/\w+)*
 ```
 
-#### Example of shorthand
+#### 速记的例子
 
-The following is an example of shorthand:
+以下是速记的一个例子：
 
 ```
 /Hello/World/0
 ```
 
-#### Example of escaped syntax
+#### 逃脱语法的示例
 
-The following is an example of escaped syntax:
+以下是逃脱语法的示例：
 ```
 "/<Valid String Characters | Escaped Character>(/<Valid String Characters | Escaped Character>)*"
 ```
 
-#### Example of an escaped JSON Pointer
+#### 逃脱的JSON指针的示例
 
-The following is an example of an escaped JSON Pointer:
+以下是逃脱的JSON指针的示例：
 ```
 # Path
 # { "Hello - 'world/" : [{ "\"JsonPointer\"": true }] }
 "/Hello - 'world\//0/\"JsonPointer\""
 ```
 
-## White space
+## 空白
 
-White space is **optional** surrounding relational operators, regex equality operators, equality operators, and commas.
-White space is **required** surrounding set initializers, priority expressions, set operators, and conditional expressions.
+空白是**选修的** 周围的关系运营商，正则等级运营商，平等操作员和逗号。
+空白是**必需的** 周围设置的初始化器，优先表达式，集合运算符和条件表达式。
 
 
-| Operator             | Description              | White space required | ✅ Valid examples                                               | ❌ Invalid examples                    |
+| 操作员| 描述| 需要空白| ✅有效示例| ❌无效的例子|
 |----------------------|--------------------------|----------------------|----------------------------------------------------------------|---------------------------------------|
-| `{}`                 | Set initializer          | Yes                  | `/status in {200}`                                             | `/status in{200}`                     |
-| `()`                 | Priority expression      | Yes                  | `/a==(/b==200)`<br>`/a in ({200})`                             | `/status in({200})`                   |
-| `in`, `not in`       | Set operators            | Yes                  | `/a in {200}`<br>`/a not in {400}`                             | `/a in{200, 202}`<br>`/a not in{400}` |
-| `<`, `<=`, `>`, `>=` | Relational operators     | No                   | `/status < 300`<br>`/status>=300`                              |                                       |
-| `=~`, `!~`           | Regex equality pperators | No                   | `/msg =~ "^\w*$"`<br>`/msg=~"^\w*$"`                           |                                       |
-| `==`, `!=`           | Equality operators       | No                   | `/status == 200`<br>`/status_code==200`                        |                                       |
-| `and`, `or`, `not`   | Conditional operators    | Yes                  | `/a<300 and /b>200`                                            | `/b<300and/b>200`                     |
-| `,`                  | Set value delimiter      | No                   | `/a in {200, 202}`<br>`/a in {200,202}`<br>`/a in {200 , 202}` | `/a in {200,}`                        |
+| `{}`                 | 设置初始化器| 是的| `/status in {200}`                                             | `/status in{200}`                     |
+| `()`                 | 优先表达| 是的| `/a==(/b==200)`<br>`/a in ({200})`                             | `/status in({200})`                   |
+| `in`，，，，`not in`       | 设置运算符| 是的| `/a in {200}`<br>`/a not in {400}`                             | `/a in{200, 202}`<br>`/a not in{400}` |
+| `<`，，，，`<=`，，，，`>`，，，，`>=` | 关系运营商| 不| `/status < 300`<br>`/status>=300`                              |                                       |
+| `=~`，，，，`!~`           | 正则平等pperators| 不| `/msg =~ "^\w*$"`<br>`/msg=~"^\w*$"`                           |                                       |
+| `==`，，，，`!=`           | 平等操作员| 不| `/status == 200`<br>`/status_code==200`                        |                                       |
+| `and`，，，，`or`，，，，`not`   | 有条件的操作员| 是的| `/a<300 and /b>200`                                            | `/b<300and/b>200`                     |
+| `,`                  | 设置值定界符| 不| `/a in {200, 202}`<br>`/a in {200,202}`<br>`/a in {200 , 202}` | `/a in {200,}`                        |
 
 
-## Functions
+## 功能
 
-Data Prepper supports the following built-in functions that can be used in an expression.
+数据预先支持以下构建-在表达式中可以使用的函数中。
 
 ### `length()`
 
-The `length()` function takes one argument of the JSON pointer type and returns the length of the value passed. For example, `length(/message)` returns a length of `10` when a key message exists in the event and has a value of `1234567890`.
+这`length()` 函数采用JSON指针类型的一个参数，并返回传递的值的长度。例如，`length(/message)` 返回长度`10` 当事件中存在关键信息并具有`1234567890`。
 
 ### `hasTags()`
 
-The `hastags()` function takes one or more string type arguments and returns `true` if all the arguments passed are present in an event's tags. When an argument does not exist in the event's tags, the function returns `false`. For example, if you use the expression `hasTags("tag1")` and the event contains `tag1`, Data Prepper returns `true`. If you use the expression `hasTags("tag2")` but the event only contains a `tag1` tag, Data Prepper returns `false`.
+这`hastags()` 功能采用一个或多个字符串类型参数并返回`true` 如果所有通过的参数都存在于事件标签中。当事件标签中不存在参数时，函数返回`false`。例如，如果您使用表达式`hasTags("tag1")` 活动包含`tag1`，数据预先回报`true`。如果您使用表达式`hasTags("tag2")` 但是该事件只包含一个`tag1` 标签，数据预先返回`false`。
 
 ### `getMetadata()`
 
-The `getMetadata()` function takes one literal string argument to look up specific keys in a an event's metadata. If the key contains a `/`, then the function looks up the metadata recursively. When passed, the expression returns the value corresponding to the key. The value returned can be of any type. For example, if the metadata contains `{"key1": "value2", "key2": 10}`, then the function, `getMetadata("key1")`, returns `value2`. The function, `getMetadata("key2")`, returns 10.
+这`getMetadata()` 功能需要一个字面的字符串参数，以查找事件的元数据中的特定键。如果键包含一个`/`，然后该函数递归地抬起元数据。通过时，表达式返回对应于键的值。返回的值可以是任何类型。例如，如果元数据包含`{"key1": "value2", "key2": 10}`，然后函数，`getMetadata("key1")`，返回`value2`。功能，`getMetadata("key2")`，返回10。
 
 ### `contains()`
 
-The `contains()` function takes two string arguments and determines whether either a literal string or a JSON pointer is contained within an event. When the second argument contains a substring of the first argument, such as `contains("abcde", "abcd")`, the function returns `true`. If the second argument does not contain any substrings, such as `contains("abcde", "xyz")`, it returns `false`.
+这`contains()` 函数采用两个字符串参数，并确定事件中是否包含文字字符串或JSON指针。当第二个参数包含第一个参数的子字符串时，例如`contains("abcde", "abcd")`，函数返回`true`。如果第二个参数不包含任何子字符串，例如`contains("abcde", "xyz")`，它返回`false`。
 
 ### `cidrContains()`
 
-The `cidrContains()` function takes two or more arguments. The first argument is a JSON pointer, which represents the key to the IP address that is checked. It supports both IPv4 and IPv6 addresses. Every argument that comes after the key is a string type that represents CIDR blocks that are checked against.
+这`cidrContains()` 功能需要两个或多个参数。第一个参数是JSON指针，它代表了已检查的IP地址的键。它支持IPv4和IPv6地址。密钥之后发生的每个参数都是一个字符串类型，代表被检查的CIDR块。
 
-If the IP address in the first argument is in the range of any of the given CIDR blocks, the function returns `true`. If the IP address is not in the range of the CIDR blocks, the function returns `false`. For example, `cidrContains(/sourceIp,"192.0.2.0/24","10.0.1.0/16")` will return `true` if the `sourceIp` field indicated in the JSON pointer has a value of `192.0.2.5`.
+如果第一个参数中的IP地址在给定CIDR块的任何一个范围内，则该函数返回`true`。如果IP地址不在CIDR块的范围内，则该功能返回`false`。例如，`cidrContains(/sourceIp,"192.0.2.0/24","10.0.1.0/16")` 将返回`true` 如果是`sourceIp` JSON指针中指示的字段具有`192.0.2.5`。
+

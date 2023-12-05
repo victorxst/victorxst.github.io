@@ -1,18 +1,18 @@
 ---
 layout: default
-title: user_agent
-parent: Processors
-grand_parent: Pipelines
+title: 用户代理
+parent: 处理器
+grand_parent: 管道
 nav_order: 130
 ---
 
-# user_agent
+# 用户代理
 
-The `user_agent` processor parses any user agent (UA) string in an event and then adds the parsing results to the event's write data.
+这`user_agent` 处理器在事件中解析任何用户代理（UA）字符串，然后将解析结果添加到事件的写入数据中。
 
-## Usage
+## 用法
 
-In this example, the `user_agent` processor calls the source that contains the UA string, the `ua` field, and indicates the key to which the parsed string will write, `user_agent`, as shown in the following example:
+在此示例中，`user_agent` 处理器调用包含UA字符串的源，`ua` 字段，并指示解析字符串写入的关键，`user_agent`，如以下示例所示：
 
 ```yaml
   processor:
@@ -21,7 +21,7 @@ In this example, the `user_agent` processor calls the source that contains the U
         target: "user_agent"
 ```
 
-The following example event contains the `ua` field with a string that provides information about a user: 
+以下示例活动包含`ua` 带有提供有关用户信息的字符串的字段：
 
 ```json
 {
@@ -29,7 +29,7 @@ The following example event contains the `ua` field with a string that provides 
 }
 ```
 
-The `user_agent` processor parses the string into a format compatible with Elastic Common Schema (ECS) and then adds the result to the specified target, as shown in the following example:
+这`user_agent` 处理器将字符串解析为与弹性通用架构（EC）兼容的格式，然后将结果添加到指定的目标中，如以下示例所示：
 
 ```json
 {
@@ -50,14 +50,15 @@ The `user_agent` processor parses the string into a format compatible with Elast
 }
 ```
 
-## Configuration options
+## 配置选项
 
-You can use the following configuration options with the `user_agent` processor.
+您可以使用以下配置选项`user_agent` 处理器。
 
-| Option | Required | Description |
-| :--- | :--- | :--- |
-| `source` | Yes | The field in the event that will be parsed. 
-| `target` | No | The field to which the parsed event will write. Default is `user_agent`. 
-| `exclude_original` | No | Determines whether to exclude the original UA string from the parsing result. Defaults to `false`. 
-| `cache_size` | No | The cache size of the parser in megabytes. Defaults to `1000`. |
-| `tags_on_parse_failure` | No | The tag to add to an event if the `user_agent` processor fails to parse the UA string. |
+| 选项| 必需的| 描述|
+| ：--- | ：--- | ：--- |
+| `source` | 是的| 将被解析的领域。
+| `target` | 不| 解析事件将写的字段。默认为`user_agent`。
+| `exclude_original` | 不| 确定是否从解析结果中排除原始UA字符串。默认为`false`。
+| `cache_size` | 不| 兆字节中解析器的缓存大小。默认为`1000`。|
+| `tags_on_parse_failure` | 不| 如果是`user_agent` 处理器无法解析UA字符串。|
+

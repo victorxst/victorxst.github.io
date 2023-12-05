@@ -1,38 +1,39 @@
 ---
 layout: default
 title: service_map 
-parent: Processors
-grand_parent: Pipelines
+parent: 处理器
+grand_parent: 管道
 nav_order: 95
 ---
 
 # service_map
 
-The `service_map` processor uses OpenTelemetry data to create a distributed service map for visualization in OpenSearch Dashboards. 
+这`service_map` 处理器使用OpentElemetry数据来创建一个分布式服务映射，以在OpenSearch仪表板中可视化。
 
-## Configuration
+## 配置
 
-The following table describes the option you can use to configure the `service_map` processor.
+下表描述了您可以使用的选项来配置`service_map` 处理器。
 
-Option | Required | Type | Description
-:--- | :--- | :--- | :---
-window_duration | No | Integer | Represents the fixed time window, in seconds, during which service map relationships are evaluated. Default value is 180.
+选项| 必需的| 类型| 描述
+：--- | ：--- | ：--- | ：---
+window_duration| 不| 整数| 代表固定的时间窗口，以秒为单位，在其中评估了服务地图关系。默认值为180。
 
-<!---## Configuration
+<！---## 配置
 
-Content will be added to this section.--->
+内容将添加到本节中。--->
 
-## Metrics
+## 指标
 
-The following table describes common [Abstract processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java) metrics.
+下表描述了常见[抽象处理器](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java) 指标。
 
-| Metric name | Type | Description |
+| 公制名称| 类型| 描述|
 | ------------- | ---- | -----------|
-| `recordsIn` | Counter | Metric representing the ingress of records to a pipeline component. |
-| `recordsOut` | Counter | Metric representing the egress of records from a pipeline component. |
-| `timeElapsed` | Timer | Metric representing the time elapsed during execution of a pipeline component. |
+| `recordsIn` | 柜台| 表示记录进入管道组件的公制。|
+| `recordsOut` | 柜台| 表示管道组件中记录出口的公制。|
+| `timeElapsed` | 计时器| 公制表示管道组件执行期间经过的时间。|
 
-The `service-map-stateful` processor includes following custom metrics:
+这`service-map-stateful` 处理器包括以下自定义指标：
 
-* `traceGroupCacheCount`: The number of trace groups in the trace group cache.
-* `spanSetCount`: The number of span sets in the span set collection.
+*`traceGroupCacheCount`：跟踪组缓存中的跟踪组数。
+*`spanSetCount`：跨度集集合中的跨度集数量
+
