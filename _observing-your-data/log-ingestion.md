@@ -1,72 +1,72 @@
 ---
 layout: default
-title: Log ingestion
+title: 日志摄入
 nav_order: 30
 redirect_from:
   - /observability-plugin/log-analytics/
 ---
 
-# Log Ingestion
+# 日志摄入
 
-Log ingestion provides a way to transform unstructured log data into structured data and ingest into OpenSearch. Structured log data allows for improved queries and filtering based on the data format when searching logs for an event.
+日志摄入提供了一种将非结构化日志数据转换为结构化数据并摄入opensearch的方法。结构化日志数据允许在搜索事件日志时根据数据格式进行改进的查询和过滤。
 
-## Get started with log ingestion
+## 开始摄入日志
 
-OpenSearch Log Ingestion consists of three components---[Data Prepper]({{site.url}}{{site.baseurl}}/clients/data-prepper/index/), [OpenSearch]({{site.url}}{{site.baseurl}}/quickstart/), and [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/). The Data Prepper repository contains several [sample applications](https://github.com/opensearch-project/data-prepper/tree/main/examples) that you can use to get started.
+OpenSearch Log摄入由三个组件组成---[数据预先]({{site.url}}{{site.baseurl}}/clients/data-prepper/index/)，，，，[OpenSearch]({{site.url}}{{site.baseurl}}/quickstart/)， 和[OpenSearch仪表板]({{site.url}}{{site.baseurl}}/dashboards/index/)。数据Prepper存储库包含几个[样本应用](https://github.com/opensearch-project/data-prepper/tree/main/examples) 您可以用来开始。
 
-### Basic flow of data
+### 基本数据流
 
-![Log data flow diagram from a distributed application to OpenSearch]({{site.url}}{{site.baseurl}}/images/la.png)
+![从分布式应用程序到OpenSearch的日志数据流程图]({{site.url}}{{site.baseurl}}/images/la.png)
 
-1. Log Ingestion relies on you adding log collection to your application's environment to gather and send log data.
+1. 日志摄入依赖于您将日志集合添加到应用程序的环境中以收集并发送日志数据。
 
-   (In the [example](#example) below, [FluentBit](https://docs.fluentbit.io/manual/) is used as a log collector that collects log data from a file and sends the log data to Data Prepper).
+   （在里面[例子](#example) 以下，[fluentbit](https://docs.fluentbit.io/manual/) 用作日志收集器，从文件收集日志数据并将日志数据发送到数据Prepper）。
 
-2. [Data Prepper]({{site.url}}{{site.baseurl}}/clients/data-prepper/index/) receives the log data, transforms the data into a structure format, and indexes it on an OpenSearch cluster.
+2. [数据预先]({{site.url}}{{site.baseurl}}/clients/data-prepper/index/) 接收日志数据，将数据转换为结构格式，然后将其索引在OpenSearch群集上。
 
-3. The data can then be explored through OpenSearch search queries or the **Discover** page in OpenSearch Dashboards.
+3. 然后可以通过OpenSearch搜索查询或**发现** opensearch仪表板中的页面。
 
-### Example
+### 例子
 
-This example mimics the writing of log entries to a log file that are then processed by Data Prepper and stored in OpenSearch.
+此示例模仿了日志文件的日志条目的写入，然后通过数据预先处理并存储在OpenSearch中。
 
-Download or clone the [Data Prepper repository](https://github.com/opensearch-project/data-prepper). Then navigate to `examples/log-ingestion/` and open `docker-compose.yml` in a text editor. This file contains a container for:
+下载或克隆[数据PEPPER存储库](https://github.com/opensearch-project/data-prepper)。然后导航到`examples/log-ingestion/` 并开放`docker-compose.yml` 在文本编辑器中。该文件包含一个容器：
 
-- [Fluent Bit](https://docs.fluentbit.io/manual/) (`fluent-bit`)
-- Data Prepper (`data-prepper`)
-- A single-node OpenSearch cluster (`opensearch`)
-- OpenSearch Dashboards (`opensearch-dashboards`).
+- [流利的位](https://docs.fluentbit.io/manual/) （（`fluent-bit`）
+- 数据prepper（`data-prepper`）
+- 一个-节点OpenSearch cluster（`opensearch`）
+- OpenSearch仪表板（`opensearch-dashboards`）。
 
-Close the file and run `docker-compose up --build` to start the containers.
+关闭文件并运行`docker-compose up --build` 启动容器。
 
-After the containers start, your ingestion pipeline is set up and ready to ingest log data. The `fluent-bit` container is configured to read log data from `test.log`. Run the following command to generate log data to send to the log ingestion pipeline.
+容器启动后，设置了摄入管道并准备摄入日志数据。这`fluent-bit` 容器配置为从`test.log`。运行以下命令以生成日志数据以发送到日志摄入管道。
 
 ```
 echo '63.173.168.120 - - [04/Nov/2021:15:07:25 -0500] "GET /search/tag/list HTTP/1.0" 200 5003' >> test.log
 ```
 
-Fluent-Bit will collect the log data and send it to Data Prepper:
+流利-位会收集日志数据并将其发送给数据Prepper：
 
 ```angular2html
 [2021/12/02 15:35:41] [ info] [output:http:http.0] data-prepper:2021, HTTP status=200
 200 OK
 ```
 
-Data Prepper will process the log and index it:
+数据Prepper将处理日志并索引：
 
 ```
 2021-12-02T15:35:44,499 [log-pipeline-processor-worker-1-thread-1] INFO  com.amazon.dataprepper.pipeline.ProcessWorker -  log-pipeline Worker: Processing 1 records from buffer
 ```
 
-This should result in a single document being written to the OpenSearch cluster in the `apache-logs` index as defined in the `log_pipeline.yaml` file.
+这应该导致将单个文档写入openSearch集群`apache-logs` 索引如`log_pipeline.yaml` 文件。
 
-Run the following command to see one of the raw documents in the OpenSearch cluster:
+运行以下命令，以查看OpenSearch cluster中的一个原始文档：
 
 ```bash
 curl -X GET -u 'admin:admin' -k 'https://localhost:9200/apache_logs/_search?pretty&size=1'
 ```
 
-The response should show the parsed log data:
+响应应显示解析的日志数据：
 
 ```
     "hits" : [
@@ -92,4 +92,5 @@ The response should show the parsed log data:
     ]
 ```
 
-The same data can be viewed in OpenSearch Dashboards by visiting the **Discover** page and searching the `apache_logs` index. Remember, you must create the index in OpenSearch Dashboards if this is your first time searching for the index.
+可以在OpenSearch仪表板中查看相同的数据，通过访问**发现** 页面并搜索`apache_logs` 指数。请记住，如果这是您第一次搜索索引，则必须在OpenSearch仪表板中创建索引
+

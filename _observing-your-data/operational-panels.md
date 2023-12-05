@@ -1,28 +1,29 @@
 ---
 layout: default
-title: Operational panels
+title: 操作面板
 nav_order: 60
 redirect_from:
   - /observing-your-data/operational-panels/
   - /observability-plugin/operational-panels/
 ---
 
-# Operational panels
+# 操作面板
 
-Operational panels in OpenSearch Dashboards are collections of visualizations generated using [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) (PPL) queries.
+OpenSearch仪表板中的操作面板是使用的可视化集合[管道处理语言]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) （PPL）查询。
 
-## Get started with operational panels
+## 开始使用操作面板
 
-If you want to start using operational panels without adding any data, expand the **Action** menu, choose **Add samples**, and Dashboards adds a set of operational panels with saved visualizations for you to explore.
+如果您想开始使用操作面板而不添加任何数据，请扩展**行动** 菜单，选择**添加样品**，仪表板添加了一套具有保存可视化的操作面板供您探索。
 
-## Create an operational panel
+## 创建一个操作面板
 
-To create an operational panel and add visualizations:
+创建一个操作面板并添加可视化：
 
-1. From the **Add Visualization** dropdown menu, choose **Select Existing Visualization** or **Create New Visualization**, which takes you to the [event analytics]({{site.url}}{{site.baseurl}}/observing-your-data/event-analytics) explorer, where you can use PPL to create visualizations.
-1. If you're adding already existing visualizations, choose a visualization from the dropdown menu.
-1. Choose **Add**.
+1. 来自**添加可视化** 下拉菜单，选择**选择现有的可视化** 或者**创建新的可视化**，这带你到[事件分析]({{site.url}}{{site.baseurl}}/observing-your-data/event-analytics) 资源管理器，您可以在其中使用PPL创建可视化。
+1. 如果您要添加已经存在的可视化，请从下拉菜单中选择可视化。
+1. 选择**添加**。
 
-![Sample operational panel]({{site.url}}{{site.baseurl}}/images/operational-panel.png)
+![样品操作面板]({{site.url}}{{site.baseurl}}/images/operational-panel.png)
 
-To search for a particular visualization in your operation panels, use PPL queries to search for data you've already added to your panel.
+要在操作面板中搜索特定的可视化，请使用PPL查询搜索您已经添加到面板中的数据。
+

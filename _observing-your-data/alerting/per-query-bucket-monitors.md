@@ -1,29 +1,29 @@
 ---
 layout: default
-title: Per query and per bucket monitors
+title: 每个查询和每个水桶显示器
 nav_order: 5
-parent: Monitors
-grand_parent: Alerting
+parent: 监视器
+grand_parent: 警报
 has_children: false
 ---
 
-# Per query and per bucket monitors
+# 每个查询和每个水桶显示器
 
-Per query monitors are a type of alert monitor that can be used to identify and alert on specific queries that are run against an OpenSearch index; for example, queries that detect and respond to anomalies in specific queries. Per query monitors only trigger one alert at a time. 
+每个查询显示器是一种警报监视器，可用于识别和警报针对OpenSearch索引运行的特定查询；例如，检测和响应特定查询异常的查询。每个查询监视器一次一次触发一个警报。
 
-Per bucket monitors are a type of alert monitor that can be used to identify and alert on specific buckets of data that are created by a query against an OpenSearch index.
+每个存储桶监视器是一种警报监视器，可用于识别和警报针对OpenSearch索引创建的特定数据桶。
 
-## Creating a per query or per bucket monitor
+## 创建每个查询或每个存储桶监视器
 
-To create a per query monitor, follow these steps:
+要创建每个查询监视器，请按照以下步骤：
 
-**Step 1.** Define your query and [triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/). You can use any of these methods: visual editor, query editor, or anomaly detector.
+**步骤1。** 定义您的查询和[触发器]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/)。您可以使用以下任何方法：视觉编辑器，查询编辑器或异常检测器。
 
-   - Visual definition works well for monitors that can be defined as "some value is above or below some threshold for some amount of time." It also works well for most monitors.
+   - 视觉定义适用于可以定义为的显示器"some value is above or below some threshold for some amount of time." 它对大多数监视器也很好。
 
-   - Query definition provides flexibility in relation to your query (using [OpenSearch query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index)) and how you evaluate the results of that query (Painless scripting).
+   - 查询定义提供了与查询有关的灵活性（使用[OpenSearch查询DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index)）以及如何评估该查询的结果（无痛脚本）。
 
-The following example averages the `cpu_usage` field:
+以下示例平均`cpu_usage` 场地：
 
 ```json
      {
@@ -41,7 +41,7 @@ The following example averages the `cpu_usage` field:
      }
 ```
 
-You can also filter query results using `{% raw %}{{period_start}}{% endraw %}` and `{% raw %}{{period_end}}{% endraw %}`:
+您也可以使用`{% raw %}{{period_start}}{% endraw %}` 和`{% raw %}{{period_end}}{% endraw %}`：
 
 ```json
      {
@@ -68,32 +68,33 @@ You can also filter query results using `{% raw %}{{period_start}}{% endraw %}` 
      }
 ```
 
-"Start" and "end" refer to the interval at which the monitor runs. See [Monitor variables]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/#monitor-variables).
+"Start" 和"end" 请参阅监视器运行的间隔。看[监视变量]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/#monitor-variables)。
 
-To define a monitor visually, choose **Visual editor**. Then choose a source index, a time frame, an aggregation (for example, `count()` or `average()`), a data filter (if you want to monitor a subset of your source index), and a group-by field if you want to include an aggregation field in your query. At least one group-by field is required if you're defining a per bucket monitor. 
+要在视觉上定义监视器，请选择**视觉编辑器**。然后选择一个源索引，时间范围，一个聚合（例如，`count()` 或者`average()`），一个数据过滤器（如果要监视源索引的子集），并且一个组-如果要在查询中包含一个聚合字段，请按字段进行字段。至少一组-如果您要定义每个存储桶监视器，则需要按字段。
 
-Visual definition works well for most monitors.
-{: .tip }
+视觉定义适合大多数监视器。
+{： 。提示 }
 
-If you use the Security plugin, you can only choose indexes that you have permission to access. For details, see [Alerting security]({{site.url}}{{site.baseurl}}/security/).
+如果使用安全插件，则只能选择有权访问的索引。有关详细信息，请参阅[警告安全性]({{site.url}}{{site.baseurl}}/security/)。
 
-To use a query, choose **Extraction query editor**, add your query (using [OpenSearch query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index)), and test it using the **Run** button.
+要使用查询，请选择**提取查询编辑器**，添加您的查询（使用[OpenSearch查询DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index)），并使用**跑步** 按钮。
 
-The monitor makes this query to OpenSearch as often as the schedule dictates; check the **Query Performance** section and make sure you're comfortable with the performance implications.
+监视器使此查询按时间表所规定的经常进行搜索；检查**查询性能** 部分并确保您对性能的影响感到满意。
 
-Anomaly detection is available only if you are defining a per query monitor.
-{: .warning}
+仅当您定义每个查询监视器时，就可以使用异常检测。
+{： 。警告}
 
-To use an anomaly detector, choose **Anomaly detector** and select your **Detector**.
+要使用异常检测器，请选择**异常检测器** 并选择您的**探测器**。
 
-The anomaly detection option is for pairing with the Anomaly Detection plugin. See [Anomaly Detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/).
+异常检测选项是与异常检测插件配对。看[异常检测]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/)。
 
-For anomaly detector, choose an appropriate schedule for the monitor based on the detector interval. Otherwise, the alerting monitor might miss reading the results. For example, assume you set the monitor interval and the detector interval as 5 minutes, and you start the detector at 12:00. If an anomaly is detected at 12:05, it might be available at 12:06 because of the delay between writing the anomaly and it being available for queries. The monitor reads the anomaly results between 12:00 and 12:05, so it does not get the anomaly results available at 12:06.
+对于异常检测器，请根据检测器间隔为监视器选择适当的时间表。否则，警报显示器可能会错过阅读结果。例如，假设您将监视器间隔和检测器间隔设置为5分钟，然后从12:00开始检测器。如果在12:05检测到异常，则可能在12:06上可用，因为编写异常和可用于查询之间的延迟。监视器在12:00到12:05之间读取异常结果，因此它无法在12:06获得异常结果。
 
-To avoid this issue, make sure the alerting monitor is at least twice the detector interval. When you create a monitor using OpenSearch Dashboards, the anomaly detector plugin generates a default monitor schedule that's twice the detector interval.
+为避免此问题，请确保警报显示器至少是检测器间隔的两倍。当您使用OpenSearch仪表板创建监视器时，异常检测器插件会生成默认的监视时间表，该时间表是检测器间隔的两倍。
 
-Whenever you update a detector’s interval, make sure to update the associated monitor interval, as the Anomaly Detection plugin does not do this automatically.
+每当您更新检测器的间隔时，请确保更新关联的监视器间隔，因为异常检测插件不会自动执行此操作。
 
-**Step 2.** Choose the frequency to run the monitor, for example, either by time intervals (minutes, hours, days) or on a schedule. If you run it by time interval or on a custom [custom cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/), then you must provide the time zone.
+**第2步。** 选择以按时间间隔（分钟，小时，天）或时间表来运行监视器的频率。如果您按时间间隔或自定义运行[自定义cron表达式]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/)，那么您必须提供时区。
 
-**Step 3.** Add a trigger to the monitor.
+**步骤3。** 向监视器添加扳机。
+

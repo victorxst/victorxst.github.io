@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Observability security
+title: 可观察性安全性
 nav_order: 5
 has_children: false
 redirect_from:
   - /observing-your-data/security/
 ---
 
-# Observability security
+# 可观察性安全性
 
-You can use the Security plugin with Observability in OpenSearch to limit non-admin users to specific actions. For example, you might want some users to only view visualizations, notebooks, and other Observability objects, while others can create and modify them.
+您可以在OpenSearch中使用具有可观察性的安全插件来限制非-管理用户对特定操作。例如，您可能希望某些用户仅查看可视化，笔记本电脑和其他可观察性对象，而另一些用户可以创建和修改它们。
 
-## Basic permissions
+## 基本权限
 
-The Security plugin has two built-in roles that cover most Observability use cases: `observability_full_access` and `observability_read_access`. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles). If you don't see these predefined roles in OpenSearch Dashboards, you can create them with the following commands:
+安全插件有两个构建-在涵盖大多数可观察性用例的角色中：`observability_full_access` 和`observability_read_access`。对于每个描述，请参阅[预定义的角色]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles)。如果您在OpenSearch仪表板中看不到这些预定义的角色，则可以使用以下命令创建它们：
 
 ```json
 PUT _plugins/_security/api/roles/observability_read_access
@@ -33,9 +33,9 @@ PUT _plugins/_security/api/roles/observability_full_access
 }
 ```
 
-If these roles don't meet your needs, mix and match individual Observability [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) to suit your use case. For example, the `cluster:admin/opensearch/observability/create` permission lets you create Observability objects (visualizations, operational panels, notebooks, etc.).
+如果这些角色无法满足您的需求，请混合并匹配个人可观察性[权限]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) 适合您的用例。例如，`cluster:admin/opensearch/observability/create` 许可使您可以创建可观察到的对象（可视化，操作面板，笔记本等）。
 
-The following is an example role that provides access to Observability:
+以下是提供可观察性的示例角色：
 
 ```json
 PUT _plugins/_security/api/roles/observability_permissions
@@ -56,3 +56,4 @@ PUT _plugins/_security/api/roles/observability_permissions
   }]
 }
 ```
+

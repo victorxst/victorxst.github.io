@@ -1,25 +1,26 @@
 ---
 layout: default
-title: OpenSearch Dashboards plugin
-parent: Trace Analytics
+title: OpenSearch仪表板插件
+parent: 跟踪分析
 nav_order: 50
 redirect_from:
   - /observability-plugin/trace/ta-dashboards/
   - /monitoring-plugins/trace/ta-dashboards/
 ---
 
-# Trace Analytics OpenSearch Dashboards plugin
+# 跟踪分析opensearch仪表板插件
 
-The Trace Analytics plugin for OpenSearch Dashboards provides at-a-glance visibility into your application performance, along with the ability to drill down on individual traces. For installation instructions, see [Standalone OpenSearch Dashboards plugin install]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/).
+OpenSearch仪表板的Trace Analytics插件在-A-浏览您的应用程序性能的可见性，以及在单个轨迹上钻取的能力。有关安装说明，请参阅[独立opensearch仪表板插件安装]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/)。
 
-The **Dashboard** view groups traces together by HTTP method and path so that you can see the average latency, error rate, and trends associated with a particular operation. For a more focused view, try filtering by trace group name.
+这**仪表板** 查看组通过HTTP方法和路径一起跟踪，以便您可以看到与特定操作相关的平均延迟，错误率和趋势。要进行更集中的视图，请尝试通过跟踪组名称进行过滤。
 
-![Dashboard view]({{site.url}}{{site.baseurl}}/images/ta-dashboard.png)
+![仪表板视图]({{site.url}}{{site.baseurl}}/images/ta-dashboard.png)
 
-To drill down on the traces that make up a trace group, choose the number of traces in the column on the right. Then choose an individual trace for a detailed summary.
+要在构成痕量组的轨迹上钻取，请选择右侧列中的轨迹数量。然后选择单个跟踪以进行详细摘要。
 
-![Detailed trace view]({{site.url}}{{site.baseurl}}/images/ta-trace.png)
+![详细的跟踪视图]({{site.url}}{{site.baseurl}}/images/ta-trace.png)
 
-The **Services** view lists all services in the application, plus an interactive map that shows how the various services connect to each other. In contrast to the dashboard, which helps identify problems by operation, the service map helps identify problems by service. Try sorting by error rate or latency to get a sense of potential problem areas of your application.
+这**服务** 查看列出了应用程序中的所有服务，以及一个交互式地图，显示各种服务如何相互连接。与仪表板相反，该仪表板有助于通过操作确定问题，服务图有助于通过服务识别问题。尝试按错误率或延迟进行排序，以了解应用程序的潜在问题领域。
 
-![Service view]({{site.url}}{{site.baseurl}}/images/ta-services.png)
+![服务视图]({{site.url}}{{site.baseurl}}/images/ta-services.png)
+

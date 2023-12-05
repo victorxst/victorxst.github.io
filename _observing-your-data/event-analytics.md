@@ -1,92 +1,93 @@
 ---
 layout: default
-title: Event analytics
+title: 事件分析
 nav_order: 20
 redirect_from:
   - /observing-your-data/event-analytics/
 ---
 
-# Event analytics
+# 事件分析
 
-Event analytics in Observability is where you can use [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) (PPL) queries to build and view different visualizations of your data.
+可观察性的事件分析是您可以使用的[管道处理语言]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) （PPL）查询以构建和查看数据的不同可视化。
 
-## Getting started with event analytics
+## 开始活动分析
 
-To get started, choose **Observability** in OpenSearch Dashboards and then choose **Event analytics**. If you want to start exploring without adding any of your own data, choose **Add samples**, and Dashboards adds sample visualizations you can interact with.
+要开始，请选择**可观察性** 在OpenSearch仪表板中，然后选择**事件分析**。如果您想开始探索而不添加任何数据，请选择**添加样品**，仪表板添加了您可以与之交互的示例可视化。
 
-## Building a query
+## 建立查询
 
-To generate custom visualizations, you must first specify a PPL query. OpenSearch Dashboards then automatically creates a visualization based on the results of your query.
+要生成自定义可视化，您必须首先指定一个PPL查询。然后，OpenSearch仪表板自动根据查询结果创建可视化。
 
-For example, the following PPL query returns a count of how many host addresses are currently in your data.
+例如，以下ppl查询返回数据中当前有多少个主机地址的计数。
 
 ```
 source = opensearch_dashboards_sample_data_logs | fields host | stats count()
 ```
 
-By default, Dashboards shows results from the last 15 minutes of your data. To see data from a different time frame, use the date and time selector.
+默认情况下，仪表板显示了数据的最后15分钟的结果。要从不同的时间范围内查看数据，请使用日期和时间选择器。
 
-For more information about building PPL queries, see [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index).
+有关构建PPL查询的更多信息，请参阅[管道处理语言]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index)。
 
-## Saving a visualization
+## 保存可视化
 
-After Dashboards generates a visualization, you must save it if you want to return to it at a later time or if you want to add it to an [operational panel]({{site.url}}{{site.baseurl}}/observing-your-data/operational-panels).
+仪表板生成可视化后，如果要在以后返回或要将其添加到一个，则必须保存它[操作面板]({{site.url}}{{site.baseurl}}/observing-your-data/operational-panels)。
 
-To save a visualization, expand the save dropdown menu next to **Refresh**, enter a name for your visualization, then choose **Save**. You can reopen any saved visualizations on the event analytics page.
+要保存可视化，请扩展旁边的保存下拉菜单**刷新**，输入可视化的名称，然后选择**节省**。您可以在事件分析页面上重新打开任何保存的可视化。
 
-## Creating event analytics visualizations and adding them to dashboards
+## 创建事件分析可视化并将其添加到仪表板
 
-This feature is available in OpenSearch Dashboards version 2.7 and later. It works with new visualizations created in version 2.7 or later that use PPL to query data from OpenSearch or federated data sources such as Prometheus.
-{: .note}
+此功能可在OpenSearch仪表板版本2.7和更高版本中获得。它可以使用2.7版或更高版本中创建的新可视化，该可视化使用PPL从Opensearch或Prometheus等联合数据源查询数据。
+{： 。笔记}
 
-Presenting your visualizations on a dashboard, instead of the event analytics page, makes it easier for users to understand and interpret the data at a glance. 
+在仪表板上呈现您的可视化，而不是事件分析页面，使用户更容易浏览和解释数据。
 
-To create a PPL visualization, follow these steps:
+要创建PPL可视化，请按照以下步骤：
 
-1. On the main menu, choose **Visualize** > **PPL**.
-2. In the **Observability** > **Logs** > **Explorer** window, enter the index source in the **PPL query** field, for example, `source = opensearch_dashboards_sample_data_flights | stats count() by DestCountry`. You must enter the query using PPL syntax. 
-3. Set the time filter, for example, **This week**, and then select **Refresh**.
-4. Choose the visualization type, for example, **Pie**, from the right sidebar dropdown menu.  
-5. Select **Save** and enter a name for the visualization.
+1. 在主菜单上，选择**可视化** >**ppl**。
+2. 在里面**可观察性** >**日志** >**资源管理器** 窗口，输入索引源**ppl查询** 例如，字段`source = opensearch_dashboards_sample_data_flights | stats count() by DestCountry`。您必须使用PPL语法输入查询。
+3. 设置时间过滤器，例如**本星期**，然后选择**刷新**。
+4. 选择可视化类型，例如**馅饼**，从右侧栏下拉菜单中。
+5. 选择**节省** 并输入可视化的名称。
 
-You've created a new visualization that can be added to a new or existing dashboard. To add a PPL query to a dashboard, follow these steps:  
+您已经创建了一个新的可视化，可以添加到新的或现有的仪表板中。要向仪表板添加PPL查询，请按照以下步骤：
 
-1. Select **Dashboard** from the main menu.
-2. In the **Dashboards** window, select **Create > Dashboard**.
-3. In the **Editing New Dashboard** window, choose **Add an existing**.
-4. In the **Add panels** window, choose **PPL** and select the visualization. It is now displayed on your dashboard.
-5. Select **Save** and enter a name for the dashboard.
-6. To add more visualizations to the dashboard, choose **Select existing visualization** and follow the steps above. Alternatively, choose **Create new** and then select **PPL** in the **New Visualization** window. You'll return to the event analytics page and follow steps 1--6 in the preceding instructions.
+1. 选择**仪表板** 从主菜单。
+2. 在里面**仪表板** 窗口，选择**创建>仪表板**。
+3. 在里面**编辑新仪表板** 窗口，选择**添加现有**。
+4. 在里面**添加面板** 窗口，选择**ppl** 并选择可视化。现在它显示在仪表板上。
+5. 选择**节省** 并输入仪表板的名称。
+6. 要向仪表板添加更多可视化，请选择**选择现有的可视化** 并按照上述步骤进行操作。或者选择**创建新的** 然后选择**ppl** 在里面**新的可视化** 窗户。您将返回事件分析页面，然后按照步骤1--6在前面的说明中。
 
-![Demo of how to create event analytics visualizations and add them to a dashboard]({{site.url}}{{site.baseurl}}/images/dashboards/event-analytics-dashboard.gif)
+![如何创建事件分析可视化的演示并将其添加到仪表板中]({{site.url}}{{site.baseurl}}/images/dashboards/event-analytics-dashboard.gif)
 
-### Limitations of event analytics visualizations
+### 事件分析可视化的局限性
 
-Event analytics visualizations currently do not support [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) or [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/index/), and they do not use index patterns. Note the following limitations: 
+事件分析可视化目前不支持[仪表板查询语言（DQL）]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) 或者[查询域-特定语言（DSL）]({{site.url}}{{site.baseurl}}/query-dsl/index/)，并且他们不使用索引模式。注意以下限制：
 
-- Event analytics visualizations only use filters created using the dropdown interface. If you have DQL query or DSL filters in a dashboard, the visualizations do not use them.
-- The **Dashboard** filter dropdown interface only shows fields from the default index pattern or index patterns used by other visualizations in the same dashboard.
+- 事件分析可视化仅使用使用下拉界面创建的过滤器。如果您的仪表板中有DQL查询或DSL过滤器，则可视化不使用它们。
+- 这**仪表板** 滤波器下拉界面仅显示来自同一仪表板中其他可视化的默认索引模式或索引模式的字段。
 
-## Viewing logs
+## 查看日志
 
-The following are methods you can use to view logs.
+以下是您可以用来查看日志的方法。
 
-### Correlating logs and traces
+### 关联日志和痕迹
 
-If you regularly track events across applications, you can correlate logs and traces. To view the correlation, you have to index the traces according to Open Telemetry standards (similar to trace analytics). Once you add a `TraceId` field to your logs, you can view the correlated trace information in the event explorer log details. This method lets you correlate logs and traces that correspond to the same execution context.
+如果您定期跟踪跨应用程序的事件，则可以关联日志和跟踪。要查看相关性，您必须根据打开的遥测标准（类似于Trace Analytics）为踪迹索引。一旦添加`TraceId` 在日志中，您可以在事件Explorer日志详细信息中查看相关的跟踪信息。此方法使您可以将与相同执行上下文相对应的日志和跟踪关联。
 
-![Trace Log Correlation]({{site.url}}{{site.baseurl}}/images/trace_log_correlation.gif)
+![跟踪日志相关]({{site.url}}{{site.baseurl}}/images/trace_log_correlation.gif)
 
-### Viewing surrounding events
+### 查看周围事件
 
-If you want to know more about a log event you're looking at, you can select **View surrounding events** to get a bigger picture of what was happening around the time of interest.
+如果您想了解您正在查看的日志事件的更多信息，则可以选择**查看周围事件** 为了更大的了解，在兴趣时期正在发生的事情。
 
-![Surrounding Events]({{site.url}}{{site.baseurl}}/images/surrounding_events.gif)
+![周围事件]({{site.url}}{{site.baseurl}}/images/surrounding_events.gif)
 
-### Livestreaming logs
+### 直播日志
 
-If you prefer watching events happen live, you can configure an interval so event analytics automatically refreshes the content. Live tail lets you stream logs live to OpenSearch observability event analytics based on the provided PPL query, as well as provide rich functionality such as filters. Doing so improves your debugging experience and lets you monitor your logs in real-time without having to manually refresh.
+如果您希望观看事件发生现场直播，则可以配置一个间隔，因此事件分析会自动刷新内容。实时尾巴使您可以根据提供的PPL查询来播放日志到OpenSearch搜索可观察性事件分析，并提供丰富的功能（例如过滤器）。这样做可以改善您的调试经验，并让您实际监视原木-时间不必手动刷新。
 
-You can also choose intervals and switch between them to dictate how often live tail should stream live logs. This feature is similar to the CLI's `tail -f` command in that it only retrieves the most recent live logs by possibly eliminating a large portion of live logs. Live tail also provides you with the total count of live logs received by OpenSearch during the live stream, which you can use to better understand the incoming traffic.
+您还可以选择间隔并在它们之间切换以决定活尾部应播放的频率。此功能类似于CLI的功能`tail -f` 命令仅通过消除大部分实时日志来检索最新的实时日志。Live Tail还为您提供了OpenSearch在实时流中收到的实时日志的总数，您可以使用该日志，以更好地了解传入的流量。
 
-![Live Tail]({{site.url}}{{site.baseurl}}/images/live_tail.gif)
+![活尾]({{site.url}}{{site.baseurl}}/images/live_tail.gif)
+

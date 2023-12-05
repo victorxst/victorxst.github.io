@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Anomaly detection
+title: 异常检测
 nav_order: 80
 has_children: true
 redirect_from:
@@ -8,206 +8,207 @@ redirect_from:
   - /monitoring-plugins/ad/index/
 ---
 
-# Anomaly detection
+# 异常检测
 
-An anomaly in OpenSearch is any unusual behavior change in your time-series data. Anomalies can provide valuable insights into your data. For example, for IT infrastructure data, an anomaly in the memory usage metric might help you uncover early signs of a system failure.
+探索中的异常是您的时间上的任何异常行为变化-系列数据。异常可以为您的数据提供宝贵的见解。例如，对于IT基础架构数据，内存使用度量的异常可能会帮助您发现系统故障的早期迹象。
 
-It can be challenging to discover anomalies using conventional methods such as creating visualizations and dashboards. You could configure an alert based on a static threshold, but this requires prior domain knowledge and isn't adaptive to data that exhibits organic growth or seasonal behavior.
+使用常规方法（例如创建可视化和仪表板）发现异常可能是一项挑战。您可以根据静态阈值配置警报，但这需要先前的域知识，并且不适合表现出有机生长或季节性行为的数据。
 
-Anomaly detection automatically detects anomalies in your OpenSearch data in near real-time using the Random Cut Forest (RCF) algorithm. RCF is an unsupervised machine learning algorithm that models a sketch of your incoming data stream to compute an `anomaly grade` and `confidence score` value for each incoming data point. These values are used to differentiate an anomaly from normal variations. For more information about how RCF works, see [Random Cut Forests](https://www.semanticscholar.org/paper/Robust-Random-Cut-Forest-Based-Anomaly-Detection-on-Guha-Mishra/ecb365ef9b67cd5540cc4c53035a6a7bd88678f9).
+异常检测会自动检测您的OpenSearch数据中的异常-使用随机切割森林（RCF）算法的时间。RCF是一种无监督的机器学习算法`anomaly grade` 和`confidence score` 每个传入数据点的值。这些值用于区分异常与正常变化。有关RCF的工作方式的更多信息，请参阅[随机砍伐森林](https://www.semanticscholar.org/paper/Robust-Random-Cut-Forest-Based-Anomaly-Detection-on-Guha-Mishra/ecb365ef9b67cd5540cc4c53035a6a7bd88678f9)。
 
-You can pair the Anomaly Detection plugin with the [Alerting plugin]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/) to notify you as soon as an anomaly is detected.
+您可以将异常检测插件与[警报插件]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/) 一旦检测到异常，请立即通知您。
 
-To get started, choose **Anomaly Detection** in OpenSearch Dashboards.
-To first test with sample streaming data, you can try out one of the preconfigured detectors with one of the sample datasets.
+要开始，请选择**异常检测** 在OpenSearch仪表板中。
+要使用示例流数据进行首次测试，您可以使用其中一个示例数据集尝试了一个预配置的检测器。
 
-## Step 1: Define a detector
+## 步骤1：定义检测器
 
-A detector is an individual anomaly detection task. You can define multiple detectors, and all the detectors can run simultaneously, with each analyzing data from different sources.
+检测器是单个异常检测任务。您可以定义多个检测器，所有检测器都可以同时运行，每个检测器都分析来自不同来源的数据。
 
-1. Choose **Create detector**.
-1. Add in the detector details.
-   - Enter a name and brief description. Make sure the name is unique and descriptive enough to help you to identify the purpose of the detector.
-1. Specify the data source.   
-   - For **Data source**, choose the index you want to use as the data source. You can optionally use index patterns to choose multiple indexes.
-   - (Optional) For **Data filter**, filter the index you chose as the data source. From the **Data filter** menu, choose **Add data filter**, and then design your filter query by selecting **Field**, **Operator**, and **Value**, or choose **Use query DSL** and add your own JSON filter query.
-1. Specify a timestamp.    
-   - Select the **Timestamp field** in your index.
-1. Define operation settings.
-   - For **Operation settings**, define the **Detector interval**, which is the time interval at which the detector collects data.
-      - The detector aggregates the data in this interval, then feeds the aggregated result into the anomaly detection model.
-      The shorter you set this interval, the fewer data points the detector aggregates.
-      The anomaly detection model uses a shingling process, a technique that uses consecutive data points to create a sample for the model. This process needs a certain number of aggregated data points from contiguous intervals.
+1. 选择**创建检测器**。
+1. 添加探测器详细信息。
+   - 输入名称和简短说明。确保名称是独一无二的，足以帮助您确定检测器的目的。
+1. 指定数据源。
+   - 为了**数据源**，选择要用作数据源的索引。您可以选择使用索引模式来选择多个索引。
+   - （可选）**数据过滤器**，过滤您选择作为数据源的索引。来自**数据过滤器** 菜单，选择**添加数据过滤器**，然后通过选择您的过滤器查询**场地**，，，，**操作员**， 和**价值**，或选择**使用查询DSL** 并添加您自己的JSON过滤器查询。
+1. 指定时间戳。
+   - 选择**时间戳字段** 在您的索引中。
+1. 定义操作设置。
+   - 为了**操作设置**，定义**检测器间隔**，这是检测器收集数据的时间间隔。
+      - 检测器以此间隔将数据聚集，然后将汇总结果馈送到异常检测模型中。
+      您设置此间隔的较短，数据量越少，检测器聚合。
+      异常检测模型使用了一种摇式过程，该过程使用连续数据点为模型创建样本的技术。此过程需要从连续的间隔中进行一定数量的汇总数据点。
 
-      - We recommend setting the detector interval based on your actual data. If it's too long it might delay the results, and if it's too short it might miss some data. It also won't have a sufficient number of consecutive data points for the shingle process.
+      - 我们建议根据您的实际数据设置检测器间隔。如果太长时间了，它可能会延迟结果，如果太短，可能会错过一些数据。它也将没有足够数量的木瓦过程数据点。
 
-   - (Optional) To add extra processing time for data collection, specify a **Window delay** value.
-      - This value tells the detector that the data is not ingested into OpenSearch in real time but with a certain delay. Set the window delay to shift the detector interval to account for this delay.
-      - For example, say the detector interval is 10 minutes and data is ingested into your cluster with a general delay of 1 minute. Assume the detector runs at 2:00. The detector attempts to get the last 10 minutes of data from 1:50 to 2:00, but because of the 1-minute delay, it only gets 9 minutes of data and misses the data from 1:59 to 2:00. Setting the window delay to 1 minute shifts the interval window to 1:49--1:59, so the detector accounts for all 10 minutes of the detector interval time.
-1. Specify custom result index.
-   - If you want to store the anomaly detection results in your own index, choose **Enable custom result index** and specify the custom index to store the result. The anomaly detection plugin adds an `opensearch-ad-plugin-result-` prefix to the index name that you input. For example, if you input `abc` as the result index name, the final index name is `opensearch-ad-plugin-result-abc`.
+   - （可选）要添加数据收集的额外处理时间，请指定**窗口延迟** 价值。
+      - 该值告诉检测器，数据不是实时摄入的，而是在一定的延迟中摄入。设置窗口延迟以移动检测器间隔以解释此延迟。
+      - 例如，假设检测器间隔为10分钟，并且将数据摄入了您的群集中，总延迟为1分钟。假设检测器在2:00运行。检测器试图从1:50到2:00获取最后10分钟的数据，但由于1-微小的延迟，它只能获得9分钟的数据，并错过了1:59到2:00的数据。将窗口延迟设置为1分钟，将间隔窗口转移到1:49--1:59，因此检测器解释了检测器间隔时间的所有10分钟。
+1. 指定自定义结果索引。
+   - 如果要存储异常检测结果，请选择**启用自定义结果索引** 并指定存储结果的自定义索引。异常检测插件添加了`opensearch-ad-plugin-result-` 输入的索引名称的前缀。例如，如果您输入`abc` 结果索引名称，最终索引名称为`opensearch-ad-plugin-result-abc`。
 
-   You can use the dash “-” sign to separate the namespace to manage custom result index permissions. For example, if you use `opensearch-ad-plugin-result-financial-us-group1` as the result index, you can create a permission role based on the pattern `opensearch-ad-plugin-result-financial-us-*` to represent the "financial" department at a granular level for the "us" area.
-   {: .note }
+   您可以使用破折号”-”签名将命名空间分开以管理自定义结果索引权限。例如，如果您使用`opensearch-ad-plugin-result-financial-us-group1` 结果索引，您可以根据模式创建权限角色`opensearch-ad-plugin-result-financial-us-*` 代表"financial" 部门在颗粒处"us" 区域。
+   {： 。笔记 }
 
-      - If the custom index you specify doesn’t already exist, the Anomaly Detection plugin creates this index when you create the detector and start your real-time or historical analysis.
-      - If the custom index already exists, the plugin checks if the index mapping of the custom index matches the anomaly result file. You need to make sure the custom index has valid mapping as shown here: [anomaly-results.json](https://github.com/opensearch-project/anomaly-detection/blob/main/src/main/resources/mappings/anomaly-results.json).
-   - To use the custom result index option, you need the following permissions:
-      - `indices:admin/create` - If the custom index already exists, you don't need this.
-      - `indices:data/write/index` - You need the `write` permission for the Anomaly Detection plugin to write results into the custom index for a single-entity detector.
-      - `indices:data/read/search` - You need the `search` permission because the Anomaly Detection plugin needs to search custom result indexes to show results on the anomaly detection UI.
-      - `indices:data/write/delete` - Because the detector might generate a large number of anomaly results, you need the `delete` permission to delete old data and save disk space.
-      - `indices:data/write/bulk*` -  You need the `bulk*` permission because the Anomaly Detection plugin uses the bulk API to write results into the custom index.
-   - Managing the custom result index:
-      - The anomaly detection dashboard queries all detectors’ results from all custom result indexes. Having too many custom result indexes might impact the performance of the Anomaly Detection plugin.
-      - You can use [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) to rollover old result indexes. You can also manually delete or archive any old result indexes. We recommend reusing a custom result index for multiple detectors.
-1. Choose **Next**.   
+      - 如果您指定的自定义索引尚不存在，则当您创建检测器并启动真实时，异常检测插件会创建此索引-时间或历史分析。
+      - 如果自定义索引已经存在，则插件检查自定义索引的索引映射是否与异常结果文件匹配。您需要确保自定义索引具有有效映射，如下所示：[异常-结果](https://github.com/opensearch-project/anomaly-detection/blob/main/src/main/resources/mappings/anomaly-results.json)。
+   - 要使用自定义结果索引选项，您需要以下权限：
+      - `indices:admin/create` - 如果自定义索引已经存在，则不需要此。
+      - `indices:data/write/index` - 您需要`write` 对异常检测插件的许可，以将结果写入单个自定义索引-实体检测器。
+      - `indices:data/read/search` - 您需要`search` 许可，因为异常检测插件需要搜索自定义结果索引以显示异常检测UI的结果。
+      - `indices:data/write/delete` - 由于检测器可能会产生大量异常结果，因此您需要`delete` 权限删除旧数据并保存磁盘空间。
+      - `indices:data/write/bulk*` -  您需要`bulk*` 许可，因为异常检测插件使用批量API将结果写入自定义索引。
+   - 管理自定义结果索引：
+      - 异常检测仪表板查询所有检测器的所有自定义结果索引的结果。具有太多自定义结果索引可能会影响异常检测插件的性能。
+      - 您可以使用[索引状态管理]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) 滚动旧结果索引。您也可以手动删除或存档任何旧结果索引。我们建议重复多个检测器的自定义结果索引。
+1. 选择**下一个**。
 
-After you define the detector, the next step is to configure the model.
+定义检测器后，下一步是配置模型。
 
-## Step 2: Configure the model
+## 步骤2：配置模型
 
-#### Add features to your detector
+#### 在检测器中添加功能
 
-A feature is the field in your index that you want to check for anomalies. A detector can discover anomalies across one or more features. You must choose an aggregation method for each feature: `average()`, `count()`, `sum()`, `min()`, or `max()`. The aggregation method determines what constitutes an anomaly.
+一个功能是要检查异常的索引中的字段。检测器可以发现一个或多个功能的异常。您必须为每个功能选择一个聚合方法：`average()`，，，，`count()`，，，，`sum()`，，，，`min()`， 或者`max()`。聚合方法确定什么构成异常。
 
-For example, if you choose `min()`, the detector focuses on finding anomalies based on the minimum values of your feature. If you choose `average()`, the detector finds anomalies based on the average values of your feature.
+例如，如果您选择`min()`，该检测器的重点是基于功能的最低值查找异常。如果您选择`average()`，检测器根据功能的平均值找到异常。
 
-A multi-feature model correlates anomalies across all its features. The [curse of dimensionality](https://en.wikipedia.org/wiki/Curse_of_dimensionality) makes it less likely for multi-feature models to identify smaller anomalies as compared to a single-feature model. Adding more features might negatively impact the [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall) of a model. A higher proportion of noise in your data might further amplify this negative impact. Selecting the optimal feature set is usually an iterative process. By default, the maximum number of features for a detector is 5. You can adjust this limit with the `plugins.anomaly_detection.max_anomaly_features` setting.
-{: .note }
+并发-特征模型将其所有功能的异常相关联。这[维度的诅咒](https://en.wikipedia.org/wiki/Curse_of_dimensionality) 使多数的可能性较小-特征模型与单个相比识别较小的异常-功能模型。添加更多功能可能会对[精确和回忆](https://en.wikipedia.org/wiki/Precision_and_recall) 模型。数据中较高比例的噪声可能会进一步扩大这种负面影响。选择最佳功能集通常是迭代过程。默认情况下，检测器的最大功能数为5。您可以使用`plugins.anomaly_detection.max_anomaly_features` 环境。
+{： 。笔记 }
 
-To configure an anomaly detection model based on an aggregation method, follow these steps:
+要配置基于聚合方法的异常检测模型，请按照以下步骤：
 
-1. On the **Configure Model** page, enter the **Feature name** and check **Enable feature**.
-1. For **Find anomalies based on**, select **Field Value**.
-1. For **aggregation method**, select either **average()**, **count()**, **sum()**, **min()**, or **max()**.
-1. For **Field**, select from the available options.
+1. 在**配置模型** 页面，输入**功能名称** 并检查**启用功能**。
+1. 为了**根据基于**， 选择**场值**。
+1. 为了**聚合方法**，选择**平均的（）**，，，，**数数（）**，，，，**和（）**，，，，**最小（）**， 或者**最大限度（）**。
+1. 为了**场地**，从可用选项中选择。
 
-To configure an anomaly detection model based on a JSON aggregation query, follow these steps:
-1. On the **Configure Model** page, enter the **Feature name** and check **Enable feature**.
-1. For **Find anomalies based on**, select **Custom expression**. You will see the JSON editor window open up.
-1. Enter your JSON aggregation query in the editor.
+要根据JSON聚合查询配置异常检测模型，请按照以下步骤：
+1. 在**配置模型** 页面，输入**功能名称** 并检查**启用功能**。
+1. 为了**根据基于**， 选择**自定义表达式**。您将看到JSON编辑窗口打开。
+1. 在编辑器中输入您的JSON聚合查询。
 
-For acceptable JSON query syntax, see [OpenSearch Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/)
-{: .note }
+有关可接受的JSON查询语法，请参阅[OpenSearch查询DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/)
+{： 。笔记 }
 
-#### (Optional) Set category fields for high cardinality
+#### （可选的）高基数的设置类别字段
 
-You can categorize anomalies based on a keyword or IP field type.
+您可以根据关键字或IP字段类型对异常进行分类。
 
-The category field categorizes or slices the source time series with a dimension like IP addresses, product IDs, country codes, and so on. This helps to see a granular view of anomalies within each entity of the category field to isolate and debug issues.
+类别字段将源时间序列分类或切成诸如IP地址，产品ID，国家代码等的维度。这有助于查看类别字段每个实体内部的异常情况，以隔离和调试问题。
 
-To set a category field, choose **Enable a category field** and select a field. You can’t change the category fields after you create the detector.
+要设置类别字段，请选择**启用类别字段** 并选择一个字段。创建检测器后，您无法更改类别字段。
 
-Only a certain number of unique entities are supported in the category field. Use the following equation to calculate the recommended total number of entities supported in a cluster:
+在类别字段中仅支持一定数量的唯一实体。使用以下方程来计算群集中支持的实体总数：
 
 ```
 (data nodes * heap size * anomaly detection maximum memory percentage) / (entity model size of a detector)
 ```
 
-To get the entity model size of a detector, use the [profile detector API]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api/#profile-detector). You can adjust the maximum memory percentage with the `plugins.anomaly_detection.model_max_size_percent` setting.
+要获取检测器的实体模型大小，请使用[配置文件检测器API]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api/#profile-detector)。您可以使用`plugins.anomaly_detection.model_max_size_percent` 环境。
 
-This formula provides a good starting point, but make sure to test with a representative workload.
-{: .note }
+该公式提供了一个很好的起点，但请确保使用代表性工作量进行测试。
+{： 。笔记 }
 
-For example, for a cluster with three data nodes, each with 8 GB of JVM heap size, a maximum memory percentage of 10% (default), and the entity model size of the detector as 1MB: the total number of unique entities supported is (8.096 * 10^9 * 0.1 / 1 MB ) * 3 = 2429.
+例如，对于具有三个数据节点的群集，每个群集具有8 GB的JVM堆大小，最大内存百分比为10％（默认）和检测器的实体模型大小为1MB：所支持的独特实体的总数为（8.096 * 10^9 * 0.1 / 1 MB） * 3 = 2429。
 
-If the actual total number of unique entities higher than this number that you calculate (in this case: 2429), the anomaly detector makes its best effort to model the extra entities. The detector prioritizes entities that occur more often and are more recent.
+如果实际总体的实际总数高于您计算的该数字（在这种情况下：2429），则异常检测器将尽力为额外的实体建模。探测器优先考虑发生更频繁并且更新的实体。
 
-#### (Advanced settings) Set a shingle size
+#### （高级设置）设置木尺寸
 
-Set the number of aggregation intervals from your data stream to consider in a detection window. It’s best to choose this value based on your actual data to see which one leads to the best results for your use case.
+从数据流中设置聚合间隔的数量，以在检测窗口中考虑。最好根据您的实际数据选择此值，以查看哪些为您的用例带来最佳结果。
 
-The anomaly detector expects the shingle size to be in the range of 1 and 60. The default shingle size is 8. We recommend that you don't choose 1 unless you have two or more features. Smaller values might increase [recall](https://en.wikipedia.org/wiki/Precision_and_recall) but also false positives. Larger values might be useful for ignoring noise in a signal.
+异常检测器期望木架尺寸在1和60范围内。默认的木瓦大小为8。我们建议您选择1个或更多功能，否则您不要选择1。较小的值可能会增加[记起](https://en.wikipedia.org/wiki/Precision_and_recall) 而且还假阳性。较大的值可能对于忽略信号中的噪声可能很有用。
 
-#### Preview sample anomalies
+#### 预览样品异常
 
-Preview sample anomalies and adjust the feature settings if needed.
-For sample previews, the Anomaly Detection plugin selects a small number of data samples---for example, one data point every 30 minutes---and uses interpolation to estimate the remaining data points to approximate the actual feature data. It loads this sample dataset into the detector. The detector uses this sample dataset to generate a sample preview of anomaly results.
+预览示例异常，并在需要时调整功能设置。
+对于示例预览，异常检测插件选择了少数数据示例---例如，每30分钟一个数据点---并使用插值来估计其余数据点以近似实际特征数据。它将此样品数据集加载到检测器中。检测器使用此样品数据集生成异常结果的样本预览。
 
-Examine the sample preview and use it to fine-tune your feature configurations (for example, enable or disable features) to get more accurate results.
+检查样品预览并使用它来罚款-调整您的功能配置（例如，启用或禁用功能）以获得更准确的结果。
 
-1. Choose **Preview sample anomalies**.
-    - If you don't see any sample anomaly result, check the detector interval and make sure you have more than 400 data points for some entities during the preview date range.
-1. Choose **Next**.
+1. 选择**预览样品异常**。
+    - 如果您没有看到任何样本异常结果，请检查检测器间隔，并确保在预览日期范围内某些实体有400多个数据点。
+1. 选择**下一个**。
 
-## Step 3: Set up detector jobs
+## 步骤3：设置检测器作业
 
-To start a real-time detector to find anomalies in your data in near real-time, check **Start real-time detector automatically (recommended)**.
+开始真实-时间探测器在您的数据中找到异常-时间，检查**开始真实-时间检测器自动（建议）**。
 
-Alternatively, if you want to perform historical analysis and find patterns in long historical data windows (weeks or months), check **Run historical analysis detection** and select a date range (at least 128 detection intervals).
+另外，如果您想执行历史分析并在长长的历史数据窗口（几周或几个月）中找到模式，请检查**运行历史分析检测** 并选择一个日期范围（至少128个检测间隔）。
 
-Analyzing historical data helps you get familiar with the Anomaly Detection plugin. You can also evaluate the performance of a detector with historical data to further fine-tune it.
+分析历史数据可以帮助您熟悉异常检测插件。您还可以评估具有历史数据的探测器的性能-调整它。
 
-We recommend experimenting with historical analysis with different feature sets and checking the precision before moving on to real-time detectors.
+我们建议使用不同功能集进行历史分析进行实验，并在转到真实之前检查精度-时间探测器。
 
-## Step 4: Review and create
+## 步骤4：查看并创建
 
-Review your detector settings and model configurations to make sure that they're valid and then select **Create detector**.
+查看您的检测器设置和模型配置，以确保它们有效，然后选择**创建检测器**。
 
-![Anomaly detection results]({{site.url}}{{site.baseurl}}/images/review_ad.png)
+![异常检测结果]({{site.url}}{{site.baseurl}}/images/review_ad.png)
 
-If you see any validation errors, edit the settings to fix the errors and then return back to this page.
-{: .note }
+如果您看到任何验证错误，请编辑设置以修复错误，然后返回此页面。
+{： 。笔记 }
 
-## Step 5: Observe the results
+## 步骤5：观察结果
 
-Choose the **Real-time results** or **Historical analysis** tab. For real-time results, you need to wait for some time to see the anomaly results. If the detector interval is 10 minutes, the detector might take more than an hour to start, because its waiting for sufficient data to generate anomalies. 
+选择**真实的-时间结果** 或者**历史分析** 标签。真正的-时间结果，您需要等待一些时间才能查看异常结果。如果检测器间隔为10分钟，则检测器可能需要超过一个小时的时间，因为它等待足够的数据生成异常。
 
-A shorter interval means the model passes the shingle process more quickly and starts to generate the anomaly results sooner.
-Use the [profile detector]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api#profile-detector) operation to make sure you have sufficient data points.
+较短的间隔意味着该模型会更快地通过木瓦过程，并开始更快地产生异常结果。
+使用[配置文件检测器]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api#profile-detector) 操作以确保您有足够的数据点。
 
-If you see the detector pending in "initialization" for longer than a day, aggregate your existing data using the detector interval to check for any missing data points. If you find a lot of missing data points from the aggregated data, consider increasing the detector interval.
+如果您看到探测器正在等待"initialization" 在超过一天的时间内，使用检测器间隔来汇总现有数据，以检查任何丢失的数据点。如果您从汇总数据中找到很多缺少的数据点，请考虑增加检测器间隔。
 
-Choose and drag over the anomaly line chart to zoom in and see a more detailed view of an anomaly.
-{: .note }
+选择并在异常线图上进行拖动以放大并查看异常的更详细的视图。
+{： 。笔记 }
 
-Analyze anomalies with the following visualizations:
+通过以下可视化分析异常：
 
-- **Live anomalies** (for real-time results) displays live anomaly results for the last 60 intervals. For example, if the interval is 10, it shows results for the last 600 minutes. The chart refreshes every 30 seconds.
-- **Anomaly overview** (for real-time results) / **Anomaly history**  (for historical analysis in the **Historical analysis** tab)  plots the anomaly grade with the corresponding measure of confidence. This pane includes:
-    - The number of anomaly occurrences based on the given data-time range. 
-    - The **Average anomaly grade**, a number between 0 and 1 that indicates how anomalous a data point is. An anomaly grade of 0 represents “not an anomaly,” and a non-zero value represents the relative severity of the anomaly. 
-    - **Confidence** estimate of the probability that the reported anomaly grade matches the expected anomaly grade. Confidence increases as the model observes more data and learns the data behavior and trends. Note that confidence is distinct from model accuracy.
-    - **Last anomaly occurrence** is the time at which the last anomaly occurred.
+- **现场异常** （真正的-时间结果）显示最后60个间隔的现场异常结果。例如，如果间隔为10，则显示最后600分钟的结果。图表每30秒刷新一次。
+- **异常概述** （真正的-时间结果） /**异常历史**  （用于历史分析**历史分析** TAB）以相应的置信度度量绘制异常等级。该窗格包括：
+    - 基于给定数据的异常发生数量-时间范围。
+    - 这**平均异常等级**，指示数据点异常的0到1之间的数字。异常等级为0表示“不是异常”，而不是-零值表示异常的相对严重程度。
+    - **信心** 估计报告异常等级与预期异常等级相匹配。随着模型观察更多数据并了解数据行为和趋势，置信度增加了。请注意，置信度与模型准确性不同。
+    - **上次异常发生** 是最后一次异常发生的时间。
 
-Underneath **Anomaly overview**/**Anomaly history** are:
+下**异常概述**/**异常历史** 是：
 
-- **Feature breakdown** plots the features based on the aggregation method. You can vary the date-time range of the detector. Selecting a point on the feature line chart shows the **Feature output**, the number of times a field appears in your index, and the **Expected value**, a predicted value for the feature output. Where there is no anomaly, the output and expected values are equal.
+- **功能故障** 绘制基于聚合方法的功能。您可以改变日期-检测器的时间范围。在功能线图上选择一个点显示**功能输出**，索引中出现字段的次数，**期望值**，功能输出的预测值。如果没有异常，则输出和期望值相等。
 
-    ![Anomaly detection results]({{site.url}}{{site.baseurl}}/images/feature-contribution-ad.png)
+    ![异常检测结果]({{site.url}}{{site.baseurl}}/images/feature-contribution-ad.png)
 
-- **Anomaly occurrences** shows the `Start time`, `End time`, `Data confidence`, and `Anomaly grade` for each detected anomaly.
+- **异常发生** 显示`Start time`，，，，`End time`，，，，`Data confidence`， 和`Anomaly grade` 对于每个检测到的异常。
 
-Selecting a point on the anomaly line chart shows **Feature Contribution**, the percentage of a feature that contributes to the anomaly
+在异常线图上选择一个点显示**功能贡献**，导致异常的功能的百分比
 
-![Anomaly detection results]({{site.url}}{{site.baseurl}}/images/feature-contribution-ad.png)
-
-
-If you set the category field, you see an additional **Heat map** chart. The heat map correlates results for anomalous entities. This chart is empty until you select an anomalous entity. You also see the anomaly and feature line chart for the time period of the anomaly (`anomaly_grade` > 0).
+![异常检测结果]({{site.url}}{{site.baseurl}}/images/feature-contribution-ad.png)
 
 
-If you have set multiple category fields, you can select a subset of fields to filter and sort the fields by. Selecting a subset of fields lets you see the top values of one field that share a common value with another field.
+如果设置类别字段，您会看到其他**热图** 图表。热图将异常实体的结果相关联。此图表为空，直到您选择一个异常实体为止。您还可以看到异常时间段的异常和功能线图（`anomaly_grade` > 0）。
 
-For example, if you have a detector with the category fields `ip` and `endpoint`, you can select `endpoint` in the **View by** dropdown menu. Then select a specific cell to overlay the top 20 values of `ip` on the charts. The Anomaly Detection plugin selects the top `ip` by default. You can see a maximum of 5 individual time-series values at the same time.
 
-## Step 6: Set up alerts
+如果您设置了多个类别字段，则可以选择一个字段的子集来过滤和对字段进行分类。选择一个字段的子集使您可以看到一个字段的最高值，该字段与另一个字段共享一个共同值。
 
-Under **Real-time results**, choose **Set up alerts** and configure a monitor to notify you when anomalies are detected. For steps to create a monitor and set up notifications based on your anomaly detector, see [Monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/).
+例如，如果您有一个带有类别字段的检测器`ip` 和`endpoint`，您可以选择`endpoint` 在里面**查看** 下拉式菜单。然后选择一个特定的单元格以覆盖最高的20个值`ip` 在图表上。异常检测插件选择顶部`ip` 默认情况下。您最多可以看到5个单独的时间-串联值同时。
 
-If you stop or delete a detector, make sure to delete any monitors associated with it.
+## 步骤6：设置警报
 
-## Step 7: Adjust the model
+在下面**真实的-时间结果**， 选择**设置警报** 并配置监视器以在检测到异常时通知您。有关创建监视器并根据您的异常检测器设置通知的步骤，请参见[监视器]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/)。
 
-To see all the configuration settings for a detector, choose the **Detector configuration** tab.
+如果您停止或删除检测器，请确保删除与之相关的任何显示器。
 
-1. To make any changes to the detector configuration, or fine tune the time interval to minimize any false positives, go to the **Detector configuration** section and choose **Edit**.
-- You need to stop real-time and historical analysis to change its configuration. Confirm that you want to stop the detector and proceed.
-1. To enable or disable features, in the **Features** section, choose **Edit** and adjust the feature settings as needed. After you make your changes, choose **Save and start detector**.
+## 步骤7：调整模型
 
-## Step 8: Manage your detectors
+要查看检测器的所有配置设置，请选择**检测器配置** 标签。
 
-To start, stop, or delete a detector, go to the **Detectors** page.
+1. 要对检测器配置进行任何更改，或微调时间间隔以最大程度地减少任何误报，请转到**检测器配置** 部分选择**编辑**。
+- 你需要停止真实-时间和历史分析以改变其配置。确认您要停止检测器并继续进行。
+1. 启用或禁用功能**特征** 部分，选择**编辑** 并根据需要调整功能设置。进行更改后，选择**保存并开始检测器**。
 
-1. Choose the detector name.
-2. Choose **Actions** and select **Start real-time detectors**, **Stop real-time detectors**, or **Delete detectors**.
+## 步骤8：管理检测器
+
+要开始，停止或删除检测器，请转到**探测器** 页。
+
+1. 选择检测器名称。
+2. 选择**动作** 并选择**开始真实-时间探测器**，，，，**停止真实-时间探测器**， 或者**删除探测器**。
+

@@ -2,60 +2,60 @@
 layout: default
 title: Cron
 nav_order: 20
-parent: Alerting
+parent: 警报
 has_children: false
 redirect_from:
   - /monitoring-plugins/alerting/cron/
 ---
 
-# Cron expression reference
+# cron表达参考
 
-Monitors can run at a variety of fixed intervals (e.g. hourly, daily, etc.), but you can also define custom cron expressions for when they should run. Monitors use the Unix cron syntax and support five fields:
+监视器可以以各种固定的间隔（例如每小时，每日等）运行，但是您还可以为它们何时运行定义自定义的cron表达式。监视器使用unix cron语法并支持五个字段：
 
-Field | Valid values
-:--- | :---
-Minute | 0-59
-Hour | 0-23
-Day of month | 1-31
-Month | 1-12
-Day of week | 0-7 (0 and 7 are both Sunday) or SUN, MON, TUE, WED, THU, FRI, SAT
+场地| 有效值
+：--- | ：---
+分钟| 0-59
+小时| 0-23
+一个月的一天| 1-31
+月| 1-12
+一周中的一天| 0-7（0和7都是星期日）或太阳，星期日，周二，周三，周五，星期五，星期六
 
-For example, the following expression translates to "every Monday through Friday at 11:30 AM":
+例如，以下表达式转化为"every Monday through Friday at 11:30 AM"：
 
 ```
 30 11 * * 1-5
 ```
 
 
-## Features
+## 特征
 
-Feature | Description
-:--- | :---
-`*` | Wildcard. Specifies all valid values.
-`,` | List. Use to specify several values (e.g. `1,15,30`).
-`-` | Range. Use to specify a range of values (e.g. `1-15`).
-`/` | Step. Use after a wildcard or range to specify the "step" between values. For example, `0-11/2` is equivalent to `0,2,4,6,8,10`.
+特征| 描述
+：--- | ：---
+`*` | 通配符。指定所有有效的值。
+`,` | 列表。用于指定几个值（例如`1,15,30`）。
+`-` | 范围。用于指定一个值范围（例如`1-15`）。
+`/` | 步。通配符或范围后使用以指定"step" 之间的值。例如，`0-11/2` 等同于`0,2,4,6,8,10`。
 
-Note that you can specify the day using two fields: day of month and day of week. For most situations, we recommend that you use just one of these fields and leave the other as `*`.
+请注意，您可以使用两个字段来指定这一天：每月的一天和一天。对于大多数情况，我们建议您仅使用其中一个字段，然后将另一个领域留为`*`。
 
-If you use a non-wildcard value in both fields, the monitor runs when either field matches the time. For example, `15 2 1,15 * 1` causes the monitor to run at 2:15 AM on the 1st of the month, the 15th of the month, and every Monday.
+如果您使用非-在两个字段中，通配符值，当两个字段匹配时间时，监视器都可以运行。例如，`15 2 1,15 * 1` 导致监视器在一个月，一个月和每个星期一的一个月1日上午2:15运行。
 
 
-## Sample expressions
+## 样品表达式
 
-Every other day at 1:45 PM:
+每隔一天下午1:45：
 
 ```
 45 13 1-31/2 * *
 ```
 
-Every 10 minutes on Saturday and Sunday:
+周六和周日每10分钟：
 
 ```
 0/10 * * * 6-7
 ```
 
-Every three hours on the first day of every other month:
+每隔一个月的第一天每三个小时每三个小时：
 
 ```
 0 0-23/3 1 1-12/2 *
@@ -63,4 +63,5 @@ Every three hours on the first day of every other month:
 
 ## API
 
-For an example of how to use a custom cron expression in an API call, see the [create monitor API operation]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api#request-1).
+有关如何在API调用中使用自定义CRON表达式的示例，请参阅[创建监视器API操作]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api#request-1)。
+

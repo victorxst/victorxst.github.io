@@ -1,48 +1,48 @@
 ---
 layout: default
-title: Getting Started
-parent: Trace Analytics
+title: 入门
+parent: 跟踪分析
 nav_order: 1
 redirect_from:
   - /observability-plugin/trace/get-started/
   - /monitoring-plugins/trace/get-started/
 ---
 
-# Getting started with Trace Analytics
+# 开始进行跟踪分析
 
-OpenSearch Trace Analytics consists of two components---Data Prepper and the Trace Analytics OpenSearch Dashboards plugin. The Data Prepper repository contains several [sample applications](https://github.com/opensearch-project/data-prepper/tree/main/examples) that you can use to get started.
+OpenSearch Trace Analytics由两个组件组成---数据Prepper和Trace Analytics OpenSearch仪表板插件。数据Prepper存储库包含几个[样本应用](https://github.com/opensearch-project/data-prepper/tree/main/examples) 您可以用来开始。
 
-## Basic flow of data
+## 基本数据流
 
-![Data flow diagram from a distributed application to OpenSearch]({{site.url}}{{site.baseurl}}/images/ta.svg)
+![从分布式应用程序到OpenSearch的数据流程图]({{site.url}}{{site.baseurl}}/images/ta.svg)
 
-1. Trace Analytics relies on you adding instrumentation to your application and generating trace data. The [OpenTelemetry documentation](https://opentelemetry.io/docs/) contains example applications for many programming languages that can help you get started, including Java, Python, Go, and JavaScript.
+1. 跟踪分析依赖于您将仪器添加到应用程序并生成跟踪数据。这[OpentElemetry文档](https://opentelemetry.io/docs/) 包含许多可以帮助您入门的编程语言的示例应用程序，包括Java，Python，Go和JavaScript。
 
-   (In the [Jaeger HotROD](#jaeger-hotrod) example below, an extra component, the Jaeger agent, runs alongside the application and sends the data to the OpenTelemetry Collector, but the concept is similar.)
+   （在里面[Jaeger Hotrod](#jaeger-hotrod) 下面的示例，一个额外的组件，即jaeger代理，与应用程序一起运行，并将数据发送给OpentElemetry Collector，但该概念相似。）
 
-1. The [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/getting-started/) receives data from the application and formats it into OpenTelemetry data.
+1. 这[Opentelemetry收集器](https://opentelemetry.io/docs/collector/getting-started/) 从应用程序中接收数据，并将其格式化为OpenTelemetry数据。
 
-1. [Data Prepper]({{site.url}}{{site.baseurl}}/clients/data-prepper/index/) processes the OpenTelemetry data, transforms it for use in OpenSearch, and indexes it on an OpenSearch cluster.
+1. [数据预先]({{site.url}}{{site.baseurl}}/clients/data-prepper/index/) 处理opentelemetry数据，将其转换为用于OpenSearch，并将其索引在OpenSearch集群上。
 
-1. The [Trace Analytics OpenSearch Dashboards plugin]({{site.url}}{{site.baseurl}}/observing-your-data/trace/ta-dashboards/) displays the data in near real-time as a series of charts and tables, with an emphasis on service architecture, latency, error rate, and throughput.
+1. 这[跟踪分析opensearch仪表板插件]({{site.url}}{{site.baseurl}}/observing-your-data/trace/ta-dashboards/) 显示数据几乎真实-时间是一系列图表和表格，重点是服务体系结构，延迟，错误率和吞吐量。
 
-## Jaeger HotROD
+## Jaeger Hotrod
 
-One Trace Analytics sample application is the Jaeger HotROD demo, which mimics the flow of data through a distributed application.
+一种迹线分析样本应用程序是Jaeger Hotrod演示，该演示通过分布式应用模仿数据流。
 
-Download or clone the [Data Prepper repository](https://github.com/opensearch-project/data-prepper). Then navigate to `examples/jaeger-hotrod/` and open `docker-compose.yml` in a text editor. This file contains a container for each element from [Basic flow of data](#basic-flow-of-data):
+下载或克隆[数据PEPPER存储库](https://github.com/opensearch-project/data-prepper)。然后导航到`examples/jaeger-hotrod/` 并开放`docker-compose.yml` 在文本编辑器中。该文件包含一个用于每个元素的容器[基本数据流](#basic-flow-of-data)：
 
-- A distributed application (`jaeger-hot-rod`) with the Jaeger agent (`jaeger-agent`)
-- The [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/getting-started/) (`otel-collector`)
-- Data Prepper (`data-prepper`)
-- A single-node OpenSearch cluster (`opensearch`)
-- OpenSearch Dashboards (`opensearch-dashboards`).
+- 分布式应用程序（`jaeger-hot-rod`）与Jaeger代理商（`jaeger-agent`）
+- 这[Opentelemetry收集器](https://opentelemetry.io/docs/collector/getting-started/) （（`otel-collector`）
+- 数据prepper（`data-prepper`）
+- 一个-节点OpenSearch cluster（`opensearch`）
+- OpenSearch仪表板（`opensearch-dashboards`）。
 
-Close the file and run `docker-compose up --build`. After the containers start, navigate to `http://localhost:8080` in a web browser.
+关闭文件并运行`docker-compose up --build`。容器启动后，导航到`http://localhost:8080` 在网络浏览器中。
 
-![HotROD web interface]({{site.url}}{{site.baseurl}}/images/hot-rod.png)
+![Hotrod Web界面]({{site.url}}{{site.baseurl}}/images/hot-rod.png)
 
-Click one of the buttons in the web interface to send a request to the application. Each request starts a series of operations across the services that make up the application. From the console logs, you can see that these operations share the same `trace-id`, which lets you track all of the operations in the request as a single *trace*:
+单击Web界面中的一个按钮之一，将请求发送到应用程序。每个请求始于构成应用程序的服务跨越一系列操作。从控制台日志中，您可以看到这些操作共享相同`trace-id`，它使您可以将请求中的所有操作跟踪为单个 *Trace *：
 
 ```
 jaeger-hot-rod  | http://0.0.0.0:8081/customer?customer=392
@@ -52,33 +52,34 @@ jaeger-hot-rod  | 2020-11-19T16:29:53.430Z	INFO	customer/server.go:67	HTTP reque
 jaeger-hot-rod  | 2020-11-19T16:29:53.430Z	INFO	customer/database.go:73	Loading customer{"service": "customer", "component": "mysql", "trace_id": "12091bd60f45ea2c", "span_id": "252ff7d0e1ac533b", "customer_id": "392"}
 ```
 
-These operations also have a `span_id`. *Spans* are units of work from a single service. Each trace contains some number of spans. Shortly after the application starts processing the request, you can see the OpenTelemetry Collector starts exporting the spans:
+这些操作也有`span_id`。*跨度*是单个服务的工作单位。每个跟踪包含一些跨度。应用程序开始处理请求后不久，您可以看到OpenTelemetry Collector开始导出跨度：
 
 ```
 otel-collector  | 2020-11-19T16:29:53.781Z	INFO	loggingexporter/logging_exporter.go:296	TraceExporter	{"#spans": 1}
 otel-collector  | 2020-11-19T16:29:53.787Z	INFO	loggingexporter/logging_exporter.go:296	TraceExporter	{"#spans": 3}
 ```
 
-Then Data Prepper processes the data from the OpenTelemetry Collector and indexes it:
+然后，数据预先处理来自OpenTelemetry Collector的数据并将其索引：
 
 ```
 data-prepper  | 1031918 [service-map-pipeline-process-worker-2-thread-1] INFO  com.amazon.dataprepper.pipeline.ProcessWorker  –  service-map-pipeline Worker: Processing 3 records from buffer
 data-prepper  | 1031923 [entry-pipeline-process-worker-1-thread-1] INFO  com.amazon.dataprepper.pipeline.ProcessWorker  –  entry-pipeline Worker: Processing 1 records from buffer
 ```
 
-Finally, you can see the OpenSearch node responding to the indexing request.
+最后，您可以看到响应索引请求的OpenSearch节点。
 
 ```
 node-0.example.com  | [2020-11-19T16:29:55,064][INFO ][o.e.c.m.MetadataMappingService] [9fb4fb37a516] [otel-v1-apm-span-000001/NGYbmVD9RmmqnxjfTzBQsQ] update_mapping [_doc]
 node-0.example.com  | [2020-11-19T16:29:55,267][INFO ][o.e.c.m.MetadataMappingService] [9fb4fb37a516] [otel-v1-apm-span-000001/NGYbmVD9RmmqnxjfTzBQsQ] update_mapping [_doc]
 ```
 
-In a new terminal window, run the following command to see one of the raw documents in the OpenSearch cluster:
+在新的终端窗口中，运行以下命令，以查看OpenSearch集群中的一个原始文档：
 
 ```bash
 curl -X GET -u 'admin:admin' -k 'https://localhost:9200/otel-v1-apm-span-000001/_search?pretty&size=1'
 ```
 
-Navigate to `http://localhost:5601` in a web browser and choose **Trace Analytics**. You can see the results of your single click in the Jaeger HotROD web interface: the number of traces per API and HTTP method, latency trends, a color-coded map of the service architecture, and a list of trace IDs that you can use to drill down on individual operations.
+导航`http://localhost:5601` 在网络浏览器中选择**跟踪分析**。您可以在Jaeger Hotrod Web界面中看到单击的结果-服务体系结构的编码地图，以及可以使用的跟踪ID列表，可用于对单个操作进行深入研究。
 
-If you don't see your trace, adjust the timeframe in OpenSearch Dashboards. For more information on using the plugin, see [OpenSearch Dashboards plugin]({{site.url}}{{site.baseurl}}/observing-your-data/trace/ta-dashboards/).
+如果您看不到跟踪，请调整OpenSearch仪表板中的时间表。有关使用插件的更多信息，请参阅[OpenSearch仪表板插件]({{site.url}}{{site.baseurl}}/observing-your-data/trace/ta-dashboards/)。
+

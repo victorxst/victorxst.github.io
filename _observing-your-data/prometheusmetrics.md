@@ -1,28 +1,28 @@
 ---
 layout: default
-title: Metrics analytics
+title: 指标分析
 nav_order: 40
 redirect_from:
   - /observing-your-data/prometheusmetrics/
 ---
 
-# Metrics analytics
-Introduced 2.4
-{: .label .label-purple }
+# 指标分析
+引入2.4
+{：.label .label-紫色的 }
 
-Starting with OpenSearch 2.4, you can ingest and visualize metric data from log data aggregated within OpenSearch, allowing you to analyze and correlate data across logs, traces, and metrics. Previously, you could ingest and visualize only logs and traces from your monitored environments. With this feature, you can observe your digital assets with more granularity, gain deeper insight into the health of your infrastructure, and better inform your root cause analysis.
+从OpenSearch 2.4开始，您可以从OpenSearch中汇总的日志数据中摄入和可视化度量数据，从而使您可以分析和关联跨日志，跟踪和指标的数据。以前，您可以从监视的环境中摄入和可视化日志和痕迹。借助此功能，您可以更详细地观察自己的数字资产，更深入地了解基础设施的健康，并更好地告知您的根本原因分析。
 
-The following image shows the process of ingesting metrics from Prometheus and visualizing them in a dashboard.
+下图显示了从普罗米修斯摄入指标并在仪表板中可视化的过程。
 
-![Prometheus and Metrics]({{site.url}}{{site.baseurl}}/images/metrics/metricsgif.gif)
+![Prometheus和指标]({{site.url}}{{site.baseurl}}/images/metrics/metricsgif.gif)
 
-## Configuring a data source connection from Prometheus to OpenSearch
+## 配置从Prometheus到OpenSearch的数据源连接
 
-You can view metrics collected from Prometheus in OpenSearch Dashboards by first creating a connection from [Prometheus](https://prometheus.io/) to OpenSearch using the SQL plugin. 
+您可以通过首先从OpenSearch Dashboards中的Prometheus查看指标[普罗米修斯](https://prometheus.io/) 使用SQL插件进行搜索。
 
-To configure a connection to Prometheus, you can use the `_datasources` configuration API endpoint. 
+要配置与Prometheus的连接，您可以使用`_datasources` 配置API端点。
 
-The following example request configures a Prometheus data source with no authentication:
+以下示例请求配置了没有身份验证的Prometheus数据源：
 
 ```json
 POST _plugins/_query/_datasources 
@@ -35,7 +35,7 @@ POST _plugins/_query/_datasources
 }
 ```
 
-The following example request configures a Prometheus data source with AWS SigV4 authentication:
+以下示例请求使用AWS SIGV4身份验证配置Prometheus数据源：
 
 ```json
 POST _plugins/_query/_datasources
@@ -52,47 +52,48 @@ POST _plugins/_query/_datasources
 }
 ```
 
-After configuring the connection from Prometheus to OpenSearch, Prometheus metrics are displayed in Dashboards in the **Observability** > **Metrics analytics** window, as shown in the following image.
+配置从Prometheus到OpenSearch的连接后，Prometheus指标将显示在仪表板中**可观察性** >**指标分析** 窗口，如下图所示。
 
-![Metrics UI example 1]({{site.url}}{{site.baseurl}}/images/metrics/metrics1.png)
+![指标UI示例1]({{site.url}}{{site.baseurl}}/images/metrics/metrics1.png)
 
-* For more information about authentication and authorization of data source APIs, see [data source documentation on GitHub](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/datasources.rst).
-* For more information about the Prometheus connector, see the [Prometheus Connector](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/prometheus_connector.rst) GitHub page.
+*有关数据源API的身份验证和授权的更多信息，请参见[GitHub上的数据源文档](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/datasources.rst)。
+*有关Prometheus连接器的更多信息，请参阅[Prometheus连接器](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/prometheus_connector.rst) Github页面。
 
-## Creating visualizations based on metrics
+## 基于指标创建可视化
 
-You can create visualizations based on Prometheus metrics and other metrics collected by your OpenSearch cluster.
+您可以根据Prometheus指标和OpenSearch群集收集的其他指标创建可视化。
 
-To create a visualization, do the following:
+要创建可视化，请执行以下操作：
 
-1. In **Observability** > **Metrics analytics** > **Available Metrics**, select the metrics you would like to include in your visualization.
-1. These visualizations can now be saved.
-1. From the **Metrics analytics** window, select **Save**.
-1. When prompted for a **Custom operational dashboards/application**, choose one of the available options.
-1. Optionally, you can edit the predefined name values under the **Metric Name** fields to suit your needs.
-1. Select **Save**.
+1. 在**可观察性** >**指标分析** >**可用指标**，选择要在可视化中包含的指标。
+1. 这些可视化现在可以保存。
+1. 来自**指标分析** 窗口，选择**节省**。
+1. 当提示**自定义操作仪表板/应用程序**，选择可用选项之一。
+1. 可选地，您可以在下面编辑预定义的名称值**公制名称** 适合您需求的字段。
+1. 选择**节省**。
 
-The following image shows an example of the visualizations that are displayed in the **Observability** > **Metrics analytics** window.
+下图显示了显示在**可观察性** >**指标分析** 窗户。
 
-![Metrics UI example 2]({{site.url}}{{site.baseurl}}/images/metrics/metrics2.png)
+![指标UI示例2]({{site.url}}{{site.baseurl}}/images/metrics/metrics2.png)
 
-## Defining PPL queries for use with Prometheus
+## 定义用于与Prometheus一起使用的PPL查询
 
-You can define [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) (PPL) queries against metrics collected by Prometheus. The following example shows a metric-selecting query with specific dimensions:
+您可以定义[管道处理语言]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) （PPL）对Prometheus收集的指标的查询。以下示例显示了度量标准-选择具有特定维度的查询：
 
 ```
 source = my_prometheus.prometheus_http_requests_total | stats avg(@value) by span(@timestamp,15s), handler, code
 ```
 
-Additionally, you can create a custom visualization by performing the following steps:
+此外，您可以通过执行以下步骤来创建自定义可视化：
 
-1. From the **Events Analytics** window, enter your PPL query and select **Refresh**. The **Explorer page** is now displayed.
-1. From the **Explorer page**, select **Save**.
-1. When prompted for a **Custom operational dashboards/application**, choose one of the available options.
-1. Optionally, you can edit the predefined name values under the **Metric Name** fields to suit your needs.
-1. Optionally, you can choose to save the visualization as a metric.
-1. Select **Save**.
+1. 来自**事件分析** 窗口，输入您的PPL查询并选择**刷新**。这**Explorer页面** 现在显示。
+1. 来自**Explorer页面**， 选择**节省**。
+1. 当提示**自定义操作仪表板/应用程序**，选择可用选项之一。
+1. 可选地，您可以在下面编辑预定义的名称值**公制名称** 适合您需求的字段。
+1. 可选地，您可以选择将可视化作为度量保存。
+1. 选择**节省**。
 
-Note: Only queries that include a time-series visualization and stats/span can be saved as a metric, as shown in the following image.
+注意：只有包含时间的查询-串联可视化和统计/跨度可以保存为度量，如下图所示。
 
-![Metrics UI example 3]({{site.url}}{{site.baseurl}}/images/metrics/metrics3.png)
+![指标UI示例3]({{site.url}}{{site.baseurl}}/images/metrics/metrics3.png)
+

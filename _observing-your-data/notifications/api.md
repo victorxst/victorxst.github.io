@@ -2,14 +2,14 @@
 layout: default
 title: API
 nav_order: 50
-parent: Notifications
+parent: 通知
 redirect_from:
   - /notifications-plugin/api/
 ---
 
-# Notifications API
+# 通知API
 
-If you want to programmatically define your notification channels and sources for versioning and reuse, you can use the Notifications REST API to define, configure, and delete notification channels and send test messages.
+如果要通过编程方式定义您的通知频道和版本控制和重用的源，则可以使用Notifications REST API来定义，配置和删除通知频道并发送测试消息。
 
 ---
 
@@ -19,17 +19,17 @@ If you want to programmatically define your notification channels and sources fo
 
 ---
 
-## List supported channel configurations
+## 列表支持的频道配置
 
-To retrieve a list of all supported notification configuration types, send a GET request to the `features` resource.
+要检索所有受支持的通知配置类型的列表，请将Get请求发送到`features` 资源。
 
-#### Example request
+#### 示例请求
 
 ```json
 GET /_plugins/_notifications/features
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -49,17 +49,17 @@ GET /_plugins/_notifications/features
 }
 ```
 
-## List all notification configurations
+## 列出所有通知配置
 
-To retrieve a list of all notification configurations, send a GET request to the `configs` resource.
+要检索所有通知配置的列表，请将get请求发送到`configs` 资源。
 
-#### Example request
+#### 示例请求
 
 ```json
 GET _plugins/_notifications/configs
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -99,44 +99,44 @@ GET _plugins/_notifications/configs
 }
 ```
 
-To filter the notification configuration types this request returns, you can refine your query with the following optional path parameters.
+要过滤通知配置类型此请求返回，您可以使用以下可选路径参数来完善查询。
 
-Parameter	| Description
-:--- | :---
-config_id | Specifies the channel identifier.
-config_id_list | Specifies a comma-separated list of channel IDs.
-from_index | The starting index to search from.
-max_items | The maximum amount of items to return in your request.
-sort_order | Specifies the direction to sort results in. Valid options are `asc` and `desc`.
-sort_field | Field to sort results with.
-last_updated_time_ms | The Unix time in milliseconds of when the channel was last updated.
-created_time_ms | The Unix time in milliseconds of when the channel was created.
-is_enabled | Indicates whether the channel is enabled.
-config_type | The channel type. Valid options are `sns`, `slack`, `chime`, `webhook`, `smtp_account`, `ses_account`, `email_group`, and `email`.
-name | The channel name.
-description	| The channel description.
-email.email_account_id | The sender email addresses the channel uses.
-email.email_group_id_list | The email groups the channel uses.
-email.recipient_list | The channel recipient list.
-email_group.recipient_list | The channel list of email recipient groups.
-smtp_account.method | The email encryption method.
-slack.url	| The Slack channel URL.
-chime.url	| The Amazon Chime connection URL.
-webhook.url	| The webhook URL.
-smtp_account.host	| The domain of the SMTP account.
-smtp_account.from_address	| The email account's sender address.
-smtp_account.method | The SMTP account's encryption method.
-sns.topic_arn	| The Amazon Simple Notification Service (SNS) topic's ARN.
-sns.role_arn | The Amazon SNS topic's role ARN.
-ses_account.region | The Amazon Simple Email Service (SES) account's AWS Region.
-ses_account.role_arn | The Amazon SES account's role ARN.
-ses_account.from_address | The Amazon SES account's sender email address.
+范围| 描述
+：--- | ：---
+config_id| 指定通道标识符。
+config_id_list| 指定逗号-频道ID的分开列表。
+from_index| 搜索的起始索引。
+max_items| 根据您的要求返回的最大项目数量。
+排序| 指定对结果进行排序的方向。有效的选项是`asc` 和`desc`。
+sort_field| 字段与结果进行排序。
+last_updated_time_ms| 频道最后更新频道的时间为毫秒的时间。
+create_time_ms| 创建频道的时间毫秒的Unix时间。
+IS_ENABLED| 指示是否启用了通道。
+config_type| 通道类型。有效的选项是`sns`，，，，`slack`，，，，`chime`，，，，`webhook`，，，，`smtp_account`，，，，`ses_account`，，，，`email_group`， 和`email`。
+姓名| 频道名称。
+描述| 频道描述。
+email.email_account_id| 发件人电子邮件地址频道使用。
+email.email_group_id_list| 电子邮件组使用的电子邮件组。
+email.recipient_list| 频道收件人列表。
+email_group.recipient_list| 电子邮件收件人组的频道列表。
+smtp_account.method| 电子邮件加密方法。
+Slack.url| 松弛通道URL。
+chime.url| Amazon Chime连接URL。
+webhook.url| Webhook URL。
+SMTP_ACCOUNT.HOST| SMTP帐户的域。
+smtp_account.from_address| 电子邮件帐户的发送者地址。
+smtp_account.method| SMTP帐户的加密方法。
+sns.topic_arn| 亚马逊简单通知服务（SNS）主题的ARN。
+sns.role_arn| 亚马逊SNS主题的角色。
+SES_ACCOUNT.RIGION| 亚马逊简单电子邮件服务（SES）帐户的AWS地区。
+ses_account.role_arn| 亚马逊SES帐户的角色。
+ses_account.from_address| Amazon SES帐户的发送者电子邮件地址。
 
-## Create channel configuration
+## 创建通道配置
 
-To create a notification channel configuration, send a POST request to the `configs` resource.
+要创建通知频道配置，请将POST请求发送到`configs` 资源。
 
-#### Example request
+#### 示例请求
 
 ```json
 POST /_plugins/_notifications/configs/
@@ -155,18 +155,18 @@ POST /_plugins/_notifications/configs/
 }
 ```
 
-The create channel API operation accepts the following fields in its request body:
+创建通道API操作接受其请求主体中的以下字段：
 
-Field |	Data type |	Description |	Required
-:--- | :--- | :--- | :---
-config_id | String | The configuration's custom ID. | No
-config | Object |	Contains all relevant information, such as channel name, configuration type, and plugin source. |	Yes
-name | String |	Name of the channel. | Yes
-description |	String | The channel's description. | No
-config_type |	String | The destination of your notification. Valid options are `sns`, `slack`, `chime`, `webhook`, `smtp_account`, `ses_account`, `email_group`, and `email`. | Yes
-is_enabled | Boolean | Indicates whether the channel is enabled for sending and receiving notifications. Default is true.	| No
+场地|数据类型|描述|必需的
+：--- | ：--- | ：--- | ：---
+config_id| 细绳| 配置的自定义ID。| 不
+config| 目的|包含所有相关信息，例如频道名称，配置类型和插件源。|是的
+姓名| 细绳|频道的名称。| 是的
+描述|细绳| 频道的描述。| 不
+config_type|细绳| 您的通知目的地。有效的选项是`sns`，，，，`slack`，，，，`chime`，，，，`webhook`，，，，`smtp_account`，，，，`ses_account`，，，，`email_group`， 和`email`。| 是的
+IS_ENABLED| 布尔| 指示是否启用了用于发送和接收通知的通道。默认是正确的。| 不
 
-The create channel operation accepts multiple `config_types` as possible notification destinations, so follow the format for your preferred `config_type`.
+创建频道操作接受多个`config_types` 作为可能的通知目的地，因此请遵循您的首选格式`config_type`。
 
 ```json
 "sns": {
@@ -214,7 +214,7 @@ The create channel operation accepts multiple `config_types` as possible notific
 }
 ```
 
-The following example demonstrates how to create a channel using email as a `config_type`:
+以下示例演示了如何使用电子邮件作为一个`config_type`：
 
 ```json
 POST /_plugins/_notifications/configs/
@@ -236,7 +236,7 @@ POST /_plugins/_notifications/configs/
 }
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -245,17 +245,17 @@ POST /_plugins/_notifications/configs/
 ```
 
 
-## Get channel configuration
+## 获取通道配置
 
-To get a channel configuration by `config_id`, send a GET request and specify the `config_id` as a path parameter.
+通过`config_id`，发送get请求并指定`config_id` 作为路径参数。
 
-#### Example request
+#### 示例请求
 
 ```json
 GET _plugins/_notifications/configs/<config_id>
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -282,11 +282,11 @@ GET _plugins/_notifications/configs/<config_id>
 ```
 
 
-## Update channel configuration
+## 更新频道配置
 
-To update a channel configuration, send a POST request to the `configs` resource and specify the channel's `config_id` as a path parameter. Specify the new configuration details in the request body.
+要更新频道配置，请将发布请求发送到`configs` 资源并指定频道的`config_id` 作为路径参数。在请求主体中指定新的配置详细信息。
 
-#### Example request
+#### 示例请求
 
 ```json
 PUT _plugins/_notifications/configs/<config_id>
@@ -303,7 +303,7 @@ PUT _plugins/_notifications/configs/<config_id>
 }
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -312,17 +312,17 @@ PUT _plugins/_notifications/configs/<config_id>
 ```
 
 
-## Delete channel configuration
+## 删除通道配置
 
-To delete a channel configuration, send a DELETE request to the `configs` resource and specify the `config_id` as a path parameter.
+要删除通道配置，请将删除请求发送到`configs` 资源并指定`config_id` 作为路径参数。
 
-#### Example request
+#### 示例请求
 
 ```json
 DELETE /_plugins/_notifications/configs/<config_id>
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -332,15 +332,15 @@ DELETE /_plugins/_notifications/configs/<config_id>
 }
 ```
 
-You can also submit a comma-separated list of channel IDs you want to delete, and OpenSearch deletes all of the specified notification channels.
+您也可以提交逗号-您要删除的频道ID列表，然后OpenSearch删除所有指定的通知频道。
 
-#### Example request
+#### 示例请求
 
 ```json
 DELETE /_plugins/_notifications/configs/?config_id_list=<config_id1>,<config_id2>,<config_id3>...
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -353,17 +353,17 @@ DELETE /_plugins/_notifications/configs/?config_id_list=<config_id1>,<config_id2
 ```
 
 
-## Send test notification
+## 发送测试通知
 
-To send a test notification, send a GET request to `/feature/test/` and specify the channel configuration's `config_id` as a path parameter.
+要发送测试通知，请将GET请求发送到`/feature/test/` 并指定频道配置的`config_id` 作为路径参数。
 
-#### Example request
+#### 示例请求
 
 ```json
 GET _plugins/_notifications/feature/test/<config_id>
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -400,3 +400,4 @@ GET _plugins/_notifications/feature/test/<config_id>
 }
 
 ```
+

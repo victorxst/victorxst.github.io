@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Notifications
+title: 通知
 nav_order: 90
 has_children: true
 redirect_from:
@@ -8,42 +8,42 @@ redirect_from:
   - /notifications-plugin/index/
 ---
 
-# Notifications
+# 通知
 
-The Notifications plugin provides a central location for all of your notifications from OpenSearch plugins. Using the plugin, you can configure which communication service you want to use and see relevant statistics and troubleshooting information. Currently, the Alerting and ISM plugins have integrated with the Notifications plugin.
+通知插件为OpenSearch插件的所有通知提供了一个中心位置。使用插件，您可以配置要使用的通信服务，并查看相关的统计信息和故障排除信息。当前，警报和ISM插件已与通知插件集成在一起。
 
-You can use either OpenSearch Dashboards or the REST API to configure notifications. Dashboards offers a more organized way of selecting a channel type and selecting which OpenSearch plugin sources you want to use, whereas the REST API lets you programmatically define your notification channels for better versioning and reuse later on.
+您可以使用OpenSearch仪表板或REST API来配置通知。仪表板提供了一种更有条理的方法，可以选择要使用的频道类型并选择要使用的OpenSearch插件源，而REST API则可以使您可以编程定义您的通知频道，以更好地版本化和以后重复使用。
 
-1. Use the Dashboards UI to first create a channel that receives notifications from other plugins. Supported communication channels include Amazon Chime, Amazon Simple Notification Service (Amazon SNS), Amazon Simple Email Service (Amazon SES), email through SMTP, Slack, Microsoft Teams, and custom webhooks. After you’ve configured your channel and plugin sources, send messages and start tracking your notifications from the Notifications plugin's dashboard.
+1. 使用仪表板UI首先创建一个从其他插件接收通知的通道。支持的通信渠道包括亚马逊钟声，亚马逊简单通知服务（Amazon SNS），Amazon简单电子邮件服务（Amazon SES），通过SMTP，Slack，Microsoft Teams和自定义Webhooks的电子邮件。配置了频道和插件源后，发送消息并开始从通知插件的仪表板中跟踪您的通知。
 
-2. Use the Notifications REST API to configure all of your channel's settings. To use the API, you must have your notification's name, description, channel type, which OpenSearch plugins to use as sources, and other associated URLs or groups.
+2. 使用通知REST API配置所有频道的设置。要使用API，您必须具有通知的姓名，描述，频道类型，将其用作源插件以及其他相关的URL或组。
 
-## Create a channel
+## 创建一个频道
 
-In OpenSearch Dashboards, choose **Notifications**, **Channels**, and **Create channel**.
+在OpenSearch仪表板中，选择**通知**，，，，**频道**， 和**创建频道**。
 
-1. In the **Name and description** section, specify a name and optional description for your channel.
-2. In the **Configurations** section, select the channel type and enter the necessary information for each type. For more information about configuring a channel that uses Amazon SNS or email, refer to the sections below. If you want to use Amazon Chime or Slack, you need to specify the webhook URL. For more information about using webhooks, see the documentation for [Slack](https://api.slack.com/messaging/webhooks), [Microsoft Teams](https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/what-are-webhooks-and-connectors), or [Amazon Chime](https://docs.aws.amazon.com/chime/latest/ug/webhooks.html).
+1. 在里面**名称和描述** 部分，为您的频道指定名称和可选描述。
+2. 在里面**配置** 部分，选择频道类型，然后输入每种类型的必要信息。有关配置使用Amazon SNS或电子邮件的频道的更多信息，请参阅以下各节。如果要使用Amazon Chime或Slack，则需要指定Webhook URL。有关使用Webhooks的更多信息，请参见文档[松弛](https://api.slack.com/messaging/webhooks)，，，，[微软团队](https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/what-are-webhooks-and-connectors)， 或者[亚马逊钟](https://docs.aws.amazon.com/chime/latest/ug/webhooks.html)。
 
-If you want to use custom webhooks, you must specify more information: parameters and headers. For example, if your endpoint requires basic authentication, you might need to add a header with an authorization key and a value of `Basic <Base64-encoded-credential-string>`. You might also need to change `Content-Type` to whatever your webhook requires. Popular values are `application/json`, `application/xml`, and `text/plain`.
+如果要使用自定义Webhooks，则必须指定更多信息：参数和标题。例如，如果您的端点需要基本的身份验证，则可能需要添加带有授权键的标头，值为`Basic <Base64-encoded-credential-string>`。您可能还需要更改`Content-Type` 无论您需要什么。流行价值是`application/json`，，，，`application/xml`， 和`text/plain`。
 
-This information is stored in plain text in the OpenSearch cluster. We will improve this design in the future, but for now, the encoded credentials (which are neither encrypted nor hashed) might be visible to other OpenSearch users.
+此信息以纯文本存储在OpenSearch集群中。我们将来会改进此设计，但是目前，其他OpenSearch用户可以看到编码的凭据（既没有加密也不被加密）。
 
-1. In the **Availability** section, select the OpenSearch plugins you want to use with the notification channel.
-2. Choose **Create**.
+1. 在里面**可用性** 部分，选择要与Notification Channel一起使用的OpenSearch插件。
+2. 选择**创造**。
 
-### Amazon SNS as a channel type
+### 亚马逊SNS作为频道类型
 
-OpenSearch supports Amazon SNS for notifications. This integration with Amazon SNS means that, in addition to the other channel types, the Notifications plugin can send email messages, text messages, and even run AWS Lambda functions using SNS topics. For more information about Amazon SNS, see the [Amazon Simple Notification Service Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/welcome.html).
+OpenSearch支持Amazon SNS通知。与Amazon SNS的集成意味着，除其他频道类型外，通知插件还可以使用SNS主题发送电子邮件消息，文本消息，甚至运行AWS lambda函数。有关亚马逊SNS的更多信息，请参阅[亚马逊简单通知服务开发人员指南](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)。
 
-The Notifications plugin currently supports two ways to authenticate users:
+通知插件当前支持对用户进行身份验证的两种方法：
 
-1. Provide the user with full access to Amazon SNS.
-2. Let the user assume an AWS Identity and Access Management (IAM) role that has permissions to access Amazon SNS. Once you configure the notification channel to use the right Amazon SNS permissions, select the OpenSearch plugins that can trigger notifications.
+1. 为用户提供对Amazon SNS的完整访问权限。
+2. 让用户扮演具有访问Amazon SNS的权限的AWS身份和访问管理（IAM）角色。将通知通道配置为使用右Amazon SNS权限后，请选择可以触发通知的OpenSearch插件。
 
-### Provide full Amazon SNS access permissions
+### 提供完整的Amazon SNS访问权限
 
-If you want to provide full Amazon SNS access to the IAM user, ensure that the user has the following permissions:
+如果您想向IAM用户提供全面的Amazon SNS访问权限，请确保用户具有以下权限：
 
 ```json
 {
@@ -60,11 +60,11 @@ If you want to provide full Amazon SNS access to the IAM user, ensure that the u
 }
 ```
 
-### Assuming an IAM role with Amazon SNS permissions
+### 在Amazon SNS权限中担任IAM角色
 
-If you want to let the user send notifications without directly having full permissions to Amazon SNS, let the user assume a role that does have the necessary permissions.
+如果要让用户在不直接对Amazon SNS获得完整权限的情况下发送通知，请让用户扮演具有必要权限的角色。
 
-The IAM user must have the following permissions to assume a role:
+IAM用户必须具有以下权限以扮演角色：
 
 ```json
 {
@@ -83,7 +83,7 @@ The IAM user must have the following permissions to assume a role:
 }
 ```
 
-Then add this policy into the IAM user’s trust relationship to actually assume the role:
+然后将此策略添加到IAM用户的信任关系中，以实际扮演该角色：
 
 ```json
 {
@@ -101,33 +101,33 @@ Then add this policy into the IAM user’s trust relationship to actually assume
 ```
 
 
-## Email as a channel type
+## 电子邮件作为频道类型
 
-To send or receive notifications with email, choose **Email** as the channel type. Next, select at least one sender and default recipient. To send notifications to more than a few people at a time, specify multiple email addresses or select a recipient group. If the Notifications plugin doesn’t currently have the necessary senders or groups, you can add them by first selecting **SMTP sender** and then choosing **Create SMTP sender** or **Create recipient group**. Choose **SES sender** to use Amazon Simple Email Service (Amazon SES).
+要通过电子邮件发送或接收通知，请选择**电子邮件** 作为通道类型。接下来，选择至少一个发件人和默认收件人。要一次向几个人发送通知，请指定多个电子邮件地址或选择一个收件人组。如果通知插件当前没有必要的发件人或组，则可以先选择来添加它们**SMTP发件人** 然后选择**创建SMTP发件人** 或者**创建收件人组**。选择**SES发件人** 使用亚马逊简单的电子邮件服务（Amazon SES）。
 
-### Create email sender
+### 创建电子邮件发送者
 
-1. Specify a unique name to associate with the sender.
-2. Enter an email address and, if applicable, its host (for example, smtp.gmail.com) and the port. If you're using Amazon SES, enter the IAM role Amazon Resource Name (ARN) of the AWS account to send notifications from, along with the AWS Region.
-3. Choose an encryption method. Most email providers require Secure Sockets Layer (SSL) or Transport Layer Security (TLS), which require a user name and password in the OpenSearch keystore. See [Authenticate sender account](#authenticate-sender-account) to learn more. Selecting an encryption method is only applicable if you're creating an SMTP sender.
-4. Choose **Create** to save the configuration and create the sender. You can create a sender before you add your credentials to the OpenSearch keystore; however, you must [authenticate each sender account](#authenticate-sender-account) before you use the sender in your channel configuration.
+1. 指定一个唯一名称以与发件人关联。
+2. 输入电子邮件地址，如果适用，则将其主机（例如SMTP.GMAIL.com）和端口。如果您使用的是Amazon SES，请输入AWS帐户的IAM角色Amazon Resource名称（ARN）与AWS区域一起发送通知。
+3. 选择一种加密方法。大多数电子邮件提供商都需要安全套接字层（SSL）或传输层安全性（TLS），该层要求在OpenSearch keystore中使用用户名和密码。看[身份验证的发送者帐户](#authenticate-sender-account) 了解更多。仅当您创建SMTP发件人时，选择加密方法才适用。
+4. 选择**创造** 保存配置并创建发件人。您可以在将凭据添加到OpenSearch KeyStore之前创建发件人；但是，你必须[验证每个发件人帐户](#authenticate-sender-account) 在使用频道配置中的发件人之前。
 
-### Create email recipient group
+### 创建电子邮件收件人组
 
-1. After choosing **Create recipient group**, enter a unique name to associate with the email group and an optional description.
-2. Select or enter the email addresses you want to add to the recipient group.
-3. Choose **Create**.
+1. 选择后**创建收件人组**，输入一个唯一名称，与电子邮件组相关联和可选描述。
+2. 选择或输入要添加到收件人组的电子邮件地址。
+3. 选择**创造**。
 
-### Authenticate sender account
+### 身份验证的发送者帐户
 
-If your email provider requires SSL or TLS, you must authenticate each sender account before you can send an email. Enter the sender account credentials in the OpenSearch keystore using the command line interface (CLI). Run the following commands (in your OpenSearch directory) to enter your user name and password. The &lt;sender_name&gt; is the name you entered for **Sender** earlier.
+如果您的电子邮件提供商需要SSL或TLS，则必须在发送电子邮件之前对每个发件人帐户进行身份验证。使用命令行接口（CLI）在OpenSearch密钥库中输入发件人帐户凭据。运行以下命令（在OpenSearch目录中）输入您的用户名和密码。＆lt; sender_name＆gt;是您输入的名称**发件人** 较早。
 
 ```json
 opensearch.notifications.core.email.<sender_name>.username
 opensearch.notifications.core.email.<sender_name>.password
 ```
 
-To change or update your credentials (after you’ve added them to the keystore on every node), call the reload API to automatically update those credentials without restarting OpenSearch.
+要更改或更新您的凭据（在每个节点上将其添加到密钥库之后），请致电Reload API自动更新这些凭据而不重新启动OpenSearch。
 
 ```json
 POST _nodes/reload_secure_settings
@@ -135,3 +135,4 @@ POST _nodes/reload_secure_settings
   "secure_settings_password": "1234"
 }
 ```
+

@@ -1,58 +1,58 @@
 ---
 layout: default
-title: Alerting security
+title: 警告安全性
 nav_order: 10
-parent: Alerting
+parent: 警报
 has_children: false
 redirect_from:
   - /monitoring-plugins/alerting/security/
 ---
 
-# Alerting security
+# 警告安全性
 
-If you use the Security plugin alongside alerting, you might want to limit certain users to certain actions. For example, you might want some users to only be able to view and acknowledge alerts, while others can modify monitors and destinations.
-
-
-## Basic permissions
-
-The Security plugin has three built-in roles that cover most alerting use cases: `alerting_read_access`, `alerting_ack_alerts`, and `alerting_full_access`. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
-
-If these roles don't meet your needs, mix and match individual alerting [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/alerting/destination/delete` permission lets you delete destinations.
+如果您将安全插件与警报一起使用，则可能需要将某些用户限制在某些操作中。例如，您可能希望某些用户只能查看和确认警报，而另一些用户可以修改监视器和目的地。
 
 
-## How monitors access data
+## 基本权限
 
-Monitors run with the permissions of the user who created or last modified them. For example, consider the user `jdoe`, who works at a chain of retail stores. `jdoe` has two roles. Together, these two roles allow read access to three indexes: `store1-returns`, `store2-returns`, and `store3-returns`.
+安全插件具有三个构建-在涵盖大多数警报用例的角色中：`alerting_read_access`，，，，`alerting_ack_alerts`， 和`alerting_full_access`。对于每个描述，请参阅[预定义的角色]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles)。
 
-`jdoe` creates a monitor that sends an email to management whenever the number of returns across all three indexes exceeds 40 per hour.
+如果这些角色无法满足您的需求，请混合并匹配个人警报[权限]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) 适合您的用例。每个动作对应于REST API中的操作。例如，`cluster:admin/opensearch/alerting/destination/delete` 许可使您可以删除目的地。
 
-Later, the user `psantos` wants to edit the monitor to run every two hours, but `psantos` only has access to `store1-returns`. To make the change, `psantos` has two options:
 
-- Update the monitor so that it only checks `store1-returns`.
-- Ask an administrator for read access to the other two indexes.
+## 监视数据如何访问数据
 
-After making the change, the monitor now runs with the same permissions as `psantos`, including any [document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/) queries, [excluded fields]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security/), and [masked fields]({{site.url}}{{site.baseurl}}/security/access-control/field-masking/). If you use an extraction query to define your monitor, use the **Run** button to ensure that the response includes the fields you need.
+监视器运行的是创建或最后修改的用户的权限。例如，考虑用户`jdoe`，在零售商店连锁店工作。`jdoe` 有两个角色。这两个角色一起允许阅读三个索引：`store1-returns`，，，，`store2-returns`， 和`store3-returns`。
 
-Once a monitor is created, the Alerting plugin will continue executing the monitor, even if the user who created the monitor has their permissions removed. Only a user with the correct cluster permissions can manually disable or delete a monitor to stop it from executing:
+`jdoe` 每当三个索引的收益次数超过每小时40时，就可以创建一个监视器，该显示器将电子邮件发送给管理层。
 
-- Disable a monitor: `cluster:admin/opendistro/alerting/monitor/write`
-- Delete a monitor: `cluster:admin/opendistro/alerting/monitor/delete`
+后来，用户`psantos` 想编辑监视器每两个小时运行一次，但是`psantos` 只能访问`store1-returns`。为了改变，`psantos` 有两个选择：
 
-If your monitor's trigger has notifications configured, the Alerting plugin continues to send out notifications regardless of destination type. To stop notifications, a user must manually delete them in the trigger's actions.
+- 更新监视器，以便仅检查`store1-returns`。
+- 要求管理员阅读对其他两个索引的访问。
 
-### A note on alerts and fine-grained access control
+进行更改后，监视器现在以与`psantos`，包括任何[文档-级别的安全性]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/) 查询，[排除的字段]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security/)， 和[蒙面字段]({{site.url}}{{site.baseurl}}/security/access-control/field-masking/)。如果您使用提取查询来定义监视器，请使用**跑步** 按钮以确保响应包括您需要的字段。
 
-When a trigger generates an alert, the monitor configuration, the alert itself, and any notification that is sent to a channel may include metadata describing the index being queried. By design, the plugin must extract the data and store it as metadata outside of the index. [Document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security) (DLS) and [field-level security]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security) (FLS) access controls are designed to protect the data in the index. But once the data is stored outside the index as metadata, users with access to the monitor configurations, alerts, and their notifications will be able to view this metadata and possibly infer the contents and quality of data in the index, which would otherwise be concealed by DLS and FLS access control.
+创建监视器后，即使创建监视器的用户已删除了其权限，也将继续执行监视器。只有具有正确集群权限的用户可以手动禁用或删除监视器以阻止其执行：
 
-To reduce the chances of unintended users viewing metadata that could describe an index, we recommend that administrators enable role-based access control and keep these kinds of design elements in mind when assigning permissions to the intended group of users. See [Limit access by backend role](#advanced-limit-access-by-backend-role) for details.
+- 禁用显示器：`cluster:admin/opendistro/alerting/monitor/write`
+- 删除监视器：`cluster:admin/opendistro/alerting/monitor/delete`
 
-## (Advanced) Limit access by backend role
+如果您的显示器的触发器已配置了通知，则不管目的地类型如何，警报插件继续发送通知。要停止通知，用户必须在触发操作中手动删除它们。
 
-Out of the box, the alerting plugin has no concept of ownership. For example, if you have the `cluster:admin/opensearch/alerting/monitor/write` permission, you can edit *all* monitors, regardless of whether you created them. If a small number of trusted users manage your monitors and destinations, this lack of ownership generally isn't a problem. A larger organization might need to segment access by backend role.
+### 警报和罚款的注释-粒度访问控制
 
-First, make sure that your users have the appropriate [backend roles]({{site.url}}{{site.baseurl}}/security/access-control/index/). Backend roles usually come from an [LDAP server]({{site.url}}{{site.baseurl}}/security/configuration/ldap/) or [SAML provider]({{site.url}}{{site.baseurl}}/security/configuration/saml/). However, if you use the internal user database, you can use the REST API to add them manually with a create user operation. To add a backend role to a create user request, follow the [Create user]({{site.url}}{{site.baseurl}}/security/access-control/api#create-user) instructions in the Security plugin API documentation.
+当触发器生成警报时，监视器配置，警报本身以及发送到通道的任何通知都可能包括描述要查询的索引的元数据。根据设计，插件必须提取数据并将其存储为索引外的元数据。[文档-级别的安全性]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security) （DLS）和[场地-级别的安全性]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security) （FLS）访问控件旨在保护索引中的数据。但是，一旦将数据存储在索引之外作为元数据，则具有访问监视器配置，警报及其通知的用户将能够查看此元数据，并可能推断索引中的数据内容和质量由DLS和FLS访问控制。
 
-Next, enable the following setting:
+为了减少查看可以描述索引的元数据的意外用户的机会，我们建议管理员启用角色-在为预期的用户组分配权限时，基于访问控制并牢记这些设计元素。看[限制后端角色访问](#advanced-limit-access-by-backend-role) 有关详细信息。
+
+## （高级）限制后端角色访问
+
+开箱即用，警报插件没有所有权的概念。例如，如果您有`cluster:admin/opensearch/alerting/monitor/write` 许可，您可以编辑 *所有 *监视器，无论您是否创建它们。如果少数值得信赖的用户管理您的监视器和目的地，那么缺乏所有权通常并不是问题。较大的组织可能需要通过后端角色进行细分访问。
+
+首先，确保您的用户有适当的[后端角色]({{site.url}}{{site.baseurl}}/security/access-control/index/)。后端角色通常来自[LDAP服务器]({{site.url}}{{site.baseurl}}/security/configuration/ldap/) 或者[SAML提供商]({{site.url}}{{site.baseurl}}/security/configuration/saml/)。但是，如果使用内部用户数据库，则可以使用REST API使用创建用户操作手动添加它们。要在创建用户请求中添加后端角色，请按照[创建用户]({{site.url}}{{site.baseurl}}/security/access-control/api#create-user) 安全插件API文档中的说明。
+
+接下来，启用以下设置：
 
 ```json
 PUT _cluster/settings
@@ -63,15 +63,15 @@ PUT _cluster/settings
 }
 ```
 
-Now when users view alerting resources in OpenSearch Dashboards (or make REST API calls), they only see monitors and destinations that are created by users who share *at least one* backend role. For example, consider three users who all have full access to alerting: `jdoe`, `jroe`, and `psantos`.
+现在，当用户查看OpenSearch仪表板中的警报（或进行REST API调用）中时，他们只会看到由共享 *至少一个 *后端角色的用户创建的显示器和目的地。例如，考虑三个都可以完全访问警报的用户：`jdoe`，，，，`jroe`， 和`psantos`。
 
-`jdoe` and `jroe` are on the same team at work and both have the `analyst` backend role. `psantos` has the `human-resources` backend role.
+`jdoe` 和`jroe` 在同一团队中工作，都有`analyst` 后端角色。`psantos` 有`human-resources` 后端角色。
 
-If `jdoe` creates a monitor, `jroe` can see and modify it, but `psantos` can't. If that monitor generates an alert, the situation is the same: `jroe` can see and acknowledge it, but `psantos` can't. If `psantos` creates a destination, `jdoe` and `jroe` can't see or modify it.
+如果`jdoe` 创建一个显示器，`jroe` 可以看到并修改它，但是`psantos` 不能。如果该监视器生成警报，则情况相同：`jroe` 可以看到并承认，但是`psantos` 不能。如果`psantos` 创建目的地，`jdoe` 和`jroe` 看不到或修改它。
 
-<!-- ## (Advanced) Limit access by individual
+<！-- ## （高级）限制个人访问
 
-If you only want users to be able to see and modify their own monitors and destinations, duplicate the `alerting_full_access` role and add the following [DLS query]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/) to it:
+如果您只希望用户能够查看和修改自己的监视器和目的地，请重复`alerting_full_access` 角色并添加以下内容[DLS查询]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/) 对此：
 
 ```json
 {
@@ -89,44 +89,44 @@ If you only want users to be able to see and modify their own monitors and desti
 }
 ```
 
-Then, use this new role for all alerting users. -->
+然后，为所有警报用户使用此新角色。-->
 
-### Specify RBAC backend roles
+### 指定RBAC后端角色
 
-You can specify role-based access control (RBAC) backend roles when you create or update a monitor with the Alerting API.
+您可以指定角色-使用警报API创建或更新监视器时，基于访问控制（RBAC）后端角色。
 
-In a create monitor scenario, follow these guidelines to specify roles:
+在创建监视器方案中，请遵循以下准则指定角色：
 
-User type  | Role is specified by user or not (Y/N) | How to use the RBAC roles
-:--- | :--- | :---
-Admin user | Yes | Use all the specified backend roles to associate to the monitor.
-Regular user | Yes | Use all the specified backend roles from the list of backend roles that the user has permission to use to associate with the monitor.
-Regular user | No | Copy user’s backend roles and associate them to the monitor.
+用户类型| 角色是由用户指定的（Y/N）| 如何使用RBAC角色
+：--- | ：--- | ：---
+管理用户| 是的| 使用所有指定的后端角色与监视器关联。
+常规用户| 是的| 使用用户有权与监视器关联的后端角色列表中的所有指定的后端角色。
+常规用户| 不| 复制用户的后端角色，并将其关联到显示器。
 
-In an update monitor scenario, follow these guidelines to specify roles:
+在更新监视器方案中，请遵循以下指南以指定角色：
 
-User type  | Role is specified by user or not (Y/N) | How to use the RBAC roles
-:--- | :--- | :---
-Admin user | Yes | Remove all the backend roles associate to the monitor and then use all the specified backend roles associated to the monitor.
-Regular user | Yes | Remove backend roles associated to the monitor that the user has access to, but didn’t specify. Then add all the other specified backend roles from the list of backend roles that the user has permission to use to the monitor.
-Regular user | No | Don’t update the backend roles on the monitor.
+用户类型| 角色是由用户指定的（Y/N）| 如何使用RBAC角色
+：--- | ：--- | ：---
+管理用户| 是的| 删除与监视器关联的所有后端角色，然后使用与监视器关联的所有指定的后端角色。
+常规用户| 是的| 删除用户可以访问但未指定的监视器关联的后端角色。然后从用户有权使用的后端角色列表中添加所有其他指定的后端角色。
+常规用户| 不| 不要更新监视器上的后端角色。
 
-- For admin users, an empty list is considered the same as removing all permissions that the user possesses. If a non-admin user passes in an empty list, that will throw an exception, because that is not allowed by non-admin users.
-- If the user tries to associate roles that they don't have permission to use, it will throw an exception.
-{: .note }
+- 对于管理员用户，一个空列表被认为与删除用户拥有的所有权限相同。如果是非-管理员用户通过一个空列表中的传递，这会引发异常，因为非-管理用户。
+- 如果用户试图关联他们没有权限使用的角色，则会引发例外。
+{： 。笔记 }
 
-To create an RBAC role, follow instructions in the Security plugin API documentation to [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api#create-role).
-### Create a monitor with an RBAC role
+要创建RBAC角色，请按照安全插件API文档中的说明进行操作[创建角色]({{site.url}}{{site.baseurl}}/security/access-control/api#create-role)。
+### 创建带有RBAC角色的监视器
 
-When you create a monitor with the Alerting API, you can specify the RBAC roles at the bottom of the request body. Use the `rbac_roles` parameter.
+使用警报API创建监视器时，可以指定请求主体底部的RBAC角色。使用`rbac_roles` 范围。
 
-The following sample shows the RBAC roles specified by the RBAC parameter:
+以下样本显示了RBAC参数指定的RBAC角色：
 
 ```json
 ... 
   "rbac_roles": ["role1", "role2"]
-}
 ```
 
-To see a full request sample, see [Create a query-level monitor]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/#create-a-query-level-monitor).
+要查看完整的请求示例，请参阅[创建一个查询-级别监视器]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/#create-a-query-level-monitor)。
+
 

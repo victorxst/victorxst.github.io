@@ -1,59 +1,59 @@
 ---
 layout: default
-title: Triggers
+title: 触发器
 nav_order: 40
-grand_parent: Alerting
-parent: Monitors
+grand_parent: 警报
+parent: 监视器
 ---
 
-# Triggers
+# 触发器
 
-How you create a trigger differs depending on the monitor method selected when the monitor was created. The monitor methods are **Visual editor**, **Extraction query editor**, and **Anomaly detector**. Learn more about each type in the following sections.
+您如何创建触发器会取决于创建监视器时选择的监视方法。监视方法是**视觉编辑器**，，，，**提取查询编辑器**， 和**异常检测器**。在以下各节中了解有关每种类型的更多信息。
 
-## Creating triggers
+## 创建触发器
 
-To create a trigger:
+创建触发器：
 
-1. In the **Create monitor** window, select **Add trigger**.
-2. Enter the trigger name, severity level, and trigger condition. Severity levels, which range from 1 (highest) to 5 (lowest) help manage alerts. For example, a trigger with a high severity level (for example, 1 or 2) may notify a specific individual, whereas a trigger with a low severity level (4 or 5) might notify a chat room. Trigger conditions include "IS ABOVE," "IS BELOW," and "IS EXACTLY."
+1. 在里面**创建监视器** 窗口，选择**添加触发器**。
+2. 输入触发名称，严重性级别和触发条件。严重性水平从1（最高）到5（最低）不等，有助于管理警报。例如，严重程度较高的触发器（例如，1或2）可能会通知特定个人，而严重程度较低的触发器（4或5）可能会通知聊天室。触发条件包括"IS ABOVE," "IS BELOW," 和"IS EXACTLY."
 
-Query-level monitors run your trigger's script once against the query's results, and bucket-level monitors run your trigger's script on each bucket. Create a trigger that best fits the monitor method. To run multiple scripts, you must create multiple triggers.
-{: .note}
+询问-级别监视器一次与查询结果一起运行触发脚本，然后存放-级别监视器在每个存储桶上运行触发脚本。创建最适合监视方法的触发器。要运行多个脚本，您必须创建多个触发器。
+{： 。笔记}
 
-## Visual editor
+## 视觉编辑器
 
-For a query-level monitor's trigger condition, specify a threshold for the aggregation and time frame you chose when you created the monitor (for example, "IS BELOW 1,000" or "IS EXACTLY 10"). The line moves up and down as you increase or decrease the threshold. Once this line is crossed, the trigger evaluates to `true`.
+查询-Level Monitor的触发条件，指定创建监视器时选择的聚合和时间范围的阈值（例如，"IS BELOW 1,000" 或者"IS EXACTLY 10"）。随着您增加或降低阈值，线路上下移动。一旦越过这条线，触发器就会评估`true`。
 
-For a bucket-level monitor, you must specify a threshold and value for the aggregation and time frame. You can use a maximum of five conditions to refine your trigger. Optionally, you can also use a keyword filter to filter for a specific field in your index.
+对于水桶-级别监视器，您必须为聚合和时间范围指定阈值和值。您最多可以使用五个条件来完善扳机。可选地，您还可以使用关键字过滤器来过滤索引中的特定字段。
 
-For document-level monitors, use tags that represent multiple queries connected by the logical `OR` operator. To create a multiple-query trigger:
+用于文档-级别监视器，使用代表由逻辑连接的多个查询的标签`OR` 操作员。创建一个倍数-查询触发器：
 
-1. Select **Per document monitor**.
-2. Select a data source. 
-3. Enter the query name and field information. For example, set the query to search for the `region` field with either the operator "is" or "is not" and the value "us-west-2".
-4. Select **Add tag** and enter a tag name.
-5. Create the second query by selecting **Add another query** and add the same tag to it.
+1. 选择**每个文档监视器**。
+2. 选择一个数据源。
+3. 输入查询名称和字段信息。例如，设置查询以搜索`region` 带有任一操作员的字段"is" 或者"is not" 和价值"us-west-2"。
+4. 选择**添加标签** 并输入标签名称。
+5. 通过选择第二个查询**添加另一个查询** 并在其中添加相同的标签。
 
-Now you can create the trigger condition and specify the tag name. This creates a combination trigger that checks two queries that both contain the same tag. The monitor checks both queries with a logical `OR` operation, and if either query's conditions are met, the alert notification is generated.
+现在，您可以创建触发条件并指定标签名称。这会创建一个组合触发器，该组合触发器检查两个都包含相同标签的查询。监视器用逻辑检查两个查询`OR` 操作，如果满足任何查询条件，则会生成警报通知。
 
-## Extraction query editor
+## 提取查询编辑器
 
-For a query-level monitor, specify a Painless script that returns `true` or `false`. Painless is the default OpenSearch scripting language and has a syntax similar to Groovy.
+查询-等级监视器，指定一个返回的无痛脚本`true` 或者`false`。默认的OpenSearch脚本语言是无痛的，具有类似于Groovy的语法。
 
-Trigger condition scripts revolve around the `ctx.results[0]` variable, which corresponds to the extraction query response. For example, the script might reference `ctx.results[0].hits.total.value` or `ctx.results[0].hits.hits[i]._source.error_code`.
+触发条件脚本围绕`ctx.results[0]` 变量，对应于提取查询响应。例如，脚本可能参考`ctx.results[0].hits.total.value` 或者`ctx.results[0].hits.hits[i]._source.error_code`。
 
-A return value of `true` means that the trigger condition has been met and the trigger should run its actions. Test the script using the **Run** button.
+返回值的`true` 意味着已经满足触发条件，并且触发器应运行其动作。使用**跑步** 按钮。
 
-The **Info** link next to **Trigger condition** contains a useful summary of the variables and results available to your query.
-{: .tip }
+这**信息** 链接旁边**触发条件** 包含有关查询可用的变量和结果的有用摘要。
+{： 。提示 }
 
-Bucket-level monitors require you to specify more information in your trigger condition. At a minimum, you must have the following fields:
+桶-级别监视器要求您在触发条件下指定更多信息。至少您必须具有以下字段：
 
-- `buckets_path`: Maps variable names to metrics to use in your script.
-- `parent_bucket_path`: The path to a multi-bucket aggregation. The path can include single-bucket aggregations, but the last aggregation must be multi-bucket. For example, if you have a pipeline such as `agg1>agg2>agg3`, `agg1` and `agg2` are single-bucket aggregations, but `agg3` must be a multi-bucket aggregation.
-- `script`: The script that OpenSearch runs to evaluate whether to trigger any alerts.
+- `buckets_path`：将变量名称映射到脚本中使用的指标。
+- `parent_bucket_path`：通往多的路径-铲斗聚集。路径可以包括单个-铲斗聚集，但最后一个聚合必须是多数-桶。例如，如果您有一个管道，例如`agg1>agg2>agg3`，，，，`agg1` 和`agg2` 是单身-铲斗聚集，但是`agg3` 必须是一个多人-铲斗聚集。
+- `script`：OpenSearch的脚本运行以评估是否触发任何警报。
 
-The following is an example script:
+以下是一个示例脚本：
 
 ```json
 {
@@ -67,17 +67,17 @@ The following is an example script:
 }
 ```
 
-After mapping the `count_var` variable to the `_count` metric, you can use `count_var` in your script and reference `_count` data. The `composite_agg` is a path to a multi-bucket aggregation.
+映射后`count_var` 变量为`_count` 指标，您可以使用`count_var` 在您的脚本和参考中`_count` 数据。这`composite_agg` 是通往多人的途径-铲斗聚集。
 
-## Anomaly detector
+## 异常检测器
 
-To use the anomaly detector method:
+使用异常检测方法：
 
-1. For **Trigger type**, choose **Anomaly detector grade and confidence**. 
-2. Specify the **Anomaly grade condition** for the aggregation and time frame you chose when you created the monitor, for example, "IS ABOVE 0.7" or "IS EXACTLY 0.5." The *anomaly grade* is a number between 0 and 1 that indicates how anomalous a data point is.
-3. Specify the **Anomaly confidence condition** for the aggregation and time frame you chose earlier, "IS ABOVE 0.7" or "IS EXACTLY 0.5." The *anomaly confidence* is an estimate of the probability that the reported anomaly grade matches the expected anomaly grade. The line moves up and down as you increase and decrease the threshold. Once this line is crossed, the trigger evaluates to `true`.
+1. 为了**触发类型**， 选择**探测器等级和信心**。
+2. 指定**异常等级条件** 对于创建监视器时选择的聚合和时间范围，例如"IS ABOVE 0.7" 或者"IS EXACTLY 0.5." *异常等级 *是0到1之间的数字，指示数据点异常。
+3. 指定**异常置信条件** 对于您之前选择的聚合和时间范围，"IS ABOVE 0.7" 或者"IS EXACTLY 0.5." *异常置信度 *是对报告异常等级匹配预期异常等级的概率的估计。随着您的增加并降低阈值，该线会上下移动。一旦越过这条线，触发器就会评估`true`。
 
-### Sample scripts
+### 示例脚本
 
 
 ```groovy
@@ -110,30 +110,31 @@ if (score > 99) {
 }
 ```
 
-#### Trigger variables
+#### 触发变量
 
-Variable | Data type | Description
-:--- | :--- | : ---
-`ctx.trigger.id` | String | The trigger ID.
-`ctx.trigger.name` | String | The trigger name.
-`ctx.trigger.severity` | String | The trigger severity.
-`ctx.trigger.condition`| Object | Contains the Painless script used when the monitor was created.
-`ctx.trigger.condition.script.source` | String | The language used to define the script. Must be Painless.
-`ctx.trigger.condition.script.lang` | String | The script used to define the trigger.
-`ctx.trigger.actions`| Array | An array with one element that contains information about the action the monitor needs to trigger.
+多变的| 数据类型| 描述
+：--- | ：--- | ：---
+`ctx.trigger.id` | 细绳| 触发ID。
+`ctx.trigger.name` | 细绳| 触发名称。
+`ctx.trigger.severity` | 细绳| 触发严重性。
+`ctx.trigger.condition`| 目的| 包含创建显示器时使用的无痛脚本。
+`ctx.trigger.condition.script.source` | 细绳| 用于定义脚本的语言。必须无痛。
+`ctx.trigger.condition.script.lang` | 细绳| 用于定义触发器的脚本。
+`ctx.trigger.actions`| 大批| 一个带有一个元素的数组，其中包含有关监视器需要触发的操作的信息。
 
-#### Other variables
+#### 其他变量
 
-Variable | Data type | Description
-:--- | :--- : :---
-`ctx.results` | Array | An array with one element (`ctx.results[0]`). Contains the query results. This variable is empty if the trigger was unable to retrieve results. See `ctx.error`.
-`ctx.last_update_time` | Milliseconds | Unix epoch time of when the monitor was last updated.
-`ctx.periodStart` | String | Unix timestamp for the beginning of the period during which the alert was triggered. For example, if a monitor runs every 10 minutes, a period might begin at 10:40 and end at 10:50.
-`ctx.periodEnd` | String | The end of the period during which the alert triggered.
-`ctx.error` | String | The error message displayed if the trigger was unable to retrieve results or could not be evaluated, typically due to a compile error or null pointer exception. Null otherwise.
-`ctx.alert` | Object | The current, active alert (if it exists). Includes `ctx.alert.id`, `ctx.alert.version`, and `ctx.alert.isAcknowledged`. Null if no alert is active. Only available with query-level monitors.
-`ctx.dedupedAlerts` | Object | Alerts that have been triggered. OpenSearch keeps the existing alert to prevent the plugin from creating endless numbers of the same alert. Only available with bucket-level monitors.
-`ctx.newAlerts` | Object | Newly created alerts. Only available with bucket-level monitors.
-`ctx.completedAlerts` | Object | Alerts that are no longer ongoing. Only available with bucket-level monitors.
-`bucket_keys` | String | Comma-separated list of the monitor's bucket key values. Available only for `ctx.dedupedAlerts`, `ctx.newAlerts`, and `ctx.completedAlerts`. Accessed through `ctx.dedupedAlerts[0].bucket_keys`.
-`parent_bucket_path` | String | The parent bucket path of the bucket that triggered the alert. Accessed through `ctx.dedupedAlerts[0].parent_bucket_path`.
+多变的| 数据类型| 描述
+：--- | ：--- ：：---
+`ctx.results` | 大批| 一个具有一个元素的数组（`ctx.results[0]`）。包含查询结果。如果触发器无法检索结果，则此变量为空。看`ctx.error`。
+`ctx.last_update_time` | 毫秒| unix epoch最后更新的显示器的时间。
+`ctx.periodStart` | 细绳| Unix时间戳在触发警报的期间开始。例如，如果监视器每10分钟运行一次，则可能从10:40开始，并在10:50结束。
+`ctx.periodEnd` | 细绳| 警报触发的时期结束。
+`ctx.error` | 细绳| 如果触发器无法检索结果或无法评估，则显示错误消息，通常是由于编译错误或无效指针异常。否则为无效。
+`ctx.alert` | 目的| 当前的主动警报（如果存在）。包括`ctx.alert.id`，，，，`ctx.alert.version`， 和`ctx.alert.isAcknowledged`。null如果没有警报处于活动状态。仅与查询一起使用-电平监视器。
+`ctx.dedupedAlerts` | 目的| 已触发的警报。OpenSearch保留现有警报，以防止插件创建无数数字的同一警报。仅带有水桶-电平监视器。
+`ctx.newAlerts` | 目的| 新创建的警报。仅带有水桶-电平监视器。
+`ctx.completedAlerts` | 目的| 不再持续的警报。仅带有水桶-电平监视器。
+`bucket_keys` | 细绳| 逗号-监视器的存储键钥匙值的分开列表。仅适用于`ctx.dedupedAlerts`，，，，`ctx.newAlerts`， 和`ctx.completedAlerts`。访问`ctx.dedupedAlerts[0].bucket_keys`。
+`parent_bucket_path` | 细绳| 触发警报的桶的父级路径。访问`ctx.dedupedAlerts[0].parent_bucket_path`。
+

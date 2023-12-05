@@ -1,114 +1,114 @@
 ---
 layout: default
-title: Distrbuted tracing 
-parent: Trace Analytics
+title: 分散的追踪
+parent: 跟踪分析
 nav_order: 65
 ---
 
-# Distributed tracing
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/6750).    
-{: .warning}
+# 分布式跟踪
+这是一个实验特征，不建议在生产环境中使用。有关功能进度或要留下反馈的更新，请参阅关联[Github问题](https://github.com/opensearch-project/OpenSearch/issues/6750)。
+{： 。警告}
 
-Distributed tracing is used to monitor and debug distributed systems. You can track the flow of requests through the system and identify performance bottlenecks and errors. A _trace_ is a complete end-to-end path of a request as it flows through a distributed system. It represents the journey of a specific operation as it traverses various components and services in a distributed architecture. In distributed tracing, a single trace contains a series of tagged time intervals called _spans_. Spans have a start and end time and may include other metadata like logs or tags to help classify what happened. 
+分布式跟踪用于监视和调试分布式系统。您可以通过系统跟踪请求流，并确定性能瓶颈和错误。_trace_是一个完整的结尾-到-当请求流过分布式系统时，请求的结束路径。它代表特定操作的旅程，因为它遍历了分布式体系结构中的各种组件和服务。在分布式跟踪中，单个跟踪包含一系列称为_spans_的标记时间间隔。跨度具有开始和结束时间，可能包括其他元数据（如日志或标签），以帮助对发生的事情进行分类。
 
-Use distributed tracing for the following purposes:
+将分布式跟踪用于以下目的：
 
-- **Optimize performance:** Identifying and resolving bottlenecks, reducing latency in your applications.
-- **Troubleshoot errors:** Quickly pinpointing the source of errors or unexpected behavior in your distributed system.
-- **Allocate resources:** Optimizing resource allocation by understanding usage patterns of different services.
-- **Visualize service dependencies:** Visualizing dependencies between services, helping you to manage architectures. 
+- **优化性能：** 识别和解决瓶颈，减少应用程序的延迟。
+- **故障排除错误：** 快速查明分布式系统中错误或意外行为的来源。
+- **分配资源：** 通过了解不同服务的使用模式来优化资源分配。
+- **可视化服务依赖性：** 可视化服务之间的依赖关系，帮助您管理体系结构。
 
-## Distributed tracing pipeline
+## 分布式跟踪管道
 
-OpenSearch provides a distributed tracing pipeline that can be used to ingest, process, and visualize tracing data with query and alerting functionality. [OpenTelemetry](https://opentelemetry.io/) is an open-source observability framework that provides a set of APIs, libraries, agents, and collectors for generating, capturing, and exporting telemetry data. The distributed tracing pipeline consists of the following components: 
+OpenSearch提供了一个分布式的跟踪管道，可用于摄入，处理和可视化数据和警报功能的数据。[Opentelemetry](https://opentelemetry.io/) 是开放的-源可观察性框架提供了一组API，库，代理和收集器，用于生成，捕获和导出遥测数据。分布式跟踪管道由以下组件组成：
 
-- **Instrumentation:** Instrumenting your application code with OpenTelemetry SDKs.
-- **Propagation:** Injecting trace context into requests as they propagate through your system.
-- **Collection:** Collecting trace data from your application.
-- **Processing:** Aggregating trace data from multiple sources and enriching it with additional metadata.
-- **Exporting:** Sending trace data to a backend for storage and analysis. 
+- **仪器：** 使用OpenTelemetry SDK仪器启动您的应用程序代码。
+- **传播：** 将跟踪上下文注射到请求中，当它们通过您的系统传播时。
+- **收藏：** 从您的应用程序中收集跟踪数据。
+- **加工：** 从多个来源汇总跟踪数据，并用其他元数据丰富它。
+- **出口：** 将跟踪数据发送到后端进行存储和分析。
 
-OpenSearch is often chosen as the sink for storing trace data.
+opensearch通常被选为存储跟踪数据的水槽。
 
-## Trace analytics
+## 跟踪分析
 
-OpenSearch provides a `trace-analytics` plugin for visualizing trace data in real time. The plugin includes prebuilt dashboards for analyzing trace data, such as service maps, latency histograms, and error rates. With OpenSearch's distributed tracing pipeline, you can quickly identify bottlenecks and errors in your applications. See the [Trace analytics]({{site.url}}{{site.baseurl}}/observing-your-data/trace/index/) documentation for more information. 
+OpenSearch提供了`trace-analytics` 用于实时可视化跟踪数据的插件。该插件包括用于分析跟踪数据的预制仪表板，例如服务图，延迟直方图和错误率。借助OpenSearch的分布式跟踪管道，您可以快速识别应用程序中的瓶颈和错误。看到[跟踪分析]({{site.url}}{{site.baseurl}}/observing-your-data/trace/index/) 文档以获取更多信息。
 
-## Get started
+## 开始
 
-The distributed tracing feature is experimental as of OpenSearch 2.10. To begin using the distributed tracing feature, you need to first enable it using the `opensearch.experimental.feature.telemetry.enabled` feature flag and subsequently activate the tracer, using the dynamic setting `telemetry.tracer.enabled`. It's important to exercise caution when enabling this feature because it can consume system resources. Detailed information on enabling and configuring distributed tracing, including on-demand troubleshooting and request sampling, is described in the following sections.
+从OpenSearch 2.10开始，分布式跟踪功能是实验性的。要开始使用分布式跟踪功能，您需要首先使用`opensearch.experimental.feature.telemetry.enabled` 功能标志并随后使用动态设置激活示踪剂`telemetry.tracer.enabled`。启用此功能时，请谨慎行事，因为它可以消耗系统资源。有关启用和配置分布式跟踪的详细信息，包括-以下各节描述了需求故障排除和请求采样。
 
-### Enabling the flag on a node using tarball
+### 使用TARBALL在节点上启用标志
 
-The enable flag is toggled using a new Java Virtual Machine (JVM) parameter that is set either in `OPENSEARCH_JAVA_OPTS` or in `config/jvm.options`.
+使用新的Java虚拟机（JVM）参数将启用标志切换`OPENSEARCH_JAVA_OPTS` 或IN`config/jvm.options`。
 
-#### Option 1: Enable the experimental feature flag in the `opensearch.yml` file
+#### 选项1：启用实验功能标志`opensearch.yml` 文件
 
-1. Change to the top directory of your OpenSearch installation:
+1. 更改为OpenSearch安装的顶级目录：
 
 ```bash
 cd \path\to\opensearch
 ```
 
-2. Open your OpenSearch configuration folder, and then open the `opensearch.yml` file with a text editor.
-3. Add the following line:
+2. 打开OpenSearch配置文件夹，然后打开`opensearch.yml` 用文本编辑器文件。
+3. 添加以下行：
 
 ```bash
 opensearch.experimental.feature.telemetry.enabled=true
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-4. Save your changes and close the file.
+4. 保存更改并关闭文件。
 
-#### Option 2: Modify jvm.options
+#### 选项2：修改JVM.Options
 
-Add the following lines to `config/jvm.options` before starting the OpenSearch process to enable the feature and its dependency:
+将以下行添加到`config/jvm.options` 在启动OpenSearch流程以启用功能及其依赖性之前：
 
 ```bash
 -Dopensearch.experimental.feature.telemetry.enabled=true
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-Run OpenSearch:
+运行OpenSearch：
 
 ```bash
 ./bin/opensearch
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-#### Option 3: Enable from an environment variable
+#### 选项3：从环境变量启用
 
-As an alternative to directly modifying `config/jvm.options`, you can define the properties by using an environment variable. You can enable this feature in a single command when you start OpenSearch or by setting an environment variable.
+作为直接修改的替代方案`config/jvm.options`，您可以使用环境变量来定义属性。当您启动OpenSearch或设置环境变量时，您可以在单个命令中启用此功能。
 
-To add these flags inline when starting OpenSearch, run the following command:
+要在启动OpenSearch时添加这些标志，请运行以下命令：
 
 ```bash
 OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled=true" ./opensearch-2.9.0/bin/opensearch
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-To define the environment variable separately, prior to running OpenSearch, run the following command:
+要分别定义环境变量，在运行OpenSearch之前，运行以下命令：
 
 ```bash
 export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled=true"
  ./bin/opensearch
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-### Enable with Docker containers
+### 使用Docker容器启用
 
-If you’re running Docker, add the following line to `docker-compose.yml` under `environment`:
+如果您正在运行Docker，请将以下行添加到`docker-compose.yml` 在下面`environment`：
 
 ```bash
 OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled=true"
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-### Enable for OpenSearch development
+### 启用开发开发
 
-To enable the distributed tracing feature, you must first add the correct properties to `run.gradle` before building OpenSearch. See the [Developer Guide](https://github.com/opensearch-project/OpenSearch/blob/main/DEVELOPER_GUIDE.md#gradle-build) for information about how to use Gradle to build OpenSearch.
+要启用分布式跟踪功能，您必须首先将正确的属性添加到`run.gradle` 在构建OpenSearch之前。看到[开发人员指南](https://github.com/opensearch-project/OpenSearch/blob/main/DEVELOPER_GUIDE.md#gradle-build) 有关如何使用Gradle构建OpenSearch的信息。
 
-Add the following properties to `run.gradle` to enable the feature:
+将以下属性添加到`run.gradle` 启用该功能：
 
 ```json
 testClusters {
@@ -127,7 +127,7 @@ testClusters {
 Once you've enabled the feature flag, you can enable the tracer (which is disabled by default) by using the following dynamic setting that enables tracing in the running cluster:
 
 ```bash
-telemetry.tracer.enabled=true
+telemetry.tracer.enabled = true
 ```
 {% include copy.html %}
 
@@ -160,3 +160,4 @@ Distributed tracing can generate numerous spans, consuming system resources unne
 ### Collection of spans
 
 The `SpanProcessor` writes spans to the exporter, and the choice of exporter defines the endpoint, which can be logs or gRPC. To collect spans by using gRPC, you need to configure the collector as a sidecar process running on each OpenSearch node. From the collectors, these spans can be written to the sink of your choice, such as Jaeger, Prometheus, Grafana, or FileStore, for further analysis.
+

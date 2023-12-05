@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Anomaly result mapping
-parent: Anomaly detection
+title: 异常结果映射
+parent: 异常检测
 nav_order: 6
 redirect_from: 
   - /monitoring-plugins/ad/result-mapping/
 ---
 
-# Anomaly result mapping
+# 异常结果映射
 
-If you enabled custom result index, the anomaly detection plugin stores the results in your own index.
+如果启用了自定义结果索引，则异常检测插件将结果存储在您自己的索引中。
 
-If the anomaly detector doesn’t detect an anomaly, the result has the following format:
+如果异常检测器未检测到异常，则结果具有以下格式：
 
 ```json
 {
@@ -62,25 +62,25 @@ If the anomaly detector doesn’t detect an anomaly, the result has the followin
 }
 ```
 
-## Response body fields
+## 响应身体场
 
-Field | Description
-:--- | :---
-`detector_id` | A unique ID for identifying a detector.
-`schema_version` | The mapping version of the result index.
-`data_start_time` | The start of the detection range of the aggregated data.
-`data_end_time` | The end of the detection range of the aggregated data.
-`feature_data` | An array of the aggregated data points between the `data_start_time` and `data_end_time`.
-`execution_start_time` | The actual start time of the detector for a specific run that produces the anomaly result. This start time includes the window delay parameter that you can set to delay data collection. Window delay is the difference between the `execution_start_time` and `data_start_time`.
-`execution_end_time` | The actual end time of the detector for a specific run that produces the anomaly result.
-`anomaly_score` | Indicates relative severity of an anomaly. The higher the score, the more anomalous a data point is.
-`anomaly_grade` | A normalized version of the `anomaly_score` on a scale between 0 and 1.
-`confidence` | The probability of the accuracy of the `anomaly_score`. The closer this number is to 1, the higher the accuracy. During the probation period of a running detector, the confidence is low (< 0.9) because of its exposure to limited data.
-`entity` | An entity is a combination of specific category fields’ values. It includes the name and value of the category field. In the previous example, `process_name` is the category field and one of the processes such as `process_3` is the field's value. The `entity` field is only present for a high-cardinality detector (where you've selected a category field).
-`model_id` | A unique ID that identifies a model. If a detector is a single-stream detector (with no category field), it has only one model. If a detector is a high-cardinality detector (with one or more category fields), it might have multiple models, one for each entity.
-`threshold` | One of the criteria for a detector to classify a data point as an anomaly is that its `anomaly_score` must surpass a dynamic threshold. This field records the current threshold.
+场地| 描述
+：--- | ：---
+`detector_id` | 识别检测器的独特ID。
+`schema_version` | 结果索引的映射版本。
+`data_start_time` | 聚合数据的检测范围的开始。
+`data_end_time` | 聚合数据的检测范围的末端。
+`feature_data` | 汇总数据点的数组`data_start_time` 和`data_end_time`。
+`execution_start_time` | 对于产生异常结果的特定运行，检测器的实际开始时间。此开始时间包括您可以将其设置为延迟数据收集的窗口延迟参数。窗口延迟是`execution_start_time` 和`data_start_time`。
+`execution_end_time` | 对于产生异常结果的特定运行的检测器的实际结束时间。
+`anomaly_score` | 表示异常的相对严重程度。分数越高，数据点的异常越多。
+`anomaly_grade` | 标准化版本的`anomaly_score` 在0到1之间的比例。
+`confidence` | 准确性的可能性`anomaly_score`。这个数字越接近1，精度越高。在运行检测器的试用期间，由于其暴露于有限的数据，置信度较低（<0.9）。
+`entity` | 实体是特定类别字段值的组合。它包括类别字段的名称和值。在上一个示例中`process_name` 是类别字段，也是一个过程之一`process_3` 是该领域的价值。这`entity` 场仅出现高-基数检测器（您选择了类别字段）。
+`model_id` | 标识模型的唯一ID。如果检测器是一个-流检测器（没有类别字段），它只有一个模型。如果检测器很高-基数检测器（具有一个或多个类别字段），它可能具有多个模型，一个用于每个实体。
+`threshold` | 检测器将数据点分类为异常的标准之一是`anomaly_score` 必须超过动态阈值。该字段记录当前阈值。
 
-If an anomaly detector detects an anomaly, the result has the following format:
+如果异常检测器检测到异常，则结果具有以下格式：
 
 ```json
 {
@@ -180,23 +180,23 @@ If an anomaly detector detects an anomaly, the result has the following format:
 }
 ```
 
-You can see the following additional fields:
+您可以看到以下其他字段：
 
-Field | Description
-:--- | :---
-`relevant_attribution` | Represents the contribution of each input variable. The sum of the attributions is normalized to 1.
-`expected_values` | The expected value for each feature.
+场地| 描述
+：--- | ：---
+`relevant_attribution` | 表示每个输入变量的贡献。归因的总和将其标准化为1。
+`expected_values` | 每个功能的预期值。
 
-At times, the detector might detect an anomaly late.
-Let's say the detector sees a random mix of the triples {1, 2, 3} and {2, 4, 5} that correspond to `slow weeks` and `busy weeks`, respectively. For example 1, 2, 3, 1, 2, 3, 2, 4, 5, 1, 2, 3, 2, 4, 5, ... and so on.
-If the detector comes across a pattern {2, 2, X} and it's yet to see X, the detector infers that the pattern is anomalous, but it can't determine at this point which of the 2's is the cause. If X = 3, then the detector knows it's the first 2 in that unfinished triple, and if X = 5, then it's the second 2. If it's the first 2, then the detector detects the anomaly late.
+有时，检测器可能迟到异常。
+假设探测器看到三元组的随机组合{1，2，3}和{2，4，5}，与`slow weeks` 和`busy weeks`， 分别。例如1、2、3、1、2、3、2、4、5、1、2、3、2、4、5，等等。
+如果检测器遇到模式{2、2，x}，并且尚未看到X，则检测器会渗透该模式是异常的，但是目前无法确定2个是原因。如果x = 3，则检测器知道这是未完成三倍的第一个2，如果x = 5，则是第二个。如果是第一个2，则检测器将检测器检测到较晚的异常。
 
-If a detector detects an anomaly late, the result has the following additional fields:
+如果检测器检测到较晚的异常，则结果具有以下其他字段：
 
-Field | Description
-:--- | :---
-`past_values` | The actual input that triggered an anomaly. If `past_values` is null, the attributions or expected values are from the current input. If `past_values` is not null, the attributions or expected values are from a past input (for example, the previous two steps of the data [1,2,3]).
-`approx_anomaly_start_time` | The approximate time of the actual input that triggers an anomaly. This field helps you understand when a detector flags an anomaly. Both single-stream and high-cardinality detectors don't query previous anomaly results because these queries are expensive operations. The cost is especially high for high-cardinality detectors that might have a lot of entities. If the data is not continuous, the accuracy of this field is low and the actual time that the detector detects an anomaly can be earlier.
+场地| 描述
+：--- | ：---
+`past_values` | 触发异常的实际输入。如果`past_values` 为null，归因或期望值来自当前输入。如果`past_values` 不是零，而是属性或期望值来自过去的输入（例如，数据的前两个步骤[1,2,3]）。
+`approx_anomaly_start_time` | 触发异常的实际输入的大约时间。该字段可帮助您了解何时检测器标记异常。两者都单-流和高-基数检测器不会查询以前的异常结果，因为这些查询是昂贵的操作。高昂的成本特别高-可能具有很多实体的基数检测器。如果数据不是连续的，则该领域的准确性很低，并且检测器检测到异常的实际时间可以更早。
 
 ```json
 {
@@ -319,3 +319,4 @@ Field | Description
   "approx_anomaly_start_time": 1635883620000
 }
 ```
+

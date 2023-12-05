@@ -1,67 +1,68 @@
 ---
 layout: default
-title: Application analytics
+title: 应用分析
 nav_order: 10
 redirect_from:
   - /observing-your-data/app-analytics/
 ---
 
-# Application analytics
+# 应用分析
 
-You can use application analytics to create custom observability applications to view the availability status of your systems, where you can combine log events with trace and metric data into a single view of overall system health. This lets you quickly pivot between logs, traces, and metrics to dig into the source of any issues.
+您可以使用应用程序分析来创建自定义可观察性应用程序来查看系统的可用性状态，在此可以将日志事件与跟踪和度量数据结合到整体系统健康的单一视图中。这使您可以快速在日志，痕迹和指标之间旋转，以挖掘任何问题的来源。
 
-## Get started with application analytics
+## 开始使用应用程序分析
 
-To get started, select the Menu button on the upper left corner of the OpenSearch Dashboards interface. Next, select **Observability**, and then choose **Application analytics**.
+要开始，请选择OpenSearch仪表板接口左上角的菜单按钮。接下来，选择**可观察性**，然后选择**应用分析**。
 
-### Create an application
+### 创建一个应用程序
 
-1. Choose **Create application**.
-2. Enter a name for your application and optionally add a description.
-3. Do at least one of the following:
+1. 选择**创建应用程序**。
+2. 输入您的应用程序的名称，并选择添加描述。
+3. 至少做以下一个：
 
-- Use [PPL]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) to specify the base query.
+- 使用[ppl]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) 指定基本查询。
 
-You can't change the base query after the application is created.
-{: .note }
+创建应用程序后，您无法更改基本查询。
+{： 。笔记 }
 
-- Select services & entities from the dropdown or the service map.
-- Select trace groups from the dropdown or the table.
+- 从下拉列表或服务图中选择服务和实体。
+- 从下拉菜单或表中选择跟踪组。
 
-4\. Choose **Create**.
+4 \。选择**创造**。
 
-### Create a visualization
+### 创建一个可视化
 
-1. Choose the **Log Events** tab.
-1. Use [PPL]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) to build upon your base query.
-1. Choose the **Visualizations** tab to see your visualizations.
-1. Expand the **Save** dropdown menu, enter a name for your visualization, then choose **Save**.
+1. 选择**日志事件** 标签。
+1. 使用[ppl]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) 建立基础查询。
+1. 选择**可视化** 选项卡以查看您的可视化。
+1. 扩展**节省** 下拉菜单，输入可视化的名称，然后选择**节省**。
 
-To see your visualizations, choose the **Panel** tab.
+要查看您的可视化，请选择**控制板** 标签。
 
-### Configure availability
+### 配置可用性
 
-Availability is the status of your application determined by availability levels set on a [time series metric]({{site.url}}{{site.baseurl}}/observing-your-data/app-analytics/#time-series-metric).
+可用性是您的应用程序状态，由设置的可用性级别确定[时间序列度量]({{site.url}}{{site.baseurl}}/observing-your-data/app-analytics/#time-series-metric)。
 
-To create an availability level, you must configure the following:
-- color: The color of the availability badge on the home page.
-- name: The text in the availability badge on the home page.
-- expression: Comparison operator to determine the availability.
-- value: Value to use when calculating availability.
+要创建一个可用性级别，您必须配置以下内容：
+- 颜色：主页上可用性徽章的颜色。
+- 名称：主页上的可用性徽章中的文字。
+- 表达式：比较操作员确定可用性。
+- 值：计算可用性时使用的值。
 
-![Configuring availability]({{site.url}}{{site.baseurl}}/images/app_availability_level.gif)
+![配置可用性]({{site.url}}{{site.baseurl}}/images/app_availability_level.gif)
 
-By default, application analytics shows results from the last 24 hours of your data. To see data from a different time frame, use the date and time selector.
+默认情况下，应用程序分析显示了数据的最后24小时的结果。要从不同的时间范围内查看数据，请使用日期和时间选择器。
 
-#### Time series metric
+#### 时间序列度量
 
-A time series metric is any visualization that has a query that spans over a timestamp and is a line chart. You can then use PPL to define arbitrary conditions on your logs to create a visualization over time.
+时间序列度量是任何具有在时间戳上跨越的查询的可视化，并且是线条图。然后，您可以使用PPL来定义日志上的任意条件，以随着时间的推移创建可视化。
 
-##### Example
+##### 例子
 ```
 source = <index_name> | ... | ... | stats ... by span(<timestamp_field>, 1h)
 ```
 
-Choose **Line** in visualization configurations to create a time series metric.
+选择**线** 在可视化配置中以创建时间序列度量。
 
-![Changing visualization to line chart]({{site.url}}{{site.baseurl}}/images/visualization-line-type.gif)
+![将可视化更改为线图]({{site.url}}{{site.baseurl}}/images/visualization-line-type.gif)
+

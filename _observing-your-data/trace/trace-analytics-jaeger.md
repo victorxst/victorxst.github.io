@@ -1,55 +1,55 @@
 ---
 layout: default
-title: Analyzing Jaeger trace data 
-parent: Trace Analytics
+title: 分析Jaeger Trace数据
+parent: 跟踪分析
 nav_order: 55
 redirect_from:
   - /observability-plugin/trace/trace-analytics-jaeger/
 ---
 
-# Analyzing Jaeger trace data
+# 分析Jaeger Trace数据
 
-Introduced 2.5
-{: .label .label-purple }
+引入2.5
+{：.label .label-紫色的 }
 
-The trace analytics functionality in the OpenSearch Observability plugin now supports Jaeger trace data. If you use OpenSearch as the backend for Jaeger trace data, you can use the built-in trace analytics capabilities. This provides support for OpenTelemetry (OTel) trace data.
+现在，OpenSearch可观察性插件中的跟踪分析功能支持Jaeger跟踪数据。如果您使用OpenSearch作为Jaeger Trace Data的后端，则可以使用构建-在跟踪分析功能中。这提供了对OpenTelemetry（Otel）跟踪数据的支持。
 
-When you perform trace analytics, you can select from two data sources:
+执行跟踪分析时，您可以从两个数据源中选择：
 
-- **Data Prepper** – Data ingested into OpenSearch through Data Prepper
-- **Jaeger** – Trace data stored within OpenSearch as its backend
+- **数据预先**  - 通过数据Prepper摄入的数据将数据摄入
+- **Jaeger**  - 跟踪存储在OpenSearch中作为后端的数据
 
-If you store your Jaeger trace data in OpenSearch, you can now use the built-in trace analytics capabilities to analyze the error rates and latency. You can also filter the traces and analyze the span details of a trace to pinpoint any service issues.
+如果将Jaeger跟踪数据存储在OpenSearch中，则可以使用构建的-在痕量分析功能中可以分析错误率和延迟。您还可以过滤跟踪并分析跟踪的跨度详细信息，以查明所有服务问题。
 
-When you ingest Jaeger data into OpenSearch, it gets stored in a different index than the OTel-generated index that gets created when you run data through Data Prepper. Use the data source selector in OpenSearch Dashboards to indicate the data source on which you want to perform trace analytics.
+当您将jaeger数据摄入OpenSearch时，它将被存储在与Otel不同的索引中-通过Data Prepper运行数据时，生成的索引会创建。使用OpenSearch仪表板中的数据源选择器指示要执行跟踪分析的数据源。
 
-Jaeger trace data that you can analyze includes span data as well as service and operation endpoint data. <!-- Need more info for next release. add how to configure for span analysis. Jaeger span data analysis requires some configuration.-->
+您可以分析的Jaeger跟踪数据包括跨度数据以及服务和操作端点数据。<！-- 需要更多信息以获取下一个版本。添加如何配置以进行跨度分析。Jaeger跨度数据分析需要一些配置。-->
 
-By default, each time you ingest data for Jaeger, it creates a separate index for that day.
+默认情况下，每次您摄入Jaeger的数据时，都会在当天创建一个单独的索引。
 
-To learn more about Jaeger data tracing, see the [Jaeger](https://www.jaegertracing.io/) documentation.
+要了解有关Jaeger数据跟踪的更多信息，请参阅[Jaeger](https://www.jaegertracing.io/) 文档。
 
-## Data ingestion requirements
+## 数据摄入要求
 
-To perform trace analytics on Jaeger data, you need to configure error capability.
+要在Jaeger数据上执行跟踪分析，您需要配置错误功能。
 
-Jaeger data that is ingested into OpenSearch must have the environment variable `ES_TAGS_AS_FIELDS_ALL` set to `true` for errors. If data is not ingested in this format, it will not work for errors, and error data will not be available for traces in trace analytics with OpenSearch.
+摄入openSearch的Jaeger数据必须具有环境变量`ES_TAGS_AS_FIELDS_ALL` 设置`true` 错误。如果未以这种格式摄入数据，则该数据将不适用于错误，并且使用OpenSearch的Trace Analytics中的痕迹将无法使用错误数据。
 
-### About data ingestion with Jaeger indexes
+### 关于用Jaeger索引摄入的数据
 
-Trace analytics for non-Jaeger data uses OTel indexes with the naming conventions `otel-v1-apm-span-*` or `otel-v1-apm-service-map*`.
+痕量分析非-Jaeger Data使用命名约定的Otel索引`otel-v1-apm-span-*` 或者`otel-v1-apm-service-map*`。
 
-Jaeger indexes follow the naming conventions `jaeger-span-*` or `jaeger-service-*`.
+Jaeger索引遵循命名约定`jaeger-span-*` 或者`jaeger-service-*`。
 
-## Setting up OpenSearch to use Jaeger data
+## 设置OpenSearch使用Jaeger数据
 
-The following section provides a sample Docker Compose file that contains the configuration required to enable errors for trace analytics.
+以下部分提供了一个示例Docker组成的文件，该文件包含为跟踪分析启用错误所需的配置。
 
-### Step 1: Run the Docker Compose file
+### 步骤1：运行Docker撰写文件
 
-Use the following Docker Compose file to enable Jaeger data for trace analytics.  Set the `ES_TAGS_AS_FIELDS_ALL` environment variable set to `true` to enable errors to be added to trace data.
+使用以下Docker组合文件启用Jaeger数据以进行跟踪分析。设置`ES_TAGS_AS_FIELDS_ALL` 环境变量设置为`true` 为了使错误添加到跟踪数据。
 
-Copy the following Docker Compose file and save it as `docker-compose.yml`:
+复制以下docker撰写文件并将其另存为`docker-compose.yml`：
 
 ```
 version: '3'
@@ -174,78 +174,79 @@ networks:
   opensearch-net:
 ```
 
-### Step 2: Start the cluster
+### 步骤2：开始群集
 
-Run the following command to deploy the Docker compose YAML file:
+运行以下命令以部署Docker组成YAML文件：
 
 ```
 docker compose up -d
 ```
-To stop the cluster, run the following command:
+要停止群集，请运行以下命令：
 
 ``` 
 docker compose down
 ```
 
-### Step 3: Generate sample data
+### 步骤3：生成样本数据
 
-Use the sample app provided with the Docker file to generate data. After you run the Docker Compose file, it runs the sample app on local host port 8080. To open the app, go to http://localhost:8080.
+使用Docker文件中提供的示例应用程序生成数据。运行Docker撰写文件后，它将在本地主机端口8080上运行示例应用程序。要打开应用程序，请访问http：// localhost：8080。
 
-![Services list]({{site.url}}{{site.baseurl}}/images/trace-analytics/sample-app.png)
+![服务清单]({{site.url}}{{site.baseurl}}/images/trace-analytics/sample-app.png)
 
-In the sample app, Hot R.O.D., select any button to generate data. Now you can view trace data in Dashboards.
+在示例应用程序中，HOT R.O.D.，选择任何生成数据的按钮。现在，您可以在仪表板中查看跟踪数据。
 
-### Step 4: View trace data in OpenSearch Dashboards
+### 步骤4：在OpenSearch仪表板中查看跟踪数据
 
-After you generate Jaeger trace data, you can view it in Dashboards.
+生成Jaeger跟踪数据后，您可以在仪表板中查看它。
 
-Go to **Trace analytics** at [http://localhost:5601/app/observability-dashboards#/trace_analytics/home](http://localhost:5601/app/observability-dashboards#/trace_analytics/home).
+去**跟踪分析** 在[http：// localhost：5601/app/可观察性-仪表板#/trace_analytics/home](http://localhost:5601/app/observability-dashboards#/trace_analytics/home)。
 
-## Using trace analytics in OpenSearch Dashboards
+## 在OpenSearch仪表板中使用跟踪分析
 
-To analyze the Jaeger trace data in Dashboards, first set up the trace analytics functionality. To get started, see [Get started with trace analytics]({{site.url}}{{site.baseurl}}/observability-plugin/trace/get-started/).
+为了分析仪表板中的Jaeger跟踪数据，首先设置Trace Analytics功能。要开始，请参阅[开始进行跟踪分析]({{site.url}}{{site.baseurl}}/observability-plugin/trace/get-started/)。
 
-### Data sources
+### 数据源
 
-You can specify either Data Prepper or Jaeger as the data source when you perform trace analytics.
-From Dashboards, go to **Observability > Trace analytics** and select Jaeger.
+执行跟踪分析时，您可以将数据prepper或Jaeger指定为数据源。
+从仪表板，去**可观察性>跟踪分析** 然后选择Jaeger。
 
-![Select data source]({{site.url}}{{site.baseurl}}/images/trace-analytics/select-data.png)
+![选择数据源]({{site.url}}{{site.baseurl}}/images/trace-analytics/select-data.png)
 
-## Dashboard view
+## 仪表板视图
 
-After you select Jaeger as the data source, you can view all of the indexed data in **Dashboard** view, including **Error rate** and **Throughput**.
+选择jaeger作为数据源后，您可以查看所有索引数据**仪表板** 查看，包括**错误率** 和**吞吐量**。
 
-### Error rate
+### 错误率
 
-You can view the trace error count over time in **Dashboard** view and also see the top five combinations of services and operations that have a non-zero error rate.
+您可以查看跟踪错误计数随着时间的流逝**仪表板** 查看，还可以看到具有非非服务和运营的前五名组合-零错误率。
 
-![Error rate]({{site.url}}{{site.baseurl}}/images/trace-analytics/error-rate.png)
+![错误率]({{site.url}}{{site.baseurl}}/images/trace-analytics/error-rate.png)
 
-### Throughput
+### 吞吐量
 
-With **Throughput** selected, you can see the throughput of Jaeger index traces over time.
+和**吞吐量** 选择，您可以随着时间的推移看到Jaeger索引痕迹的吞吐量。
 
-You can select an individual trace from the **Top 5 Service and Operation Latency** list and view the detailed trace data.
+您可以从**前5名服务和操作延迟** 列出并查看详细的跟踪数据。
 
-![Throughput]({{site.url}}{{site.baseurl}}/images/trace-analytics/throughput.png)
+![吞吐量]({{site.url}}{{site.baseurl}}/images/trace-analytics/throughput.png)
 
-You can also see the combinations of services and operations that have the highest latency.
+您还可以看到延迟最高的服务和操作的组合。
 
-If you select one of the entries for Service and Operation Name and go to the **Traces** column to select a trace, it will automatically add the service and operation as filters.
+如果您选择了服务和操作名称的条目之一，然后转到**迹线** 列选择跟踪，它将自动将服务和操作作为过滤器添加。
 
-## Traces
+## 迹线
 
-In **Traces**, you can see the latency and errors for the filtered service and operation for each individual trace ID in the list.
+在**迹线**，您可以看到列表中每个单独的跟踪ID的过滤服务和操作的延迟和错误。
 
-![Select data source]({{site.url}}{{site.baseurl}}/images/trace-analytics/service-trace-data.png)
+![选择数据源]({{site.url}}{{site.baseurl}}/images/trace-analytics/service-trace-data.png)
 
-If you select an individual trace ID, you can see more detailed information about the trace, such as **Time spent by the service** and **Spans**. You can also view the index payload in JSON format.
+如果选择单个跟踪ID，则可以看到有关跟踪的更多详细信息，例如**服务花费的时间** 和**跨度**。您还可以以JSON格式查看索引有效载荷。
 
-![Select data source]({{site.url}}{{site.baseurl}}/images/trace-analytics/trace-details.png)
+![选择数据源]({{site.url}}{{site.baseurl}}/images/trace-analytics/trace-details.png)
 
-## Services
+## 服务
 
-You can also view the individual error rates and latency for each individual service. Go to **Observability > Trace analytics > Services**. In **Services**, you can see the average latency, error rate, throughput and trace for each service in the list.
+您还可以查看每个服务的单个错误率和延迟。去**可观察性>跟踪分析>服务**。在**服务**，您可以看到列表中每个服务的平均延迟，错误率，吞吐量和跟踪。
 
-![Services list]({{site.url}}{{site.baseurl}}/images/trace-analytics/services-jaeger.png)
+![服务清单]({{site.url}}{{site.baseurl}}/images/trace-analytics/services-jaeger.png)
+

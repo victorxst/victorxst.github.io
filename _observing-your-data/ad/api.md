@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Anomaly detection API
-parent: Anomaly detection
+parent: 异常检测
 nav_order: 1
 redirect_from: 
   - /monitoring-plugins/ad/api/

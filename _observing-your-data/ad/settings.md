@@ -1,20 +1,20 @@
 ---
 layout: default
-title: Settings
-parent: Anomaly detection
+title: 设置
+parent: 异常检测
 nav_order: 4
 redirect_from: 
   - /monitoring-plugins/ad/settings/
 ---
 
-# Anomaly Detection settings
+# 异常检测设置
 
-The Anomaly Detection plugin adds several settings to the standard OpenSearch cluster settings.
-The settings are dynamic, so you can change the default behavior of the plugin without restarting your cluster. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+异常检测插件在标准OpenSearch集群设置中添加了多个设置。
+设置是动态的，因此您可以更改插件的默认行为，而无需重新启动群集。要了解有关静态和动态设置的更多信息，请参阅[配置OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/)。
 
-You can mark settings as `persistent` or `transient`.
+您可以将设置标记为`persistent` 或者`transient`。
 
-For example, to update the retention period of the result index:
+例如，更新结果索引的保留期：
 
 ```json
 PUT _cluster/settings
@@ -25,28 +25,29 @@ PUT _cluster/settings
 }
 ```
 
-Setting | Default | Description
-:--- | :--- | :---
-plugins.anomaly_detection.enabled | True | Whether the anomaly detection plugin is enabled or not. If disabled, all detectors immediately stop running.
-plugins.anomaly_detection.max_anomaly_detectors | 1,000 | The maximum number of non-high cardinality detectors (no category field) users can create.
-plugins.anomaly_detection.max_multi_entity_anomaly_detectors | 10 | The maximum number of high cardinality detectors (with category field) in a cluster.
-plugins.anomaly_detection.max_anomaly_features | 5 | The maximum number of features for a detector.
-plugins.anomaly_detection.ad_result_history_rollover_period | 12h | How often the rollover condition is checked. If `true`, the anomaly detection plugin rolls over the result index to a new index.
-plugins.anomaly_detection.ad_result_history_max_docs_per_shard | 1,350,000,000 | The maximum number of documents in a single shard of the result index. The anomaly detection plugin only counts the refreshed documents in the primary shards.
-plugins.anomaly_detection.max_entities_per_query | 1,000,000 | The maximum unique values per detection interval for high cardinality detectors. By default, if the category field(s) have more than the configured unique values in a detector interval, the anomaly detection plugin orders them by the natural ordering of categorical values (for example, entity `ab` comes before `bc`) and then selects the top values.
-plugins.anomaly_detection.max_entities_for_preview | 5 | The maximum unique category field values displayed with the preview operation for high cardinality detectors. By default, if the category field(s) have more than the configured unique values in a detector interval, the anomaly detection plugin orders them by the natural ordering of categorical values (for example, entity `ab` comes before `bc`) and then selects the top values.
-plugins.anomaly_detection.max_primary_shards | 10 | The maximum number of primary shards an anomaly detection index can have.
-plugins.anomaly_detection.filter_by_backend_roles | False | When you enable the Security plugin and set this to `true`, the anomaly detection plugin filters results based on the user's backend role(s).
-plugins.anomaly_detection.max_batch_task_per_node | 10 | Starting a historical analysis triggers a batch task. This setting is the number of batch tasks that you can run per data node. You can tune this setting from 1 to 1,000. If the data nodes can’t support all batch tasks and you’re not sure if the data nodes are capable of running more historical analysis, add more data nodes instead of changing this setting to a higher value. Increasing this value might bring more load on each data node.
-plugins.anomaly_detection.max_old_ad_task_docs_per_detector | 1 | You can run historical analysis for the same detector many times. For each run, the anomaly detection plugin creates a new task. This setting is the number of previous tasks the plugin keeps. Set this value to at least 1 to track its last run. You can keep a maximum of 1,000 old tasks to avoid overwhelming the cluster.
-plugins.anomaly_detection.batch_task_piece_size | 1,000 | The date range for a historical task is split into smaller pieces and the anomaly detection plugin runs the task piece by piece. Each piece contains 1,000 detection intervals by default. For example, if detector interval is 1 minute and one piece is 1,000 minutes, the feature data is queried every 1,000 minutes. You can change this setting from 1 to 10,000.
-plugins.anomaly_detection.batch_task_piece_interval_seconds | 5 | Add a time interval between two pieces of the same historical analysis task. This interval prevents the task from consuming too much of the available resources and starving other operations like search and bulk index. You can change this setting from 1 to 600 seconds.
-plugins.anomaly_detection.max_top_entities_for_historical_analysis | 1,000 | The maximum number of top entities that you run for a high cardinality detector historical analysis. The range is from 1 to 10,000.
-plugins.anomaly_detection.max_running_entities_per_detector_for_historical_analysis | 10 | The number of entity tasks that you can run in parallel for a high cardinality detector analysis. The task slots available on your cluster also impact how many entities run in parallel. If a cluster has 3 data nodes, each data node has 10 task slots by default. Say you already have two high cardinality detectors and each of them run 10 entities. If you start a single-entity detector that takes 1 task slot, the number of task slots available is 10 * 3 - 10 * 2 - 1 = 9. If you now start a new high cardinality detector, the detector can only run 9 entities in parallel and not 10. You can tune this value from 1 to 1,000 based on your cluster's capability. If you set a higher value, the anomaly detection plugin runs historical analysis faster but also consumes more resources.
-plugins.anomaly_detection.max_cached_deleted_tasks | 1,000 | You can rerun historical analysis for a single detector as many times as you like. The anomaly detection plugin only keeps a limited number of old tasks, by default 1 old task. If you run historical analysis three times for a detector, the oldest task is deleted. Because historical analysis generates a number of anomaly results in a short span of time, it's necessary to clean up anomaly results for a deleted task. With this field, you can configure how many deleted tasks you can cache at most. The plugin cleans up a task's results when it's deleted. If the plugin fails to do this cleanup, it adds the task's results into a cache and an hourly cron job performs the cleanup. You can use this setting to limit how many old tasks are put into cache to avoid a DDoS attack. After an hour, if still you find an old task result in the cache, use the [delete detector results API]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api/#delete-detector-results) to delete the task result manually. You can tune this setting from 1 to 10,000.
-plugins.anomaly_detection.delete_anomaly_result_when_delete_detector | False | Whether the anomaly detection plugin deletes the anomaly result when you delete a detector. If you want to save some disk space, especially if you've high cardinality detectors generating a lot of results, set this field to true. Alternatively, you can use the [delete detector results API]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api/#delete-detector-results) to manually delete the results.
-plugins.anomaly_detection.dedicated_cache_size | 10 | If the real-time analysis of a high cardinality detector starts successfully, the anomaly detection plugin guarantees keeping 10 (dynamically adjustable via this setting) entities' models in memory per node. If the number of entities exceeds this limit, the plugin puts the extra entities' models in a memory space shared by all detectors. The actual number of entities varies based on the memory that you've available and the frequencies of the entities. If you'd like the plugin to guarantee keeping more entities' models in memory and if you're cluster has sufficient memory, you can increase this setting value.
-plugins.anomaly_detection.max_concurrent_preview | 2 | The maximum number of concurrent previews. You can use this setting to limit resource usage.
-plugins.anomaly_detection.model_max_size_percent | 0.1 | The upper bound of the memory percentage for a model.
-plugins.anomaly_detection.door_keeper_in_cache.enabled | False | When set to `true`, OpenSearch places a bloom filter in front of an inactive entity cache to filter out items that are not likely to appear more than once.
-plugins.anomaly_detection.hcad_cold_start_interpolation.enabled | False | When set to `true`, enables interpolation in high-cardinality anomaly detection (HCAD) cold start.
+环境| 默认| 描述
+：--- | ：--- | ：---
+plugins.anomaly_detection.enabled| 真的| 是否启用了异常检测插件。如果禁用，所有检测器都会立即停止运行。
+plugins.anomaly_detection.max_anomaly_detectors| 1,000| 最大非数量-高基数检测器（没有类别字段）用户可以创建。
+plugins.anomaly_detection.max_multi_entity_anomaly_detectors| 10| 群集中最大的高基数检测器数（带有类别字段）。
+plugins.anomaly_detection.max_anomaly_features| 5| 检测器的最大功能数量。
+plugins.anomaly_detection.ad_result_history_rollover_period| 12H| 一次性转盘条件多久检查一次。如果`true`，异常检测插件将结果索引滚动到新索引。
+plugins.anomaly_detection.ad_result_history_max_docs_per_shard| 1,350,000,000| 结果索引的单个碎片中的最大文档数量。异常检测插件仅计入主碎片中的刷新文档。
+plugins.anomaly_detection.max_entities_per_query| 1,000,000| 高基数检测器的每个检测间隔的最大唯一值。默认情况下，如果类别字段比检测器间隔中配置的唯一值多，则通过自然订购分类值的异常检测插件（例如，实体）订购它们`ab` 来了`bc`），然后选择最高值。
+plugins.anomaly_detection.max_entities_for_preview| 5| 高基数检测器的预览操作显示的最大唯一类别字段值。默认情况下，如果类别字段比检测器间隔中配置的唯一值多，则通过自然订购分类值的异常检测插件（例如，实体）订购它们`ab` 来了`bc`），然后选择最高值。
+plugins.anomaly_detection.max_primary_shards| 10| 一个异常检测指数的最大主要碎片数量。
+plugins.anomaly_detection.filter_by_backend_roles| 错误的| 当您启用安全插件并将其设置为`true`，根据用户的后端角色过滤异常检测插件的过滤结果。
+plugins.anomaly_detection.max_batch_task_per_node| 10| 开始历史分析会触发批处理任务。此设置是您每个数据节点可以运行的批处理任务数量。您可以将此设置从1到1,000调整。如果数据节点无法支持所有批处理任务，并且您不确定数据节点是否能够运行更多的历史分析，请添加更多数据节点，而不是将此设置更改为更高的值。增加此值可能会为每个数据节点带来更多负载。
+plugins.anomaly_detection.max_old_ad_task_docs_per_detector| 1| 您可以多次对同一检测器进行历史分析。对于每次运行，异常检测插件都会创建一个新任务。此设置是插件保留的先前任务的数量。将此值设置为至少1个以跟踪其上一次运行。您最多可以保留1,000个旧任务，以避免压倒群集。
+plugins.anomaly_detection.batch_task_piece_size| 1,000| 历史任务的日期范围分为较小的零件，而异常检测插件则按件运行任务。默认情况下，每件都包含1,000个检测间隔。例如，如果检测器间隔为1分钟，一件是1,000分钟，则每1,000分钟查询功能数据。您可以将此设置从1更改为10,000。
+plugins.anomaly_detection.batch_task_piece_interval_seconds| 5| 在两个相同的历史分析任务之间添加时间间隔。此间隔阻止任务消耗过多的可用资源，并饿死其他操作，例如搜索和批量索引。您可以将此设置从1到600秒更改。
+plugins.anomaly_detection.max_top_entities_for_historical_analysis| 1,000| 您为高基数检测器历史分析而运行的最大最大实体数量。范围从1到10,000。
+plugins.anomaly_detection.max_running_entities_per_detector_for_historical_analysis| 10| 您可以并行运行的实体任务数量，以进行高基数检测器分析。群集上可用的任务插槽还影响了多少实体并行运行。如果集群具有3个数据节点，则每个数据节点默认情况下具有10个任务插槽。假设您已经有两个高基数检测器，并且每个探测器都运行10个实体。如果您开始一个-采用1个任务插槽的实体检测器，可用的任务插槽数为10 * 3- 10 * 2- 1 = 9.如果您现在启动新的高基数检测器，则检测器只能并行运行9个实体，而不是10个实体。您可以根据群集的能力从1到1,000来调整此值。如果设置更高的值，则异常检测插件将更快地运行历史分析，但也消耗了更多的资源。
+plugins.anomaly_detection.max_cached_deleted_tasks| 1,000| 您可以根据需要重新重新进行单个检测器的历史分析。默认情况下，Anomaly检测插件仅保持有限数量的旧任务。如果您对检测器进行三次历史分析，则删除了最古老的任务。由于历史分析会产生许多异常会导致时间较短，因此有必要清理已删除任务的异常。在此字段中，您最多可以配置最多可以缓存的删除任务。删除任务后，该插件会清理任务结果。如果插件无法进行此清理，则将任务的结果添加到缓存中，并且每小时的CRON作业执行清理工作。您可以使用此设置来限制在缓存中输入多少旧任务，以避免DDOS攻击。一个小时后，如果仍然在缓存中找到旧任务结果，请使用[删除检测器结果API]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api/#delete-detector-results) 手动删除任务结果。您可以将此设置从1到10,000。
+plugins.anomaly_detection.delete_anomaly_result_when_delete_detector| 错误的| 删除检测器时，异常检测插件是否会删除异常结果。如果您想节省一些磁盘空间，尤其是如果您的高基数检测器生成大量结果，请将此字段设置为true。或者，您可以使用[删除检测器结果API]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api/#delete-detector-results) 手动删除结果。
+plugins.anomaly_detection.dedicated_cache_size| 10| 如果是真实的-高基数检测器的时间分析成功地开始，异常检测插件可确保在每个节点内存中保持10（通过此设置动态调节）实体模型。如果实体数量超过此限制，则插件将额外的实体模型放在所有检测器共享的内存空间中。实体的实际数量根据您可用的内存和实体的频率而变化。如果您希望插件保证将更多实体的模型保留在内存中，并且群集具有足够的内存，则可以增加此设置值。
+plugins.anomaly_detection.max_concurrent_preview| 2| 并发预览的最大数量。您可以使用此设置来限制资源使用情况。
+plugins.anomaly_detection.model_max_size_percent| 0.1| 模型的内存百分比的上限。
+plugins.anomaly_detection.door_keeper_in_cache.enabled| 错误的| 设置为`true`，OpenSearch将Bloom过滤器放在非活动实体缓存的前面，以滤除不太可能出现一次以上的项目。
+plugins.anomaly_detection.hcad_cold_start_interpolation.enabled| 错误的| 设置为`true`，启用插值高-基数异常检测（HCAD）冷启动
+
