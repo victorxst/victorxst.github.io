@@ -1,32 +1,32 @@
 ---
 layout: default
-title: Search backpressure
+title: 搜索背压
 nav_order: 60
 has_children: false
-parent: Availability and recovery
+parent: 可用性和恢复
 redirect_from: 
   - /opensearch/search-backpressure/
 ---
 
-# Search backpressure
+# 搜索背压
 
-Search backpressure is a mechanism used to identify resource-intensive search requests and cancel them when the node is under duress. If a search request on a node or shard has breached the resource limits and does not recover within a certain threshold, it is rejected. These thresholds are dynamic and configurable through [cluster settings](#search-backpressure-settings). 
+搜索背压是一种用于识别资源的机制-密集的搜索请求并在节点处于胁迫下时取消它们。如果在节点或碎片上的搜索请求违反了资源限制，并且未在一定阈值内恢复，则将被拒绝。这些阈值是动态的，可通过[集群设置](#search-backpressure-settings)。
 
-## Measuring resource consumption
+## 测量资源消耗
 
-To decide whether to apply search backpressure, OpenSearch periodically measures the following resource consumption statistics for each search request:
+为了决定是否应用搜索背压，OpenSearch定期衡量每个搜索请求的以下资源消耗统计信息：
 
-- CPU usage
-- Heap usage
-- Elapsed time 
+- CPU使用率
+- 用法
+- 经过时间
 
-An observer thread periodically measures the resource usage of the node. If OpenSearch determines that the node is under duress, OpenSearch examines the resource usage of each search task and search shard task and compares it against configurable thresholds. OpenSearch considers CPU usage, heap usage, and elapsed time and assigns each task a cancellation score that is then used to cancel the most resource-intensive tasks.
+观察者线程定期测量节点的资源使用率。如果OpenSearch确定节点处于胁迫下，OpenSearch会检查每个搜索任务和搜索shard任务的资源使用情况，并将其与可配置的阈值进行比较。OpenSearch考虑了CPU使用情况，使用量和经过的时间，并分配每个任务一个取消分数，然后用于取消最多的资源-密集任务。
 
-OpenSearch limits the number of cancellations to a fraction of successful task completions. Additionally, it limits the number of cancellations per unit time. OpenSearch continues to monitor and cancel tasks until the node is no longer under duress.
+OpenSearch将取消的数量限制为成功完成任务完成的一部分。此外，它限制了单位时间的取消数量。OpenSearch继续监视和取消任务，直到该节点不再被胁迫。
 
-## Canceled queries
+## 取消查询
 
-If a query is canceled, OpenSearch may return partial results if some shards failed. If all shards failed, OpenSearch returns an error from the server similar to the following error:
+如果取消查询，如果某些碎片失败，OpenSearch可能会返回部分结果。如果所有碎片都失败了，OpenSearch将返回从服务器中的错误，类似于以下错误：
 
 ```json
 {
@@ -70,59 +70,59 @@ If a query is canceled, OpenSearch may return partial results if some shards fai
 }
 ```
 
-## Search backpressure modes
+## 搜索背压模式
 
-Search backpressure runs in `monitor_only` (default), `enforced`, or `disabled` mode. In the `enforced` mode, the server rejects search requests. In the `monitor_only` mode, the server does not actually cancel search requests but tracks statistics about them. You can specify the mode in the [`search_backpressure.mode`](#search-backpressure-settings) parameter.
+搜索背压运行`monitor_only` （默认），`enforced`， 或者`disabled` 模式。在里面`enforced` 模式，服务器拒绝搜索请求。在里面`monitor_only` 模式，服务器实际上并未取消搜索请求，而是跟踪有关它们的统计信息。您可以在[`search_backpressure.mode`](#search-backpressure-settings) 范围。
 
-## Search backpressure settings
+## 搜索背压设置
 
-Search backpressure adds several settings to the standard OpenSearch cluster settings. These settings are dynamic, so you can change the default behavior of this feature without restarting your cluster.
+搜索背压将几个设置添加到标准OpenSearch集群设置中。这些设置是动态的，因此您可以在不重新启动群集的情况下更改此功能的默认行为。
 
-Setting | Default | Description
-:--- | :--- | :---
-search_backpressure.mode | `monitor_only` | The search backpressure [mode](#search-backpressure-modes). Valid values are `monitor_only`, `enforced`, or `disabled`.
-search_backpressure.cancellation_ratio<br> *Deprecated in 2.6. Replaced by search_backpressure.search_shard_task.cancellation_ratio* | 10% | The maximum number of tasks to cancel, as a percentage of successful task completions.
-search_backpressure.cancellation_rate<br> *Deprecated in 2.6. Replaced by search_backpressure.search_shard_task.cancellation_rate* | 0.003 | The maximum number of tasks to cancel per millisecond of elapsed time.
-search_backpressure.cancellation_burst<br> *Deprecated in 2.6. Replaced by search_backpressure.search_shard_task.cancellation_burst* | 10 | The maximum number of search shard tasks to cancel in a single iteration of the observer thread.
-search_backpressure.node_duress.num_successive_breaches | 3 | The number of successive limit breaches after which the node is considered to be under duress.
-search_backpressure.node_duress.cpu_threshold | 90% | The CPU usage threshold (as a percentage) required for a node to be considered to be under duress.
-search_backpressure.node_duress.heap_threshold | 70% | The heap usage threshold (as a percentage) required for a node to be considered to be under duress.
-search_backpressure.search_task.elapsed_time_millis_threshold | 45,000 | The elapsed time threshold (in milliseconds) required for an individual parent task before it is considered for cancellation.
-search_backpressure.search_task.cancellation_ratio | 0.1 | The maximum number of search tasks to cancel, as a percentage of successful search task completions.
-search_backpressure.search_task.cancellation_rate| 0.003 | The maximum number of search tasks to cancel per millisecond of elapsed time.
-search_backpressure.search_task.cancellation_burst | 5 | The maximum number of search tasks to cancel in a single iteration of the observer thread.
-search_backpressure.search_task.heap_percent_threshold | 2% | The heap usage threshold (as a percentage) required for an individual parent task before it is considered for cancellation.
-search_backpressure.search_task.total_heap_percent_threshold | 5% | The heap usage threshold (as a percentage) required for the sum of heap usages of all search tasks before cancellation is applied.
-search_backpressure.search_task.heap_variance | 2.0 | The heap usage variance required for an individual parent task before it is considered for cancellation. A task is considered for cancellation when `taskHeapUsage` is greater than or equal to `heapUsageMovingAverage` * `variance`.
-search_backpressure.search_task.heap_moving_average_window_size | 10 | The window size used to calculate the rolling average of the heap usage for the completed parent tasks.
-search_backpressure.search_task.cpu_time_millis_threshold | 30,000 | The CPU usage threshold (in milliseconds) required for an individual parent task before it is considered for cancellation.
-search_backpressure.search_shard_task.elapsed_time_millis_threshold | 30,000 | The elapsed time threshold (in milliseconds) required for a single search shard task before it is considered for cancellation.
-search_backpressure.search_shard_task.cancellation_ratio | 0.1 | The maximum number of search shard tasks to cancel, as a percentage of successful search shard task completions.
-search_backpressure.search_shard_task.cancellation_rate | 0.003 | The maximum number of search shard tasks to cancel per millisecond of elapsed time.
-search_backpressure.search_shard_task.cancellation_burst | 10 | The maximum number of search shard tasks to cancel in a single iteration of the observer thread.
-search_backpressure.search_shard_task.heap_percent_threshold | 0.5% | The heap usage threshold (as a percentage) required for a single search shard task before it is considered for cancellation.
-search_backpressure.search_shard_task.total_heap_percent_threshold | 5% | The heap usage threshold (as a percentage) required for the sum of heap usages of all search shard tasks before cancellation is applied.
-search_backpressure.search_shard_task.heap_variance | 2.0 | The minimum variance required for a single search shard task's heap usage compared to the rolling average of previously completed tasks before it is considered for cancellation.
-search_backpressure.search_shard_task.heap_moving_average_window_size | 100 | The number of previously completed search shard tasks to consider when calculating the rolling average of heap usage.
-search_backpressure.search_shard_task.cpu_time_millis_threshold | 15,000 | The CPU usage threshold (in milliseconds) required for a single search shard task before it is considered for cancellation.
+环境| 默认| 描述
+：--- | ：--- | ：---
+search_backpressure.mode| `monitor_only` | 搜索背压[模式](#search-backpressure-modes)。有效值是`monitor_only`，，，，`enforced`， 或者`disabled`。
+search_backpressure.cancellation_ratio <br> *在2.6中弃用。替换为search_backpressure.search_shard_task.cancellation_ratio*| 10％| 取消任务的最大任务数量是成功完成任务的百分比。
+search_backpressure.cancellation_rate <br> *在2.6中弃用。替换为search_backpressure.search_shard_task.cancellation_rate*| 0.003| 每毫秒段的时间消除的任务数量最大数量。
+search_backpressure.cancellation_burst <br> *在2.6中弃用。替换为search_backpressure.search_shard_task.cancellation_burst*| 10| 在观察者线程的单个迭代中取消的最大搜索碎片任务数量。
+search_backpressure.node_duress.num_successive_breaches| 3| 连续的极限漏洞的数量之后，该节点被认为处于胁迫之下。
+search_backpressure.node_duress.cpu_threshold| 90％| CPU使用阈值（作为百分比）才能被认为是胁迫的。
+search_backpressure.node_duress.heap_threshold| 70％| 将节点被视为胁迫所需的堆使用阈值（作为百分比）。
+search_backpressure.search_task.elapsed_time_millis_threshold| 45,000| 单个父任务被考虑取消之前所需的经过的时间阈值（以毫秒为单位）。
+search_backpressure.search_task.cancellation_ratio| 0.1| 取消搜索任务的最大数量是成功搜索任务完成的百分比。
+search_backpressure.search_task.cancellation_rate| 0.003| 每毫秒的经过时间取消的最大搜索任务数量。
+search_backpressure.search_task.cancellation_burst| 5| 在观察者线程的单个迭代中取消的最大搜索任务数量。
+search_backpressure.search_task.heap_percent_threshold| 2％| 在考虑取消之前，单个父任务所需的堆使用阈值（作为一个百分比）。
+search_backpressure.search_task.total_heap_percent_threshold| 5％| 在应用取消任务之前，所有搜索任务的总和之和所需的堆使用阈值（作为百分比）。
+search_backpressure.search_task.heap_variance| 2.0| 单个父任务需要在考虑取消之前所需的堆用法差异。考虑到取消任务时`taskHeapUsage` 大于或等于`heapUsageMovingAverage` *`variance`。
+search_backpressure.search_task.heap_moving_average_window_size| 10| 用于计算完整父任务的堆滚动使用量的窗口大小。
+search_backpressure.search_task.cpu_time_millis_threshold| 30,000| 单个父任务被考虑取消之前所需的CPU使用阈值（以毫秒为单位）。
+search_backpressure.search_shard_task.elapsed_time_millis_threshold| 30,000| 单个搜索碎片任务所需的经过的时间阈值（以毫秒为单位）在考虑取消之前。
+search_backpressure.search_shard_task.cancellation_ratio| 0.1| 取消的最大搜索碎片任务数量是成功的搜索碎片任务完成的百分比。
+search_backpressure.search_shard_task.cancellation_rate| 0.003| 每毫秒的经过时间取消搜索碎片任务数量的最大数量。
+search_backpressure.search_shard_task.cancellation_burst| 10| 在观察者线程的单个迭代中取消的最大搜索碎片任务数量。
+search_backpressure.search_shard_task.heap_percent_threshold| 0.5％| 单个搜索碎片任务所需的堆使用阈值（作为百分比）在考虑取消之前。
+search_backpressure.search_shard_task.total_heap_percent_threshold| 5％| 在应用取消之前，所有搜索碎片任务的堆量总和所需的堆使用阈值（作为百分比）。
+search_backpressure.search_shard_task.heap_variance| 2.0| 与先前完成的任务的滚动平均值相比，单个搜索碎片任务的堆积使用量所需的最小差异。
+search_backpressure.search_shard_task.heap_moving_average_window_size| 100| 在计算堆用法的滚动平均值时，要考虑的先前完成的搜索碎片任务数量。
+search_backpressure.search_shard_task.cpu_time_millis_threshold| 15,000| 单个搜索碎片任务所需的CPU使用阈值（以毫秒为单位）在考虑取消之前。
 
-## Search Backpressure Stats API
-Introduced 2.4
-{: .label .label-purple }
+## 搜索背压统计数据API
+引入2.4
+{：.label .label-紫色的 }
 
-You can use the [nodes stats API operation]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats) to monitor server-side request cancellations.
+您可以使用[节点统计API操作]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats) 监视服务器-侧请求取消。
 
-#### Example request
+#### 示例请求
 
-To retrieve the statistics, use the following request:
+要检索统计信息，请使用以下请求：
 
 ```json
 GET _nodes/stats/search_backpressure
 ```
 
-#### Example response
+#### 示例响应
 
-The response contains server-side request cancellation statistics:
+响应包含服务器-侧请求取消统计：
 
 ```json
 {
@@ -202,61 +202,62 @@ The response contains server-side request cancellation statistics:
 }
 ```
 
-### Response fields
+### 响应字段
 
-The response contains the following fields.
+响应包含以下字段。
 
-Field Name | Data type | Description
-:--- | :--- | :---
-search_backpressure | Object | Statistics about search backpressure.
-search_backpressure.search_task | Object | Statistics specific to the search task.
-search_backpressure.search_task.[resource_tracker_stats](#resource_tracker_stats) | Object | Statistics about the current search tasks.
-search_backpressure.search_task.[cancellation_stats](#cancellation_stats) | Object | Statistics about the search tasks canceled since the node last restarted.
-search_backpressure.search_shard_task | Object | Statistics specific to the search shard task.
-search_backpressure.search_shard_task.[resource_tracker_stats](#resource_tracker_stats) | Object | Statistics about the current search shard tasks.
-search_backpressure.search_shard_task.[cancellation_stats](#cancellation_stats) | Object |  Statistics about the search shard tasks canceled since the node last restarted.
-search_backpressure.mode | String | The [mode](#search-backpressure-modes) for search backpressure. 
+字段名称| 数据类型| 描述
+：--- | ：--- | ：---
+search_backpressure| 目的| 有关搜索背压的统计数据。
+search_backpressure.search_task| 目的| 搜索任务的统计信息。
+search_backpressure.search_task。[Resource_tracker_stats](#resource_tracker_stats) | 目的| 有关当前搜索任务的统计信息。
+search_backpressure.search_task。[cancellation_stats](#cancellation_stats) | 目的| 自节点上次重新启动以来，有关搜索任务的统计信息已取消。
+search_backpressure.search_shard_task| 目的| 搜索碎片任务的统计信息。
+search_backpressure.search_shard_task。[Resource_tracker_stats](#resource_tracker_stats) | 目的| 有关当前搜索碎片任务的统计信息。
+search_backpressure.search_shard_task。[cancellation_stats](#cancellation_stats) | 目的|  自节点上次重新启动以来，有关搜索碎片任务的统计信息已取消。
+search_backpressure.mode| 细绳| 这[模式](#search-backpressure-modes) 用于搜索背压。
 
 ### `resource_tracker_stats`
 
-The `resource_tracker_stats` object contains the statistics for each resource tracker: [`elapsed_time_tracker`](#elapsed_time_tracker), [`heap_usage_tracker`](#heap_usage_tracker), and [`cpu_usage_tracker`](#cpu_usage_tracker). 
+这`resource_tracker_stats` 对象包含每个资源跟踪器的统计信息：[`elapsed_time_tracker`](#elapsed_time_tracker)，，，，[`heap_usage_tracker`](#heap_usage_tracker)， 和[`cpu_usage_tracker`](#cpu_usage_tracker)。
 
 #### `elapsed_time_tracker`
 
-The `elapsed_time_tracker` object contains the following statistics related to the elapsed time.
+这`elapsed_time_tracker` 对象包含以下与经过时间有关的统计信息。
 
-Field Name | Data type | Description
-:--- | :--- | :---
-cancellation_count | Integer | The number of tasks marked for cancellation because of excessive elapsed time since the node last restarted.
-current_max_millis | Integer | The maximum elapsed time for all tasks currently running on the node, in milliseconds.
-current_avg_millis | Integer | The average elapsed time for all tasks currently running on the node, in milliseconds.
+字段名称| 数据类型| 描述
+：--- | ：--- | ：---
+cancellation_count| 整数| 自从节点上次重新启动以来，由于过度经过的时间标记了取消的任务数量。
+current_max_millis| 整数| 对于当前在节点上运行的所有任务（以毫秒为单位）的最大时间。
+current_avg_millis| 整数| 当前在节点上运行的所有任务的平均时间（以毫秒为单位）。
 
 #### `heap_usage_tracker`
 
-The `heap_usage_tracker` object contains the following statistics related to the heap usage.
+这`heap_usage_tracker` 对象包含与堆用法相关的以下统计信息。
 
-Field Name | Data type | Description
-:--- | :--- | :---
-cancellation_count | Integer | The number of tasks marked for cancellation because of excessive heap usage since the node last restarted.
-current_max_bytes | Integer | The maximum heap usage for all tasks currently running on the node, in bytes.
-current_avg_bytes | Integer | The average heap usage for all tasks currently running on the node, in bytes.
-rolling_avg_bytes | Integer | The rolling average heap usage for `n` most recent tasks, in bytes. `n` is configurable and defined by the `search_backpressure.search_shard_task.heap_moving_average_window_size` setting. The default value for this setting is 100.
+字段名称| 数据类型| 描述
+：--- | ：--- | ：---
+cancellation_count| 整数| 自从节点上次重新启动以来，由于过度使用堆的过多使用而标记的任务数量。
+current_max_bytes| 整数| 当前在节点上运行的所有任务，字节中的所有任务的最大用法。
+current_avg_bytes| 整数| 当前在节点上运行的所有任务的平均堆用法，字节。
+rolling_avg_bytes| 整数| 滚动的平均堆量`n` 最新任务，字节。`n` 可配置和由`search_backpressure.search_shard_task.heap_moving_average_window_size` 环境。此设置的默认值为100。
 
 #### `cpu_usage_tracker`
 
-The `cpu_usage_tracker` object contains the following statistics related to the CPU usage.
+这`cpu_usage_tracker` 对象包含以下与CPU使用相关的统计信息。
 
-Field Name | Data type | Description
-:--- | :--- | :---
-cancellation_count | Integer | The number of tasks marked for cancellation because of excessive CPU usage since the node last restarted.
-current_max_millis | Integer | The maximum CPU time for all tasks currently running on the node, in milliseconds.
-current_avg_millis | Integer | The average CPU time for all tasks currently running on the node, in milliseconds.
+字段名称| 数据类型| 描述
+：--- | ：--- | ：---
+cancellation_count| 整数| 自从节点上次重新启动以来的CPU使用过多，因此标记为取消的任务数量。
+current_max_millis| 整数| 当前在节点上运行的所有任务的最大CPU时间，以毫秒为单位。
+current_avg_millis| 整数| 当前在节点上运行的所有任务的平均CPU时间为毫秒。
 
 ### `cancellation_stats`
 
-The `cancellation_stats` object contains the following statistics for the tasks that are marked for cancellation.
+这`cancellation_stats` 对象包含以下统计信息，用于标记取消的任务。
 
-Field Name | Data type | Description
-:--- | :--- | :---
-cancellation_count | Integer | The total number of tasks marked for cancellation since the node last restarted.
-cancellation_limit_reached_count | Integer | The number of times when the number of tasks eligible for cancellation exceeded the set cancellation threshold.
+字段名称| 数据类型| 描述
+：--- | ：--- | ：---
+cancellation_count| 整数| 自节点上次重新启动以来，标记为取消的任务总数。
+CANCELLATION_LIMIT_REACHED_COUNT| 整数| 有资格取消的任务数量超过集合取消阈值的次数
+

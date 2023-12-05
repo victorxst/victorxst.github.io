@@ -1,30 +1,30 @@
 ---
 layout: default
-title: Cluster manager task throttling
+title: 集群管理器任务节流
 nav_order: 10
 has_children: false
 ---
 
-# Cluster manager task throttling
+# 集群管理器任务节流
 
-For many cluster state updates, such as defining a mapping or creating an index, nodes submit tasks to the cluster manager. The cluster manager maintains a pending task queue for these tasks and runs them in a single-threaded environment. When nodes send tens of thousands of resource-intensive tasks, like `put-mapping` or snapshot tasks, these tasks can pile up in the queue and flood the cluster manager. This affects the cluster manager's performance and may in turn affect the availability of the whole cluster. 
+对于许多集群状态更新，例如定义映射或创建索引，节点将任务提交给群集管理器。集群管理器维护这些任务的待处理任务队列，并将其运行-螺纹环境。当节点发送数以万计的资源时-强化任务，例如`put-mapping` 或快照任务，这些任务可以在队列中堆积并淹没集群管理器。这会影响集群管理器的性能，进而可能影响整个集群的可用性。
 
-The first line of defense is to implement mechanisms in the caller nodes to avoid task overload on the cluster manager. However, even with those mechanisms in place, the cluster manager needs a built-in way to protect itself: cluster manager task throttling.
+第一道防线是在呼叫者节点中实现机制，以避免群集管理器上的任务超载。但是，即使有了这些机制，集群管理器也需要一个构建的-在保护自己的方式中：集群管理器任务节流。
 
-To turn on cluster manager task throttling, you need to set throttling limits. The cluster manager uses the throttling limits to determine whether to reject a task. 
+要打开群集管理器任务节流，您需要设置节流限制。群集管理器使用节流限制来确定是否拒绝任务。
 
-The cluster manager rejects a task based on its type. For any incoming task, the cluster manager evaluates the total number of tasks of the same type in the pending task queue. If this number exceeds the threshold for this task type, the cluster manager rejects the incoming task. Rejecting a task does not affect tasks of a different type. For example, if the cluster manager rejects a `put-mapping` task, it can still accept a subsequent `create-index` task. 
+集群管理器根据其类型拒绝任务。对于任何传入任务，群集管理器评估待处理任务队列中同一类型的任务总数。如果此数字超过此任务类型的阈值，则群集管理器拒绝传入的任务。拒绝任务不会影响其他类型的任务。例如，如果集群管理器拒绝`put-mapping` 任务，它仍然可以接受随后的`create-index` 任务。
 
-When the cluster manager rejects a task, the node performs retries with exponential backoff to resubmit the task to the cluster manager. If retries are unsuccessful within the timeout period, OpenSearch returns a cluster timeout error.
+当群集管理器拒绝任务时，节点会以指数向后进行重试，以将任务重新提交为群集管理器。如果在超时期内重新验证不成功，则OpenSearch返回集群超时错误。
 
-## Setting throttling limits
+## 设置节流限制
 
-You can set throttling limits by specifying them in the `cluster_manager.throttling.thresholds` object and updating the [OpenSearch cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings). The setting is dynamic, so you can change the behavior of this feature without restarting your cluster.
+您可以通过在`cluster_manager.throttling.thresholds` 对象并更新[OpenSearch集群设置]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings)。设置是动态的，因此您可以在不重新启动群集的情况下更改此功能的行为。
 
-By default, throttling is disabled for all task types.
-{: .note}
+默认情况下，所有任务类型都禁用节流。
+{： 。笔记}
 
-The request has the following format:
+该请求具有以下格式：
 
 ```json
 PUT _cluster/settings
@@ -39,16 +39,16 @@ PUT _cluster/settings
 }
 ```
 
-The following table describes the `cluster_manager.throttling.thresholds` object.
+下表描述了`cluster_manager.throttling.thresholds` 目的。
 
-Field Name | Description
-:--- | :---
-task-type | The task type. See [supported task types](#supported-task-types) for a list of valid values.
-value | The maximum number of tasks of the `task-type` type in the cluster manager's pending task queue. Default is `-1` (no task throttling).  
+字段名称| 描述
+：--- | ：---
+任务-类型| 任务类型。看[支持的任务类型](#supported-task-types) 对于有效值列表。
+价值| 最大任务数量`task-type` 输入群集管理器的待处理任务队列。默认为`-1` （没有任务节流）。
 
-## Supported task types
+## 支持的任务类型
 
-The following task types are supported:
+支持以下任务类型：
 
 - `create-index` 
 - `update-settings` 
@@ -83,9 +83,9 @@ The following task types are supported:
 - `restore-snapshot` 
 - `cluster-reroute-api`
 
-#### Example request
+#### 示例请求
 
-The following request sets the throttling threshold for the `put-mapping` task type to 100:
+以下请求设置了节流门槛`put-mapping` 任务类型至100：
 
 ```json
 PUT _cluster/settings
@@ -100,8 +100,9 @@ PUT _cluster/settings
 }
 ```
 
-Set the threshold to `-1` to disable throttling for a task type. 
-{: .note}
+将阈值设置为`-1` 为任务类型禁用节流。
+{： 。笔记}
+
 
 
 

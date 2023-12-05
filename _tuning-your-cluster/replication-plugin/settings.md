@@ -1,20 +1,20 @@
 ---
 layout: default
-title: Replication settings
+title: 复制设置
 nav_order: 40
-parent: Cross-cluster replication
+parent: 跨集群复制
 redirect_from:
   - /replication-plugin/settings/
 ---
 
-# Replication settings
+# 复制设置
 
-The replication plugin adds several settings to the standard OpenSearch cluster settings.
-The settings are dynamic, so you can change the default behavior of the plugin without restarting your cluster. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+复制插件将几个设置添加到标准OpenSearch集群设置中。
+设置是动态的，因此您可以更改插件的默认行为，而无需重新启动群集。要了解有关静态和动态设置的更多信息，请参阅[配置OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/)。
 
-You can mark settings as `persistent` or `transient`.
+您可以将设置标记为`persistent` 或者`transient`。
 
-For example, to update how often the follower cluster polls the leader cluster for updates:
+例如，更新追随者群集的频率对领导者群集进行更新的频率：
 
 ```json
 PUT _cluster/settings
@@ -25,16 +25,17 @@ PUT _cluster/settings
 }
 ```
 
-These settings manage the resources consumed by remote recoveries. We don’t recommend changing these settings; the defaults should work well for most use cases.
+这些设置管理远程回收消耗的资源。我们不建议更改这些设置；在大多数用例中，默认值应该很好。
 
-Setting | Default | Description
-:--- | :--- | :---
-`plugins.replication.follower.index.recovery.chunk_size` | 10 MB | The chunk size requested by the follower cluster during file transfer. Specify the chunk size as a value and unit, for example, 10 MB, 5 KB. See [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-`plugins.replication.follower.index.recovery.max_concurrent_file_chunks` | 4 | The number of file chunk requests that can be sent in parallel for each recovery. 
-`plugins.replication.follower.index.ops_batch_size` | 50000 | The number of operations that can be fetched at a time during the syncing phase of replication.
-`plugins.replication.follower.concurrent_readers_per_shard` | 2 | The number of concurrent requests from the follower cluster per shard during the syncing phase of replication.
-`plugins.replication.autofollow.fetch_poll_interval` | 30s | How often auto-follow tasks poll the leader cluster for new matching indexes.
-`plugins.replication.follower.metadata_sync_interval` | 60s | How often the follower cluster polls the leader cluster for updated index metadata.
-`plugins.replication.translog.retention_lease.pruning.enabled` | true | If enabled, prunes the translog based on retention leases on the leader index.
-`plugins.replication.translog.retention_size` | 512 MB | Controls the size of the translog on the leader index.
+环境| 默认| 描述
+：--- | ：--- | ：---
+`plugins.replication.follower.index.recovery.chunk_size` | 10 MB| 在文件传输期间，追随者群集要求的块大小。将块大小指定为值和单位，例如10 MB，5 kb。看[支持单位]({{site.url}}{{site.baseurl}}/opensearch/units/)。
+`plugins.replication.follower.index.recovery.max_concurrent_file_chunks` | 4| 每个恢复可以并行发送的文件块请求数。
+`plugins.replication.follower.index.ops_batch_size` | 50000| 可以在复制同步阶段一次获取操作数量。
+`plugins.replication.follower.concurrent_readers_per_shard` | 2| 在复制的同步阶段，来自每个碎片的自行车群集群的并发请求数。
+`plugins.replication.autofollow.fetch_poll_interval` | 30年代| 多久自动一次-遵循任务调查领导者集群的新匹配索引。
+`plugins.replication.follower.metadata_sync_interval` | 60年代| 追随者群集对更新的索引元数据进行调查的频率进行调查。
+`plugins.replication.translog.retention_lease.pruning.enabled` | 真的| 如果启用了，请根据领导指数的保留租赁来修剪转换。
+`plugins.replication.translog.retention_size` | 512 MB| 控制领导索引上翻译的大小。
+
 

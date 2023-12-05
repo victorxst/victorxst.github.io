@@ -5,6 +5,7 @@ nav_order: 200
 has_children: false
 ---
 
-# Grafana support
+# Grafana支持
 
-Grafana has a data source plugin that lets you explore and visualize your OpenSearch data. For information on getting started with the plugin, see the [Grafana overview page](https://grafana.com/grafana/plugins/grafana-opensearch-datasource/).
+Grafana具有一个数据源插件，可让您探索和可视化OpenSearch数据。有关插件入门的信息，请参阅[Grafana概述页面](https://grafana.com/grafana/plugins/grafana-opensearch-datasource/)。
+

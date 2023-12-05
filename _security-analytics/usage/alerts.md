@@ -1,47 +1,48 @@
 ---
 layout: default
-title: Working with alerts
-parent: Using Security Analytics
+title: 使用警报
+parent: 使用安全分析
 nav_order: 46
 ---
 
-# Working with alerts
+# 使用警报
 
-The Alerts window includes features for viewing and working with alerts. The two main features are:
-* The bar graph with alert information arranged by count, date, and alert status or alert severity.
-* The Alerts list arranged by time of the alert, the alert's trigger name, which detector triggered it, and other details.
+警报窗口包括用于查看和使用警报的功能。这两个主要特征是：
+*条形图带有计数，日期和警报状态或警报严重性的警报信息。
+*由警报时间安排的警报列表，警报的触发器名称，检测器触发了该警报名称以及其他详细信息。
 
-You can select the **Refresh** button at any time to refresh information on the Alerts page.
+您可以选择**刷新** 随时按钮在警报页面上刷新信息。
 
 ---
 ## The Alerts graph
 
-The Alerts graph can display alerts by their status or severity. Use the **Group by** dropdown list to specify either Alert status or Alert severity.
+警报图可以通过其状态或严重性显示警报。使用**通过...分组** 下拉列表以指定警报状态或警报严重性。
 
-To specify the date range you would like the graph to display, first select the calendar dropdown arrow. The date selector window opens.
-<br><img src="{{site.url}}{{site.baseurl}}/images/Security/find-date-pick.png" alt="Date selector for findings graph" width="55%">
+要指定您希望显示图形的日期范围，请首先选择日历下拉箭头。日期选择器窗口打开。
+<br> <img src ="{{site.url}}{{site.baseurl}}/images/Security/find-date-pick.png" alt ="Date selector for findings graph" 宽度="55%">
 
-You can use the **Quick select** settings to specify an exact window of time.
-* Select either **Last** or **Next** in the first dropdown list to set the window of time behind the current setting or ahead of the current setting.
-* Select a number in the second dropdown list to define a value for the range.
-* Select a unit of time in the third dropdown list. Available options are seconds, minutes, hours, days, weeks, months, and years.
-Select the **Apply** button to apply the range of dates to the graph. Information on the graph changes accordingly.
+您可以使用**快速选择** 设置以指定确切的时间窗口。
+*选择**最后的** 或者**下一个** 在第一个下拉列表中，以设置当前设置后面或当前设置之前的时间窗口。
+*在第二个下拉列表中选择一个数字以定义范围的值。
+*在第三个下拉列表中选择一个时间单元。可用的选项是秒，分钟，小时，天，几周，几个月和数年。
+选择**申请** 按钮将日期范围应用于图。有关图的信息相应地变化。
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/quickset.png" alt="Quick select settings example" width="40%">
+<img src ="{{site.url}}{{site.baseurl}}/images/Security/quickset.png" alt ="Quick select settings example" 宽度="40%">
 
-You can use the left and right arrows to move the window of time behind the current range of dates or ahead of the current range of dates. When you use these arrows, the start date and end date appear in the date range field. You can then select each one to set an absolute, relative, or current date and time. For absolute and relative changes, select the **Update** button to apply the changes.
+您可以使用左和右箭头将时间窗口移动到当前日期范围之后或在当前日期范围之前。当您使用这些箭头时，开始日期和结束日期出现在日期范围字段中。然后，您可以选择每个设置一个绝对，相对或当前日期和时间。对于绝对和相对变化，请选择**更新** 按钮应用更改。
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/date-pick.png" alt="Altering date range" width="55%">
+<img src ="{{site.url}}{{site.baseurl}}/images/Security/date-pick.png" alt ="Altering date range" 宽度="55%">
 
-As an alternative, you can select an option in the **Commonly used** section (see the preceding image of the calendar dropdown list) to conveniently set a window of time. Options include date ranges such as **Today**, **Yesterday**, **this week**, and **week to date**. 
+作为替代方案，您可以在**常用** 部分（请参阅日历下拉列表的前面图像），以方便地设置时间窗口。选项包括日期范围，例如**今天**，，，，**昨天**，，，，**本星期**， 和**一周**。
 
-When one of the commonly used windows of time is selected, you can select the **Show dates** label in the date range field to populate the range of dates. Following that, you can select either the start date or end date to specify by an absolute, relative, or current date and time setting. For absolute and relative changes, select the **Update** button to apply the changes.
+当选择了一个常用的时间窗口之一时，您可以选择**显示日期** 在日期范围字段中标记以填充日期范围。在此之后，您可以选择按绝对，相对或当前日期和时间设置指定的开始日期或结束日期。对于绝对和相对变化，请选择**更新** 按钮应用更改。
 
-As one more alternative, you can select an option from the **Recently used date ranges** section to go back to a previous setting.
+作为另一种选择，您可以从**最近使用的日期范围** 部分返回到上一个设置。
 
 ---
-## The Alerts list
+## 警报列表
 
-The Alerts list displays all findings according to the time when the alert was triggered, the alert's trigger name, the detector that triggered the alert, the alert status, and alert severity.
-Use the **Alert severity** dropdown list to filter the list of alerts by severity. Use the **Status** dropdown list to filter the list by alert status.
+警报列表根据触发警报的时间，警报的触发名称，触发警报的检测器，警报状态和警报严重性显示所有发现。
+使用**警报严重性** 下拉列表以按严重性过滤警报列表。使用**地位** 下拉列表以通过警报状态过滤列表。
+
 

@@ -1,102 +1,102 @@
 ---
 layout: default
-title: Take and restore snapshots
-parent: Snapshots
+title: 拍摄并恢复快照
+parent: 快照
 nav_order: 10
 has_children: false
-grand_parent: Availability and recovery
+grand_parent: 可用性和恢复
 redirect_from: 
   - /opensearch/snapshots/snapshot-restore/
   - /opensearch/snapshot-restore/
   - /availability-and-recovery/snapshots/snapshot-restore/
 ---
 
-# Take and restore snapshots
+# 拍摄并恢复快照
 
-Snapshots aren't instantaneous. They take time to complete and do not represent perfect point-in-time views of the cluster. While a snapshot is in progress, you can still index documents and send other requests to the cluster, but new documents and updates to existing documents generally aren't included in the snapshot. The snapshot includes primary shards as they existed when OpenSearch initiated the snapshot. Depending on the size of your snapshot thread pool, different shards might be included in the snapshot at slightly different times.
+快照不是瞬时。他们需要时间完成，并不代表完美的观点-在-集群的时间视图。当快照正在进行中，您仍然可以索引文档并将其他请求发送到集群，但是快照中通常不包含对现有文档的新文档和更新。快照包括OpenSearch启动快照时存在的主要碎片。根据快照线池的大小，在稍微不同的时间中可能包含不同的碎片。
 
-OpenSearch snapshots are incremental, meaning that they only store data that has changed since the last successful snapshot. The difference in disk usage between frequent and infrequent snapshots is often minimal.
+OpenSearch快照是增量的，这意味着它们仅存储自上次成功快照以来已更改的数据。频繁和频繁快照之间的磁盘使用差异通常很小。
 
-In other words, taking hourly snapshots for a week (for a total of 168 snapshots) might not use much more disk space than taking a single snapshot at the end of the week. Also, the more frequently you take snapshots, the less time they take to complete. Some OpenSearch users take snapshots as often as every 30 minutes.
+换句话说，每小时的快照一周（总共168张快照）可能没有比在一周结束时拍摄单个快照更多的磁盘空间。另外，您拍摄快照的频率越多，完成的时间就越少。一些OpenSearch用户每30分钟一次拍摄快照。
 
-If you need to delete a snapshot, be sure to use the OpenSearch API rather than navigating to the storage location and purging files. Incremental snapshots from a cluster often share a lot of the same data; when you use the API, OpenSearch only removes data that no other snapshot is using.
-{: .tip }
+如果您需要删除快照，请确保使用OpenSearch API，而不是导航到存储位置和清除文件。群集的增量快照通常共享许多相同的数据；当您使用API时，OpenSearch仅删除没有其他快照正在使用的数据。
+{： 。提示 }
 
 ---
 
-<details closed markdown="block">
+<详细信息关闭的markdown ="block">
   <summary>
-    Table of contents
+    目录
   </summary>
-  {: .text-delta }
+  {： 。文本-delta}
 - TOC
 {:toc}
-</details>
+</delect>
 
 ---
 
-## Register repository
+## 注册存储库
 
-Before you can take a snapshot, you have to "register" a snapshot repository. A snapshot repository is just a storage location: a shared file system, Amazon Simple Storage Service (Amazon S3), Hadoop Distributed File System (HDFS), or Azure Storage.
+在拍摄快照之前，您必须"register" 快照存储库。快照存储库只是一个存储位置：共享文件系统，亚马逊简单存储服务（Amazon S3），Hadoop分布式文件系统（HDFS）或Azure存储。
 
 
-### Shared file system
+### 共享文件系统
 
-1. To use a shared file system as a snapshot repository, add it to `opensearch.yml`:
+1. 要将共享文件系统用作快照存储库，请将其添加到`opensearch.yml`：
 
    ```yml
    path.repo: ["/mnt/snapshots"]
    ```
 
-   On the RPM and Debian installs, you can then mount the file system. If you're using the Docker install, add the file system to each node in `docker-compose.yml` before starting the cluster:
+   在RPM和Debian安装上，您可以安装文件系统。如果您使用docker install，请在每个节点中添加文件系统`docker-compose.yml` 在开始群集之前：
 
    ```yml
    volumes:
      - /Users/jdoe/snapshots:/mnt/snapshots
    ```
 
-1. Then register the repository using the REST API:
+1. 然后使用REST API注册存储库：
 
-   ```json
-   PUT /_snapshot/my-fs-repository
+   ```JSON
+   put /_snapshot /my-FS-存储库
    {
-     "type": "fs",
-     "settings": {
-       "location": "/mnt/snapshots"
+     "type"："fs"，，，，
+     "settings"：{
+       "location"："/mnt/snapshots"
      }
    }
    ```
   {% include copy-curl.html %}
 
-You will most likely not need to specify any parameters except for `location`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/).
+You will most likely not need to specify any parameters except for `地点`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/).
 
 ### Amazon S3
 
-1. To use an Amazon S3 bucket as a snapshot repository, install the `repository-s3` plugin on all nodes:
+1. To use an Amazon S3 bucket as a snapshot repository, install the `存储库-S3` plugin on all nodes:
 
    ```bash
-   sudo ./bin/opensearch-plugin install repository-s3
+   sudo ./bin/opensearch-插件安装存储库-S3
    ```
 
-   If you're using the Docker installation, see [Working with plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker#working-with-plugins). Your `Dockerfile` should look something like this:
+   如果您正在使用Docker安装，请参阅[使用插件]({{site.url}}{{site.baseurl}}/opensearch/install/docker#working-with-plugins)。你的`Dockerfile` 应该看起来像这样：
 
    ```
-   FROM opensearchproject/opensearch:{{site.opensearch_version}}
+   来自OpenSearchProject/openSearch：{{site.opensearch_version}}}
 
-   ENV AWS_ACCESS_KEY_ID <access-key>
-   ENV AWS_SECRET_ACCESS_KEY <secret-key>
+   ENV AWS_ACCESS_KEY_ID <访问-键>
+   env aws_secret_access_key <秘密-键>
 
-   # Optional
-   ENV AWS_SESSION_TOKEN <optional-session-token>
+   # 选修的
+   env aws_session_token <可选-会议-令牌>
 
-   RUN /usr/share/opensearch/bin/opensearch-plugin install --batch repository-s3
-   RUN /usr/share/opensearch/bin/opensearch-keystore create
+   运行/usr/share/opensearch/bin/opensearch-插件安装--批处理库-S3
+   运行/usr/share/opensearch/bin/opensearch-钥匙店创建
 
-   RUN echo $AWS_ACCESS_KEY_ID | /usr/share/opensearch/bin/opensearch-keystore add --stdin s3.client.default.access_key
-   RUN echo $AWS_SECRET_ACCESS_KEY | /usr/share/opensearch/bin/opensearch-keystore add --stdin s3.client.default.secret_key
+   运行echo $ aws_access_key_id| /usr/share/opensearch/bin/opensearch-钥匙店添加--stdin s3.client.default.access_key
+   运行echo $ aws_secret_access_key| /usr/share/opensearch/bin/opensearch-钥匙店添加--stdin s3.client.default.secret_key
 
-   # Optional
-   RUN echo $AWS_SESSION_TOKEN | /usr/share/opensearch/bin/opensearch-keystore add --stdin s3.client.default.session_token
+   # 选修的
+   运行echo $ aws_session_token| /usr/share/opensearch/bin/opensearch-钥匙店添加--stdin s3.client.default.session_token
    ```
 
    After the Docker cluster starts, skip to step 7.
@@ -104,121 +104,121 @@ You will most likely not need to specify any parameters except for `location`. F
 1. Add your AWS access and secret keys to the OpenSearch keystore:
 
    ```bash
-   sudo ./bin/opensearch-keystore add s3.client.default.access_key
-   sudo ./bin/opensearch-keystore add s3.client.default.secret_key
+   sudo ./bin/opensearch-钥匙店添加s3.client.default.access_key
+   sudo ./bin/opensearch-钥匙店添加s3.client.default.secret_key
    ```
 
 1. (Optional) If you're using temporary credentials, add your session token:
 
    ```bash
-   sudo ./bin/opensearch-keystore add s3.client.default.session_token
+   sudo ./bin/opensearch-钥匙店添加s3.client.default.session_token
    ```
 
 1. (Optional) If you connect to the internet through a proxy, add those credentials:
 
    ```bash
-   sudo ./bin/opensearch-keystore add s3.client.default.proxy.username
-   sudo ./bin/opensearch-keystore add s3.client.default.proxy.password
+   sudo ./bin/opensearch-钥匙店添加s3.client.default.proxy.username
+   sudo ./bin/opensearch-钥匙店添加s3.client.default.proxy.password
    ```
 
 1. (Optional) Add other settings to `opensearch.yml`:
 
-   ```yml
-   s3.client.default.endpoint: s3.amazonaws.com # S3 has alternate endpoints, but you probably don't need to change this value.
-   s3.client.default.max_retries: 3 # number of retries if a request fails
-   s3.client.default.path_style_access: false # whether to use the deprecated path-style bucket URLs.
-   # You probably don't need to change this value, but for more information, see https://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html#path-style-access.
-   s3.client.default.protocol: https # http or https
-   s3.client.default.proxy.host: my-proxy-host # the hostname for your proxy server
-   s3.client.default.proxy.port: 8080 # port for your proxy server
-   s3.client.default.read_timeout: 50s # the S3 connection timeout
-   s3.client.default.use_throttle_retries: true # whether the client should wait a progressively longer amount of time (exponential backoff) between each successive retry
-   s3.client.default.region: us-east-2 # AWS region to use. For non-AWS S3 storage, this value is required but has no effect.
+   ```YML
+   s3.client.default.endpoint：s3.amazonaws.com# S3具有其他端点，但是您可能不需要更改此值。
+   s3.client.default.max_retries：3# 如果请求失败，则检索数量
+   s3.client.default.path_style_access：false# 是否使用弃用路径-样式的水桶URL。
+   # 您可能不需要更改此值，但是有关更多信息，请参见https://docs.aws.amazon.com/amazons3/latest/dev/virtualhosting.html#小路-风格-使用权。
+   s3.client.default.protocol：https# http或https
+   s3.client.default.proxy.host：my-代理人-主持人# 代理服务器的主机名
+   s3.client.default.proxy.port：8080# 代理服务器的端口
+   s3.client.default.read_timeout：50s# S3连接超时
+   s3.client.default.use_throttle_retries：true# 每个连续的重试，客户是否应该等待逐渐等待更长的时间（指数向后）
+   S3.Client.default.Region：US-东方-2# AWS区域要使用。对于非-AWS S3存储，需要此值，但没有效果。
    ```
 
-1. (Optional) If you don't want to use AWS access and secret keys, you could configure the S3 plugin to use AWS Identity and Access Management (IAM) roles for service accounts:
+1. （可选）如果您不想使用AWS访问和秘密键，则可以配置S3插件以使用AWS Identity和Access Management（IAM）为服务帐户：
 
    ```bash
    sudo ./bin/opensearch-keystore add s3.client.default.role_arn
    sudo ./bin/opensearch-keystore add s3.client.default.role_session_name
    ```
 
-   If you don't want to configure AWS access and secret keys, modify the following `opensearch.yml` setting. Make sure the file is accessible by the `repository-s3` plugin:
+   如果您不想配置AWS访问和秘密键，请修改以下内容`opensearch.yml` 环境。确保文件可以通过`repository-s3` 插入：
    
    ```yml
    s3.client.default.identity_token_file: /usr/share/opensearch/plugins/repository-s3/token
    ```
 
-   If copying is not an option, you can create a symlink to the web identity token file in the `${OPENSEARCH_PATH_CONFIG}` folder:
+   如果不是复制的选项，则可以在Web身份令牌文件中创建一个符号链接`${OPENSEARCH_PATH_CONFIG}` 文件夹：
 
    ```
    ln -s $AWS_WEB_IDENTITY_TOKEN_FILE "${OPENSEARCH_PATH_CONFIG}/aws-web-identity-token-file"
    ```
 
-   You can reference the web identity token file in the following `opensearch.yml` setting by specifying the relative path that is resolved against `${OPENSEARCH_PATH_CONFIG}`:
+   您可以在以下内容中引用Web身份令牌文件`opensearch.yml` 通过指定针对解决的相对路径的设置`${OPENSEARCH_PATH_CONFIG}`：
 
    ```yaml
    s3.client.default.identity_token_file: aws-web-identity-token-file
    ```
 
-   IAM roles require at least one of the above settings. Other settings will be taken from environment variables (if available): `AWS_ROLE_ARN`, `AWS_WEB_IDENTITY_TOKEN_FILE`, `AWS_ROLE_SESSION_NAME`.
+   IAM角色至少需要上述设置之一。其他设置将从环境变量中获取（如果可用）：`AWS_ROLE_ARN`，，，，`AWS_WEB_IDENTITY_TOKEN_FILE`，，，，`AWS_ROLE_SESSION_NAME`。
 
-1. If you changed `opensearch.yml`, you must restart each node in the cluster. Otherwise, you only need to reload secure cluster settings:
+1. 如果您更改`opensearch.yml`，您必须重新启动集群中的每个节点。否则，您只需要重新加载安全集群设置：
 
    ```
    POST /_nodes/reload_secure_settings
    ```
-  {% include copy-curl.html %}
+  {％包含副本-curl.html％}
 
-1. Create an S3 bucket if you don't already have one. To take snapshots, you need permissions to access the bucket. The following IAM policy is an example of those permissions:
+1. 如果您还没有一个，则创建一个S3存储桶。要拍摄快照，您需要使用权限才能访问水库。以下IAM政策就是这些权限的一个例子：
 
-   ```json
+   ```JSON
    {
-	   "Version": "2012-10-17",
-	   "Statement": [{
-		   "Action": [
-			   "s3:*"
-		   ],
-		   "Effect": "Allow",
-		   "Resource": [
-			   "arn:aws:s3:::your-bucket",
-			   "arn:aws:s3:::your-bucket/*"
-		   ]
-	   }]
+"Version"："2012-10-17"，，，，
+"Statement"：[{{
+"Action"：[[
+"s3:*"
+]，，
+"Effect"："Allow"，，，，
+"Resource"：[[
+"arn:aws:s3:::your-bucket"，，，，
+"arn:aws:s3:::your-bucket/*"
+这是给出的
+]]
    }
    ```
 
 1. Register the repository using the REST API:
 
-   ```json
-   PUT /_snapshot/my-s3-repository
+   ```JSON
+   put /_snapshot /my-S3-存储库
    {
-     "type": "s3",
-     "settings": {
-       "bucket": "my-s3-bucket",
-       "base_path": "my/snapshot/directory"
+     "type"："s3"，，，，
+     "settings"：{
+       "bucket"："my-s3-bucket"，，，，
+       "base_path"："my/snapshot/directory"
      }
    }
    ```
    {% include copy-curl.html %}
 
-You will most likely not need to specify any parameters except for `bucket` and `base_path`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/).
+You will most likely not need to specify any parameters except for `桶` and `base_path`。有关允许的请求参数，请参阅[注册或更新快照存储库API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/)。
 
-## Take snapshots
+## 拍摄快照
 
-You specify two pieces of information when you create a snapshot:
+创建快照时，您可以指定两种信息：
 
-- Name of your snapshot repository
-- Name for the snapshot
+- 快照存储库的名称
+- 快照的名称
 
-The following snapshot includes all indexes and the cluster state:
+以下快照包括所有索引和群集状态：
 
 ```json
 PUT /_snapshot/my-repository/1
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-You can also add a request body to include or exclude certain indexes or specify other settings:
+您还可以添加一个请求主体以包括或排除某些索引或指定其他设置：
 
 ```json
 PUT /_snapshot/my-repository/2
@@ -229,16 +229,16 @@ PUT /_snapshot/my-repository/2
   "partial": false
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-Request fields | Description
-:--- | :---
-`indices` | The indexes you want to include in the snapshot. You can use `,` to create a list of indexes, `*` to specify an index pattern, and `-` to exclude certain indexes. Don't put spaces between items. Default is all indexes.
-`ignore_unavailable` | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the snapshot. Default is `false`.
-`include_global_state` | Whether to include cluster state in the snapshot. Default is `true`.
-`partial` | Whether to allow partial snapshots. Default is `false`, which fails the entire snapshot if one or more shards fails to store.
+请求字段| 描述
+：--- | ：---
+`indices` | 您要在快照中包含的索引。您可以使用`,` 要创建索引列表，`*` 指定索引模式，并`-` 排除某些索引。不要在项目之间放置空间。默认为所有索引。
+`ignore_unavailable` | 如果是`indices` 列表不存在，是否忽略它而不是失败快照。默认为`false`。
+`include_global_state` | 是否将群集状态包括在快照中。默认为`true`。
+`partial` | 是否允许部分快照。默认为`false`，如果一个或多个碎片无法存储，则会使整个快照失败。
 
-If you request the snapshot immediately after taking it, you might see something like this:
+如果您在采用后立即要求快照，则可能会看到类似的东西：
 
 ```json
 GET /_snapshot/my-repository/2
@@ -258,57 +258,57 @@ GET /_snapshot/my-repository/2
   }]
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-Note that the snapshot is still in progress. If you want to wait for the snapshot to finish before continuing, add the `wait_for_completion` parameter to your request. Snapshots can take a while to complete, so consider whether or not this option fits your use case:
+请注意，快照仍在进行中。如果您想等待快照在继续之前完成，请添加`wait_for_completion` 您的请求的参数。快照可能需要一段时间才能完成，因此请考虑此选项是否适合您的用例：
 
 ```
 PUT _snapshot/my-repository/3?wait_for_completion=true
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-Snapshots have the following states:
+快照具有以下状态：
 
-State | Description
-:--- | :---
-SUCCESS | The snapshot successfully stored all shards.
-IN_PROGRESS | The snapshot is currently running.
-PARTIAL | At least one shard failed to store successfully. Can only occur if you set `partial` to `true` when taking the snapshot.
-FAILED | The snapshot encountered an error and stored no data.
-INCOMPATIBLE | The snapshot is incompatible with the version of OpenSearch running on this cluster. See [Conflicts and compatibility](#conflicts-and-compatibility).
+状态| 描述
+：--- | ：---
+成功| 快照成功地存储了所有碎片。
+进行中| 快照当前正在运行。
+部分的| 至少一个碎片未能成功存储。仅当您设置时才会发生`partial` 到`true` 拍摄快照时。
+失败的| 快照遇到了错误，没有存储任何数据。
+不相容| 该快照与该群集上运行的OpenSearch版本不兼容。看[冲突和兼容性](#conflicts-and-compatibility)。
 
-You can't take a snapshot if one is currently in progress. To check the status:
+如果当前正在进行中，则不能拍摄快照。检查状态：
 
 ```
 GET /_snapshot/_status
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
 
-## Restore snapshots
+## 还原快照
 
-The first step in restoring a snapshot is retrieving existing snapshots. To see all snapshot repositories:
+恢复快照的第一步是检索现有的快照。查看所有快照存储库：
 
 ```
 GET /_snapshot/_all
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-To see all snapshots in a repository:
+查看存储库中的所有快照：
 
 ```
 GET /_snapshot/my-repository/_all
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-Then restore a snapshot:
+然后还原快照：
 
 ```
 POST /_snapshot/my-repository/2/_restore
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-Just like when taking a snapshot, you can add a request body to include or exclude certain indexes or specify some other settings:
+就像拍摄快照一样，您可以添加一个请求主体以包括或排除某些索引或指定其他一些设置：
 
 ```json
 POST /_snapshot/my-repository/2/_restore
@@ -328,43 +328,43 @@ POST /_snapshot/my-repository/2/_restore
   ]
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-Request parameters | Description
-:--- | :---
-`indices` | The indexes you want to restore. You can use `,` to create a list of indexes, `*` to specify an index pattern, and `-` to exclude certain indexes. Don't put spaces between items. Default is all indexes.
-`ignore_unavailable` | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the restore operation. Default is false.
-`include_global_state` | Whether to restore the cluster state. Default is false.
-`include_aliases` | Whether to restore aliases alongside their associated indexes. Default is true.
-`partial` | Whether to allow the restoration of partial snapshots. Default is false.
-`rename_pattern` | If you want to rename indexes as you restore them, use this option to specify a regular expression that matches all indexes you want to restore. Use capture groups (`()`) to reuse portions of the index name.
-`rename_replacement` | If you want to rename indexes as you restore them, use this option to specify the replacement pattern. Use `$0` to include the entire matching index name, `$1` to include the content of the first capture group, and so on.
-`index_settings` | If you want to change [index settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/) applied during the restore operation, specify them here. You cannot change `index.number_of_shards`.
-`ignore_index_settings` | Rather than explicitly specifying new settings with `index_settings`, you can ignore certain index settings in the snapshot and use the cluster defaults applied during restore. You cannot ignore `index.number_of_shards`, `index.number_of_replicas`, or `index.auto_expand_replicas`.
-`storage_type` | `local` indicates that all snapshot metadata and index data will be downloaded to local storage. <br /><br > `remote_snapshot` indicates that snapshot metadata will be downloaded to the cluster, but the remote repository will remain the authoritative store of the index data. Data will be downloaded and cached as necessary to service queries. At least one node in the cluster must be configured with the [search role]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/) in order to restore a snapshot using the type `remote_snapshot`. <br /><br > Defaults to `local`.
+请求参数| 描述
+：--- | ：---
+`indices` | 您要还原的索引。您可以使用`,` 要创建索引列表，`*` 指定索引模式，并`-` 排除某些索引。不要在项目之间放置空间。默认为所有索引。
+`ignore_unavailable` | 如果是`indices` 列表不存在，是否忽略它而不是使还原操作失败。默认值为false。
+`include_global_state` | 是否还原群集状态。默认值为false。
+`include_aliases` | 是否要恢复其相关索引的别名。默认是正确的。
+`partial` | 是否允许恢复部分快照。默认值为false。
+`rename_pattern` | 如果要在还原索引重命名时，请使用此选项指定与要还原的所有索引匹配的正则表达式。使用捕获组（`()`）重复使用索引名称的部分。
+`rename_replacement` | 如果要在还原索引重命名索引，请使用此选项指定替换模式。使用`$0` 要包含整个匹配索引名称，`$1` 包括第一个捕获组的内容，依此类推。
+`index_settings` | 如果你想改变[索引设置]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/) 在还原操作期间应用，在此处指定它们。你不能改变`index.number_of_shards`。
+`ignore_index_settings` | 而不是明确指定新设置`index_settings`，您可以忽略快照中的某些索引设置，并使用还原过程中应用的群集默认设置。你不能忽略`index.number_of_shards`，，，，`index.number_of_replicas`， 或者`index.auto_expand_replicas`。
+`storage_type` | `local` 表示所有快照元数据和索引数据将下载到本地存储。<br /> <br>`remote_snapshot` 表示快照元数据将下载到集群中，但远程存储库将仍然是索引数据的权威存储。数据将根据需要下载和缓存以进行服务查询。群集中的至少一个节点必须配置[搜索角色]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/) 为了使用该类型恢复快照`remote_snapshot`。<br /> <br>默认为`local`。
 
-### Conflicts and compatibility
+### 冲突和兼容性
 
-One way to avoid naming conflicts when restoring indexes is to use the `rename_pattern` and `rename_replacement` options. You can then, if necessary, use the `_reindex` API to combine the two. The simpler way is to delete existing indexes prior to restoring from a snapshot.
+恢复索引时避免命名冲突的一种方法是使用`rename_pattern` 和`rename_replacement` 选项。然后，您可以在必要时使用`_reindex` API结合两者。更简单的方法是在从快照还原之前删除现有索引。
 
-You can use the `_close` API to close existing indexes prior to restoring from a snapshot, but the index in the snapshot has to have the same number of shards as the existing index.
+您可以使用`_close` API在从快照恢复之前关闭现有索引，但是快照中的索引必须具有与现有索引相同的碎片数。
 
-We recommend ceasing write requests to a cluster before restoring from a snapshot, which helps avoid scenarios such as:
+我们建议在从快照恢复之前停止写入请求到集群，这有助于避免以下方案：
 
-1. You delete an index, which also deletes its alias.
-1. A write request to the now-deleted alias creates a new index with the same name as the alias.
-1. The alias from the snapshot fails to restore due to a naming conflict with the new index.
+1. 您删除了一个索引，该索引还删除了它的别名。
+1. 对现在的写请求-删除的别名创建了一个与别名相同的名称的新索引。
+1. 由于与新索引的命名冲突，快照的别名无法恢复。
 
-Snapshots are only forward-compatible by one major version. If you have an old snapshot, you can sometimes restore it into an intermediate cluster, reindex all indexes, take a new snapshot, and repeat until you arrive at your desired version, but you might find it easier to just manually index your data in the new cluster.
+快照只是向前-由一个主要版本兼容。如果您有一个旧的快照，有时可以将其还原为中间群集，重新索引所有索引，进行新的快照，然后重复直到您到达所需的版本，但是您可能会发现更容易在手动索引数据中的数据，新集群。
 
-## Security considerations
+## 安全考虑
 
-If you're using the Security plugin, snapshots have some additional restrictions:
+如果您使用的是安全插件，快照会有一些其他限制：
 
-- To perform snapshot and restore operations, users must have the built-in `manage_snapshots` role.
-- You can't restore snapshots that contain a global state or the `.opendistro_security` index.
+- 要执行快照和还原操作，用户必须具有构建的-在`manage_snapshots` 角色。
+- 您无法还原包含全球状态或`.opendistro_security` 指数。
 
-If a snapshot contains a global state, you must exclude it when performing the restore. If your snapshot also contains the `.opendistro_security` index, either exclude it or list all the other indexes you want to include:
+如果快照包含全球状态，则必须在执行还原时将其排除。如果您的快照还包含`.opendistro_security` 索引，将其排除或列出您要包含的所有其他索引：
 
 ```json
 POST /_snapshot/my-repository/3/_restore
@@ -373,18 +373,19 @@ POST /_snapshot/my-repository/3/_restore
   "include_global_state": false
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The `.opendistro_security` index contains sensitive data, so we recommend excluding it when you take a snapshot. If you do need to restore the index from a snapshot, you must include an admin certificate in the request:
+这`.opendistro_security` 索引包含敏感数据，因此我们建议您在快照时将其排除。如果您确实需要从快照还原索引，则必须在请求中包含管理证书：
 
 ```bash
 curl -k --cert ./kirk.pem --key ./kirk-key.pem -XPOST 'https://localhost:9200/_snapshot/my-repository/3/_restore?pretty'
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-We strongly recommend against restoring `.opendistro_security` using an admin certificate because doing so can alter the security posture of the entire cluster. See [A word of caution]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) for a recommended process to back up and restore your Security plugin configuration.
-{: .warning}
+我们强烈建议不要恢复`.opendistro_security` 使用管理证书，因为这样做可以改变整个集群的安全姿势。看[谨慎]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) 有关建议的过程来备份和还原安全插件配置。
+{： 。警告}
 
-## Index codec considerations
+## 索引编解码器注意事项
 
-For index codec considerations, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#snapshots).
+有关索引编解码器的注意事项，请参阅[索引编解码器]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#snapshots)。
+

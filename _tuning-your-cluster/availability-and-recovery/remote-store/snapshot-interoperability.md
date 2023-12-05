@@ -1,18 +1,18 @@
 ---
 layout: default
-title: Shallow snapshots
+title: 浅快照
 nav_order: 15
-parent: Remote-backed storage
-grand_parent: Availability and recovery
+parent: 远程支持存储
+grand_parent: 可用性和恢复
 ---
 
-# Shallow snapshots
+# 浅快照
 
-Shallow copy snapshots allow you to reference data from an entire remote-backed repository instead of storing all of the data from the segment in a snapshot repository. This makes accessing segment data faster than using normal snapshots because segment data is not stored in the snapshot repository.
+浅复制快照使您可以从整个遥控器参考数据-支持的存储库，而不是在快照存储库中存储来自该段的所有数据。这使得访问段数据比使用普通快照更快，因为段数据未存储在快照存储库中。
 
-## Enabling shallow snapshots
+## 启用浅拍照
 
-Use the [Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository/) and set the `remote_store_index_shallow_copy` repository setting to `true` to enable shallow snapshot copies, as shown in the following example:
+使用[快照API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository/) 并设置`remote_store_index_shallow_copy` 存储库设置为`true` 为了启用浅快照副本，如下所示：
 
 ```bash
 PUT /_snapshot/snap_repo
@@ -25,15 +25,16 @@ PUT /_snapshot/snap_repo
         }
     }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-Once enabled, all requests using the [Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/) will remain the same for all snapshots. After the setting is enabled, we recommend not disabling the setting. Doing so could affect data durability. 
+启用后，所有请求都使用[快照API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/) 所有快照将保持不变。启用设置后，我们建议不要禁用设置。这样做可能会影响数据耐用性。
 
-## Considerations
+## 考虑因素
 
-Consider the following before using shallow copy snapshots:
+在使用浅副本快照之前，请考虑以下内容：
 
-- Shallow copy snapshots only work for remote-backed indexes.
-- All nodes in the cluster must use OpenSearch 2.10 or later to take advantage of shallow copy snapshots.
-- The `incremental` file count and size between the current snapshot and the last snapshot is `0` when using shallow copy snapshots.
-- Searchable snapshots are not supported inside shallow copy snapshots.
+- 浅复制快照仅适用于遥控-支持的索引。
+- 集群中的所有节点都必须使用OpenSearch 2.10或更高版本来利用浅复制快照。
+- 这`incremental` 当前快照和最后一个快照之间的文件计数和大小为`0` 使用浅复制快照时。
+- 可搜索的快照在浅层复制快照中不支持。
+

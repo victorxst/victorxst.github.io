@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Troubleshoot securityadmin.sh
+title: 对SecurityAdmin.SH进行故障排除
 nav_order: 10
 ---
 
-# securityadmin.sh Troubleshooting
+# SecurityAdmin.SH故障排除
 
-This page includes troubleshooting steps for `securityadmin.sh`. The script can be found at `/plugins/opensearch-security/tools/securityadmin.sh`. For more information about using this tool, see [Applying changes to configuration files]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/).
+此页面包括用于故障排除的步骤`securityadmin.sh`。该脚本可以在`/plugins/opensearch-security/tools/securityadmin.sh`。有关使用此工具的更多信息，请参阅[将更改应用于配置文件]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/)。
 
 
 ---
@@ -18,9 +18,9 @@ This page includes troubleshooting steps for `securityadmin.sh`. The script can 
 
 ---
 
-## Cluster not reachable
+## 群集无法到达
 
-If `securityadmin.sh` can't reach the cluster, it outputs:
+如果`securityadmin.sh` 无法到达群集，它输出：
 
 ```
 OpenSearch Security Admin v6
@@ -29,77 +29,78 @@ ERR: Seems there is no opensearch running on localhost:9300 - Will exit
 ```
 
 
-### Check hostname
+### 检查主机名
 
-By default, `securityadmin.sh` uses `localhost`. If your cluster runs on any other host, specify the hostname using the `-h` option.
-
-
-### Check the port
-
-Check that you are running `securityadmin.sh` against the transport port, **not** the HTTP port.
-
-By default, `securityadmin.sh` uses `9300`. If your cluster runs on a different port, use the `-p` option to specify the port number.
+默认情况下，`securityadmin.sh` 用途`localhost`。如果您的群集在任何其他主机上运行，请使用`-h` 选项。
 
 
-## None of the configured nodes are available
+### 检查端口
 
-If `securityadmin.sh` can reach the cluster, but can't update the configuration, it outputs this error:
+检查您正在运行`securityadmin.sh` 在运输港，**不是** HTTP端口。
+
+默认情况下，`securityadmin.sh` 用途`9300`。如果您的群集在其他端口上运行，请使用`-p` 指定端口号的选项。
+
+
+## 没有配置的节点可用
+
+如果`securityadmin.sh` 可以到达群集，但无法更新配置，它会输出此错误：
 
 ```
 Contacting opensearch cluster 'opensearch' and wait for YELLOW clusterstate ...
 Cannot retrieve cluster state due to: None of the configured nodes are available: [{#transport#-1}{mr2NlX3XQ3WvtVG0Dv5eHw}{localhost}{127.0.0.1:9300}]. This is not an error, will keep on trying ...
 ```
 
-* Try running `securityadmin.sh` with `-icl` and `-nhnv`.
+*尝试运行`securityadmin.sh` 和`-icl` 和`-nhnv`。
 
-  If this works, check your cluster name as well as the hostnames in your SSL certificates. If this does not work, try running `securityadmin.sh` with `--diagnose` and see diagnose trace log file.
+  如果有效，请检查您的群集名称以及SSL证书中的主机名。如果这不起作用，请尝试运行`securityadmin.sh` 和`--diagnose` 并查看诊断跟踪日志文件。
 
-* Add `--accept-red-cluster` to allow `securityadmin.sh` to operate on a red cluster.
-
-
-### Check cluster name
-
-By default, `securityadmin.sh` uses `opensearch` as the cluster name.
-
-If your cluster has a different name, you can either ignore the name completely using the `-icl` option or specify the name using the `-cn` option.
+* 添加`--accept-red-cluster` 允许`securityadmin.sh` 在红色集群上操作。
 
 
-### Check hostname verification
+### 检查群集名称
 
-By default, `securityadmin.sh` verifies that the hostname in your node's certificate matches the node's actual hostname.
+默认情况下，`securityadmin.sh` 用途`opensearch` 作为群集名称。
 
-If this is not the case (e.g. if you're using the demo certificates), you can disable hostname verification by adding the `-nhnv` option.
-
-
-### Check cluster state
-
-By default, `securityadmin.sh` only executes if the cluster state is at least yellow.
-
-If your cluster state is red, you can still execute `securityadmin.sh`, but you need to add the `-arc` option.
+如果您的集群具有不同的名称，则可以使用该名称完全忽略该名称`-icl` 选项或使用`-cn` 选项。
 
 
-### Check the security index name
+### 检查主机名验证
 
-By default, the Security plugin uses `.opendistro_security` as the name of the configuration index. If you configured a different index name in `opensearch.yml`, specify it using the `-i` option.
+默认情况下，`securityadmin.sh` 验证节点证书中的主机名与节点的实际主机名匹配。
+
+如果不是这种情况（例如，如果您使用的是演示证书），则可以通过添加hostname验证`-nhnv` 选项。
+
+
+### 检查群集状态
+
+默认情况下，`securityadmin.sh` 仅当群集状态至少为黄色时执行。
+
+如果您的群集状态为红色，您仍然可以执行`securityadmin.sh`，但是您需要添加`-arc` 选项。
+
+
+### 检查安全索引名称
+
+默认情况下，安全插件使用`.opendistro_security` 作为配置索引的名称。如果您在`opensearch.yml`，使用`-i` 选项。
 
 
 ## "ERR: DN is not an admin user"
 
-If the TLS certificate used to start `securityadmin.sh` isn't an admin certificate, the script outputs:
+如果TLS证书曾经开始`securityadmin.sh` 不是管理员证书，脚本输出：
 
 ```
 Connected as CN=node-0.example.com,OU=SSL,O=Test,L=Test,C=DE
 ERR: CN=node-0.example.com,OU=SSL,O=Test,L=Test,C=DE is not an admin user
 ```
 
-You must use an admin certificate when executing the script. To learn more, see [Configuring admin certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates).
+执行脚本时，必须使用管理证书。要了解更多，请参阅[配置管理证书]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates)。
 
-## Use the diagnose option
+## 使用诊断选项
 
-For more information on why `securityadmin.sh` is not executing, add the `--diagnose` option:
+有关原因的更多信息`securityadmin.sh` 不执行，添加`--diagnose` 选项：
 
 ```
 ./securityadmin.sh -diagnose -cd ../../../config/opensearch-security/ -cacert ... -cert ... -key ... -keypass ...
 ```
 
-The script prints the location of the generated diagnostic file.
+脚本打印生成的诊断文件的位置。
+

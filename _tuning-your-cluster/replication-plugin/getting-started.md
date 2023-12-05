@@ -1,61 +1,61 @@
 ---
 layout: default
-title: Getting started
+title: 入门
 nav_order: 15
-parent: Cross-cluster replication
+parent: 跨集群复制
 redirect_from:
   - /replication-plugin/get-started/
 ---
 
-# Getting started with cross-cluster replication
+# 开始十字架-集群复制
 
-With cross-cluster replication, you index data to a leader index, and OpenSearch replicates that data to one or more read-only follower indexes. All subsequent operations on the leader are replicated on the follower, such as creating, updating, or deleting documents.
+与十字架-群集复制，您将数据索引到领导者索引，然后将数据复制到一个或多个读取-只有追随者索引。对领导者的所有后续操作将在追随者上复制，例如创建，更新或删除文档。
 
-## Prerequisites
+## 先决条件
 
-Cross-cluster replication has the following prerequisites:
-- Both the leader and follower cluster must have the replication plugin installed.
-- If you've overridden `node.roles` in `opensearch.yml` on the follower cluster, make sure it also includes the `remote_cluster_client` role:
+叉-群集复制具有以下先决条件：
+- 领导者和追随者集群都必须安装复制插件。
+- 如果你覆盖了`node.roles` 在`opensearch.yml` 在追随者集群上，请确保它还包括`remote_cluster_client` 角色：
 
    ```yaml
    node.roles: [<other_roles>, remote_cluster_client]
    ```
 
-## Permissions
+## 权限
 
-Make sure the Security plugin is either enabled on both clusters or disabled on both clusters. If you disabled the Security plugin, you can skip this section. However, we strongly recommend enabling the Security plugin in production scenarios.
+确保在两个群集上都启用了两个群集或禁用的安全插件。如果禁用了安全插件，则可以跳过此部分。但是，我们强烈建议在生产方案中启用安全插件。
 
-If the Security plugin is enabled, make sure that non-admin users are mapped to the appropriate permissions so they can perform replication actions. For index and cluster-level permissions requirements, see [Cross-cluster replication permissions]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/).
+如果启用了安全插件，请确保-管理用户被映射到适当的权限，以便他们可以执行复制操作。对于索引和群集-级别许可要求，请参阅[叉-集群复制权限]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/)。
 
-In addition, verify and add the distinguished names (DNs) of each follower cluster node on the leader cluster to allow connections from the followers to the leader.
+此外，在领导者群集上验证并添加每个追随者群集节点的杰出名称（DNS），以允许从关注者到领导者的连接。
 
-First, get the node's DN from each follower cluster:
+首先，从每个追随者群集中获取节点的DN：
 
   ```bash
-curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_opendistro/_security/api/ssl/certs?pretty'
+卷曲-XGET-k-u'Admin：admin''https：// localhost：9200/_opendistro/_security/api/ssl/certs？Pretty'
 
 {
-   "transport_certificates_list": [
+   "transport_certificates_list"：[[
       {
-         "issuer_dn" : "CN=Test,OU=Server CA 1B,O=Test,C=US",
-         "subject_dn" : "CN=follower.test.com", # To be added under leader's nodes_dn configuration
-         "not_before" : "2021-11-12T00:00:00Z",
-         "not_after" : "2022-12-11T23:59:59Z"
+         "issuer_dn" ："CN=Test,OU=Server CA 1B,O=Test,C=US"，，，，
+         "subject_dn" ："CN=follower.test.com"，，，，# 要在领导者的nodes_dn配置下添加
+         "not_before" ："2021-11-12T00:00:00Z"，，，，
+         "not_after" ："2022-12-11T23:59:59Z"
       }
-   ]
+   这是给出的
 }
   ```
 
 Then verify that it's part of the leader cluster configuration in `opensearch.yml`. Otherwise, add it under the following setting:
 
   ```yaml
-plugins.security.nodes_dn:
-  - "CN=*.leader.com, OU=SSL, O=Test, L=Test, C=DE" # Already part of the configuration
-  - "CN=follower.test.com" # From the above response from follower
+plugins.security.nodes_dn：
+  - "CN=*.leader.com, OU=SSL, O=Test, L=Test, C=DE" # 已经配置的一部分
+  - "CN=follower.test.com" # 从以上来自追随者的回应
   ```
 ## Example setup
 
-To start two single-node clusters on the same network, save this sample file as `docker-compose.yml` and run `docker-compose up`:
+To start two single-node clusters on the same network, save this sample file as `Docker-compose.yml` and run `Docker-组成`:
 
 ```yml
 version: '3'
@@ -123,9 +123,9 @@ curl -XGET -u 'admin:admin' -k 'https://localhost:9200'
 }
 ```
 
-For this example, use port 9201 (`replication-node1`) as the leader and port 9200 (`replication-node2`) as the follower cluster.
+For this example, use port 9201 (`复制-Node1`) as the leader and port 9200 (`复制-Node2`）作为追随者集群。
 
-To get the IP address for the leader cluster, first identify its container ID:
+要获取领导者群集的IP地址，请首先确定其容器ID：
 
 ```bash
 docker ps
@@ -134,18 +134,18 @@ CONTAINER ID    IMAGE                                       PORTS               
 731f5e8b0f4b    opensearchproject/opensearch:{{site.opensearch_version}}   9300/tcp, 0.0.0.0:9201->9200/tcp, 0.0.0.0:9700->9600/tcp   replication-node1
 ```
 
-Then get that container's IP address:
+然后获取该容器的IP地址：
 
 ```bash
 docker inspect --format='{% raw %}{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}{% endraw %}' 731f5e8b0f4b
 172.22.0.3
 ```
 
-## Set up a cross-cluster connection
+## 建立十字架-集群连接
 
-Cross-cluster replication follows a "pull" model, so most changes occur on the follower cluster, not the leader cluster. 
+叉-群集复制遵循"pull" 模型，因此大多数更改发生在追随者群集上，而不是领导者群集。
 
-On the follower cluster, add the IP address (with port 9300) for each seed node. Because this is a single-node cluster, you only have one seed node. Provide a descriptive name for the connection, which you'll use in the request to start replication:
+在跟随器群集上，为每个种子节点添加IP地址（带有端口9300）。因为这是一个-节点群集，您只有一个种子节点。提供连接的描述性名称，您将在请求中使用该连接：开始复制：
 
 ```bash
 curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_cluster/settings?pretty' -d '
@@ -162,15 +162,15 @@ curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://loca
 }'
 ```
 
-## Start replication
+## 开始复制
 
-To get started, create an index called `leader-01` on the leader cluster:
+要开始，创建一个称为的索引`leader-01` 在领导者集群上：
 
 ```bash
 curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9201/leader-01?pretty'
 ```
 
-Then start replication from the follower cluster. In the request body, provide the connection name and leader index that you want to replicate, along with the security roles you want to use:
+然后从追随者群集开始复制。在请求主体中，提供您要复制的连接名称和领导索引以及要使用的安全角色：
 
 ```bash
 curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/follower-01/_start?pretty' -d '
@@ -184,14 +184,14 @@ curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://loca
 }'
 ```
 
-If the Security plugin is disabled, omit the `use_roles` parameter. If it's enabled, however, you must specify the leader and follower cluster roles that OpenSearch will use to authenticate the request. This example uses `all_access` for simplicity, but we recommend creating a replication user on each cluster and [mapping it accordingly]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles).
-{: .tip }
+如果禁用了安全插件，请省略`use_roles` 范围。但是，如果启用了它，则必须指定OpenSearch用来对请求进行身份验证的领导者和追随者集群角色。此示例使用`all_access` 为简单起见，但是我们建议在每个群集上创建复制用户，并且[相应地绘制它]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles)。
+{： 。提示 }
 
-This command creates an identical read-only index named `follower-01` on the follower cluster that continuously stays updated with changes to the `leader-01` index on the leader cluster. Starting replication creates a follower index from scratch -- you can't convert an existing index to a follower index. 
+此命令创建了相同的读取-只有索引命名`follower-01` 在不断更新的追随者群集上，随着更改的更改`leader-01` 领导者集群的索引。启动复制从头开始创建一个追随者索引-- 您无法将现有索引转换为追随者索引。
 
-## Confirm replication
+## 确认复制
 
-After replication starts, get the status:
+复制开始后，获得状态：
 
 ```bash
 curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/follower-01/_status?pretty'
@@ -210,17 +210,17 @@ curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/fol
 }
 ```
 
-Possible statuses are `SYNCING`, `BOOTSTRAPPING`, `PAUSED`, and `REPLICATION NOT IN PROGRESS`. 
+可能的状态是`SYNCING`，，，，`BOOTSTRAPPING`，，，，`PAUSED`， 和`REPLICATION NOT IN PROGRESS`。
 
-The leader and follower checkpoint values begin as negative numbers and reflect the shard count (-1 for one shard, -5 for five shards, and so on). The values increment with each change and illustrate how many updates the follower is behind the leader. If the indexes are fully synced, the values are the same.
+领导者和追随者检查点值以负数开始并反映碎片计数（-1碎片，-5对于五片，依此类推）。每次更改的值会增加，并说明追随者在领导者背后有多少更新。如果索引完全同步，则值相同。
 
-To confirm that replication is actually happening, add a document to the leader index:
+要确认复制实际上正在发生，请在领导者索引中添加文档：
 
 ```bash
 curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9201/leader-01/_doc/1?pretty' -d '{"The Shining": "Stephen King"}'
 ```
 
-Then validate the replicated content on the follower index:
+然后验证追随者索引上的复制内容：
 
 ```bash
 curl -XGET -k -u 'admin:admin' 'https://localhost:9200/follower-01/_search?pretty'
@@ -238,15 +238,15 @@ curl -XGET -k -u 'admin:admin' 'https://localhost:9200/follower-01/_search?prett
 }
 ```
 
-## Pause and resume replication
+## 暂停和简历复制
 
-You can temporarily pause replication of an index if you need to remediate issues or reduce load on the leader cluster:
+如果需要补救问题或减少领导者集群的负载，则可以暂时暂停索引复制：
 
 ```bash
 curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/follower-01/_pause?pretty' -d '{}'
 ```
 
-To confirm that replication is paused, get the status:
+要确认复制已暂停，请获得状态：
 
 ```bash
 curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/follower-01/_status?pretty'
@@ -260,27 +260,27 @@ curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/fol
 }
 ```
 
-When you're done making changes, resume replication:
+完成更改后，恢复复制：
 
 ```bash
 curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/follower-01/_resume?pretty' -d '{}'
 ```
 
-When replication resumes, the follower index picks up any changes that were made to the leader index while replication was paused.
+复制恢复时，追随者索引在暂停复制时会挑选对领导者索引的任何更改。
 
-Note that you can't resume replication after it's been paused for more than 12 hours. You must [stop replication]({{site.url}}{{site.baseurl}}/replication-plugin/api/#stop-replication), delete the follower index, and restart replication of the leader.
+请注意，在暂停超过12个小时后，您无法恢复复制。你必须[停止复制]({{site.url}}{{site.baseurl}}/replication-plugin/api/#stop-replication)，删除追随者索引，然后重新启动领导者的复制。
 
-## Stop replication
+## 停止复制
 
-When you no longer need to replicate an index, terminate replication from the follower cluster:
+当您不再需要复制索引时，请从追随者群集终止复制：
 
 ```bash
 curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/follower-01/_stop?pretty' -d '{}'
 ```
 
-When you stop replication, the follower index un-follows the leader and becomes a standard index that you can write to. You can't restart replication after stopping it. 
+当您停止复制时，追随者索引联合国-跟随领导者，成为您可以写入的标准索引。停止后，您无法重新启动复制。
 
-Get the status to confirm that the index is no longer being replicated:
+获取状态以确认该索引不再被复制：
 
 ```bash
 curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/follower-01/_status?pretty'
@@ -290,6 +290,7 @@ curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/fol
 }
 ```
 
-You can further confirm that replication is stopped by making modifications to the leader index and confirming they don't show up on the follower index.
+您可以进一步确认通过对领导者索引进行修改并确认他们不会出现在追随者索引上，从而停止了复制。
+
 
 

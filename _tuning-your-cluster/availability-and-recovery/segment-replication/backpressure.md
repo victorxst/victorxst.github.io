@@ -1,43 +1,44 @@
 ---
 layout: default
-title: Segment replication backpressure
+title: 段复制背压
 nav_order: 75
-parent: Segment replication
+parent: 段复制
 has_children: false
-grand_parent: Availability and recovery
+grand_parent: 可用性和恢复
 ---
 
-# Segment replication backpressure
+# 段复制背压
 
-Segment replication backpressure is a shard-level rejection mechanism that dynamically rejects indexing requests as replica shards in your cluster fall behind primary shards. With segment replication backpressure, indexing requests are rejected when the percentage of stale shards in the replication group exceeds `segrep.pressure.replica.stale.limit` (50% by default). A replica is considered stale if it is behind the primary shard by the number of checkpoints that exceeds the `segrep.pressure.checkpoint.limit` setting and its current replication lag is greater than the defined `segrep.pressure.time.limit` field.
+段复制背压是一个碎片-级别拒绝机制动态拒绝索引请求作为群集中的复制碎片，落在主要碎片后面。通过细分复制背压，当复制组中的陈旧碎片百分比超过`segrep.pressure.replica.stale.limit` （默认情况下为50％）。如果复制品在主要碎片后面，则将其视为过时的检查点的数量`segrep.pressure.checkpoint.limit` 设置及其当前复制滞后大于定义的`segrep.pressure.time.limit` 场地。
 
-Replica shards are also monitored to determine whether the shards are stuck or lagging for an extended period of time. When replica shards are stuck or lagging for more than double the amount of time defined by the `segrep.pressure.time.limit` field, the shards are removed and replaced with new replica shards.
+还监视了副本碎片，以确定碎片是长时间内被卡住还是滞后。当副本碎片被卡住或滞后的时间超过两倍以上`segrep.pressure.time.limit` 田地，将碎片拆除并用新的副本碎片代替。
 
-## Request fields
+## 请求字段
 
-Segment replication backpressure is disabled by default. To enable it, set `segrep.pressure.enabled` to `true`. You can update the following dynamic cluster settings using the [cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) API endpoint.
+段重复背压默认情况下是禁用的。为了启用，设置`segrep.pressure.enabled` 到`true`。您可以使用以下动态群集设置来使用[集群设置]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) API端点。
 
-Field | Data type | Description
-:--- | :--- | :---
-`segrep.pressure.enabled `| Boolean | Enables the segment replication backpressure mechanism. Default is `false`.
-`segrep.pressure.time.limit` | Time unit | The maximum amount of time that a replica shard can take to copy from the primary shard. Once `segrep.pressure.time.limit` is breached along with `segrep.pressure.checkpoint.limit`, the segment replication backpressure mechanism is initiated. Default is `5 minutes`.
-`segrep.pressure.checkpoint.limit` | Integer | The maximum number of indexing checkpoints that a replica shard can fall behind when copying from primary. Once `segrep.pressure.checkpoint.limit` is breached along with `segrep.pressure.time.limit`, the segment replication backpressure mechanism is initiated. Default is `4` checkpoints.
-`segrep.pressure.replica.stale.limit `| Floating point | The maximum number of stale replica shards that can exist in a replication group. Once `segrep.pressure.replica.stale.limit` is breached, the segment replication backpressure mechanism is initiated. Default is `.5`, which is 50% of a replication group.
+场地| 数据类型| 描述
+：--- | ：--- | ：---
+`segrep.pressure.enabled `| 布尔| 启用细分复制背压机制。默认为`false`。
+`segrep.pressure.time.limit` | 时间单元| 复制碎片可以从主碎片中复制的最长时间。一次`segrep.pressure.time.limit` 被违反`segrep.pressure.checkpoint.limit`，启动片段复制背压机制。默认为`5 minutes`。
+`segrep.pressure.checkpoint.limit` | 整数| 从主复制时，复制碎片的最大索引检查点可能会落后。一次`segrep.pressure.checkpoint.limit` 被违反`segrep.pressure.time.limit`，启动片段复制背压机制。默认为`4` 检查点。
+`segrep.pressure.replica.stale.limit `| 浮点| 复制组中可能存在的最大陈旧复制碎片数。一次`segrep.pressure.replica.stale.limit` 违反，启动了片段复制背压机制。默认为`.5`，是复制组的50％。
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
-You can use the segment replication API endpoint to retrieve segment replication backpressure metrics as follows:
+您可以使用段复制API端点来检索段复制背压指标，如下所示：
 
 ```bash
 GET _cat/segment_replication
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-#### Example response
+#### 示例响应
 
 ```json
 shardId       target_node    target_host   checkpoints_behind bytes_behind   current_lag   last_completed_lag   rejected_requests
 [index-1][0]     runTask-1    127.0.0.1              0              0b           0s              7ms                    0
 ```
 
-The `checkpoints_behind` and `current_lag` metrics are taken into consideration when initiating segment replication backpressure. They are checked against `segrep.pressure.checkpoint.limit` and `segrep.pressure.time.limit`, respectively.
+这`checkpoints_behind` 和`current_lag` 在启动片段复制背压时，请考虑度量。他们被检查`segrep.pressure.checkpoint.limit` 和`segrep.pressure.time.limit`， 分别。
+

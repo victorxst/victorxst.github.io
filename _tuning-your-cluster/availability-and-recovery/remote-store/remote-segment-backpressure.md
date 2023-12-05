@@ -1,46 +1,47 @@
 ---
 layout: default
-title: Remote segment backpressure
+title: 远程段背压
 nav_order: 10
-parent: Remote-backed storage
-grand_parent: Availability and recovery
+parent: 远程支持存储
+grand_parent: 可用性和恢复
 ---
 
-# Remote segment backpressure
+# 远程段背压
 
-Introduced 2.10
-{: .label .label-purple }
+引入2.10
+{：.label .label-紫色的 }
 
-Remote segment backpressure is a shard-level rejection mechanism that dynamically rejects indexing requests when the remote segment store falls behind the local committed segments on the primary shard. With remote segment backpressure, you can prevent the lag between the remote store and the local primary store. The lag can be caused by slow or failed remote store interaction, remote store throttling, long garbage collection pauses, or high CPU utilization.
+远程部分背压是一个碎片-当远程段存储落后于主碎片上的本地承诺段时，会动态拒绝索引请求的级别拒绝机制。使用远程段背压，您可以防止远程存储和本地主商店之间的滞后。滞后可能是由缓慢或失败的远程存储交互，远程存储节流，长垃圾收集停顿或高CPU利用率引起的。
 
-## Thresholds
+## 阈值
 
-Remote segment backpressure is activated if any of the following thresholds is breached:
+如果违反以下任何一个阈值，则激活远程段背压：
 
-- **Consecutive failure**: The backpressure is activated if there are _N_ or more consecutive failures. The value of _N_ is configurable in `remote_store.segment.pressure.consecutive_failures.limit`.
-- **Bytes lag**: The bytes lag is calculated by adding the sizes of all the files that are present in local committed segments but not in the remote store. Backpressure is activated if the bytes lag is greater than _K_ multiplied by the moving average of the size, in bytes, of the files uploaded after each refresh. The variance factor _K_ is configurable in `remote_store.segment.pressure.bytes_lag.variance_factor`. The moving window size is configurable through the `remote_store.moving_average_window_size` setting.
-- **Time lag**: The time lag is calculated by comparing the timestamps of the most recent local refresh and the most recent remote store segment upload. Backpressure is activated if the time lag is greater than _K_ multiplied by the moving average of the time taken to upload new segments and metadata files after each refresh. The variance factor _K_ is configurable through the `remote_store.segment.pressure.time_lag.variance_factor` setting. The moving window size is configurable through the `remote_store.moving_average_window_size` setting.  
+- **连续失败**：如果有_n_或更多连续的失败，则会激活背压。_n_的值可在`remote_store.segment.pressure.consecutive_failures.limit`。
+- **字节滞后**：通过添加本地承诺段中存在的所有文件的大小，而不是在远程存储中，可以计算字节滞后。如果字节滞后大于_K_，则激活背压，乘以每次刷新后上传的文件的大小，字节的移动平均值。差异因子_k_在`remote_store.segment.pressure.bytes_lag.variance_factor`。移动窗口大小可通过`remote_store.moving_average_window_size` 环境。
+- **时间滞后**：通过比较最新本地刷新和最新远程商店段上传的时间戳来计算时间滞后。如果时间滞后大于_k_乘以每次刷新后上传新段和元数据文件所花费的时间的移动平均值，则将其激活。差异因子_k_可以通过`remote_store.segment.pressure.time_lag.variance_factor` 环境。移动窗口大小可通过`remote_store.moving_average_window_size` 环境。
 
-## Handling segment merges 
+## 处理细分市场合并
 
-At every segment merge, a corresponding refresh is initiated. Because this refresh has new merged segments, the bytes lag instantly spikes. To compensate for this spike, the bytes lag and time lag are evaluated only if the remote store is behind the local primary store by more than one refresh. However, backpressure induced by consecutive failures activates regardless of refresh lag (the number of refreshes by which the remote store is lagging behind the local store).
+在每个细分市场合并中，都会启动相应的刷新。由于此刷新具有新的合并段，因此字节滞后会立即尖峰。为了补偿此尖峰，仅当远程存储在本地主要商店后面的偏移量后，才能评估字节滞后和时间滞后。但是，连续故障引起的背压都会激活，无论刷新滞后如何（远程存储落后于本地商店的刷新数量）。
 
-## Remote segment backpressure settings
+## 远程段背压设置
 
-Remote segment backpressure adds several settings to the standard OpenSearch cluster settings. The settings are dynamic, so you can change the default backpressure behavior without restarting your cluster. 
+远程段背压将几个设置添加到标准OpenSearch集群设置中。设置是动态的，因此您可以在不重新启动群集的情况下更改默认的背压行为。
 
-The following table lists the settings used for activating backpressure. For threshold calculation, see [Thresholds](#thresholds).
+下表列出了用于激活背压的设置。有关阈值计算，请参见[阈值](#thresholds)。
 
-|Setting	|Data type	|Description	|
-|:---	|:---	|:---	|
-|`remote_store.segment.pressure.enabled`	|Boolean	| If `true`, enables remote segment backpressure. Default is `false`. |
-|`remote_store.segment.pressure.consecutive_failures.limit`	|Integer |The minimum consecutive failure count for activating remote segment backpressure. Default is `5`.	|
-|`remote_store.segment.pressure.bytes_lag.variance_factor`	|Float | The variance factor that is used together with the moving average to calculate the dynamic bytes lag threshold for activating remote segment backpressure. Default is `10`.	|
-|`remote_store.segment.pressure.time_lag.variance_factor`	|Float 	|The variance factor that is used together with the moving average to calculate the dynamic time lag threshold for activating remote segment backpressure. Default is `10`.	|
+|环境|数据类型|描述|
+|：---|：---|：---|
+|`remote_store.segment.pressure.enabled`|布尔| 如果`true`，启用远程段背压。默认为`false`。|
+|`remote_store.segment.pressure.consecutive_failures.limit`|整数|激活远程段背压的最小连续故障计数。默认为`5`。|
+|`remote_store.segment.pressure.bytes_lag.variance_factor`|漂浮| 与移动平均线一起使用的方差因子来计算激活远程段背压的动态字节滞后阈值。默认为`10`。|
+|`remote_store.segment.pressure.time_lag.variance_factor`|漂浮|与移动平均线一起使用的方差因子来计算激活远程段背压的动态时间滞后阈值。默认为`10`。|
 
-The following table lists the settings used for statistics.
+下表列出了用于统计的设置。
 
-|Setting	|Data type	|Description	|
-|:---	|:---	|:---	|
-| `remote_store.moving_average_window_size` | Integer | The moving average window size used to calculate the rolling statistic values exposed through the [Remote Store Stats API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-store-stats-api/). Default is `20`. Minimum enforced is `5`. |
+|环境|数据类型|描述|
+|：---|：---|：---|
+| `remote_store.moving_average_window_size` | 整数| 移动平均窗口大小用于计算通过[远程商店统计API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-store-stats-api/)。默认为`20`。最低执行是`5`。|
+
 

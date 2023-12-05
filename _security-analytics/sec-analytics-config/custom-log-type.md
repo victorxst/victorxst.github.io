@@ -1,29 +1,30 @@
 ---
 layout: default
-title: Creating custom log types
-parent: Setting up Security Analytics
+title: 创建自定义日志类型
+parent: 设置安全分析
 nav_order: 18
 ---
 
 
-# Creating custom log types
+# 创建自定义日志类型
 
-Log types represent the different sources of data used for threat detection in Security Analytics. In addition to the standard [log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/log-types/) supported by Security Analytics, you can create custom log types for your threat detectors.
+日志类型表示安全分析中用于威胁检测的数据源。除了标准[日志类型]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/log-types/) 在安全分析的支持下，您可以为威胁检测器创建自定义日志类型。
 
-## Creating a custom log type
+## 创建自定义日志类型
 
-To create a custom log type: 
-1. From the dashboard, select **OpenSearch Plugins** > **Security Analytics**, and then select **Detectors** > **Log types**.
-1. Select **Create log type**.
-1. Enter a name and, optionally, a description for the log type.
+创建自定义日志类型：
+1. 从仪表板中，选择**OpenSearch插件** >**安全分析**，然后选择**探测器** >**日志类型**。
+1. 选择**创建日志类型**。
+1. 输入名称，并选择为日志类型的描述。
    
-   The log type name supports characters a--z (lowercase), 0--9, hyphens, and underscores.
-   {: .note }
+   日志类型名称支持字符--Z（小写），0--9，连字符和下划线。
+   {： 。笔记 }
    
-1. Select a category. The categories are listed in [Supported log types]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/log-types/).
-1. Select **Create log type** in the lower-right corner of the screen. The screen returns to the **Log types** page, and the new log type appears in the list. Note that the source for the new log type indicates **Custom**.
+1. 选择一个类别。类别列出[支持的日志类型]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/log-types/)。
+1. 选择**创建日志类型** 在较低-屏幕的右角。屏幕返回到**日志类型** 页面，新日志类型出现在列表中。请注意，新日志类型的源指示**风俗**。
 
-## Log type API
+## 日志类型API
 
-To perform operations for custom log types using the REST API, see [Log type APIs]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/log-type-api/).
+要使用REST API执行自定义日志类型的操作，请参见[日志类型API]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/log-type-api/)。
+
 

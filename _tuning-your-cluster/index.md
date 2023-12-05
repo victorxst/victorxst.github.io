@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Creating a cluster
+title: 创建一个集群
 nav_order: 1
 nav_exclude: true
 redirect_from: 
@@ -8,86 +8,86 @@ redirect_from:
   - /tuning-your-cluster/cluster/
 ---
 
-# Creating a cluster
+# 创建一个集群
 
-Before diving into OpenSearch and searching and aggregating data, you first need to create an OpenSearch cluster.
+在潜入OpenSearch，搜索和汇总数据之前，首先需要创建一个OpenSearch集群。
 
-OpenSearch can operate as a single-node or multi-node cluster. The steps to configure both are, in general, quite similar. This page demonstrates how to create and configure a multi-node cluster, but with only a few minor adjustments, you can follow the same steps to create a single-node cluster.
+OpenSearch可以单一操作-节点或多-节点群集。一般而言，配置两者的步骤非常相似。此页面演示了如何创建和配置多个-节点群集，但只有一些次要调整，您可以按照相同的步骤来创建一个单一的步骤-节点群集。
 
-To create and deploy an OpenSearch cluster according to your requirements, it’s important to understand how node discovery and cluster formation work and what settings govern them.
+为了根据您的要求创建和部署OpenSearch群集，重要的是要了解节点发现和群集形成如何工作以及设置如何控制它们。
 
-There are many ways to design a cluster. The following illustration shows a basic architecture that includes a four-node cluster that has one dedicated cluster manager node, one dedicated coordinating node, and two data nodes that are cluster manager eligible and also used for ingesting data.
+设计集群有很多方法。下图显示了一个基本体系结构，其中包括四个-节点群集具有一个专用的群集管理器节点，一个专用的协调节点和两个符合群集管理器的数据节点，并且还用于摄入数据。
 
-  The nomenclature recently changed for the master node; it is now called the cluster manager node.
-   {: .note }
+  主节点最近更改了命名法；现在称为群集管理器节点。
+   {： 。笔记 }
 
-![multi-node cluster architecture diagram]({{site.url}}{{site.baseurl}}/images/cluster.png)
+![多-节点群集体系结构图]({{site.url}}{{site.baseurl}}/images/cluster.png)
 
-### Nodes
+### 节点
 
-The following table provides brief descriptions of the node types:
+下表提供了节点类型的简要说明：
 
-Node type | Description | Best practices for production
-:--- | :--- | :-- |
-Cluster manager | Manages the overall operation of a cluster and keeps track of the cluster state. This includes creating and deleting indexes, keeping track of the nodes that join and leave the cluster, checking the health of each node in the cluster (by running ping requests), and allocating shards to nodes. | Three dedicated cluster manager nodes in three different zones is the right approach for almost all production use cases. This configuration ensures your cluster never loses quorum. Two nodes will be idle for most of the time except when one node goes down or needs some maintenance.
-Cluster manager eligible | Elects one node among them as the cluster manager node through a voting process. | For production clusters, make sure you have dedicated cluster manager nodes. The way to achieve a dedicated node type is to mark all other node types as false. In this case, you have to mark all the other nodes as not cluster manager eligible.
-Data | Stores and searches data. Performs all data-related operations (indexing, searching, aggregating) on local shards. These are the worker nodes of your cluster and need more disk space than any other node type. | As you add data nodes, keep them balanced between zones. For example, if you have three zones, add data nodes in multiples of three, one for each zone. We recommend using storage and RAM-heavy nodes.
-Ingest | Pre-processes data before storing it in the cluster. Runs an ingest pipeline that transforms your data before adding it to an index. | If you plan to ingest a lot of data and run complex ingest pipelines, we recommend you use dedicated ingest nodes. You can also optionally offload your indexing from the data nodes so that your data nodes are used exclusively for searching and aggregating.
-Coordinating | Delegates client requests to the shards on the data nodes, collects and aggregates the results into one final result, and sends this result back to the client. | A couple of dedicated coordinating-only nodes is appropriate to prevent bottlenecks for search-heavy workloads. We recommend using CPUs with as many cores as you can.
-Dynamic | Delegates a specific node for custom work, such as machine learning (ML) tasks, preventing the consumption of resources from data nodes and therefore not affecting any OpenSearch functionality. 
-Search | Provides access to [searchable snapshots]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/searchable_snapshot/). Incorporates techniques like frequently caching used segments and removing the least used data segments in order to access the searchable snapshot index (stored in a remote long-term storage source, for example, Amazon S3 or Google Cloud Storage). | Search nodes contain an index allocated as a snapshot cache. Thus, we recommend dedicated nodes with a setup with more compute (CPU and memory) than storage capacity (hard disk).
+节点类型| 描述| 生产最佳实践
+：--- | ：--- | ：-- |
+集群管理器| 管理集群的整体操作，并跟踪群集状态。这包括创建和删除索引，跟踪连接并离开群集的节点，检查群集中每个节点的健康状况（通过运行ping请求）以及将碎片分配给节点。| 三个不同区域中的三个专用集群经理节点是几乎所有生产用例的正确方法。这种配置可确保您的群集永远不会失去法定人数。在大多数情况下，两个节点在大部分时间内都会闲置，除非一个节点下降或需要一些维护。
+集群经理符合条件| 通过投票过程，选举一个节点作为集群经理节点。| 对于生产群集，请确保您拥有专用的集群管理器节点。实现专用节点类型的方法是将所有其他节点类型标记为false。在这种情况下，您必须将所有其他节点标记为不合格的群集管理器。
+数据| 存储和搜索数据。执行所有数据-本地碎片上的相关操作（索引，搜索，汇总）。这些是群集的工作节点，并且需要比任何其他节点类型都多的磁盘空间。| 添加数据节点时，请在区域之间保持平衡。例如，如果您有三个区域，请在三个区域中添加数据节点，每个区域一个。我们建议使用存储和RAM-沉重的节点。
+摄取| pre-将数据存储在群集中之前，请处理数据。运行摄入的管道，在将数据添加到索引之前会转换您的数据。| 如果您打算摄入大量数据并运行复杂的摄入管道，我们建议您使用专用的摄入节点。您还可以选择从数据节点中卸载索引，以便将数据节点专门用于搜索和聚合。
+协调| 将客户端请求委托给数据节点上的碎片，将结果收集并汇总为一个最终结果，然后将此结果发送回客户端。| 几个专门的协调-只有节点适合防止瓶颈进行搜索-沉重的工作量。我们建议将CPU与尽可能多的内核一起使用。
+动态的| 将自定义工作的特定节点委托，例如机器学习（ML）任务，以防止数据节点从数据节点中消耗资源，因此不会影响任何opensearch功能。
+搜索| 提供访问权限[可搜索的快照]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/searchable_snapshot/)。合并技术，例如经常使用的段段，并删除使用最少的数据段，以访问可搜索的快照索引（存储在远程长期中-术语存储源，例如Amazon S3或Google Cloud Storage）。| 搜索节点包含一个分配为快照缓存的索引。因此，我们建议使用具有更多计算（CPU和内存）设置的专用节点（与存储容量（硬盘））。
 
-By default, each node is a cluster-manager-eligible, data, ingest, and coordinating node. Deciding on the number of nodes, assigning node types, and choosing the hardware for each node type depends on your use case. You must take into account factors like the amount of time you want to hold on to your data, the average size of your documents, your typical workload (indexing, searches, aggregations), your expected price-performance ratio, your risk tolerance, and so on.
+默认情况下，每个节点都是群集-经理-符合条件，数据，摄取和协调节点。决定节点的数量，分配节点类型并为每个节点类型选择硬件取决于您的用例。您必须考虑到想要保留数据的时间，文档的平均大小，典型的工作量（索引，搜索，聚合），预期价格等因素-性能比率，风险承受能力等。
 
-After you assess all these requirements, we recommend you use a benchmark testing tool like [OpenSearch Benchmark](https://github.com/opensearch-project/opensearch-benchmark) to provision a small sample cluster and run tests with varying workloads and configurations. Compare and analyze the system and query metrics for these tests to design an optimum architecture.
+评估所有这些要求后，我们建议您使用基准测试工具[OpenSearch基准测试](https://github.com/opensearch-project/opensearch-benchmark) 提供一个小样本群集并运行具有不同工作负载和配置的测试。比较和分析这些测试的系统和查询指标，以设计最佳体系结构。
 
-This page demonstrates how to work with the different node types. It assumes that you have a four-node cluster similar to the preceding illustration.
+此页面演示了如何与不同的节点类型一起使用。它假设你有四个-节点群集类似于前面的插图。
 
-## Prerequisites
+## 先决条件
 
-Before you get started, you must install and configure OpenSearch on all of your nodes. For information about the available options, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/).
+在开始之前，必须在所有节点上安装和配置Opensearch。有关可用选项的信息，请参阅[安装和配置OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/)。
 
-After you're done, use SSH to connect to each node, then open the `config/opensearch.yml` file. You can set all configurations for your cluster in this file.
+完成后，使用SSH连接到每个节点，然后打开`config/opensearch.yml` 文件。您可以在此文件中为群集设置所有配置。
 
-## Step 1: Name a cluster
+## 步骤1：命名集群
 
-Specify a unique name for the cluster. If you don't specify a cluster name, it's set to `opensearch` by default. Setting a descriptive cluster name is important, especially if you want to run multiple clusters inside a single network.
+为集群指定唯一名称。如果您不指定群集名称，则将其设置为`opensearch` 默认情况下。设置描述性群集名称很重要，尤其是如果要在单个网络中运行多个群集时。
 
-To specify the cluster name, change the following line:
+要指定群集名称，请更改以下行：
 
 ```yml
 #cluster.name: my-application
 ```
 
-to
+到
 
 ```yml
 cluster.name: opensearch-cluster
 ```
 
-Make the same change on all the nodes to make sure that they'll join to form a cluster.
+对所有节点进行相同的更改，以确保它们将加入以形成集群。
 
-## Step 2: Set node attributes for each node in a cluster
+## 步骤2：在集群中设置每个节点的节点属性
 
-After you name the cluster, set node attributes for each node in your cluster.
+命名群集后，为群集中的每个节点设置节点属性。
 
-#### Cluster manager node
+#### 集群管理器节点
 
-Give your cluster manager node a name. If you don't specify a name, OpenSearch assigns a machine-generated name that makes the node difficult to monitor and troubleshoot.
+给您的群集管理器节点一个名称。如果您没有指定名称，则OpenSearch分配机器-生成的名称，使节点难以监视和故障排除。
 
 ```yml
 node.name: opensearch-cluster_manager
 ```
 
-You can also explicitly specify that this node is a cluster manager node, even though it is already set to true by default. Set the node role to `cluster_manager` to make it easier to identify the cluster manager node.
+您还可以明确指定此节点是群集管理器节点，即使默认情况下它已经设置为true。将节点角色设置为`cluster_manager` 为了使识别群集管理节点更容易。
 
 ```yml
 node.roles: [ cluster_manager ]
 ```
 
-#### Data nodes
+#### 数据节点
 
-Change the name of two nodes to `opensearch-d1` and `opensearch-d2`, respectively:
+将两个节点的名称更改为`opensearch-d1` 和`opensearch-d2`， 分别：
 
 ```yml
 node.name: opensearch-d1
@@ -97,76 +97,76 @@ node.name: opensearch-d1
 node.name: opensearch-d2
 ```
 
-You can make them cluster-manager-eligible data nodes that will also be used for ingesting data:
+你可以让他们群-经理-合格的数据节点也将用于摄入数据：
 
 ```yml
 node.roles: [ data, ingest ]
 ```
 
-You can also specify any other attributes that you'd like to set for the data nodes.
+您还可以指定要为数据节点设置的任何其他属性。
 
-#### Coordinating node
+#### 协调节点
 
-Change the name of the coordinating node to `opensearch-c1`:
+将协调节点的名称更改为`opensearch-c1`：
 
 ```yml
 node.name: opensearch-c1
 ```
 
-Every node is a coordinating node by default, so to make this node a dedicated coordinating node, set `node.roles` to an empty list:
+每个节点默认为一个协调节点，因此要使该节点成为专用的协调节点，`node.roles` 到空列表：
 
 ```yml
 node.roles: []
 ```
 
-## Step 3: Bind a cluster to specific IP addresses
+## 步骤3：将群集绑定到特定的IP地址
 
-`network.bind_host` defines the IP address used to bind the node. By default, OpenSearch listens on a local host, which limits the cluster to a single node. You can also use `_local_` and `_site_` to bind to any loopback or site-local address, whether IPv4 or IPv6:
+`network.bind_host` 定义用于绑定节点的IP地址。默认情况下，OpenSearch在本地主机上听，该主机将群集限制为单个节点。您也可以使用`_local_` 和`_site_` 绑定到任何回环或网站-本地地址，无论是IPv4还是IPv6：
 
 ```yml
 network.bind_host: [_local_, _site_]
 ```
 
-To form a multi-node cluster, specify the IP address of the node:
+形成多个-节点群集，指定节点的IP地址：
 
 ```yml
 network.bind_host: <IP address of the node>
 ```
 
-Make sure to configure these settings on all of your nodes.
+确保在所有节点上配置这些设置。
 
-## Step 4: Configure discovery hosts for a cluster
+## 步骤4：为集群配置发现主机
 
-Now that you've configured the network hosts, you need to configure the discovery hosts.
+现在，您已经配置了网络主机，您需要配置Discovery Hosts。
 
-Zen Discovery is the built-in, default mechanism that uses [unicast](https://en.wikipedia.org/wiki/Unicast) to find other nodes in the cluster.
+禅宗发现是建造的-在，使用的默认机制[单播](https://en.wikipedia.org/wiki/Unicast) 在集群中找到其他节点。
 
-You can generally just add all of your cluster-manager-eligible nodes to the `discovery.seed_hosts` array. When a node starts up, it finds the other cluster-manager-eligible nodes, determines which one is the cluster manager, and asks to join the cluster.
+您通常可以添加所有群集-经理-合格的节点`discovery.seed_hosts` 大批。当节点启动时，它会找到另一个群集-经理-合格的节点，确定哪个是群集管理器，并要求加入集群。
 
-For example, for `opensearch-cluster_manager` the line looks something like this:
+例如，对于`opensearch-cluster_manager` 这条线看起来像这样：
 
 ```yml
 discovery.seed_hosts: ["<private IP of opensearch-d1>", "<private IP of opensearch-d2>", "<private IP of opensearch-c1>"]
 ```
 
-## Step 5: Start the cluster
+## 步骤5：开始群集
 
-After you set the configurations, start OpenSearch on all nodes:
+设置配置后，请在所有节点上启动OpenSearch：
 
 ```bash
 sudo systemctl start opensearch.service
 ```
 
-Installing OpenSearch from a tar archive will not automatically create a service with `systemd`. See [Run OpenSearch as a service with systemd]({{site.url}}{{site.baseurl}}/opensearch/install/tar/#run-opensearch-as-a-service-with-systemd) for instructions on how to create and start the service if you receive an error like `Failed to start opensearch.service: Unit not found.`
-{: .tip}
+从tar存档安装openSearch不会自动创建一个使用`systemd`。看[运行OpenSearch作为SystemD的服务]({{site.url}}{{site.baseurl}}/opensearch/install/tar/#run-opensearch-as-a-service-with-systemd) 有关如何创建和启动服务的说明，如果您收到错误`Failed to start opensearch.service: Unit not found.`
+{： 。提示}
 
-Then go to the logs file to see the formation of the cluster:
+然后转到日志文件以查看集群的形成：
 
 ```bash
 less /var/log/opensearch/opensearch-cluster.log
 ```
 
-Perform the following `_cat` query on any node to see all the nodes formed as a cluster:
+执行以下操作`_cat` 查询任何节点以查看所有节点形成的群集：
 
 ```bash
 curl -XGET https://<private-ip>:9200/_cat/nodes?v -u 'admin:admin' --insecure
@@ -180,17 +180,17 @@ x.x.x.x           34          38   0    0.12    0.07     0.06 md        -      o
 x.x.x.x           23          38   0    0.12    0.07     0.06 md        -      opensearch-c1
 ```
 
-To better understand and monitor your cluster, use the [CAT API]({{site.url}}{{site.baseurl}}/opensearch/catapis/).
+为了更好地理解和监视您的群集，请使用[猫API]({{site.url}}{{site.baseurl}}/opensearch/catapis/)。
 
-## (Advanced) Step 6: Configure shard allocation awareness or forced awareness
+## （高级）步骤6：配置碎片分配意识或强迫意识
 
-### Shard allocation awareness
+### 碎片分配意识
 
-If your nodes are spread across several geographical zones, you can configure shard allocation awareness to allocate all replica shards to a zone that’s different from their primary shard.
+如果您的节点分布在几个地理区域中，则可以配置碎片分配意识，以将所有副本碎片分配给与主要碎片不同的区域。
 
-With shard allocation awareness, if the nodes in one of your zones fail, you can be assured that your replica shards are spread across your other zones. It adds a layer of fault tolerance to ensure your data survives a zone failure beyond just individual node failures.
+有了碎片分配的意识，如果您的一个区域中的节点失败，则可以放心，您的副本碎片散布在其他区域中。它添加了一层容错，以确保您的数据不仅仅是单个节点故障，还可以在区域故障中幸存下来。
 
-To configure shard allocation awareness, add zone attributes to `opensearch-d1` and `opensearch-d2`, respectively:
+要配置碎片分配意识，请将区域属性添加到`opensearch-d1` 和`opensearch-d2`， 分别：
 
 ```yml
 node.attr.zone: zoneA
@@ -200,7 +200,7 @@ node.attr.zone: zoneA
 node.attr.zone: zoneB
 ```
 
-Update the cluster settings:
+更新集群设置：
 
 ```json
 PUT _cluster/settings
@@ -211,15 +211,15 @@ PUT _cluster/settings
 }
 ```
 
-You can either use `persistent` or `transient` settings. We recommend the `persistent` setting because it persists through a cluster reboot. Transient settings don't persist through a cluster reboot.
+您可以使用`persistent` 或者`transient` 设置。我们建议`persistent` 设置是因为它通过群集重新启动持续存在。瞬态设置不会通过群集重新启动持续存在。
 
-Shard allocation awareness attempts to separate primary and replica shards across multiple zones. However, if only one zone is available (such as after a zone failure), OpenSearch allocates replica shards to the only remaining zone.
+碎片分配意识试图将多个区域的主要和复制碎片分开。但是，如果仅一个区域可用（例如区域故障后），则将搜索分配给唯一剩余区域。
 
-### Forced awareness
+### 强迫意识
 
-Another option is to require that primary and replica shards are never allocated to the same zone. This is called forced awareness.
+另一个选择是要求将主和复制碎片从不分配给同一区域。这称为强制意识。
 
-To configure forced awareness, specify all the possible values for your zone attributes:
+要配置强制意识，请为您的区域属性指定所有可能的值：
 
 ```json
 PUT _cluster/settings
@@ -231,16 +231,16 @@ PUT _cluster/settings
 }
 ```
 
-Now, if a data node fails, forced awareness doesn't allocate the replicas to a node in the same zone. Instead, the cluster enters a yellow state and only allocates the replicas when nodes in another zone come online.
+现在，如果数据节点失败，则强制意识不会将副本分配给同一区域中的节点。取而代之的是，群集进入黄色状态，仅当其他区域中的节点在线时才能分配复制品。
 
-In our two-zone architecture, we can use allocation awareness if `opensearch-d1` and `opensearch-d2` are less than 50% utilized, so that each of them have the storage capacity to allocate replicas in the same zone.
-If that is not the case, and `opensearch-d1` and `opensearch-d2` do not have the capacity to contain all primary and replica shards, we can use forced awareness. This approach helps to make sure that, in the event of a failure, OpenSearch doesn't overload your last remaining zone and lock up your cluster due to lack of storage.
+在我们的两个-区域架构，如果我们可以使用分配意识`opensearch-d1` 和`opensearch-d2` 使用少于50％，因此每个人都有在同一区域分配复制品的存储能力。
+如果不是这样，`opensearch-d1` 和`opensearch-d2` 没有能力包含所有主要和副本碎片，我们可以使用强迫意识。这种方法有助于确保，如果发生故障，OpenSearch不会因缺乏存储而锁定剩余区域并锁定群集。
 
-Choosing allocation awareness or forced awareness depends on how much space you might need in each zone to balance your primary and replica shards.
+选择分配意识或强迫意识取决于您在每个区域中可能需要多少空间来平衡主要和复制碎片。
 
-### Replica count enforcement
+### 副本计数执行
 
-To enforce an even distribution of shards across all zones and avoid hotspots, you can set the `routing.allocation.awareness.balance` attribute to `true`. This setting can be configured in the opensearch.yml file and dynamically updated using the cluster update settings API:
+为了强制在所有区域中均匀分布并避免热点，您可以设置`routing.allocation.awareness.balance` 属性为`true`。可以在openSearch.yml文件中配置此设置，并使用cluster Update设置API进行动态更新：
 
 ```json
 PUT _cluster/settings
@@ -253,22 +253,22 @@ PUT _cluster/settings
 }
 ```
 
-The `routing.allocation.awareness.balance` setting is false by default. When it is set to `true`, the total number of shards for the index must be a multiple of the highest count for any awareness attribute. For example, consider a configuration with two awareness attributes&mdash;zones and rack IDs. Let's say there are two zones and three rack IDs. The highest count of either the number of zones or the number of rack IDs is three. Therefore, the number of shards must be a multiple of three. If it is not, OpenSearch throws a validation exception.
+这`routing.allocation.awareness.balance` 设置默认情况下是错误的。当它设置为`true`，该索引的碎片总数必须是任何意识属性的最高计数的倍数。例如，考虑具有两个意识属性的配置＆mdash; sones and机架ID。假设有两个区域和三个机架ID。区域数量或机架ID数的最高计数为三个。因此，碎片的数量必须是三个的倍数。如果不是这样，OpenSearch会引发验证异常。
 
-`routing.allocation.awareness.balance` takes effect only if `cluster.routing.allocation.awareness.attributes` and `cluster.routing.allocation.awareness.force.zone.values` are set.
-{: .note}
+`routing.allocation.awareness.balance` 只有在`cluster.routing.allocation.awareness.attributes` 和`cluster.routing.allocation.awareness.force.zone.values` 设置。
+{： 。笔记}
 
-`routing.allocation.awareness.balance` applies to all operations that create or update indexes. For example, let's say you're running a cluster with three nodes and three zones in a zone-aware setting. If you try to create an index with one replica or update an index's settings to one replica, the attempt will fail with a validation exception because the number of shards must be a multiple of three. Similarly, if you try to create an index template with one shard and no replicas, the attempt will fail for the same reason. However, in all of those operations, if you set the number of shards to one and the number of replicas to two, the total number of shards is three and the attempt will succeed. 
+`routing.allocation.awareness.balance` 适用于所有创建或更新索引的操作。例如，假设您在一个区域中运行一个带有三个节点和三个区域的群集-意识设置。如果您尝试使用一个副本创建索引或将索引的设置更新为一个副本，则尝试在验证异常的情况下尝试失败，因为碎片数必须是三个中的倍数。同样，如果您尝试使用一个碎片而没有副本创建一个索引模板，则由于相同的原因，尝试将失败。但是，在所有这些操作中，如果将碎片的数量设置为一个，将复制品数设置为两个，则碎片总数为三个，尝试将成功。
 
-## (Advanced) Step 7: Set up a hot-warm architecture
+## （高级）步骤7：设置热-温暖的建筑
 
-You can design a hot-warm architecture where you first index your data to hot nodes---fast and expensive---and after a certain period of time move them to warm nodes---slow and cheap.
+您可以设计热-温暖的体系结构，您首先将数据索引到热节点---快速而昂贵---一段时间后，将它们移至温暖的节点---缓慢而便宜。
 
-If you analyze time-series data that you rarely update and want the older data to go onto cheaper storage, this architecture can be a good fit.
+如果分析时间-您很少更新并希望较旧的数据进入更便宜的存储，此体系结构很合适。
 
-This architecture helps save money on storage costs. Rather than increasing the number of hot nodes and using fast, expensive storage, you can add warm nodes for data that you don't access as frequently.
+这种体系结构有助于节省存储成本的资金。与其增加热节点的数量并使用快速，昂贵的存储空间，还可以为无法频繁访问的数据添加温暖的节点。
 
-To configure a hot-warm storage architecture, add `temp` attributes to `opensearch-d1` and `opensearch-d2`, respectively:
+配置热-温暖的存储架构，添加`temp` 属性为`opensearch-d1` 和`opensearch-d2`， 分别：
 
 ```yml
 node.attr.temp: hot
@@ -278,9 +278,9 @@ node.attr.temp: hot
 node.attr.temp: warm
 ```
 
-You can set the attribute name and value to whatever you want as long as it’s consistent for all your hot and warm nodes.
+您可以将属性名称和价值设置为所需的任何内容，只要它对于所有热和温暖的节点都是一致的。
 
-To add an index `newindex` to the hot node:
+添加索引`newindex` 到热节点：
 
 ```json
 PUT newindex
@@ -291,7 +291,7 @@ PUT newindex
 }
 ```
 
-Take a look at the following shard allocation for `newindex`:
+查看以下碎片分配`newindex`：
 
 ```json
 GET _cat/shards/newindex?v
@@ -308,9 +308,9 @@ new_index 0     p      STARTED       0  230b 10.0.0.225 opensearch-d1
 new_index 0     r      UNASSIGNED
 ```
 
-In this example, all primary shards are allocated to `opensearch-d1`, which is our hot node. All replica shards are unassigned, because we're forcing this index to allocate only to hot nodes.
+在此示例中，所有主要碎片均分配给`opensearch-d1`，这是我们的热节点。所有复制片都没有分配，因为我们强迫此索引仅分配给热节点。
 
-To add an index `oldindex` to the warm node:
+添加索引`oldindex` 到温暖的节点：
 
 ```json
 PUT oldindex
@@ -321,7 +321,7 @@ PUT oldindex
 }
 ```
 
-The shard allocation for `oldindex`:
+碎片分配`oldindex`：
 
 ```json
 GET _cat/shards/oldindex?v
@@ -338,12 +338,13 @@ old_index 0     p      STARTED       0  230b 10.0.0.74 opensearch-d2
 old_index 0     r      UNASSIGNED
 ```
 
-In this case, all primary shards are allocated to `opensearch-d2`. Again, all replica shards are unassigned because we only have one warm node.
+在这种情况下，所有主要碎片都分配给`opensearch-d2`。同样，所有复制片都没有分配，因为我们只有一个温暖的节点。
 
-A popular approach is to configure your [index templates]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) to set the `index.routing.allocation.require.temp` value to `hot`. This way, OpenSearch stores your most recent data on your hot nodes.
+一种流行的方法是配置您的[索引模板]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) 设置`index.routing.allocation.require.temp` 价值`hot`。这样，OpenSearch将您的最新数据存储在热点上。
 
-You can then use the [Index State Management (ISM)]({{site.url}}{{site.baseurl}}/im-plugin/) plugin to periodically check the age of an index and specify actions to take on it. For example, when the index reaches a specific age, change the `index.routing.allocation.require.temp` setting to `warm` to automatically move your data from hot nodes to warm nodes.
+然后您可以使用[索引状态管理（ISM）]({{site.url}}{{site.baseurl}}/im-plugin/) 插件定期检查索引的年龄并指定操作以采取该索引。例如，当索引达到特定年龄时，请更改`index.routing.allocation.require.temp` 设置为`warm` 要自动将数据从热节点移动到温暖的节点。
 
-## Next steps
+## 下一步
 
-If you are using the Security plugin, the previous request to `_cat/nodes?v` might have failed with an initialization error. For full guidance around using the Security plugin, see [Security configuration]({{site.url}}{{site.baseurl}}/security/configuration/index/).
+如果您使用的是安全插件，则先前的请求`_cat/nodes?v` 可能因初始化错误而失败。有关使用安全插件的完整指导，请参见[安全配置]({{site.url}}{{site.baseurl}}/security/configuration/index/)。
+

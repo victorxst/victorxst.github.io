@@ -5,6 +5,7 @@ nav_order: 180
 has_children: false
 ---
 
-# Terraform provider
+# Terraform提供商
 
-You can use the Terraform OpenSearch provider to provision OpenSearch resources and interact with the OpenSearch API. The Terraform provider supports Amazon OpenSearch Service domains and OpenSearch clusters deployed on Kubernetes or another infrastructure. For more information, see the [Terraform provider documentation](https://registry.terraform.io/providers/opensearch-project/opensearch/latest/docs).
+您可以使用TerraForm OpenSearch提供商提供OpenSearch资源并与OpenSearch API进行交互。Terraform提供商支持部署在Kubernetes或其他基础结构上的Amazon OpenSearch服务域和OpenSearch群集。有关更多信息，请参阅[Terraform提供商文档](https://registry.terraform.io/providers/opensearch-project/opensearch/latest/docs)
+

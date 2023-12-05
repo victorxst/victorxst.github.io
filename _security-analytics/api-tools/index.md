@@ -1,6 +1,6 @@
 ---
 layout: default
-title: API tools
+title: API工具
 nav_order: 30
 has_children: true
 has_toc: false
@@ -8,16 +8,17 @@ redirect_from:
   - /security-analytics/api-tools/
 ---
 
-# API tools
+# API工具
 
-Security Analytics includes a number of APIs to help administrators maintain and update an implementation. The APIs often mimic the same controls available for setting up Security Analytics in OpenSearch Dashboards, and they provide another option for administering the plugin.
+安全分析包括许多API，以帮助管理员维护和更新实施。API通常模仿可用于在OpenSearch仪表板中设置安全分析的相同控件，并且它们提供了管理插件的另一种选择。
 
-The APIs for Security Analytics are separated into the following categories:
+安全分析的API分为以下类别：
 
-* [Detector APIs]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/detector-api/)
-* [Rules APIs]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/rule-api/)
-* [Mappings APIs]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/mappings-api/)
-* [Alerts and findings APIs]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/alert-finding-api/)
-* [Correlation engine APIs]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/correlation-eng/)
-* [Log type APIs]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/log-type-api/)
+*[检测器API]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/detector-api/)
+*[规则API]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/rule-api/)
+*[映射API]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/mappings-api/)
+*[警报和发现API]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/alert-finding-api/)
+*[相关引擎API]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/correlation-eng/)
+*[日志类型API]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/log-type-api/)
+
 

@@ -1,52 +1,53 @@
 ---
 layout: default
-title: Settings
-parent: Shard indexing backpressure
+title: 设置
+parent: 碎片索引背压
 nav_order: 50
-grand_parent: Availability and recovery
+grand_parent: 可用性和恢复
 redirect_from: 
   - /opensearch/shard-indexing-settings/
 ---
 
-# Settings
+# 设置
 
-Shard indexing backpressure adds several settings to the standard OpenSearch cluster settings. They are dynamic, so you can change the default behavior of this feature without restarting your cluster.
+碎片索引背压将标准OpenSearch集群设置添加了几个设置。它们是动态的，因此您可以在不重新启动群集的情况下更改此功能的默认行为。
 
-## High-level controls
+## 高的-级别控件
 
-The high-level controls allow you to turn the shard indexing backpressure feature on or off.
+高-级别控件允许您打开或关闭碎片索引索引索引功能。
 
-Setting | Default | Description
-:--- | :--- | :---
-`shard_indexing_pressure.enabled` | False | Change to `true` to enable shard indexing backpressure.
-`shard_indexing_pressure.enforced` | False | Run shard indexing backpressure in shadow mode or enforced mode. In shadow mode (value set as `false`), shard indexing backpressure tracks all granular-level metrics, but it doesn't actually reject any indexing requests. In enforced mode (value set as `true`), shard indexing backpressure rejects any requests to the cluster that might cause a dip in its performance.
+环境| 默认| 描述
+：--- | ：--- | ：---
+`shard_indexing_pressure.enabled` | 错误的| 改成`true` 启用碎片索引背压。
+`shard_indexing_pressure.enforced` | 错误的| 在阴影模式或强制模式下运行碎片索引背压。在影子模式中（值集为`false`），碎片索引背压轨迹所有颗粒状-水平指标，但实际上并未拒绝任何索引请求。在强制模式下（值集为`true`），碎片索引背压拒绝对群集的任何请求，这可能会导致其性能下降。
 
-## Node-level limits
+## 节点-级别限制
 
-Node-level limits allow you to control memory usage on a node.
+节点-级别限制允许您控制节点上的内存使用率。
 
-Setting | Default | Description
-:--- | :--- | :---
-`shard_indexing_pressure.primary_parameter.node.soft_limit` | 70% | Define the percentage of the node-level memory threshold that acts as a soft indicator for strain on a node.
+环境| 默认| 描述
+：--- | ：--- | ：---
+`shard_indexing_pressure.primary_parameter.node.soft_limit` | 70％| 定义节点的百分比-水平的存储阈值充当节点上应变的软指标。
 
-## Shard-level limits
+## 碎片-级别限制
 
-Shard-level limits allow you to control memory usage on a shard.
+碎片-级别限制使您可以控制碎片上的内存使用量。
 
-Setting | Default | Description
-:--- | :--- | :---
-`shard_indexing_pressure.primary_parameter.shard.min_limit` | 0.001d | Specify the minimum assigned quota for a new shard in any role (coordinator, primary, or replica). Shard indexing backpressure increases or decreases this allocated quota based on the inflow of traffic for the shard.
-`shard_indexing_pressure.operating_factor.lower` | 75% | Specify the lower occupancy limit of the allocated quota of memory for the shard. If the total memory usage of a shard is below this limit, shard indexing backpressure decreases the current allocated memory for that shard.
-`shard_indexing_pressure.operating_factor.optimal` | 85% | Specify the optimal occupancy of the allocated quota of memory for the shard. If the total memory usage of a shard is at this level, shard indexing backpressure doesn't change the current allocated memory for that shard.
-`shard_indexing_pressure.operating_factor.upper` | 95% | Specify the upper occupancy limit of the allocated quota of memory for the shard. If the total memory usage of a shard is above this limit, shard indexing backpressure increases the current allocated memory for that shard.
+环境| 默认| 描述
+：--- | ：--- | ：---
+`shard_indexing_pressure.primary_parameter.shard.min_limit` | 0.001d| 在任何角色（协调员，主或复制品）中指定新碎片的最小配额。碎片索引背压会根据碎片流量的流入而增加或减少该分配的配额。
+`shard_indexing_pressure.operating_factor.lower` | 75％| 指定碎片的内存分配配额的较低占用限制。如果碎片的总内存使用量低于此限制，则碎片索引背压会降低该碎片的当前分配内存。
+`shard_indexing_pressure.operating_factor.optimal` | 85％| 指定碎片的内存分配配额的最佳占用。如果碎片的总内存使用量在此级别，则碎片索引背压不会改变该碎片的当前分配内存。
+`shard_indexing_pressure.operating_factor.upper` | 95％| 指定碎片的内存分配配额的上限限制。如果碎片的总内存使用率高于此极限，则碎片索引背压会增加该碎片的当前分配内存。
 
-## Performance degradation factors
+## 性能降解因素
 
-The performance degradation factors allow you to control the dynamic performance thresholds for a shard.
+性能降解因子使您可以控制碎片的动态性能阈值。
 
-Setting | Default | Description
-:--- | :--- | :---
-`shard_indexing_pressure.secondary_parameter.throughput.request_size_window` | 2,000 | The number of requests in the sampling window size on a shard. Shard indexing backpressure compares the overall performance of requests with the requests in the sample window to detect any performance degradation.
-`shard_indexing_pressure.secondary_parameter.throughput.degradation_factor` | 5x | The degradation factor per unit byte for a request. This parameter determines the threshold for any latency spikes. The default value is 5x, which implies that if the latency shoots up 5 times in the historic view, shard indexing backpressure marks it as a performance degradation.
-`shard_indexing_pressure.secondary_parameter.successful_request.elapsed_timeout` | 300000 ms | The amount of time a request is pending in a cluster. This parameter helps identify any stuck-request scenarios.
-`shard_indexing_pressure.secondary_parameter.successful_request.max_outstanding_requests` | 100 | The maximum number of pending requests in a cluster.
+环境| 默认| 描述
+：--- | ：--- | ：---
+`shard_indexing_pressure.secondary_parameter.throughput.request_size_window` | 2,000| 碎片上的采样窗口大小中的请求数。碎片索引背压将请求的整体性能与示例窗口中的请求进行比较，以检测任何性能降解。
+`shard_indexing_pressure.secondary_parameter.throughput.degradation_factor` | 5倍| 请求的每单位字节降解因子。此参数确定任何延迟峰值的阈值。默认值为5倍，这意味着，如果延迟在历史悠久的视图中射出了5次，则shard索引背压将其标记为性能退化。
+`shard_indexing_pressure.secondary_parameter.successful_request.elapsed_timeout` | 300000毫秒| 请求在集群中待定的时间。此参数有助于识别任何卡住-请求方案。
+`shard_indexing_pressure.secondary_parameter.successful_request.max_outstanding_requests` | 100| 集群中最大的待处理请求数。
+

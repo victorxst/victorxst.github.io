@@ -1,60 +1,61 @@
 ---
 layout: default
-title: Security Analytics settings
+title: 安全分析设置
 nav_order: 100
 has_children: false
 ---
 
-# Security Analytics settings
+# 安全分析设置
 
-The Security Analytics plugin supports the following settings. All settings in this list are dynamic:
+安全分析插件支持以下设置。此列表中的所有设置都是动态的：
 
-`plugins.security_analytics.index_timeout` (Time value): The timeout for creating detectors, findings, rules, and custom log types using the REST APIs. Default is 60 seconds.
+`plugins.security_analytics.index_timeout` （时间值）：使用REST API创建检测器，发现，规则和自定义日志类型的超时。默认值为60秒。
 
-`plugins.security_analytics.alert_history_enabled` (Boolean): Specifies whether to create `.opensearch-sap-<detector_type>-alerts-history-<date>` indexes. Default is `true`.
+`plugins.security_analytics.alert_history_enabled` （布尔）：指定是否创建`.opensearch-sap-<detector_type>-alerts-history-<date>` 索引。默认为`true`。
 
-`plugins.security_analytics.alert_finding_enabled` (Boolean): Specifies whether to create `.opensearch-sap-<detector_type>-findings-<date>` indexes. Default is `true`.
+`plugins.security_analytics.alert_finding_enabled` （布尔）：指定是否创建`.opensearch-sap-<detector_type>-findings-<date>` 索引。默认为`true`。
 
-`plugins.security_analytics.alert_history_rollover_period` (Time value): Specifies how frequently to roll over and delete alert history indexes. Default is 12 hours.
+`plugins.security_analytics.alert_history_rollover_period` （时间值）：指定频率翻转的频率和删除警报历史记录索引。默认值为12小时。
 
-`plugins.security_analytics.alert_finding_rollover_period` (Time value): Specifies how frequently to roll over and delete finding history indexes. Default is 12 hours.
+`plugins.security_analytics.alert_finding_rollover_period` （时间值）：指定频率翻转的频率和删除查找历史记录索引。默认值为12小时。
 
-`plugins.security_analytics.correlation_history_rollover_period` (Time value): Specifies how frequently to roll over and delete correlation history indexes. Default is 12 hours.
+`plugins.security_analytics.correlation_history_rollover_period` （时间值）：指定滚动和删除相关历史记录索引的频率。默认值为12小时。
 
-`plugins.security_analytics.alert_history_max_age` (Time value): The oldest document to store in the alert history index before creating a new index. If the number of alerts in this time period does not exceed `alert_history_max_docs`, a new alert history index is created per period (for example, one index every 30 days). Default is 30 days.
+`plugins.security_analytics.alert_history_max_age` （时间值）：在创建新索引之前，最旧的文档存储在警报记录索引中。如果此时间段的警报数量不超过`alert_history_max_docs`，每个周期都会创建一个新的警报历史记录索引（例如，每30天一个索引）。默认值为30天。
 
-`plugins.security_analytics.finding_history_max_age` (Time value): The oldest document to store in the finding history index before creating a new index. If the number of findings in this time period does not exceed `finding_history_max_docs`, a new finding history index is created per period (for example, one index every 30 days). Default is 30 days.
+`plugins.security_analytics.finding_history_max_age` （时间值）：在创建新索引之前，最旧的文档存储在查找历史索引中。如果此期间的发现数不超过`finding_history_max_docs`，每个时期创建一个新的发现历史指数（例如，每30天一个索引）。默认值为30天。
 
-`plugins.security_analytics.correlation_history_max_age` (Time value): The oldest document to store in the correlation history index before creating a new index. If the number of correlations in this time period does not exceed `correlation_history_max_docs`, a new correlation history index is created per period (for example, one index every 30 days). Default is 30 days.
+`plugins.security_analytics.correlation_history_max_age` （时间值）：在创建新索引之前，最旧的文档存储在相关历史记录索引中。如果此时间段内的相关数量不超过`correlation_history_max_docs`，每个周期都会创建一个新的相关历史记录索引（例如，每30天一个索引）。默认值为30天。
 
-`plugins.security_analytics.alert_history_max_docs` (Integer): The maximum number of alerts to store in the alert history index before creating a new index. Default is 1,000.
+`plugins.security_analytics.alert_history_max_docs` （整数）：在创建新索引之前，在警报记录索引中存储的最大警报数量。默认值为1,000。
 
-`plugins.security_analytics.alert_finding_max_docs` (Integer): The maximum number of findings to store in the findings history index before creating a new index. Default is 1,000.
+`plugins.security_analytics.alert_finding_max_docs` （整数）：在创建新索引之前，要存储在发现历史记录索引中的最大发现数。默认值为1,000。
 
-`plugins.security_analytics.correlation_history_max_docs` (Integer): The maximum number of correlations to store in the correlation history index before creating a new index. Default is 1,000.
+`plugins.security_analytics.correlation_history_max_docs` （整数）：创建新索引之前，要存储在相关历史记录索引中的最大相关数。默认值为1,000。
 
-`plugins.security_analytics.alert_history_retention_period` (Time value): The amount of time to keep alert history indexes before automatically deleting them. Default is 60 days.
+`plugins.security_analytics.alert_history_retention_period` （时间值）：在自动删除警报记录索引之前保留警报索引的时间。默认值为60天。
 
-`plugins.security_analytics.finding_history_retention_period` (Time value): The amount of time to keep finding history indexes before automatically deleting them. Default is 60 days.
+`plugins.security_analytics.finding_history_retention_period` （时间值）：在自动删除历史记录索引之前，请继续查找历史记录索引的时间。默认值为60天。
 
-`plugins.security_analytics.correlation_history_retention_period` (Time value): The amount of time to keep correlation history indexes before automatically deleting them. Default is 60 days.
+`plugins.security_analytics.correlation_history_retention_period` （时间值）：自动删除相关历史记录索引的时间量。默认值为60天。
 
-`plugins.security_analytics.request_timeout` (Time value): The timeout for all requests the Security Analytics plugin sends to other parts of OpenSearch. Default is 10 seconds.
+`plugins.security_analytics.request_timeout` （时间值）：安全分析插件的所有请求超时发送到OpenSearch的其他部分。默认值为10秒。
 
-`plugins.security_analytics.action_throttle_max_value` (Time value): The maximum amount of time you can set for action throttling. Default is 24 hours. (This value displays as 1440 minutes in OpenSearch Dashboards.)
+`plugins.security_analytics.action_throttle_max_value` （时间值）：您可以设置为操作节流的最大时间。默认值为24小时。（此值在OpenSearch仪表板中显示为1440分钟。）
 
-`plugins.security_analytics.filter_by_backend_roles` (Boolean): When set to `true`, restricts access to detectors, alerts, findings, and custom log types by backend role when enabled. Default is `false`.
+`plugins.security_analytics.filter_by_backend_roles` （布尔）：设置为`true`，限制启用时访问探测器，警报，调查结果和自定义日志类型的访问。默认为`false`。
 
-`plugins.security_analytics.enable_workflow_usage` (Boolean): Supports the Alerting plugin workflow integration with Security Analytics. Determines whether composite monitor workflows are generated for the Alerting plugin after creating a new threat detector in Security Analytics. When set to `true`, composite monitor workflows based on an associated threat detector's configuration are enabled. When set to `false`, composite monitor workflows based on an associated threat detector's configuration are disabled. Default is `true`. For more information about Alerting plugin workflow integration with Security Analytics, see [Integrated Alerting plugin workflows]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#integrated-alerting-plugin-workflows). 
+`plugins.security_analytics.enable_workflow_usage` （布尔值）：支持与安全分析的警报插件工作流程集成。在创建安全分析中的新威胁检测器后，确定是否为警报插件生成复合监视器工作流。设置为`true`，启用了基于相关威胁检测器的配置的复合监视器工作流程。设置为`false`，基于相关威胁检测器的配置的复合监视器工作流程被禁用。默认为`true`。有关警报插件工作流与安全分析的更多信息，请参见[集成警报插件工作流程]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#integrated-alerting-plugin-workflows)。
 
-`plugins.security_analytics.correlation_time_window` (Time value): Security Analytics generates correlations within a time window. This setting specifies the time window within which documents must be indexed into the index in order to be included in the same correlation. Default is 5 minutes.
+`plugins.security_analytics.correlation_time_window` （时间值）：安全分析在时间窗口内生成相关性。此设置指定必须将文档索引到索引中的时间窗口，以便包含在同一相关中。默认值为5分钟。
 
-`plugins.security_analytics.mappings.default_schema` (String): The default mapping schema used for configuring a field mapping for a security analytics detector. Default is `ecs`.
+`plugins.security_analytics.mappings.default_schema` （字符串）：用于配置安全分析检测器的字段映射的默认映射架构。默认为`ecs`。
 
-`plugins.security_analytics.threatintel.tifjob.update_interval` (Time value): The threat intelligence feature uses a job runner to periodically fetch new feeds. This setting is the rate at which the runner fetches and updates these new feeds. Default is 1440 minutes.
+`plugins.security_analytics.threatintel.tifjob.update_interval` （时间值）：威胁智能功能使用作业跑步者定期获取新提要。此设置是跑步者获取并更新这些新提要的速度。默认值为1440分钟。
 
-`plugins.security_analytics.threatintel.tifjob.batch_size` (Integer): The maximum number of documents to ingest in a bulk request during the threat intelligence feed data creation process. Default is 10,000.
+`plugins.security_analytics.threatintel.tifjob.batch_size` （整数）：在威胁智能供给数据创建过程中，在批量请求中摄入的最大文档数量。默认值为10,000。
 
-`plugins.security_analytics.threat_intel_timeout` (Time value): The timeout value for creating and deleting threat intelligence feed data. Default is 30 seconds.
+`plugins.security_analytics.threat_intel_timeout` （时间值）：创建和删除威胁智能供稿数据的超时值。默认值为30秒。
 
-To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+要了解有关静态和动态设置的更多信息，请参阅[配置OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/)
+

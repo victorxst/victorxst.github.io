@@ -1,33 +1,33 @@
 ---
 layout: default
-title: Stats API
-parent: Shard indexing backpressure
+title: 统计API
+parent: 碎片索引背压
 nav_order: 2
-grand_parent: Availability and recovery
+grand_parent: 可用性和恢复
 has_children: false
 redirect_from: 
   - /opensearch/stats-api/
 ---
 
-# Stats API
+# 统计API
 
-Use the stats operation to monitor shard indexing backpressure.
+使用统计操作监视shard索引背压。
 
-## Stats
-Introduced 1.2
-{: .label .label-purple }
+## 统计
+引入了1.2
+{：.label .label-紫色的 }
 
-Returns node-level and shard-level stats for indexing request rejections.
+返回节点-水平和碎片-索引请求拒绝的级别统计数据。
 
-#### Request
+#### 要求
 
 ```json
 GET _nodes/_local/stats/shard_indexing_pressure
 ```
 
-If `enforced` is `true`:
+如果`enforced` 是`true`：
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -132,9 +132,9 @@ If `enforced` is `true`:
 }
 ```
 
-If `enforced` is `false`:
+如果`enforced` 是`false`：
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -239,15 +239,15 @@ If `enforced` is `false`:
 }
 ```
 
-To include all the shards with both active and previous write operations performed on them, specify the `include_all` parameter:
+要包括所有在其上执行的活动和先前的写操作的碎片，请指定`include_all` 范围：
 
-#### Request
+#### 要求
 
 ```json
 GET _nodes/_local/stats/shard_indexing_pressure?include_all
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -352,17 +352,17 @@ GET _nodes/_local/stats/shard_indexing_pressure?include_all
 }
 ```
 
-To get only all the top-level aggregated stats, specify the `top` parameter (skips the per-shard stats).
+仅获得所有顶部-级别汇总属性，指定`top` 参数（跳过Per-碎片统计数据）。
 
-#### Request
+#### 要求
 
 ```json
 GET _nodes/_local/stats/shard_indexing_pressure?top
 ```
 
-If `enforced` is `true`:
+如果`enforced` 是`true`：
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -403,9 +403,9 @@ If `enforced` is `true`:
 }
 ```
 
-If `enforced` is `false`:
+如果`enforced` 是`false`：
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -446,15 +446,15 @@ If `enforced` is `false`:
 }
 ```
 
-To get the shard-level breakup of rejections for every node (only includes shards with active write operations):
+得到碎片-每个节点的拒绝级别分解（仅包括具有主动写操作的碎片）：
 
-#### Request
+#### 要求
 
 ```json
 GET _nodes/stats/shard_indexing_pressure
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -494,3 +494,4 @@ GET _nodes/stats/shard_indexing_pressure
   }
 }
 ```
+

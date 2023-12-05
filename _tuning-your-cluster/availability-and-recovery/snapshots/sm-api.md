@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Snapshot management API
-parent: Snapshots
+title: 快照管理API
+parent: 快照
 nav_order: 30
 has_children: false
-grand_parent: Availability and recovery
+grand_parent: 可用性和恢复
 redirect_from: 
   - /opensearch/snapshots/sm-api/
 ---
 
-# Snapshot Management API
+# 快照管理API
 
-Use the snapshot management (SM) API to automate [taking snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#take-snapshots). 
+使用快照管理（SM）API自动化[拍摄快照]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#take-snapshots)。
 
 ---
 
@@ -22,29 +22,29 @@ Use the snapshot management (SM) API to automate [taking snapshots]({{site.url}}
 
 ---
 
-## Create or update a policy
-Introduced 2.1
-{: .label .label-purple }
+## 创建或更新策略
+引入2.1
+{：.label .label-紫色的 }
 
-Creates or updates an SM policy.
+创建或更新SM策略。
 
-#### Request
+#### 要求
 
-Create:
+创造：
 
 ```json
 POST _plugins/_sm/policies/<policy_name> 
 ```
 
-Update:
+更新：
 
 ```json
 PUT _plugins/_sm/policies/<policy_name>?if_seq_no=0&if_primary_term=1
 ```
 
-You must provide the `seq_no` and `primary_term` parameters for an update request.
+您必须提供`seq_no` 和`primary_term` 更新请求的参数。
 
-### Example
+### 例子
 
 ```json
 POST _plugins/_sm/policies/daily-policy
@@ -99,7 +99,7 @@ POST _plugins/_sm/policies/daily-policy
 }
 ```
 
-### Response
+### 回复
 
 ```json
 {
@@ -171,74 +171,74 @@ POST _plugins/_sm/policies/daily-policy
 }
 ```
 
-### Parameters
+### 参数
 
-You can specify the following parameters to create/update an SM policy.
+您可以指定以下参数来创建/更新SM策略。
 
-Parameter | Type | Description 
-:--- | :--- |:--- |:--- |
-`description` | String | The description of the SM policy. Optional.
-`enabled` | Boolean | Should this SM policy be enabled at creation? Optional.
-`snapshot_config` | Object | The configuration options for snapshot creation. Required.
-`snapshot_config.date_format` | String | Snapshot names have the format `<policy_name>-<date>-<random number>`. `date_format` specifies the format for the date in the snapshot name. Supports all date formats supported by OpenSearch. Optional. Default is "yyyy-MM-dd'T'HH:mm:ss".
-`snapshot_config.date_format_timezone` | String | Snapshot names have the format `<policy_name>-<date>-<random number>`. `date_format_timezone` specifies the time zone for the date in the snapshot name. Optional. Default is UTC.
-`snapshot_config.indices` | String | The names of the indexes in the snapshot. Multiple index names are separated by `,`. Supports wildcards (`*`). Optional. Default is `*` (all indexes).
-`snapshot_config.repository` | String | The repository in which to store snapshots. Required.
-`snapshot_config.ignore_unavailable` | Boolean | Do you want to ignore unavailable indexes? Optional. Default is `false`.
-`snapshot_config.include_global_state` | Boolean | Do you want to include cluster state? Optional. Default is `true` because of [Security plugin considerations]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore#security-considerations).
-`snapshot_config.partial` | Boolean | Do you want to allow partial snapshots? Optional. Default is `false`.
-`snapshot_config.metadata` | Object | Metadata in the form of key/value pairs. Optional.
-`creation` | Object | Configuration for snapshot creation. Required.
-`creation.schedule` | String | The cron schedule used to create snapshots. Required.
-`creation.time_limit` | String | Sets the maximum time to wait for snapshot creation to finish. If time_limit is longer than the scheduled time interval for taking snapshots, no scheduled snapshots are taken until time_limit elapses. For example, if time_limit is set to 35 minutes and snapshots are taken every 30 minutes starting at midnight, the snapshots at 00:00 and 01:00 are taken, but the snapshot at 00:30 is skipped. Optional. 
-`deletion` | Object | Configuration for snapshot deletion. Optional. Default is to retain all snapshots.
-`deletion.schedule` | String | The cron schedule used to delete snapshots. Optional. Default is to use `creation.schedule`, which is required.
-`deletion.time_limit` | String | Sets the maximum time to wait for snapshot deletion to finish. Optional. 
-`deletion.delete_condition` | Object | Conditions for snapshot deletion. Optional. 
-`deletion.delete_condition.max_count` | Integer | The maximum number of snapshots to be retained. Optional.
-`deletion.delete_condition.max_age` | String | The maximum time a snapshot is retained. Optional.
-`deletion.delete_condition.min_count` | Integer | The minimum number of snapshots to be retained. Optional. Default is one.
-`notification` | Object | Defines notifications for SM events. Optional.
-`notification.channel` | Object | Defines a channel for notifications. You must [create and configure a notification channel]({{site.url}}{{site.baseurl}}/notifications-plugin/api) before setting up SM notifications. Required.
-`notification.channel.id` | String | The channel ID of the channel used for notifications. To get the channel IDs of all created channels, use `GET _plugins/_notifications/configs`. Required.
-`notification.conditions` | Object | SM events you want to be notified about. Set the ones you are interested in to `true`.
-`notification.conditions.creation` | Boolean | Do you want notifications about snapshot creation? Optional. Default is `true`.
-`notification.conditions.deletion` | Boolean | Do you want notifications about snapshot deletion? Optional. Default is `false`.
-`notification.conditions.failure` | Boolean | Do you want notifications about creation or deletion failure? Optional. Default is `false`.
-`notification.conditions.time_limit_exceeded` | Boolean | Do you want notifications when snapshot operations take longer than time_limit? Optional. Default is `false`.
+范围| 类型| 描述
+：--- | ：--- |：--- |：--- |
+`description` | 细绳| SM政策的描述。选修的。
+`enabled` | 布尔| 应该在创建时启用此SM策略吗？选修的。
+`snapshot_config` | 目的| 快照创建的配置选项。必需的。
+`snapshot_config.date_format` | 细绳| 快照名称具有格式`<policy_name>-<date>-<random number>`。`date_format` 指定快照名称中日期的格式。支持OpenSearch支持的所有日期格式。选修的。默认为"yyyy-MM-dd'T'HH:mm:ss"。
+`snapshot_config.date_format_timezone` | 细绳| 快照名称具有格式`<policy_name>-<date>-<random number>`。`date_format_timezone` 指定快照名称中日期的时区。选修的。默认值为UTC。
+`snapshot_config.indices` | 细绳| 快照中的索引名称。多个索引名称由`,`。支持通配符（`*`）。选修的。默认为`*` （所有索引）。
+`snapshot_config.repository` | 细绳| 存储快照的存储库。必需的。
+`snapshot_config.ignore_unavailable` | 布尔| 您想忽略不可用的索引吗？选修的。默认为`false`。
+`snapshot_config.include_global_state` | 布尔| 您要包括群集状态吗？选修的。默认为`true` 因为[安全插件注意事项]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore#security-considerations)。
+`snapshot_config.partial` | 布尔| 您想允许部分快照吗？选修的。默认为`false`。
+`snapshot_config.metadata` | 目的| 元数据以键/值对的形式。选修的。
+`creation` | 目的| 快照创建的配置。必需的。
+`creation.schedule` | 细绳| Cron时间表用于创建快照。必需的。
+`creation.time_limit` | 细绳| 设定最大的时间等待快照创建完成。如果time_limit的长度超过拍摄快照的计划时间间隔，则直到time_limit lelapses都没有计划快照。例如，如果将Time_limit设置为35分钟，并且从午夜开始每30分钟拍摄每30分钟，则拍摄00:00和01:00的快照，但跳过了00:30的快照。选修的。
+`deletion` | 目的| 快照删除的配置。选修的。默认值是保留所有快照。
+`deletion.schedule` | 细绳| CRON时间表用于删除快照。选修的。默认是使用`creation.schedule`，这是必需的。
+`deletion.time_limit` | 细绳| 设定最大时间等待快照删除完成。选修的。
+`deletion.delete_condition` | 目的| 快照删除的条件。选修的。
+`deletion.delete_condition.max_count` | 整数| 要保留的最大快照数。选修的。
+`deletion.delete_condition.max_age` | 细绳| 保留快照的最长时间。选修的。
+`deletion.delete_condition.min_count` | 整数| 要保留的最小快照数量。选修的。默认是一个。
+`notification` | 目的| 定义SM事件的通知。选修的。
+`notification.channel` | 目的| 定义通知渠道。你必须[创建并配置通知频道]({{site.url}}{{site.baseurl}}/notifications-plugin/api) 在设置SM通知之前。必需的。
+`notification.channel.id` | 细绳| 通知通道的通道ID。要获取所有创建的频道的通道ID，请使用`GET _plugins/_notifications/configs`。必需的。
+`notification.conditions` | 目的| 您想通知的SM事件。将您感兴趣的人设置为`true`。
+`notification.conditions.creation` | 布尔| 您是否想要有关快照创建的通知？选修的。默认为`true`。
+`notification.conditions.deletion` | 布尔| 您是否需要有关快照删除的通知？选修的。默认为`false`。
+`notification.conditions.failure` | 布尔| 您是否需要有关创建或删除故障的通知？选修的。默认为`false`。
+`notification.conditions.time_limit_exceeded` | 布尔| 当快照操作比time_limit花费更长的时间时，您是否需要通知？选修的。默认为`false`。
 
-## Get policies
-Introduced 2.1
-{: .label .label-purple }
+## 获取政策
+引入2.1
+{：.label .label-紫色的 }
 
-Gets SM policies.
+获得SM政策。
 
-#### Request
+#### 要求
 
-Get all SM policies:
+获取所有SM政策：
 
 ```json
 GET _plugins/_sm/policies
 ```
-You can use a [query string]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) and specify pagination, the field to be sorted by, and sort order:
+您可以使用[请求参数]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) 并指定分页，要按顺序排序的字段，然后排序：
 
 ```json
 GET _plugins/_sm/policies?from=0&size=20&sortField=sm_policy.name&sortOrder=desc&queryString=*
 ```
 
-Get a specific SM policy:
+获取特定的SM政策：
 
 ```
 GET _plugins/_sm/policies/<policy_name>
 ```
 
-### Example
+### 例子
 
 ```json
 GET _plugins/_sm/policies/daily-policy
 ```
 
-### Response
+### 回复
 
 ```json
 {
@@ -297,31 +297,31 @@ GET _plugins/_sm/policies/daily-policy
 }
 ```
 
-## Explain
-Introduced 2.1
-{: .label .label-purple }
+## 解释
+引入2.1
+{：.label .label-紫色的 }
 
-Provides the enabled/disabled status and the metadata for all policies specified. Multiple policy names are separated with `,`. You can also specify desired policies with a wildcard pattern. 
+为指定的所有策略提供启用/禁用状态和元数据。多个策略名称与`,`。您还可以用通配符模式指定所需的政策。
 
 <img src="{{site.url}}{{site.baseurl}}/images/sm-state-machine.png" alt="SM State Machine" width="150" style="float: left; margin-right: 15px;"/>
 
-SM uses a state machine for snapshot creation and deletion. The image on the left shows one execution period of the creation workflow, from the CREATION_START state to the CREATION_FINISHED state. Deletion workflow follows the same pattern as creation workflow. 
+SM使用状态机进行快照创建和删除。左侧的图像显示了创建工作流的一个执行期，从create_start状态到creation_fined态。删除工作流与创建工作流相同的模式。
 
-The creation workflow starts in the CREATION_START state and continuously checks if the conditions in the creation cron schedule are met. After the conditions are met, the creation workflow switches to the CREATION_CONDITION_MET state and continues to the CREATING state. The CREATING state calls the create snapshot API asynchronously and then waits for snapshot creation to end in the CREATION_FINISHED state. Once snapshot creation ends, the creation workflow goes back to the CREATION_START state, and the cycle continues. The `current_state` field of `metadata.creation` and `metadata.deletion` returns the current state of the state machine.
+创建工作流程始于Creation_start状态，并不断检查Creation Cron计划中的条件是否满足。满足条件后，创建工作流将切换到creation_condition_met状态，并继续到创建状态。创建状态异步调用创建快照API，然后等待快照创建以creation_fined状态结束。快照创建结束后，创建工作流将返回到创建_start状态，并且周期继续。这`current_state` 现场`metadata.creation` 和`metadata.deletion` 返回状态机的当前状态。
 
-#### Request
+#### 要求
 
 ```json
 GET _plugins/_sm/policies/<policy_names>/_explain
 ```
 
-### Example
+### 例子
 
 ```json
 GET _plugins/_sm/policies/daily*/_explain
 ```
 
-### Response
+### 回复
 
 ```json
 {
@@ -348,50 +348,50 @@ GET _plugins/_sm/policies/daily*/_explain
 }
 ```
 
-The following table lists all fields for each policy in the response.
+下表列出了响应中每个策略的所有字段。
 
-Field | Description 
-:--- |:--- 
-`name` | The name of the SM policy.
-`creation` | Information about the latest creation operation. See subfields below.
-`deletion` | Information about the latest deletion operation. See subfields below.
-`policy_seq_no` <br> `policy_primary_term` | The version of the SM policy.
-`enabled` | Is the policy running?
+场地| 描述
+：--- |：--- 
+`name` | SM政策的名称。
+`creation` | 有关最新创建操作的信息。请参阅下面的子场。
+`deletion` | 有关最新删除操作的信息。请参阅下面的子场。
+`policy_seq_no` <br>`policy_primary_term` | SM策略的版本。
+`enabled` | 策略运行吗？
 
-The following table lists all fields in the `creation` and `deletion` objects of each policy.
+下表列出了`creation` 和`deletion` 每个策略的对象。
 
-Field | Description 
-:--- |:--- 
-`current_state` | The current state of the state machine that runs snapshot creation/deletion as described above.
-`trigger.time` | The next creation/deletion execution time in milliseconds since the epoch.
-`latest_execution` | Describes the latest creation/deletion execution.
-`latest_execution.status` | The execution status of the latest creation/deletion. Possible values are:<br> `IN_PROGRESS`: Snapshot creation/deletion has started. <br> `SUCCESS`: Snapshot creation/deletion has finished successfully. <br> `RETRYING`: The creation/deletion attempt has failed. It will be retried three times. <br> `FAILED`: The creation/deletion attempt failed after three retries. End the current execution period and go to the next execution period. <br> `TIME_LIMIT_EXCEEDED`: The creation/deletion time exceeded the time_limit set in the policy. End the current execution period and go to the next execution period.
-`latest_execution.start_time` | The start time of the latest execution in milliseconds since the epoch.
-`latest_execution.end_time` | The end time of the latest execution in milliseconds since the epoch.
-`latest_execution.info.message` | A user-friendly message describing the status of the latest execution.
-`latest_execution.info.cause` | Contains the failure reason if the latest execution fails.
-`retry.count` | The number of remaining execution retry attempts.
+场地| 描述
+：--- |：--- 
+`current_state` | 如上所述，运行快照创建/删除的状态机的当前状态。
+`trigger.time` | 自时代以来，下一个创建/删除执行时间以毫秒为单位。
+`latest_execution` | 描述最新的创建/删除执行。
+`latest_execution.status` | 最新创建/删除的执行状态。可能的值是：<br>`IN_PROGRESS`：快照创建/删除已经开始。<br>`SUCCESS`：快照创建/删除已成功完成。<br>`RETRYING`：创建/删除尝试失败了。它将进行三次。<br>`FAILED`：三次重试后创建/删除尝试失败。结束当前执行期，然后转到下一个执行期。<br>`TIME_LIMIT_EXCEEDED`：创建/删除时间超过了策略中设置的Time_limit。结束当前执行期，然后转到下一个执行期。
+`latest_execution.start_time` | 自时代以来，最新执行的最新执行时间开始。
+`latest_execution.end_time` | 自时代以来，最新执行的最新执行时间的结束时间。
+`latest_execution.info.message` | 用户-友好的消息描述了最新执行的状态。
+`latest_execution.info.cause` | 如果最新的执行失败，则包含故障原因。
+`retry.count` | 剩余的执行重试尝试。
 
 
-## Start a policy
-Introduced 2.1
-{: .label .label-purple }
+## 开始政策
+引入2.1
+{：.label .label-紫色的 }
 
-Starts the policy by setting its `enabled` flag to `true`. 
+通过设置其策略`enabled` 标记为`true`。
 
-#### Request
+#### 要求
 
 ```json
 POST  _plugins/_sm/policies/<policy_name>/_start
 ```
 
-### Example
+### 例子
 
 ```json
 POST  _plugins/_sm/policies/daily-policy/_start
 ```
 
-### Response
+### 回复
 
 ```json
 {
@@ -399,25 +399,25 @@ POST  _plugins/_sm/policies/daily-policy/_start
 }
 ```
 
-## Stop a policy
-Introduced 2.1
-{: .label .label-purple }
+## 停止政策
+引入2.1
+{：.label .label-紫色的 }
 
-Sets the `enabled` flag to `false` for an SM policy. The policy will not run until you [start](#start-a-policy) it.
+设置`enabled` 标记为`false` 用于SM政策。在您之前，该政策不会运行[开始](#start-a-policy) 它。
 
-#### Request
+#### 要求
 
 ```json
 POST  _plugins/_sm/policies/<policy_name>/_stop
 ```
 
-### Example
+### 例子
 
 ```json
 POST  _plugins/_sm/policies/daily-policy/_stop
 ```
 
-### Response
+### 回复
 
 ```json
 {
@@ -425,25 +425,25 @@ POST  _plugins/_sm/policies/daily-policy/_stop
 }
 ```
 
-## Delete a policy
-Introduced 2.1
-{: .label .label-purple }
+## 删除政策
+引入2.1
+{：.label .label-紫色的 }
 
-Deletes the specified SM policy.
+删除指定的SM策略。
 
-#### Request
+#### 要求
 
 ```json
 DELETE  _plugins/_sm/policies/<policy_name>
 ```
 
-### Example
+### 例子
 
 ```json
 DELETE _plugins/_sm/policies/daily-policy
 ```
 
-### Response
+### 回复
 
 ```json
 {

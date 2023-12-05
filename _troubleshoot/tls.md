@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Troubleshoot TLS
+title: 故障排除TLS
 nav_order: 15
 ---
 
-# TLS troubleshooting
+# TLS故障排除
 
-This page includes troubleshooting steps for configuring TLS certificates with the Security plugin.
+此页面包括使用安全插件配置TLS证书的故障排除步骤。
 
 
 ---
@@ -19,49 +19,49 @@ This page includes troubleshooting steps for configuring TLS certificates with t
 ---
 
 
-## Validate YAML
+## 验证YAML
 
-`opensearch.yml` and the files in `config/opensearch-security/` are in the YAML format. A linter like [YAML Validator](https://codebeautify.org/yaml-validator) can help verify that you don't have any formatting errors.
+`opensearch.yml` 和文件中的文件`config/opensearch-security/` 处于YAML格式。类似的衬里[YAML验证器](https://codebeautify.org/yaml-validator) 可以帮助验证您没有任何格式错误。
 
 
-## View contents of PEM certificates
+## 查看PEM证书的内容
 
-You can use OpenSSL to display the content of each PEM certificate:
+您可以使用openssl显示每个PEM证书的内容：
 
 ```bash
 openssl x509 -subject -nameopt RFC2253 -noout -in node1.pem
 ```
 
-Then ensure that the value matches the one in `opensearch.yml`.
+然后确保值与`opensearch.yml`。
 
-For more complete information on a certificate:
+有关证书的更多完整信息：
 
 ```bash
 openssl x509 -in node1.pem -text -noout
 ```
 
 
-### Check for special characters and whitespace in DNs
+### 检查DNS中的特殊字符和空格
 
-The Security plugin uses the [string representation of Distinguished Names (RFC1779)](https://www.ietf.org/rfc/rfc1779.txt) when validating node certificates.
+安全插件使用[杰出名称的字符串表示（RFC1779）](https://www.ietf.org/rfc/rfc1779.txt) 验证节点证书时。
 
-If parts of your DN contain special characters (e.g. a comma), make sure you escape it in your configuration:
+如果DN的一部分包含特殊字符（例如逗号），请确保您以配置逃脱：
 
 ```yml
 plugins.security.nodes_dn:
   - 'CN=node-0.example.com,OU=SSL,O=My\, Test,L=Test,C=DE'
 ```
 
-You can have whitespace within a field, but not between fields.
+您可以在一个字段中有空格，但可以在字段之间使用。
 
-#### Bad configuration
+#### 不良配置
 
 ```yml
 plugins.security.nodes_dn:
   - 'CN=node-0.example.com, OU=SSL,O=My\, Test, L=Test, C=DE'
 ```
 
-#### Good configuration
+#### 良好的配置
 
 ```yml
 plugins.security.nodes_dn:
@@ -69,80 +69,80 @@ plugins.security.nodes_dn:
 ```
 
 
-### Check certificate IP addresses
+### 检查证书IP地址
 
-Sometimes the IP address in your certificate is not the one communicating with the cluster. This problem can occur if your node has multiple interfaces or is running on a dual stack network (IPv6 and IPv4).
+有时，您的证书中的IP地址不是与集群通信的IP地址。如果您的节点具有多个接口或在双堆栈网络（IPv6和IPv4）上运行，则可能会发生此问题。
 
-If this problem occurs, you might see the following in the node's OpenSearch log:
+如果发生此问题，您可能会在节点的OpenSearch日志中看到以下内容：
 
 ```
 SSL Problem Received fatal alert: certificate_unknown javax.net.ssl.SSLException: Received fatal alert: certificate_unknown
 ```
 
-You might also see the following message in your cluster's master log when the new node tries to join the cluster:
+当新节点试图加入群集时，您可能还会在集群的主日志中看到以下消息：
 
 ```
 Caused by: java.security.cert.CertificateException: No subject alternative names matching IP address 10.0.0.42 found
 ```
 
-Check the IP address in the certificate:
+检查证书中的IP地址：
 
 ```
 IPAddress: 2001:db8:0:1:1.2.3.4
 ```
 
-In this example, the node tries to join the cluster with the IPv4 address of `10.0.0.42`, but the certificate contains the IPv6 address of `2001:db8:0:1:1.2.3.4`.
+在此示例中，节点试图通过IPv4地址加入集群`10.0.0.42`，但证书包含IPv6地址`2001:db8:0:1:1.2.3.4`。
 
 
-### Validate certificate chain
+### 验证证书链
 
-TLS certificates are organized in a certificate chain. You can check with `keytool` that the certificate chain is correct by inspecting the owner and the issuer of each certificate. If you used the demo installation script that ships with the Security plugin, the chain looks like:
+TLS证书在证书链中组织。您可以检查`keytool` 通过检查所有者和每个证书的发行人，证书链是正确的。如果您使用了带有安全插件的演示安装脚本，则链条看起来像：
 
-#### Node certificate
+#### 节点证书
 
 ```
 Owner: CN=node-0.example.com, OU=SSL, O=Test, L=Test, C=DE
 Issuer: CN=Example Com Inc. Signing CA, OU=Example Com Inc. Signing CA, O=Example Com Inc., DC=example, DC=com
 ```
 
-#### Signing certificate
+#### 签名证书
 
 ```
 Owner: CN=Example Com Inc. Signing CA, OU=Example Com Inc. Signing CA, O=Example Com Inc., DC=example, DC=com
 Issuer: CN=Example Com Inc. Root CA, OU=Example Com Inc. Root CA, O=Example Com Inc., DC=example, DC=com
 ```
 
-#### Root certificate
+#### 根证书
 
 ```
 Owner: CN=Example Com Inc. Root CA, OU=Example Com Inc. Root CA, O=Example Com Inc., DC=example, DC=com
 Issuer: CN=Example Com Inc. Root CA, OU=Example Com Inc. Root CA, O=Example Com Inc., DC=example, DC=com
 ```
 
-From the entries, you can see that the root certificate signed the intermediate certificate, which signed the node certificate. The root certificate signed itself, hence the name "self-signed certificate." If you're using separate keystore and truststore files, your root CA can most likely in the truststore.
+从条目中，您可以看到根证书签署了中间证书，该证书签署了节点证书。根证书本身签名，因此名称"self-signed certificate." 如果您使用的是单独的密钥库和TrustStore文件，则您的根CA最有可能在TrustStore中。
 
-Generally, the keystore contains client or node certificate and all intermediate certificates, and the truststore contains the root certificate.
-
-
-### Check the configured alias
-
-If you have multiple entries in the keystore and you are using aliases to refer to them, make sure that the configured alias in `opensearch.yml` matches the one in the keystore. If there is only one entry in the keystore, you do not need to configure an alias.
+通常，密钥库包含客户端或节点证书和所有中间证书，并且TrustStore包含根证书。
 
 
-## View contents of your keystore and truststore
+### 检查配置的别名
 
-In order to view information about the certificates stored in your keystore or truststore, use the `keytool` command like:
+如果您在密钥库中有多个条目，并且正在使用别名来引用它们，请确保已配置的别名`opensearch.yml` 匹配密钥库中的一个。如果密钥库中只有一个条目，则不需要配置别名。
+
+
+## 查看密钥店和信托店的内容
+
+为了查看有关密钥库或信托店中存储的证书的信息，请使用`keytool` 命令类似：
 
 ```bash
 keytool -list -v -keystore keystore.jks
 ```
 
-`keytool` prompts for the password of the keystore and lists all entries. For example, you can use this output to check for the correctness of the SAN and EKU settings.
+`keytool` 提示获取密钥库的密码，并列出所有条目。例如，您可以使用此输出来检查SAN和EKU设置的正确性。
 
 
-## Check SAN hostnames and IP addresses
+## 检查SAN主机名和IP地址
 
-The valid hostnames and IP addresses of a TLS certificates are stored as `SAN` entries. Check that the hostname and IP entries in the `SAN` section are correct, especially when you use hostname verification:
+TLS证书的有效主机名和IP地址存储为`SAN` 条目。检查是否在`SAN` 部分是正确的，尤其是当您使用主机名验证时：
 
 ```
 Certificate[1]:
@@ -160,9 +160,9 @@ SubjectAlternativeName [
 ```
 
 
-## Check OID for node certificates
+## 检查OID是否有节点证书
 
-If you are using OIDs to denote valid node certificates, check that the `SAN` extension for your node certificate contains the correct `OIDName`:
+如果您使用OID表示有效的节点证书，请检查`SAN` 您的节点证书的扩展名包含正确的`OIDName`：
 
 ```
 Certificate[1]:
@@ -178,9 +178,9 @@ SubjectAlternativeName [
 ```
 
 
-## Check EKU field for node certificates
+## 检查EKU字段中的节点证书
 
-Node certificates need to have both `serverAuth` and `clientAuth` set in the extended key usage field:
+节点证书需要两个`serverAuth` 和`clientAuth` 设置在扩展密钥用法字段中：
 
 ```
 #3: ObjectId: 2.5.29.37 Criticality=false
@@ -191,9 +191,9 @@ ExtendedKeyUsages [
 ```
 
 
-## TLS versions
+## TLS版本
 
-The Security plugin disables TLS version 1.0 by default; it is outdated, insecure, and vulnerable. If you need to use `TLSv1` and accept the risks, you can enable it in `opensearch.yml`:
+安全插件默认情况下禁用TLS 1.0版；它过时，不安全和脆弱。如果您需要使用`TLSv1` 并接受风险，您可以将其启用`opensearch.yml`：
 
 ```yml
 plugins.security.ssl.http.enabled_protocols:
@@ -203,11 +203,11 @@ plugins.security.ssl.http.enabled_protocols:
 ```
 
 
-## Supported ciphers
+## 支持的密码
 
-TLS relies on the server and client negotiating a common cipher suite. Depending on your system, the available ciphers will vary. They depend on the JDK or OpenSSL version you're using, and  whether or not the `JCE Unlimited Strength Jurisdiction Policy Files` are installed.
+TLS依靠服务器和客户端谈判通用密码套件。根据您的系统，可用的密码会有所不同。它们取决于您正在使用的JDK或OpenSSL版本，以及是否是`JCE Unlimited Strength Jurisdiction Policy Files` 已安装。
 
-For legal reasons, the JDK does not include strong ciphers like AES256. In order to use strong ciphers you need to download and install the [Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files](https://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html). If you don't have them installed, you might see an error message on startup:
+出于法律原因，JDK不包括像AES256这样的强密码。为了使用强密码，您需要下载并安装[Java密码扩展（JCE）无限强度管辖权政策文件](https://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html)。如果您没有安装它们，则可能会在启动上看到一条错误消息：
 
 ```
 [INFO ] AES-256 not supported, max key length for AES is 128 bit.
@@ -215,10 +215,11 @@ That is not an issue, it just limits possible encryption strength.
 To enable AES 256 install 'Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files'
 ```
 
-The Security plugin still works and falls back to weaker cipher suites. The plugin also prints out all available cipher suites during startup:
+安全插件仍然可以使用，并恢复到较弱的密码套件。该插件还在启动期间打印出所有可用的密码套件：
 
 ```
 [INFO ] sslTransportClientProvider:
 JDK with ciphers [TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_DHE_RSA_WITH_AES_128_CBC_SHA256,
 TLS_DHE_DSS_WITH_AES_128_CBC_SHA256, ...]
 ```
+

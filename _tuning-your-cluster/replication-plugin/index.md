@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Cross-cluster replication
+title: 跨集群复制
 nav_order: 12
 has_children: true
 redirect_from:
@@ -8,17 +8,18 @@ redirect_from:
   - /replication-plugin/index/
 ---
 
-# Cross-cluster replication
+# 跨集群复制
 
-The cross-cluster replication plugin lets you replicate indexes, mappings, and metadata from one OpenSearch cluster to another. Cross-cluster replication has the following benefits:
-- By replicating your indexes, you ensure that you can continue to handle search requests if there's an outage.
-- Replicating data across geographically distant data centers minimizes the distance between the data and the application server. This reduces expensive latencies.
-- You can replicate data from multiple smaller clusters to a centralized reporting cluster, which is useful when it's inefficient to query across a large network.
+十字-群集复制插件使您可以从一个OpenSearch cluster复制索引，映射和元数据。叉-集群复制具有以下好处：
+- 通过复制索引，您确保如果有停机时间可以继续处理搜索请求。
+- 在地理上远处的数据中复制数据中心将数据与应用程序服务器之间的距离最小化。这减少了昂贵的潜伏期。
+- 您可以将数据从多个较小的群集复制到集中的报告群集，这在跨大网络效率低下时很有用。
 
-Replication follows an active-passive model where the follower index (where the data is replicated) pulls data from the leader (remote) index.
+复制遵循活动-无源模型，其中追随者索引（复制数据的位置）从领导者（远程）索引中提取数据。
 
-The replication plugin supports replication of indexes using wildcard pattern matching and provides commands to pause, resume, and stop replication. Once replication starts on an index, it initiates persistent background tasks on all primary shards on the follower cluster, which continuously poll corresponding shards from the leader cluster for updates.
+复制插件支持使用通配符模式匹配的索引复制，并提供暂停，恢复和停止复制的命令。一旦复制从索引开始，它就会在追随者群集上的所有主要碎片上启动持久的背景任务，该碎片不断地从Leader Cluster中进行对相应的碎片以进行更新。
 
-You can use the replication plugin with the Security plugin to encrypt cross-cluster traffic with node-to-node encryption and control access to replication activities.
+您可以将复制插件与安全插件一起加密交叉-用节点聚类流量-到-节点加密和控制复制活动的访问。
 
-To start, see [Get started with cross-cluster replication]({{site.url}}{{site.baseurl}}/replication-plugin/get-started/).
+开始，请参阅[开始十字架-集群复制]({{site.url}}{{site.baseurl}}/replication-plugin/get-started/)。
+

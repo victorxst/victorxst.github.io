@@ -2,27 +2,27 @@
 layout: default
 title: API
 nav_order: 50
-parent: Cross-cluster replication
+parent: 跨集群复制
 redirect_from:
   - /replication-plugin/api/
 ---
 
-# Cross-cluster replication API
+# 跨集群复制API
 
-Use these replication operations to programmatically manage cross-cluster replication.
+使用这些复制操作来编程管理跨集群复制。
 
-#### Table of contents
+#### 目录
 - TOC
-{:toc}
+{：toc}
 
-## Start replication
-Introduced 1.1
-{: .label .label-purple }
+## 开始复制
+引入了1.1
+{：.label .label-紫色的 }
 
-Initiate replication of an index from the leader cluster to the follower cluster. Send this request to the follower cluster.
+启动从领导者群集到追随者群集的索引复制。将此请求发送到追随者集群。
 
 
-#### Request
+#### 要求
 
 ```json
 PUT /_plugins/_replication/<follower-index>/_start
@@ -36,15 +36,15 @@ PUT /_plugins/_replication/<follower-index>/_start
 }
 ```
 
-Specify the following options:
+指定以下选项：
 
-Options | Description | Type | Required
-:--- | :--- |:--- |:--- |
-`leader_alias` |  The name of the cross-cluster connection. You define this alias when you [set up a cross-cluster connection]({{site.url}}{{site.baseurl}}/replication-plugin/get-started/#set-up-a-cross-cluster-connection). | `string` | Yes
-`leader_index` |  The index on the leader cluster that you want to replicate. | `string` | Yes
-`use_roles` |  The roles to use for all subsequent backend replication tasks between the indexes. Specify a `leader_cluster_role` and `follower_cluster_role`. See [Map the leader and follower cluster roles]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles). | `string` | If Security plugin is enabled
+选项| 描述| 类型| 必需的
+：--- | ：--- |：--- |：--- |
+`leader_alias` |  十字架的名字-集群连接。您定义这个别名[建立十字架-集群连接]({{site.url}}{{site.baseurl}}/replication-plugin/get-started/#set-up-a-cross-cluster-connection)。| `string` | 是的
+`leader_index` |  您要复制的领导者集群的索引。| `string` | 是的
+`use_roles` |  索引之间的所有后续后端复制任务要使用的角色。指定`leader_cluster_role` 和`follower_cluster_role`。看[映射领导者和追随者集群角色]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles)。| `string` | 如果启用了安全插件
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -52,20 +52,20 @@ Options | Description | Type | Required
 }
 ```
 
-## Stop replication
-Introduced 1.1
-{: .label .label-purple }
+## 停止复制
+引入了1.1
+{：.label .label-紫色的 }
 
-Terminates replication and converts the follower index to a standard index. Send this request to the follower cluster.
+终止复制并将追随者索引转换为标准索引。将此请求发送到追随者集群。
 
-#### Request
+#### 要求
 
 ```json
 POST /_plugins/_replication/<follower-index>/_stop
 {}
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -73,22 +73,22 @@ POST /_plugins/_replication/<follower-index>/_stop
 }
 ```
 
-## Pause replication
-Introduced 1.1
-{: .label .label-purple }
+## 暂停复制
+引入了1.1
+{：.label .label-紫色的 }
 
-Pauses replication of the leader index. Send this request to the follower cluster.
+暂停领导索引的复制。将此请求发送到追随者集群。
 
-#### Request
+#### 要求
 
 ```json
 POST /_plugins/_replication/<follower-index>/_pause 
 {}
 ```
 
-You can't resume replication after it's been paused for more than 12 hours. You must [stop replication]({{site.url}}{{site.baseurl}}/replication-plugin/api/#stop-replication), delete the follower index, and restart replication of the leader.
+在暂停超过12个小时后，您无法恢复复制。你必须[停止复制]({{site.url}}{{site.baseurl}}/replication-plugin/api/#stop-replication)，删除追随者索引，然后重新启动领导者的复制。
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -96,20 +96,20 @@ You can't resume replication after it's been paused for more than 12 hours. You 
 }
 ```
 
-## Resume replication
-Introduced 1.1
-{: .label .label-purple }
+## 恢复复制
+引入了1.1
+{：.label .label-紫色的 }
 
-Resumes replication of the leader index. Send this request to the follower cluster.
+恢复领导索引的复制。将此请求发送到追随者集群。
 
-#### Request
+#### 要求
 
 ```json
 POST /_plugins/_replication/<follower-index>/_resume
 {}
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -117,19 +117,19 @@ POST /_plugins/_replication/<follower-index>/_resume
 }
 ```
 
-## Get replication status
-Introduced 1.1
-{: .label .label-purple }
+## 获取复制状态
+引入了1.1
+{：.label .label-紫色的 }
 
-Gets the status of index replication. Possible statuses are `SYNCING`, `BOOTSTRAPING`, `PAUSED`, and `REPLICATION NOT IN PROGRESS`. Use the syncing details to measure replication lag. Send this request to the follower cluster.
+获取索引复制的状态。可能的状态是`SYNCING`，，，，`BOOTSTRAPING`，，，，`PAUSED`， 和`REPLICATION NOT IN PROGRESS`。使用同步详细信息来测量复制滞后。将此请求发送到追随者集群。
 
-#### Request
+#### 要求
 
 ```json
 GET /_plugins/_replication/<follower-index>/_status
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -145,23 +145,23 @@ GET /_plugins/_replication/<follower-index>/_status
   }
 }
 ```
-To include shard replication details in the response, add the `&verbose=true` parameter.
+要在响应中包含碎片复制细节，请添加`&verbose=true` 范围。
 
-The leader and follower checkpoint values begin as negative integers and reflect the shard count (-1 for one shard, -5 for five shards, and so on). The values increment toward positive integers with each change that you make. For example, when you make a change on the leader index, the `leader_checkpoint` becomes `0`. The `follower_checkpoint` is initially still `-1` until the follower index pulls the change from the leader, at which point it increments to `0`. If the values are the same, it means the indexes are fully synced.
+领导者和追随者检查点值以负整数开头，并反映碎片计数（-1碎片，-5对于五片，依此类推）。随着您所做的每次更改，这些值都会向积极整数增长。例如，当您对领导索引进行更改时`leader_checkpoint` 变成`0`。这`follower_checkpoint` 最初静止`-1` 直到追随者索引从领导者那里拉动更改为止，此时它会增加`0`。如果值相同，则表示索引已完全同步。
 
-## Get leader cluster stats
-Introduced 1.1
-{: .label .label-purple }
+## 获取领导者群集统计
+引入了1.1
+{：.label .label-紫色的 }
 
-Gets information about replicated leader indexes on a specified cluster. 
+获取有关指定群集上复制领导者索引的信息。
 
-#### Request
+#### 要求
 
 ```json
 GET /_plugins/_replication/leader_stats
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -196,19 +196,19 @@ GET /_plugins/_replication/leader_stats
 }
 ```
 
-## Get follower cluster stats
-Introduced 1.1
-{: .label .label-purple }
+## 获取追随者群集统计
+引入了1.1
+{：.label .label-紫色的 }
 
-Gets information about follower (syncing) indexes on a specified cluster. 
+获取有关指定群集上的追随者（同步）索引的信息。
 
-#### Request
+#### 要求
 
 ```json
 GET /_plugins/_replication/follower_stats
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -254,19 +254,19 @@ GET /_plugins/_replication/follower_stats
 }
 ```
 
-## Get auto-follow stats
-Introduced 1.1
-{: .label .label-purple }
+## 获取自动-遵循统计数据
+引入了1.1
+{：.label .label-紫色的 }
 
-Gets information about auto-follow activity and any replication rules configured on the specified cluster.
+获取有关汽车的信息-关注活动和在指定集群上配置的任何复制规则。
 
-#### Request
+#### 要求
 
 ```json
 GET /_plugins/_replication/autofollow_stats
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -291,13 +291,13 @@ GET /_plugins/_replication/autofollow_stats
 }
 ```
 
-## Update settings
-Introduced 1.1
-{: .label .label-purple }
+## 更新设置
+引入了1.1
+{：.label .label-紫色的 }
 
-Updates settings on the follower index.
+更新追随者索引上的设置。
 
-#### Request
+#### 要求
 
 ```json
 PUT /_plugins/_replication/<follower-index>/_update
@@ -309,7 +309,7 @@ PUT /_plugins/_replication/<follower-index>/_update
 }
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -317,18 +317,18 @@ PUT /_plugins/_replication/<follower-index>/_update
 }
 ```
 
-## Create replication rule
-Introduced 1.1
-{: .label .label-purple }
+## 创建复制规则
+引入了1.1
+{：.label .label-紫色的 }
 
-Automatically starts replication on indexes matching a specified pattern. If a new index on the leader cluster matches the pattern, OpenSearch automatically creates a follower index and begins replication. You can also use this API to update existing replication rules.
+自动开始复制与指定模式匹配的索引。如果领导者群集上的新索引与模式匹配，则OpenSearch会自动创建关注者索引并开始复制。您也可以使用此API更新现有的复制规则。
 
-Send this request to the follower cluster.
+将此请求发送到追随者集群。
 
-Make sure to note the names of all auto-follow patterns after you create them. The replication plugin currently does not include an API operation to retrieve a list of existing patterns.
-{: .tip }
+确保注意所有自动的名称-创建它们后，请遵循模式。当前，复制插件不包括API操作以检索现有模式列表。
+{： 。提示 }
 
-#### Request
+#### 要求
 
 ```json
 POST /_plugins/_replication/_autofollow
@@ -343,16 +343,16 @@ POST /_plugins/_replication/_autofollow
 }
 ```
 
-Specify the following options:
+指定以下选项：
 
-Options | Description | Type | Required
-:--- | :--- |:--- |:--- |
-`leader_alias` |  The name of the cross-cluster connection. You define this alias when you [set up a cross-cluster connection]({{site.url}}{{site.baseurl}}/replication-plugin/get-started/#set-up-a-cross-cluster-connection). | `string` | Yes
-`name` |  A name for the auto-follow pattern. | `string` | Yes
-`pattern` |  An array of index patterns to match against indexes in the specified leader cluster. Supports wildcard characters. For example, `leader-*`. | `string` | Yes
-`use_roles` |  The roles to use for all subsequent backend replication tasks between the indexes. Specify a `leader_cluster_role` and `follower_cluster_role`. See [Map the leader and follower cluster roles]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles). | `string` | If Security plugin is enabled
+选项| 描述| 类型| 必需的
+：--- | ：--- |：--- |：--- |
+`leader_alias` |  十字架的名字-集群连接。您定义这个别名[建立十字架-集群连接]({{site.url}}{{site.baseurl}}/replication-plugin/get-started/#set-up-a-cross-cluster-connection)。| `string` | 是的
+`name` |  汽车的名字-遵循模式。| `string` | 是的
+`pattern` |  在指定的领导者群集中与索引相匹配的一系列索引模式。支持通配符角色。例如，`leader-*`。| `string` | 是的
+`use_roles` |  索引之间的所有后续后端复制任务要使用的角色。指定`leader_cluster_role` 和`follower_cluster_role`。看[映射领导者和追随者集群角色]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles)。| `string` | 如果启用了安全插件
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -360,15 +360,15 @@ Options | Description | Type | Required
 }
 ```
 
-## Delete replication rule
-Introduced 1.1
-{: .label .label-purple }
+## 删除复制规则
+引入了1.1
+{：.label .label-紫色的 }
 
-Deletes the specified replication rule. This operation prevents any new indexes from being replicated but does not stop existing replication that the rule has already initiated. Replicated indexes remain read-only until you stop replication.
+删除指定的复制规则。此操作防止任何新索引被复制，但不会停止该规则已经启动的现有复制。复制的索引仍然阅读-直到您停止复制为止。
 
-Send this request to the follower cluster.
+将此请求发送到追随者集群。
 
-#### Request
+#### 要求
 
 ```json
 DELETE /_plugins/_replication/_autofollow
@@ -378,17 +378,18 @@ DELETE /_plugins/_replication/_autofollow
 }
 ```
 
-Specify the following options:
+指定以下选项：
 
-Options | Description | Type | Required
-:--- | :--- |:--- |:--- |
-`leader_alias` |  The name of the cross-cluster connection. You define this alias when you [set up a cross-cluster connection]({{site.url}}{{site.baseurl}}/replication-plugin/get-started/#set-up-a-cross-cluster-connection). | `string` | Yes
-`name` |  The name of the pattern. | `string` | Yes
+选项| 描述| 类型| 必需的
+：--- | ：--- |：--- |：--- |
+`leader_alias` |  十字架的名字-集群连接。您定义这个别名[建立十字架-集群连接]({{site.url}}{{site.baseurl}}/replication-plugin/get-started/#set-up-a-cross-cluster-connection)。| `string` | 是的
+`name` |  图案的名称。| `string` | 是的
 
-#### Example response
+#### 示例响应
 
 ```json
 {
    "acknowledged": true
 }
 ```
+

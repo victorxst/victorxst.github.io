@@ -9,13 +9,13 @@ redirect_from:
 
 # OpenSearch CLI
 
-The OpenSearch CLI command line interface (opensearch-cli) lets you manage your OpenSearch cluster from the command line and automate tasks.
+OpenSearch CLI命令行接口（OpenSearch-CLI）可让您从命令行管理OpenSearch Cluster并自动化任务。
 
-Currently, opensearch-cli supports the [Anomaly Detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/) and [k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/) plugins, along with arbitrary REST API paths. Among other things, you can use opensearch-cli to create and delete detectors, start and stop them, and check k-NN statistics.
+目前，OpenSearch-CLI支持[异常检测]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/) 和[k-nn]({{site.url}}{{site.baseurl}}/search-plugins/knn/) 插件，以及任意的REST API路径。除其他外，您可以使用OpenSearch-CLI创建和删除检测器，启动和停止它们，然后检查K-NN统计。
 
-Profiles let you easily access different clusters or sign requests with different credentials. opensearch-cli supports unauthenticated requests, HTTP basic signing, and IAM signing for Amazon Web Services.
+配置文件可让您轻松访问不同的簇或具有不同凭据的请求。OpenSearch-CLI支持未经身份验证的请求，HTTP基本签名以及Amazon Web服务的IAM签名。
 
-This example moves a detector (`ecommerce-count-quantity`) from a staging cluster to a production cluster:
+此示例移动检测器（`ecommerce-count-quantity`）从分期集群到生产集群：
 
 ```bash
 opensearch-cli ad get ecommerce-count-quantity --profile staging > ecommerce-count-quantity.json
@@ -26,38 +26,38 @@ opensearch-cli ad delete ecommerce-count-quantity --profile staging
 ```
 
 
-## Install
+## 安装
 
-1. [Download](https://opensearch.org/downloads.html){:target='\_blank'} and extract the appropriate installation package for your computer.
+1. [下载](https://opensearch.org/downloads.html){：target ='\ _ blank'}并为计算机提取适当的安装程序包。
 
-1. Make the `opensearch-cli` file executable:
+1. 做`opensearch-cli` 文件可执行文件：
 
    ```bash
    chmod +x ./opensearch-cli
    ```
 
-1. Add the command to your path:
+1. 将命令添加到您的路径：
 
    ```bash
    export PATH=$PATH:$(pwd)
    ```
 
-1. Confirm the CLI is working properly:
+1. 确认CLI正常工作：
 
    ```bash
    opensearch-cli --version
    ```
 
 
-## Profiles
+## 概况
 
-Profiles let you easily switch between different clusters and user credentials. To get started, run `opensearch-cli profile create` with the `--auth-type`, `--endpoint`, and `--name` options:
+配置文件可让您轻松地在不同的群集和用户凭据之间切换。首先，运行`opensearch-cli profile create` 与`--auth-type`，，，，`--endpoint`， 和`--name` 选项：
 
 ```bash
 opensearch-cli profile create --auth-type basic --endpoint https://localhost:9200 --name docker-local
 ```
 
-Alternatively, save a configuration file to `~/.opensearch-cli/config.yaml`:
+或者，将配置文件保存到`~/.opensearch-cli/config.yaml`：
 
 ```yaml
 profiles:
@@ -73,30 +73,31 @@ profiles:
 ```
 
 
-## Usage
+## 用法
 
-opensearch-cli commands use the following syntax:
+OpenSearch-CLI命令使用以下语法：
 
 ```bash
 opensearch-cli <command> <subcommand> <flags>
 ```
 
-For example, the following command retrieves information about a detector:
+例如，以下命令检索有关检测器的信息：
 
 ```bash
 opensearch-cli ad get my-detector --profile docker-local
 ```
 
-For a request to the OpenSearch CAT API, try the following command:
+对于OpenSearch CAT API的请求，请尝试以下命令：
 
 ```bash
 opensearch-cli curl get --path _cat/plugins --profile aws
 ```
 
-Use the `-h` or `--help` flag to see all supported commands, subcommands, or usage for a specific command:
+使用`-h` 或者`--help` 标志以查看所有受支持的命令，子命令或特定命令的用法：
 
 ```bash
 opensearch-cli -h
 opensearch-cli ad -h
 opensearch-cli ad get -h
 ```
+

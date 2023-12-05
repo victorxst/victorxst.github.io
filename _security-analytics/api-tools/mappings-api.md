@@ -1,36 +1,36 @@
 ---
 layout: default
-title: Mappings APIs
-parent: API tools
+title: 映射API
+parent: API工具
 nav_order: 45
 ---
 
-# Mappings APIs
+# 映射API
 
-The following APIs can be used for a number of tasks related to mappings, from creating to getting and updating mappings.
+以下API可用于与映射有关的许多任务，从创建到获取和更新映射。
 
 ---
 ## Get Mappings View
 
-This API returns a view of the fields contained in an index used as a log source.
+此API返回用作日志源的索引中包含的字段的视图。
 
 ### Request fields
 
-The following fields are used to get field mappings.
+以下字段用于获取字段映射。
 
-Field | Type | Description
-:--- | :--- |:--- 
-`index_name` | String | The name of the index used for log ingestion. 
-`rule_topic` | String | The log type of the index. 
+场地| 类型| 描述
+：--- | ：--- |：--- 
+`index_name` | 细绳| 用于日志摄入的索引的名称。
+`rule_topic` | 细绳| 索引的日志类型。
 
 #### Example request
 
 ```json
-GET /_plugins/_security_analytics/mappings/view
+get/_plugins/_security_analytics/映射/查看
 
 {
-   "index_name": "windows",
-   "rule_topic": "windows"
+   "index_name"："windows"，，，，
+   "rule_topic"："windows"
 }
 ```
 
@@ -38,47 +38,47 @@ GET /_plugins/_security_analytics/mappings/view
 
 ```json
 {
-    "properties": {
-        "windows-event_data-CommandLine": {
-            "path": "CommandLine",
-            "type": "alias"
-        },
-        "event_uid": {
-            "path": "EventID",
-            "type": "alias"
+    "properties"：{
+        "windows-event_data-CommandLine"：{
+            "path"："CommandLine"，，，，
+            "type"："alias"
+        }，，
+        "event_uid"：{
+            "path"："EventID"，，，，
+            "type"："alias"
         }
-    },
-    "unmapped_index_fields": [
-        "windows-event_data-CommandLine",
-        "unmapped_HiveName",
-        "src_ip",
-        "sha1",
-        "processPath",
-        "CallerProcessName",
-        "CallTrace",
-        "AuthenticationPackageName",
-        "AuditSourceName",
-        "AuditPolicyChanges",
-        "AttributeValue",
-        "AttributeLDAPDisplayName",
-        "ApplicationPath",
-        "Application",
-        "AllowedToDelegateTo",
-        "Address",
-        "Action",
-        "AccountType",
-        "AccountName",
-        "Accesses",
-        "AccessMask",
+    }，，
+    "unmapped_index_fields"：[[
+        "windows-event_data-CommandLine"，，，，
+        "unmapped_HiveName"，，，，
+        "src_ip"，，，，
+        "sha1"，，，，
+        "processPath"，，，，
+        "CallerProcessName"，，，，
+        "CallTrace"，，，，
+        "AuthenticationPackageName"，，，，
+        "AuditSourceName"，，，，
+        "AuditPolicyChanges"，，，，
+        "AttributeValue"，，，，
+        "AttributeLDAPDisplayName"，，，，
+        "ApplicationPath"，，，，
+        "Application"，，，，
+        "AllowedToDelegateTo"，，，，
+        "Address"，，，，
+        "Action"，，，，
+        "AccountType"，，，，
+        "AccountName"，，，，
+        "Accesses"，，，，
+        "AccessMask"，，，，
         "AccessList"
-    ]
+    这是给出的
 }
 ```
 
 ---
-## Create Mappings
+## 创建映射
 
-#### Example request
+#### 示例请求
 
 ```json
 POST /_plugins/_security_analytics/mappings
@@ -98,7 +98,7 @@ POST /_plugins/_security_analytics/mappings
 }
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -112,23 +112,23 @@ POST /_plugins/_security_analytics/mappings
 #### Example request
 
 ```json
-GET /_plugins/_security_analytics/mappings
+获取/_plugins/_security_analytics/映射
 ```
 
 #### Example response
 
 ```json
 {
-    "windows": {
-        "mappings": {
-            "properties": {
-                "windows-event_data-CommandLine": {
-                    "type": "alias",
-                    "path": "CommandLine"
-                },
-                "event_uid": {
-                    "type": "alias",
-                    "path": "EventID"
+    "windows"：{
+        "mappings"：{
+            "properties"：{
+                "windows-event_data-CommandLine"：{
+                    "type"："alias"，，，，
+                    "path"："CommandLine"
+                }，，
+                "event_uid"：{
+                    "type"："alias"，，，，
+                    "path"："EventID"
                 }
             }
         }
@@ -137,9 +137,9 @@ GET /_plugins/_security_analytics/mappings
 ```
 
 ---
-## Update Mappings
+## 更新映射
 
-#### Example request
+#### 示例请求
 
 ```json
 PUT /_plugins/_security_analytics/mappings
@@ -151,11 +151,12 @@ PUT /_plugins/_security_analytics/mappings
 }
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 {
     "acknowledged": true
 }
 ```
+
 

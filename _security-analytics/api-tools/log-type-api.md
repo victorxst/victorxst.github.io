@@ -1,21 +1,21 @@
 ---
 layout: default
-title: Log type APIs
-parent: API tools
+title: 日志类型API
+parent: API工具
 nav_order: 56
 ---
 
-# Log type APIs
+# 日志类型API
 
-The log type APIs allow you to create a custom log type, search custom log types, update custom log types, and delete custom log types.
-
-
-## Create log type
-
-Creating a new custom log type involves entering a name and a description and specifying the source as `Custom`.
+日志类型API允许您创建自定义日志类型，搜索自定义日志类型，更新自定义日志类型以及删除自定义日志类型。
 
 
-### Example request
+## 创建日志类型
+
+创建新的自定义日志类型涉及输入名称和描述，并将源指定为`Custom`。
+
+
+### 示例请求
 
 ```json
 POST /_plugins/_security_analytics/logtype
@@ -25,10 +25,10 @@ POST /_plugins/_security_analytics/logtype
   "source": "Custom"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
 
-### Example response
+### 示例响应
 
 ```json
 {
@@ -46,12 +46,12 @@ POST /_plugins/_security_analytics/logtype
 ```
 
 
-## Search custom log types
+## 搜索自定义日志类型
 
-This API allows you to search log types in the system.
+此API允许您在系统中搜索日志类型。
 
 
-### Example request
+### 示例请求
 
 ```json
 POST /_plugins/_security_analytics/logtype/_search
@@ -61,10 +61,10 @@ POST /_plugins/_security_analytics/logtype/_search
     }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
 
-### Example response
+### 示例响应
 
 ```json
 {
@@ -165,16 +165,16 @@ POST /_plugins/_security_analytics/logtype/_search
 ```
 
 
-## Update custom log type
+## 更新自定义日志类型
 
-This API allows you to update existing custom log types. Use the log type's ID in the route to specify the log type, as shown in the following example:
+此API允许您更新现有的自定义日志类型。使用路由中的日志类型的ID来指定日志类型，如以下示例所示：
 
 ```json
 PUT /_plugins/_security_analytics/logtype/<log_type_id>
 ```
 
 
-### Example request
+### 示例请求
 
 ```json
 PUT /_plugins/_security_analytics/logtype/m98uk4kBlb9cbROIpEj2
@@ -184,10 +184,10 @@ PUT /_plugins/_security_analytics/logtype/m98uk4kBlb9cbROIpEj2
   "source": "Custom"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
 
-### Example response
+### 示例响应
 
 ```json
 {
@@ -205,24 +205,24 @@ PUT /_plugins/_security_analytics/logtype/m98uk4kBlb9cbROIpEj2
 ```
 
 
-## Delete custom log type
+## 删除自定义日志类型
 
-This API is used to delete a custom log type. Specify the log type's ID in the route to run the operation:
+此API用于删除自定义日志类型。在路由中指定日志类型的ID以运行操作：
 
 ```json
 DELETE /_plugins/_security_analytics/logtype/<log_type_id>
 ```
 
 
-### Example request
+### 示例请求
 
 ```json
 DELETE /_plugins/_security_analytics/logtype/m98uk4kBlb9cbROIpEj2
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
 
-### Example response
+### 示例响应
 
 ```json
 200 OK
@@ -232,6 +232,7 @@ DELETE /_plugins/_security_analytics/logtype/m98uk4kBlb9cbROIpEj2
 }
 ```
 
-Only custom log types can be deleted. Trying to delete a standard OpenSearch-defined log type results in an error.
-{: .note }
+只能删除自定义日志类型。试图删除标准搜索-定义的日志类型导致错误。
+{： 。笔记 }
+
 

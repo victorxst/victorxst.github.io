@@ -1,23 +1,23 @@
 ---
 layout: default
-title: Advanced configurations
+title: 高级配置
 parent: Logstash
 nav_order: 230
 redirect_from:
  - /clients/logstash/advanced-config/
 ---
 
-# Advanced configurations
+# 高级配置
 
-This section describes how to set up advanced configuration options, like referencing field values and conditional statements, for Logstash.
+本节介绍了如何为logstash设置高级配置选项，例如引用字段值和条件语句。
 
-## Referencing field values
+## 引用字段值
 
-To get access to a field, use the `- field` syntax.
-You can also surround the field name by square brackets `- [field]` which makes it more explicit that you're referring to a field.
+要访问字段，请使用`- field` 句法。
+您也可以通过Square Brackets包围字段名称`- [field]` 这使您更明确地提到了一个字段。
 
 
-For example, if you have the following event:
+例如，如果您有以下事件：
 
 ```bash
 {
@@ -30,17 +30,17 @@ For example, if you have the following event:
 }
 ```
 
-To access the `request` field, use `- request` or `- [request]`.
+访问`request` 字段，使用`- request` 或者`- [request]`。
 
-If you want to reference nested fields, use the square brackets syntax and specify the path to the field. With each level being enclosed within square brackets: `- [headers][request_path]`.
+如果要引用嵌套字段，请使用方括号语法并指定通往字段的路径。每个级别都被封闭在方括号内：`- [headers][request_path]`。
 
-You can reference fields using the `sprintf` format. This is also called string expansion. You need to add a % sign and then wrap the field reference within curly brackets.
+您可以使用`sprintf` 格式。这也称为字符串扩展。您需要添加一个％符号，然后将字段参考包装在卷曲括号中。
 
-You need to reference field values when using conditional statements.
+使用条件语句时，您需要参考字段值。
 
-For example, you can make the file name dynamic and contain the type of the processed events - either `access` or `error`. The `type` option is mainly used for conditionally applying filter plugins based on the type of events being processed.
+例如，您可以使文件名动态并包含已处理事件的类型- 任何一个`access` 或者`error`。这`type` 选项主要用于根据正在处理的事件的类型来条件应用过滤器插件。
 
-Let's add a `type` option and specify a value of `access`.
+让我们添加一个`type` 选项并指定一个值`access`。
 
 
 ```yml
@@ -71,15 +71,15 @@ file {
 }
 ```
 
-Start Logstash and send an HTTP request. The processed event is output in the terminal. The event now includes a field named `type`.
+启动LogStash并发送HTTP请求。处理的事件是在终端中输出的。该活动现在包括一个名为的字段`type`。
 
-You'll see the `access.log` file created within the Logstash directory.
+你会看到的`access.log` 在LogStash目录中创建的文件。
 
-## Conditional statements
+## 有条件的语句
 
-You can use conditional statements to control the flow of code execution based on some conditions.
+您可以使用条件语句根据某些条件来控制代码执行的流程。
 
-Syntax:
+句法：
 
 ```yml
 if EXPR {
@@ -91,8 +91,8 @@ if EXPR {
 }
 ```
 
-`EXPR` is any valid Logstash syntax that evaluates to a Boolean value.
-For example, you can check if an event type is set to `access` or `error` and perform some action based on that:
+`EXPR` 是评估布尔值的任何有效的LogStash语法。
+例如，您可以检查事件类型是否设置为`access` 或者`error` 并基于此行动：
 
 ```yml
 if [type] == "access" {
@@ -104,7 +104,7 @@ file { .. }
 }
 ```
 
-You can compare a field value to some arbitrary value:
+您可以将字段值与某些任意值进行比较：
 
 ```yml
 if [headers][content_length] >= 1000 {
@@ -112,7 +112,7 @@ if [headers][content_length] >= 1000 {
 }
 ```
 
-You can regex:
+您可以将REGEX：
 
 ```yml
 if [some_field =~ /[0-9]+/ {
@@ -120,7 +120,7 @@ if [some_field =~ /[0-9]+/ {
 }
 ```
 
-You can use arrays:
+您可以使用数组：
 
 ```yml
 if [some_field] in ["one", "two", "three"] {
@@ -128,7 +128,7 @@ if [some_field] in ["one", "two", "three"] {
 }
 ```
 
-You can use Boolean operators:
+您可以使用布尔运营商：
 
 ```yml
 if [type] == "access" or [type] == "error" {
@@ -137,12 +137,12 @@ if [type] == "access" or [type] == "error" {
 ```
 
 
-## Formatting dates
+## 格式日期
 
-You can use the `sprintf` format or string expansion to format dates.
-For example, you might want the current date to be part of the filename.
+您可以使用`sprintf` 格式或字符串扩展到格式日期。
+例如，您可能希望当前日期成为文件名的一部分。
 
-To format the date, add a plus sign in curly brackets followed by the date format - `%{+yyyy-MM-dd}`.
+要格式化日期，请在卷曲括号中添加一个加号，然后添加日期格式- `%{+yyyy-MM-dd}`。
 
 ```yml
 file {
@@ -150,24 +150,24 @@ file {
 }
 ```
 
-This is the date stored within the @timestamp fields, which is the time and date of the event.
-Send a request to the pipeline and verify that a filename is outputted that contains the events date.
+这是存储在@timestamp字段中的日期，这是事件的时间和日期。
+将请求发送到管道，并验证输出包含事件日期的文件名。
 
-You can embed the date in other outputs as well, for example into the index name in OpenSearch.
+您也可以将日期嵌入其他输出中，例如OpenSearch中的索引名称。
 
-## Sending time information
+## 发送时间信息
 
-You can set the time of events.
+您可以设置事件的时间。
 
-Logstash already sets the time when the event is received by the input plugin within the @timestamp field.
-In some scenarios, you might need to use a different timestamp.
-For example, if you have an eCommerce store and you process the orders daily at midnight. When Logstash receives the events at midnight, it sets the timestamp to the current time.
-But you want it to be the time when the order is placed and not when Logstash received the event.
+LogStash已经设置了@timestamp字段中输入插件接收事件的时间。
+在某些情况下，您可能需要使用其他时间戳。
+例如，如果您有一家电子商务商店，并且每天在午夜处理订单。当Logstash在午夜接收事件时，它将时间戳设置为当前时间。
+但是您希望它是下订单的时间，而不是Logstash收到事件的时间。
 
-Let's change the event timestamp to the date the request is received by the web server. You can do this using a filter plugin named `dates`.
-The `dates` filter passes a `date` or `datetime` value from a field and uses the results as the event timestamp.
+让我们将事件时间戳更改为Web服务器收到请求的日期。您可以使用名为的过滤器插件来执行此操作`dates`。
+这`dates` 过滤器通过`date` 或者`datetime` 从字段中值，并将结果用作事件时间戳。
 
-Add the `date` plugin at the bottom of the `filter` block:
+添加`date` 插入底部`filter` 堵塞：
 
 ```yml
 date {
@@ -175,16 +175,16 @@ date {
 }
 ```
 
-timestamp is the field that the `grok` pattern creates.
-`Z` is the timezone. i.e., UTC offsets.
+时间戳是`grok` 图案创建。
+`Z` 是时区。即UTC偏移。
 
-Start Logstash and send an HTTP request.
+启动LogStash并发送HTTP请求。
 
-You can see that the filename contains the date of the request instead of the present date.
+您可以看到该文件名包含请求的日期，而不是当前日期。
 
-If the passing of the date fails, the `filter` plugin adds a tag named `_datepassfailure` to the text field.
+如果日期的通过失败，`filter` 插件添加了一个名称的标签`_datepassfailure` 到文本字段。
 
-After you have set the @timestamp field to a new value, you don't really need the other `timestamp` field anymore. You can remove it with the `remove_field` option.
+将@timestamp字段设置为新值后，您实际上并不需要其他`timestamp` 字段了。您可以用`remove_field` 选项。
 
 ```yml
 date {
@@ -193,19 +193,19 @@ date {
 }
 ```
 
-## Parsing user agents
+## 解析用户代理
 
-The user agent is the last part of a log entry that consists of the name of the browser, the browser version, and the OS of the device.
+用户代理是日志条目的最后一部分，它由浏览器的名称，浏览器版本和设备的OS组成。
 
-Users might be using a wide range of browsers, devices, and OS's. Doing this manually is hard.
+用户可能正在使用各种浏览器，设备和操作系统。手动执行此操作很难。
 
-You can't use `grok` patterns because the `grok` pattern only matches the usage in the string as whole and doesn't figure out which browser the visitor used, for instance.
+你不能使用`grok` 模式是因为`grok` 模式仅与字符串中的用法完全匹配，并且不知道访问者使用的哪个浏览器。
 
-Logstash ships with a file containing regular expressions for this purpose. This makes it really easy to extract user agent information, which you could send to OpenSearch and run aggregations on.
+logstash用一个包含正则表达式的文件寄出。这使得提取用户代理信息非常容易，您可以将其发送到OpenSearch并运行聚合。
 
-To do this, add a `source` option that contains the name of the field. In this case, that's the `agent` field.
-By default the user agent plugin, adds a number of fields at the top-level of the event.
-Since that can get pretty confusing, we can add an option named `target` with a value of `ua`, short for user agent. What this does is that it nests the fields within an object named `ua`, making things more organized.
+为此，添加一个`source` 包含字段名称的选项。在这种情况下，这就是`agent` 场地。
+默认情况下，用户代理插件在顶部添加了许多字段-事件的水平。
+由于那会变得非常困惑，我们可以添加一个名称的选项`target` 有价值`ua`，用户代理的缩写。这样做的是它将字段嵌套在一个名为的对象中`ua`，使事情变得更有条理。
 
 ```yml
 useragent {
@@ -214,20 +214,20 @@ useragent {
 }
 ```
 
-Start Logstash and send an HTTP request.
+启动LogStash并发送HTTP请求。
 
-You can see a field named `ua` with a number of keys including the browser name and version, the OS, and the device.
+您可以看到一个名为的字段`ua` 带有许多键，包括浏览器名称和版本，操作系统和设备。
 
-You can use OpenSearch Dashboards to create a pie chart that shows how many visitors are using mobile devices and how many are desktop users. Or, you could get statistics on which browser versions are popular.
+您可以使用OpenSearch仪表板创建一个饼图，该饼图显示有多少访问者正在使用移动设备以及桌面用户有多少个。或者，您可以获取浏览器版本流行的统计信息。
 
-## Enriching geographical data
+## 丰富地理数据
 
-You can take an IP address and perform geographical lookup to resolve the geographical location of the user using the `geoip` filter.
+您可以使用IP地址并执行地理查找，以解决用户的地理位置`geoip` 筛选。
 
-The `geoip` filter plugin ships with a database called `geolite 2`, which is provided by a company named MaxMind. `geolite 2` is a popular source of geographical data and it's available for free.
-Add the `geoip` plugin at the bottom of the `else` block.
+这`geoip` 过滤插件带有一个名为的数据库`geolite 2`，由一家名为Maxmind的公司提供。`geolite 2` 是地理数据的流行来源，可以免费使用。
+添加`geoip` 插入底部`else` 堵塞。
 
-The value of the `source` option is the name of the field containing the IP address, in this case that's `clientip`. You can make this field available using the `grok` pattern.
+价值`source` 选项是包含IP地址的字段的名称，在这种情况下是`clientip`。您可以使用`grok` 图案。
 
 ```yml
 geoip {
@@ -235,14 +235,15 @@ geoip {
 }
 ```
 
-Start Logstash and send an HTTP request.
+启动LogStash并发送HTTP请求。
 
-Within the terminal, you see a new field named `geoip` that contains information such as the time zone, country, continent, city, postal code, and the latitude/longitude pair.
+在终端中，您会看到一个名为的新字段`geoip` 其中包含诸如时区，国家，大陆，城市，邮政编码和纬度/经度对等信息。
 
-If you only need the country name for instance, include an option named `fields` with an array of the field names that you want the `geoip` plugin to return.
+如果您只需要国家名称，请包括一个名称的选项`fields` 带有您想要的字段名称的数组`geoip` 插件要返回。
 
-Some of the fields, such as city name and region, are not always available because translating IP addresses into geographical locations is generally not that accurate. If the `geoip` plugin fails to look up the geographical location, it adds a tag named `geoip_lookup_failure`.
+某些字段（例如城市名称和地区）并不总是可用的，因为将IP地址转换为地理位置通常不是那么准确。如果是`geoip` 插件无法查找地理位置，它添加了一个名称的标签`geoip_lookup_failure`。
 
-You can use the `geoip` plugin with the OpenSearch output because `location` object within the `geoip` object, is a standard format for representing geospatial data in JSON. This is the same format as OpenSearch uses for its `geo_point` data type.
+您可以使用`geoip` 带有OpenSearch输出的插件是因为`location` 对象`geoip` 对象是用于表示JSON中地理空间数据的标准格式。这与OpenSearch使用的格式相同`geo_point` 数据类型。
 
-You can use the powerful geospatial queries of OpenSearch for working with geographical data.
+您可以使用强大的opensearch地理空间查询来处理地理数据。
+

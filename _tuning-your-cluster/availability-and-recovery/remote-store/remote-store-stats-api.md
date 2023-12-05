@@ -1,54 +1,54 @@
 ---
 layout: default
-title: Remote Store Stats API 
+title: 远程商店统计API
 nav_order: 20
-parent: Remote-backed storage
-grand_parent: Availability and recovery
+parent: 远程支持存储
+grand_parent: 可用性和恢复
 ---
 
-# Remote Store Stats API
+# 远程商店统计API
 
-Introduced 2.8
-{: .label .label-purple }
+引入2.8
+{：.label .label-紫色的 }
 
-Use the Remote Store Stats API to monitor shard-level remote-backed storage performance. 
+使用远程存储统计API监视碎片-级遥控器-支持的存储性能。
 
-Metrics returned from this API only relate to indexes stored on remote-backed nodes. For an aggregated output on an index at the node or cluster level, use the [Index Stats]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats/), [Nodes Stats]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/), or [Cluster Stats]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-stats/) API.
+从此API返回的指标仅与存储在远程上的索引有关-支持节点。对于在节点或群集级别的索引上的汇总输出，请使用[索引统计]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats/)，，，，[节点统计]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/)， 或者[集群统计]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-stats/) API。
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```json
 GET _remotestore/stats/<index_name>
 GET _remotestore/stats/<index_name>/<shard_id>
 ```
 
-## Path parameters
+## 路径参数
 
-The following table lists the available path parameters. All path parameters are optional.
+下表列出了可用路径参数。所有路径参数都是可选的。
 
-Parameter | Type | Description
-:--- | :--- | :---
-`index_name` | String | The index name or index pattern.
-`shard_id` | String | The shard ID.
+范围| 类型| 描述
+：--- | ：--- | ：---
+`index_name` | 细绳| 索引名称或索引模式。
+`shard_id` | 细绳| 碎片ID。
 
-## Remote store stats for an index
+## 索引的远程商店统计数据
 
-Use the following API to get remote store statistics for all index shards.
+使用以下API获取所有索引碎片的远程存储统计信息。
 
-#### Example request
+#### 示例请求
 
 ```json
 GET _remotestore/stats/<index_name>
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-#### Example response
+#### 示例响应
 
-<details open markdown="block">
+<详细信息打开降价="block">
   <summary>
-    Response
+    回复
   </summary>
-  {: .text-delta }
+  {： 。文本-delta}
 
 ```json
 {
@@ -255,105 +255,105 @@ GET _remotestore/stats/<index_name>
     }
 }
 ```
-</details>
+</delect>
 
-### Response fields
+### 响应字段
 
-The response body of the Remote Store Stats API is split into three categories:
+远程存储统计API的响应主体分为三类：
 
-* `routing` : Contains information related to the shard’s routing
-* `segment` : Contains statistics related to segment transfers from remote-backed storage
-* `translog` : Contains statistics related to translog transfers from remote-backed storage
+*`routing` ：包含与碎片路由有关的信息
+*`segment` ：包含与远程段传输有关的统计信息-支持存储
+*`translog` ：包含与远程转移转移有关的统计数据-支持存储
 
-#### routing
+#### 路由
 
-The `routing` object contains the following fields.
+这`routing` 对象包含以下字段。
 
-|Field	|Description	|
-|:---	|:---	|
-| `primary` | Denotes whether the shard copy is a primary shard. |
-| `node` | The name of the node to which the shard is assigned. |
+|场地|描述|
+|：---|：---|
+| `primary` | 表示碎片副本是否是主要碎片。|
+| `node` | 分配碎片的节点的名称。|
 
-#### segment
+#### 部分
 
-The `segment.upload` object contains the following fields.
+这`segment.upload` 对象包含以下字段。
 
-|Field	|Description	|
-|:---	|:---	|
-| `local_refresh_timestamp_in_millis` | The last successful local refresh timestamp, in milliseconds.  |
-| `remote_refresh_timestamp_in_millis` | The last successful remote refresh timestamp, in milliseconds. |
-| `refresh_time_lag_in_millis` | The amount of time, in milliseconds, that the remote refresh is behind the local refresh. |
-| `refresh_lag` | The number of refreshes by which the remote store is lagging behind the local store.   |
-| `bytes_lag` | The lag, in bytes, between the remote and local stores.  |
-| `backpressure_rejection_count` | The total number of write rejections issued due to backpressure in the remote store.    |
-| `consecutive_failure_count` | The number of consecutive remote refresh failures since the last successful refresh.  |
-| `total_remote_refresh` | The total number of remote refreshes.  |
-| `total_uploads_in_bytes` | The total number of bytes in all uploads to the remote store.  |
-| `remote_refresh_size_in_bytes.last_successful` | The size of the data uploaded during the last successful refresh.  |
-| `remote_refresh_size_in_bytes.moving_avg` | The average size of the data, in bytes, uploaded in the last *N* refreshes. *N* is defined in the `remote_store.moving_average_window_size` setting. For more information, see [Remote segment backpressure](https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/). |
-| `upload_latency_in_bytes_per_sec.moving_avg` | The average speed of remote segment uploads, in bytes per second, for the last *N* uploads. *N* is defined in the `remote_store.moving_average_window_size` setting. For more information, see [Remote segment backpressure](https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/).    |
-| `remote_refresh_latency_in_millis.moving_avg` | The average amount of time, in milliseconds, taken by a single remote refresh during the last *N* remote refreshes. *N* is defined in the `remote_store.moving_average_window_size` setting. For more information, see [Remote segment backpressure](https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/).    |
+|场地|描述|
+|：---|：---|
+| `local_refresh_timestamp_in_millis` | 最后一个成功的本地刷新时间戳，以毫秒为单位。|
+| `remote_refresh_timestamp_in_millis` | 最后一个成功的远程刷新时间戳，以毫秒为单位。|
+| `refresh_time_lag_in_millis` | 远程刷新在本地刷新后面的时间，以毫秒为单位。|
+| `refresh_lag` | 远程商店落后于本地商店的刷新数量。|
+| `bytes_lag` | 远程和本地商店之间的滞后字节。|
+| `backpressure_rejection_count` | 由于远程商店中的背压而发出的写拒绝的总数。|
+| `consecutive_failure_count` | 自上次成功刷新以来，连续的远程刷新失败的数量。|
+| `total_remote_refresh` | 远程刷新的总数。|
+| `total_uploads_in_bytes` | 所有上传到远程存储的字节总数。|
+| `remote_refresh_size_in_bytes.last_successful` | 在上次成功刷新期间上传的数据大小。|
+| `remote_refresh_size_in_bytes.moving_avg` | 数据的平均大小，以字节为单位，在最后一个 * n *刷新中上传。* n*在`remote_store.moving_average_window_size` 环境。有关更多信息，请参阅[远程段背压](https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/)。|
+| `upload_latency_in_bytes_per_sec.moving_avg` | 最后 * n *上传的远程段上传的平均速度上传每秒。* n*在`remote_store.moving_average_window_size` 环境。有关更多信息，请参阅[远程段背压](https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/)。|
+| `remote_refresh_latency_in_millis.moving_avg` | 在最后一个 * n *远程刷新期间，单个远程刷新花费的平均时间为毫秒。* n*在`remote_store.moving_average_window_size` 环境。有关更多信息，请参阅[远程段背压](https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/remote-store/remote-segment-backpressure/)。|
 
-The `segment.download` object contains the following fields.
+这`segment.download` 对象包含以下字段。
 
-|Field	|Description	|
-|:---	|:---	|
-| `last_sync_timestamp`| The timestamp, in milliseconds, since the last successful segment file download from remote-backed storage. |
-| `total_download_size.started_bytes` | The total number of bytes of segment files actively being downloaded from remote-backed storage.   |
-| `total_download_size.succeeded_bytes` | The total number of bytes of segment files successfully downloaded from remote-backed storage. |
-| `total_download_size.failed_bytes` | The total number of bytes of segment files that failed to download from remote-back storage. |
-| `download_size_in_bytes.last_successful` | The size, in bytes, of the last segment file successfully downloaded from remote-backed storage. |
-| `download_size_in_bytes.moving_avg`  | The average size of segment data, in bytes, downloaded in the last 20 downloads. |
-| `download_speed_in_bytes_per_sec.moving_avg` | The average download speed, in bytes per second, of the last 20 downloads. |
+|场地|描述|
+|：---|：---|
+| `last_sync_timestamp`| 时间戳记，以毫秒为单位，因为最后一个成功的段文件从远程下载-支持存储。|
+| `total_download_size.started_bytes` | 从远程积极下载的细分文件的字节总数-支持存储。|
+| `total_download_size.succeeded_bytes` | 从远程下载的细分文件的字节总数-支持存储。|
+| `total_download_size.failed_bytes` | 无法从远程下载的细分文件的字节总数-后存储。|
+| `download_size_in_bytes.last_successful` | 从远程成功下载的最后一个段文件的大小，字节中的大小-支持存储。|
+| `download_size_in_bytes.moving_avg`  | 在过去20个下载中下载了段数据的平均段数据大小。|
+| `download_speed_in_bytes_per_sec.moving_avg` | 过去20个下载中的平均下载速度，每秒字节。|
 
-#### translog
+#### 翻译
 
-The `translog.upload` object contains the following fields.
+这`translog.upload` 对象包含以下字段。
 
-|Field	|Description	|
-|:---	|:---	|
-| `last_successful_upload_timestamp`| The timestamp, in milliseconds, since the last translog file successfully uploaded to remote-backed storage. |
-| `total_uploads.started` | The total number of attempted translog upload syncs to remote-backed storage. |
-| `total_uploads.failed` | The total number of failed translog upload syncs to remote-backed storage.   |
-| `total_uploads.succeeded` | The total number of successful translog upload syncs to remote-backed storage.  |
-| `total_upload_size.started_bytes` | The total number of bytes of translog files actively being downloaded from remote-backed storage. |
-| `total_upload_size.succeeded_bytes` | The total number of bytes of translog files successfully uploaded to remote-backed storage. |
-|`total_upload_size.failed_bytes` | The total number of bytes of translog files that failed to upload to remote-backed storage. |
-| `total_upload_time_in_millis` | The total amount of time spent, in milliseconds, uploading translog files to remote-backed storage. |
-| `upload_size_in_bytes.moving_avg` | The average size of translog data, in bytes, uploaded in the last *N* downloads. *N* is defined in the `remote_store.moving_average_window_size` setting. |
-| `upload_speed_in_bytes_per_sec.moving_avg` | The average speed of translog uploads, in bytes per second, for the last *N* uploads. *N* is defined in the `remote_store.moving_average_window_size` setting.    |
-| `upload_time_in_millis.moving_avg` | The average amount of time taken by a single translog upload, in milliseconds, since the last *N* uploads. *N* is defined in the `remote_store.moving_average_window_size` setting.    |
+|场地|描述|
+|：---|：---|
+| `last_successful_upload_timestamp`| 时间戳记，以毫秒为单位，因为最后一个转换文件成功上传到远程-支持存储。|
+| `total_uploads.started` | 尝试翻译的总数上传同步到遥控-支持存储。|
+| `total_uploads.failed` | 失败的Translog上传同步到遥控器的总数-支持存储。|
+| `total_uploads.succeeded` | 成功的Translog上传同步到遥控器的总数-支持存储。|
+| `total_upload_size.started_bytes` | Translog文件的字节总数积极从远程下载-支持存储。|
+| `total_upload_size.succeeded_bytes` | Translog文件的字节总数成功上传到远程-支持存储。|
+|`total_upload_size.failed_bytes` | 未能上传到远程的Translog文件的字节总数-支持存储。|
+| `total_upload_time_in_millis` | 在毫秒内花费的总时间将Translog文件上传到远程-支持存储。|
+| `upload_size_in_bytes.moving_avg` | Translog数据的平均大小（以字节为单位）上传到最后一个 * n *下载。* n*在`remote_store.moving_average_window_size` 环境。|
+| `upload_speed_in_bytes_per_sec.moving_avg` | 最后 * n *上传的平均翻译上传速度，以每秒字节为单位。* n*在`remote_store.moving_average_window_size` 环境。|
+| `upload_time_in_millis.moving_avg` | 自上次 * n *上传以来，单个翻译库上传的平均时间上传。* n*在`remote_store.moving_average_window_size` 环境。|
 
-The `translog.download` object contains the following fields.
+这`translog.download` 对象包含以下字段。
 
-|Field	|Description	|
-|:---	|:---	|
-| `last_successful_download_timestamp` | The timestamp, in milliseconds, since the last translog file successfully uploaded to remote-backed storage. |
-| `total_downloads.succeeded` | The total number of successful translog download syncs from remote-backed storage. |
-| `total_download_size.succeeded_bytes` | The total number of bytes of translog files successfully uploaded from remote-backed storage.  |
-| `total_download_time_in_millis` | The total amount of time spent, in milliseconds, downloading translog files from remote-backed storage.  |
-| `download_size_in_bytes.moving_avg`  | The average size of translog data, in bytes, downloaded in the last *N* downloads. *N* is defined in the `remote_store.moving_average_window_size` setting.    |
-| `download_speed_in_bytes_per_sec.moving_avg` | The average speed of translog downloads, in bytes per second, for the last *N* uploads. *N* is defined in the `remote_store.moving_average_window_size` setting.   |
-| `download_time_in_millis.moving_avg` |  The average amount of time taken by a single translog download, in milliseconds, since the last *N* uploads. *N* is defined in the `remote_store.moving_average_window_size` setting.  |
+|场地|描述|
+|：---|：---|
+| `last_successful_download_timestamp` | 时间戳记，以毫秒为单位，因为最后一个转换文件成功上传到远程-支持存储。|
+| `total_downloads.succeeded` | 从远程下载同步的成功转换总数-支持存储。|
+| `total_download_size.succeeded_bytes` | Translog文件的字节总数成功地从远程上传-支持存储。|
+| `total_download_time_in_millis` | 在毫秒内花费的总时间，从远程下载Translog文件-支持存储。|
+| `download_size_in_bytes.moving_avg`  | 在最后一个 * n *下载中下载了Translog数据的平均大小。* n*在`remote_store.moving_average_window_size` 环境。|
+| `download_speed_in_bytes_per_sec.moving_avg` | 最后 * n *上传的平均转换下载速度（以字节为单位）。* n*在`remote_store.moving_average_window_size` 环境。|
+| `download_time_in_millis.moving_avg` |  自上次 * n *上传以来，单个翻译下载以毫秒下载的平均时间。* n*在`remote_store.moving_average_window_size` 环境。|
 
-## Remote store stats for a single shard
+## 一个单碎的远程商店统计数据
 
-Use the following API to get remote store statistics for a single shard.
+使用以下API获取单个碎片的远程存储统计信息。
 
-#### Example request
+#### 示例请求
 
 ```json
 GET _remotestore/stats/<index_name>/<shard_id>
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-#### Example response
+#### 示例响应
 
-<details open markdown="block">
+<详细信息打开降价="block">
   <summary>
-    Response
+    回复
   </summary>
-  {: .text-delta }
+  {： 。文本-delta}
 
 ```json
 {
@@ -466,14 +466,15 @@ GET _remotestore/stats/<index_name>/<shard_id>
     }
 }
 ```
-</details>
+</delect>
 
-### Remote store stats for a local shard
+### 本地碎片的远程商店统计数据
 
-If you want to fetch only shards present on the node serving a Remote Store Stats API request, set the `local` query parameter to `true`, as shown in the following example request:
+如果您只想在服务远程存储统计API请求的节点上仅获取碎片，请设置`local` 查询参数为`true`，如以下示例请求所示：
 
 
 ```json
 GET _remotestore/stats/<index_name>?local=true
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
+

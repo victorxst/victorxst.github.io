@@ -1,47 +1,47 @@
 ---
 layout: default
-title: Segment replication 
+title: 段复制 
 nav_order: 70
 has_children: true
-parent: Availability and recovery
+parent: 可用性和恢复
 datatable: true
 redirect_from:
   - /opensearch/segment-replication/
   - /opensearch/segment-replication/index/
 ---
 
-# Segment replication
+# 段复制
 
-Segment replication involves copying segment files across shards instead of indexing documents on each shard copy. This approach enhances indexing throughput and reduces resource utilization but increases network utilization. Segment replication is the first feature in a series of features designed to decouple reads and writes in order to lower compute costs.
+细分复制涉及在碎片上复制细分文件，而不是在每个碎片副本上索引文档。这种方法增强了索引吞吐量并降低了资源利用率，但增加了网络利用率。细分复制是一系列功能中的第一个功能，旨在将读取和写入以降低计算成本。
 
-When the primary shard sends a checkpoint to replica shards on a refresh, a new segment replication event is triggered on replica shards. This happens:
+当主碎片将检查点发送到刷新上的复制碎片时，在复制片上触发了一个新的细分复制事件。有时候是这样的：
 
-- When a new replica shard is added to a cluster.
-- When there are segment file changes on a primary shard refresh.
-- During peer recovery, such as replica shard recovery and shard relocation (explicit allocation using the `move` allocation command or automatic shard rebalancing).
+- 当将新的复制碎片添加到集群中时。
+- 当主碎片上有段文件更改时。
+- 在同行恢复期间，例如复制碎片恢复和碎片重新定位（使用`move` 分配命令或自动碎片重新平衡）。
 
-## Use cases
+## 用例
 
-Segment replication can be applied in a variety of scenarios, including:
+段复制可以在多种情况下应用，包括：
 
-- High write loads without high search requirements and with longer refresh times.
-- When experiencing very high loads, you want to add new nodes but don't want to index all data immediately.
-- OpenSearch cluster deployments with low replica counts, such as those used for log analytics.
+- 没有高搜索要求且刷新时间更长的高写入负载。
+- 当经历非常高的负载时，您需要添加新节点，但不想立即为所有数据索引。
+- OpenSearch群集部署具有低复制品计数，例如用于日志分析的群集。
 
-## Remote-backed storage
+## 偏僻的-支持存储
 
-As of OpenSearch 2.10, you can use two methods for segment replication:
+从OpenSearch 2.10开始，您可以使用两种方法进行细分复制：
 
-- **Remote-backed storage**, a persistent storage solution: The primary shard sends segment files to the remote-backed storage, and the replica shards source the copy from the same store. For more information about using remote-backed storage, see [Remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/).
-- Node-to-node communication: The primary shard sends segment files directly to the replica shards using node-to-node communication.
+- **偏僻的-支持存储**，一个持久的存储解决方案：主碎片将细分文件发送到遥控器-支持的存储空间，复制品碎片从同一商店中获取副本。有关使用远程的更多信息-后备存储，请参阅[偏僻的-支持存储]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/index/)。
+- 节点-到-节点通信：主碎片使用节点直接将细分文件发送到副本碎片-到-节点通信。
 
-## Segment replication configuration
+## 段复制配置
 
-Setting the default replication type for a cluster affects all newly created indexes. You can, however, specify a different replication type when creating an index. Index-level settings override cluster-level settings.
+设置集群的默认复制类型会影响所有新创建的索引。但是，在创建索引时，您可以指定不同的复制类型。指数-等级设置覆盖集群-级别设置。
 
-### Creating an index with segment replication
+### 创建具有段复制的索引
 
-To use segment replication as the replication strategy for an index, create the index with the `replication.type` parameter set to `SEGMENT` as follows:
+要使用段复制作为索引的复制策略，请与`replication.type` 参数设置为`SEGMENT` 如下：
 
 ```json
 PUT /my-index1
@@ -53,16 +53,16 @@ PUT /my-index1
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-If you're using remote-backed storage, add the `remote_store` property to the index request body. 
+如果您正在使用远程-支持存储，添加`remote_store` 属性到索引请求主体。
 
-When using node-to-node replication, the primary shard consumes more network bandwidth because it pushes segment files to all the replica shards. Thus, it's beneficial to distribute primary shards equally between the nodes. To ensure balanced primary shard distribution, set the dynamic `cluster.routing.allocation.balance.prefer_primary` setting to `true`. For more information, see [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
+使用节点时-到-节点复制，主要碎片会消耗更多的网络带宽，因为它将细分文件推向所有复制碎片。因此，在节点之间平均分配初级碎片是有益的。为确保平衡的主碎片分布，设置动态`cluster.routing.allocation.balance.prefer_primary` 设置为`true`。有关更多信息，请参阅[集群设置]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/)。
 
-For the best performance, it is recommended that you enable the following settings:
+为了获得最佳性能，建议您启用以下设置：
 
-1. [Segment replication backpressure]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/backpressure/) 
-2. Balanced primary shard allocation, using the following command:
+1. [段复制背压]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/backpressure/) 
+2. 使用以下命令：平衡的主碎片分配：
 
 ```json
 PUT /_cluster/settings
@@ -73,22 +73,22 @@ PUT /_cluster/settings
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-### Setting the replication type for a cluster
+### 为集群设置复制类型
 
-You can set the default replication type for newly created cluster indexes in the `opensearch.yml` file as follows:
+您可以在新创建的集群索引中设置默认复制类型`opensearch.yml` 文件如下：
 
 ```yaml
 cluster.indices.replication.strategy: 'SEGMENT'
 ```
-{% include copy.html %}
+{％include copy.html％}
 
 
 
-### Creating an index with document replication
+### 使用文档复制创建索引
 
-Even when the default replication type is set to segment replication, you can create an index that uses document replication by setting `replication.type` to `DOCUMENT` as follows:
+即使将默认复制类型设置为段复制，您也可以创建一个索引，该索引通过设置文档复制来设置`replication.type` 到`DOCUMENT` 如下：
 
 ```json
 PUT /my-index1
@@ -100,300 +100,301 @@ PUT /my-index1
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-## Considerations
+## 考虑因素
 
-When using segment replication, consider the following:
+使用片段复制时，请考虑以下内容：
 
-1. Enabling segment replication for an existing index requires [reindexing](https://github.com/opensearch-project/OpenSearch/issues/3685).
-1. [Cross-cluster replication](https://github.com/opensearch-project/OpenSearch/issues/4090) does not currently use segment replication to copy between clusters.
-1. Segment replication leads to increased network congestion on primary shards using node-to-node replication because replica shards fetch updates from the primary shard. With remote-backed storage, the primary shard can upload segments to, and the replicas can fetch updates from, the remote-backed storage. This helps offload responsibilities from the primary shard to the remote-backed storage.
-1. Read-after-write guarantees: Segment replication does not currently support setting the refresh policy to `wait_for` or `true`. If you set the `refresh` query parameter to `wait_for` or `true` and then ingest documents, you'll get a response only after the primary node has refreshed and made those documents searchable. Replica shards will respond only after having written to their local translog. If real-time reads are needed, consider using the [`get`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/get-documents/) or [`mget`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/) API operations. 
-1. As of OpenSearch 2.10, system indexes support segment replication. 
-1. Get, MultiGet, TermVector, and MultiTermVector requests serve strong reads by routing requests to the primary shards. Routing more requests to the primary shards may degrade performance as compared to distributing requests across primary and replica shards. To improve performance in read-heavy clusters, we recommend setting the `realtime` parameter in these requests to `false`. For more information, see [Issue #8700](https://github.com/opensearch-project/OpenSearch/issues/8700).
+1. 启用现有索引的细分复制需要[重新索引](https://github.com/opensearch-project/OpenSearch/issues/3685)。
+1. [叉-集群复制](https://github.com/opensearch-project/OpenSearch/issues/4090) 当前不使用片段复制来在簇之间复制。
+1. 段复制导致使用节点上碎片上的网络拥塞增加-到-节点复制是因为副本shards从主碎片中获取更新。与远程-支持存储，主碎片可以上传段，并且复制品可以从远程获取更新-支持存储。这有助于卸载从主要碎片到遥控器的职责-支持存储。
+1. 读-后-写保证：细分复制当前不支持将刷新策略设置为`wait_for` 或者`true`。如果您设置`refresh` 查询参数为`wait_for` 或者`true` 然后摄入文档，只有在主节点刷新并使这些文档可以搜索之后，您才能得到响应。复制碎片只有在写信给本地翻译后才会做出回应。如果是真实的-需要时间读取，请考虑使用[`get`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/get-documents/) 或者[`mget`]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/) API操作。
+1. 从OpenSearch 2.10开始，系统索引支持段复制。
+1. 通过将请求路由到主要碎片，获取，多列，术语向量和多点矢量请求可提供强大的读取。将更多请求路由到主碎片中可能会降低性能，而不是在主和复制碎片上分发请求。提高阅读的性能-重型集群，我们建议设置`realtime` 这些请求中的参数`false`。有关更多信息，请参阅[问题#8700](https://github.com/opensearch-project/OpenSearch/issues/8700)。
 
-## Benchmarks
+## 基准
 
-During initial benchmarks, segment replication users reported 40% higher throughput than when using document replication with the same cluster setup.
+在初始基准测试中，细分复制用户报告的吞吐量比使用同一群集设置的文档复制时高40％。
 
-The following benchmarks were collected with [OpenSearch-benchmark]({{site.url}}{{site.baseurl}}/benchmark/index/) using the [`stackoverflow`](https://www.kaggle.com/datasets/stackoverflow/stackoverflow) and [`nyc_taxi`](https://github.com/topics/nyc-taxi-dataset) datasets.  
+收集以下基准[OpenSearch-基准]({{site.url}}{{site.baseurl}}/benchmark/index/) 使用[`stackoverflow`](https://www.kaggle.com/datasets/stackoverflow/stackoverflow) 和[`nyc_taxi`](https://github.com/topics/nyc-taxi-dataset) 数据集。
 
-The benchmarks demonstrate the effect of the following configurations on segment replication:
+基准测试证明了以下配置对片段复制的影响：
 
-- [The workload size](#increasing-the-workload-size)
-- [The number of primary shards](#increasing-the-number-of-primary-shards)
-- [The number of replicas](#increasing-the-number-of-replicas)
+- [工作量大小](#increasing-the-workload-size)
+- [主要碎片的数量](#increasing-the-number-of-primary-shards)
+- [副本的数量](#increasing-the-number-of-replicas)
 
-Your results may vary based on the cluster topology, hardware used, shard count, and merge settings. 
-{: .note }
+您的结果可能会根据群集拓扑，使用的硬件，碎片计数和合并设置而有所不同。
+{： 。笔记 }
 
-### Increasing the workload size
+### 增加工作量大小
 
-The following table lists benchmarking results for the `nyc_taxi` dataset with the following configuration:
+下表列出了基准测试结果`nyc_taxi` 具有以下配置的数据集：
 
-- 10 m5.xlarge data nodes
-- 40 primary shards, 1 replica each (80 shards total)
-- 4 primary shards and 4 replica shards per node
+- 10 m5.xlarge数据节点
+- 40个主要碎片，每个复制品1个（总计80片）
+- 每个节点4个主要碎片和4个复制碎片
 
-<table>
-    <th colspan="2" ></th>
-    <th colspan="3" >40 GB primary shard, 80 GB total</th>
-    <th colspan="3">240 GB primary shard, 480 GB total</th>
+<表>
+    <th colspan ="2" > </th>
+    <th colspan ="3" > 40 GB主碎片，80 GB总计</th>
+    <th colspan ="3"> 240 GB主碎片，480 GB总计</th>
     <tr>
-        <td></td>
-        <td></td>
-        <td>Document Replication</td>
-        <td>Segment Replication</td>
-        <td>Percent difference</td>
-        <td>Document Replication</td>
-        <td>Segment Replication</td>
-        <td>Percent difference</td>
+        <td> </td>
+        <td> </td>
+        <td>文档复制</td>
+        <td>段复制</td>
+        <TD>百分比差</td>
+        <td>文档复制</td>
+        <td>段复制</td>
+        <TD>百分比差</td>
     </tr>
     <tr>
-        <td>Store size</td>
-        <td ></td>
-        <td>85.2781</td>
-        <td>91.2268</td>
-        <td>N/A</td>
-        <td>515.726</td>
-        <td>558.039</td>
-        <td>N/A</td>
+        <td>商店大小</td>
+        <td> </td>
+        <TD> 85.2781 </td>
+        <TD> 91.2268 </td>
+        <td> n/a </td>
+        <td> 515.726 </td>
+        <TD> 558.039 </td>
+        <td> n/a </td>
     </tr>
     <tr>
-        <td rowspan="3">Index throughput (number of requests per second)</td>
-        <td>Minimum</td>
-        <td>148,134</td>
-        <td>185,092</td>
-        <td>24.95%</td>
-        <td>100,140</td>
-        <td>168,335</td>
-        <td>68.10%</td>
+        <td rowspan ="3">索引吞吐量（每秒请求数）</td>
+        <td>最小</td>
+        <td> 148,134 </td>
+        <td> 185,092 </td>
+        <td> 24.95％</td>
+        <td> 100,140 </td>
+        <td> 168,335 </td>
+        <td> 68.10％</td>
     </tr>
     <tr>
-        <td class="td-custom">Median</td>
-        <td>160,110</td>
-        <td>189,799</td>
-        <td>18.54%</td>
-        <td>106,642</td>
-        <td>170,573</td>
-        <td>59.95%</td>
+        <td class ="td-custom">中值</td>
+        <td> 160,110 </td>
+        <td> 189,799 </td>
+        <td> 18.54％</td>
+        <td> 106,642 </td>
+        <td> 170,573 </td>
+        <TD> 59.95％</td>
     </tr>
     <tr>
-        <td class="td-custom">Maximum</td>
-        <td>175,196</td>
-        <td>190,757</td>
-        <td>8.88%</td>
-        <td>108,583</td>
-        <td>172,507</td>
-        <td>58.87%</td>
+        <td class ="td-custom">最大</td>
+        <td> 175,196 </td>
+        <TD> 190,757 </td>
+        <TD> 8.88％</td>
+        <td> 108,583 </td>
+        <td> 172,507 </td>
+        <td> 58.87％</td>
     </tr>
     <tr>
-        <td>Error rate</td>
-        <td ></td>
-        <td>0.00%</td>
-        <td>0.00%</td>
-        <td >0.00%</td>
-        <td>0.00%</td>
-        <td>0.00%</td>
-        <td>0.00%</td>
-    </tr>
-</table>
-
-As the size of the workload increases, the benefits of segment replication are amplified because the replicas are not required to index the larger dataset. In general, segment replication leads to higher throughput at lower resource costs than document replication in all cluster configurations, not accounting for replication lag. 
-
-### Increasing the number of primary shards
-
-The following table lists benchmarking results for the `nyc_taxi` dataset for 40 and 100 primary shards.
-
-{::nomarkdown}
-<table>
-    <th colspan="2"></th>
-    <th colspan="3">40 primary shards, 1 replica</th>
-    <th colspan="3">100 primary shards, 1 replica</th>
-    <tr>
-        <td></td>
-        <td></td>
-        <td>Document Replication</td>
-        <td>Segment Replication</td>
-        <td>Percent difference</td>
-        <td>Document Replication</td>
-        <td>Segment Replication</td>
-        <td>Percent difference</td>
-    </tr>
-    <tr>
-        <td rowspan="3">Index throughput (number of requests per second)</td>
-        <td>Minimum</td>
-        <td>148,134</td>
-        <td>185,092</td>
-        <td>24.95%</td>
-        <td>151,404</td>
-        <td>167,391</td>
-        <td>9.55%</td>
-    </tr>
-    <tr>
-        <td class="td-custom">Median</td>
-        <td>160,110</td>
-        <td>189,799</td>
-        <td>18.54%</td>
-        <td>154,796</td>
-        <td>172,995</td>
-        <td>10.52%</td>
-    </tr>
-    <tr>
-        <td class="td-custom">Maximum</td>
-        <td>175,196</td>
-        <td>190,757</td>
-        <td>8.88%</td>
-        <td>166,173</td>
-        <td>174,655</td>
-        <td>4.86%</td>
-    </tr>
-    <tr>
-        <td>Error rate</td>
-        <td ></td>
-        <td>0.00%</td>
-        <td>0.00%</td>
-        <td >0.00%</td>
-        <td>0.00%</td>
-        <td>0.00%</td>
-        <td>0.00%</td>
+        <td>错误率</td>
+        <td> </td>
+        <td> 0.00％</td>
+        <td> 0.00％</td>
+        <td> 0.00％</td>
+        <td> 0.00％</td>
+        <td> 0.00％</td>
+        <td> 0.00％</td>
     </tr>
 </table>
-{:/}
 
-As the number of primary shards increases, the benefits of segment replication over document replication decrease. While segment replication is still beneficial with a larger number of primary shards, the difference in performance becomes less pronounced because there are more primary shards per node that must copy segment files across the cluster. 
+随着工作负载的大小增加，段复制的好处被放大，因为复制品不需要索引较大的数据集。通常，在所有群集配置中，段复制在资源成本低的吞吐量中会导致更高的吞吐量，而不是复制滞后。
 
-### Increasing the number of replicas
+### 增加主要碎片的数量
 
-The following table lists benchmarking results for the `stackoverflow` dataset for 1 and 9 replicas.
+下表列出了基准测试结果`nyc_taxi` 40和100个主要碎片的数据集。
 
-{::nomarkdown}
-<table>
-    <th colspan="2"  ></th>
-    <th colspan="3"  >10 primary shards, 1 replica</th>
-    <th colspan="3">10 primary shards, 9 replicas</th>
+{:: nomarkdown}
+<表>
+    <th colspan ="2"> </th>
+    <th colspan ="3"> 40个主碎片，1个复制</th>
+    <th colspan ="3"> 100个主要碎片，1个副本</th>
     <tr>
-        <td></td>
-        <td></td>
-        <td>Document Replication</td>
-        <td>Segment Replication</td>
-        <td>Percent difference</td>
-        <td>Document Replication</td>
-        <td>Segment Replication</td>
-        <td>Percent difference</td>
+        <td> </td>
+        <td> </td>
+        <td>文档复制</td>
+        <td>段复制</td>
+        <TD>百分比差</td>
+        <td>文档复制</td>
+        <td>段复制</td>
+        <TD>百分比差</td>
     </tr>
     <tr>
-        <td rowspan="2">Index throughput (number of requests per second)</td>
-        <td >Median</td>
-        <td>72,598.10</td>
-        <td>90,776.10</td>
-        <td>25.04%</td>
-        <td>16,537.00</td> 
-        <td>14,429.80</td> 
-        <td>&minus;12.74%</td>
+        <td rowspan ="3">索引吞吐量（每秒请求数）</td>
+        <td>最小</td>
+        <td> 148,134 </td>
+        <td> 185,092 </td>
+        <td> 24.95％</td>
+        <td> 151,404 </td>
+        <td> 167,391 </td>
+        <td> 9.55％</td>
     </tr>
     <tr>
-        <td class="td-custom">Maximum</td>
-        <td>86,130.80</td>
-        <td>96,471.00</td>
-        <td>12.01%</td>
-        <td>21,472.40</td>
-        <td>38,235.00</td>
-        <td>78.07%</td>
+        <td class ="td-custom">中值</td>
+        <td> 160,110 </td>
+        <td> 189,799 </td>
+        <td> 18.54％</td>
+        <td> 154,796 </td>
+        <td> 172,995 </td>
+        <td> 10.52％</td>
     </tr>
     <tr>
-        <td rowspan="4">CPU usage (%)</td>
-        <td >p50</td>
-        <td>17</td>
-        <td>18.857</td>
-        <td>10.92%</td>
-        <td>69.857</td>
-        <td>8.833</td>
-        <td>&minus;87.36%</td>
+        <td class ="td-custom">最大</td>
+        <td> 175,196 </td>
+        <TD> 190,757 </td>
+        <TD> 8.88％</td>
+        <td> 166,173 </td>
+        <td> 174,655 </td>
+        <TD> 4.86％</td>
     </tr>
     <tr>
-        <td class="td-custom">p90</td>
-        <td>76</td>
-        <td>82.133</td>
-        <td>8.07%</td>
-        <td>99</td>
-        <td>86.4</td>
-        <td>&minus;12.73%</td>
-    </tr>
-    <tr>
-        <td class="td-custom">p99</td>
-        <td>100</td>
-        <td>100</td>
-        <td >0%</td>
-        <td>100</td>
-        <td>100</td>
-        <td>0%</td>
-    </tr>
-    <tr>
-        <td class="td-custom">p100</td>
-        <td>100</td>
-        <td>100</td>
-        <td >0%</td>
-        <td>100</td>
-        <td>100</td>
-        <td>0%</td>
-    </tr>
-    <tr>
-        <td rowspan="4">Memory usage (%)</td>
-        <td >p50</td>
-        <td>35</td>
-        <td>23</td>
-        <td>&minus;34.29%</td>
-        <td>42</td>
-        <td>40</td>
-        <td>&minus;4.76%</td>
-    </tr>
-    <tr>
-        <td class="td-custom">p90</td>
-        <td>59</td>
-        <td>57</td>
-        <td>&minus;3.39%</td>
-        <td>59</td>
-        <td>63</td>
-        <td>6.78%</td>
-    </tr>
-    <tr>
-        <td class="td-custom">p99</td>
-        <td>69</td>
-        <td>61</td>
-        <td>&minus;11.59%</td>
-        <td>66</td>
-        <td>70</td>
-        <td>6.06%</td>
-    </tr>
-    <tr>
-        <td class="td-custom">p100</td>
-        <td>72</td>
-        <td>62</td>
-        <td>&minus;13.89%</td>
-        <td>69</td>
-        <td>72</td>
-        <td>4.35%</td>
-    </tr>
-    <tr>
-        <td>Error rate</td>
-        <td ></td>
-        <td>0.00%</td>
-        <td>0.00%</td>
-        <td >0.00%</td>
-        <td>0.00%</td>
-        <td>2.30%</td>
-        <td>2.30%</td>
+        <td>错误率</td>
+        <td> </td>
+        <td> 0.00％</td>
+        <td> 0.00％</td>
+        <td> 0.00％</td>
+        <td> 0.00％</td>
+        <td> 0.00％</td>
+        <td> 0.00％</td>
     </tr>
 </table>
-{:/}
+{：/}
 
-As the number of replicas increases, the amount of time required for primary shards to keep replicas up to date (known as the _replication lag_) also increases. This is because segment replication copies the segment files directly from primary shards to replicas. 
+随着主要碎片数量的增加，段复制的好处比文档复制的益处减少了。尽管细分复制仍然有益于大量的主要碎片，但性能差异变得不那么明显，因为每个节点的主碎片更多，必须在整个群集上复制段文件。
 
-The benchmarking results show a non-zero error rate as the number of replicas increases. The error rate indicates that the [segment replication backpressure]({{site.urs}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/backpressure/) mechanism is initiated when replicas cannot keep up with the primary shard. However, the error rate is offset by the significant CPU and memory gains that segment replication provides.
+### 增加复制品的数量
 
-## Next steps
+下表列出了基准测试结果`stackoverflow` 1和9副本的数据集。
 
-1. Track [future enhancements to segment replication](https://github.com/orgs/opensearch-project/projects/99).
-1. Read [this blog post about segment replication](https://opensearch.org/blog/segment-replication/).
+{:: nomarkdown}
+<表>
+    <th colspan ="2"  > </th>
+    <th colspan ="3"  > 10个主要碎片，1个复制品</th>
+    <th colspan ="3"> 10个主要碎片，9个复制品</th>
+    <tr>
+        <td> </td>
+        <td> </td>
+        <td>文档复制</td>
+        <td>段复制</td>
+        <TD>百分比差</td>
+        <td>文档复制</td>
+        <td>段复制</td>
+        <TD>百分比差</td>
+    </tr>
+    <tr>
+        <td rowspan ="2">索引吞吐量（每秒请求数）</td>
+        <td>中值</td>
+        <TD> 72,598.10 </td>
+        <TD> 90,776.10 </td>
+        <td> 25.04％</td>
+        <td> 16,537.00 </td>
+        <td> 14,429.80 </td>
+        <td>＆minus; 12.74％</td>
+    </tr>
+    <tr>
+        <td class ="td-custom">最大</td>
+        <TD> 86,130.80 </td>
+        <TD> 96,471.00 </td>
+        <td> 12.01％</td>
+        <td> 21,472.40 </td>
+        <TD> 38,235.00 </td>
+        <td> 78.07％</td>
+    </tr>
+    <tr>
+        <td rowspan ="4"> CPU用法（％）</td>
+        <td> p50 </td>
+        <td> 17 </td>
+        <td> 18.857 </td>
+        <TD> 10.92％</td>
+        <td> 69.857 </td>
+        <td> 8.833 </td>
+        <TD>＆minus; 87.36％</td>
+    </tr>
+    <tr>
+        <td class ="td-custom"> p90 </td>
+        <TD> 76 </td>
+        <TD> 82.133 </td>
+        <TD> 8.07％</td>
+        <TD> 99 </td>
+        <TD> 86.4 </td>
+        <td>＆minus; 12.73％</td>
+    </tr>
+    <tr>
+        <td class ="td-custom"> p99 </td>
+        <td> 100 </td>
+        <td> 100 </td>
+        <td> 0％</td>
+        <td> 100 </td>
+        <td> 100 </td>
+        <td> 0％</td>
+    </tr>
+    <tr>
+        <td class ="td-custom"> p100 </td>
+        <td> 100 </td>
+        <td> 100 </td>
+        <td> 0％</td>
+        <td> 100 </td>
+        <td> 100 </td>
+        <td> 0％</td>
+    </tr>
+    <tr>
+        <td rowspan ="4">内存使用（％）</td>
+        <td> p50 </td>
+        <TD> 35 </td>
+        <td> 23 </td>
+        <td>＆minus; 34.29％</td>
+        <td> 42 </td>
+        <td> 40 </td>
+        <td>＆minus; 4.76％</td>
+    </tr>
+    <tr>
+        <td class ="td-custom"> p90 </td>
+        <td> 59 </td>
+        <TD> 57 </td>
+        <td>＆minus; 3.39％</td>
+        <td> 59 </td>
+        <TD> 63 </td>
+        <TD> 6.78％</td>
+    </tr>
+    <tr>
+        <td class ="td-custom"> p99 </td>
+        <td> 69 </td>
+        <td> 61 </td>
+        <TD>＆minus; 11.59％</td>
+        <TD> 66 </td>
+        <TD> 70 </td>
+        <TD> 6.06％</td>
+    </tr>
+    <tr>
+        <td class ="td-custom"> p100 </td>
+        <TD> 72 </td>
+        <TD> 62 </td>
+        <td>＆minus; 13.89％</td>
+        <td> 69 </td>
+        <TD> 72 </td>
+        <TD> 4.35％</td>
+    </tr>
+    <tr>
+        <td>错误率</td>
+        <td> </td>
+        <td> 0.00％</td>
+        <td> 0.00％</td>
+        <td> 0.00％</td>
+        <td> 0.00％</td>
+        <TD> 2.30％</td>
+        <TD> 2.30％</td>
+    </tr>
+</table>
+{：/}
+
+随着副本数量的增加，将shards保持最新的主碎片所需的时间（称为_replication lag_）也增加了。这是因为细分复制将段文件直接从主碎片复制到副本。
+
+基准测试结果表明-零错误率随着副本数量的增加。错误率表明[段复制背压]({{site.urs}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/backpressure/) 当复制品无法跟上主碎片时，就会启动机制。但是，错误率被片段复制提供的显着CPU和内存增益所抵消。
+
+## 下一步
+
+1. 追踪[对细分复制的未来增强功能](https://github.com/orgs/opensearch-project/projects/99)。
+1. 读[有关细分复制的博客文章](https://opensearch.org/blog/segment-replication/)。
+

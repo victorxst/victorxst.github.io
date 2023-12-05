@@ -1,98 +1,99 @@
 ---
 layout: default
-title: OpenSearch Security for Security Analytics
+title: 用于安全分析的 OpenSearch Security
 nav_order: 2
 has_children: false
 ---
 
-# OpenSearch Security for Security Analytics
+# 用于安全分析的 OpenSearch Security
 
-You can use OpenSearch Security with Security Analytics to assign user permissions and manage the actions that users can and cannot perform. For example, you might want one group of users to be able to create, update, or delete detectors and another group of users to only view detectors. You may want still another group to be able to receive and acknowledge alerts but to be prevented from performing other tasks. The OpenSearch Security framework allows you to control the level of access users have to Security Analytics functionality.
+您可以使用Security Analytics使用OpenSearch Security来分配用户权限，并管理用户可以和无法执行的操作。例如，您可能希望一组用户能够创建，更新或删除检测器，而另一组用户只能查看检测器。您可能还希望另一个小组能够接收和确认警报，但要阻止执行其他任务。OpenSearch安全框架使您可以控制用户对安全分析功能的访问级别。
 
 ---
 ## Security Analytics system indexes
 
-Security Analytics indexes are protected as system indexes and treated differently than other indexes in a cluster. System indexes store configurations and other system settings and, for that reason, cannot be modified using the REST API or the OpenSearch Dashboards interface. Only a user with a TLS [admin certificate]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates) can access system indexes. For more information about working with this type of index, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/).
+安全分析索引被保护为系统索引，对群集中的其他索引的处理方式不同。系统索引存储配置和其他系统设置，因此，无法使用REST API或OpenSearch仪表板接口进行修改。只有具有TLS [admin证书]的用户({{site.url}}) {{site.baseurl}}/security/configuration/tls/tls/tls/tls/tls/tls/tls/#配置-行政-证书）可以访问系统索引。有关使用此类型索引的更多信息，请参见[System Indexes]({{site.url}}) {{site.baseurl}}/security/configuration/configuration/system-指数/）。
 
 ---
-## Basic permissions
+## 基本权限
 
-As an administrator, you can use OpenSearch Dashboards or the Security REST API to assign specific permissions to users based on the specific APIs they need to access. For a list of supported APIs, see [API tools]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/index/).
+作为管理员，您可以使用OpenSearch仪表板或安全性REST API来根据所需访问的特定API为用户分配特定的权限。有关支持API的列表，请参阅[API工具]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/index/)。
 
-OpenSearch Security has three built-in roles that cover most Security Analytics use cases: `security_analytics_full_access`, `security_analytics_read_access`, and `security_analytics_ack_alerts`. For descriptions of these and other roles, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
+OpenSearch Security已建立了三个-在涵盖大多数安全分析用例的角色中：`security_analytics_full_access`，，，，`security_analytics_read_access`， 和`security_analytics_ack_alerts`。有关这些角色和其他角色的描述，请参阅[预定义的角色]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles)。
 
-If these roles don't meet your needs, mix and match individual Security Analytics [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#security-analytics-permissions) to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/securityanalytics/detector/delete` permission allows you to delete detectors.
+如果这些角色无法满足您的需求，请混合并匹配个体安全分析[权限]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#security-analytics-permissions) 适合您的用例。每个动作对应于REST API中的操作。例如，`cluster:admin/opensearch/securityanalytics/detector/delete` 许可使您可以删除检测器。
 
 ---
 ## (Advanced) Limit access by backend role
 
-You can use backend roles to configure fine-grained access to individual detectors based on roles. For example, backend roles can be assigned to users working in different departments of an organization so that they can view only those detectors owned by the departments in which they work.
+您可以使用后端角色来配置罚款-基于角色的粒状访问单个探测器。例如，可以将后端角色分配给在组织的不同部门工作的用户，以便他们只能查看其工作部门拥有的那些检测器。
 
-First, make sure your users have the appropriate [backend roles]({{site.url}}{{site.baseurl}}/security/access-control/index/). Backend roles usually come from an [LDAP server]({{site.url}}{{site.baseurl}}/security/configuration/ldap/) or [SAML provider]({{site.url}}{{site.baseurl}}/security/configuration/saml/). However, if you use the internal user database, you can use the REST API to [add them manually]({{site.url}}{{site.baseurl}}/security/access-control/api#create-user).
+首先，确保您的用户具有适当的[后端角色]（{{site.url}}} {{site.baseurl}}/security/access-控制/索引/）。后端角色通常来自[ldap Server]（{{site.url}}} {{site.baseurl}}/security/configuration/ldap/）或[saml provider]（{site.url}}} {{site。baseurl}}/security/configuration/saml/）。但是，如果您使用内部用户数据库，则可以使用REST API进行[手动添加它们]（{{site.url}} {site.baseurl}}/security/security/access-控制/API#创造-用户）。
 
-Next, enable the following setting:
+接下来，启用以下设置：
 
 ```json
-PUT /_cluster/settings
+put /_ cluster /设置
 {
-  "transient": {
-    "plugins.security_analytics.filter_by_backend_roles": "true"
+  "transient"：{
+    "plugins.security_analytics.filter_by_backend_roles"："true"
   }
 }
 ```
 {% include copy-curl.html %}
 
-Now when users view Security Analytics resources in OpenSearch Dashboards (or make REST API calls), they only see detectors created by users who share at least one backend role.
-For example, consider two users: `alice` and `bob`.
+现在，当用户在OpenSearch仪表板中查看Security Analytics资源（或进行REST API调用）时，他们只会看到由至少共享一个后端角色的用户创建的检测器。
+例如，考虑两个用户：`alice` 和`bob`。
 
-The following example assigns the user `alice` the `analyst` backend role:
+以下示例分配用户`alice` 这`analyst` 后端角色：
 
 ```json
-PUT /_plugins/_security/api/internalusers/alice
+put/_plugins/_security/api/internalusers/alice
 {
-  "password": "alice",
-  "backend_roles": [
+  "password"："alice"，，，，
+  "backend_roles"：[[
     "analyst"
-  ],
-  "attributes": {}
+  ]，，
+  "attributes"：{}
 }
 ```
 {% include copy-curl.html %}
 
-The next example assigns the user `bob` the `human-resources` backend role:
+下一个示例分配用户`bob` 这`human-resources` 后端角色：
 
 ```json
-PUT /_plugins/_security/api/internalusers/bob
+put/_plugins/_ security/api/internestusers/bob
 {
-  "password": "bob",
-  "backend_roles": [
+  "password"："bob"，，，，
+  "backend_roles"：[[
     "human-resources"
-  ],
-  "attributes": {}
+  ]，，
+  "attributes"：{}
 }
 ```
 {% include copy-curl.html %}
 
-Finally, this last example assigns both `alice` and `bob` the role that gives them full access to Security Analytics:
+最后，最后一个示例分配了`alice` 和`bob` 使他们完全访问安全分析的角色：
 
 ```json
-PUT /_plugins/_security/api/rolesmapping/security_analytics_full_access
+put/_plugins/_security/api/rolesmapping/security_analytics_full_access
 {
-  "backend_roles": [],
-  "hosts": [],
-  "users": [
-    "alice",
+  "backend_roles"：[]，，
+  "hosts"：[]，，
+  "users"：[[
+    "alice"，，，，
     "bob"
-  ]
+  这是给出的
 }
 ```
 {% include copy-curl.html %}
 
-However, because they have different backend roles, `alice` and `bob` cannot view each other's detectors or their results.
+但是，由于它们具有不同的后端角色，所以`alice` 和`bob` 无法查看彼此的探测器或结果。
 
 ---
-## A note on using fine-grained access control with the plugin
+## 关于使用罚款的注释-使用插件的粒度访问控制
 
-When a trigger generates an alert, the detector configurations, the alert itself, and any notifications that are sent to a channel may include metadata describing the index being queried. By design, the plugin must extract the data and store it as metadata outside of the index. [Document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security) (DLS) and [field-level security]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security) (FLS) access controls are designed to protect the data in the index. But once the data is stored outside the index as metadata, users with access to the detector and monitor configurations, alerts, and their notifications will be able to view this metadata and possibly infer the contents and quality of data in the index, which would otherwise be concealed by DLS and FLS access control.
+当触发器生成警报时，检测器配置，警报本身以及发送到通道的任何通知都可能包括描述要查询的索引的元数据。根据设计，插件必须提取数据并将其存储为索引外的元数据。[文档-级别的安全性]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security) （DLS）和[场地-级别的安全性]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security) （FLS）访问控件旨在保护索引中的数据。但是，一旦将数据存储在索引外作为元数据之外，可以访问检测器和监视配置，警报及其通知的用户将能够查看此元数据，并可能推断索引中数据的内容和质量，否则，这将是被DLS和FLS访问控制所隐藏。
 
-To reduce the chances of unintended users viewing metadata that could describe an index, we recommend that administrators enable role-based access control and keep these kinds of design elements in mind when assigning permissions to the intended group of users. See [Limit access by backend role](#advanced-limit-access-by-backend-role) for more information.
+为了减少查看可以描述索引的元数据的意外用户的机会，我们建议管理员启用角色-在为预期的用户组分配权限时，基于访问控制并牢记这些设计元素。看[限制后端角色访问](#advanced-limit-access-by-backend-role) 了解更多信息。
+

@@ -1,74 +1,74 @@
 ---
 layout: default
-title: Common issues
+title: 常见问题
 nav_order: 1
 has_toc: false
 nav_exclude: true
 redirect_from: /troubleshoot/
 ---
 
-# Common issues
+# 常见问题
 
-This page contains a list of common issues and workarounds.
-
-
-## OpenSearch Dashboards fails to start
-
-If you encounter the error `FATAL  Error: Request Timeout after 30000ms` during startup, try running OpenSearch Dashboards on a more powerful machine. We recommend four CPU cores and 8 GB of RAM.
+此页面包含常见问题和解决方法的列表。
 
 
-## Requests to OpenSearch Dashboards fail with "Request must contain a osd-xsrf header"
+## OpenSearch仪表板无法启动
 
-If you run legacy Kibana OSS scripts against OpenSearch Dashboards---for example, curl commands that import saved objects from a file---they might fail with the following error:
+如果遇到错误`FATAL  Error: Request Timeout after 30000ms` 在启动过程中，尝试在更强大的机器上运行OpenSearch仪表板。我们建议四个CPU内核和8 GB RAM。
+
+
+## 对OpenSearch仪表板的请求失败"Request must contain a osd-xsrf header"
+
+如果您运行Legacy Kibana OSS脚本，请使用OpenSearch仪表板---例如，curl命令从文件导入对象---他们可能会因以下错误而失败：
 
 ```json
 {"status": 400, "body": "Request must contain a osd-xsrf header."}
 ```
 
-In this case, your scripts likely include the `"kbn-xsrf: true"` header. Switch it to the `osd-xsrf: true` header:
+在这种情况下，您的脚本可能包括`"kbn-xsrf: true"` 标题。切换到`osd-xsrf: true` 标头：
 
 ```
 curl -XPOST -u 'admin:admin' 'https://DASHBOARDS_ENDPOINT/api/saved_objects/_import' -H 'osd-xsrf:true' --form file=@export.ndjson
 ```
 
 
-## Multi-tenancy issues in OpenSearch Dashboards
+## 多-OpenSearch仪表板中的租赁问题
 
-If you're testing multiple users in OpenSearch Dashboards and encounter unexpected changes in tenant, use Google Chrome in an Incognito window or Firefox in a Private window.
+如果您在OpenSearch仪表板中测试了多个用户，并遇到租户意外的更改，请在隐身窗口中使用Google Chrome或在私人窗口中使用Firefox。
 
 
-## Expired certificates
+## 过期证书
 
-If your certificates have expired, you might receive the following error or something similar:
+如果您的证书已过期，则可能会收到以下错误或类似的错误：
 
 ```
 ERROR org.opensearch.security.ssl.transport.SecuritySSLNettyTransport - Exception during establishing a SSL connection: javax.net.ssl.SSLHandshakeException: PKIX path validation failed: java.security.cert.CertPathValidatorException: validity check failed
 Caused by: java.security.cert.CertificateExpiredException: NotAfter: Thu Sep 16 11:27:55 PDT 2021
 ```
 
-To check the expiration date for a certificate, run this command:
+要检查证书的到期日期，请运行此命令：
 
 ```bash
 openssl x509 -enddate -noout -in <certificate>
 ```
 
 
-## Encryption at rest
+## 休息时加密
 
-The operating system for each OpenSearch node handles encryption of data at rest. To enable encryption at rest in most Linux distributions, use the `cryptsetup` command:
+每个OpenSearch节点的操作系统都在静止下处理数据的加密。要在大多数Linux分布中启用静止的加密，请使用`cryptsetup` 命令：
 
 ```bash
 cryptsetup luksFormat --key-file <key> <partition>
 ```
 
-For full documentation about the command, see [cryptsetup(8) — Linux manual page](https://man7.org/linux/man-pages/man8/cryptsetup.8.html).
+有关命令的完整文档，请参阅[CryptSetup（8） -  Linux手册页面](https://man7.org/linux/man-pages/man8/cryptsetup.8.html)。
 
-{% comment %}
-## Beats
+{％ 评论 ％}
+## 节拍
 
-If you encounter compatibility issues when attempting to connect Beats to OpenSearch, make sure you're using the Apache 2.0 distribution of Beats, not the default distribution, which uses a proprietary license.
+如果尝试将Beats连接到OpenSearch时遇到兼容性问题，请确保您使用的是Apache 2.0 Beats的分布，而不是使用专有许可证的默认分发。
 
-Try this minimal output configuration for using Beats with the Security plugin:
+尝试使用安全插件的Beats来尝试此最小输出配置：
 
 ```yml
 output.elasticsearch:
@@ -82,7 +82,7 @@ output.elasticsearch:
   ssl.key: "/full/path/to/client-key.pem"
 ```
 
-Even if you use the OSS version, Beats might check for a proprietary plugin on the OpenSearch server and throw an error during startup. To disable the check, try adding these settings:
+即使使用OSS版本，Beats也可能在OpenSearch服务器上检查专有插件，并在启动过程中丢弃错误。要禁用支票，请尝试添加以下设置：
 
 ```yml
 setup.ilm.enabled: false
@@ -90,9 +90,9 @@ setup.ilm.check_exists: false
 ```
 
 
-## Logstash
+## logstash
 
-If you have trouble connecting Logstash to OpenSearch, try this minimal output configuration, which works with the Security plugin:
+如果您在将LogStash连接到OpenSearch时遇到困难，请尝试使用此最小输出配置，该配置可与安全插件一起使用：
 
 ```conf
 output {
@@ -107,13 +107,14 @@ output {
   }
 }
 ```
-{% endcomment %}
+{％endcomment％}
 
-## Can't update by script when FLS, DLS, or field masking is active
+## FLS，DLS或现场掩码处于活动状态时无法通过脚本更新
 
-The Security plugin blocks the update by script operation (`POST <index>/_update/<id>`) when field-level security, document-level security, or field masking are active. You can still update documents using the standard index operation (`PUT <index>/_doc/<id>`).
+安全插件通过脚本操作阻止更新（`POST <index>/_update/<id>`）字段-级别安全性，文档-级别安全性或现场掩码处于活动状态。您仍然可以使用标准索引操作更新文档（`PUT <index>/_doc/<id>`）。
 
 
-## Illegal reflective access operation in logs
+## 日志中的非法反射访问操作
 
-This is a known issue with Performance Analyzer that shouldn't affect functionality.
+这是性能分析仪的已知问题，不应影响功能。
+

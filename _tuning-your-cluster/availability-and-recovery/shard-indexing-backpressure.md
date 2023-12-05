@@ -1,33 +1,34 @@
 ---
 layout: default
-title: Shard indexing backpressure
+title: 碎片索引背压
 nav_order: 62
 has_children: true
-parent: Availability and recovery
+parent: 可用性和恢复
 redirect_from: 
   - /opensearch/shard-indexing-backpressure/
 ---
 
-# Shard indexing backpressure
+# 碎片索引背压
 
-Shard indexing backpressure is a smart rejection mechanism at a per-shard level that dynamically rejects indexing requests when your cluster is under strain. It propagates a backpressure that transfers requests from an overwhelmed node or shard to other nodes or shards that are still healthy.
+碎片索引背压是一种明智的拒绝机制-shard级级别会在群集处于压力下时动态拒绝索引请求。它传播了一种背压，该背压将请求从不堪重负的节点或碎片转移到仍然健康的其他节点或碎片。
 
-With shard indexing backpressure, you can prevent nodes in your cluster from running into cascading failures due to performance degradation caused by slow nodes, stuck tasks, resource-intensive requests, traffic surges, skewed shard allocations, and so on.
+通过碎片索引背压，您可以防止群集中的节点陷入级联失败，这是由于慢节点，固定任务，资源降解而导致的级联失败-密集的请求，交通浪费，偏斜的分配分配等等。
 
-Shard indexing backpressure comes into effect only when one primary and one secondary parameter is breached.
+仅当一个主要和一个次要参数被破坏时，shard索引的背压才能生效。
 
-## Primary parameters
+## 主要参数
 
-Primary parameters are early indicators that a cluster is under strain:
+主要参数是群集处于应变下的早期指标：
 
-- Shard memory limit breach: If the memory usage of a shard exceeds 95% of its allocated memory, this limit is breached.
-- Node memory limit breach: If the memory usage of a node exceeds 70% of its allocated memory, this limit is breached.
+- 碎片内存限制漏洞：如果碎片的内存使用率超过其分配内存的95％，则该限制将被违反。
+- 节点内存限制漏洞：如果节点的内存使用率超过其分配内存的70％，则该限制将被违反。
 
-The breach of primary parameters doesn’t cause any actual request rejections, it just triggers an evaluation of the secondary parameters.
+违反主要参数不会导致任何实际请求拒绝，它只是触发了对次级参数的评估。
 
-## Secondary parameters
+## 次要参数
 
-Secondary parameters check the performance at the shard level to confirm that the cluster is under strain:
+次级参数检查碎片级别的性能，以确认簇处于应变状态：
 
-- Throughput: If the throughput at the shard level decreases significantly in its historic view, this limit is breached.
-- Successful Request: If the number of pending requests increases significantly in its historic view, this limit is breached.
+- 吞吐量：如果碎片水平的吞吐量在其历史视野中显着降低，则该限制将被违反。
+- 成功的请求：如果待处理的请求的数量在其历史上大大增加，则该限制将被违反。
+

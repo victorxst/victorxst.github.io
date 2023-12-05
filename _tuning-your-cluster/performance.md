@@ -1,45 +1,45 @@
 ---
 layout: default
-title: Tuning for indexing speed
+title: 调整索引速度
 nav_order: 41
 has_children: false
 ---
 
-# Tuning your cluster for indexing speed
+# 调整群集以获取索引速度
 
-The following configurations demonstrated an improvement in throughput of around 60% when
-running an indexing-only workload as compared to the out-of-the-box experience. The workload did not
-incorporate search or other scenarios. Only the OpenSearch server process was run on the machines,
-with the benchmark clients hosted on a different node.
+以下配置显示，当吞吐量的改善约为60％。
+运行索引-与外部相比，只有工作量-的-这-盒子体验。工作量没有
+合并搜索或其他方案。仅在计算机上运行OpenSearch Server进程，
+带有基准客户端托管在不同的节点上。
 
-The execution environment was comprised of Intel EC2 instances (r7iz.2xlarge) in the AWS Cloud, and the
-workload used was the StackOverflow dataset available as part of OpenSearch Benchmark.
+执行环境由AWS云中的Intel EC2实例（R7iz.2xlarge）组成，
+使用的工作负载是OpenSearch基准测试的一部分可用的Stackoverflow数据集。
 
-## Java heap size
+## Java堆尺寸
 
-A larger Java heap size is useful for indexing. Setting the Java min and max heap sizes to 50% of the RAM
-size shows better indexing performance on EC2 instances.
+较大的Java堆尺寸可用于索引。将Java Min和Max Heap尺寸设置为RAM的50％
+大小在EC2实例上显示出更好的索引性能。
 
-## Flush translog threshold
+## 冲洗翻译阈值
 
-The default value for `flush_threshold_size` is 512 MB. This means that the translog is flushed when it reaches 512 MB. The weight of the indexing load determines the frequency of the translog. When you increase `index.translog.flush_threshold_size`, the node performs the translog operation less frequently. Because flushes are resource-intensive operations, reducing the frequency of translogs improves indexing performance. By increasing the flush threshold size, the OpenSearch cluster also creates fewer large segments instead of multiple small segments. Large segments merge less often, and more threads are used for indexing instead of merging.
+的默认值`flush_threshold_size` 为512 MB。这意味着当翻译达到512 MB时，它会冲洗掉。索引负载的重量决定了翻译的频率。当你增加时`index.translog.flush_threshold_size`，节点执行转换操作的频率较低。因为冲洗是资源-降低翻译频率的密集操作可提高索引性能。通过增加冲洗阈值大小，OpenSearch群集还会产生更少的大段，而不是多个小细分市场。大细分市场合并的频率较低，更多的线程用于索引而不是合并。
 
-For pure indexing workloads, consider increasing the `flush_threshold_size` to 25% of the Java heap size, for example, to improve indexing performance.
+对于纯索引工作负载，请考虑增加`flush_threshold_size` 例如，约有25％的Java堆尺寸以提高索引性能。
 
-An increased `index.translog.flush_threshold_size` can also increase the time that it takes for a translog to complete. If a shard fails, then recovery takes more time because the translog is larger.
-{: .note}
+增加`index.translog.flush_threshold_size` 还可以增加翻译完成所需的时间。如果碎片失败，则恢复需要更多时间，因为翻译较大。
+{： 。笔记}
 
-Before increasing `index.translog.flush_threshold_size`, call the following API operation to get current flush operation statistics:
+在增加之前`index.translog.flush_threshold_size`，致电以下API操作以获取当前的冲洗操作统计信息：
 
 ```json
 curl -XPOST "os-endpoint/index-name/_stats/flush?pretty"
 ```
-{% include copy.html %}
+{％include copy.html％}
 
 
-Replace the `os-endpoint` and `index-name` with your endpoint and index name.
+更换`os-endpoint` 和`index-name` 带有您的端点和索引名称。
 
-In the output, note the number of flushes and the total time. The following example output shows that there are 124 flushes, which took 17,690 milliseconds:
+在输出中，请注意冲洗次数和总时间。下面的示例输出表明有124次冲洗，耗时17,690毫秒：
 
 ```json
 {
@@ -50,81 +50,81 @@ In the output, note the number of flushes and the total time. The following exam
 }
 ```
 
-To increase the flush threshold size, call the following API operation:
+为了增加冲洗阈值大小，请致电以下API操作：
 
 ```json
 curl -XPUT "os-endpoint/index-name/_settings?pretty" -d "{"index":{"translog.flush_threshold_size" : "1024MB"}}"
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-In this example, the flush threshold size is set to 1024 MB, which is ideal for instances that have more than 32 GB of memory.
+在此示例中，齐平阈值大小设置为1024 MB，这是具有超过32 GB内存的实例的理想选择。
 
-Choose the appropriate threshold size for your cluster.
-{: .note}
+为群集选择适当的阈值大小。
+{： 。笔记}
 
-Run the stats API operation again to see whether the flush activity changed:
+再次运行STATS API操作，以查看冲洗活动是否更改：
 
 ```json
 curl -XGET "os-endpoint/index-name/_stats/flush?pretty"
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-It's a best practice to increase the `index.translog.flush_threshold_size` only for the current index. After you confirm the outcome, apply the changes to the index template.
-{: .note}
+这是增加的最佳实践`index.translog.flush_threshold_size` 仅针对当前索引。确认结果后，将更改应用于索引模板。
+{： 。笔记}
 
-## Index refresh interval
+## 索引刷新间隔
 
-By default, OpenSearch refreshes indexes every second. OpenSearch only refreshes indexes that have
-received at least one search request in the last 30 seconds.
+默认情况下，OpenSearch刷新每秒索引。OpenSearch仅刷新具有
+在过去30秒内至少收到了一个搜索请求。
 
-When you increase the refresh interval, the data node makes fewer API calls. To prevent [429 errors](https://repost.aws/knowledge-center/opensearch-resolve-429-error), it's a best practice to increase the refresh interval.
+当您增加刷新间隔时，数据节点会更少的API调用。阻止[429错误](https://repost.aws/knowledge-center/opensearch-resolve-429-error)，这是增加刷新间隔的最佳实践。
 
-If your application can tolerate increasing the amount of time between when a document is indexed and when it
-becomes visible, you can increase the `index.refresh_interval` to a larger value, for example, `30s`, or even disable it in a
-pure indexing scenario in order to improve indexing speed.
+如果您的申请可以忍受增加索引索引和何时之间的时间
+变得可见，您可以增加`index.refresh_interval` 例如，更大的价值`30s`，甚至禁用它
+纯索引方案，以提高索引速度。
 
-## Index buffer size
+## 索引缓冲区大小
 
-If the node is performing heavy indexing, ensure that the index buffer size is large enough. You can set the index buffer size to be either a percentage of the
-Java heap size or the number of bytes. In most cases, the default value of 10% of JVM memory is sufficient. You can try
-increasing it to up to 25% for further improvement.
+如果节点执行重型索引，请确保索引缓冲区大小足够大。您可以将索引缓冲区大小设置为
+Java堆尺寸或字节数。在大多数情况下，JVM内存的10％的默认值就足够了。你可以试试
+将其提高到25％以进一步改善。
 
-## Concurrent merges
+## 并发合并
 
-The maximum number of concurrent merges is specified as `max_merge_count`. The concurrentMergeScheduler controls the execution of
-merge operations when they are needed. Merges run in separate threads, and when the maximum number of
-threads is reached, further merges will wait until a merge thread becomes available.
-In cases where index throttling is an issue, consider increasing the number of merge threads beyond the
-default value.
+并发合并的最大数量被指定为`max_merge_count`。并发剂控制器控制执行
+在需要时合并操作。合并以不同的线程和最大数量
+达到线程，进一步的合并将等到合并线程可用。
+如果索引节流是一个问题，请考虑增加合并线程的数量
+默认值。
 
-## Shard distribution
+## 碎片分布
 
-To ensure that the shards are distributed evenly across the data nodes of the index into which you're ingesting, use the following formula to confirm that the shards are evenly distributed:
+为确保碎片在要摄入的索引的数据节点上均匀分布，请使用以下公式确认碎片均匀分布：
 
-Number of shards for index = k * (Number of data nodes), where k is the number of shards per node
+索引= k *的碎片数（数据节点的数量），其中k是每个节点的碎片数
 
-For example, if there are 24 shards in the index, and there are 8 data nodes, then OpenSearch assigns 3 shards to each node. 
+例如，如果索引中有24张碎片，并且有8个数据节点，则OpenSearch为每个节点分配了3个碎片。
 
-## Setting replica count to zero
+## 将副本计数设置为零
 
-If you anticipate heavy indexing, consider setting the `index.number_of_replicas` value to `0`. Each replica duplicates the indexing process. As a result, disabling the replicas improves your cluster performance. After the heavy indexing is complete, reactivate the replicated indexes.
+如果您预计索引重量，请考虑设置`index.number_of_replicas` 价值`0`。每个副本都复制索引过程。结果，禁用复制品可以改善您的群集性能。重量索引完成后，重新激活复制的索引。
 
-If a node fails while replicas are disabled, you might lose data. Disable the replicas only if you can tolerate data loss for a short duration.
-{: .important }
+如果在禁用副本时节点失败，则可能会丢失数据。仅当您可以在短时间内忍受数据丢失时，才禁用复制品。
+{： 。重要的 }
 
-## Experiment to find the optimal bulk request size
+## 实验以找到最佳的批量请求尺寸
 
-Start with a bulk request size of 5 MiB to 15 MiB. Then slowly increase the request size until the indexing performance stops improving. 
+从散装要求大小为5 MIB到15 MIB开始。然后慢慢增加请求大小，直到索引性能停止改善。
 
-## Use an instance type that has SSD instance store volumes (such as I3)
+## 使用具有SSD实例存储量的实例类型（例如i3）
 
-I3 instances provide fast and local memory express (NVMe) storage. I3 instances deliver better ingestion performance than instances that use General Purpose SSD (gp2) Amazon Elastic Block Store (Amazon EBS) volumes. For more information, see [Petabyte scale for Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/petabyte-scale.html).
+i3实例提供快速和本地内存Express（NVME）存储。I3实例比使用通用SSD（GP2）Amazon Elastic Block Store（Amazon EBS）卷的实例提供了更好的摄入性能。有关更多信息，请参阅[Amazon OpenSearch Service的PETABYTE量表](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/petabyte-scale.html)。
 
-## Reduce response size
+## 减少响应尺寸
 
-To reduce the size of the OpenSearch response, use the `filter_path` parameter to exclude unnecessary fields. Be sure that you don't filter out any fields that are required for identifying or retrying failed requests. These fields can vary by client.
+为了减少OpenSearch响应的大小，请使用`filter_path` 参数排除不必要的字段。确保您不会过滤识别或重试失败的请求所需的任何字段。这些字段可能因客户端而异。
 
-In the following example, the `index-name`, `type-name`, and `took` fields are excluded from the response:
+在下面的示例中，`index-name`，，，，`type-name`， 和`took` 田地被排除在响应之外：
 
 ```json
 curl -XPOST "es-endpoint/index-name/type-name/_bulk?pretty&filter_path=-took,-items.index._index,-items.index._type" -H 'Content-Type: application/json' -d'
@@ -133,8 +133,9 @@ curl -XPOST "es-endpoint/index-name/type-name/_bulk?pretty&filter_path=-took,-it
 { "update" : {"_id" : "1", "_index" : "test2"} }
 { "doc" : {"user" : "example"} }
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-## Compression codecs
+## 压缩编解码器
 
-In OpenSearch 2.9 and later, there are two new codecs for compression: `zstd` and `zstd_no_dict`. You can optionally specify a compression level for these in the `index.codec.compression_level` setting with values in the [1, 6] range. [Benchmark]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#benchmarking) data shows that `zstd` provides a 7% better write throughput and `zstd_no_dict` provides a 14% better throughput, along with a 30% improvement in storage compared with the `default` codec. For more information about compression, see [Index codecs]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/).
+在OpenSearch 2.9及以后，有两个新的编解码器：`zstd` 和`zstd_no_dict`。您可以选择在`index.codec.compression_level` 设置为值[1，6](range. [Benchmark]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/#benchmarking) 数据显示`zstd` 提供7％的写入吞吐量和`zstd_no_dict` 提供14％的吞吐量，并提高30％的存储`default` 编解码器。有关压缩的更多信息，请参阅[索引编解码器]({{site.url}}{{site.baseurl}}/im-plugin/index-codecs/)
+

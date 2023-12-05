@@ -1,11 +1,12 @@
 ---
 layout: default
-title: Availability and recovery
+title: 可用性和恢复
 nav_order: 20
 has_children: true
 has_toc: true
 ---
 
-# Availability and recovery
+# 可用性和恢复
 
-The following OpenSearch features help ensure reliability and consistent uptime so that your cluster can complete and scale based on your use case.
+以下OpenSearch功能有助于确保可靠性和一致的正常运行时间，以便您的群集可以根据用例完成和扩展
+

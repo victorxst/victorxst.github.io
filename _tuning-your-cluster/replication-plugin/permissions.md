@@ -1,40 +1,40 @@
 ---
 layout: default
-title: Replication security
+title: 复制安全性
 nav_order: 30
-parent: Cross-cluster replication
+parent: 跨集群复制
 redirect_from:
   - /replication-plugin/permissions/
 ---
 
-# Cross-cluster replication security
+# 跨集群复制安全性
 
-You can use the [Security plugin]({{site.url}}{{site.baseurl}}/security/index/) with cross-cluster replication to limit users to certain actions. For example, you might want certain users to only perform replication activity on the leader or follower cluster.
+您可以使用[安全插件]({{site.url}}{{site.baseurl}}/security/index/) 与十字架-集群复制以将用户限制为某些操作。例如，您可能希望某些用户仅对领导者或追随者集群执行复制活动。
 
-Because cross-cluster replication involves multiple clusters, it's possible that clusters might have different security configurations. The following configurations are supported:
+因为交叉-群集复制涉及多个群集，群集可能具有不同的安全配置。支持以下配置：
 
-- Security plugin fully enabled on both clusters
-- Security plugin enabled only for TLS on both clusters (`plugins.security.ssl_only`)
-- Security plugin absent or disabled on both clusters (not recommended)
+- 安全插件在两个群集上完全启用
+- 安全插件仅针对两个群集上的TLS启用（`plugins.security.ssl_only`）
+- 两个群集上没有安全插件或禁用（不建议）
 
-Enable node-to-node encryption on both the leader and the follower cluster to ensure that replication traffic between the clusters is encrypted.
+启用节点-到-对领导者和追随者群集上的节点加密，以确保簇之间的复制流量加密。
 
-## Basic permissions
+## 基本权限
 
-In order for non-admin users to perform replication activities, they must be mapped to the appropriate permissions.  
+为了非-管理用户要执行复制活动，必须将其映射到适当的权限。
 
-The Security plugin has two built-in roles that cover most replication use cases: `cross_cluster_replication_leader_full_access`, which provides replication permissions on the leader cluster, and `cross_cluster_replication_follower_full_access`, which provides replication permissions on the follower cluster. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
+安全插件有两个构建-在涵盖大多数复制用例的角色中：`cross_cluster_replication_leader_full_access`，它为领导者集群提供了复制权限，并且`cross_cluster_replication_follower_full_access`，它在追随者群集上提供了复制权限。对于每个描述，请参阅[预定义的角色]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles)。
 
-If you don't want to use the default roles, you can combine individual replication [permissions]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/permissions/#replication-permissions) to meet your needs. Most permissions correspond to specific REST API operations. For example, the `indices:admin/plugins/replication/index/pause` permission lets you pause replication.
+如果您不想使用默认角色，则可以组合单个复制[权限]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/permissions/#replication-permissions) 满足您的需求。大多数权限对应于特定的REST API操作。例如，`indices:admin/plugins/replication/index/pause` 许可使您可以暂停复制。
 
-## Map the leader and follower cluster roles
+## 映射领导者和追随者集群角色
 
-The [start replication]({{site.url}}{{site.baseurl}}/replication-plugin/api/#start-replication) and [create replication rule]({{site.url}}{{site.baseurl}}/replication-plugin/api/#create-replication-rule) operations are special cases. They involve background processes on the leader and follower clusters that must be associated with roles. When you perform one of these actions, you must explicitly pass the `leader_cluster_role` and
-`follower_cluster_role` in the request, which OpenSearch then uses in all backend replication tasks.
+这[开始复制]({{site.url}}{{site.baseurl}}/replication-plugin/api/#start-replication) 和[创建复制规则]({{site.url}}{{site.baseurl}}/replication-plugin/api/#create-replication-rule) 操作是特殊情况。它们涉及必须与角色相关联的领导者和追随者群集的背景过程。当您执行这些操作之一时，您必须明确通过`leader_cluster_role` 和
+`follower_cluster_role` 在请求中，OpenSearch然后在所有后端复制任务中使用。
 
-To enable non-admins to start replication and create replication rules, create an identical user on each cluster (for example, `replication_user`) and map them to the `cross_cluster_replication_leader_full_access` role on the remote cluster and `cross_cluster_replication_follower_full_access` on the follower cluster. For instructions, see [Map users to roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#map-users-to-roles).
+启用非-管理员开始复制并创建复制规则，在每个群集上创建一个相同的用户（例如，`replication_user`）并将其映射到`cross_cluster_replication_leader_full_access` 在遥控集群中的角色，`cross_cluster_replication_follower_full_access` 在追随者集群上。有关说明，请参阅[将用户映射到角色]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#map-users-to-roles)。
 
-Then add those roles to the request, and sign it with the appropriate credentials:
+然后将这些角色添加到请求中，并用适当的凭据签名：
 
 ```bash
 curl -XPUT -k -H 'Content-Type: application/json' -u 'replication_user:password' 'https://localhost:9200/_plugins/_replication/follower-01/_start?pretty' -d '
@@ -48,15 +48,15 @@ curl -XPUT -k -H 'Content-Type: application/json' -u 'replication_user:password'
 }'
 ```
 
-You can create your own, custom leader and follower cluster roles using individual permissions, but we recommend using the default roles, which are a good fit for most use cases.
+您可以使用各个权限创建自己的自定义领导者和追随者集群角色，但我们建议使用默认角色，这非常适合大多数用例。
 
-## Replication permissions
+## 复制许可
 
-The following sections list the available index and cluster-level permissions for cross-cluster replication.
+以下各节列出了可用索引和群集-交叉的水平许可-集群复制。
 
-### Follower cluster
+### 追随者集群
 
-The Security plugin supports these permissions for the follower cluster:
+安全插件支持这些追随者群集的这些权限：
 
 ```
 indices:admin/plugins/replication/index/setup/validate
@@ -70,12 +70,13 @@ indices:data/write/plugins/replication/changes
 cluster:admin/plugins/replication/autofollow/update
 ```
 
-### Leader cluster
+### 领导者集群
 
-The Security plugin supports these permissions for the leader cluster:
+安全插件支持领导者集群的这些权限：
 
 ```
 indices:admin/plugins/replication/validate
 indices:data/read/plugins/replication/file_chunk
 indices:data/read/plugins/replication/changes
 ```
+

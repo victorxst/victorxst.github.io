@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Troubleshoot OpenID Connect
+title: 故障排除OpenID连接
 nav_order: 30
 ---
 
-# OpenID Connect troubleshooting
+# OpenID连接故障排除
 
-This page includes troubleshooting steps for using OpenID Connect with the Security plugin.
+此页面包括用于使用Security插件的OpenID连接的故障排除步骤。
 
 
 ---
@@ -18,27 +18,27 @@ This page includes troubleshooting steps for using OpenID Connect with the Secur
 
 ---
 
-## Set log level to debug
+## 将日志级别设置为调试
 
-To help troubleshoot OpenID Connect, set the log level to `debug` on OpenSearch. Add the following lines in `config/log4j2.properties` and restart the node:
+要帮助对OpenID连接进行故障排除，请将日志级别设置为`debug` 在OpenSearch上。添加以下几行`config/log4j2.properties` 并重新启动节点：
 
 ```
 logger.securityjwt.name = com.amazon.dlic.auth.http.jwt
 logger.securityjwt.level = trace
 ```
 
-This setting prints a lot of helpful information to your log file. If this information isn't sufficient, you can also set the log level to `trace`.
+此设置将打印出许多有用的信息到您的日志文件。如果此信息还不够，您也可以将日志级别设置为`trace`。
 
 
 ## "Failed when trying to obtain the endpoints from your IdP"
 
-This error indicates that the Security plugin can't reach the metadata endpoint of your IdP. In `opensearch_dashboards.yml`, check the following setting:
+此错误表明安全插件无法达到IDP的元数据端点。在`opensearch_dashboards.yml`，检查以下设置：
 
 ```
 plugins.security.openid.connect_url: "http://keycloak.example.com:8080/auth/realms/master/.well-known/openid-configuration"
 ```
 
-If this error occurs on OpenSearch, check the following setting in `config.yml`:
+如果此错误发生在OpenSearch上，请检查以下设置`config.yml`：
 
 ```yml
 openid_auth_domain:
@@ -54,9 +54,9 @@ openid_auth_domain:
 
 ## "ValidationError: child 'opensearch_security' fails"
 
-This indicates that one or more of the OpenSearch Dashboards configuration settings are missing.
+这表明缺少一个或多个OpenSearch仪表板配置设置。
 
-Check `opensearch_dashboards.yml` and make sure you have set the following minimal configuration:
+查看`opensearch_dashboards.yml` 并确保您设置了以下最小配置：
 
 ```yml
 plugins.security.openid.connect_url: "..."
@@ -67,17 +67,17 @@ plugins.security.openid.client_secret: "..."
 
 ## "Authentication failed. Please provide a new token."
 
-This error has several potential root causes.
+此错误具有几个潜在的根本原因。
 
 
-### Leftover cookies or cached credentials
+### 剩下的饼干或缓存的凭据
 
-Please delete all cached browser data, or try again in a private browser window.
+请删除所有缓存的浏览器数据，或在私人浏览器窗口中重试。
 
 
-### Wrong client secret
+### 客户秘密错误
 
-To trade the access token for an identity token, most IdPs require you to provide a client secret. Check if the client secret in `opensearch_dashboards.yml` matches the client secret of your IdP configuration:
+为了将访问令牌换成身份令牌，大多数IDP都要求您提供客户秘密。检查客户是否秘密`opensearch_dashboards.yml` 匹配IDP配置的客户端秘密：
 
 ```
 plugins.security.openid.client_secret: "..."
@@ -86,7 +86,7 @@ plugins.security.openid.client_secret: "..."
 
 ### "Failed to get subject from JWT claims"
 
-This error is logged on OpenSearch and means that the username could not be extracted from the ID token. Make sure the following setting matches the claims in the JWT your IdP issues:
+此错误已在OpenSearch上记录，这意味着无法从ID令牌中提取用户名。确保以下设置与JWT中的索赔匹配您的IDP问题：
 
 ```
 openid_auth_domain:
@@ -102,7 +102,7 @@ openid_auth_domain:
 
 ### "Failed to get roles from JWT claims with roles_key"
 
-This error indicates that the roles key you configured in `config.yml` does not exist in the JWT issued by your IdP. Make sure the following setting matches the claims in the JWT your IdP issues:
+此错误表明您在`config.yml` 您的IDP发出的JWT中不存在。确保以下设置与JWT中的索赔匹配您的IDP问题：
 
 ```
 openid_auth_domain:
@@ -115,3 +115,4 @@ openid_auth_domain:
       roles_key: <roles key>
     ...
 ```
+
