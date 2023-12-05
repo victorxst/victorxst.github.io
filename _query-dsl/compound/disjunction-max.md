@@ -1,22 +1,22 @@
 ---
 layout: default
-title: Disjunction max
-parent: Compound queries
-grand_parent: Query DSL
+title: 析取最大值
+parent: 复合查询
+grand_parent: 查询DSL
 nav_order: 50
 redirect_from:
   - /query-dsl/query-dsl/compound/disjunction-max/
 ---
 
-# Disjunction max query
+# 析取最大值
 
-A disjunction max (`dis_max`) query returns any document that matches one or more query clauses. For documents that match multiple query clauses, the relevance score is set to the highest relevance score from all matching query clauses.
+max的分离（`dis_max`）查询返回与一个或多个查询子句匹配的任何文档。对于匹配多个查询子句的文档，相关得分设置为所有匹配查询子句的最高相关性分数。
 
-When the relevance scores of the returned documents are identical, you can use the `tie_breaker` parameter to give more weight to documents that match multiple query clauses.
+当返回文档的相关性分数相同时，您可以使用`tie_breaker` 参数可以给匹配多个查询子句的文档提供更多权重。
 
-## Example
+## 例子
 
-Consider an index with two documents that you index as follows:
+考虑一个带有两个文档的索引，您索引如下：
 
 ```json
 PUT testindex1/_doc/1
@@ -25,7 +25,7 @@ PUT testindex1/_doc/1
   "description": "Top 10 sonnets of England's national poet and the Bard of Avon"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
 ```json
 PUT testindex1/_doc/2
@@ -34,9 +34,9 @@ PUT testindex1/_doc/2
   "body": "The poems written by various 16-th century poets"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-Use a `dis_max` query to search for documents that contain the words "Shakespeare poems":
+用一个`dis_max` 查询搜索包含单词的文档"Shakespeare poems"：
 
 ```json
 GET testindex1/_search
@@ -51,9 +51,9 @@ GET testindex1/_search
   }            
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The response contains both documents:
+响应包含两个文档：
 
 ```json
 {
@@ -95,11 +95,12 @@ The response contains both documents:
 }
 ```
 
-## Parameters
+## 参数
 
-The following table lists all top-level parameters supported by `dis_max` queries.
+下表列出了所有顶部-支持的级别参数`dis_max` 查询。
 
-Parameter | Description
-:--- | :---
-`queries` | An array of one or more query clauses that are used to match documents. A document must match at least one query clause to be returned in the results. If a document matches multiple query clauses, the relevance score is set to the highest relevance score from all matching query clauses. Required.
-`tie_breaker` | A floating-point factor between 0 and 1.0 that is used to give more weight to documents that match multiple query clauses. In this case, the relevance score of a document is calculated using the following algorithm: Take the highest relevance score from all matching query clauses, multiply the scores from all other matching clauses by the `tie_breaker` value, and add the relevance scores together, normalizing them. Optional. Default is 0 (which means only the highest score counts).
+范围| 描述
+：--- | ：---
+`queries` | 用于匹配文档的一个或多个查询子句的数组。文档必须匹配至少一个查询条款才能在结果中返回。如果文档匹配多个查询子句，则将相关性得分设置为所有匹配查询子句的最高相关性分数。必需的。
+`tie_breaker` | 浮动-点因子在0到1.0之间，用于给匹配多个查询子句的文档提供更大的权重。在这种情况下，使用以下算法计算文档的相关性评分：从所有匹配的查询子句中获取最高相关性得分，将所有其他匹配条款的分数乘以乘以`tie_breaker` 价值，并将相关得分添加在一起，使它们正常化。选修的。默认值为0（仅表示最高分数计数）。
+

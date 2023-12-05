@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Geographic and xy queries
+title: 地理和XY查询
 has_children: true
 nav_order: 50
 redirect_from:
@@ -9,27 +9,28 @@ redirect_from:
    - /query-dsl/query-dsl/geo-and-xy/index/
 ---
 
-# Geographic and xy queries
+# 地理和XY查询
 
-Geographic and xy queries let you search fields that contain points and shapes on a map or coordinate plane. Geographic queries work on geospatial data, while xy queries work on two-dimensional coordinate data. Out of all geographic queries, the geoshape query is very similar to the xy query, but the former searches [geographic fields]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geographic), while the latter searches [Cartesian fields]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy).
+地理和XY查询可让您搜索在地图或坐标平面上包含点和形状的字段。地理查询在地理空间数据上工作，而XY查询在两个方面工作-维数数据。在所有地理查询中，Geoshape查询与XY查询非常相似，但前者搜索[地理领域]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geographic)，而后者进行搜索[笛卡尔田]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy)。
 
-## xy queries
+## xy查询
 
-[xy queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-and-xy/xy) search for documents that contain geometries in a Cartesian coordinate system. These geometries can be specified in [`xy_point`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-point) fields, which support points, and [`xy_shape`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-shape) fields, which support points, lines, circles, and polygons. 
+[xy查询]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-and-xy/xy) 搜索在笛卡尔坐标系中包含几何形状的文档。这些几何形状可以在[`xy_point`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-point) 田野，支持点，以及[`xy_shape`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-shape) 支持点，线，圆和多边形的字段。
 
-xy queries return documents that contain:
-- xy shapes and xy points that have one of four spatial relations to the provided shape: `INTERSECTS`, `DISJOINT`, `WITHIN`, or `CONTAINS`.
-- xy points that intersect the provided shape.
+xy查询返回包含的文档：
+- XY形状和XY点具有与所提供形状的四个空间关系之一：`INTERSECTS`，，，，`DISJOINT`，，，，`WITHIN`， 或者`CONTAINS`。
+- 与提供形状相交的XY点。
 
-## Geographic queries
+## 地理查询
 
-Geographic queries search for documents that contain geospatial geometries. These geometries can be specified in [`geo_point`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point) fields, which support points on a map, and [`geo_shape`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape) fields, which support points, lines, circles, and polygons. 
+地理查询搜索包含地理空间几何形状的文档。这些几何形状可以在[`geo_point`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point) 字段，在地图上支持点，并且[`geo_shape`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape) 支持点，线，圆和多边形的字段。
 
-OpenSearch provides the following geographic query types:
+OpenSearch提供以下地理查询类型：
 
-- [**Geo-bounding box queries**]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-and-xy/geo-bounding-box/): Return documents with geopoint field values that are within a bounding box. 
-- **Geodistance queries** return documents with geopoints that are within a specified distance from the provided geopoint.
-- **Geopolygon queries** return documents with geopoints that are within a polygon.
-- **Geoshape queries** return documents that contain:
-    - geoshapes and geopoints that have one of four spatial relations to the provided shape: `INTERSECTS`, `DISJOINT`, `WITHIN`, or `CONTAINS`.
-    - geopoints that intersect the provided shape.
+- [**地理-边界框查询**]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-and-xy/geo-bounding-box/)：带有边界框中的地理点字段值的返回文档。
+- **GeoDistance查询** 返回文档，带有指定距离的地理点距离的地理点。
+- **Geopoygon查询** 带有多边形内的地理点的返回文档。
+- **Geoshape查询** 包含的返回文档：
+    - 与所提供形状具有四个空间关系之一的地理和地理点：`INTERSECTS`，，，，`DISJOINT`，，，，`WITHIN`， 或者`CONTAINS`。
+    - 与提供形状相交的地理点
+

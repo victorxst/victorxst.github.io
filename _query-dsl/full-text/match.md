@@ -1,16 +1,16 @@
 ---
 layout: default
-title: Match
-parent: Full-text queries
-grand_parent: Query DSL
+title: 匹配
+parent: 全文查询
+grand_parent: 查询DSL
 nav_order: 10
 ---
 
-# Match query
+# 匹配查询
 
-Use the `match` query for full-text search on a specific document field. If you run a `match` query on a [`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) field, the `match` query [analyzes]({{site.url}}{{site.baseurl}}/analyzers/index/) the provided search string and returns documents that match any of the string's terms. If you run a `match` query on an exact-value field, it returns documents that match the exact value. The preferred way to search exact-value fields is to use a filter because, unlike a query, a filter is cached.
+使用`match` 查询满足-在特定文档字段上进行文本搜索。如果您运行`match` 查询[`text`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/text/) 字段，`match` 询问[分析]({{site.url}}{{site.baseurl}}/analyzers/index/) 提供的搜索字符串并返回与字符串任何条款匹配的文档。如果您运行`match` 确切查询-值字段，它返回与确切值匹配的文档。精确搜索的首选方法-值字段是使用过滤器，因为与查询不同，过滤器被缓存。
 
-The following example shows a basic `match` query for the word `wind` in the `title`:
+以下示例显示了一个基本`match` 查询单词`wind` 在里面`title`：
 
 ```json
 GET _search
@@ -22,9 +22,9 @@ GET _search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-To pass additional parameters, you can use the expanded syntax:
+要传递其他参数，您可以使用扩展的语法：
 
 ```json
 GET _search
@@ -39,11 +39,11 @@ GET _search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-## Examples
+## 例子
 
-In the following examples, you'll use the index that contains the following documents:
+在以下示例中，您将使用包含以下文档的索引：
 
 ```json
 PUT testindex/_doc/1
@@ -51,7 +51,7 @@ PUT testindex/_doc/1
   "title": "Let the wind rise"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
 ```json
 PUT testindex/_doc/2
@@ -60,7 +60,7 @@ PUT testindex/_doc/2
   
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
 ```json
 PUT testindex/_doc/3
@@ -68,11 +68,11 @@ PUT testindex/_doc/3
   "title": "Rise is gone"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-## Operator
+## 操作员
 
-If a `match` query is run on a `text` field, the text is analyzed with the analyzer specified in the `analyzer` parameter. Then the resulting tokens are combined into a Boolean query using the operator specified in the `operator` parameter. The default operator is `OR`, so the query `wind rise` is changed into `wind OR rise`. In this example, this query returns documents 1--3 because each document has a term that matches the query. To specify the `and` operator, use the following query:
+如果一个`match` 查询是在`text` 字段，用在`analyzer` 范围。然后，使用在`operator` 范围。默认操作员是`OR`，所以查询`wind rise` 已更改为`wind OR rise`。在此示例中，此查询返回文档1--3因为每个文档的术语与查询匹配。指定`and` 操作员，使用以下查询：
 
 ```json
 GET testindex/_search
@@ -87,15 +87,15 @@ GET testindex/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The query is constructed as `wind AND rise` and returns document 1 as the matching document:
+查询被构造为`wind AND rise` 并将文档1作为匹配文档返回：
 
-<details closed markdown="block">
+<详细信息关闭的markdown ="block">
   <summary>
-    Response
+    回复
   </summary>
-  {: .text-delta}
+  {： 。文本-三角洲}
 
 ```json
 {
@@ -127,11 +127,11 @@ The query is constructed as `wind AND rise` and returns document 1 as the matchi
 }
 ```
 
-</details>
+</delect>
 
-### Minimum should match
+### 最低应匹配
 
-You can control the minimum number of terms that a document must match to be returned in the results by specifying the [`minimum_should_match`]({{site.url}}{{site.baseurl}}/query-dsl/minimum-should-match/) parameter:
+您可以通过指定文档必须匹配文档必须匹配的最小条款数[`minimum_should_match`]({{site.url}}{{site.baseurl}}/query-dsl/minimum-should-match/) 范围：
 
 ```json
 GET testindex/_search
@@ -147,15 +147,15 @@ GET testindex/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-Now documents are required to match both terms, so only document 1 is returned (this is equivalent to the `and` operator):
+现在需要文档匹配这两个条款，因此仅返回文档1（这等同于`and` 操作员）：
 
-<details closed markdown="block">
+<详细信息关闭的markdown ="block">
   <summary>
-    Response
+    回复
   </summary>
-  {: .text-delta}
+  {： 。文本-三角洲}
 
 ```json
 {
@@ -186,11 +186,11 @@ Now documents are required to match both terms, so only document 1 is returned (
   }
 }
 ```
-</details>
+</delect>
 
-## Analyzer
+## 分析仪
 
-Because in this example you didn't explicitly specify the analyzer, the default `standard` analyzer is used. The default analyzer does not perform stemming, so if you run a query `the wind rises`, you receive no results because the token `rises` does not match the token `rise`. To change the search analyzer, specify it in the `analyzer` field. For example, the following query uses the `english` analyzer:
+因为在此示例中，您没有明确指定分析仪，默认`standard` 使用分析仪。默认分析仪不会执行干扰，因此，如果您运行查询`the wind rises`，您没有收到结果，因为令牌`rises` 不匹配令牌`rise`。要更改搜索分析仪，请在`analyzer` 场地。例如，以下查询使用`english` 分析仪：
 
 ```json
 GET testindex/_search
@@ -206,15 +206,15 @@ GET testindex/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The `english` analyzer removes the stopword `the` and performs stemming, producing the tokens `wind` and `rise`. The latter token matches document 1, which is returned in the results:
+这`english` 分析仪删除了停止词`the` 并执行茎，产生令牌`wind` 和`rise`。后者令牌匹配文档1，结果在结果中返回：
 
-<details closed markdown="block">
+<详细信息关闭的markdown ="block">
   <summary>
-    Response
+    回复
   </summary>
-  {: .text-delta}
+  {： 。文本-三角洲}
 
 ```json
 {
@@ -245,11 +245,11 @@ The `english` analyzer removes the stopword `the` and performs stemming, produci
   }
 }
 ```
-</details>
+</delect>
 
-## Empty query
+## 空查询
 
-In some cases, an analyzer might remove all tokens from a query. For example, the `english` analyzer removes stop words, so in a query `and OR or`, all tokens are removed. To check the analyzer behavior, you can use the [Analyze API]({{site.url}}{{site.baseurl}}/api-reference/analyze-apis/#apply-a-built-in-analyzer):
+在某些情况下，分析仪可能会从查询中删除所有令牌。例如，`english` 分析仪删除停止单词，因此在查询中`and OR or`，所有令牌均已删除。要检查分析仪的行为，您可以使用[分析API]({{site.url}}{{site.baseurl}}/api-reference/analyze-apis/#apply-a-built-in-analyzer)：
 
 ```json
 GET testindex/_analyze
@@ -258,9 +258,9 @@ GET testindex/_analyze
   "text" : "and OR or"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-As expected, the query produces no tokens:
+如预期的那样，查询不会产生任何令牌：
 
 ```json
 {
@@ -268,7 +268,7 @@ As expected, the query produces no tokens:
 }
 ```
 
-You can specify the behavior for an empty query in the `zero_terms_query` parameter. Setting `zero_terms_query` to `all` returns all documents in the index and setting it to `none` returns no documents:
+您可以在`zero_terms_query` 范围。环境`zero_terms_query` 到`all` 返回索引中的所有文档，然后将其设置为`none` 返回没有文件：
 
 ```json
 GET testindex/_search
@@ -284,19 +284,19 @@ GET testindex/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-## Fuzziness
+## 模糊
 
-To account for typos, you can specify `fuzziness` for your query as either of the following:
+要考虑错别字，您可以指定`fuzziness` 对于您的查询，即以下任何一个：
 
-- An integer that specifies the maximum allowed [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) for this edit. 
-- `AUTO`: 
-  - Strings of 0–2 characters must match exactly.
-  - Strings of 3–5 characters allow 1 edit.
-  - Strings longer than 5 characters allow 2 edits.
+- 一个指定最大允许的整数[Levenshtein距离](https://en.wikipedia.org/wiki/Levenshtein_distance) 对于此编辑。
+- `AUTO`：
+  - 0-2个字符的字符串必须完全匹配。
+  - 3-5个字符的字符串允许1个编辑。
+  - 字符串超过5个字符允许2个编辑。
 
-Setting `fuzziness` to the default `AUTO` value works best in most cases:
+环境`fuzziness` 默认`AUTO` 在大多数情况下，价值最有效：
 
 ```json
 GET testindex/_search
@@ -311,15 +311,15 @@ GET testindex/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The token `wnid` matches `wind` and the query returns documents 1 and 2:
+令牌`wnid` 火柴`wind` 查询返回文档1和2：
 
-<details closed markdown="block">
+<详细信息关闭的markdown ="block">
   <summary>
-    Response
+    回复
   </summary>
-  {: .text-delta}
+  {： 。文本-三角洲}
 
 ```json
 {
@@ -358,11 +358,11 @@ The token `wnid` matches `wind` and the query returns documents 1 and 2:
   }
 }
 ```
-</details>
+</delect>
 
-### Prefix length
+### 前缀长度
 
-Misspellings rarely occur in the beginning of words. Thus, you can specify the minimum length the matched prefix must be to return a document in the results. For example, you can change the preceding query to include a `prefix_length`:
+拼写错误很少发生在单词的开头。因此，您可以指定匹配的前缀必须是返回结果中的文档的最小长度。例如，您可以将上述查询更改为包括`prefix_length`：
 
 ```json
 GET testindex/_search
@@ -378,13 +378,13 @@ GET testindex/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The preceding query returns no results. If you change the `prefix_length` to 1, documents 1 and 2 are returned because the first letter of the token `wnid` is not misspelled.
+前面的查询返回没有结果。如果您更改`prefix_length` 到1，由于令牌的第一个字母，文件1和2被返回`wnid` 没有拼写错误。
 
-### Transpositions
+### 换位
 
-In the preceding example, the word `wnid` contained a transposition (`in` was changed to `ni`). By default, transpositions are allowed in fuzzy matching, but you can disallow them by setting `fuzzy_transpositions` to `false`:
+在上一个示例中，单词`wnid` 包含一个换位（`in` 被更改为`ni`）。默认情况下，模糊匹配中允许换位，但是您可以通过设置禁止它们`fuzzy_transpositions` 到`false`：
 
 ```json
 GET testindex/_search
@@ -400,15 +400,15 @@ GET testindex/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-Now the query returns no results.
+现在查询返回没有结果。
 
-## Synonyms
+## 同义词
 
-If you use a `synonym_graph` filter and `auto_generate_synonyms_phrase_query` is set to `true` (default), OpenSearch parses the query into terms and then combines the terms to generate a [phrase query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html) for multi-term synonyms. For example, if you specify `ba,batting average` as synonyms and search for `ba`, OpenSearch searches for `ba OR "batting average"`.
+如果您使用`synonym_graph` 过滤器和`auto_generate_synonyms_phrase_query` 被设定为`true` （默认），OpenSearch将查询解析为术语，然后结合术语以生成一个[短语查询](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html) 用于多-术语同义词。例如，如果指定`ba,batting average` 作为同义词和搜索`ba`，OpenSearch搜索`ba OR "batting average"`。
 
-To match multi-term synonyms with conjunctions, set `auto_generate_synonyms_phrase_query` to `false`:
+匹配多-带有连词的术语同义词，设置`auto_generate_synonyms_phrase_query` 到`false`：
 
 ```json
 GET /testindex/_search
@@ -423,13 +423,13 @@ GET /testindex/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The query produced is `ba OR (batting AND average)`.
+产生的查询是`ba OR (batting AND average)`。
 
-## Parameters
+## 参数
 
-The query accepts the name of the field (`<field>`) as a top-level parameter:
+查询接受字段的名称（`<field>`）作为顶部-级别参数：
 
 ```json
 GET _search
@@ -444,23 +444,24 @@ GET _search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The `<field>` accepts the following parameters. All parameters except `query` are optional.
+这`<field>` 接受以下参数。除所有参数外`query` 是可选的。
 
-Parameter | Data type | Description
-:--- | :--- | :---
-`query` | String | The query string to use for search. Required.
-`auto_generate_synonyms_phrase_query` | Boolean | Specifies whether to create a [match phrase query]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/) automatically for multi-term synonyms. For example, if you specify `ba,batting average` as synonyms and search for `ba`, OpenSearch searches for `ba OR "batting average"` (if this option is `true`) or `ba OR (batting AND average)` (if this option is `false`). Default is `true`.
-`analyzer` | String | The [analyzer]({{site.url}}{{site.baseurl}}/analyzers/index/) used to tokenize the query string text. Default is the index-time analyzer specified for the `default_field`. If no analyzer is specified for the `default_field`, the `analyzer` is the default analyzer for the index.
-`boost` | Floating-point | Boosts the clause by the given multiplier. Useful for weighing clauses in compound queries. Values in the [0, 1) range decrease relevance, and values greater than 1 increase relevance. Default is `1`.
-`enable_position_increments` | Boolean | When `true`, resulting queries are aware of position increments. This setting is useful when the removal of stop words leaves an unwanted "gap" between terms. Default is `true`.
-`fuzziness` | String | The number of character edits (insert, delete, substitute) that it takes to change one word to another when determining whether a term matched a value. For example, the distance between `wined` and `wind` is 1. Valid values are non-negative integers or `AUTO`. The default, `AUTO`, chooses a value based on the length of each term and is a good choice for most use cases.
-`fuzzy_rewrite` | String | Determines how OpenSearch rewrites the query. Valid values are `constant_score`, `scoring_boolean`, `constant_score_boolean`, `top_terms_N`, `top_terms_boost_N`, and `top_terms_blended_freqs_N`. If the `fuzziness` parameter is not `0`, the query uses a `fuzzy_rewrite` method of `top_terms_blended_freqs_${max_expansions}` by default. Default is `constant_score`. 
-`fuzzy_transpositions` | Boolean | Setting `fuzzy_transpositions` to `true` (default) adds swaps of adjacent characters to the insert, delete, and substitute operations of the `fuzziness` option. For example, the distance between `wind` and `wnid` is 1 if `fuzzy_transpositions` is true (swap "n" and "i") and 2 if it is false (delete "n", insert "n"). If `fuzzy_transpositions` is false, `rewind` and `wnid` have the same distance (2) from `wind`, despite the more human-centric opinion that `wnid` is an obvious typo. The default is a good choice for most use cases.
-`lenient` | Boolean | Setting `lenient` to `true` ignores data type mismatches between the query and the document field. For example, a query string of `"8.2"` could match a field of type `float`. Default is `false`.
-`max_expansions` | Positive integer |  The maximum number of terms to which the query can expand. Fuzzy queries “expand to” a number of matching terms that are within the distance specified in `fuzziness`. Then OpenSearch tries to match those terms. Default is `50`.
-`minimum_should_match` | Positive or negative integer, positive or negative percentage, combination | If the query string contains multiple search terms and you use the `or` operator, the number of terms that need to match for the document to be considered a match. For example, if `minimum_should_match` is 2, `wind often rising` does not match `The Wind Rises.` If `minimum_should_match` is `1`, it matches. For details, see [Minimum should match]({{site.url}}{{site.baseurl}}/query-dsl/minimum-should-match/).
-`operator` | String | If the query string contains multiple search terms, whether all terms need to match (`AND`) or only one term needs to match (`OR`) for a document to be considered a match. Valid values are:<br>- `OR`: The string `to be` is interpreted as `to OR be`<br>- `AND`: The string `to be` is interpreted as `to AND be`<br> Default is `OR`.
-`prefix_length` | Non-negative integer | The number of leading characters that are not considered in fuzziness. Default is `0`.
-`zero_terms_query` | String | In some cases, the analyzer removes all terms from a query string. For example, the `stop` analyzer removes all terms from the string `an but this`. In those cases, `zero_terms_query` specifies whether to match no documents (`none`) or all documents (`all`). Valid values are `none` and `all`. Default is `none`.
+范围| 数据类型| 描述
+：--- | ：--- | ：---
+`query` | 细绳| 用于搜索的查询字符串。必需的。
+`auto_generate_synonyms_phrase_query` | 布尔| 指定是否创建[匹配短语查询]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/) 自动用于多人-术语同义词。例如，如果指定`ba,batting average` 作为同义词和搜索`ba`，OpenSearch搜索`ba OR "batting average"` （如果此选项是`true`） 或者`ba OR (batting AND average)` （如果此选项是`false`）。默认为`true`。
+`analyzer` | 细绳| 这[分析仪]({{site.url}}{{site.baseurl}}/analyzers/index/) 用于引导查询字符串文本。默认是索引-指定的时间分析仪`default_field`。如果未针对`default_field`， 这`analyzer` 是索引的默认分析仪。
+`boost` | 漂浮的-观点| 通过给定的乘数增强子句。对于在复合查询中称量从句有用。[0，1）中的值降低了相关性，并且值大于1的相关性。默认为`1`。
+`enable_position_increments` | 布尔| 什么时候`true`，结果查询知道位置增量。当删除停止单词留下不必要的时，此设置很有用"gap" 在术语之间。默认为`true`。
+`fuzziness` | 细绳| 在确定一个术语是否匹配值时，将一个单词更改为另一个单词所需的字符编辑数量（插入，删除，替换）。例如，`wined` 和`wind` 是1.有效值是非-负整数或`AUTO`。默认，`AUTO`，根据每个学期的长度选择一个值，对于大多数用例，是一个不错的选择。
+`fuzzy_rewrite` | 细绳| 确定OpenSearch如何重写查询。有效值是`constant_score`，，，，`scoring_boolean`，，，，`constant_score_boolean`，，，，`top_terms_N`，，，，`top_terms_boost_N`， 和`top_terms_blended_freqs_N`。如果是`fuzziness` 参数不是`0`，查询使用`fuzzy_rewrite` 的方法`top_terms_blended_freqs_${max_expansions}` 默认情况下。默认为`constant_score`。
+`fuzzy_transpositions` | 布尔| 环境`fuzzy_transpositions` 到`true` （默认）在插入，删除和替代操作中添加相邻字符的互换`fuzziness` 选项。例如，`wind` 和`wnid` 是1`fuzzy_transpositions` 是真的（交换"n" 和"i"）和2如果是错误的（删除"n"， 插入"n"）。如果`fuzzy_transpositions` 是错误的，`rewind` 和`wnid` 距离有相同的距离（2）`wind`，尽管人类越来越多-以中心的看法`wnid` 是一个明显的错别字。对于大多数用例，默认值是一个不错的选择。
+`lenient` | 布尔| 环境`lenient` 到`true` 忽略查询和文档字段之间的数据类型不匹配。例如，一个查询字符串`"8.2"` 可以匹配类型字段`float`。默认为`false`。
+`max_expansions` | 正整数|  查询可以扩展的最大术语数量。模糊的查询“扩展为”在指定距离内的许多匹配术语`fuzziness`。然后OpenSearch尝试匹配这些术语。默认为`50`。
+`minimum_should_match` | 正整数，正数，正百分比，组合| 如果查询字符串包含多个搜索术语，并且您使用`or` 操作员，需要将文档匹配的术语数量被视为匹配。例如，如果`minimum_should_match` 是2，`wind often rising` 不匹配`The Wind Rises.` 如果`minimum_should_match` 是`1`， 它匹配。有关详细信息，请参阅[最低应匹配]({{site.url}}{{site.baseurl}}/query-dsl/minimum-should-match/)。
+`operator` | 细绳| 如果查询字符串包含多个搜索术语，则所有术语是否需要匹配（`AND`）或只需要一个术语匹配（`OR`）文档被视为匹配项。有效值是：<br>- `OR`：字符串`to be` 被解释为`to OR be`<br>- `AND`：字符串`to be` 被解释为`to AND be`<br>默认值为`OR`。
+`prefix_length` | 非-负整数| 在模糊性中未考虑的领先角色的数量。默认为`0`。
+`zero_terms_query` | 细绳| 在某些情况下，分析仪从查询字符串中删除了所有术语。例如，`stop` 分析仪从字符串中删除所有术语`an but this`。在这些情况下，`zero_terms_query` 指定是否匹配不匹配文档（`none`）或所有文件（`all`）。有效值是`none` 和`all`。默认为`none`
+

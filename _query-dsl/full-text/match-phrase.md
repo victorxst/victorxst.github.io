@@ -1,18 +1,18 @@
 ---
 layout: default
-title: Match phrase
-parent: Full-text queries
-grand_parent: Query DSL
+title: 匹配短语
+parent: 全文查询
+grand_parent: 查询DSL
 nav_order: 30
 ---
 
-# Match phrase query
+# 匹配短语查询
 
-Use the `match_phrase` query to match documents that contain an exact phrase in a specified order. You can add flexibility to phrase matching by providing the `slop` parameter.
+使用`match_phrase` 查询以匹配包含指定顺序的精确短语的文档。您可以通过提供添加短语匹配的灵活性`slop` 范围。
 
-The `match_phrase` query creates a [phrase query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html) that matches a sequence of terms.
+这`match_phrase` 查询创建一个[短语查询](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html) 与一系列术语相匹配。
 
-The following example shows a basic `match_phrase` query:
+以下示例显示了一个基本`match_phrase` 询问：
 
 ```json
 GET _search
@@ -24,9 +24,9 @@ GET _search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-To pass additional parameters, you can use the expanded syntax:
+要传递其他参数，您可以使用扩展的语法：
 
 ```json
 GET _search
@@ -41,11 +41,11 @@ GET _search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-## Example
+## 例子
 
-For example, consider an index with the following documents:
+例如，考虑具有以下文档的索引：
 
 ```json
 PUT testindex/_doc/1
@@ -53,7 +53,7 @@ PUT testindex/_doc/1
   "title": "The wind rises"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
 ```json
 PUT testindex/_doc/2
@@ -62,9 +62,9 @@ PUT testindex/_doc/2
   
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The following `match_phrase` query searches for the phrase `wind rises`, where the word `wind` is followed by the word `rises`:
+下列`match_phrase` 查询搜索短语`wind rises`，一个单词`wind` 接下来是这个词`rises`：
 
 ```json
 GET testindex/_search
@@ -76,15 +76,15 @@ GET testindex/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The response contains the matching document:
+响应包含匹配文档：
 
-<details closed markdown="block">
+<详细信息关闭的markdown ="block">
   <summary>
-    Response
+    回复
   </summary>
-  {: .text-delta}
+  {： 。文本-三角洲}
 
 
 ```json
@@ -116,11 +116,11 @@ The response contains the matching document:
   }
 }
 ```
-</details>
+</delect>
 
-## Analyzer
+## 分析仪
 
-By default, when you run a query on a `text` field, the search text is analyzed using the index analyzer associated with the field. You can specify a different search analyzer in the `analyzer` parameter. For example, the following query uses the `english` analyzer:
+默认情况下，当您在`text` 字段，使用与字段关联的索引分析仪分析搜索文本。您可以在`analyzer` 范围。例如，以下查询使用`english` 分析仪：
 
 ```json
 GET testindex/_search
@@ -135,15 +135,15 @@ GET testindex/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The `english` analyzer removes the stopword `the` and performs stemming, producing the token `wind`. Both documents match this token and are returned in the results:
+这`english` 分析仪删除了停止词`the` 并执行茎，产生令牌`wind`。这两个文档都与此令牌匹配，并在结果中返回：
 
-<details closed markdown="block">
+<详细信息关闭的markdown ="block">
   <summary>
-    Response
+    回复
   </summary>
-  {: .text-delta}
+  {： 。文本-三角洲}
 
 ```json
 {
@@ -182,11 +182,11 @@ The `english` analyzer removes the stopword `the` and performs stemming, produci
   }
 }
 ```
-</details>
+</delect>
 
-## Slop
+## 坡
 
-If you provide a `slop` parameter, the query tolerates reorderings of the search terms. Slop specifies the number of other words permitted between words in a query phrase. For example, in the following query, the search text is reordered compared to the document text:
+如果您提供`slop` 参数，查询可容忍搜索词的重新排序。SLOP指定查询短语中单词之间允许的其他单词数量。例如，在以下查询中，与文档文本相比，对搜索文本进行了重新排序：
 
 ```json
 GET _search
@@ -202,13 +202,13 @@ GET _search
 }
 ```
 
-The query still returns the matching document:
+查询仍然返回匹配文档：
 
-<details closed markdown="block">
+<详细信息关闭的markdown ="block">
   <summary>
-    Response
+    回复
   </summary>
-  {: .text-delta}
+  {： 。文本-三角洲}
 
 ```json
 {
@@ -239,15 +239,15 @@ The query still returns the matching document:
   }
 }
 ```
-</details>
+</delect>
 
-## Empty query
+## 空查询
 
-For information about a possible empty query, see the corresponding [match query section]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match/#empty-query).
+有关可能的空查询的信息，请参阅相应[匹配查询部分]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match/#empty-query)。
 
-## Parameters
+## 参数
 
-The query accepts the name of the field (`<field>`) as a top-level parameter:
+查询接受字段的名称（`<field>`）作为顶部-级别参数：
 
 ```json
 GET _search
@@ -262,13 +262,14 @@ GET _search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The `<field>` accepts the following parameters. All parameters except `query` are optional.
+这`<field>` 接受以下参数。除所有参数外`query` 是可选的。
 
-Parameter | Data type | Description
-:--- | :--- | :---
-`query` | String | The query string to use for search. Required.
-`analyzer` | String | The [analyzer]({{site.url}}{{site.baseurl}}/analyzers/index/) used to tokenize the query string text. Default is the index-time analyzer specified for the `default_field`. If no analyzer is specified for the `default_field`, the `analyzer` is the default analyzer for the index.
-`slop` | `0` (default) or a positive integer | Controls the degree to which words in a query can be misordered and still be considered a match. From the [Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html#getSlop--): "The number of other words permitted between words in query phrase. For example, to switch the order of two words requires two moves (the first move places the words atop one another), so to permit reorderings of phrases, the slop must be at least two. A value of zero requires an exact match."
-`zero_terms_query` | String | In some cases, the analyzer removes all terms from a query string. For example, the `stop` analyzer removes all terms from the string `an but this`. In those cases, `zero_terms_query` specifies whether to match no documents (`none`) or all documents (`all`). Valid values are `none` and `all`. Default is `none`.
+范围| 数据类型| 描述
+：--- | ：--- | ：---
+`query` | 细绳| 用于搜索的查询字符串。必需的。
+`analyzer` | 细绳| 这[分析仪]({{site.url}}{{site.baseurl}}/analyzers/index/) 用于引导查询字符串文本。默认是索引-指定的时间分析仪`default_field`。如果未针对`default_field`， 这`analyzer` 是索引的默认分析仪。
+`slop` | `0` （默认）或正整数| 控制查询中的单词可能会被误解的程度，并且仍然被认为是匹配的程度。来自[Lucene文档](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html#getSlop--)："The number of other words permitted between words in query phrase. For example, to switch the order of two words requires two moves (the first move places the words atop one another), so to permit reorderings of phrases, the slop must be at least two. A value of zero requires an exact match."
+`zero_terms_query` | 细绳| 在某些情况下，分析仪从查询字符串中删除了所有术语。例如，`stop` 分析仪从字符串中删除所有术语`an but this`。在这些情况下，`zero_terms_query` 指定是否匹配不匹配文档（`none`）或所有文件（`all`）。有效值是`none` 和`all`。默认为`none`
+

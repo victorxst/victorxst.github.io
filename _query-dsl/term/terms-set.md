@@ -1,16 +1,16 @@
 ---
 layout: default
-title: Terms set
-parent: Term-level queries
-grand_parent: Query DSL
+title: 术语设置
+parent: 术语级查询
+grand_parent: 查询DSL
 nav_order: 90
 ---
 
-# Terms set query
+# 术语设置查询
 
-With a terms set query, you can search for documents that match a minimum number of exact terms in a specified field. A `terms_set` query is similar to a `terms` query, except that you can specify the minimum number of matching terms that are required in order to return a document. You can specify this number either in a field in the index or with a script.
+使用术语设置查询，您可以搜索在指定字段中匹配最少数量确切条款的文档。A`terms_set` 查询类似于`terms` 查询，除了您可以指定为返回文档所需的最小匹配条款数。您可以在索引中的字段或脚本中指定此数字。
 
-As an example, consider an index that contains names of students and classes those students have taken. When setting up the mapping for this index, you need to provide a [numeric]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) field that specifies the minimum number of matching terms that are required in order to return a document:
+例如，考虑一个索引，其中包含学生的名字和这些学生所接受的课程。在设置此索引的映射时，您需要提供一个[数字]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) 指定为返回文档所需的最小匹配条款数量的字段：
 
 ```json
 PUT students
@@ -30,9 +30,9 @@ PUT students
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-Next, index two documents that correspond to students:
+接下来，索引两个与学生相对应的文档：
 
 ```json
 PUT students/_doc/1
@@ -42,7 +42,7 @@ PUT students/_doc/1
   "min_required": 2
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
 ```json
 PUT students/_doc/2
@@ -52,9 +52,9 @@ PUT students/_doc/2
   "min_required": 2
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-Now search for students who have taken at least two of the following classes: `CS101`, `CS102`, `MATH101`:
+现在搜索至少参加以下两个课程的学生：`CS101`，，，，`CS102`，，，，`MATH101`：
 
 ```json
 GET students/_search
@@ -69,9 +69,9 @@ GET students/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The response contains both documents:
+响应包含两个文档：
 
 ```json
 {
@@ -123,7 +123,7 @@ The response contains both documents:
 }
 ```
 
-To specify the minimum number of terms a document should match with a script, provide the script in the `minimum_should_match_script` field:
+要指定文档应与脚本匹配的最小术语数，请在`minimum_should_match_script` 场地：
 
 ```json
 GET students/_search
@@ -140,11 +140,11 @@ GET students/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-## Parameters
+## 参数
 
-The query accepts the name of the field (`<field>`) as a top-level parameter:
+查询接受字段的名称（`<field>`）作为顶部-级别参数：
 
 ```json
 GET _search
@@ -159,12 +159,13 @@ GET _search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The `<field>` accepts the following parameters. All parameters except `terms` are optional.
+这`<field>` 接受以下参数。除所有参数外`terms` 是可选的。
 
-Parameter | Data type | Description
-:--- | :--- | :---
-`terms` | Array of strings | The array of terms to search for in the field specified in `<field>`. A document is returned in the results only if the required number of terms matches the document's field values exactly, with the correct spacing and capitalization.
-`minimum_should_match_field` | String | The name of the [numeric]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/) field that specifies the number of matching terms required in order to return a document in the results.
-`minimum_should_match_script` | String | A script that returns the number of matching terms required in order to return a document in the results.
+范围| 数据类型| 描述
+：--- | ：--- | ：---
+`terms` | 弦数| 在指定的字段中搜索的条款数组`<field>`。仅当所需的术语数与文档的字段值与正确的间距和资本化完全匹配时，结果才能在结果中返回。
+`minimum_should_match_field` | 细绳| 名称[数字]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/) 指定为返回结果中返回文档所需的匹配项数的字段。
+`minimum_should_match_script` | 细绳| 返回为返回结果中返回文档所需的匹配条款数量的脚本
+

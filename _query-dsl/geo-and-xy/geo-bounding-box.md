@@ -1,23 +1,23 @@
 ---
 layout: default
-title: Geo-bounding box
-parent: Geographic and xy queries
-grand_parent: Query DSL
+title: 地理-边界框
+parent: 地理和XY查询
+grand_parent: 查询DSL
 nav_order: 10
 redirect_from:
   - /opensearch/query-dsl/geo-and-xy/geo-bounding-box/
   - /query-dsl/query-dsl/geo-and-xy/geo-bounding-box/
 ---
 
-# Geo-bounding box query
+# 地理-边界框查询
 
-To search for documents that contain [geopoint]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) fields, use a geo-bounding box query. The geo-bounding box query returns documents whose geopoints are within the bounding box specified in the query. A document with multiple geopoints matches the query if at least one geopoint is within the bounding box.
+搜索包含的文档[地理点]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) 字段，使用地理-边界框查询。地理-边界框查询返回其地理点的文档，其地理点位于查询中指定的边界框中。如果至少一个地理点在边界框中，则具有多个地理点的文档匹配查询。
 
-## Example
+## 例子
 
-You can use a geo-bounding box query to search for documents that contain geopoints. 
+您可以使用地理-边界框查询以搜索包含地理点的文档。
 
-Create a mapping with the `point` field mapped as `geo_point`:
+用`point` 字段映射为`geo_point`：
 
 ```json
 PUT testindex1
@@ -32,7 +32,7 @@ PUT testindex1
 }
 ```
 
-Index three geopoints as objects with latitudes and longitudes:
+索引三个地理点作为具有纬度和纵向的对象：
 
 ```json
 PUT testindex1/_doc/1
@@ -60,7 +60,7 @@ PUT testindex1/_doc/3
 }
 ```
 
-Search for all documents and filter the documents whose points lie within the rectangle defined in the query:
+搜索所有文档并过滤其点位于查询中定义的矩形内的文档：
 
 ```json
 GET testindex1/_search
@@ -89,7 +89,7 @@ GET testindex1/_search
 }
 ```
 
-The response contains the matching document:
+响应包含匹配文档：
 
 ```json
 {
@@ -124,22 +124,22 @@ The response contains the matching document:
 }
 ```
 
-The preceding response does not include the document with a geopoint of `"lat": 75.00, "lon": 28.00` because of the geopoint's limited [precision](#precision).
-{: .note}
+前面的响应不包括文档的地理位置`"lat": 75.00, "lon": 28.00` 由于地理点的有限[精确](#precision)。
+{： 。笔记}
 
-## Precision
+## 精确
 
-Geopoint coordinates are always rounded down at index time. At query time, the upper boundaries of the bounding box are rounded down, and the lower boundaries are rounded up. Therefore, the documents with geopoints that lie on the lower and left edges of the bounding box might not be included in the results due to rounding error. On the other hand, geopoints that lie on the upper and right edges of the bounding box might be included in the results even though they are outside the boundaries. The rounding error is less than 4.20 &times; 10<sup>&minus;8</sup> degrees for latitude and less than 8.39 &times; 10<sup>&minus;8</sup> degrees for longitude (around 1 cm). 
+地理点坐标始终在索引时间下降。在查询时间，边界框的上限被舍入，下边界被舍入。因此，由于舍入错误，结果可能不包含在边界框的下部和左边缘上的地理点的文档。另一方面，即使在边界不在边界之外，位于边界框的上和右边缘的地理点也可能包括。舍入错误小于4.20且时间；10 <sup>＆minus; 8 </sup>纬度度，小于8.39＆times;10 <sup>＆minus; 8 </sup>度的经度（约1厘米）。
 
-## Specifying the bounding box
+## 指定边界框
 
-You can specify the bounding box by providing any of the following combinations of its vertex coordinates:
+您可以通过提供其顶点坐标的以下任何组合来指定边界框：
 
-- `top_left` and `bottom_right`
-- `top_right` and `bottom_left`
-- `top`, `left`, `bottom`, and `right`
+- `top_left` 和`bottom_right`
+- `top_right` 和`bottom_left`
+- `top`，，，，`left`，，，，`bottom`， 和`right`
 
-The following example shows how to specify the bounding box using the `top`, `left`, `bottom`, and `right` coordinates:
+以下示例显示了如何使用该框来指定边界框`top`，，，，`left`，，，，`bottom`， 和`right` 坐标：
 
 ```json
 GET testindex1/_search
@@ -164,26 +164,26 @@ GET testindex1/_search
 }
 ```
 
-## Request fields
+## 请求字段
 
-Geo-bounding box queries accept the following fields.
+地理-边界框查询接受以下字段。
 
-Field | Data type | Description
-:--- | :--- | :--- 
-`_name` | String | The name of the filter. Optional.
-`validation_method` | String | The validation method. Valid values are `IGNORE_MALFORMED` (accept geopoints with invalid coordinates), `COERCE` (try to coerce coordinates to valid values), and `STRICT` (return an error when coordinates are invalid). Default is `STRICT`.
-`type` | String | Specifies how to execute the filter. Valid values are `indexed` (index the filter) and `memory` (execute the filter in memory). Default is `memory`.
-`ignore_unmapped` | Boolean | Specifies whether to ignore an unmapped field. If set to `true`, the query does not return any documents that have an unmapped field. If set to `false`, an exception is thrown when the field is unmapped. Default is `false`.
+场地| 数据类型| 描述
+：--- | ：--- | ：--- 
+`_name` | 细绳| 过滤器的名称。选修的。
+`validation_method` | 细绳| 验证方法。有效值是`IGNORE_MALFORMED` （接受具有无效坐标的地理点），`COERCE` （尝试将坐标胁到有效值），并且`STRICT` （当坐标无效时返回错误）。默认为`STRICT`。
+`type` | 细绳| 指定如何执行过滤器。有效值是`indexed` （索引过滤器）和`memory` （在内存中执行过滤器）。默认为`memory`。
+`ignore_unmapped` | 布尔| 指定是否忽略未绘制的字段。如果设置为`true`，该查询不会返回任何具有未上限字段的文档。如果设置为`false`，当字段未绘制时，会抛出一个例外。默认为`false`。
 
-## Accepted formats
+## 接受格式
 
-You can specify coordinates of the bounding box vertices in any [format]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats) that the geopoint field type accepts.  
+您可以在任何任何中指定边界框顶点的坐标[格式]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats) 地理点字段类型接受。
 
-### Using a geohash to specify the bounding box
+### 使用GeoHash指定边界框
 
-If you use a geohash to specify the bounding box, the geohash is treated as a rectangle. The upper-left vertex of the bounding box corresponds to the upper-left vertex of the `top_left` geohash, and the lower-right vertex of the bounding box corresponds to the lower-right vertex of the `bottom_right` geohash. 
+如果您使用地理什（Geohash）指定边界框，则将GeoHash视为矩形。上层-边界框的左顶点对应于鞋面-左顶点`top_left` Geohash，较低-边界框的右顶点对应于下部-右顶点`bottom_right` Geohash。
 
-The following example shows how to use a geohash to specify the same bounding box as the previous examples:
+下面的示例显示了如何使用GeoHash指定与以前的示例相同的边界框：
 
 ```json
 GET testindex1/_search
@@ -206,7 +206,7 @@ GET testindex1/_search
 }
 ```
 
-To specify a bounding box that covers the whole area of a geohash, provide that geohash as both `top_left` and `bottom_right` parameters of the bounding box:
+要指定一个覆盖GeoHash整个区域的边界框`top_left` 和`bottom_right` 边界框的参数：
 
 ```json
 GET testindex1/_search

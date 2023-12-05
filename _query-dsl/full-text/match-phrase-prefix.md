@@ -1,20 +1,20 @@
 ---
 layout: default
-title: Match phrase prefix
-parent: Full-text queries
-grand_parent: Query DSL
+title: 匹配短语前缀
+parent: 全文查询
+grand_parent: 查询DSL
 nav_order: 40
 ---
 
-# Match phrase prefix query
+# 匹配短语前缀查询
 
-Use the `match_phrase_prefix` query to specify a phrase to match in order. The documents that contain the phrase you specify will be returned. The last partial term in the phrase is interpreted as a prefix, so any documents that contain phrases that begin with the phrase and prefix of the last term will be returned.
+使用`match_phrase_prefix` 查询以指定按顺序匹配的短语。包含您指定的短语的文档将被返回。该短语中的最后一个术语被解释为前缀，因此任何包含以短语开始的短语和上一项前缀开始的短语的文档都将被返回。
 
-Similar to [match phrase]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/), but creates a [prefix query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PrefixQuery.html) out of the last term in the query string.
+如同[匹配短语]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/)，但创造了一个[前缀查询](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PrefixQuery.html) 在查询字符串中的最后一个学期。
 
-For differences between the `match_phrase_prefix` and the `match_bool_prefix` queries, see [The `match_bool_prefix` and `match_phrase_prefix` queries]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-bool-prefix/#the-match_bool_prefix-and-match_phrase_prefix-queries).
+对于差异`match_phrase_prefix` 和`match_bool_prefix` 查询，请参阅[这`match_bool_prefix` 和`match_phrase_prefix` 查询]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-bool-prefix/#the-match_bool_prefix-and-match_phrase_prefix-queries)。
 
-The following example shows a basic `match_phrase_prefix` query:
+以下示例显示了一个基本`match_phrase_prefix` 询问：
 
 ```json
 GET _search
@@ -26,9 +26,9 @@ GET _search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-To pass additional parameters, you can use the expanded syntax:
+要传递其他参数，您可以使用扩展的语法：
 
 ```json
 GET _search
@@ -43,11 +43,11 @@ GET _search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-## Example
+## 例子
 
-For example, consider an index with the following documents:
+例如，考虑具有以下文档的索引：
 
 ```json
 PUT testindex/_doc/1
@@ -55,7 +55,7 @@ PUT testindex/_doc/1
   "title": "The wind rises"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
 ```json
 PUT testindex/_doc/2
@@ -64,9 +64,9 @@ PUT testindex/_doc/2
   
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The following `match_phrase_prefix` query searches for the whole word `wind`, followed by a word that starts with `ri`:
+下列`match_phrase_prefix` 查询搜索整个单词`wind`，然后是一个始于`ri`：
 
 ```json
 GET testindex/_search
@@ -78,15 +78,15 @@ GET testindex/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The response contains the matching document:
+响应包含匹配文档：
 
-<details closed markdown="block">
+<详细信息关闭的markdown ="block">
   <summary>
-    Response
+    回复
   </summary>
-  {: .text-delta}
+  {： 。文本-三角洲}
 
 ```json
 {
@@ -117,11 +117,11 @@ The response contains the matching document:
   }
 }
 ```
-</details>
+</delect>
 
-## Parameters
+## 参数
 
-The query accepts the name of the field (`<field>`) as a top-level parameter:
+查询接受字段的名称（`<field>`）作为顶部-级别参数：
 
 ```json
 GET _search
@@ -136,13 +136,14 @@ GET _search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The `<field>` accepts the following parameters. All parameters except `query` are optional.
+这`<field>` 接受以下参数。除所有参数外`query` 是可选的。
 
-Parameter | Data type | Description
-:--- | :--- | :---
-`query` | String | The query string to use for search. Required.
-`analyzer` | String | The [analyzer]({{site.url}}{{site.baseurl}}/analyzers/index/) used to tokenize the query. 
-`max_expansions` | Positive integer |  The maximum number of terms to which the query can expand. Fuzzy queries “expand to” a number of matching terms that are within the distance specified in `fuzziness`. Then OpenSearch tries to match those terms. Default is `50`.
-`slop` | `0` (default) or a positive integer | Controls the degree to which words in a query can be misordered and still be considered a match. From the [Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html#getSlop--): "The number of other words permitted between words in query phrase. For example, to switch the order of two words requires two moves (the first move places the words atop one another), so to permit reorderings of phrases, the slop must be at least two. A value of zero requires an exact match."
+范围| 数据类型| 描述
+：--- | ：--- | ：---
+`query` | 细绳| 用于搜索的查询字符串。必需的。
+`analyzer` | 细绳| 这[分析仪]({{site.url}}{{site.baseurl}}/analyzers/index/) 用于引导查询。
+`max_expansions` | 正整数|  查询可以扩展的最大术语数量。模糊的查询“扩展为”在指定距离内的许多匹配术语`fuzziness`。然后OpenSearch尝试匹配这些术语。默认为`50`。
+`slop` | `0` （默认）或正整数| 控制查询中的单词可能会被误解的程度，并且仍然被认为是匹配的程度。来自[Lucene文档](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html#getSlop--)：“查询短语中单词之间允许的其他单词数量。例如，要切换两个单词的顺序需要两个动作（第一步将单词彼此放在彼此之间），因此要允许对短语进行重新排序，则必须是至少两个。零值需要确切的匹配。
+

@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Match all queries
+title: 匹配所有查询
 nav_order: 65
 ---
 
-# Match all queries
+# 匹配所有查询
 
-The `match_all` query returns all documents. This query can be useful in testing large document sets if you need to return the entire set.
+这`match_all` 查询返回所有文档。如果您需要返回整个集合，则此查询可用于测试大型文档集。
 
 ```json
 GET _search
@@ -16,9 +16,9 @@ GET _search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The `match_all` query has a `match_none` counterpart, which is rarely useful:
+这`match_all` 查询有一个`match_none` 对应物，很少有用：
 
 ```json
 GET _search
@@ -28,4 +28,5 @@ GET _search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％
+

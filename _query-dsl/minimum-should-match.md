@@ -1,16 +1,17 @@
 ---
 layout: default
-title: Minimum should match
+title: 最小值应匹配
 nav_order: 70
 redirect_from:
 - /query-dsl/query-dsl/minimum-should-match/
 ---
 
-# Minimum should match 
+# 最小值应匹配
 
-The `minimum_should_match` parameter can be used for full-text search and specifies the minimum number of terms a document must match to be returned in search results. 
 
-The following example requires a document to match at least two out of three search terms in order to be returned as a search result:
+这`minimum_should_match` 参数可用于完整-文本搜索并指定必须匹配文档的最小术语数量，以便在搜索结果中返回。
+
+以下示例需要一个文档匹配三个搜索字词中的至少两个，以作为搜索结果返回：
 
 ```json
 GET /shakespeare/_search
@@ -26,30 +27,30 @@ GET /shakespeare/_search
 }
 ```
 
-In this example, the query has three optional clauses that are combined with an `OR`, so the document must match either `prince`, `king`, or `star`.
+在此示例中，查询具有三个可选子句，它们与`OR`，因此文档必须匹配`prince`，，，，`king`， 或者`star`。
 
-## Valid values
+## 有效值
 
-You can specify the `minimum_should_match` parameter as one of the following values.
+您可以指定`minimum_should_match` 参数是以下值之一。
 
-Value type | Example | Description
-:--- | :--- | :---
-Non-negative integer | `2` | A document must match this number of optional clauses.
-Negative integer | `-1` | A document must match the total number of optional clauses minus this number.
-Non-negative percentage | `70%` | A document must match this percentage of the total number of optional clauses. The number of clauses to match is rounded down to the nearest integer.
-Negative percentage | `-30%` | A document can have this percentage of the total number of optional clauses that do not match. The number of clauses a document is allowed to not match is rounded down to the nearest integer.
-Combination | `2<75%` | Expression in the `n<p%` format. If the number of optional clauses is less than or equal to `n`, the document must match all optional clauses. If the number of optional clauses is greater than `n`, then the document must match the `p` percentage of optional clauses.
-Multiple combinations | `3<-1 5<50%` | More than one combination separated by a space. Each condition applies to the number of optional clauses that is greater than the number on the left of the `<` sign. In this example, if there are three or fewer optional clauses, the document must match all of them. If there are four or five optional clauses, the document must match all but one of them. If there are 6 or more optional clauses, the document must match 50% of them.
+值类型| 例子| 描述
+：--- | ：--- | ：---
+非-负整数| `2` | 文档必须匹配此数量的可选子句。
+负整数| `-1` | 文档必须匹配可选子句的总数减去此数字。
+非-负百分比| `70%` | 文档必须匹配可选子句总数的这一百分比。匹配的子句数量被舍入到最近的整数。
+负百分比| `-30%` | 文档可以拥有不匹配的可选子句总数的百分比。允许文档不匹配的子句数量被舍入到最近的整数。
+组合| `2<75%` | 表达在`n<p%` 格式。如果可选子句的数量小于或等于`n`，该文档必须匹配所有可选子句。如果可选子句的数量大于`n`，然后该文档必须与`p` 可选子句的百分比。
+多种组合| `3<-1 5<50%` | 一个以上的组合被空间隔开。每个条件都适用于可选子句的数量，该子句大于`<` 符号。在此示例中，如果有三个或更少的可选子句，则该文档必须匹配所有条款。如果有四个或五个可选子句，则该文档必须匹配除其中一个。如果有6个或更多可选子句，则该文档必须匹配50％。
 
-Let `n` be the number of optional clauses a document must match. When `n` is calculated as a percentage, if `n` is less than 1, then 1 is used. If `n` is greater than the number of optional clauses, the number of optional clauses is used.
-{: .note}
+让`n` 作为文档必须匹配的可选子句的数量。什么时候`n` 计算为一个百分比，如果`n` 小于1，然后使用1。如果`n` 大于可选子句的数量，使用可选子句的数量。
+{： 。笔记}
 
 
-## Using the parameter in Boolean queries
+## 在布尔查询中使用参数
 
-A [Boolean query]({{site.url}}{{site.baseurl}}/) lists optional clauses in the `should` clause and required clauses in the `must` clause. Optionally, it can contain a `filter` clause to filter results.
+A[布尔查询]({{site.url}}{{site.baseurl}}/) 在`should` 条款和所需子句`must` 条款。可选地，它可以包含一个`filter` 子句以过滤结果。
 
-Consider an example index containing the following five documents:
+考虑包含以下五个文档的示例索引：
 
 ```json
 PUT testindex/_doc/1
@@ -57,7 +58,7 @@ PUT testindex/_doc/1
   "text": "one OpenSearch"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
 ```json
 PUT testindex/_doc/2
@@ -65,7 +66,7 @@ PUT testindex/_doc/2
   "text": "one two OpenSearch"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
 ```json
 PUT testindex/_doc/3
@@ -73,7 +74,7 @@ PUT testindex/_doc/3
   "text": "one two three OpenSearch"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
 ```json
 PUT testindex/_doc/4
@@ -81,7 +82,7 @@ PUT testindex/_doc/4
   "text": "one two three four OpenSearch"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
 ```json
 PUT testindex/_doc/5
@@ -89,9 +90,9 @@ PUT testindex/_doc/5
   "text": "OpenSearch"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The following query contains four optional clauses:
+以下查询包含四个可选子句：
 
 ```json
 GET testindex/_search
@@ -132,9 +133,9 @@ GET testindex/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-Because `minimum_should_match` is specified as `80%`, the number of optional clauses to match is calculated as 4 &middot; 0.8 = 3.2 and then rounded down to 3. Therefore, the results contain documents that match at least three clauses:
+因为`minimum_should_match` 指定为`80%`，匹配的可选子句的数量计算为4＆middot;0.8 = 3.2，然后舍入至3。因此，结果包含至少匹配三个子句的文档：
 
 ```json
 {
@@ -174,7 +175,7 @@ Because `minimum_should_match` is specified as `80%`, the number of optional cla
 }
 ```
 
-Now specify `minimum_should_match` as `-20%`:
+现在指定`minimum_should_match` 作为`-20%`：
 
 ```json
 GET testindex/_search
@@ -215,9 +216,9 @@ GET testindex/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The number of non-matching optional clauses that a document can have is calculated as 4 &middot; 0.2 = 0.8 and rounded down to 0. Thus, the results contain only one document that matches all optional clauses:
+非-匹配文档可以拥有的可选条款的计算为4＆middot;0.2 = 0.8，并舍入至0。因此，结果仅包含一个与所有可选子句匹配的文档：
 
 ```json
 {
@@ -249,11 +250,11 @@ The number of non-matching optional clauses that a document can have is calculat
 }
 ```
 
-Note that specifying a positive percentage (`80%`) and negative percentage (`-20%`) did not result in the same number of optional clauses a document must match because, in both cases, the result was rounded down. If the number of optional clauses were, for example, 5, then both `80%` and `-20%` would have produced the same number of optional clauses a document must match (4).
+请注意，指定正百分比（`80%`）和负百分比（`-20%`）没有导致文档必须匹配的相同数量的可选子句，因为在两种情况下，结果都已舍入。如果可选子句的数量为5，则`80%` 和`-20%` 会产生文档必须匹配的相同数量的可选子句（4）。
 
-### Default `minimum_should_match` value 
+### 默认`minimum_should_match` 价值
 
-If a query contains a `must` or `filter` clause, the default `minimum_should_match` value is 0. For example, the following query searches for documents that match `OpenSearch` and 0 optional `should` clauses:
+如果查询包含一个`must` 或者`filter` 条款，默认`minimum_should_match` 值为0。例如，以下查询搜索匹配的文档`OpenSearch` 和0可选`should` 条款：
 
 ```json
 GET testindex/_search
@@ -293,9 +294,9 @@ GET testindex/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-This query returns all five documents in the index:
+此查询返回索引中的所有五个文档：
 
 ```json
 {
@@ -359,7 +360,7 @@ This query returns all five documents in the index:
 }
 ```
 
-However, if you omit the `must` clause, then the query searches for documents that match one optional `should` clause:
+但是，如果您省略`must` 条款，然后查询搜索匹配一个可选的文档`should` 条款：
 
 ```json
 GET testindex/_search
@@ -392,9 +393,9 @@ GET testindex/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The results contain only four documents that match at least one of the optional clauses:
+结果仅包含四个匹配至少一个可选子句的文档：
 
 ```json
 {

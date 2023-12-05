@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Neural sparse
-parent: Specialized queries
-grand_parent: Query DSL
+parent: 专业查询
+grand_parent: 查询DSL
 nav_order: 55
 ---
 

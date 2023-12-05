@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Boolean
-parent: Compound queries
-grand_parent: Query DSL
+parent: 复合查询
+grand_parent: 查询DSL
 nav_order: 10
 redirect_from:
   - /opensearch/query-dsl/compound/bool/
@@ -10,20 +10,20 @@ redirect_from:
   - /query-dsl/query-dsl/compound/bool/
 ---
 
-# Boolean query
+# 布尔查询
 
-A Boolean (`bool`) query can combine several query clauses into one advanced query. The clauses are combined with Boolean logic to find matching documents returned in the results.
+布尔人（`bool`）查询可以将几个查询子句组合到一个高级查询中。该子句与布尔逻辑相结合，以查找结果中返回的匹配文档。
 
-Use the following query clauses within a `bool` query:
+在一个内使用以下查询子句`bool` 询问：
 
-Clause | Behavior
-:--- | :---
-`must` | Logical `and` operator. The results must match all queries in this clause. 
-`must_not` | Logical `not` operator. All matches are excluded from the results.
-`should` | Logical `or` operator. The results must match at least one of the queries. Matching more `should` clauses increases the document's relevance score. You can set the minimum number of queries that must match using the [`minimum_should_match`]({{site.url}}{{site.baseurl}}/query-dsl/query-dsl/minimum-should-match/) parameter. If a query contains a `must` or `filter` clause, the default `minimum_should_match` value is 0. Otherwise, the default `minimum_should_match` value is 1.
-`filter` | Logical `and` operator that is applied first to reduce your dataset before applying the queries. A query within a filter clause is a yes or no option. If a document matches the query, it is returned in the results; otherwise, it is not. The results of a filter query are generally cached to allow for a faster return. Use the filter query to filter the results based on exact matches, ranges, dates, or numbers.
+条款| 行为
+：--- | ：---
+`must` | 逻辑`and` 操作员。结果必须匹配此条款中的所有查询。
+`must_not` | 逻辑`not` 操作员。所有匹配都排除在结果之外。
+`should` | 逻辑`or` 操作员。结果必须匹配至少一个查询。匹配更多`should` 条款增加了文档的相关性分数。您可以设置必须使用该查询数量的最小数量[`minimum_should_match`]({{site.url}}{{site.baseurl}}/query-dsl/query-dsl/minimum-should-match/) 范围。如果查询包含一个`must` 或者`filter` 条款，默认`minimum_should_match` 值为0。否则，默认`minimum_should_match` 值为1。
+`filter` | 逻辑`and` 在应用查询之前首先应用以减少数据集的操作员。过滤器子句中的查询是是或否选项。如果文档匹配查询，则将其返回结果；否则，不是。通常将过滤器查询的结果缓存，以允许更快的返回。使用过滤器查询根据精确匹配，范围，日期或数字过滤结果。
 
-A Boolean query has the following structure:
+布尔查询具有以下结构：
 
 ```json
 GET _search
@@ -45,13 +45,13 @@ GET _search
 }
 ```
 
-For example, assume you have the complete works of Shakespeare indexed in an OpenSearch cluster. You want to construct a single query that meets the following requirements:
+例如，假设您在OpenSearch集群中具有莎士比亚索引的完整作品。您想构建一个符合以下要求的单个查询：
 
-1. The `text_entry` field must contain the word `love` and should contain either `life` or `grace`.
-2. The `speaker` field must not contain `ROMEO`.
-3. Filter these results to the play `Romeo and Juliet` without affecting the relevance score.
+1. 这`text_entry` 字段必须包含单词`love` 并且应该包含`life` 或者`grace`。
+2. 这`speaker` 字段不得包含`ROMEO`。
+3. 将这些结果过滤到戏剧`Romeo and Juliet` 不影响相关得分。
 
-These requirements can be combined in the following query:
+这些要求可以在以下查询中合并：
 
 ```json
 GET shakespeare/_search
@@ -95,7 +95,7 @@ GET shakespeare/_search
 }
 ```
 
-The response contains matching documents:
+响应包含匹配文档：
 
 ```json
 {
@@ -133,8 +133,8 @@ The response contains matching documents:
 }
 ```
 
-If you want to identify which of these clauses actually caused the matching results, name each query with the `_name` parameter.
-To add the `_name` parameter, change the field name in the `match` query to an object:
+如果要识别以下哪个子句实际引起匹配结果，请用`_name` 范围。
+添加`_name` 参数，更改字段名称`match` 查询对象：
 
 ```json
 GET shakespeare/_search
@@ -190,7 +190,7 @@ GET shakespeare/_search
 }
 ```
 
-OpenSearch returns a `matched_queries` array that lists the queries that matched these results:
+OpenSearch返回a`matched_queries` 列出与这些结果相匹配的查询的数组：
 
 ```json
 "matched_queries": [
@@ -199,11 +199,11 @@ OpenSearch returns a `matched_queries` array that lists the queries that matched
 ]
 ```
 
-If you remove the queries not in this list, you will still see the exact same result.
-By examining which `should` clause matched, you can better understand the relevance score of the results.
+如果您删除此列表中的查询，则仍然会看到完全相同的结果。
+通过检查哪个`should` 条款匹配，您可以更好地了解结果的相关性得分。
 
-You can also construct complex Boolean expressions by nesting `bool` queries.
-For example, use the following query to find a `text_entry` field that matches (`love` OR `hate`) AND (`life` OR `grace`) in the play `Romeo and Juliet`:
+您也可以通过嵌套来构建复杂的布尔表达式`bool` 查询。
+例如，使用以下查询查找`text_entry` 匹配的字段（`love` 或者`hate`） 和 （`life` 或者`grace`）在剧中`Romeo and Juliet`：
 
 ```json
 GET shakespeare/_search
@@ -254,7 +254,7 @@ GET shakespeare/_search
 }
 ```
 
-The response contains matching documents:
+响应包含匹配文档：
 
 ```json
 {
@@ -289,3 +289,4 @@ The response contains matching documents:
   }
 }
 ```
+

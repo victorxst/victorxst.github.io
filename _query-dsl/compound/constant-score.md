@@ -1,20 +1,20 @@
 ---
 layout: default
-title: Constant score
-parent: Compound queries
-grand_parent: Query DSL
+title: 恒定得分
+parent: 复合查询
+grand_parent: 查询DSL
 nav_order: 40
 redirect_from:
   - /query-dsl/query-dsl/compound/constant-score/
 ---
 
-# Constant score query
+# 恒定得分查询
 
-If you need to return documents that contain a certain word regardless of how many times the word appears, you can use a `constant_score` query. A `constant_score` query wraps a filter query and assigns all documents in the results a relevance score equal to the value of the `boost` parameter. Thus, all returned documents have an equal relevance score, and term frequency/inverse document frequency (TF/IDF) is not considered. Filter queries do not calculate relevance scores. Further, OpenSearch caches frequently used filter queries to improve performance. 
+如果您需要返回包含某个单词的文档，无论单词出现多少次，都可以使用`constant_score` 询问。A`constant_score` 查询包装过滤器查询，并在结果中分配所有文档，相关得分等于`boost` 范围。因此，所有返回的文档都具有相等的相关性评分，并且未考虑术语频率/逆文档频率（TF/IDF）。过滤器查询不计算相关性得分。此外，OpenSearch Caches经常使用过滤器查询以提高性能。
 
-## Example
+## 例子
 
-Use the following query to return documents that contain the word "Hamlet" in the `shakespeare` index:
+使用以下查询返回包含单词的文档"Hamlet" 在里面`shakespeare` 指数：
 
 ```json
 GET shakespeare/_search
@@ -31,15 +31,15 @@ GET shakespeare/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-All documents in the results are assigned a relevance score of 1.2:
+结果中的所有文档分配了1.2的相关得分：
 
-<details open markdown="block">
+<详细信息打开降价="block">
   <summary>
-    Response
+    回复
   </summary>
-  {: .text-delta }
+  {： 。文本-delta}
 
 ```json
 {
@@ -202,13 +202,14 @@ All documents in the results are assigned a relevance score of 1.2:
   }
 }
 ```
-</details>
+</delect>
 
-## Parameters
+## 参数
 
-The following table lists all top-level parameters supported by `constant_score `queries.
+下表列出了所有顶部-支持的级别参数`constant_score `查询。
 
-Parameter | Description
-:--- | :---
-`filter` | The filter query that a document must match to be returned in the results. Required.
-`boost` | A floating-point value that is assigned as the relevance score to all returned documents. Optional. Default is 1.0.
+范围| 描述
+：--- | ：---
+`filter` | 文档必须匹配的过滤器查询必须在结果中返回。必需的。
+`boost` | 浮动-分配为所有返回文档的相关得分的点值。选修的。默认值为1.0
+

@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Term
-parent: Term-level queries
-grand_parent: Query DSL
+title: term
+parent: 术语级查询
+grand_parent: 查询DSL
 nav_order: 70
 ---
 
-# Term query
+# term查询
 
-Use the `term` query to search for an exact term in a field. For example, the following query searches for a line with an exact line number:
+使用`term` 查询在字段中搜索确切的术语。例如，以下查询搜索具有确切行号的行：
 
 ```json
 GET shakespeare/_search
@@ -22,11 +22,11 @@ GET shakespeare/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-When a document is indexed, the `text` fields are [analyzed]({{site.url}}{{site.baseurl}}/analyzers/index/). Analysis includes tokenizing and lowercasing the text and removing punctuation. Unlike `match` queries, which analyze the query text, `term` queries only match the exact term and thus may not return relevant results. Avoid using `term` queries on `text` fields. For more information, see [Term-level and full-text queries compared]({{site.url}}{{site.baseurl}}/query-dsl/term-vs-full-text/).
+当索引文档时`text` 字段是[分析]({{site.url}}{{site.baseurl}}/analyzers/index/)。分析包括标记和降低文本并删除标点符号。与众不同`match` 查询，分析查询文本，`term` 查询仅与确切的术语匹配，因此可能无法返回相关结果。避免使用`term` 查询`text` 字段。有关更多信息，请参阅[学期-水平和饱满-比较文本查询]({{site.url}}{{site.baseurl}}/query-dsl/term-vs-full-text/)。
 
-You can specify that the query should be case insensitive in the `case_insensitive` parameter:
+您可以指定查询在`case_insensitive` 范围：
 
 ```json
 GET shakespeare/_search
@@ -41,9 +41,9 @@ GET shakespeare/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The response contains the matching documents despite any differences in case:
+尽管有任何差异，但响应包含匹配文档：
 
 ```json
 "hits": {
@@ -71,9 +71,9 @@ The response contains the matching documents despite any differences in case:
 }
 ```
 
-## Parameters
+## 参数
 
-The query accepts the name of the field (`<field>`) as a top-level parameter:
+查询接受字段的名称（`<field>`）作为顶部-级别参数：
 
 ```json
 GET _search
@@ -88,12 +88,13 @@ GET _search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The `<field>` accepts the following parameters. All parameters except `value` are optional.
+这`<field>` 接受以下参数。除所有参数外`value` 是可选的。
 
-Parameter | Data type | Description
-:--- | :--- | :---
-`value` | String | The term to search for in the field specified in `<field>`. A document is returned in the results only if its field value exactly matches the term, with the correct spacing and capitalization.
-`boost` | Floating-point | Boosts the query by the given multiplier. Useful for searches that contain more than one query. Values in the [0, 1) range decrease relevance, and values greater than 1 increase relevance. Default is `1`. 
-`case_insensitive` | Boolean | If `true`, allows case-insensitive matching of the value with the indexed field values. Default is `false` (case sensitivity is determined by the field's mapping).
+范围| 数据类型| 描述
+：--- | ：--- | ：---
+`value` | 细绳| 在指定的字段中搜索的术语`<field>`。仅当结果的字段值与正确的间距和资本化完全匹配时，仅在结果中返回文档。
+`boost` | 漂浮的-观点| 通过给定的乘数增强查询。对于包含多个查询的搜索很有用。[0，1）中的值降低了相关性，并且值大于1的相关性。默认为`1`。
+`case_insensitive` | 布尔| 如果`true`，允许案例-该值与索引字段值的不敏感匹配。默认为`false` （案例灵敏度由字段的映射确定）
+

@@ -1,22 +1,22 @@
 ---
 layout: default
-title: Wildcard
-parent: Term-level queries
-grand_parent: Query DSL
+title: 通配符
+parent: 术语级查询
+grand_parent: 查询DSL
 nav_order: 100
 ---
 
-# Wildcard query
+# 通配符查询
 
-Use wildcard queries to search for terms that match a wildcard pattern. Wildcard queries support the following operators.
+使用通配符查询搜索与通配符模式相匹配的术语。通配符查询支持以下操作员。
 
-Operator | Description
-:--- | :---
-`*` | Matches zero or more characters.
-`?` | Matches any single character.
-`case_insensitive` | If `true`, the wildcard query is case insensitive. If `false`, the wildcard query is case sensitive. Default is `false` (case sensitive).
+操作员| 描述
+：--- | ：---
+`*` | 匹配零或更多字符。
+`?` | 匹配任何单个字符。
+`case_insensitive` | 如果`true`，通配符查询不敏感。如果`false`，通配符查询对案例敏感。默认为`false` （区分大小写）。
 
-For a case-sensitive search for terms that start with `H` and end with `Y`, use the following request:
+案件-敏感的搜索以开始的术语`H` 并以`Y`，使用以下请求：
 
 ```json
 GET shakespeare/_search
@@ -31,15 +31,15 @@ GET shakespeare/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-If you change `*` to `?`, you get no matches because `?` refers to a single character.
+如果您更改`*` 到`?`，你没有比赛，因为`?` 指一个字符。
 
-Wildcard queries tend to be slow because they need to iterate over a lot of terms. Avoid placing wildcard characters at the beginning of a query because it could be a very expensive operation in terms of both resources and time.
+通配符的查询往往很慢，因为它们需要迭代很多术语。避免将通配符的字符放在查询开始时，因为在资源和时间方面，这可能是非常昂贵的操作。
 
-## Parameters
+## 参数
 
-The query accepts the name of the field (`<field>`) as a top-level parameter:
+查询接受字段的名称（`<field>`）作为顶部-级别参数：
 
 ```json
 GET _search
@@ -54,16 +54,17 @@ GET _search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The `<field>` accepts the following parameters. All parameters except `value` are optional.
+这`<field>` 接受以下参数。除所有参数外`value` 是可选的。
 
-Parameter | Data type | Description
-:--- | :--- | :---
-`value` | String | The wildcard pattern used for matching terms in the field specified in `<field>`.
-`boost` | Floating-point | Boosts the query by the given multiplier. Useful for searches that contain more than one query. Values in the [0, 1) range decrease relevance, and values greater than 1 increase relevance. Default is `1`.
-`case_insensitive` | Boolean | If `true`, allows case-insensitive matching of the value with the indexed field values. Default is `false` (case sensitivity is determined by the field's mapping).
-`rewrite` | String | Determines how OpenSearch rewrites and scores multi-term queries. Valid values are `constant_score`, `scoring_boolean`, `constant_score_boolean`, `top_terms_N`, `top_terms_boost_N`, and `top_terms_blended_freqs_N`. Default is `constant_score`.
+范围| 数据类型| 描述
+：--- | ：--- | ：---
+`value` | 细绳| 在指定的字段中使用的通配符模式`<field>`。
+`boost` | 漂浮的-观点| 通过给定的乘数增强查询。对于包含多个查询的搜索很有用。[0，1）中的值降低了相关性，并且值大于1的相关性。默认为`1`。
+`case_insensitive` | 布尔| 如果`true`，允许案例-该值与索引字段值的不敏感匹配。默认为`false` （案例灵敏度由字段的映射确定）。
+`rewrite` | 细绳| 确定OpenSearch如何重写和分数多数-术语查询。有效值是`constant_score`，，，，`scoring_boolean`，，，，`constant_score_boolean`，，，，`top_terms_N`，，，，`top_terms_boost_N`， 和`top_terms_blended_freqs_N`。默认为`constant_score`。
 
-If [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) is set to `false`, wildcard queries are not run.
-{: .important}
+如果[`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) 被设定为`false`，通配符查询不运行。
+{： 。重要的}
+

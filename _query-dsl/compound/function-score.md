@@ -1,21 +1,21 @@
 ---
 layout: default
-title: Function score
-parent: Compound queries
-grand_parent: Query DSL
+title: 功能分数
+parent: 复合查询
+grand_parent: 查询DSL
 nav_order: 60
 has_math: true
 redirect_from:
   - /query-dsl/query-dsl/compound/function-score/
 ---
 
-# Function score query
+# 功能得分查询
 
-Use a `function_score` query if you need to alter the relevance scores of documents returned in the results. A `function_score` query defines a query and one or more functions that can be applied to all results or subsets of the results to recalculate their relevance scores.
+用一个`function_score` 查询如果您需要更改结果中返回的文档的相关性得分。A`function_score` 查询定义一个查询和一个或多个功能，可以应用于结果的所有结果或子集以重新计算其相关性分数。
 
-## Using one scoring function
+## 使用一个评分功能
 
-The most basic example of a `function_score` query uses one function to recalculate the score. The following query uses a `weight` function to double all relevance scores. This function applies to all documents in the results because there is no `query` parameter specified within `function_score`:
+一个最基本的例子`function_score` 查询使用一个函数来重新计算分数。以下查询使用`weight` 功能使所有相关得分加倍。此功能适用于结果中的所有文档，因为没有`query` 内部指定的参数`function_score`：
 
 ```json
 GET shakespeare/_search
@@ -27,11 +27,11 @@ GET shakespeare/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-## Applying the scoring function to a subset of documents
+## 将评分函数应用于文档子集
 
-To apply the scoring function to a subset of documents, provide a query within the function:
+要将评分函数应用于文档子集，请在该函数中提供查询：
 
 ```json
 GET shakespeare/_search
@@ -48,23 +48,23 @@ GET shakespeare/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-## Supported functions
+## 支持的功能
 
-The `function_score` query type supports the following functions:
+这`function_score` 查询类型支持以下功能：
 
-- Built-in:
-    - `weight`: Multiplies a document score by a predefined boost factor.
-    - `random_score`: Provides a random score that is consistent for a single user but different between users.
-    - `field_value_factor`: Uses the value of the specified document field to recalculate the score. 
-    - Decay functions (`gauss`, `exp`, and `linear`): Recalculates the score using a specified decay function.
-- Custom:
-    - `script_score`: Uses a script to score documents.
+- 建造-在：
+    - `weight`：将文档得分乘以预定义的增长因子。
+    - `random_score`：提供一个随机分数，对于单个用户而言是一致但用户之间不同的分数。
+    - `field_value_factor`：使用指定文档字段的值重新计算得分。
+    - 衰减功能（`gauss`，，，，`exp`， 和`linear`）：使用指定的衰减功能重新计算得分。
+- 风俗：
+    - `script_score`：使用脚本来得分文档。
 
-## The weight function
+## 重量功能
 
-When you use the `weight` function, the original relevance score is multiplied by the floating-point value of `weight`:
+当您使用`weight` 功能，原始相关得分乘以浮动-点值`weight`：
 
 ```json
 GET shakespeare/_search
@@ -76,15 +76,15 @@ GET shakespeare/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-Unlike the `boost` value, the `weight` function is not normalized.
+不像`boost` 价值，`weight` 功能未归一化。
 
-## The random score function
+## 随机分数函数
 
-The `random_score` function provides a random score that is consistent for a single user but different between users. The score is a floating-point number in the [0, 1) range. By default, the `random_score` function uses internal Lucene document IDs as seed values, making random values irreproducible because documents can be renumbered after merges. To achieve consistency in generating random values, you can provide `seed` and `field` parameters. The `field` must be a field for which `fielddata` is enabled (commonly, a numeric field). The score is calculated using the `seed`, the `fielddata` values for the `field`, and a salt calculated using the index name and shard ID. Because the index name and shard ID are the same for documents that reside in the same shard, documents with the same `field` values will be assigned the same score. To ensure different scores for all documents in the same shard, use a `field` that has unique values for all documents. One option is to use the `_seq_no` field. However, if you choose this field, the scores can change if the document is updated because of the corresponding `_seq_no` update.
+这`random_score` 功能提供了一个随机分数，对于单个用户而言是一致但用户之间不同的分数。分数是浮动-[0，1）范围内的点号。默认情况下，`random_score` 函数使用内部Lucene文档ID作为种子值，使随机值不可验化，因为在合并后可以重新编写文档。为了实现生成随机值的一致性，您可以提供`seed` 和`field` 参数。这`field` 必须是一个领域`fielddata` 启用（通常是数字字段）。分数是使用`seed`， 这`fielddata` 值的值`field`，以及使用索引名称和碎片ID计算的盐。因为居住在同一碎片中的文档的索引名称和碎片ID相同，所以文档具有相同`field` 值将分配相同的分数。要确保同一碎片中所有文档的不同分数，请使用`field` 这对于所有文档都有独特的值。一种选择是使用`_seq_no` 场地。但是，如果您选择此字段，则由于文档的更新而可以更改分数`_seq_no` 更新。
 
-The following query uses the `random_score` function with a `seed` and `field`:
+以下查询使用`random_score` 功能`seed` 和`field`：
 
 ```json
 GET blogs/_search
@@ -99,36 +99,36 @@ GET blogs/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-## The field value factor function
+## 场值因子函数
 
-The `field_value_factor` function recalculates the score using the value of the specified document field. If the field is a multi-valued field, only its first value is used for calculations, and the others are not considered. 
+这`field_value_factor` 功能使用指定文档字段的值重新计算得分。如果该字段是多人-有价值的字段，仅将其第一个值用于计算，而其他值则不考虑。
 
-The `field_value_factor` function supports the following options:
+这`field_value_factor` 功能支持以下选项：
 
-- `field`: The field to use in score calculations.
+- `field`：用于分数计算的字段。
 
-- `factor`: An optional factor by which the field value is multiplied. Default is 1.
+- `factor`：一个可选的因素，该因素将乘以乘以。默认值为1。
 
-- `modifier`: One of the modifiers to apply to the field value $$v$$. The following table lists all supported modifiers.
+- `modifier`：适用于现场值$$ v $$的修饰符之一。下表列出了所有受支持的修饰符。
     
-    Modifier | Formula | Description
-    :--- | :--- | :---
-    `log`| $$\log v$$ | Take the base-10 logarithm of the value. Taking a logarithm of a non-positive number is an illegal operation and will result in an error. For values between 0 (exclusive) and 1 (inclusive), this function returns non-negative values that will result in an error. We recommend using `log1p` or `log2p` instead of `log`.
-    `log1p`| $$\log (1 + v)$$ | Take the base-10 logarithm of the sum of 1 and the value.
-    `log2p`| $$\log (2 + v)$$ | Take the base-10 logarithm of the sum of 2 and the value.
-    `ln`| $$\ln v$$ | Take the natural logarithm of the value. Taking a logarithm of a non-positive number is an illegal operation and will result in an error. For values between 0 (exclusive) and 1 (inclusive), this function returns non-negative values that will result in an error. We recommend using `ln1p` or `ln2p` instead of `ln`.
-    `ln1p`| $$\ln (1 + v)$$ | Take the natural logarithm of the sum of 1 and the value.
-    `ln2p`| $$\ln (2 + v)$$ | Take the natural logarithm of the sum of 2 and the value.
-    `reciprocal`| $$\frac {1}{v}$$ | Take the reciprocal of the value.
-    `square`| $$v^2$$ | Square the value.
-    `sqrt`| $$\sqrt v$$ | Take the square root of the value. Taking a square root of a negative number is an illegal operation and will result in an error. Ensure that $$v$$ is non-negative.
-    `none`| N/A | Do not apply any modifier.
+    修饰符| 公式| 描述
+    ：--- | ：--- | ：---
+    `log`| $$ \ log v $$| 拿起基地-值的10对数。进行非对数-正数是一个非法操作，将导致错误。对于0（独家）和1（包含）的值，此功能返回非-负值将导致错误。我们建议使用`log1p` 或者`log2p` 代替`log`。
+    `log1p`| $$ \ log（1 + v）$$| 拿起基地-10和1和值的对数。
+    `log2p`| $$ \ log（2 + v）$$| 拿起基地-10和2的对数和值。
+    `ln`| $$ \ ln v $$| 取值的自然对数。进行非对数-正数是一个非法操作，将导致错误。对于0（独家）和1（包含）的值，此功能返回非-负值将导致错误。我们建议使用`ln1p` 或者`ln2p` 代替`ln`。
+    `ln1p`| $$ \ ln（1 + v）$$| 取1和值的自然对数。
+    `ln2p`| $$ \ ln（2 + v）$$| 取2和值的自然对数。
+    `reciprocal`| $$ \ frac {1} {v} $$| 取值。
+    `square`| $$ v^2 $$| 平方值。
+    `sqrt`| $$ \ sqrt v $$| 取值的平方根。占负数的平方根是非法操作，将导致错误。确保$$ v $$是非-消极的。
+    `none`| N/A。| 请勿应用任何修饰符。
 
-- `missing`: The value to use if the field is missing from the document. The `factor` and `modifier` are applied to this value instead of the missing field value.
+- `missing`：如果文档中缺少字段，则使用的值。这`factor` 和`modifier` 应用于此值，而不是缺少字段值。
 
-For example, the following query uses the `field_value_factor` function to give more weight to the `views` field:
+例如，以下查询使用`field_value_factor` 功能使重量更大`views` 场地：
 
 ```json
 GET blogs/_search
@@ -145,20 +145,20 @@ GET blogs/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The preceding query calculates the relevance score using the following formula:
+前面的查询使用以下公式计算相关得分：
 
-$$ \text{score} = \text{original score} \cdot \log(1 + 1.5 \cdot \text{views}) $$
+$$ \ text {corce} = \ text {原始分数} \ cdot \ log（1 + 1.5 \ cdot \ text {views}）$$
 
-## The script score function
+## 脚本分数功能
 
-Using the `script_score` function, you can write a custom script for scoring documents, optionally incorporating values of fields in the document. The original relevance score is accessible in the `_score` variable. 
+使用`script_score` 功能，您可以编写一个定制脚本以进行评分文档，可选地将字段值合并到文档中。原始相关得分可在`_score` 多变的。
 
-The calculated score cannot be negative. A negative score will result in an error. Document scores have positive 32-bit floating-point values. A score with greater precision is converted to the nearest 32-bit floating-point number.
-{: .important}
+计算出的分数不能为负。负分数将导致错误。文档分数为正面32-位浮动-点值。更高精度的分数转换为最近的32-位浮动-点号。
+{： 。重要的}
 
-For example, the following query uses the `script_score` function to calculate the score based on the original score and the number of views and likes for the blog post. To give the number of views and likes a lesser weight, this formula takes the logarithm of the sum of views and likes. To make the logarithm valid even if the number of views and likes is `0`, `1` is added to their sum:
+例如，以下查询使用`script_score` 根据原始分数以及博客文章的视图和喜欢的数量来计算分数的功能。为了给出视图数量并喜欢的重量较小，该公式会吸引视图和喜欢的对数。即使视图和喜欢的数量是，使对数有效`0`，，，，`1` 被添加到他们的总和中：
 
 ```json
 GET blogs/_search
@@ -173,9 +173,9 @@ GET blogs/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-Scripts are compiled and cached for faster performance. Thus, it's preferable to reuse the same script and pass any parameters that the script needs:
+编译和缓存脚本以更快的性能。因此，最好重复使用相同的脚本并传递脚本所需的任何参数：
 
 ```json
 GET blogs/_search
@@ -197,22 +197,22 @@ GET blogs/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-## Decay functions
+## 衰减功能
 
-For many applications, you need to sort the results based on proximity or recency. You can do this with decay functions. Decay functions calculate a document score using one of three decay curves: Gaussian, exponential, or linear. 
+对于许多应用程序，您需要根据接近度或新近度对结果进行排序。您可以使用衰减功能来执行此操作。衰减功能使用三个衰减曲线之一计算文档得分：高斯，指数或线性。
 
-Decay functions operate only on [numeric]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/), [date]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/dates/), and [geopoint]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geo-point/) fields.
-{: .important}
+衰减功能仅在[数字]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/)，，，，[日期]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/dates/)， 和[地理点]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geo-point/) 字段。
+{： 。重要的}
 
-Decay functions calculate scores based on the `origin`, `scale`, `offset`, and `decay`, as shown in the following figure.
+衰减功能根据`origin`，，，，`scale`，，，，`offset`， 和`decay`，如下图所示。
 
 <img src="{{site.url}}{{site.baseurl}}/images/decay-functions.png" alt="Decay function curves" width="600">
 
-### Example: Geopoint fields
+### 示例：地理点字段
 
-Suppose you're looking for a hotel near your office. You create a `hotels` index that maps the `location` field as a geopoint:
+假设您正在寻找办公室附近的酒店。您创建一个`hotels` 绘制映射的索引`location` 字段作为地理点：
 
 ```json
 PUT hotels
@@ -226,9 +226,9 @@ PUT hotels
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-You index two documents that correspond to nearby hotels:
+您为与附近酒店相对应的两个文档索引：
 
 ```json
 PUT hotels/_doc/1
@@ -240,7 +240,7 @@ PUT hotels/_doc/1
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
 ```json
 PUT hotels/_doc/2
@@ -252,11 +252,11 @@ PUT hotels/_doc/2
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The `origin` defines the point from which the distance is calculated (the office location). The `offset` specifies the distance from the origin within which documents are given a full score of 1. You can give hotels within 200 ft of the office the same highest score. The `scale` defines the decay rate of the graph, and the `decay` defines the score to assign to a document at the `scale` + `offset` distance from the origin. Once you are outside the 200 ft radius, you may decide that if you have to walk another 300 ft to get to a hotel (`scale` = 300 ft), you'll assign it one quarter of the original score (`decay` = 0.25).
+这`origin` 定义计算距离的点（办公室位置）。这`offset` 指定距离文档的原点的距离为1。您可以在办公室200英尺以内的酒店以相同的最高分。这`scale` 定义图的衰减率，`decay` 定义分配给文档的分数`scale` +`offset` 距离原点的距离。一旦超出200英尺半径，您可能会决定如果您必须再走300英尺才能到达酒店（`scale` = 300英尺），您将分配原始分数的四分之一（`decay` = 0.25）。
 
-You create the following query with the `origin` at (74.00, 40.71):
+您可以使用以下查询`origin` （74.00，40.71）：
 
 ```json
 GET hotels/_search
@@ -279,15 +279,15 @@ GET hotels/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The response contains both hotels. The hotel within 200 ft of the office has a score of 1, and the hotel outside of the 500 ft radius has a score 0.20, which is less than the `decay` parameter 0.25:
+响应都包含两个酒店。该办公室200英尺以内的酒店的得分为1，500英尺半径以外的酒店的得分为0.20，该酒店比`decay` 参数0.25：
 
-<details open markdown="block">
+<详细信息打开降价="block">
   <summary>
-    Response
+    回复
   </summary>
-  {: .text-delta}
+  {： 。文本-三角洲}
 
 ```json
 {
@@ -334,25 +334,25 @@ The response contains both hotels. The hotel within 200 ft of the office has a s
   }
 }
 ```
-</details>
+</delect>
 
-### Parameters
+### 参数
 
-The following table lists all parameters supported by the `gauss`, `exp`, and `linear` functions.
+下表列出了由`gauss`，，，，`exp`， 和`linear` 功能。
 
-Parameter | Description
-:--- | :---
-`origin` | The point from which to calculate the distance. Must be provided as a number for numeric fields, a date for date fields, or a geopoint for geopoint fields. Required for geopoint and numeric fields. Optional for date fields (defaults to `now`). For date fields, date math is supported (for example, `now-2d`).
-`offset` | Defines the distance from the origin within which documents are given a score of 1. Optional. Default is 0.
-`scale` | Documents at the distance of `scale` + `offset` from the `origin` are assigned a score of `decay`. Required. <br>For numeric fields, `scale` can be any number. <br>For date fields, `scale` can be defined as a number with [units]({{site.url}}{{site.baseurl}}/api-reference/units/) (`5h`, `1d`). If units are not provided, `scale` defaults to milliseconds. <br>For geopoint fields, `scale` can be defined as a number with [units]({{site.url}}{{site.baseurl}}/api-reference/units/) (`1mi`, `5km`). If units are not provided, `scale` defaults to meters.
-`decay` | Defines the score of a document at the distance of `scale` + `offset` from the `origin`. Optional. Default is 0.5.
+范围| 描述
+：--- | ：---
+`origin` | 计算距离的点。必须作为数字字段的数字，日期字段的日期或地理点字段的地理点提供。地理点和数字字段所需。可选的日期字段（默认为`now`）。对于日期字段，支持日期数学（例如，`now-2d`）。
+`offset` | 定义与文档的分数为1的距离的距离。可选。默认值为0。
+`scale` | 远处的文件`scale` +`offset` 来自`origin` 分配得分`decay`。必需的。<br>对于数字字段，`scale` 可以是任何数字。<br>对于日期字段，`scale` 可以定义为一个数字[单位]({{site.url}}{{site.baseurl}}/api-reference/units/) （（`5h`，，，，`1d`）。如果未提供单位，`scale` 默认为毫秒。<br>对于地理点字段，`scale` 可以定义为一个数字[单位]({{site.url}}{{site.baseurl}}/api-reference/units/) （（`1mi`，，，，`5km`）。如果未提供单位，`scale` 默认为米。
+`decay` | 定义文档的分数`scale` +`offset` 来自`origin`。选修的。默认值为0.5。
 
-For fields that are missing from the document, decay functions return a score of 1.
-{: .note}
+对于文档中缺少的字段，衰减功能返回分数为1。
+{： 。笔记}
 
-### Example: Numeric fields
+### 示例：数字字段
 
-The following query uses the exponential decay function to prioritize blog posts by the number of comments:
+以下查询使用指数衰减函数来通过注释数量来确定博客文章：
 
 ```json
 GET blogs/_search
@@ -374,15 +374,15 @@ GET blogs/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The first two blog posts in the results have a score of 1 because one is at the origin (20) and the other is at a distance of 16, which is within the offset (the range within which documents receive a full score is calculated as 20 $$\pm$$ 5 and is [15, 25]). The third blog post is at a distance of `scale` + `offset` from the `origin` (20 &minus; (5 + 10) = 15), so it's given the default `decay` score (0.5):
+结果中的前两个博客帖子的得分为1，因为一个是原点（20），另一个是16的距离，在偏移范围内（文档接收到的完整分数的范围为20 $$ \ pm $$ 5，是[15，25]）。第三篇博客文章的距离`scale` +`offset` 来自`origin` （20＆减去;（5 + 10）= 15），因此给出了默认值`decay` 得分（0.5）：
 
-<details open markdown="block">
+<详细信息打开降价="block">
   <summary>
-    Response
+    回复
   </summary>
-  {: .text-delta}
+  {： 。文本-三角洲}
 
 ```json
 {
@@ -453,11 +453,11 @@ The first two blog posts in the results have a score of 1 because one is at the 
   }
 }
 ```
-</details>
+</delect>
 
-### Example: Date fields
+### 示例：日期字段
 
-The following query uses the Gaussian decay function to prioritize blog posts published around 04/24/2002:
+以下查询使用高斯衰减功能来确定2002年4月24日左右发布的博客文章：
 
 ```json
 GET blogs/_search
@@ -480,15 +480,15 @@ GET blogs/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-In the results, the first blog post was published within one day of 04/24/2022, so it has the highest score of 1. The second blog post was published on 04/17/2022, which is within `offset` + `scale` (`1d` + `6d`) and therefore has a score equal to `decay` (0.25). The third blog post was published more than 7 days after 04/24/2022, so it has a lower score. The last blog post has a score of 0 because it was published years ago:
+在结果中，第一篇博客文章在04/24/2022的一天内发表，因此它的分数最高为1。第二篇博客文章发表于04/17/2022`offset` +`scale` （（`1d` +`6d`），因此得分等于`decay` （0.25）。第三篇博客文章发表在04/24/2022之后的7天以上，因此得分较低。上一篇博客文章的分数为0，因为它是几年前出版的：
 
-<details open markdown="block">
+<详细信息打开降价="block">
   <summary>
-    Response
+    回复
   </summary>
-  {: .text-delta}
+  {： 。文本-三角洲}
 
 ```json
 {
@@ -559,18 +559,18 @@ In the results, the first blog post was published within one day of 04/24/2022, 
   }
 }
 ```
-</details>
+</delect>
 
-### Multi-valued fields
+### 多-有价值的田地
 
-If the field that you specify for decay calculation contains multiple values, you can use the `multi_value_mode` parameter. This parameter specifies one of the following functions to determine the field value that is used for calculations:
+如果您指定的衰减计算字段包含多个值，则可以使用`multi_value_mode` 范围。此参数指定以下功能之一来确定用于计算的字段值：
 
-- `min`: (Default) The minimum distance from the `origin`. 
-- `max`: The maximum distance from the `origin`.
-- `avg`: The average distance from the `origin`.
-- `sum`: The sum of all distances from the `origin`.
+- `min`：（默认）距离`origin`。
+- `max`：与`origin`。
+- `avg`：与`origin`。
+- `sum`：与`origin`。
 
-For example, you index a document with an array of distances:
+例如，您为具有一系列距离的文档索引：
 
 ```json
 PUT testindex/_doc/1
@@ -579,7 +579,7 @@ PUT testindex/_doc/1
 }
 ```
 
-The following query uses the `max` distance of a multi-valued field `distances` to calculate decay:
+以下查询使用`max` 多距离-有价值的领域`distances` 计算衰减：
 
 ```json
 GET testindex/_search
@@ -602,9 +602,9 @@ GET testindex/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The document is given a score of 1 because the maximum distance from the origin (1) is within the `offset` from the `origin`:
+该文档的分数为1，因为距离原点的最大距离（1）在`offset` 来自`origin`：
 
 ```json
 {
@@ -642,73 +642,73 @@ The document is given a score of 1 because the maximum distance from the origin 
 }
 ```
 
-### Decay curve calculation
+### 衰减曲线计算
 
-The following formulas define score computation for various decay functions ($$v$$ denotes the document field value).
+以下公式定义了各种衰减功能的分数计算（$$ v $$表示文档字段值）。
 
-**Gaussian**
+**高斯**
     
-$$ \text{score} = \exp \left(-\frac {(\max(0, \lvert v - \text{origin} \rvert - \text{offset}))^2} {2\sigma^2} \right), $$
+$$ \ text {corce} = \ exp \ left（-\ frac {（\ max（0，\ lvert v- \ text {oneration} \ rvert- \ text {offset}））^2} {2 \ sigma^2} \ right），$$
 
-where $$\sigma$$ is calculated to ensure that the score is equal to `decay` at the distance `offset` + `scale` from the `origin`:
+计算$$ \ sigma $$以确保分数等于`decay` 在远处`offset` +`scale` 来自`origin`：
 
-$$ \sigma^2 = - \frac {\text{scale}^2} {2 \ln(\text{decay})} $$
+$$ \ sigma^2 =- \ frac {\ text {scale}^2} {2 \ ln（\ text {decay}）} $$
 
-**Exponential**
+**指数**
 
-$$ \text{score} = \exp (\lambda \cdot \max(0, \lvert v - \text{origin} \rvert - \text{offset})),$$
+$$ \ text {score} = \ exp（\ lambda \ cdot \ max（0，\ lvert v v）- \ text {oneration} \ rvert- \ text {offset}）），$$
 
-where $$\lambda$$ is calculated to ensure that the score is equal to `decay` at the distance `offset` + `scale` from the `origin`:
+在哪里计算$$ \ lambda $$，以确保分数等于`decay` 在远处`offset` +`scale` 来自`origin`：
 
-$$\lambda = \frac {\ln(\text{decay})} {\text{scale}} $$
+$$ \ lambda = \ frac {\ ln（\ text {decay}）}} {\ text {scale}} $$
 
-**Linear**
+**线性**
 
-$$ \text{score} = \max \left(\frac {s - \max(0, \lvert v - \text{origin} \rvert - \text{offset})} {s} \right), $$
+$$ \ text {score} = \ max \ left（\ frac {s s s- \ max（0，\ lvert v- \ text {oneration} \ rvert- \ text {offset}）} {s} \ right），$$
 
-where $$s$$ is calculated to ensure that the score is equal to `decay` at the distance `offset` + `scale` from the `origin`:
+计算$$ S $$以确保分数等于`decay` 在远处`offset` +`scale` 来自`origin`：
 
-$$s = \frac {\text{scale}} {1 - \text{decay}}$$
+$$ s = \ frac {\ text {scale}} {1- \ text {decay}} $$
 
-## Using multiple scoring functions
+## 使用多个评分功能
 
-You can specify multiple scoring functions in a function score query by listing them in the `functions` array. 
+您可以通过在功能分数查询中指定多个评分函数来通过在`functions` 大批。
 
-### Combining scores from multiple functions
+### 组合来自多个功能的分数
 
-Different functions can use different scales for scoring. For example, the `random_score` function provides a score between 0 and 1, but the `field_value_factor` does not have a specific scale for the score. Additionally, you may want to weigh scores given by different functions differently. To adjust scores for different functions, you can specify the `weight` parameter for each function. The score given by each function is then multiplied by the `weight` to produce the final score for that function. The `weight` parameter must be provided in the `functions` array in order to differentiate it from the [weight function](#the-weight-function), 
+不同的功能可以使用不同的量表进行评分。例如，`random_score` 功能提供了0到1之间的分数，但是`field_value_factor` 分数没有特定的量表。此外，您可能需要以不同的方式称量不同功能给出的分数。要调整不同功能的分数，您可以指定`weight` 每个功能的参数。然后将每个功能给出的分数乘以`weight` 产生该功能的最终分数。这`weight` 必须在`functions` 为了将其区分与[重量功能](#the-weight-function)，，，，
 
-The scores given by each function are combined using the `score_mode` parameter, which takes one of the following values:
+每个功能给出的分数都使用`score_mode` 参数，该参数采用以下值之一：
 
-- `multiply`: (Default) Scores are multiplied.
-- `sum`: Scores are added.
-- `avg`: Scores are averaged. If `weight` is specified, this is a [weighted average](https://en.wikipedia.org/wiki/Weighted_arithmetic_mean). For example, if the first function with the weight $$1$$ returns the score $$10$$, and the second function with the weight $$4$$ returns the score $$20$$, the average is calculated as $$\frac {10 \cdot 1 + 20 \cdot 4}{1 + 4} = 18$$.
-- `first`: The score from the first function that has a matching filter is taken.
-- `max`: The maximum score is taken.
-- `min`: The minimum score is taken.
+- `multiply`：（默认）分数乘以。
+- `sum`：添加分数。
+- `avg`：平均得分。如果`weight` 指定，这是[加权平均](https://en.wikipedia.org/wiki/Weighted_arithmetic_mean)。例如，如果重量$$ 1 $$的第一个功能将返回分数$$ 10 $$，而重量$$ 4 $$的第二个功能将返回分数$$ 20 $$，则平均值为$ \ frac{10 \ CDOT 1 + 20 \ CDOT 4} {1 + 4} = 18 $$。
+- `first`：从具有匹配过滤器的第一个函数的分数。
+- `max`：最高分数。
+- `min`：最低分数。
 
-### Specifying an upper limit for a score
+### 指定分数的上限
 
-You can specify an upper limit for a function score in the `max_boost` parameter. The default upper limit is the maximum magnitude for a `float` value: (2 &minus; 2<sup>&minus;23</sup>) &middot; 2<sup>127</sup>.
+您可以指定功能分数的上限`max_boost` 范围。默认的上限是A的最大幅度`float` 价值：（2＆minus; 2 <sup>＆sinus; 23 </sup>）＆middot;2 <sup> 127 </sup>。
 
-### Combining the score for all functions with the query score
+### 将所有功能的分数与查询分数相结合
 
-You can specify how the score computed using all functions is combined with the query score in the `boost_mode` parameter, which takes one of the following values:
+您可以指定使用所有功能计算的分数与查询分数合并`boost_mode` 参数，该参数采用以下值之一：
 
-- `multiply`: (Default) Multiply the query score by the function score.
-- `replace`: Ignore the query score and use the function score.
-- `sum`: Add the query score and the function score.
-- `avg`: Average the query score and the function score.
-- `max`: Take the greater of the query score and the function score.
-- `min`: Take the lesser of the query score and the function score.
+- `multiply`：（默认值）将查询分数乘以功能分数。
+- `replace`：忽略查询分数并使用功能分数。
+- `sum`：添加查询分数和功能分数。
+- `avg`：平均查询分数和功能分数。
+- `max`：取得更大的查询分数和功能分数。
+- `min`：以查询分数和功能分数的较小。
 
-### Filtering documents that don't meet a threshold
+### 过滤不符合阈值的文档
 
-Changing the relevance score does not change the list of matching documents. To exclude some documents that don't meet a threshold, specify the threshold value in the `min_score` parameter. All documents returned by the query are then scored and filtered using the threshold value.
+更改相关性分数不会更改匹配文档的列表。要排除某些不符合阈值的文档，请在`min_score` 范围。然后，使用阈值值对查询返回的所有文档进行评分和过滤。
 
-### Example
+### 例子
 
-The following request searches for blog posts that include the words "OpenSearch Data Prepper", preferring the posts published around 04/24/2022. Additionally, the number of views and likes are taken into consideration. Finally, the cutoff threshold is set at the score of 10:
+以下请求搜索包括单词的博客文章"OpenSearch Data Prepper"，更喜欢在04/24/2022左右发布的帖子。此外，考虑了视图和喜欢的数量。最后，截止阈值设定为10：
 
 ```json
 GET blogs/_search
@@ -759,15 +759,15 @@ GET blogs/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The results contain the three matching blog posts:
+结果包含三个匹配的博客文章：
 
-<details open markdown="block">
+<详细信息打开降价="block">
   <summary>
-    Response
+    回复
   </summary>
-  {: .text-delta}
+  {： 。文本-三角洲}
 
 ```json
 {
@@ -826,4 +826,5 @@ The results contain the three matching blog posts:
   }
 }
 ```
-</details>
+</详细信息
+

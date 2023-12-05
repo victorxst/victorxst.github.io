@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Anomaly detection API
+title: 异常检测API
 parent: 异常检测
 nav_order: 1
 redirect_from: 

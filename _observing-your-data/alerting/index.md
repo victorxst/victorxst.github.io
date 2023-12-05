@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Alerting
+title: 警报
 nav_order: 70
 has_children: true
 redirect_from:

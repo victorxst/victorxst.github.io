@@ -1,16 +1,16 @@
 ---
 layout: default
-title: Match Boolean prefix
-parent: Full-text queries
-grand_parent: Query DSL
+title: 匹配布尔前缀
+parent: 全文查询
+grand_parent: 查询DSL
 nav_order: 20
 ---
 
-# Match Boolean prefix query
+# 匹配布尔前缀查询
 
-The `match_bool_prefix` query analyzes the provided search string and creates a [Boolean query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) from the string's terms. It uses every term except the last term as a whole word for matching. The last term is used as a prefix. The `match_bool_prefix` query returns documents that contain either the whole-word terms or terms that start with the prefix term, in any order.
+这`match_bool_prefix` 查询分析提供的搜索字符串并创建一个[布尔查询]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) 从字符串的术语中。它使用每个术语，除了最后一个术语作为匹配的整个单词。最后一项用作前缀。这`match_bool_prefix` 查询返回包含整个的文档-以任何顺序从前缀术语开始的单词术语或术语。
 
-The following example shows a basic `match_bool_prefix` query:
+以下示例显示了一个基本`match_bool_prefix` 询问：
 
 ```json
 GET _search
@@ -22,9 +22,9 @@ GET _search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-To pass additional parameters, you can use the expanded syntax:
+要传递其他参数，您可以使用扩展的语法：
 
 ```json
 GET _search
@@ -39,11 +39,11 @@ GET _search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-## Example
+## 例子
 
-For example, consider an index with the following documents:
+例如，考虑具有以下文档的索引：
 
 ```json
 PUT testindex/_doc/1
@@ -51,7 +51,7 @@ PUT testindex/_doc/1
   "title": "The wind rises"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
 ```json
 PUT testindex/_doc/2
@@ -60,9 +60,9 @@ PUT testindex/_doc/2
   
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The following `match_bool_prefix` query searches for the whole word `rises` and the words that start with `wi`, in any order:
+下列`match_bool_prefix` 查询搜索整个单词`rises` 和以`wi`，按任何顺序：
 
 ```json
 GET testindex/_search
@@ -74,9 +74,9 @@ GET testindex/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The preceding query is equivalent to the following Boolean query:
+前面的查询等同于以下布尔查询：
 
 ```json
 GET testindex/_search
@@ -92,13 +92,13 @@ GET testindex/_search
 }
 ```
 
-The response contains both documents:
+响应包含两个文档：
 
-<details closed markdown="block">
+<详细信息关闭的markdown ="block">
   <summary>
-    Response
+    回复
   </summary>
-  {: .text-delta}
+  {： 。文本-三角洲}
 
 ```json
 {
@@ -138,11 +138,11 @@ The response contains both documents:
 }
 ```
 
-</details>
+</delect>
 
-## The `match_bool_prefix` and `match_phrase_prefix` queries
+## 这`match_bool_prefix` 和`match_phrase_prefix` 查询
 
-The `match_bool_prefix` query matches terms in any position, while the `match_phrase_prefix` query matches terms as a whole phrase. To illustrate the difference, once again consider the `match_bool_prefix` query from the preceding section:
+这`match_bool_prefix` 查询与任何位置的术语匹配，而`match_phrase_prefix` 查询将术语与整个短语匹配。为了说明差异，再次考虑`match_bool_prefix` 从上一节查询：
 
 ```json
 GET testindex/_search
@@ -154,11 +154,11 @@ GET testindex/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-Both `The wind rises` and `Gone with the wind` match the search terms, so the query returns both documents.
+两个都`The wind rises` 和`Gone with the wind` 匹配搜索词，因此查询返回两个文档。
 
-Now run a `match_phrase_prefix` query on the same index:
+现在运行一个`match_phrase_prefix` 在同一索引上查询：
 
 ```json
 GET testindex/_search
@@ -170,13 +170,13 @@ GET testindex/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The response returns no documents because none of the documents contain a phrase `rises wi` in the specified order.
+响应没有返回文档，因为没有任何文档包含短语`rises wi` 按照指定的顺序。
 
-## Analyzer
+## 分析仪
 
-By default, when you run a query on a `text` field, the search text is analyzed using the index analyzer associated with the field. You can specify a different search analyzer in the `analyzer` parameter:
+默认情况下，当您在`text` 字段，使用与字段关联的索引分析仪分析搜索文本。您可以在`analyzer` 范围：
 
 ```json
 GET testindex/_search
@@ -191,11 +191,11 @@ GET testindex/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
  
-## Parameters
+## 参数
 
-The query accepts the name of the field (`<field>`) as a top-level parameter:
+查询接受字段的名称（`<field>`）作为顶部-级别参数：
 
 ```json
 GET _search
@@ -210,21 +210,22 @@ GET _search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The `<field>` accepts the following parameters. All parameters except `query` are optional.
+这`<field>` 接受以下参数。除所有参数外`query` 是可选的。
 
-Parameter | Data type | Description
-:--- | :--- | :---
-`query` | String | The text, number, Boolean value, or date to use for search. Required.
-`analyzer` | String | The [analyzer]({{site.url}}{{site.baseurl}}/analyzers/index/) used to tokenize the query string text. Default is the index-time analyzer specified for the `default_field`. If no analyzer is specified for the `default_field`, the `analyzer` is the default analyzer for the index.
-`fuzziness` | `AUTO`, `0`, or a positive integer | The number of character edits (insert, delete, substitute) that it takes to change one word to another when determining whether a term matched a value. For example, the distance between `wined` and `wind` is 1. The default, `AUTO`, chooses a value based on the length of each term and is a good choice for most use cases.
-`fuzzy_rewrite` | String | Determines how OpenSearch rewrites the query. Valid values are `constant_score`, `scoring_boolean`, `constant_score_boolean`, `top_terms_N`, `top_terms_boost_N`, and `top_terms_blended_freqs_N`. If the `fuzziness` parameter is not `0`, the query uses a `fuzzy_rewrite` method of `top_terms_blended_freqs_${max_expansions}` by default. Default is `constant_score`. 
-`fuzzy_transpositions` | Boolean | Setting `fuzzy_transpositions` to `true` (default) adds swaps of adjacent characters to the insert, delete, and substitute operations of the `fuzziness` option. For example, the distance between `wind` and `wnid` is 1 if `fuzzy_transpositions` is true (swap "n" and "i") and 2 if it is false (delete "n", insert "n"). If `fuzzy_transpositions` is false, `rewind` and `wnid` have the same distance (2) from `wind`, despite the more human-centric opinion that `wnid` is an obvious typo. The default is a good choice for most use cases.
-`max_expansions` | Positive integer |  The maximum number of terms to which the query can expand. Fuzzy queries “expand to” a number of matching terms that are within the distance specified in `fuzziness`. Then OpenSearch tries to match those terms. Default is `50`.
-`minimum_should_match` | Positive or negative integer, positive or negative percentage, combination | If the query string contains multiple search terms and you use the `or` operator, the number of terms that need to match for the document to be considered a match. For example, if `minimum_should_match` is 2, `wind often rising` does not match `The Wind Rises.` If `minimum_should_match` is `1`, it matches. For details, see [Minimum should match]({{site.url}}{{site.baseurl}}/query-dsl/minimum-should-match/).
-`operator` | String | If the query string contains multiple search terms, whether all terms need to match (`and`) or only one term needs to match (`or`) for a document to be considered a match. Valid values are `or` and `and`. Default is `or`.
-`prefix_length` | Non-negative integer | The number of leading characters that are not considered in fuzziness. Default is `0`.
+范围| 数据类型| 描述
+：--- | ：--- | ：---
+`query` | 细绳| 文本，数字，布尔值或用于搜索的日期。必需的。
+`analyzer` | 细绳| 这[分析仪]({{site.url}}{{site.baseurl}}/analyzers/index/) 用于引导查询字符串文本。默认是索引-指定的时间分析仪`default_field`。如果未针对`default_field`， 这`analyzer` 是索引的默认分析仪。
+`fuzziness` | `AUTO`，，，，`0`，或一个积极的整数| 在确定一个术语是否匹配值时，将一个单词更改为另一个单词所需的字符编辑数量（插入，删除，替换）。例如，`wined` 和`wind` 是1.默认`AUTO`，根据每个学期的长度选择一个值，对于大多数用例，是一个不错的选择。
+`fuzzy_rewrite` | 细绳| 确定OpenSearch如何重写查询。有效值是`constant_score`，，，，`scoring_boolean`，，，，`constant_score_boolean`，，，，`top_terms_N`，，，，`top_terms_boost_N`， 和`top_terms_blended_freqs_N`。如果是`fuzziness` 参数不是`0`，查询使用`fuzzy_rewrite` 的方法`top_terms_blended_freqs_${max_expansions}` 默认情况下。默认为`constant_score`。
+`fuzzy_transpositions` | 布尔| 环境`fuzzy_transpositions` 到`true` （默认）在插入，删除和替代操作中添加相邻字符的互换`fuzziness` 选项。例如，`wind` 和`wnid` 是1`fuzzy_transpositions` 是真的（交换"n" 和"i"）和2如果是错误的（删除"n"， 插入"n"）。如果`fuzzy_transpositions` 是错误的，`rewind` 和`wnid` 距离有相同的距离（2）`wind`，尽管人类越来越多-以中心的看法`wnid` 是一个明显的错别字。对于大多数用例，默认值是一个不错的选择。
+`max_expansions` | 正整数|  查询可以扩展的最大术语数量。模糊的查询“扩展为”在指定距离内的许多匹配术语`fuzziness`。然后OpenSearch尝试匹配这些术语。默认为`50`。
+`minimum_should_match` | 正整数，正数，正百分比，组合| 如果查询字符串包含多个搜索术语，并且您使用`or` 操作员，需要将文档匹配的术语数量被视为匹配。例如，如果`minimum_should_match` 是2，`wind often rising` 不匹配`The Wind Rises.` 如果`minimum_should_match` 是`1`， 它匹配。有关详细信息，请参阅[最低应匹配]({{site.url}}{{site.baseurl}}/query-dsl/minimum-should-match/)。
+`operator` | 细绳| 如果查询字符串包含多个搜索术语，则所有术语是否需要匹配（`and`）或只需要一个术语匹配（`or`）文档被视为匹配项。有效值是`or` 和`and`。默认为`or`。
+`prefix_length` | 非-负整数| 在模糊性中未考虑的领先角色的数量。默认为`0`。
 
-The `fuzziness`, `fuzzy_transpositions`, `fuzzy_rewrite`, `max_expansions`, and `prefix_length` parameters can be applied to the term subqueries constructed for all terms except the final term. They do not have any effect on the prefix query constructed for the final term.
-{: .note}
+这`fuzziness`，，，，`fuzzy_transpositions`，，，，`fuzzy_rewrite`，，，，`max_expansions`， 和`prefix_length` 参数可以应用于除最后一项以外的所有术语构建的术语次数。它们对最后一届构建的前缀查询没有任何影响。
+{： 。笔记
+

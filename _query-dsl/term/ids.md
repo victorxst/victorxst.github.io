@@ -1,14 +1,14 @@
 ---
 layout: default
 title: IDs
-parent: Term-level queries
-grand_parent: Query DSL
+parent: 术语级查询
+grand_parent: 查询DSL
 nav_order: 30
 ---
 
-# IDs query
+# IDS查询
 
-Use the `ids` query to search for documents with one or more specific document ID values in the `_id` field. For example, the following query requests documents with the IDs `34229` and `91296`:
+使用`ids` 查询以搜索具有一个或多个特定文档ID值的文档`_id` 场地。例如，以下查询请求具有IDS的文档`34229` 和`91296`：
 
 ```json
 GET shakespeare/_search
@@ -23,12 +23,13 @@ GET shakespeare/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-## Parameters
+## 参数
 
-The query accepts the following parameter.
+查询接受以下参数。
 
-Parameter | Data type | Description
-:--- | :--- | :---
-`values` | Array of strings | The document IDs to search for. Required.
+范围| 数据类型| 描述
+：--- | ：--- | ：---
+`values` | 弦数| 要搜索的文档ID。必需的。
+

@@ -1,22 +1,22 @@
 ---
 layout: default
-title: Boosting
-parent: Compound queries
-grand_parent: Query DSL
+title: 提升
+parent: 复合查询
+grand_parent: 查询DSL
 nav_order: 30
 redirect_from:
   - /query-dsl/query-dsl/compound/boosting/
 ---
 
-# Boosting query
+# 增强查询
 
-If you're searching for the word "pitcher", your results may relate to either baseball players or containers for liquids. For a search in the context of baseball, you might want to completely exclude results that contain the words "glass" or "water" by using the `must_not` clause. However, if you want to keep those results but downgrade them in relevance, you can do so with `boosting` queries. 
+如果您要搜索这个单词"pitcher"，您的结果可能与棒球运动员或液体容器有关。要在棒球的背景下进行搜索，您可能需要完全排除包含单词的结果"glass" 或者"water" 通过使用`must_not` 条款。但是，如果您想保留这些结果，但可以将它们降级为相关性，则可以这样做`boosting` 查询。
 
-A `boosting` query returns documents that match a `positive` query. Among those documents, the ones that also match the `negative` query are scored lower in relevance (their relevance score is multiplied by the negative boosting factor).
+A`boosting` 查询返回匹配的文档`positive` 询问。在这些文件中，也与`negative` 相关性评分较低（它们的相关得分乘以负增长因子）。
 
-## Example
+## 例子
 
-Consider an index with two documents that you index as follows:
+考虑一个带有两个文档的索引，您索引如下：
 
 ```json
 PUT testindex/_doc/1
@@ -32,7 +32,7 @@ PUT testindex/_doc/2
 }
 ```
 
-Use the following match query to search for documents containing the word "pitcher":
+使用以下匹配查询搜索包含单词的文档"pitcher"：
 
 ```json
 GET testindex/_search
@@ -45,7 +45,7 @@ GET testindex/_search
 }
 ```
 
-Both returned documents have the same relevance score:
+两个返回的文档的相关性得分相同：
 
 ```json
 {
@@ -85,7 +85,7 @@ Both returned documents have the same relevance score:
 }
 ```
 
-Now use the following `boosting` query to search for documents containing the word "pitcher" but downgrade the documents that contain the words "glass", "crystal", or "water":
+现在使用以下`boosting` 查询以搜索包含单词的文档"pitcher" 但是降低了包含单词的文档"glass"，，，，"crystal"， 或者"water"：
 
 ```json
 GET testindex/_search
@@ -107,9 +107,9 @@ GET testindex/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-Both documents are still returned, but the document with the word "glass" has a relevance score that is 10 times lower than in the previous case:
+两个文档仍然返回，但文档带有单词"glass" 相关得分比以前的情况低10倍：
 
 ```json
 {
@@ -149,12 +149,13 @@ Both documents are still returned, but the document with the word "glass" has a 
 }
 ```
 
-## Parameters
+## 参数
 
-The following table lists all top-level parameters supported by `boosting` queries.
+下表列出了所有顶部-支持的级别参数`boosting` 查询。
 
-Parameter | Description
-:--- | :---
-`positive` | The query that a document must match to be returned in the results. Required.
-`negative` | If a document in the results matches this query, its relevance score is reduced by multiplying its original relevance score (produced by the `positive` query) by the `negative_boost` parameter. Required.
-`negative_boost` | A floating-point factor between 0 and 1.0 that the original relevance score is multiplied by in order to reduce the relevance of documents that match the `negative` query. Required.
+范围| 描述
+：--- | ：---
+`positive` | 必须在结果中返回文档必须匹配的查询。必需的。
+`negative` | 如果结果中的文档与此查询匹配，则通过乘以其原始相关性分数来降低其相关性评分（由`positive` 查询）`negative_boost` 范围。必需的。
+`negative_boost` | 浮动-为了减少与之匹配的文档的相关性，将原始相关得分乘以0到1.0之间的点因子。`negative` 询问。必需的。
+

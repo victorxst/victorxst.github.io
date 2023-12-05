@@ -1,16 +1,16 @@
 ---
 layout: default
 title: Regexp
-parent: Term-level queries
-grand_parent: Query DSL
+parent: 术语级查询
+grand_parent: 查询DSL
 nav_order: 60
 ---
 
-# Regexp query
+# Regexp查询
 
-Use the `regexp` query to search for terms that match a regular expression.
+使用`regexp` 查询以搜索与正则表达式匹配的术语。
 
-The following query searches for any term that starts with any uppercase or lowercase letter followed by `amlet`:
+以下查询搜索任何以任何大写或小写字母开头的术语`amlet`：
 
 ```json
 GET shakespeare/_search
@@ -22,19 +22,19 @@ GET shakespeare/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-Note the following important considerations:
+请注意以下重要考虑因素：
 
-- Regular expressions are applied to the terms (that is, tokens) in the field---not to the entire field.
-- By default, the maximum length of a regular expression is 1,000 characters. To change the maximum length, update the `index.max_regex_length` setting.
-- Regular expressions use the Lucene syntax, which differs from more standardized implementations. Test thoroughly to ensure that you receive the results you expect. To learn more, see [the Lucene documentation](https://lucene.apache.org/core/8_9_0/core/index.html).
-- To improve regexp query performance, avoid wildcard patterns without a prefix or suffix, such as `.*` or `.*?+`.
-- `regexp` queries can be expensive operations and require the [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) setting to be set to `true`. Before making frequent `regexp` queries, test their impact on cluster performance and examine alternative queries that may achieve similar results.
+- 正则表达式应用于现场的术语（即令牌）---不去整个领域。
+- 默认情况下，正则表达式的最大长度为1,000个字符。要更改最大长度，请更新`index.max_regex_length` 环境。
+- 正则表达式使用Lucene语法，该语法与更标准化的实现不同。彻底测试以确保您收到期望的结果。要了解更多，请参阅[Lucene文档](https://lucene.apache.org/core/8_9_0/core/index.html)。
+- 为了提高REGEXP查询性能，请避免使用前缀或后缀的通配符图案，例如`.*` 或者`.*?+`。
+- `regexp` 查询可能是昂贵的操作，需要[`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) 设置为`true`。在频繁之前`regexp` 查询，测试其对聚类性能的影响，并检查可能获得相似结果的替代查询。
 
-## Parameters
+## 参数
 
-The query accepts the name of the field (`<field>`) as a top-level parameter:
+查询接受字段的名称（`<field>`）作为顶部-级别参数：
 
 ```json
 GET _search
@@ -49,18 +49,19 @@ GET _search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The `<field>` accepts the following parameters. All parameters except `value` are optional.
+这`<field>` 接受以下参数。除所有参数外`value` 是可选的。
 
-Parameter | Data type | Description
-:--- | :--- | :---
-`value` | String | The regular expression used for matching terms in the field specified in `<field>`.
-`case_insensitive` | Boolean | If `true`, allows case-insensitive matching of the regular expression value with the indexed field values. Default is `false` (case sensitivity is determined by the field's mapping).
-`flags` | String | Enables optional operators for Lucene’s regular expression engine.
-`max_determinized_states` | Integer | Lucene converts a regular expression to an automaton with a number of determinized states. This parameter specifies the maximum number of automaton states the query requires. Use this parameter to prevent high resource consumption. To run complex regular expressions, you may need to increase the value of this parameter. Default is 10,000.
-`rewrite` | String | Determines how OpenSearch rewrites and scores multi-term queries. Valid values are `constant_score`, `scoring_boolean`, `constant_score_boolean`, `top_terms_N`, `top_terms_boost_N`, and `top_terms_blended_freqs_N`. Default is `constant_score`.
+范围| 数据类型| 描述
+：--- | ：--- | ：---
+`value` | 细绳| 在指定的字段中使用的正则表达式`<field>`。
+`case_insensitive` | 布尔| 如果`true`，允许案例-正则表达值与索引场值的不敏感匹配。默认为`false` （案例灵敏度由字段的映射确定）。
+`flags` | 细绳| 为Lucene的正则表达引擎启用可选操作员。
+`max_determinized_states` | 整数| Lucene将正则表达式转换为具有许多确定状态的自动机。此参数指定查询所需的最大自动机状态。使用此参数防止高资源消耗。要运行复杂的正则表达式，您可能需要增加此参数的值。默认值为10,000。
+`rewrite` | 细绳| 确定OpenSearch如何重写和分数多数-术语查询。有效值是`constant_score`，，，，`scoring_boolean`，，，，`constant_score_boolean`，，，，`top_terms_N`，，，，`top_terms_boost_N`， 和`top_terms_blended_freqs_N`。默认为`constant_score`。
 
-If [`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) is set to `false`, `regexp` queries are not run.
-{: .important}
+如果[`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) 被设定为`false`，，，，`regexp` 查询不运行。
+{： 。重要的}
+
 

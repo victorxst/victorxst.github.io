@@ -1,18 +1,18 @@
 ---
 layout: default
-title: Neural
-parent: Specialized queries
-grand_parent: Query DSL
+title: 神经
+parent: 专业查询
+grand_parent: 查询DSL
 nav_order: 50
 ---
 
-# Neural query
+# 神经查询
 
-Use the `neural` query for vector field search in [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/). 
+使用`neural` 查询矢量字段搜索[神经搜索]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/)。
 
-## Request fields
+## 请求字段
 
-Include the following request fields in the `neural` query:
+在`neural` 询问：
 
 ```json
 "neural": {
@@ -25,16 +25,16 @@ Include the following request fields in the `neural` query:
 }
 ```
 
-The top-level `vector_field` specifies the vector field against which to run a search query. The following table lists the other neural query fields.
+顶端-等级`vector_field` 指定运行搜索查询的向量字段。下表列出了其他神经查询字段。
 
-Field | Data type | Required/Optional | Description
-:--- | :--- | :--- 
-`query_text` | String | Optional | The query text from which to generate vector embeddings. You must specify at least one `query_text` or `query_image`.
-`query_image` | String | Optional | A base-64 encoded string that corresponds to the query image from which to generate vector embeddings. You must specify at least one `query_text` or `query_image`.
-`model_id` | String | Required if the default model ID is not set. For more information, see [Setting a default model on an index or field]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/#setting-a-default-model-on-an-index-or-field). | The ID of the model that will be used to generate vector embeddings from the query text. The model must be deployed in OpenSearch before it can be used in neural search. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
-`k` | Integer | Optional | The number of results returned by the k-NN search. Default is 10.
+场地| 数据类型| 必需/可选| 描述
+：--- | ：--- | ：--- 
+`query_text` | 细绳| 选修的| 从中生成向量嵌入的查询文本。您必须至少指定一个`query_text` 或者`query_image`。
+`query_image` | 细绳| 选修的| 基地-64编码的字符串对应于从中生成向量嵌入的查询图像。您必须至少指定一个`query_text` 或者`query_image`。
+`model_id` | 细绳| 如果未设置默认模型ID，则需要。有关更多信息，请参阅[在索引或字段上设置默认模型]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/#setting-a-default-model-on-an-index-or-field)。| 将用于从查询文本生成向量嵌入的模型的ID。该模型必须在Opensearch中部署，然后才能用于神经搜索。有关更多信息，请参阅[在OpenSearch中使用自定义模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) 和[语义搜索]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/)。
+`k` | 整数| 选修的| K返回的结果数-nn搜索。默认值为10。
 
-#### Example request
+#### 示例请求
 
 ```json
 GET /my-nlp-index/_search
@@ -50,4 +50,5 @@ GET /my-nlp-index/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％
+

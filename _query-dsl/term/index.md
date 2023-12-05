@@ -1,32 +1,33 @@
 ---
 layout: default
-title: Term-level queries
+title: 术语级查询
 has_children: true
 has_toc: false
 nav_order: 20
 ---
 
-# Term-level queries
+# 术语级查询
 
-Term-level queries search an index for documents that contain an exact search term. Documents returned by a term-level query are not sorted by their relevance scores.
+学期-Level查询搜索包含精确搜索词的文档的索引。根据期限返回的文件-级别查询不是通过其相关性分数来排序的。
 
-When working with text data, use term-level queries for fields mapped as `keyword` only.
+使用文本数据时，使用术语-映射为字段的级别查询`keyword` 仅有的。
 
-Term-level queries are not suited for searching analyzed text fields. To return analyzed fields, use a [full-text query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/).
+学期-级别查询不适合搜索分析的文本字段。要返回分析的字段，请使用[满的-文本查询]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/)。
 
-## Term-level query types
+## 术语级查询类型
 
-The following table lists all term-level query types.
+下表列出了所有术语-级查询类型。
 
-Query type | Description
-:--- | :--- 
-[`term`]({{site.url}}{{site.baseurl}}/query-dsl/term/term/) | Searches for documents containing an exact term in a specific field.
-[`terms`]({{site.url}}{{site.baseurl}}/query-dsl/term/terms/) | Searches for documents containing one or more terms in a specific field.
-[`terms_set`]({{site.url}}{{site.baseurl}}/query-dsl/term/terms-set/) | Searches for documents that match a minimum number of terms in a specific field.
-[`ids`]({{site.url}}{{site.baseurl}}/query-dsl/term/ids/) | Searches for documents by document ID.
-[`range`]({{site.url}}{{site.baseurl}}/query-dsl/term/range/) | Searches for documents with field values in a specific range.
-[`prefix`]({{site.url}}{{site.baseurl}}/query-dsl/term/prefix/) | Searches for documents containing terms that begin with a specific prefix.
-[`exists`]({{site.url}}{{site.baseurl}}/query-dsl/term/exists/) | Searches for documents with any indexed value in a specific field.
-[`fuzzy`]({{site.url}}{{site.baseurl}}/query-dsl/term/fuzzy/) | Searches for documents containing terms that are similar to the search term within the maximum allowed [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance). The Levenshtein distance measures the number of one-character changes needed to change one term to another term.
-[`wildcard`]({{site.url}}{{site.baseurl}}/query-dsl/term/wildcard/) | Searches for documents containing terms that match a wildcard pattern. 
-[`regexp`]({{site.url}}{{site.baseurl}}/query-dsl/term/regexp/) | Searches for documents containing terms that match a regular expression.
+查询类型| 描述
+：--- | ：--- 
+[`term`]({{site.url}}{{site.baseurl}}/query-dsl/term/term/) | 搜索包含特定字段中确切术语的文档。
+[`terms`]({{site.url}}{{site.baseurl}}/query-dsl/term/terms/) | 搜索在特定字段中包含一个或多个术语的文档。
+[`terms_set`]({{site.url}}{{site.baseurl}}/query-dsl/term/terms-set/) | 搜索与特定字段中最少的条款数量匹配的文档。
+[`ids`]({{site.url}}{{site.baseurl}}/query-dsl/term/ids/) | 通过文档ID搜索文档。
+[`range`]({{site.url}}{{site.baseurl}}/query-dsl/term/range/) | 搜索具有特定范围内字段值的文档。
+[`prefix`]({{site.url}}{{site.baseurl}}/query-dsl/term/prefix/) | 搜索包含以特定前缀开头的术语的文档。
+[`exists`]({{site.url}}{{site.baseurl}}/query-dsl/term/exists/) | 在特定字段中搜索具有任何索引值的文档。
+[`fuzzy`]({{site.url}}{{site.baseurl}}/query-dsl/term/fuzzy/) | 搜索包含与搜索词相似的术语的文档[Levenshtein距离](https://en.wikipedia.org/wiki/Levenshtein_distance)。Levenshtein距离测量一个-将一个术语更改为另一个术语所需的角色更改。
+[`wildcard`]({{site.url}}{{site.baseurl}}/query-dsl/term/wildcard/) | 搜索包含与通配符模式相匹配的术语的文档。
+[`regexp`]({{site.url}}{{site.baseurl}}/query-dsl/term/regexp/) | 搜索包含与正则表达式匹配的术语的文档
+

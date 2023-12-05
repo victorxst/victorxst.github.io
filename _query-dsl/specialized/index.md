@@ -1,29 +1,30 @@
 ---
 layout: default
-title: Specialized queries
+title: 专业查询
 has_children: true
 nav_order: 65
 has_toc: false
 ---
 
-# Specialized queries
+# 专业查询
 
-OpenSearch supports the following specialized queries:
+OpenSearch支持以下专业查询：
 
-- `distance_feature`: Calculates document scores based on the dynamically calculated distance between the origin and a document's `date`, `date_nanos`, or `geo_point` fields. This query can skip non-competitive hits.
+- `distance_feature`：根据原点与文档的动态计算距离计算文档分数`date`，，，，`date_nanos`， 或者`geo_point` 字段。此查询可以跳过非-竞争激烈。
 
-- `more_like_this`: Finds documents similar to the provided text, document, or collection of documents.
+- `more_like_this`：查找类似于提供的文档，文档或收集文档的文档。
 
-- [`neural`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/): Used for vector field search in [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/).
+- [`neural`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/)：用于矢量字段搜索[神经搜索]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/)。
 
-- [`neural_sparse`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural-sparse/): Used for vector field search in [sparse neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
+- [`neural_sparse`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural-sparse/)：用于矢量字段搜索[稀疏的神经搜索]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/)。
 
-- `percolate`: Finds queries (stored as documents) that match the provided document.
+- `percolate`：查找与提供文档匹配的查询（存储为文档）。
 
-- `rank_feature`: Calculates scores based on the values of numeric features. This query can skip non-competitive hits.
+- `rank_feature`：根据数字特征的值计算得分。此查询可以跳过非-竞争激烈。
 
-- `script`: Uses a script as a filter.
+- `script`：使用脚本作为过滤器。
 
-- [`script_score`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/script-score/): Calculates a custom score for matching documents using a script.
+- [`script_score`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/script-score/)：使用脚本计算匹配文档的自定义分数。
 
-- `wrapper`: Accepts other queries as JSON or YAML strings.
+- `wrapper`：接受其他查询为JSON或YAML字符串。
+

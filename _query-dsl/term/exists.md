@@ -1,32 +1,32 @@
 ---
 layout: default
-title: Exists
-parent: Term-level queries
-grand_parent: Query DSL
+title: 存在
+parent: 术语级查询
+grand_parent: 查询DSL
 nav_order: 10
 ---
 
-# Exists query
+# 存在查询
 
-Use the `exists` query to search for documents that contain a specific field.
+使用`exists` 查询以搜索包含特定字段的文档。
 
-An indexed value will not exist for a document field in any of the following cases:
+在以下任何情况下，文档字段都不存在索引值：
 
-- The field has `"index" : false` specified in the mapping.
-- The field in the source JSON is `null` or `[]`.
-- The length of the field value exceeds the `ignore_above` setting in the mapping.
-- The field value is malformed and `ignore_malformed` is defined in the mapping.
+- 该领域有`"index" : false` 在映射中指定。
+- 来源JSON中的字段是`null` 或者`[]`。
+- 场值的长度超过`ignore_above` 设置在映射中。
+- 现场值畸形，并且`ignore_malformed` 在映射中定义。
 
-An indexed value will exist for a document field in any of the following cases:
+在以下任何情况下，文档字段都将存在索引值：
 
-- The value is an array that contains one or more null elements and one or more non-null elements (for example, `["one", null]`).
-- The value is an empty string (`""` or `"-"`).
-- The value is a custom `null_value`, as defined in the field mapping.
+- 该值是一个包含一个或多个空元素的数组，一个或多个非元素-空元素（例如，`["one", null]`）。
+- 值是一个空字符串（`""` 或者`"-"`）。
+- 值是自定义`null_value`，如字段映射中所定义。
 
 
-## Example
+## 例子
 
-For example, consider an index that contains the following two documents:
+例如，考虑包含以下两个文档的索引：
 
 ```json
 PUT testindex/_doc/1
@@ -34,7 +34,7 @@ PUT testindex/_doc/1
   "title": "The wind rises"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
 ```json
 PUT testindex/_doc/2
@@ -43,9 +43,9 @@ PUT testindex/_doc/2
   "description": "A 1939 American epic historical film"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The following query searches for documents that contain the `description` field:
+以下查询搜索包含的文档`description` 场地：
 
 ```json
 GET testindex/_search
@@ -57,9 +57,9 @@ GET testindex/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The response contains the matching document:
+响应包含匹配文档：
 
 ```json
 {
@@ -92,9 +92,9 @@ The response contains the matching document:
 }
 ```
 
-## Finding documents with missing indexed values
+## 查找缺少索引值的文档
 
-To find documents with missing indexed values, you can use the `must_not` [Boolean query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) with the inner `exists` query. For example, the following request searches for documents in which the `description` field is missing:
+要查找缺少索引值的文档，您可以使用`must_not` [布尔查询]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) 与内心`exists` 询问。例如，以下请求搜索文档`description` 缺少字段：
 
 ```json
 GET testindex/_search
@@ -110,9 +110,9 @@ GET testindex/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The response contains the matching document:
+响应包含匹配文档：
 
 ```json
 {
@@ -144,6 +144,7 @@ The response contains the matching document:
 }
 ```
 
-## Parameters
+## 参数
 
-The query accepts the name of the field (`<field>`) as a top-level parameter. 
+查询接受字段的名称（`<field>`）作为顶部-级别参数。
+

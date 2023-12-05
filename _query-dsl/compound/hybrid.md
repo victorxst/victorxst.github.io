@@ -1,29 +1,30 @@
 ---
 layout: default
-title: Hybrid
-parent: Compound queries
-grand_parent: Query DSL
+title: 混合
+parent: 复合查询
+grand_parent: 查询DSL
 nav_order: 70
 ---
 
-# Hybrid query
+# 混合查询
 
-You can use a hybrid query to combine relevance scores from multiple queries into one score for a given document. A hybrid query contains a list of one or more queries and independently calculates document scores at the shard level for each subquery. The subquery rewriting is performed at the coordinating node level in order to avoid duplicate computations.
+您可以使用混合查询将来自多个查询的相关性分数组合为给定文档的一个分数。混合查询包含一个或多个查询的列表，并独立计算每个子查询的碎片级别的文档分数。子查询重写是在协调节点级别执行的，以避免重复计算。
 
-## Example
+## 例子
 
-Before using a `hybrid` query, you must configure a search pipeline with a [`normalization-processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) (see [this example]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor#example)).
+使用之前`hybrid` 查询，您必须使用一个配置搜索管道[`normalization-processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) （看[这个示例]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor#example)）。
 
-To try out the example, follow the [Semantic search tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search#tutorial).
+要尝试示例，请按照[语义搜索教程]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search#tutorial)。
 
-## Parameters
+## 参数
 
-The following table lists all top-level parameters supported by `hybrid` queries.
+下表列出了所有顶部-支持的级别参数`hybrid` 查询。
 
-Parameter | Description
-:--- | :---
-`queries` | An array of one or more query clauses that are used to match documents. A document must match at least one query clause in order to be returned in the results. The documents' relevance scores from all query clauses are combined into one score by applying a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/). The maximum number of query clauses is 5. Required.
+范围| 描述
+：--- | ：---
+`queries` | 用于匹配文档的一个或多个查询子句的数组。文档必须匹配至少一个查询条款，以便在结果中返回。所有查询子句中的文档的相关性分数都通过应用一个分为一个分数[搜索管道]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/)。最大查询子句为5。
 
-## Disabling hybrid queries
+## 禁用混合查询
 
-By default, hybrid queries are enabled. To disable hybrid queries in your cluster, set the `plugins.neural_search.hybrid_search_disabled` setting to `true` in `opensearch.yml`. 
+默认情况下，启用了混合查询。要禁用集群中的混合查询，请设置`plugins.neural_search.hybrid_search_disabled` 设置为`true` 在`opensearch.yml`。
+
