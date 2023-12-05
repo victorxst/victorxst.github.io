@@ -1,772 +1,773 @@
 ---
 layout: default
-title: Commands
-parent: PPL &ndash; Piped Processing Language
-grand_parent: SQL and PPL
+title: 命令
+parent: PPL &ndash; 管道处理语言
+grand_parent: SQL和PPL
 nav_order: 2
 redirect_from:
  - /search-plugins/ppl/commands/
 ---
 
-# Commands
+# 命令
 
-`PPL` supports all [`SQL` common]({{site.url}}{{site.baseurl}}/search-plugins/sql/functions/) functions, including [relevance search]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/), but also introduces few more functions (called `commands`) which are available in `PPL` only.
+`PPL` 支持一切[`SQL` 常见的]({{site.url}}{{site.baseurl}}/search-plugins/sql/functions/) 功能，包括[相关搜索]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/)，但也引入了更多功能（称为`commands`）可用`PPL` 仅有的。
 
-## dedup
+## DEDUP
 
-The `dedup` (data deduplication) command removes duplicate documents defined by a field from the search result.
+这`dedup` （数据重复数据删除）命令从搜索结果中删除字段定义的重复文档。
 
-### Syntax
+### 句法
 
 ```sql
 dedup [int] <field-list> [keepempty=<bool>] [consecutive=<bool>]
 ```
 
-Field | Description | Type | Required | Default
-:--- | :--- |:--- |:--- |:---
-`int` |  Retain the specified number of duplicate events for each combination. The number must be greater than 0. If you do not specify a number, only the first occurring event is kept and all other duplicates are removed from the results. | `string` | No | 1
-`keepempty` | If true, keep the document if any field in the field list has a null value or a field missing. | `nested list of objects` | No | False
-`consecutive` | If true, remove only consecutive events with duplicate combinations of values. | `Boolean` | No | False
-`field-list` | Specify a comma-delimited field list. At least one field is required. | `String` or comma-separated list of strings | Yes | -
+场地| 描述| 类型| 必需的| 默认
+：--- | ：--- |：--- |：--- |：---
+`int` |  保留每种组合的指定数量的重复事件。数字必须大于0。如果您不指定数字，则仅保留第一个发生的事件，并且所有其他重复项都从结果中删除。| `string` | 不| 1
+`keepempty` | 如果为true，请保留文档，如果字段列表中的任何字段具有空值或缺少字段。| `nested list of objects` | 不| 错误的
+`consecutive` | 如果为true，则仅删除具有重复组合的连续事件。| `Boolean` | 不| 错误的
+`field-list` | 指定逗号-界定字段列表。至少需要一个字段。| `String` 或逗号-分开的字符串清单| 是的| -
 
-**Example 1: Dedup by one field**
+**示例1：在一个字段中删除**
 
-To remove duplicate documents with the same gender:
+删除具有相同性别的重复文档：
 
 ```sql
 search source=accounts | dedup gender | fields account_number, gender;
 ```
 
-| account_number | gender
-:--- | :--- |
-1 | M
-13 | F
+| 帐号| 性别
+：--- | ：--- |
+1| m
+13| F
 
 
-**Example 2: Keep two duplicate documents**
+**示例2：保留两个重复文档**
 
-To keep two duplicate documents with the same gender:
+要保留两个重复的文档，具有相同的性别：
 
 ```sql
 search source=accounts | dedup 2 gender | fields account_number, gender;
 ```
 
-| account_number | gender
-:--- | :--- |
-1 | M
-6 | M
-13 | F
+| 帐号| 性别
+：--- | ：--- |
+1| m
+6| m
+13| F
 
-**Example 3: Keep or ignore an empty field by default**
+**示例3：默认情况下保留或忽略空字段**
 
-To keep two duplicate documents with a `null` field value:
+保留两个重复文档`null` 现场值：
 
 ```sql
 search source=accounts | dedup email keepempty=true | fields account_number, email;
 ```
 
-| account_number | email
-:--- | :--- |
-1 | amberduke@pyrami.com
-6 | hattiebond@netagy.com
-13 | null
-18 | daleadams@boink.com
+| 帐号| 电子邮件
+：--- | ：--- |
+1| amberduke@pyrami.com
+6| hattiebond@netagy.com
+13| 无效的
+18| daleadams@boink.com
 
-To remove duplicate documents with the `null` field value:
+删除重复文档`null` 现场值：
 
 ```sql
 search source=accounts | dedup email | fields account_number, email;
 ```
 
-| account_number | email
-:--- | :--- |
-1 | amberduke@pyrami.com
-6 | hattiebond@netagy.com
-18 | daleadams@boink.com
+| 帐号| 电子邮件
+：--- | ：--- |
+1| amberduke@pyrami.com
+6| hattiebond@netagy.com
+18| daleadams@boink.com
 
-**Example 4: Dedup of consecutive documents**
+**示例4：连续文档的删除**
 
-To remove duplicates of consecutive documents:
+删除连续文档的重复物：
 
 ```sql
 search source=accounts | dedup gender consecutive=true | fields account_number, gender;
 ```
 
-| account_number | gender
-:--- | :--- |
-1 | M
-13 | F
-18 | M
+| 帐号| 性别
+：--- | ：--- |
+1| m
+13| F
+18| m
 
-### Limitations
+### 限制
 
-The `dedup` command is not rewritten to OpenSearch DSL, it is only executed on the coordination node.
+这`dedup` 命令未重写为OpenSearch DSL，仅在协调节点上执行。
 
-## eval
+## 评估
 
-The `eval` command evaluates an expression and appends its result to the search result.
+这`eval` 命令评估表达式并将其结果附加到搜索结果中。
 
-### Syntax
+### 句法
 
 ```sql
 eval <field>=<expression> ["," <field>=<expression> ]...
 ```
 
-Field | Description | Required
-:--- | :--- |:---
-`field` | If a field name does not exist, a new field is added. If the field name already exists, it's overwritten. | Yes
-`expression` | Specify any supported expression. | Yes
+场地| 描述| 必需的
+：--- | ：--- |：---
+`field` | 如果不存在字段名称，则添加一个新字段。如果字段名称已经存在，则将其覆盖。| 是的
+`expression` | 指定任何支持的表达式。| 是的
 
-**Example 1: Create a new field**
+**示例1：创建一个新字段**
 
-To create a new `doubleAge` field for each document. `doubleAge` is the result of `age` multiplied by 2:
+创建一个新的`doubleAge` 每个文档的字段。`doubleAge` 是`age` 乘以2：
 
 ```sql
 search source=accounts | eval doubleAge = age * 2 | fields age, doubleAge;
 ```
 
-| age | doubleAge
-:--- | :--- |
-32    | 64
-36    | 72
-28    | 56
-33    | 66
+| 年龄| 双打
+：--- | ：--- |
+32| 64
+36| 72
+28| 56
+33| 66
 
-*Example 2*: Overwrite the existing field
+*示例2*：覆盖现有字段
 
-To overwrite the `age` field with `age` plus 1:
+覆盖`age` 字段与`age` 加1：
 
 ```sql
 search source=accounts | eval age = age + 1 | fields age;
 ```
 
-| age
-:--- |
+| 年龄
+：--- |
 | 33
 | 37
 | 29
 | 34
 
-**Example 3: Create a new field with a field defined with the `eval` command**
+**示例3：创建一个新的字段，该字段定义为`eval` 命令**
 
-To create a new field `ddAge`. `ddAge` is the result of `doubleAge` multiplied by 2, where `doubleAge` is defined in the `eval` command:
+创建一个新领域`ddAge`。`ddAge` 是`doubleAge` 乘以2，其中`doubleAge` 在`eval` 命令：
 
 ```sql
 search source=accounts | eval doubleAge = age * 2, ddAge = doubleAge * 2 | fields age, doubleAge, ddAge;
 ```
 
-| age | doubleAge | ddAge
-:--- | :--- |
-| 32    | 64   | 128
-| 36    | 72   | 144
-| 28    | 56   | 112
-| 33    | 66   | 132
+| 年龄| 双打| ddage
+：--- | ：--- |
+| 32| 64| 128
+| 36| 72| 144
+| 28| 56| 112
+| 33| 66| 132
 
 
-### Limitation
+### 局限性
 
-The ``eval`` command is not rewritten to OpenSearch DSL, it is only executed on the coordination node.
+这``评估`` 命令未重写为OpenSearch DSL，仅在协调节点上执行。
 
-## fields
+## 字段
 
-Use the `fields` command to keep or remove fields from a search result.
+使用`fields` 命令保留或删除搜索结果中的字段。
 
-### Syntax
+### 句法
 
 ```sql
 fields [+|-] <field-list>
 ```
 
-Field | Description | Required | Default
-:--- | :--- |:---|:---
-`index` | Plus (+) keeps only fields specified in the field list. Minus (-) removes all fields specified in the field list. | No | +
-`field list` | Specify a comma-delimited list of fields. | Yes | No default
+场地| 描述| 必需的| 默认
+：--- | ：--- |：---|：---
+`index` | 加上（+）仅保留字段列表中指定的字段。减 （-）删除字段列表中指定的所有字段。| 不| +
+`field list` | 指定逗号-界定字段列表。| 是的| 没有默认值
 
-**Example 1: Select specified fields from result**
+**示例1：从结果中选择指定的字段**
 
-To get `account_number`, `firstname`, and `lastname` fields from a search result:
+要得到`account_number`，，，，`firstname`， 和`lastname` 搜索结果的字段：
 
 ```sql
 search source=accounts | fields account_number, firstname, lastname;
 ```
 
-| account_number | firstname  | lastname
-:--- | :--- |
-| 1   | Amber       | Duke
-| 6   | Hattie      | Bond
-| 13  | Nanette     | Bates
-| 18  | Dale        | Adams
+| 帐号| 名| 姓
+：--- | ：--- |
+| 1| 琥珀色| 公爵
+| 6| 哈蒂| 纽带
+| 13| Nanette| 贝茨
+| 18| 戴尔| 亚当斯
 
-**Example 2: Remove specified fields from a search result**
+**示例2：从搜索结果中删除指定的字段**
 
-To remove the `account_number` field from the search results:
+删除`account_number` 搜索结果的字段：
 
 ```sql
 search source=accounts | fields account_number, firstname, lastname | fields - account_number;
 ```
 
-| firstname | lastname
-:--- | :--- |
-| Amber   | Duke
-| Hattie  | Bond
-| Nanette | Bates
-| Dale    | Adams
+| 名| 姓
+：--- | ：--- |
+| 琥珀色| 公爵
+| 哈蒂| 纽带
+| Nanette| 贝茨
+| 戴尔| 亚当斯
 
 
-## parse
+## 解析
 
-Use the `parse` command to parse a text field using regular expression and append the result to the search result. 
+使用`parse` 命令使用正则表达式解析文本字段，并将结果附加到搜索结果。
 
-### Syntax
+### 句法
 
 ```sql
 parse <field> <regular-expression>
 ```
 
-Field | Description | Required
-:--- | :--- |:---
-field | A text field. | Yes
-regular-expression | The regular expression used to extract new fields from the given test field. If a new field name exists, it will replace the original field. | Yes
+场地| 描述| 必需的
+：--- | ：--- |：---
+场地| 文本字段。| 是的
+常规的-表达| 正则表达式用于从给定的测试字段提取新字段。如果存在新字段名称，它将替换原始字段。| 是的
 
-The regular expression is used to match the whole text field of each document with Java regex engine. Each named capture group in the expression will become a new ``STRING`` field.
+正则表达式用于将每个文档的整个文本字段与Java Regex引擎匹配。表达式中的每个命名捕获组都将成为一个新的``细绳`` 场地。
 
-**Example 1: Create new field**
+**示例1：创建新字段**
 
-The example shows how to create new field `host` for each document. `host` will be the hostname after `@` in `email` field. Parsing a null field will return an empty string.
+该示例显示了如何创建新字段`host` 对于每个文档。`host` 将是主机名之后`@` 在`email` 场地。解析空字段将返回一个空字符串。
 
 ```sql
 os> source=accounts | parse email '.+@(?<host>.+)' | fields email, host ;
 fetched rows / total rows = 4/4
 ```
 
-| email | host  
-:--- | :--- |
-| amberduke@pyrami.com  | pyrami.com 
-| hattiebond@netagy.com | netagy.com 
-| null                  | null          
-| daleadams@boink.com   | boink.com  
+| 电子邮件| 主持人
+：--- | ：--- |
+| amberduke@pyrami.com| pyrami.com
+| hattiebond@netagy.com| netagy.com
+| 无效的| 无效的
+| daleadams@boink.com| boink.com
 
-*Example 2*: Override the existing field
+*示例2*：覆盖现有字段
 
-The example shows how to override the existing address field with street number removed.
+该示例显示了如何以删除街道号码覆盖现有地址字段。
 
 ```sql
 os> source=accounts | parse address '\d+ (?<address>.+)' | fields address ;
 fetched rows / total rows = 4/4
 ```
 
-| address
-:--- |
-| Holmes Lane      
-| Bristol Street   
-| Madison Street   
-| Hutchinson Court
+| 地址
+：--- |
+| 福尔摩斯巷
+| 布里斯托尔街
+| 麦迪逊街
+| 哈钦森法院
 
-**Example 3: Filter and sort be casted parsed field**
+**示例3：过滤和排序被铸造出分析字段**
 
-The example shows how to sort street numbers that are higher than 500 in address field.
+该示例显示了如何在地址字段中排序高于500的街道号码。
 
 ```sql
 os> source=accounts | parse address '(?<streetNumber>\d+) (?<street>.+)' | where cast(streetNumber as int) > 500 | sort num(streetNumber) | fields streetNumber, street ;
 fetched rows / total rows = 3/3
 ```
 
-| streetNumber | street  
-:--- | :--- |
-| 671 | Bristol Street 
-| 789 | Madison Street 
-| 880 | Holmes Lane  
+| 街牌号码| 街道
+：--- | ：--- |
+| 671| 布里斯托尔街
+| 789| 麦迪逊街
+| 880| 福尔摩斯巷
 
-### Limitations
+### 限制
 
-A few limitations exist when using the parse command:
+使用parse命令时存在一些限制：
 
-- Fields defined by parse cannot be parsed again. For example, `source=accounts | parse address '\d+ (?<street>.+)' | parse street '\w+ (?<road>\w+)' ;` will fail to return any expressions.
-- Fields defined by parse cannot be overridden with other commands. For example, when entering `source=accounts | parse address '\d+ (?<street>.+)' | eval street='1' | where street='1' ;` `where` will not match any documents since `street` cannot be overridden.
-- The text field used by parse cannot be overridden. For example, when entering `source=accounts | parse address '\d+ (?<street>.+)' | eval address='1' ;` `street` will not be parse since address is overridden. 
-- Fields defined by parse cannot be filtered/sorted after using them in the `stats` command. For example, `source=accounts | parse email '.+@(?<host>.+)' | stats avg(age) by host | where host=pyrami.com ;` `where` will not parse the domain listed.
+- 不能再次解析由解析定义的字段。例如，`source=accounts | parse address '\d+ (?<street>.+)' | parse street '\w+ (?<road>\w+)' ;` 将无法返回任何表达式。
+- 其他命令不能覆盖由解析定义的字段。例如，输入`source=accounts | parse address '\d+ (?<street>.+)' | eval street='1' | where street='1' ;` `where` 因为`street` 不能被覆盖。
+- 解析使用的文本字段不能被覆盖。例如，输入`source=accounts | parse address '\d+ (?<street>.+)' | eval address='1' ;` `street` 由于地址被覆盖，因此不会是解析。
+- 在使用解析定义的字段之后，无法过滤/分类。`stats` 命令。例如，`source=accounts | parse email '.+@(?<host>.+)' | stats avg(age) by host | where host=pyrami.com ;` `where` 不会解析列出的域。
 
-## rename
+## 改名
 
-Use the `rename` command to rename one or more fields in the search result.
+使用`rename` 命令在搜索结果中重命名一个或多个字段。
 
-### Syntax
+### 句法
 
 ```sql
 rename <source-field> AS <target-field>["," <source-field> AS <target-field>]...
 ```
 
-Field | Description | Required
-:--- | :--- |:---
-`source-field` | The name of the field that you want to rename. | Yes
-`target-field` | The name you want to rename to. | Yes
+场地| 描述| 必需的
+：--- | ：--- |：---
+`source-field` | 您要重命名的字段名称。| 是的
+`target-field` | 您要重命名的名称。| 是的
 
-**Example 1: Rename one field**
+**示例1：重命名一个字段**
 
-Rename the `account_number` field as `an`:
+重命名`account_number` 字段为`an`：
 
 ```sql
 search source=accounts | rename account_number as an | fields an;
 ```
 
-| an
-:--- |
+| 一个
+：--- |
 | 1
 | 6
 | 13
 | 18
 
-**Example 2: Rename multiple fields**
+**示例2：重命名多个字段**
 
-Rename the `account_number` field as `an` and `employer` as `emp`:
+重命名`account_number` 字段为`an` 和`employer` 作为`emp`：
 
 ```sql
 search source=accounts | rename account_number as an, employer as emp | fields an, emp;
 ```
 
-| an   | emp
-:--- | :--- |
-| 1    | Pyrami
-| 6    | Netagy
-| 13   | Quility
-| 18   | null
+| 一个| emp
+：--- | ：--- |
+| 1| Pyrami
+| 6| 网络
+| 13| 裁员
+| 18| 无效的
 
-### Limitations
+### 限制
 
-The `rename` command is not rewritten to OpenSearch DSL, it is only executed on the coordination node.
+这`rename` 命令未重写为OpenSearch DSL，仅在协调节点上执行。
 
-## sort
+## 种类
 
-Use the `sort` command to sort search results by a specified field.
+使用`sort` 命令按指定字段对搜索结果进行排序。
 
-### Syntax
+### 句法
 
 ```sql
 sort [count] <[+|-] sort-field>...
 ```
 
-Field | Description | Required | Default
-:--- | :--- |:---
-`count` | The maximum number results to return from the sorted result. If count=0, all results are returned. | No | 1000
-`[+|-]` | Use plus [+] to sort by ascending order and minus [-] to sort by descending order. | No | Ascending order
-`sort-field` | Specify the field that you want to sort by. | Yes | -
+场地| 描述| 必需的| 默认
+：--- | ：--- |：---
+`count` | 从排序结果返回的最大数字结果。如果计数= 0，则所有结果将返回。| 不| 1000
+`[+|-]` | 使用加上[+]按升序和减去[-]按降序排序。| 不| 上升顺序
+`sort-field` | 指定您要排序的字段。| 是的| -
 
-**Example 1: Sort by one field**
+**示例1：按一个字段进行排序**
 
-To sort all documents by the `age` field in ascending order:
+对所有文档进行排序`age` 按顺序排列的字段：
 
 ```sql
 search source=accounts | sort age | fields account_number, age;
 ```
 
-| account_number | age |
-:--- | :--- |
-| 13 | 28
-| 1  | 32
-| 18 | 33
-| 6  | 36
+| 帐号| 年龄|
+：--- | ：--- |
+| 13| 28
+| 1| 32
+| 18| 33
+| 6| 36
 
-**Example 2: Sort by one field and return all results**
+**示例2：按一个字段排序并返回所有结果**
 
-To sort all documents by the `age` field in ascending order and specify count as 0 to get back all results:
+对所有文档进行排序`age` 按顺序排列的字段并将计数指定为0，以恢复所有结果：
 
 ```sql
 search source=accounts | sort 0 age | fields account_number, age;
 ```
 
-| account_number | age |
-:--- | :--- |
-| 13 | 28
-| 1  | 32
-| 18 | 33
-| 6  | 36
+| 帐号| 年龄|
+：--- | ：--- |
+| 13| 28
+| 1| 32
+| 18| 33
+| 6| 36
 
-**Example 3: Sort by one field in descending order**
+**示例3：按降序按一个字段进行排序**
 
-To sort all documents by the `age` field in descending order:
+对所有文档进行排序`age` 下降顺序的字段：
 
 ```sql
 search source=accounts | sort - age | fields account_number, age;
 ```
 
-| account_number | age |
-:--- | :--- |
-| 6 | 36
-| 18  | 33
-| 1 | 32
-| 13  | 28
+| 帐号| 年龄|
+：--- | ：--- |
+| 6| 36
+| 18| 33
+| 1| 32
+| 13| 28
 
-**Example 4: Specify the number of sorted documents to return**
+**示例4：指定要返回的分类文档的数量**
 
-To sort all documents by the `age` field in ascending order and specify count as 2 to get back two results:
+对所有文档进行排序`age` 按顺序排列的字段并将数字指定为2，以恢复两个结果：
 
 ```sql
 search source=accounts | sort 2 age | fields account_number, age;
 ```
 
-| account_number | age |
-:--- | :--- |
-| 13 | 28
-| 1  | 32
+| 帐号| 年龄|
+：--- | ：--- |
+| 13| 28
+| 1| 32
 
-**Example 5: Sort by multiple fields**
+**示例5：按多个字段进行排序**
 
-To sort all documents by the `gender` field in ascending order and `age` field in descending order:
+对所有文档进行排序`gender` 按顺序排列和`age` 下降顺序的字段：
 
 ```sql
 search source=accounts | sort + gender, - age | fields account_number, gender, age;
 ```
 
-| account_number | gender | age |
-:--- | :--- | :--- |
-| 13 | F | 28
-| 6  | M | 36
-| 18 | M | 33
-| 1  | M | 32
+| 帐号| 性别| 年龄|
+：--- | ：--- | ：--- |
+| 13| F| 28
+| 6| m| 36
+| 18| m| 33
+| 1| m| 32
 
-## stats
+## 统计
 
-Use the `stats` command to aggregate from search results.
+使用`stats` 命令从搜索结果中汇总。
 
-The following table lists the aggregation functions and also indicates how each one handles null or missing values:
+下表列出了聚合功能，还指示每个人如何处理null或缺失值：
 
-Function | NULL | MISSING
-:--- | :--- |:---
-`COUNT` | Not counted | Not counted
-`SUM` | Ignore | Ignore
-`AVG` | Ignore | Ignore
-`MAX` | Ignore | Ignore
-`MIN` | Ignore | Ignore
+功能| 无效的| 丢失的
+：--- | ：--- |：---
+`COUNT` | 不算| 不算
+`SUM` | 忽略| 忽略
+`AVG` | 忽略| 忽略
+`MAX` | 忽略| 忽略
+`MIN` | 忽略| 忽略
 
 
-### Syntax
+### 句法
 
 ```
 stats <aggregation>... [by-clause]...
 ```
 
-Field | Description | Required | Default
-:--- | :--- |:---
-`aggregation` | Specify a statistical aggregation function. The argument of this function must be a field. | Yes | 1000
-`by-clause` | Specify one or more fields to group the results by. If not specified, the `stats` command returns only one row, which is the aggregation over the entire result set. | No | -
+场地| 描述| 必需的| 默认
+：--- | ：--- |：---
+`aggregation` | 指定统计聚合函数。此功能的参数必须是一个字段。| 是的| 1000
+`by-clause` | 指定一个或多个字段以按结果进行分组。如果未指定，`stats` 命令仅返回一行，这是整个结果集中的聚合。| 不| -
 
-**Example 1: Calculate the average value of a field**
+**示例1：计算字段的平均值**
 
-To calculate the average `age` of all documents:
+计算平均`age` 在所有文件中：
 
 ```sql
 search source=accounts | stats avg(age);
 ```
 
-| avg(age)
-:--- |
+| AVG（年龄）
+：--- |
 | 32.25
 
-**Example 2: Calculate the average value of a field by group**
+**示例2：按组计算字段的平均值**
 
-To calculate the average age grouped by gender:
+计算性别分组的平均年龄：
 
 ```sql
 search source=accounts | stats avg(age) by gender;
 ```
 
-| gender | avg(age)
-:--- | :--- |
-| F  | 28.0
-| M  | 33.666666666666664
+| 性别| AVG（年龄）
+：--- | ：--- |
+| F| 28.0
+| m| 33.66666666666664
 
-**Example 3: Calculate the average and sum of a field by group**
+**示例3：按组计算字段的平均值和总和**
 
-To calculate the average and sum of age grouped by gender:
+计算性别分组年龄的平均和总和：
 
 ```sql
 search source=accounts | stats avg(age), sum(age) by gender;
 ```
 
-| gender | avg(age) | sum(age)
-:--- | :--- |
-| F  | 28   | 28
-| M  | 33.666666666666664 | 101
+| 性别| AVG（年龄）| 总和（年龄）
+：--- | ：--- |
+| F| 28| 28
+| m| 33.66666666666664| 101
 
-**Example 4: Calculate the maximum value of a field**
+**示例4：计算字段的最大值**
 
-To calculate the maximum age:
+计算最大年龄：
 
 ```sql
 search source=accounts | stats max(age);
 ```
 
-| max(age)
-:--- |
+| 最大（年龄）
+：--- |
 | 36
 
-**Example 5: Calculate the maximum and minimum value of a field by group**
+**示例5：按组计算字段的最大值和最小值**
 
-To calculate the maximum and minimum age values grouped by gender:
+计算性别分组的最大和最低年龄值：
 
 ```sql
 search source=accounts | stats max(age), min(age) by gender;
 ```
 
-| gender | min(age) | max(age)
-:--- | :--- | :--- |
-| F  | 28 | 28
-| M  | 32 | 36
+| 性别| 最小（年龄）| 最大（年龄）
+：--- | ：--- | ：--- |
+| F| 28| 28
+| m| 32| 36
 
-## where
+## 在哪里
 
-Use the `where` command with a bool expression to filter the search result. The `where` command only returns the result when the bool expression evaluates to true.
+使用`where` 用bool表达式命令以过滤搜索结果。这`where` 命令仅在布尔表达式评估为true时才返回结果。
 
-### Syntax
+### 句法
 
 ```sql
 where <boolean-expression>
 ```
 
-Field | Description | Required
-:--- | :--- |:---
-`bool-expression` | An expression that evaluates to a boolean value. | No
+场地| 描述| 必需的
+：--- | ：--- |：---
+`bool-expression` | 评估布尔值的表达式。| 不
 
-**Example: Filter result set with a condition**
+**示例：带有条件的过滤结果设置**
 
-To get all documents from the `accounts` index where `account_number` is 1 or gender is `F`:
+从`accounts` 索引在哪里`account_number` 是1或性别是`F`：
 
 ```sql
 search source=accounts | where account_number=1 or gender=\"F\" | fields account_number, gender;
 ```
 
-| account_number | gender
-:--- | :--- |
-| 1  | M
-| 13 | F
+| 帐号| 性别
+：--- | ：--- |
+| 1| m
+| 13| F
 
-## head
+## 头
 
-Use the `head` command to return the first N number of results in a specified search order.
+使用`head` 命令在指定的搜索顺序中返回第一个n数的结果。
 
-### Syntax
+### 句法
 
 ```sql
 head [N]
 ```
 
-Field | Description | Required | Default
-:--- | :--- |:---
-`N` | Specify the number of results to return. | No | 10
+场地| 描述| 必需的| 默认
+：--- | ：--- |：---
+`N` | 指定要返回的结果数。| 不| 10
 
-**Example 1: Get the first 10 results**
+**示例1：获取前10个结果**
 
-To get the first 10 results:
+要获得前10个结果：
 
 ```sql
 search source=accounts | fields firstname, age | head;
 ```
 
-| firstname | age
-:--- | :--- |
-| Amber  | 32
-| Hattie | 36
-| Nanette | 28
+| 名| 年龄
+：--- | ：--- |
+| 琥珀色| 32
+| 哈蒂| 36
+| Nanette| 28
 
-**Example 2: Get the first N results**
+**示例2：获取第一个N结果**
 
-To get the first two results:
+要获得前两个结果：
 
 ```sql
 search source=accounts | fields firstname, age | head 2;
 ```
 
-| firstname | age
-:--- | :--- |
-| Amber  | 32
-| Hattie | 36
+| 名| 年龄
+：--- | ：--- |
+| 琥珀色| 32
+| 哈蒂| 36
 
-### Limitations
+### 限制
 
-The `head` command is not rewritten to OpenSearch DSL, it is only executed on the coordination node.
+这`head` 命令未重写为OpenSearch DSL，仅在协调节点上执行。
 
-## rare
+## 稀有的
 
-Use the `rare` command to find the least common values of all fields in a field list.
-A maximum of 10 results are returned for each distinct set of values of the group-by fields.
+使用`rare` 命令在字段列表中找到所有字段的最小值。
+对于组的每组值，最多可返回10个结果-通过字段。
 
-### Syntax
+### 句法
 
 ```sql
 rare <field-list> [by-clause]
 ```
 
-Field | Description | Required
-:--- | :--- |:---
-`field-list` | Specify a comma-delimited list of field names. | No
-`by-clause` | Specify one or more fields to group the results by. | No
+场地| 描述| 必需的
+：--- | ：--- |：---
+`field-list` | 指定逗号-字段名称的界定列表。| 不
+`by-clause` | 指定一个或多个字段以按结果进行分组。| 不
 
-**Example 1: Find the least common values in a field**
+**示例1：在字段中找到最小的共同值**
 
-To find the least common values of gender:
+找到性别最不常见的价值观：
 
 ```sql
 search source=accounts | rare gender;
 ```
 
-| gender
-:--- |
+| 性别
+：--- |
 | F
-| M
+| m
 
-**Example 2: Find the least common values grouped by gender**
+**示例2：找到由性别分组的最小共同值**
 
-To find the least common age grouped by gender:
+找到最不常见的年龄分组的性别：
 
 ```sql
 search source=accounts | rare age by gender;
 ```
 
-| gender | age
-:--- | :--- |
-| F  | 28
-| M  | 32
-| M  | 33
+| 性别| 年龄
+：--- | ：--- |
+| F| 28
+| m| 32
+| m| 33
 
-### Limitations
+### 限制
 
-The `rare` command is not rewritten to OpenSearch DSL, it is only executed on the coordination node.
+这`rare` 命令未重写为OpenSearch DSL，仅在协调节点上执行。
 
-## top {#top-command}
+## 顶部 {#顶部-命令}
 
-Use the `top` command to find the most common values of all fields in the field list.
+使用`top` 命令在字段列表中找到所有字段的最常见值。
 
-### Syntax
+### 句法
 
 ```sql
 top [N] <field-list> [by-clause]
 ```
 
-Field | Description | Default
-:--- | :--- |:---
-`N` | Specify the number of results to return. | 10
-`field-list` | Specify a comma-delimited list of field names. | -
-`by-clause` | Specify one or more fields to group the results by. | -
+场地| 描述| 默认
+：--- | ：--- |：---
+`N` | 指定要返回的结果数。| 10
+`field-list` | 指定逗号-字段名称的界定列表。| -
+`by-clause` | 指定一个或多个字段以按结果进行分组。| -
 
-**Example 1: Find the most common values in a field**
+**示例1：在字段中找到最常见的值**
 
-To find the most common genders:
+找到最常见的性别：
 
 ```sql
 search source=accounts | top gender;
 ```
 
-| gender
-:--- |
-| M
+| 性别
+：--- |
+| m
 | F
 
-**Example 2: Find the most common value in a field**
+**示例2：在字段中找到最常见的值**
 
-To find the most common gender:
+找到最常见的性别：
 
 ```sql
 search source=accounts | top 1 gender;
 ```
 
-| gender
-:--- |
-| M
+| 性别
+：--- |
+| m
 
-**Example 3: Find the most common values grouped by gender**
+**示例3：找到由性别分组的最常见值**
 
-To find the most common age grouped by gender:
+找到由性别分组的最常见的年龄：
 
 ```sql
 search source=accounts | top 1 age by gender;
 ```
 
-| gender | age
-:--- | :--- |
-| F  | 28
-| M  | 32
+| 性别| 年龄
+：--- | ：--- |
+| F| 28
+| m| 32
 
-### Limitations
+### 限制
 
-The `top` command is not rewritten to OpenSearch DSL, it is only executed on the coordination node.
+这`top` 命令未重写为OpenSearch DSL，仅在协调节点上执行。
 
-## ad
+## 广告
 
-The `ad` command applies the Random Cut Forest (RCF) algorithm in the [ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/) on the search result returned by a PPL command. Based on the input, the plugin uses two types of RCF algorithms: fixed in time RCF for processing time-series data and batch RCF for processing non-time-series data.
+这`ad` 命令应用随机切割森林（RCF）算法[ML Commons插件]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/) 在搜索结果上由ppl命令返回。基于输入，该插件使用两种类型的RCF算法：固定时间RCF处理时间-用于处理非处理的串联数据和批量RCF-时间-系列数据。
 
-### Syntax: Fixed In Time RCF For Time-series Data Command
+### 语法：时间固定在时间上-系列数据命令
 
 ```sql
 ad <shingle_size> <time_decay> <time_field>
 ```
 
-Field | Description | Required
-:--- | :--- |:---
-`shingle_size` | A consecutive sequence of the most recent records. The default value is 8. | No
-`time_decay` | Specifies how much of the recent past to consider when computing an anomaly score. The default value is 0.001. | No
-`time_field` | Specifies the time filed for RCF to use as time-series data. Must be either a long value, such as the timestamp in miliseconds, or a string value in "yyyy-MM-dd HH:mm:ss".| Yes
+场地| 描述| 必需的
+：--- | ：--- |：---
+`shingle_size` | 最新记录的连续序列。默认值为8。| 不
+`time_decay` | 指定在计算异常分数时要考虑的过去的多少。默认值为0.001。| 不
+`time_field` | 指定RCF用作时间的时间-系列数据。必须是一个长的值，例如Miliseconds中的时间戳，或者是字符串值"yyyy-MM-dd HH:mm:ss"。| 是的
 
-### Syntax: Batch RCF for Non-time-series Data Command
+### 语法：非批次RCF-时间-系列数据命令
 
 ```sql
 ad <shingle_size> <time_decay>
 ```
 
-Field | Description | Required
-:--- | :--- |:---
-`shingle_size` | A consecutive sequence of the most recent records. The default value is 8. | No
-`time_decay` | Specifies how much of the recent past to consider when computing an anomaly score. The default value is 0.001. | No
+场地| 描述| 必需的
+：--- | ：--- |：---
+`shingle_size` | 最新记录的连续序列。默认值为8。| 不
+`time_decay` | 指定在计算异常分数时要考虑的过去的多少。默认值为0.001。| 不
 
-**Example 1: Detecting events in New York City from taxi ridership data with time-series data**
+**示例1：随着时间的流逝，从出租车乘车数据中检测纽约市的事件-系列数据**
 
-The example trains a RCF model and use the model to detect anomalies in the time-series ridership data.
+该示例训练RCF模型，并使用该模型在时间内检测异常-系列乘车数据。
 
-PPL query:
+PPL查询：
 
 ```sql
 os> source=nyc_taxi | fields value, timestamp | AD time_field='timestamp' | where value=10844.0
 ```
 
-value | timestamp | score | anomaly_grade
-:--- | :--- |:--- | :---
-10844.0 | 1404172800000 | 0.0 | 0.0    
+价值| 时间戳| 分数| Anomaly_grade
+：--- | ：--- |：--- | ：---
+10844.0| 1404172800000| 0.0| 0.0
 
-**Example 2: Detecting events in New York City from taxi ridership data with non-time-series data**
+**示例2：通过非出租车乘车数据检测纽约市的事件-时间-系列数据**
 
-PPL query:
+PPL查询：
 
 ```sql
 os> source=nyc_taxi | fields value | AD | where value=10844.0
 ```
 
-value | score | anomalous
-:--- | :--- |:--- 
-| 10844.0 | 0.0 | false  
+价值| 分数| 异常
+：--- | ：--- |：--- 
+| 10844.0| 0.0| 错误的
 
-## kmeans
+## Kmeans
 
-The kmeans command applies the ML Commons plugin's kmeans algorithm to the provided PPL command's search results.
+KMeans命令将ML Commons插件的KMeans算法应用于提供的PPL命令的搜索结果。
 
-### Syntax
+### 句法
 
 ```sql
 kmeans <cluster-number>
 ```
 
-For `cluster-number`, enter the number of clusters you want to group your data points into.
+为了`cluster-number`，输入要将数据点分组到的群集数量。
 
-**Example: Group Iris data**
+**示例：组虹膜数据**
 
-The example shows how to classify three Iris species (Iris setosa, Iris virginica and Iris versicolor) based on the combination of four features measured from each sample: the length and the width of the sepals and petals.
+该示例显示了如何根据每个样品测得的四个特征的组合来对三种虹膜物种（虹膜，虹膜弗吉尼亚和艾里斯·versicolor）进行分类：萼片和花瓣的长度和宽度。
 
-PPL query:
+PPL查询：
 
 ```sql
 os> source=iris_data | fields sepal_length_in_cm, sepal_width_in_cm, petal_length_in_cm, petal_width_in_cm | kmeans 3
 ```
 
-sepal_length_in_cm | sepal_width_in_cm | petal_length_in_cm | petal_width_in_cm | ClusterID
-:--- | :--- |:--- | :--- | :--- 
-| 5.1 | 3.5 | 1.4 | 0.2 | 1   
-| 5.6 | 3.0 | 4.1 | 1.3 | 0
-| 6.7 | 2.5 | 5.8 | 1.8 | 2
+sepal_length_in_cm| sepal_width_in_cm| petal_length_in_cm| petal_width_in_cm| 聚类
+：--- | ：--- |：--- | ：--- | ：--- 
+| 5.1| 3.5| 1.4| 0.2| 1
+| 5.6| 3.0| 4.1| 1.3| 0
+| 6.7| 2.5| 5.8| 1.8| 2
+

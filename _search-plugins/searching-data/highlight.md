@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Highlight query matches
-parent: Searching data
+title: 突出显示查询匹配
+parent: 搜索数据
 nav_order: 23
 redirect_from:
   - /opensearch/search/highlight/
 ---
 
-# Highlight query matches
+# 突出显示查询匹配
 
-Highlighting emphasizes the search term(s) in the results so you can emphasize the query matches.
+突出显示结果中强调搜索词，因此您可以强调查询匹配项。
 
-To highlight the search terms, add a `highlight` parameter outside of the query block:
+要突出搜索词，请添加一个`highlight` 查询块之外的参数：
 
 ```json
 GET shakespeare/_search
@@ -30,7 +30,7 @@ GET shakespeare/_search
 }
 ```
 
-Each document in the results contains a `highlight` object that shows your search term wrapped in an `em` tag:
+结果中的每个文档都包含一个`highlight` 显示您的搜索词包裹在`em` 标签：
 
 ```json
 {
@@ -111,36 +111,36 @@ Each document in the results contains a `highlight` object that shows your searc
 }
 ```
 
-The highlight function works on the actual field contents. OpenSearch retrieves these contents either from the stored field (the field for which the mapping is to be set to `true`) or from the `_source` field if the field is not stored. You can force the retrieval of field contents from the `_source` field by setting the `force_source` parameter to `true`.
+亮点功能可在实际字段内容上起作用。OpenSearch从存储的字段中检索这些内容（将映射设置为`true`）或来自`_source` 字段如果未存储字段。您可以从`_source` 通过设置字段`force_source` 参数为`true`。
 
-The `highlight` parameter highlights the original terms even when using synonyms or stemming for the search itself.
-{: .note}
+这`highlight` 参数即使使用同义词或用于搜索本身的同义词时，也会突出显示原始术语。
+{： 。笔记}
 
-## Methods of obtaining offsets
+## 获取偏移的方法
 
-To highlight the search terms, the highlighter needs the start and end character offsets of each term. The offsets mark the term's position in the original text. The highlighter can obtain the offsets from the following sources:
+为了突出搜索词，荧光笔需要每个学期的开始和最终字符偏移。偏移标记了原始文本中术语的位置。荧光笔可以从以下来源获得偏移：
 
-- **Postings**: When documents are indexed, OpenSearch creates an inverted search index&mdash;a core data structure used to search for documents. Postings represent the inverted search index and store the mapping of each analyzed term to the list of documents in which it occurs. If you set the `index_options` parameter to `offsets` when mapping a [text field]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text), OpenSearch adds each term's start and end character offsets to the inverted index. During highlighting, the highlighter reruns the original query directly on the postings to locate each term. Thus, storing offsets makes highlighting more efficient for large fields because it does not require reanalyzing the text. Storing term offsets requires additional disk space, but uses less disk space than storing term vectors.
+- **帖子**：当索引文档时，OpenSearch会创建一个倒置的搜索索引＆mdash;用于搜索文档的核心数据结构。发布表示倒置搜索索引，并将每个分析术语的映射存储到发生在其发生的文档列表中。如果您设置`index_options` 参数为`offsets` 映射时[文本域]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text)，OpenSearch将每个学期的开始和最终字符偏移添加到倒置索引中。在突出显示的过程中，荧光笔直接在帖子上重新运行原始查询以找到每个学期。因此，存储偏移可以使大型字段更有效地突出显示，因为它不需要重新分析文本。存储术语偏移需要额外的磁盘空间，但使用磁盘空间少于存储术语向量。
 
-- [**Term vectors**]: If you set the [`term_vector` parameter]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text#term-vector-parameter) to  `with_positions_offsets` when mapping a text field, the highlighter uses the `term_vector` to highlight the field. Storing term vectors requires the most disk space. However, it makes highlighting faster for fields larger than 1 MB and for multi-term queries like prefix or wildcard because term vectors provide access to the dictionary of terms for each document.
+- [**术语向量**]( If you set the [`term_vector` parameter]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text#term-vector-parameter) 到`with_positions_offsets` 映射文本字段时，荧光笔使用`term_vector` 突出显示领域。存储术语向量需要最多的磁盘空间。但是，它使大于1 MB的田地的突出显示速度更快，多数-诸如前缀或通配符之类的术语查询，因为术语向量为每个文档提供了对条款字典的访问权限。
 
-- **Text reanalysis**: In the absence of both postings and term vectors, the highlighter reanalyzes text in order to highlight it. For every document and every field that needs highlighting, the highlighter creates a small in-memory index and reruns the original query through Lucene’s query execution planner to access low-level match information for the current document. Reanalyzing the text works well in most use cases. However, this method is more memory and time intensive for large fields.
+- **文本重新分析**：在没有帖子和术语向量的情况下，荧光笔重新分析文本以突出显示。对于每个需要突出显示的文档和每个字段，荧光笔都会在-内存索引并通过Lucene的查询执行计划重新运行原始查询以访问低-当前文档的级别匹配信息。在大多数用例中，重新分析文本效果很好。但是，对于大型田地，此方法是更多的内存和时间密集型。
 
-## Highlighter types
+## 荧光笔类型
 
-OpenSearch supports three highlighter implementations: `plain`, `unified`, and `fvh` (Fast Vector Highlighter). 
+OpenSearch支持三个荧光笔实现：`plain`，，，，`unified`， 和`fvh` （快速矢量荧光笔）。
 
-The following table lists the methods of obtaining the offsets for each highlighter.
+下表列出了为每个荧光笔获得偏移的方法。
 
-Highlighter | Method of obtaining offsets
-:--- | :---
-[`unified`](#the-unified-highlighter) | Term vectors if `term_vector` is set to `with_positions_offsets`,<br> postings if `index_options` is set to `offsets`, <br> text reanalysis otherwise.
-[`fvh`](#the-fvh-highlighter) | Term vectors.
-[`plain`](#the-plain-highlighter) | Text reanalysis.
+荧光笔| 获取偏移的方法
+：--- | ：---
+[`unified`](#the-unified-highlighter) | 术语向量如果`term_vector` 被设定为`with_positions_offsets`，<br>发布`index_options` 被设定为`offsets`，<br>文本重新分析否则。
+[`fvh`](#the-fvh-highlighter) | 术语向量。
+[`plain`](#the-plain-highlighter) | 文本重新分析。
 
-### Setting the highlighter type
+### 设置荧光笔类型
 
-To set the highlighter type, specify it in the `type` field:
+要设置荧光笔类型，请在`type` 场地：
 
 ```json
 GET shakespeare/_search
@@ -158,55 +158,55 @@ GET shakespeare/_search
 }
 ```
 
-### The `unified` highlighter
+### 这`unified` 荧光笔
 
-The `unified` highlighter is based on the Lucene Unified Highlighter and is the default highlighter for OpenSearch. It divides the text into sentences and treats those sentences as individual documents, scoring them in terms of similarity using the BM25 algorithm. The `unified` highlighter supports both exact phrase and multi-term highlighting, including fuzzy, prefix, and regex. If you're using complex queries to highlight multiple fields in multiple documents, we recommend using the `unified` highlighter on `postings` or `term_vector` fields.
+这`unified` 荧光笔基于Lucene Unified荧光笔，是OpenSearch的默认荧光笔。它将文本分为句子，并将这些句子视为单个文档，并使用BM25算法对它们进行相似性评分。这`unified` 荧光笔支持精确的短语和多词-术语突出显示，包括模糊，前缀和正则正则。如果您正在使用复杂的查询来突出显示多个文档中的多个字段，我们建议使用`unified` 荧光笔开`postings` 或者`term_vector` 字段。
 
-### The `fvh` highlighter
+### 这`fvh` 荧光笔
 
-The `fvh` highlighter is based on the Lucene Fast Vector Highlighter. To use this highlighter, you need to store term vectors with positions offsets, which increases the index size. The `fvh` highlighter can combine matched terms from multiple fields into one result. It can also assign weights to matches depending on their positions; thus, you can sort phrase matches above term matches when highlighting a query that boosts phrase matches over term matches. Additionally, you can configure the `fvh` highlighter to select the boundaries of a returned text fragment, and you can highlight multiple words with different tags.
+这`fvh` 荧光笔基于Lucene快速矢量荧光笔。要使用此荧光笔，您需要存储具有位置偏移的术语向量，这会增加索引尺寸。这`fvh` 荧光笔可以将来自多个字段的匹配项结合到一个结果。它还可以根据其位置为匹配分配权重。因此，您可以在突出显示在术语匹配中提高短语匹配的查询时，将短语匹配上述匹配。此外，您可以配置`fvh` 荧光笔可以选择返回的文本片段的边界，您可以突出显示具有不同标签的多个单词。
 
-### The `plain` highlighter
+### 这`plain` 荧光笔
 
-The `plain` highlighter is based on the standard Lucene highlighter. It requires the highlighted fields to be stored either individually or in the `_source` field. The `plain` highlighter mirrors the query matching logic, in particular word importance and positions in phrase queries. It works for most use cases but may be slow for large fields because it has to reanalyze the text to be highlighted. 
+这`plain` 荧光笔基于标准的Lucene荧光笔。它要求突出显示的字段单独存储`_source` 场地。这`plain` 荧光笔反映了查询匹配逻辑，特别是单词重要性和短语查询中的位置。它适用于大多数用例，但对于大型领域来说可能很慢，因为它必须重新分析文本要突出显示。
 
-## Highlighting options
+## 突出显示选项
 
-The following table describes the highlighting options you can specify on a global or field level. Field-level settings override global settings.
+下表描述了您可以在全局或字段级别指定的突出显示选项。场地-级别设置覆盖全局设置。
 
-Option | Description
-:--- | :---
-type | Specifies the highlighter to use. Valid values are `unified`, `fvh`, and `plain`. Default is `unified`.
-fields | Specifies the fields to search for text to be highlighted. Supports wildcard expressions. If you use wildcards, only `text` and `keyword` fields are highlighted. For example, you can set `fields` to `my_field*` to include all `text` and `keyword` fields that start with the prefix `my_field`. 
-force_source | Specifies that field values for highlighting should be obtained from the `_source` field rather than from stored field values. Default is `false`.
-require_field_match | Specifies whether to highlight only fields that contain a search query match. Default is `true`. To highlight all fields, set this option to `false`.
-pre_tags | Specifies the HTML start tags for the highlighted text as an array of strings.
-post_tags | Specifies the HTML end tags for the highlighted text as an array of strings.
-tags_schema | If you set this option to `styled`, OpenSearch uses the built-in tag schema. In this schema, the `pre_tags` are `<em class="hlt1">`, `<em class="hlt2">`, `<em class="hlt3">`, `<em class="hlt4">`, `<em class="hlt5">`, `<em class="hlt6">`, `<em class="hlt7">`, `<em class="hlt8">`, `<em class="hlt9">`, and `<em class="hlt10">`, and the `post_tags` is `</em>`.
-boundary_chars | All boundary characters combined in a string.<br> Default is `".,!? \t\n"`.
-boundary_scanner | Valid only for the `unified` and `fvh` highlighters. Specifies whether to split the highlighted fragments into sentences, words, or characters. Valid values are the following:<br>- `sentence`: Split highlighted fragments at sentence boundaries, as defined by the [BreakIterator](https://docs.oracle.com/javase/8/docs/api/java/text/BreakIterator.html). You can specify the BreakIterator's locale in the `boundary_scanner_locale` option. <br>- `word`: Split highlighted fragments at word boundaries, as defined by the [BreakIterator](https://docs.oracle.com/javase/8/docs/api/java/text/BreakIterator.html). You can specify the BreakIterator's locale in the `boundary_scanner_locale` option.<br>- `chars`: Split highlighted fragments at any character listed in `boundary_chars`. Valid only for the `fvh` highlighter. 
-boundary_scanner_locale | Provides a [locale](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html) for the `boundary_scanner`. Valid values are language tags (for example, `"en-US"`). Default is [Locale.ROOT](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html#ROOT).
-boundary_max_scan | Controls how far to scan for boundary characters when the `boundary_scanner` parameter for the `fvh` highlighter is set to `chars`. Default is 20.
-encoder | Specifies whether the highlighted fragment should be HTML encoded before it is returned. Valid values are `default` (no encoding) or `html` (first escape the HTML text and then insert the highlighting tags). For example, if the field text is `<h3>Hamlet</h3>` and the `encoder` is set to `html`, the highlighted text is `"&lt;h3&gt;<em>Hamlet</em>&lt;&#x2F;h3&gt;"`. 
-fragmenter | Specifies how to split text into highlighted fragments. Valid only for the `plain` highlighter. Valid values are the following:<br>- `span` (default): Splits text into fragments of the same size but tries not to split text between highlighted terms. <br>- `simple`: Splits text into fragments of the same size.
-fragment_offset | Specifies the character offset from which you want to start highlighting. Valid for the `fvh` highlighter only.
-fragment_size | The size of a highlighted fragment, specified as the number of characters. If `number_of_fragments` is set to 0, `fragment_size` is ignored. Default is 100.
-number_of_fragments| The maximum number of returned fragments. If `number_of_fragments` is set to 0, OpenSearch returns the highlighted contents of the entire field. Default is 5.
-order | The sort order for the highlighted fragments. Set `order` to `score` to sort fragments by relevance. Each highlighter has a different algorithm for calculating relevance scores. Default is `none`.
-highlight_query | Specifies that matches for a query other than the search query should be highlighted. The `highlight_query` option is useful when you use a faster query to get document matches and a slower query (for example, `rescore_query`) to refine the results. We recommend to include the search query as part of the `highlight_query`.
-matched_fields | Combines matches from different fields to highlight one field. The most common use case for this functionality is highlighting text that is analyzed in different ways and kept in multi-fields. All fields in the `matched_fields` list must have the `term_vector` field set to `with_positions_offsets`. The field in which the matches are combined is the only loaded field, so it is beneficial to set its `store` option to `yes`.  Valid only for the `fvh` highlighter.
-no_match_size | Specifies the number of characters, starting from the beginning of the field, to return if there are no matching fragments to highlight. Default is 0.
-phrase_limit | The number of matching phrases in a document that are considered. Limits the number of phrases to analyze by the `fvh` highlighter to avoid consuming a lot of memory. If `matched_fields` are used, `phrase_limit` specifies the number of phrases for each matched field. A higher `phrase_limit` leads to increased query time and more memory consumption. Valid only for the `fvh` highlighter. Default is 256.
-max_analyzer_offset | Specifies the maximum number of characters to be analyzed by a highlight request. The remaining text will not be processed. If the text to be highlighted exceeds this offset, then an empty highlight is returned. The maximum number of characters that will be analyzed for a highlight request is defined by `index.highlight.max_analyzed_offset`. When this limit is reached, an error is returned. Set the `max_analyzer_offset` to a lower value than `index.highlight.max_analyzed_offset` to avoid the error.
+选项| 描述
+：--- | ：---
+类型| 指定使用的荧光笔。有效值是`unified`，，，，`fvh`， 和`plain`。默认为`unified`。
+字段| 指定要搜索要突出显示的文本的字段。支持通配符表达式。如果您使用通配符，只有`text` 和`keyword` 田野被突出显示。例如，您可以设置`fields` 到`my_field*` 包括全部`text` 和`keyword` 以前缀开头的字段`my_field`。
+force_source| 指定应从`_source` 字段而不是来自存储的字段值。默认为`false`。
+require_field_match| 指定是否仅突出显示包含搜索查询匹配的字段。默认为`true`。要突出显示所有字段，请将此选项设置为`false`。
+pre_tag| 指定突出显示文本的HTML启动标签作为字符串数组。
+post_tags| 指定突出显示的文本的HTML终端标签作为字符串数组。
+tags_schema| 如果将此选项设置为`styled`，OpenSearch使用已建立的-在标签模式中。在这个模式中，`pre_tags` 是`<em class="hlt1">`，，，，`<em class="hlt2">`，，，，`<em class="hlt3">`，，，，`<em class="hlt4">`，，，，`<em class="hlt5">`，，，，`<em class="hlt6">`，，，，`<em class="hlt7">`，，，，`<em class="hlt8">`，，，，`<em class="hlt9">`， 和`<em class="hlt10">`和`post_tags` 是`</em>`。
+boundary_chars| 所有边界字符组合在字符串中。<br>默认值为`".,!? \t\n"`。
+boundare_scanner| 仅适用于`unified` 和`fvh` 荧光笔。指定是否将突出显示的片段分为句子，单词或字符。有效值如下：<br>- `sentence`：在句子边界处拆分突出显示的片段，如[断路器](https://docs.oracle.com/javase/8/docs/api/java/text/BreakIterator.html)。您可以在`boundary_scanner_locale` 选项。<br>- `word`：拆分突出显示在单词边界处的片段，如[断路器](https://docs.oracle.com/javase/8/docs/api/java/text/BreakIterator.html)。您可以在`boundary_scanner_locale` 选项。<br>- `chars`：拆分突出显示的片段在列出的任何字符中`boundary_chars`。仅适用于`fvh` 荧光笔。
+boundard_scanner_locale| 提供[语言环境](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html) 为了`boundary_scanner`。有效值是语言标签（例如，`"en-US"`）。默认为[locale.root](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html#ROOT)。
+boundard_max_scan| 控制当`boundary_scanner` the的参数`fvh` 荧光笔设置为`chars`。默认值为20。
+编码器| 指定是否应在返回之前对突出显示的片段进行编码。有效值是`default` （无编码）或`html` （首先逃脱HTML文本，然后插入突出显示标签）。例如，如果字段文本为`<h3>Hamlet</h3>` 和`encoder` 被设定为`html`，突出显示的文字是`"&lt;h3&gt;<em>Hamlet</em>&lt;&#x2F;h3&gt;"`。
+碎片| 指定如何将文本分成突出显示的片段。仅适用于`plain` 荧光笔。有效值如下：<br>- `span` （默认值）：将文本分成相同大小的片段，但试图在突出显示的术语之间不划分文本。<br>- `simple`：将文本分成相同大小的片段。
+fragment_offset| 指定要开始突出显示的字符偏移。有效`fvh` 仅荧光笔。
+fragment_size| 突出显示的片段的大小，指定为字符数。如果`number_of_fragments` 设置为0，`fragment_size` 被忽略。默认值为100。
+number_of_fragments| 返回片段的最大数量。如果`number_of_fragments` 设置为0，OpenSearch返回整个字段的突出显示内容。默认值为5。
+命令| 突出显示的片段的排序顺序。放`order` 到`score` 通过相关性对碎片进行排序。每个荧光笔都有不同的算法用于计算相关性得分。默认为`none`。
+righlight_query| 指定匹配的查询以外的查询以外的其他指定应突出显示。这`highlight_query` 当您使用更快的查询获取文档匹配和较慢的查询时，选项很有用（例如`rescore_query`）以完善结果。我们建议将搜索查询作为一部分`highlight_query`。
+Matded_fields| 结合了来自不同字段的匹配项，突出显示一个字段。此功能的最常见用例是突出显示以不同方式分析并保存在多数的文本-字段。所有领域`matched_fields` 列表必须具有`term_vector` 字段设置为`with_positions_offsets`。组合匹配的字段是唯一的负载字段，因此设置其`store` 选项`yes`。仅适用于`fvh` 荧光笔。
+no_match_size| 指定字符的数量，从字段的开头开始，如果没有匹配的片段可以突出显示，则返回。默认值为0。
+phrase_limit| 所考虑的文档中匹配短语的数量。限制通过`fvh` 荧光笔避免消耗大量记忆。如果`matched_fields` 被使用，`phrase_limit` 指定每个匹配字段的短语数量。更高`phrase_limit` 导致查询时间增加和更多的内存消耗。仅适用于`fvh` 荧光笔。默认值为256。
+max_analyzer_offset| 指定要通过突出显示请求分析的最大字符数。其余文本将不会处理。如果要突出显示的文本超过此偏移量，则返回一个空的亮点。要为突出显示请求分析的最大字符数量由`index.highlight.max_analyzed_offset`。达到此限制后，返回错误。设置`max_analyzer_offset` 比值低于`index.highlight.max_analyzed_offset` 避免错误。
 
-The unified highlighter's sentence scanner splits sentences larger than `fragment_size` at the first word boundary after `fragment_size` is reached. To return whole sentences without splitting them, set `fragment_size` to 0.
-{: .note}
+统一的荧光笔的句子扫描仪将句子分割大于`fragment_size` 在第一个单词边界之后`fragment_size` 到达了。要返回整个句子而不分裂，请设置`fragment_size` 到0。
+{： 。笔记}
 
-## Changing the highlighting tags
+## 更改突出显示标签
 
-Design your application code to parse the results from the `highlight` object and perform an action on the search terms, such as changing their color, bolding, italicizing, and so on.
+设计您的应用程序代码以解析`highlight` 对象并在搜索术语中执行动作，例如改变其颜色，大胆，斜体性等等。
 
-To change the default `em` tags, specify the new tags in the `pretag` and `posttag` parameters:
+更改默认值`em` 标签，在`pretag` 和`posttag` 参数：
 
 ```json
 GET shakespeare/_search
@@ -231,7 +231,7 @@ GET shakespeare/_search
 }
 ```
 
-The play name is highlighted by the new tags in the response:
+播放名称在响应中的新标签突出显示：
 
 ```json
 {
@@ -312,9 +312,9 @@ The play name is highlighted by the new tags in the response:
 }
 ```
 
-## Specifying a highlight query
+## 指定突出显示查询
 
-By default, OpenSearch only considers the search query for highlighting. If you use a fast query to get document matches and a slower query like `rescore_query` to refine the results, it is useful to highlight the refined results. You can do this by adding a `highlight_query`:
+默认情况下，OpenSearch仅考虑要突出显示的搜索查询。如果您使用快速查询来获取文档匹配和较慢的查询`rescore_query` 为了完善结果，突出显示精制结果很有用。您可以通过添加一个`highlight_query`：
 
 ```json
 GET shakespeare/_search
@@ -372,13 +372,13 @@ GET shakespeare/_search
 }
 ```
 
-## Combining matches from different fields to highlight one field
+## 结合来自不同领域的比赛以突出显示一个字段
 
-You can combine matches from different fields to highlight one field with the `fvh` highlighter. The most common use case for this functionality is highlighting text that is analyzed in different ways and kept in multi-fields. All fields in the `matched_fields` list must have the `term_vector` field set to `with_positions_offsets`. The field in which the matches are combined is the only loaded field, so it is beneficial to set its `store` option to `yes`. 
+您可以将来自不同字段的匹配结合在一起，以突出显示一个字段`fvh` 荧光笔。此功能的最常见用例是突出显示以不同方式分析并保存在多数的文本-字段。所有领域`matched_fields` 列表必须具有`term_vector` 字段设置为`with_positions_offsets`。组合匹配的字段是唯一的负载字段，因此设置其`store` 选项`yes`。
 
-### Example
+### 例子
 
-Create a mapping for the `shakespeare` index where the `text_entry` field is analyzed with the `standard` analyzer and has an `english` subfield that is analyzed with the `english` analyzer:
+为`shakespeare` 索引在哪里`text_entry` 用`standard` 分析仪，有一个`english` 用`english` 分析仪：
 
 ```json
 PUT shakespeare
@@ -401,7 +401,7 @@ PUT shakespeare
 }
 ```
 
-The `standard` analyzer splits the `text_entry` fields into individual words. You can confirm this by using the analyze API operation:
+这`standard` 分析仪分裂`text_entry` 字段变成单个单词。您可以使用分析API操作来确认这一点：
 
 ```json
 GET shakespeare/_analyze
@@ -411,7 +411,7 @@ GET shakespeare/_analyze
 }
 ```
 
-The response contains the original string split on white space:
+响应包含在空白上的原始字符串拆分：
 
 ```json
 {
@@ -441,7 +441,7 @@ The response contains the original string split on white space:
 }
 ```
 
-The `english` analyzer not only splits the string into words but also stems the tokens and removes stopwords. You can confirm this by using the analyze API operation with the `text_entry.english` field:
+这`english` 分析仪不仅将字符串分为单词，还可以驱使令牌并删除停止词。您可以通过使用分析API操作与`text_entry.english` 场地：
 
 ```json
 GET shakespeare/_analyze
@@ -451,7 +451,7 @@ GET shakespeare/_analyze
 }
 ```
 
-The response contains the stemmed words:
+响应包含词干词：
 
 ```json
 {
@@ -474,7 +474,7 @@ The response contains the stemmed words:
 }
 ```
 
-To search for all forms of the word `bragging`, use the following query:
+搜索单词的所有形式`bragging`，使用以下查询：
 
 ```json
 GET shakespeare/_search
@@ -502,7 +502,7 @@ GET shakespeare/_search
 }
 ```
 
-The response highlights all versions of the word "bragging" in the `text_entry` field:
+响应突出显示了单词的所有版本"bragging" 在里面`text_entry` 场地：
 
 ```json
 {
@@ -716,7 +716,7 @@ The response highlights all versions of the word "bragging" in the `text_entry` 
 }
 ```
 
-To score the original form of the word "bragging" higher, you can boost the `text_entry` field:
+为单词的原始形式评分"bragging" 更高，您可以提升`text_entry` 场地：
 
 ```json
 GET shakespeare/_search
@@ -745,7 +745,7 @@ GET shakespeare/_search
 }
 ```
 
-The response lists documents that contain the word "bragging" first:
+响应列出了包含单词的文档"bragging" 第一的：
 
 ```json
 {
@@ -959,9 +959,10 @@ The response lists documents that contain the word "bragging" first:
 }
 ```
 
-## Query limitations
+## 查询限制
 
-Note the following limitations:
+注意以下限制：
 
-- When extracting terms to highlight, highlighters don’t reflect the Boolean logic of a query. Therefore, for some complex Boolean queries, such as nested Boolean queries and queries using `minimum_should_match`, OpenSearch may highlight terms that don’t correspond to query matches.
-- The `fvh` highlighter does not support span queries.
+- 当提取术语以突出显示时，荧光笔不会反映查询的布尔逻辑。因此，对于一些复杂的布尔查询，例如使用嵌套布尔查询和查询`minimum_should_match`，OpenSearch可能会突出显示与查询匹配不符的术语。
+- 这`fvh` 荧光笔不支持跨度查询
+

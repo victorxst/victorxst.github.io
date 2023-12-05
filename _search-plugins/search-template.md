@@ -6,24 +6,24 @@ redirect_from:
   - /opensearch/search-template/
 ---
 
-# Search templates
+# 搜索模板
 
-You can convert your full-text queries into a search template to accept user input and dynamically insert it into your query.
+你可以转换你的-文本查询到搜索模板中以接受用户输入并将其动态插入您的查询中。
 
-For example, if you use OpenSearch as a backend search engine for your application or website, you can take in user queries from a search bar or a form field and pass them as parameters into a search template. That way, the syntax to create OpenSearch queries is abstracted from your end users.
+例如，如果您将OpenSearch用作应用程序或网站的后端搜索引擎，则可以从搜索栏或表单字段中获取用户查询，并将其作为参数传递到搜索模板中。这样，创建OpenSearch查询的语法将从您的最终用户中抽象出来。
 
-When you're writing code to convert user input into OpenSearch queries, you can simplify your code with search templates. If you need to add fields to your search query, you can just modify the template without making changes to your code.
+当您编写代码以将用户输入转换为OpenSearch查询时，您可以使用搜索模板简化代码。如果您需要在搜索查询中添加字段，则可以在不更改代码的情况下修改模板。
 
-Search templates use the Mustache language. For a list of all syntax options, see the [Mustache manual](https://mustache.github.io/mustache.5.html).
-{: .note }
+搜索模板使用胡须语言。有关所有语法选项的列表，请参见[胡子手册](https://mustache.github.io/mustache.5.html)。
+{： 。笔记 }
 
-## Create search templates
+## 创建搜索模板
 
-A search template has two components: the query and the parameters. Parameters are user-inputted values that get placed into variables. Variables are represented with double braces in Mustache notation. When encountering a variable like `{% raw %}{{var}}{% endraw %}` in the query, OpenSearch goes to the `params` section, looks for a parameter called `var`, and replaces it with the specified value.
+搜索模板具有两个组件：查询和参数。参数是用户-输入的值将放置在变量中。变量在小胡子符号中用双括号表示。遇到变量时`{% raw %}{{var}}{% endraw %}` 在查询中，OpenSearch转到`params` 部分，寻找一个称为的参数`var`，并用指定的值替换。
 
-You can code your application to ask your user what they want to search for and then plug that value into the `params` object at runtime.
+您可以编码您的应用程序，以询问您的用户要搜索什么，然后将该值插入`params` 在运行时对象。
 
-This command defines a search template to find a play by its name. The `{% raw %}{{play_name}}{% endraw %}` in the query is replaced by the value `Henry IV`:
+此命令定义了一个搜索模板以查找播放的名称。这`{% raw %}{{play_name}}{% endraw %}` 在查询中被值代替`Henry IV`：
 
 ```json
 GET _search/template
@@ -41,14 +41,14 @@ GET _search/template
 }
 ```
 
-This template runs the search on your entire cluster.
-To run this search on a specific index, add the index name to the request:
+该模板在整个群集上运行搜索。
+要在特定索引上运行此搜索，请在请求中添加索引名称：
 
 ```json
 GET shakespeare/_search/template
 ```
 
-Specify the `from` and `size` parameters:
+指定`from` 和`size` 参数：
 
 ```json
 GET _search/template
@@ -70,15 +70,15 @@ GET _search/template
 }
 ```
 
-To improve the search experience, you can define defaults so the user doesn’t have to specify every possible parameter. If the parameter is not defined in the `params` section, OpenSearch uses the default value.
+为了改善搜索体验，您可以定义默认值，以便用户不必指定所有可能的参数。如果未在`params` 部分，OpenSearch使用默认值。
 
-The syntax for defining the default value for a variable `var` is as follows:
+用于定义变量默认值的语法`var` 如下：
 
 ```json
 {% raw %}{{var}}{{^var}}default value{{/var}}{% endraw %}
 ```
 
-This command sets the defaults for `from` as 10 and `size` as 10:
+此命令为`from` AS 10和`size` AS 10：
 
 ```json
 GET _search/template
@@ -99,11 +99,11 @@ GET _search/template
 ```
 
 
-## Save and execute search templates
+## 保存和执行搜索模板
 
-After the search template works the way you want it to, you can save the source of that template as a script, making it reusable for different input parameters.
+搜索模板按照您想要的方式工作后，您可以将该模板的源保存为脚本，从而使其可重复使用，以适用于不同的输入参数。
 
-When saving the search template as a script, you need to specify the `lang` parameter as `mustache`:
+将搜索模板保存为脚本时，您需要指定`lang` 参数为`mustache`：
 
 ```json
 POST _scripts/play_search_template
@@ -126,8 +126,8 @@ POST _scripts/play_search_template
 }
 ```
 
-Now you can reuse the template by referring to its `id` parameter.
-You can reuse this source template for different input values.
+现在，您可以通过参考其模板重复使用该模板`id` 范围。
+您可以将此源模板重复使用不同的输入值。
 
 ```json
 GET _search/template
@@ -140,7 +140,7 @@ GET _search/template
   }
 }
 ```
-#### Sample output
+#### 样本输出
 
 ```json
 {
@@ -179,7 +179,7 @@ GET _search/template
 }
 ```
 
-If you have a stored template and want to validate it, use the `render` operation:
+如果您有存储的模板并想验证它，请使用`render` 手术：
 
 ```json
 POST _render/template
@@ -191,7 +191,7 @@ POST _render/template
 }
 ```
 
-#### Sample output
+#### 样本输出
 
 ```json
 {
@@ -207,7 +207,7 @@ POST _render/template
 }
 ```
 
-The following render operations are supported:
+支持以下渲染操作：
 
 ```json
 GET /_render/template
@@ -216,25 +216,25 @@ GET /_render/template/<id>
 POST /_render/template/<id>
 ```
 
-## Advanced parameter conversion with search templates
+## 使用搜索模板的高级参数转换
 
-You have a lot of different syntax options in Mustache to transpose the input parameters into a query.
-You can specify conditions, run loops, join arrays, convert arrays to JSON, and so on.
+您在小胡子中有许多不同的语法选项，可以将输入参数转换为查询。
+您可以指定条件，运行循环，加入数组，将阵列转换为JSON等等。
 
-### Conditions
+### 状况
 
-Use the section tag in Mustache to represent conditions:
+在胡须中使用截面标签来表示条件：
 
 ```json
 {% raw %}{{#var}}var{{/var}}{% endraw %}
 ```
 
-When `var` is a boolean value, this syntax acts as an `if` condition. The `{% raw %}{{#var}}{% endraw %}` and `{% raw %}{{/var}}{% endraw %}` tags insert the values placed between them only if `var` evaluates to `true`.
+什么时候`var` 是布尔值，该语法充当`if` 健康）状况。这`{% raw %}{{#var}}{% endraw %}` 和`{% raw %}{{/var}}{% endraw %}` 标签插入仅当它们之间放置的值`var` 评估`true`。
 
-Using section tags would make your JSON invalid, so you must write your query in a string format instead.
+使用节标签将使您的JSON无效，因此您必须以字符串格式编写查询。
 
-This command includes the `size` parameter in the query only when the `limit` parameter is set to `true`.
-In the following example, the `limit` parameter is `true`, so the `size` parameter is activated. As a result, you would get back only two documents.
+此命令包括`size` 仅在查询中的参数`limit` 参数设置为`true`。
+在下面的示例中，`limit` 参数为`true`， 所以`size` 参数已激活。结果，您只会撤回两个文档。
 
 ```json
 GET _search/template
@@ -248,8 +248,8 @@ GET _search/template
 }
 ```
 
-You can also design an `if-else` condition.
-This command sets `size` to `2` if `limit` is `true`. Otherwise, it sets `size` to `10`.
+您也可以设计一个`if-else` 健康）状况。
+此命令设置`size` 到`2` 如果`limit` 是`true`。否则，它设置了`size` 到`10`。
 
 ```json
 GET _search/template
@@ -262,15 +262,15 @@ GET _search/template
 }
 ```
 
-### Loops
+### 循环
 
-You can also use the section tag to implement a for each loop:
+您也可以使用“截面标签”为每个循环实现一个：
 
 ```
 {% raw %}{{#var}}{{.}}}{{/var}}{% endraw %}
 ```
 
-When `var` is an array, the search template iterates through it and creates a `terms` query.
+什么时候`var` 是一个数组，搜索模板通过它迭代并创建一个`terms` 询问。
 
 ```json
 GET _search/template
@@ -285,7 +285,7 @@ GET _search/template
 }
 ```
 
-This template is rendered as:
+该模板被渲染为：
 
 ```json
 GET _search/template
@@ -303,9 +303,9 @@ GET _search/template
 }
 ```
 
-### Join
+### 加入
 
-You can use the `join` tag to concatenate values of an array (separated by commas):
+您可以使用`join` 标签阵列的连接值（由逗号隔开）：
 
 ```json
 GET _search/template
@@ -326,7 +326,7 @@ GET _search/template
 }
 ```
 
-Renders as:
+渲染为：
 
 ```json
 GET _search/template
@@ -341,9 +341,9 @@ GET _search/template
 }
 ```
 
-### Convert to JSON
+### 转换为JSON
 
-You can use the `toJson` tag to convert parameters to their JSON representation:
+您可以使用`toJson` 标签将参数转换为其JSON表示：
 
 ```json
 GET _search/template
@@ -358,7 +358,7 @@ GET _search/template
 }
 ```
 
-Renders as:
+渲染为：
 
 ```json
 GET _search/template
@@ -390,10 +390,10 @@ GET _search/template
 }
 ```
 
-## Multiple search templates
+## 多个搜索模板
 
-You can bundle multiple search templates and send them to your OpenSearch cluster in a single request using the `msearch` operation.
-This saves network round trip time, so you get back the response more quickly as compared to independent requests.
+您可以使用多个搜索模板捆绑多个搜索模板，然后使用单个请求将其发送到您的OpenSearch集群中`msearch` 手术。
+这节省了网络往返时间，因此与独立请求相比，您可以更快地获得响应。
 
 ```json
 GET _msearch/template
@@ -403,24 +403,25 @@ GET _msearch/template
 {"id":"play_search_template","params":{"play_name":"Henry IV"}}
 ```
 
-## Manage search templates
+## 管理搜索模板
 
-To list all scripts, run the following command:
+要列出所有脚本，请运行以下命令：
 
 ```json
 GET _cluster/state/metadata?pretty&filter_path=**.stored_scripts
 ```
 
-To retrieve a specific search template, run the following command:
+要检索特定的搜索模板，请运行以下命令：
 
 ```json
 GET _scripts/<name_of_search_template>
 ```
 
-To delete a search template, run the following command:
+要删除搜索模板，请运行以下命令：
 
 ```json
 DELETE _scripts/<name_of_search_template>
 ```
 
 ---
+

@@ -1,20 +1,20 @@
 ---
 layout: default
-title: Sort results
-parent: Searching data
+title: 排序结果
+parent: 搜索数据
 nav_order: 22
 redirect_from:
   - /opensearch/search/sort/
 ---
 
-## Sort results
+## 排序结果
 
-Sorting allows your users to sort results in a way that’s most meaningful to them.
+排序使您的用户可以以对他们最有意义的方式进行排序。
 
-By default, full-text queries sort results by the relevance score.
-You can choose to sort the results by any field value in either ascending or descending order by setting the `order` parameter to `asc` or `desc`.
+默认情况下，完整-文本查询按相关得分进行排序结果。
+您可以通过设置以下`order` 参数为`asc` 或者`desc`。
 
-For example, to sort results by descending order of a `line_id` value, use the following query:
+例如，通过下降顺序排序结果`line_id` 值，使用以下查询：
 
 ```json
 GET shakespeare/_search
@@ -36,7 +36,7 @@ GET shakespeare/_search
 }
 ```
 
-The results are sorted by `line_id` in descending order:
+结果由`line_id` 按顺序下降：
 
 ```json
 {
@@ -230,9 +230,9 @@ The results are sorted by `line_id` in descending order:
 }
 ```
 
-The `sort` parameter is an array, so you can specify multiple field values in the order of their priority.
+这`sort` 参数是一个数组，因此您可以按优先级指定多个字段值。
 
-If you have two fields with the same value for `line_id`, OpenSearch uses `speech_number`, which is the second option for sorting:
+如果您有两个字段，则具有相同的值`line_id`，OpenSearch使用`speech_number`，这是排序的第二个选项：
 
 ```json
 GET shakespeare/_search
@@ -259,7 +259,7 @@ GET shakespeare/_search
 }
 ```
 
-You can continue to sort by any number of field values to get the results in just the right order. It doesn’t have to be a numerical value&mdash;you can also sort by date or timestamp fields:
+您可以继续按任意数量的字段值进行排序，以按正确的顺序获取结果。它不必是数值值＆mdash;您也可以按日期或时间戳字段进行排序：
 
 ```json
 "sort": [
@@ -271,9 +271,9 @@ You can continue to sort by any number of field values to get the results in jus
   ]
 ```
 
-A text field that is analyzed cannot be used to sort documents, because the inverted index only contains the individual tokenized terms and not the entire string. So you cannot sort by the `play_name`, for example.
+分析的文本字段不能用于对文档进行排序，因为倒置索引仅包含单个令牌术语而不是整个字符串。因此，您不能对`play_name`， 例如。
 
-To bypass this limitation, you can use a raw version of the text field mapped as a keyword type. In the following example, `play_name.keyword` is not analyzed and you have a copy of the full original version for sorting purposes:
+要绕过此限制，您可以使用映射的文本字段的原始版本作为关键字类型。在以下示例中，`play_name.keyword` 未分析，您有完整原始版本的副本以进行排序：
 
 ```json
 GET shakespeare/_search
@@ -295,13 +295,13 @@ GET shakespeare/_search
 }
 ```
 
-The results are sorted by the `play_name` field in alphabetical order.
+结果由`play_name` 字段按字母顺序排列。
 
-Use `sort` with the [`search_after` parameter]({{site.url}}{{site.baseurl}}/opensearch/search/paginate#the-search_after-parameter) for more efficient scrolling.
-The results start with the document that comes after the sort values you specify in the `search_after` array.
+使用`sort` 与[`search_after` 范围]({{site.url}}{{site.baseurl}}/opensearch/search/paginate#the-search_after-parameter) 为了更有效的滚动。
+结果始于您在`search_after` 大批。
 
-Make sure you have the same number of values in the `search_after` array as in the `sort` array, also ordered in the same way.
-In this case, you are requesting results starting with the document that comes after `line_id = 3202` and `speech_number = 8`:
+确保您在`search_after` 数组如`sort` 数组，也以相同的方式订购。
+在这种情况下，您要求从以后的文档开始`line_id = 3202` 和`speech_number = 8`：
 
 ```json
 GET shakespeare/_search
@@ -332,15 +332,15 @@ GET shakespeare/_search
 }
 ```
 
-## Sort mode
+## 排序模式
 
-The sort mode is applicable to sorting by array or multivalued fields. It specifies what array value should be chosen for sorting the document. For numeric fields that contain an array of numbers, you can sort by the `avg`, `sum`, or `median` modes. To sort by the minimum or maximum values, use the `min` or `max` modes that work for both numeric and string data types.
+排序模式适用于按数组或多值字段进行排序。它指定为对文档进行排序的数组值。对于包含数字数组的数字字段，您可以按`avg`，，，，`sum`， 或者`median` 模式。要按最小值或最大值进行排序，请使用`min` 或者`max` 用于数字和字符串数据类型的模式。
 
-The default mode is `min` for ascending sort order and `max` for descending sort order.
+默认模式为`min` 用于上升顺序和`max` 用于降序排序订单。
 
-The following example illustrates sorting by an array field using the sort mode.
+以下示例说明了使用排序模式通过数组字段进行排序。
 
-Consider an index that holds student grades. Index two documents into the index:
+考虑一个持有学生成绩的索引。将两个文档索引到索引：
 
 ```json
 PUT students/_doc/1
@@ -356,7 +356,7 @@ PUT students/_doc/2
 }
 ```
 
-Sort all students by highest grade average using the `avg` mode:
+使用最高年级的学生对所有学生进行分类`avg` 模式：
 
 ```
 GET students/_search
@@ -370,7 +370,7 @@ GET students/_search
 }
 ```
 
-The response contains students sorted by `grades` in descending order:
+回答包含由学生排序的学生`grades` 按顺序下降：
 
 ```json
 {
@@ -424,11 +424,11 @@ The response contains students sorted by `grades` in descending order:
 }
 ```
 
-## Sorting nested objects
+## 排序嵌套对象
 
-When sorting [nested]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/nested) objects, provide the `path` parameter specifying the path to the field on which to sort. 
+排序时[嵌套]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/nested) 对象，提供`path` 参数指定要排序字段的路径。
 
-For example, in the index `students`, map the variable `first_sem` as `nested`:
+例如，在索引中`students`，映射变量`first_sem` 作为`nested`：
 
 ```json
 PUT students
@@ -443,7 +443,7 @@ PUT students
 }
 ```
 
-Index two documents with nested fields:
+索引两个带有嵌套字段的文档：
 
 ```json
 PUT students/_doc/1
@@ -463,7 +463,7 @@ PUT students/_doc/2
 }
 ```
 
-When sorting by grade average, provide the path to the nested field:
+按平均成绩排序时，提供通往嵌套场的路径：
 
 ```json
 GET students/_search
@@ -484,11 +484,11 @@ GET students/_search
 }
 ```
 
-## Handling missing values
+## 处理缺失值
 
-The `missing` parameter specifies the handling of missing values. The built-in valid values are `_last` (list the documents with the missing value last) and `_first` (list the documents with the missing value first). The default value is `_last`. You can also specify a custom value to be used for missing documents as the sort value. 
+这`missing` 参数指定缺少值的处理。建造-在有效值中是`_last` （列出最后一个具有丢失值的文档）和`_first` （首先列出具有缺失值的文档）。默认值是`_last`。您还可以指定一个自定义值，用于丢失文档作为排序值。
 
-For example, you can index a document with an `average` field and another document without an `average` field:
+例如，您可以用`average` 字段和另一个文档没有`average` 场地：
 
 ```json
 PUT students/_doc/1
@@ -503,7 +503,7 @@ PUT students/_doc/2
 }
 ```
 
-Sort the documents, ordering the document with a missing field first:
+对文档进行排序，首先订购文档以缺少字段：
 
 ```json
 GET students/_search
@@ -522,7 +522,7 @@ GET students/_search
 }
 ```
 
-The response lists document 2 first:
+响应列表文档2首先：
 
 ```json
 {
@@ -569,11 +569,11 @@ The response lists document 2 first:
 }
 ```
 
-## Ignoring unmapped fields
+## 忽略未封闭的字段
 
-If a field is not mapped, a search request that sorts by this field fails by default. To avoid this, you can use the `unmapped_type` parameter, which signals to OpenSearch to ignore the field. For example, if you set `unmapped_type` to `long`, the field is treated as if it were mapped as type `long`. Additionally, all documents in the index that have an `unmapped_type` field are treated as if they had no value in this field, so they are not sorted by it.
+如果未映射字段，则默认情况下，该字段对此字段进行分类的搜索请求。为了避免这种情况，您可以使用`unmapped_type` 参数，该参数发信号以忽略字段。例如，如果您设置`unmapped_type` 到`long`，该场被视为被映射为类型`long`。此外，索引中的所有文档都有一个`unmapped_type` 字段被视为在这个领域没有价值，因此不会对其进行分类。
 
-For example, consider two indexes. Index a document that contains an `average` field in the first index:
+例如，考虑两个索引。索引包含一个的文档`average` 第一个索引中的字段：
 
 ```json
 PUT students/_doc/1
@@ -583,7 +583,7 @@ PUT students/_doc/1
 }
 ```
 
-Index a document that does not contain an `average` field in the second index:
+索引不包含一个文档`average` 第二个索引中的字段：
 
 ```json
 PUT students_no_map/_doc/2
@@ -592,7 +592,7 @@ PUT students_no_map/_doc/2
 }
 ```
 
-Search for all documents in both indexes and sort them by the `average` field:
+在索引中搜索所有文档，并通过`average` 场地：
 
 ```json
 GET students*/_search
@@ -610,7 +610,7 @@ GET students*/_search
 }
 ```
 
-By default, the second index produces an error because the `average` field is not mapped:
+默认情况下，第二个索引会产生错误，因为`average` 字段没有映射：
 
 ```json
 {
@@ -659,7 +659,7 @@ By default, the second index produces an error because the `average` field is no
 }
 ```
 
-You can specify the `unmapped_type` parameter so that the unmapped field is ignored:
+您可以指定`unmapped_type` 参数以便忽略未上限的字段：
 
 ```json
 GET students*/_search
@@ -678,7 +678,7 @@ GET students*/_search
 }
 ```
 
-The response contains both documents:
+响应包含两个文档：
 
 ```json
 {
@@ -725,9 +725,9 @@ The response contains both documents:
 }
 ```
 
-## Tracking scores
+## 跟踪分数
 
-By default, scores are not computed when sorting on a field. You can set `track_scores` to `true` to compute and track scores:
+默认情况下，在字段上排序时未计算得分。您可以设置`track_scores` 到`true` 计算和跟踪得分：
 
 ```json
 GET students/_search
@@ -746,21 +746,21 @@ GET students/_search
 }
 ```
 
-## Sorting by geo distance
+## 按地理距离分类
 
-You can sort documents by `_geo_distance`. The following parameters are supported.
+您可以通过`_geo_distance`。支持以下参数。
 
-Parameter | Description
-:--- | :---
-distance_type | Specifies the method of computing the distance. Valid values are `arc` and `plane`. The `plane` method is faster but less accurate for long distances or close to the poles. Default is `arc`.
-mode | Specifies how to handle a field with several geopoints. By default, documents are sorted by the shortest distance when the sort order is ascending and by the longest distance when the sort order is descending. Valid values are `min`, `max`, `median`, and `avg`.
-unit | Specifies the units used to compute sort values. Default is meters (`m`).
-ignore_unmapped | Specifies how to treat an unmapped field. Set `ignore_unmapped` to `true` to ignore unmapped fields. Default is `false` (produce an error when encountering an unmapped field).
+范围| 描述
+：--- | ：---
+dange_type| 指定计算距离的方法。有效值是`arc` 和`plane`。这`plane` 方法更快，但对于长距离或靠近电线杆的准确性较差。默认为`arc`。
+模式| 指定如何使用多个地理点处理字段。默认情况下，当排序顺序上升的最短距离和最长的距离时，文档的排序是最短的。有效值是`min`，，，，`max`，，，，`median`， 和`avg`。
+单元| 指定用于计算排序值的单元。默认为米（`m`）。
+ignore_unmapped| 指定如何处理未映射的字段。放`ignore_unmapped` 到`true` 忽略未映射的字段。默认为`false` （在遇到未绘制的字段时产生错误）。
 
-The `_geo_distance` parameter does not support `missing_values`. The distance is always considered to be `infinity` when a document does not contain the field used for computing distance.
-{: .note}
+这`_geo_distance` 参数不支持`missing_values`。距离总是被认为是`infinity` 当文档不包含用于计算距离的字段时。
+{： 。笔记}
 
-For example, index two documents with geopoints:
+例如，索引两个具有地理点的文档：
 
 ```json
 PUT testindex1/_doc/1
@@ -774,7 +774,7 @@ PUT testindex1/_doc/2
 }
 ```
 
-Search for all documents and sort them by the distance from the provided point:
+搜索所有文档，然后按距提供点的距离进行排序：
 
 ```json
 GET testindex1/_search
@@ -797,7 +797,7 @@ GET testindex1/_search
 }
 ```
 
-The response contains the sorted documents:
+响应包含分类的文档：
 
 ```json
 {
@@ -849,10 +849,10 @@ The response contains the sorted documents:
 }
 ```
 
-You can provide coordinates in any format supported by the geopoint field type. For a description of all formats, see the [geopoint field type documentation]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point).
-{: .note}
+您可以提供以Geopoint字段类型支持的任何格式的坐标。有关所有格式的描述，请参阅[地理点字段类型文档]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point)。
+{： 。笔记}
 
-To pass multiple geopoints to `_geo_distance`, use an array:
+将多个地理点传递给`_geo_distance`，使用一个数组：
 
 ```json
 GET testindex1/_search
@@ -875,8 +875,9 @@ GET testindex1/_search
 }
 ```
 
-For each document, the sorting distance is calculated as the minimum, maximum, or average (as specified by the `mode`) of the distances from all points provided in the search to all points in the document.
+对于每个文档，分类距离计算为最小，最大或平均值（按照`mode`）与搜索中提供的所有点与文档中所有点的距离的距离。
 
-## Performance considerations
+## 性能考虑
 
-Sorted field values are loaded into memory for sorting. Therefore, for minimum overhead we recommend mapping [numeric types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric) to the smallest acceptable types, like `short`, `integer`, and `float`. [String types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/string) should not have the sorted field analyzed or tokenized.
+排序的字段值将加载到内存中进行分类。因此，对于最少的开销，我们建议映射[数字类型]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric) 对于最小的可接受类型，例如`short`，，，，`integer`， 和`float`。[字符串类型]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/string) 不应对分类的字段进行分析或令牌化
+

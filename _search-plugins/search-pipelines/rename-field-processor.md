@@ -1,35 +1,35 @@
 ---
 layout: default
-title: Rename field
+title: 重命名字段
 nav_order: 20
 has_children: false
-parent: Search processors
-grand_parent: Search pipelines
+parent: 搜索处理器
+grand_parent: 搜索管道
 ---
 
-# Rename field processor
+# 重命名现场处理器
 
-The `rename_field` search response processor intercepts a search response and renames the specified field. This is useful when your index and your application use different names for the same field. For example, if you rename a field in your index, the `rename_field` processor can change the new name to the old one before sending the response to your application.
+这`rename_field` 搜索响应处理器拦截搜索响应并重命名指定字段。当您的索引和应用程序对同一字段使用不同的名称时，这很有用。例如，如果您将索引中的字段重命名为`rename_field` 处理器可以在将响应发送到您的应用程序之前将新名称更改为旧名称。
 
-## Request fields
+## 请求字段
 
-The following table lists all available request fields.
+下表列出了所有可用的请求字段。
 
-Field | Data type | Description
-:--- | :--- | :---
-`field` | String | The field to rename. Required.
-`target_field` | String | The new field name. Required.
-`tag` | String | The processor's identifier. 
-`description` | String | A description of the processor. 
-`ignore_failure` | Boolean | If `true`, OpenSearch [ignores any failure]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/creating-search-pipeline/#ignoring-processor-failures) of this processor and continues to run the remaining processors in the search pipeline. Optional. Default is `false`.
+场地| 数据类型| 描述
+：--- | ：--- | ：---
+`field` | 细绳| 重命名的字段。必需的。
+`target_field` | 细绳| 新的字段名称。必需的。
+`tag` | 细绳| 处理器的标识符。
+`description` | 细绳| 处理器的描述。
+`ignore_failure` | 布尔| 如果`true`，OpenSearch[忽略任何故障]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/creating-search-pipeline/#ignoring-processor-failures) 该处理器并继续在搜索管道中运行其余的处理器。选修的。默认为`false`。
 
-## Example 
+## 例子
 
-The following example demonstrates using a search pipeline with a `rename_field` processor.
+以下示例证明了使用搜索管道与`rename_field` 处理器。
 
-### Setup
+### 设置
 
-Create an index named `my_index` and index a document with the field `message`:
+创建一个名称的索引`my_index` 并将文档索引`message`：
 
 ```json
 POST /my_index/_doc/1
@@ -38,11 +38,11 @@ POST /my_index/_doc/1
   "visibility":"public"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-### Creating a search pipeline 
+### 创建搜索管道
 
-The following request creates a search pipeline with a `rename_field` response processor that renames the field `message` to `notification`:
+以下请求会创建一个使用`rename_field` 重命名字段的响应处理器`message` 到`notification`：
 
 ```json
 PUT /_search/pipeline/my_pipeline
@@ -57,24 +57,24 @@ PUT /_search/pipeline/my_pipeline
   ]
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-### Using a search pipeline
+### 使用搜索管道
 
-Search for documents in `my_index` without a search pipeline:
+搜索文档`my_index` 没有搜索管道：
 
 ```json
 GET /my_index/_search
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The response contains the field `message`:
+响应包含字段`message`：
 
-<details open markdown="block">
+<详细信息打开降价="block">
   <summary>
-    Response
+    回复
   </summary>
-  {: .text-delta}
+  {： 。文本-三角洲}
 ```json
 {
   "took" : 1,
@@ -105,22 +105,22 @@ The response contains the field `message`:
   }
 }
 ```
-</details>
+</delect>
 
-To search with a pipeline, specify the pipeline name in the `search_pipeline` query parameter:
+要使用管道搜索，请在`search_pipeline` 查询参数：
 
 ```json
 GET /my_index/_search?search_pipeline=my_pipeline
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The `message` field has been renamed to `notification`:
+这`message` 现场已重命名为`notification`：
 
-<details open markdown="block">
+<详细信息打开降价="block">
   <summary>
-    Response
+    回复
   </summary>
-  {: .text-delta}
+  {： 。文本-三角洲}
 ```json
 {
   "took" : 2,
@@ -151,9 +151,9 @@ The `message` field has been renamed to `notification`:
   }
 }
 ```
-</details>
+</delect>
 
-You can also use the `fields` option to search for specific fields in a document:
+您也可以使用`fields` 在文档中搜索特定字段的选项：
 
 ```json
 POST /my_index/_search?pretty&search_pipeline=my_pipeline
@@ -161,15 +161,15 @@ POST /my_index/_search?pretty&search_pipeline=my_pipeline
     "fields":["visibility", "message"]
 }
 ``` 
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-In the response, the field `message` has been renamed to `notification`:
+在响应中，字段`message` 已重命名为`notification`：
 
-<details open markdown="block">
+<详细信息打开降价="block">
   <summary>
-    Response
+    回复
   </summary>
-  {: .text-delta}
+  {： 。文本-三角洲}
 ```json
 {
   "took" : 4,
@@ -209,4 +209,5 @@ In the response, the field `message` has been renamed to `notification`:
 }
 
 ```
-</details>
+</详细信息
+

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Neural search
+title: 神经搜索
 nav_order: 200
 has_children: true
 has_toc: false
@@ -8,28 +8,29 @@ redirect_from:
   - /neural-search-plugin/index/
 ---
 
-# Neural search
+# 神经搜索
 
-Neural search transforms text into vectors and facilitates vector search both at ingestion time and at search time. During ingestion, neural search transforms document text into vector embeddings and indexes both the text and its vector embeddings in a vector index. When you use a neural query during search, neural search converts the query text into vector embeddings, uses vector search to compare the query and document embeddings, and returns the closest results.
+神经搜索将文本转变为矢量，并在摄入时和搜索时间促进矢量搜索。在摄入期间，神经搜索将文档文本转换为矢量嵌入，并将文本及其矢量嵌入在矢量索引中。当您在搜索过程中使用神经查询时，神经搜索将查询文本转换为矢量嵌入，使用矢量搜索来比较查询和文档嵌入，并返回最接近的结果。
 
-Before you ingest documents into an index, documents are passed through a machine learning (ML) model, which generates vector embeddings for the document fields. When you send a search request, the query text or image is also passed through the ML model, which generates the corresponding vector embeddings. Then neural search performs a vector search on the embeddings and returns matching documents.
+在将文档摄入索引之前，文档将通过机器学习（ML）模型传递，该模型生成了文档字段的向量嵌入。当您发送搜索请求时，查询文本或图像也会通过ML模型传递，该模型生成相应的向量嵌入。然后，神经搜索在嵌入式上执行矢量搜索，并返回匹配文档。
 
-## Prerequisite
+## 先决条件
 
-Before using neural search, you must set up an ML model. You can either use a pretrained model provided by OpenSearch, upload your own model to OpenSearch, or connect to a foundation model hosted on an external platform. For more information about ML models, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Connecting to remote models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index/). For a step-by-step tutorial, see [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
+在使用神经搜索之前，您必须设置ML模型。您可以使用OpenSearch提供的验证模型，将自己的模型上传到OpenSearch，或将其连接到托管在外部平台上的基础模型。有关ML模型的更多信息，请参阅[在OpenSearch中使用ML模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) 和[连接到远程型号]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index/)。一步-经过-步骤教程，请参阅[语义搜索]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/)。
 
-## Set up neural search
+## 设置神经搜索
 
-Once you set up an ML model, choose one of the following neural search types to learn how to use your model for neural search.
+设置ML模型后，请选择以下神经搜索类型之一，以了解如何使用模型进行神经搜索。
 
-### Neural text search
+### 神经文本搜索
 
-Neural text search uses dense retrieval based on text embedding models to search text data. For detailed setup steps, see [Text search]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/). 
+神经文本搜索使用基于文本嵌入模型的密集检索来搜索文本数据。有关详细的设置步骤，请参阅[文字搜索]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/)。
 
-### Multimodal search
+### 多模式搜索
 
-Multimodal search uses multimodal embedding models to search text and image data. For detailed setup steps, see  [Multimodal search]({{site.url}}{{site.baseurl}}/search-plugins/neural-multimodal-search/).
+多模式搜索使用多模式嵌入模型来搜索文本和图像数据。有关详细的设置步骤，请参阅[多模式搜索]({{site.url}}{{site.baseurl}}/search-plugins/neural-multimodal-search/)。
 
-### Neural sparse search
+### 神经稀疏搜索
 
-Neural sparse search uses sparse retrieval based on sparse embedding models to search text data. For detailed setup steps, see [Sparse search]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/).
+神经稀疏搜索使用基于稀疏嵌入模型的稀疏检索来搜索文本数据。有关详细的设置步骤，请参阅[稀疏搜索]({{site.url}}{{site.baseurl}}/search-plugins/neural-sparse-search/)。
+

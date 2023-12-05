@@ -1,31 +1,31 @@
 ---
 layout: default
-title: Schedule reports with AWS Lambda
+title: 与AWS Lambda计划报告
 nav_order: 30
-parent: Reporting using the CLI
-grand_parent: Reporting
+parent: 使用CLI报告
+grand_parent: 报告
 redirect_from:
   - /dashboards/reporting-cli/rep-cli-lambda/
 ---
 
-# Scheduling reports with AWS Lambda
+# 与AWS lambda进行计划报告
 
-You can use AWS Lambda with the Reporting CLI tool to specify an AWS Lambda function to trigger the report generation.
+您可以将AWS Lambda与报告CLI工具一起指定AWS lambda功能以触发报告生成。
 
-This requires that you use an AMD64 system and Docker.
+这要求您使用AMD64系统和Docker。
 
-### Prerequisites
+### 先决条件
 
-To use the Reporting CLI with AWS Lambda, you need to do the following preliminary steps.
+要将报告CLI与AWS Lambda一起使用，您需要执行以下初步步骤。
 
-- Get an AWS account. For instructions, see [Creating an AWS account](https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-creating.html) in the AWS Account Management reference guide.
-- Set up an Amazon Elastic Container Registry (ECR). For instructions, see [Getting started with Amazon ECR using the AWS Management Console](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-console.html).
+- 获取一个AWS帐户。有关说明，请参阅[创建一个AWS帐户](https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-creating.html) 在AWS帐户管理参考指南中。
+- 设置Amazon弹性容器注册表（ECR）。有关说明，请参阅[使用AWS管理控制台开始使用Amazon ECR](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-console.html)。
 
-## Step 1: Create a container image with a Dockerfile
+## 步骤1：用Dockerfile创建一个容器图像
 
-You need to assemble the container image by running a Dockerfile. When you run the Dockerfile, it downloads the OpenSearch artifact required to use the Reporting CLI. To learn more about Dockerfiles, see [Dockerfile reference](https://docs.docker.com/engine/reference/builder/).
+您需要通过运行DockerFile来组装容器图像。运行Dockerfile时，它下载了使用报告CLI所需的OpenSearch文物。要了解有关Dockerfiles的更多信息，请参阅[Dockerfile参考](https://docs.docker.com/engine/reference/builder/)。
 
-Copy the following sample configurations into a Dockerfile:
+将以下示例配置复制到dockerfile：
 
 ```dockerfile
 # Define function directory
@@ -84,51 +84,51 @@ CMD [ "/function/node_modules/@opensearch-project/reporting-cli/src/index.handle
 
 ```
 
-Next, run the following build command within the same directory that contains the Dockerfile:
+接下来，在包含DockerFile的同一目录中运行以下构建命令：
 
 ```
 docker build -t opensearch-reporting-cli .
 ```
 
-## Step 2: Create a private repository with Amazon ECR
+## 步骤2：使用Amazon ECR创建一个私人存储库
 
-You need to follow the instructions to create an image repository, see [Getting started with Amazon ECR using the AWS Management Console](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-console.html).
+您需要按照说明来创建图像存储库，请参阅[使用AWS管理控制台开始使用Amazon ECR](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-console.html)。
 
-Give your repository the name `opensearch-reporting-cli`.
+给您的存储库名称`opensearch-reporting-cli`。
 
-In addition to the Amazon ECR instructions, you need to make several adjustments for the Reporting CLI to function properly as described in the following steps in this procedure.
+除了Amazon ECR指令外，您还需要对报告CLI进行多次调整，以正常运行，如以下步骤中所述。
 
-## Step 3: Push the image to the private repository
+## 步骤3：将图像推到私人存储库
 
-You need to get several commands from the AWS ECR Console to run within the Dockerfile directory.
+您需要从AWS ECR控制台中获取多个命令才能在DockerFile目录中运行。
 
-1. After you create your repository, select it from **Private repositories**.
-1. Choose **view push commands**.
-1. Copy and run each command shown in **Push commands for opensearch-reporting-cli** sequentially in the Dockerfile directory.
+1. 创建存储库后，从**私人存储库**。
+1. 选择**查看推送命令**。
+1. 复制并运行显示的每个命令**推送命令进行openSearch-报告-CLI** 依次在Dockerfile目录中。
 
-For more details about Docker push commands, see [Pushing a Docker image](https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-push-ecr-image.html) in the Amazon ECR user guide.
+有关Docker推送命令的更多详细信息，请参阅[推出码头图像](https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-push-ecr-image.html) 在《亚马逊ECR用户指南》中。
 
-## Step 4: Create a Lambda function with the container image
+## 步骤4：使用容器图像创建lambda功能
 
-Now that you have a container image created for the Reporting CLI, you need to create a function defined as the container image.
+现在，您已经为报告CLI创建了一个容器映像，需要创建一个定义为容器映像的函数。
 
-1. Open the AWS Lambda console and choose [Functions](https://us-west-2.console.aws.amazon.com/lambda/home?region=us-west-2#/functions).
-1. Choose **Create function**, then choose **Container image** and fill in a name for the function.
-1. In **Container image URI**, choose **Browse images** and select `opensearch-reporting-cli` for the image repository.
-1. In **Images** select the image, and choose **Select image**.
-1. In **Architecture**, choose **x86_64**.
-1. Choose **Create function**.
-1. Go to **Lambda** > **functions** and choose the function you created.
-1. Choose **Configuration > General configuration > Edit timeout** and set the timeout in lambda to 5 minutes to allow the Reporting CLI to generate the report.
-1. Change the **Ephemeral storage** setting to at least 1024MB. The default setting is not a sufficient storage amount to support report generation.
+1. 打开AWS Lambda控制台并选择[功能](https://us-west-2.console.aws.amazon.com/lambda/home?region=us-west-2#/functions)。
+1. 选择**创建功能**，然后选择**容器图像** 并填写功能的名称。
+1. 在**容器图像URI**， 选择**浏览图像** 并选择`opensearch-reporting-cli` 对于图像存储库。
+1. 在**图片** 选择图像，然后选择**选择图像**。
+1. 在**建筑学**， 选择**x86_64**。
+1. 选择**创建功能**。
+1. 去**Lambda** >**功能** 并选择您创建的功能。
+1. 选择**配置>常规配置>编辑超时** 并将Lambda的超时设置为5分钟，以允许报告CLI生成报告。
+1. 更改**短暂存储** 设置为至少1024MB。默认设置不足以支持报告生成。
 
-1. Next, test the function either by providing values JSON format or by providing AWS Lambda environment variables.
+1. 接下来，通过提供值JSON格式或提供AWS lambda环境变量来测试函数。
 
-- If the function contains fixed values, such as email address you do not need a JSON file. You can specify an environment variable in AWS Lambda.
-- If the function takes a variable key-value pair, then you need to specify the values in the JSON with the same naming convention as command options, for example the `--credentials` option requires the username and password.
-{: .note }
+- 如果该功能包含固定值，例如电子邮件地址，则不需要JSON文件。您可以在AWS lambda中指定环境变量。
+- 如果功能采用变量键-值对，然后您需要用与命令选项相同的命名约定指定JSON中的值，例如`--credentials` 选项需要用户名和密码。
+{： 。笔记 }
 
- The following example shows fixed values provided for the sender and recipient email addresses:
+ 以下示例显示了为发送者和收件人电子邮件地址提供的固定值：
 
 ```json
 {
@@ -140,25 +140,25 @@ Now that you have a container image created for the Reporting CLI, you need to c
 }
 ```
 
-To learn more about AWS Lambda functions, see [Deploying Lambda functions as container images](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-images.html) in the AWS Lambda documentation.
-## Step 5: Add the trigger to start the AWS Lambda function
+要了解有关AWS Lambda功能的更多信息，请参阅[部署Lambda充当容器图像](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-images.html) 在AWS Lambda文档中。
+## 步骤5：添加触发器以启动AWS lambda功能
 
-Set the trigger to start running the report. AWS Lambda can use any AWS service as a trigger, such as SNS, S3, or an AWS CloudWatch EventBridge.
+设置扳机以开始运行报告。AWS Lambda可以将任何AWS服务用作触发器，例如SNS，S3或AWS CloudWatch Eventbridge。
 
-1. In the **Triggers** section, choose **Add trigger**.
-1. Select a trigger from the list. For example, you can set an AWS CloudWatch Event. To learn more about Amazon ECR events you can schedule, see [Sample events from Amazon ECR](https://docs.aws.amazon.com/AmazonECR/latest/userguide/ecr-eventbridge.html#ecr-eventbridge-bus).
-1. Choose **Test** to initiate the function.
+1. 在里面**触发器** 部分，选择**添加触发器**。
+1. 从列表中选择一个触发器。例如，您可以设置AWS CloudWatch事件。要了解有关亚马逊ECR活动的更多信息，请参阅[亚马逊ECR的样本事件](https://docs.aws.amazon.com/AmazonECR/latest/userguide/ecr-eventbridge.html#ecr-eventbridge-bus)。
+1. 选择**测试** 启动功能。
 
-## (Optional) Step 6: Add the role permission for Amazon SES
+## （可选）步骤6：添加亚马逊SES的角色权限
 
-If you want to use Amazon SES for the email transport, you need to set up permissions.
+如果您想将Amazon SES用于电子邮件运输，则需要设置权限。
 
-1. Select **Configuration** and choose **Execution role**.
-1. In **Summary**, choose **Permissions**.
-1. Select **{}JSON** to open the JSON policy editor.
-1. Add the permissions for the Amazon SES resource that you want to use.
+1. 选择**配置** 并选择**执行角色**。
+1. 在**概括**， 选择**权限**。
+1. 选择**{} JSON** 打开JSON政策编辑。
+1. 添加要使用的Amazon SES资源的权限。
 
-The following example provides the resource ARN for the send email action:
+以下示例为发送电子邮件措施提供了资源：
 
 ```json
 {
@@ -171,4 +171,5 @@ The following example provides the resource ARN for the send email action:
 }
 ```
 
-To learn more about setting role permissions, see [Permissions](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-images.html#gettingstarted-images-permissions) in the AWS Lambda user guide.
+要了解有关设定角色权限的更多信息，请参阅[权限](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-images.html#gettingstarted-images-permissions) 在AWS Lambda用户指南中
+

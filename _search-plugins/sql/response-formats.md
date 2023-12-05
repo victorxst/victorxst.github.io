@@ -1,21 +1,21 @@
 ---
 layout: default
-title: Response formats
-parent: SQL and PPL
+title: 响应格式
+parent: SQL和PPL
 nav_order: 2
 ---
 
-# Response formats
+# 响应格式
 
-The SQL plugin provides the `jdbc`, `csv`, `raw`, and `json` response formats that are useful for different purposes. The `jdbc` format is widely used because it provides the schema information and adds more functionality, such as pagination. Besides the JDBC driver, various clients can benefit from a detailed and well-formatted response.
+SQL插件提供`jdbc`，，，，`csv`，，，，`raw`， 和`json` 对不同目的有用的响应格式。这`jdbc` 格式被广泛使用，因为它提供了架构信息并添加了更多功能，例如分页。除JDBC驱动程序外，各种客户还可以从详细且良好的-格式的响应。
 
-## JDBC format
+## JDBC格式
 
-By default, the SQL plugin returns the response in the standard JDBC format. This format is provided for the JDBC driver and clients that need both the schema and the result set to be well formatted.
+默认情况下，SQL插件以标准JDBC格式返回响应。为JDBC驱动程序和需要架构的JDBC驱动程序提供了这种格式，并且结果设置为良好的格式。
 
-#### Example request
+#### 示例请求
 
-The following query does not specify the response format, so the format is set to `jdbc`:
+以下查询未指定响应格式，因此将格式设置为`jdbc`：
 
 ```json
 POST _plugins/_sql
@@ -24,9 +24,9 @@ POST _plugins/_sql
 }
 ```
 
-#### Example response
+#### 示例响应
 
-In the response, the `schema` contains the field names and types, and the `datarows` field contains the result set:
+在回应中`schema` 包含字段名称和类型，以及`datarows` 字段包含结果集：
 
 ```json
 {
@@ -61,9 +61,9 @@ In the response, the `schema` contains the field names and types, and the `datar
 }
 ```
 
-If an error of any type occurs, OpenSearch returns the error message.
+如果发生任何类型的错误，OpenSearch返回错误消息。
 
-The following query searches for a non-existent field `unknown`:
+以下查询搜索非-存在的字段`unknown`：
 
 ```json
 POST /_plugins/_sql
@@ -72,7 +72,7 @@ POST /_plugins/_sql
 }
 ```
 
-The response contains the error message and the cause of the error:
+响应包含错误消息和错误的原因：
 
 ```json
 {
@@ -85,13 +85,13 @@ The response contains the error message and the cause of the error:
 }
 ```
 
-## OpenSearch DSL JSON format
+## OpenSearch DSL JSON格式
 
-If you set the format to `json`, the original OpenSearch response is returned in JSON format. Because this is the native response from OpenSearch, extra effort is needed to parse and interpret it.
+如果将格式设置为`json`，原始OpenSearch响应以JSON格式返回。因为这是Opensearch的本地响应，因此需要额外的努力来解析和解释它。
 
-#### Example request
+#### 示例请求
 
-The following query sets the response format to `json`:
+以下查询将响应格式设置为`json`：
 
 ```json
 POST _plugins/_sql?format=json
@@ -100,9 +100,9 @@ POST _plugins/_sql?format=json
 }
 ```
 
-#### Example response
+#### 示例响应
 
-The response is the original response from OpenSearch:
+响应是OpenSearch的原始响应：
 
 ```json
 {
@@ -153,11 +153,11 @@ The response is the original response from OpenSearch:
 }
 ```
 
-## CSV format
+## CSV格式
 
-You can also specify to return results in CSV format. 
+您还可以指定以CSV格式返回结果。
 
-#### Example request
+#### 示例请求
 
 ```json
 POST /_plugins/_sql?format=csv
@@ -166,7 +166,7 @@ POST /_plugins/_sql?format=csv
 }
 ```
 
-#### Example response
+#### 示例响应
 
 ```text
 firstname,lastname,age
@@ -175,16 +175,16 @@ Amber,Duke,32
 Dale,Adams,33
 Hattie,Bond,36
 ```
-### Sanitizing results in CSV format
+### 用CSV格式进行消毒结果
 
-By default, OpenSearch sanitizes header cells (field names) and data cells (field contents) according to the following rules:
+默认情况下，OpenSearch根据以下规则对标头单元（字段名称）和数据单元格（字段内容）进行了清理：
 
-- If a cell starts with `+`, `-`, `=` , or `@`, the sanitizer inserts a single quote (`'`) at the start of the cell.
-- If a cell contains one or more commas (`,`), the sanitizer surrounds the cell with double quotes (`"`).
+- 如果一个单元开始`+`，，，，`-`，，，，`=` ， 或者`@`，消毒剂插入一个报价（`'`）在细胞开始时。
+- 如果一个单元包含一个或多个逗号（`,`），消毒剂用双引号围绕电池（`"`）。
 
-### Example 
+### 例子
 
-The following query indexes a document with cells that either start with special characters or contain commas:
+以下查询索引了一个文档，其中包含特殊字符开头或包含逗号的单元格：
 
 ```json
 PUT /userdata/_doc/1?refresh=true
@@ -195,7 +195,7 @@ PUT /userdata/_doc/1?refresh=true
 }
 ```
 
-You can use the query below to request results in CSV format:
+您可以使用以下查询以CSV格式请求结果：
 
 ```json
 POST /_plugins/_sql?format=csv
@@ -204,14 +204,14 @@ POST /_plugins/_sql?format=csv
 }
 ```
 
-In the response, cells that start with special characters are prefixed with `'`. The cell that has commas is surrounded with quotation marks:
+在响应中，以特殊字符开头的单元格有前缀`'`。带有逗号的单元被引号包围：
 
 ```text
 '+firstname,'=lastname,address
 'Hattie,'@Bond,"671 Bristol Street, Dente, TN"
 ```
 
-To skip sanitizing, set the `sanitize` query parameter to false:
+要跳过消毒，请设置`sanitize` 查询参数到false：
 
 ```json
 POST /_plugins/_sql?format=csvandsanitize=false
@@ -220,18 +220,18 @@ POST /_plugins/_sql?format=csvandsanitize=false
 }
 ```
 
-The response contains the results in the original CSV format:
+响应包含原始CSV格式的结果：
 
 ```text
 =lastname,address,+firstname
 @Bond,"671 Bristol Street, Dente, TN",-Hattie
 ```
 
-## Raw format
+## 原始格式
 
-You can use the raw format to pipe the results to other command line tools for post-processing.
+您可以使用原始格式将结果管输送到其他命令行工具以供发布-加工。
 
-#### Example request
+#### 示例请求
 
 ```json
 POST /_plugins/_sql?format=raw
@@ -240,7 +240,7 @@ POST /_plugins/_sql?format=raw
 }
 ```
 
-#### Example response
+#### 示例响应
 
 ```text
 Nanette|Bates|28
@@ -249,13 +249,13 @@ Dale|Adams|33
 Hattie|Bond|36
 ```
 
-By default, OpenSearch sanitizes results in `raw` format according to the following rule:
+默认情况下，OpenSearch对结果进行了清理`raw` 根据以下规则格式：
 
-- If a data cell contains one or more pipe characters (`|`), the sanitizer surrounds the cell with double quotes.
+- 如果数据单元包含一个或多个管道字符（`|`），消毒剂用双引号围绕着细胞。
 
-### Example 
+### 例子
 
-The following query indexes a document with pipe characters (`|`) in its fields:
+以下查询索引带有管子字符的文档（`|`）在其领域：
 
 ```json
 PUT /userdata/_doc/1?refresh=true
@@ -266,7 +266,7 @@ PUT /userdata/_doc/1?refresh=true
 }
 ```
 
-You can use the query below to request results in `raw` format:
+您可以使用下面的查询请求结果`raw` 格式：
 
 ```json
 POST /_plugins/_sql?format=raw
@@ -275,7 +275,7 @@ POST /_plugins/_sql?format=raw
 }
 ```
 
-The query returns cells with the `|` character surrounded by quotation marks:
+查询通过`|` 引号包围的角色：
 
 ```text
 "|address"|=lastname|+firstname

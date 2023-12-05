@@ -1,33 +1,33 @@
 ---
 layout: default
-title: Text search
+title: 文字搜索
 nav_order: 10
 has_children: false
-parent: Neural search
+parent: 神经搜索
 ---
 
-# Neural text search
+# 神经文本搜索
 
-Use text search for text data. In neural search, text search is facilitated by text embedding models. Text search creates a dense vector (a list of floats) and ingests data into a k-NN index. 
+使用文本搜索文本数据。在神经搜索中，文本搜索是通过文本嵌入模型来促进的。文本搜索创建一个密集的向量（浮子列表）并将数据摄入k-NN索引。
 
-**PREREQUISITE**<br>
-Before using text search, you must set up a text embedding model. For more information, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Connecting to remote models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index/).
-{: .note}
+**先决条件**<br>
+在使用文本搜索之前，必须设置文本嵌入模型。有关更多信息，请参阅[在OpenSearch中使用ML模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) 和[连接到远程型号]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index/)。
+{： 。笔记}
 
-## Using text search
+## 使用文本搜索
 
-To use text search, follow these steps:
+要使用文本搜索，请执行以下步骤：
 
-1. [Create an ingest pipeline](#step-1-create-an-ingest-pipeline).
-1. [Create an index for ingestion](#step-2-create-an-index-for-ingestion).
-1. [Ingest documents into the index](#step-3-ingest-documents-into-the-index).
-1. [Search the index using neural search](#step-4-search-the-index-using-neural-search).
+1. [创建摄入管道](#step-1-create-an-ingest-pipeline)。
+1. [创建摄入索引](#step-2-create-an-index-for-ingestion)。
+1. [摄取索引的文档](#step-3-ingest-documents-into-the-index)。
+1. [使用神经搜索搜索索引](#step-4-search-the-index-using-neural-search)。
 
-## Step 1: Create an ingest pipeline
+## 步骤1：创建一个摄入管道
 
-To generate vector embeddings, you need to create an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) that contains a [`text_embedding` processor]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/processors/text-embedding/), which will convert the text in a document field to vector embeddings. The processor's `field_map` determines the input fields from which to generate vector embeddings and the output fields in which to store the embeddings.
+要生成向量嵌入，您需要创建一个[摄入管道]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) 其中包含一个[`text_embedding` 处理器]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/processors/text-embedding/)，这将将文档字段中的文本转换为向量嵌入。处理器的`field_map` 确定从中生成向量嵌入的输入字段以及用于存储嵌入的输出字段。
 
-The following example request creates an ingest pipeline where the text from `passage_text` will be converted into text embeddings and the embeddings will be stored in `passage_embedding`:
+以下示例请求创建了一个摄入的管道，其中文本来自`passage_text` 将转换为文本嵌入，嵌入将存储在`passage_embedding`：
 
 ```json
 PUT /_ingest/pipeline/nlp-ingest-pipeline
@@ -45,13 +45,13 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
   ]
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-## Step 2: Create an index for ingestion
+## 步骤2：创建摄入索引
 
-In order to use the text embedding processor defined in your pipeline, create a k-NN index, adding the pipeline created in the previous step as the default pipeline. Ensure that the fields defined in the `field_map` are mapped as correct types. Continuing with the example, the `passage_embedding` field must be mapped as a k-NN vector with a dimension that matches the model dimension. Similarly, the `passage_text` field should be mapped as `text`.
+为了使用管道中定义的文本嵌入处理器，创建k-NN索引，将上一步中创建的管道添加为默认管道。确保在`field_map` 被映射为正确的类型。继续以示例为例`passage_embedding` 字段必须映射为k-NN向量具有与模型维度相匹配的维数。同样，`passage_text` 字段应映射为`text`。
 
-The following example request creates a k-NN index that is set up with a default ingest pipeline:
+以下示例请求创建k-使用默认摄入管道设置的NN索引：
 
 ```json
 PUT /my-nlp-index
@@ -82,13 +82,13 @@ PUT /my-nlp-index
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-For more information about creating a k-NN index and its supported methods, see [k-NN index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/).
+有关创建K的更多信息-NN索引及其支持的方法，请参阅[k-NN索引]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/)。
 
-## Step 3: Ingest documents into the index
+## 步骤3：将文档摄入索引
 
-To ingest documents into the index created in the previous step, send the following requests:
+要将文档摄取到上一步中创建的索引中，请发送以下请求：
 
 ```json
 PUT /my-nlp-index/_doc/1
@@ -97,7 +97,7 @@ PUT /my-nlp-index/_doc/1
   "id": "s1"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
 ```json
 PUT /my-nlp-index/_doc/2
@@ -106,15 +106,15 @@ PUT /my-nlp-index/_doc/2
   "id": "s2"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-Before the document is ingested into the index, the ingest pipeline runs the `text_embedding` processor on the document, generating text embeddings for the `passage_text` field. The indexed document includes the `passage_text` field, which contains the original text, and the `passage_embedding` field, which contains the vector embeddings. 
+在将文档摄入索引之前，摄入管道运行`text_embedding` 文档上的处理器，生成文本嵌入`passage_text` 场地。索引文档包括`passage_text` 字段，其中包含原始文本，`passage_embedding` 字段，其中包含向量嵌入。
 
-## Step 4: Search the index using neural search
+## 步骤4：使用神经搜索搜索索引
 
-To perform vector search on your index, use the `neural` query clause either in the [k-NN plugin API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api/#search-model) or [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) queries. You can refine the results by using a [k-NN search filter]({{site.url}}{{site.baseurl}}/search-plugins/knn/filter-search-knn/).
+要在您的索引上执行向量搜索，请使用`neural` 查询子句在[k-NN插件API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api/#search-model) 或者[查询DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) 查询。您可以使用一个[k-NN搜索过滤器]({{site.url}}{{site.baseurl}}/search-plugins/knn/filter-search-knn/)。
 
-The following example request uses a Boolean query to combine a filter clause and two query clauses---a neural query and a `match` query. The `script_score` query assigns custom weights to the query clauses:
+以下示例请求使用布尔查询来组合过滤器子句和两个查询条款---神经查询和一个`match` 询问。这`script_score` 查询将自定义权重分配给查询条款：
 
 ```json
 GET /my-nlp-index/_search
@@ -163,9 +163,9 @@ GET /my-nlp-index/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The response contains the matching document:
+响应包含匹配文档：
 
 ```json
 {
@@ -198,11 +198,11 @@ The response contains the matching document:
 }
 ```
 
-## Setting a default model on an index or field
+## 在索引或字段上设置默认模型
 
-A [`neural`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/) query requires a model ID for generating vector embeddings. To eliminate passing the model ID with each neural query request, you can set a default model on a k-NN index or a field. 
+A[`neural`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/) 查询需要一个用于生成向量嵌入的模型ID。为了消除每个神经查询请求的传递模型ID，您可以在k上设置默认模型-NN索引或字段。
 
-First, create a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) with a [`neural_query_enricher`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-query-enricher/) request processor. To set a default model for an index, provide the model ID in the `default_model_id` parameter. To set a default model for a specific field, provide the field name and the corresponding model ID in the `neural_field_default_id` map. If you provide both `default_model_id` and `neural_field_default_id`, `neural_field_default_id` takes precedence:
+首先，创建一个[搜索管道]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) 与[`neural_query_enricher`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-query-enricher/) 请求处理器。要为索引设置默认模型，请在`default_model_id` 范围。要为特定字段设置默认模型，请在“`neural_field_default_id` 地图。如果您提供两者`default_model_id` 和`neural_field_default_id`，，，，`neural_field_default_id` 优先：
 
 ```json
 PUT /_search/pipeline/default_model_pipeline 
@@ -220,9 +220,9 @@ PUT /_search/pipeline/default_model_pipeline
   ]
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-Then set the default model for your index:
+然后为您的索引设置默认模型：
 
 ```json
 PUT /my-nlp-index/_settings
@@ -230,9 +230,9 @@ PUT /my-nlp-index/_settings
   "index.search.default_pipeline" : "default_model_pipeline"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-You can now omit the model ID when searching:
+现在，您可以在搜索时省略模型ID：
 
 ```json
 GET /my-nlp-index/_search
@@ -252,9 +252,9 @@ GET /my-nlp-index/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The response contains both documents:
+响应包含两个文档：
 
 ```json
 {

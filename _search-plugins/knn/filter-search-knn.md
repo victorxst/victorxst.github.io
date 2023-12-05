@@ -1,87 +1,87 @@
 ---
 layout: default
-title: k-NN search with filters
+title: k-NN搜索过滤器
 nav_order: 20
 parent: k-NN
 has_children: false
 has_math: true
 ---
 
-# k-NN search with filters
+# k-NN搜索过滤器
 
-To refine k-NN results, you can filter a k-NN search using one of the following methods:
+精炼k-nn结果，您可以过滤k-使用以下方法之一进行nn搜索：
 
-- [Efficient k-NN filtering](#efficient-k-nn-filtering): This approach applies filtering _during_ the k-NN search, as opposed to before or after the k-NN search, which ensures that `k` results are returned (if there are at least `k` results in total). This approach is supported by the following engines:
-  - Lucene engine with a Hierarchical Navigable Small World (HNSW) algorithm (k-NN plugin versions 2.4 and later) 
-  - Faiss engine with an HNSW algorithm (k-NN plugin versions 2.9 and later) or IVF algorithm (k-NN plugin versions 2.10 and later)
+- [高效k-NN过滤](#efficient-k-nn-filtering)：这种方法应用过滤_During_ k-nn搜索，而不是k之前或之后-nn搜索，这确保了`k` 返回结果（如果至少有`k` 总共结果）。这种方法得到以下引擎的支持：
+  - Lucene Engine具有层次可通航的小世界（HNSW）算法（K-NN插件版本2.4及以后）
+  - 带有HNSW算法的Faiss引擎（K-NN插件版本2.9及以后）或IVF算法（k-NN插件版本2.10及以后）
 
--  [Post-filtering](#post-filtering): Because it is performed after the k-NN search, this approach may return significantly fewer than `k` results for a restrictive filter. You can use the following two filtering strategies for this approach:
-    - [Boolean post-filter](#boolean-filter-with-ann-search): This approach runs an [approximate nearest neighbor (ANN)]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) search and then applies a filter to the results. The two query parts are executed independently, and then the results are combined based on the query operator (`should`, `must`, and so on) provided in the query. 
-    - [The `post_filter` parameter](#post-filter-parameter): This approach runs an [ANN]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) search on the full dataset and then applies the filter to the k-NN results.
+-  [邮政-过滤](#post-filtering)：因为它是在k之后执行的-nn搜索，这种方法的返回可能少于`k` 限制性过滤器的结果。您可以为此方法使用以下两个过滤策略：
+    - [布尔邮报-筛选](#boolean-filter-with-ann-search)：这种方法运行[大约最近的邻居（ANN）]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) 搜索然后将过滤器应用于结果。两个查询零件是独立执行的，然后根据查询操作员组合结果（`should`，，，，`must`在查询中提供的）。
+    - [这`post_filter` 范围](#post-filter-parameter)：这种方法运行[安]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) 在完整数据集上搜索，然后将过滤器应用于K-NN结果。
 
-- [Scoring script filter](#scoring-script-filter): This approach involves pre-filtering a document set and then running an exact k-NN search on the filtered subset. It may have high latency and does not scale when filtered subsets are large. 
+- [评分脚本过滤器](#scoring-script-filter)：这种方法涉及前-过滤文档集，然后运行精确的k-NN搜索过滤后的子集。它可能具有很高的延迟，并且在过滤后的子集很大时不会扩展。
 
-The following table summarizes the preceding filtering use cases.
+下表总结了前面的过滤用例。
 
-Filter | When the filter is applied | Type of search | Supported engines and methods | Where to place the `filter` clause
-:--- | :--- | :--- | :---
-Efficient k-NN filtering | During search (a hybrid of pre- and post-filtering) | Approximate | - `lucene` (`hnsw`) <br> - `faiss` (`hnsw`, `ivf`) | Inside the k-NN query clause.
-Boolean filter | After search (post-filtering) | Approximate | - `lucene`<br> - `nmslib`<br> - `faiss` | Outside the k-NN query clause. Must be a leaf clause.
-The `post_filter` parameter | After search (post-filtering) | Approximate | - `lucene`<br> - `nmslib`<br> - `faiss` | Outside the k-NN query clause. 
-Scoring script filter | Before search (pre-filtering) | Exact | N/A | Inside the script score query clause.
+筛选| 应用过滤器时| 搜索类型| 支持的引擎和方法| 在哪里放置`filter` 条款
+：--- | ：--- | ：--- | ：---
+高效k-NN过滤| 在搜索期间（pre的混合体- 和张贴-过滤）| 近似| - `lucene` （（`hnsw`）<br>- `faiss` （（`hnsw`，，，，`ivf`）| 在K内-nn查询子句。
+布尔过滤器| 搜索后（发布-过滤）| 近似| - `lucene`<br>- `nmslib`<br>- `faiss` | 在K外面-nn查询子句。必须是叶子子句。
+这`post_filter` 范围| 搜索后（发布-过滤）| 近似| - `lucene`<br>- `nmslib`<br>- `faiss` | 在K外面-nn查询子句。
+评分脚本过滤器| 搜索之前（pre-过滤）| 精确的| N/A。| 在脚本评分查询子句中。
 
-## Filtered search optimization
+## 过滤的搜索优化
 
-Depending on your dataset and use case, you might be more interested in maximizing recall or minimizing latency. The following table provides guidance on various k-NN search configurations and the filtering methods used to optimize for higher recall or lower latency. The first three columns of the table provide several example k-NN search configurations. A search configuration consists of:
+根据您的数据集和用例，您可能对最大化召回或最大程度地减少延迟更感兴趣。下表提供了各种k的指导-NN搜索配置和用于优化更高召回或降低延迟的过滤方法。表的前三列提供了几个示例k-NN搜索配置。搜索配置包括：
 
-- The number of documents in an index, where one OpenSearch document corresponds to one k-NN vector.
-- The percentage of documents left in the results after filtering. This value depends on the restrictiveness of the filter that you provide in the query. The most restrictive filter in the table returns 2.5% of documents in the index, while the least restrictive filter returns 80% of documents.
-- The desired number of returned results (k). 
+- 索引中的文档数量，其中一个OpenSearch文档对应于一个K-nn矢量。
+- 过滤后结果保留的文档百分比。该值取决于您在查询中提供的过滤器的限制性。表中最限制的过滤器返回索引中的2.5％的文档，而限制性最小的过滤器返回80％的文档。
+- 所需的返回结果数（K）。
 
-Once you've estimated the number of documents in your index, the restrictiveness of your filter, and the desired number of nearest neighbors, use the following table to choose a filtering method that optimizes for recall or latency.
+估计索引中的文档数量，过滤器的限制性以及所需的最近邻居数量，请使用下表选择一种优化召回或延迟的过滤方法。
 
-| Number of documents in an index | Percentage of documents the filter returns | k | Filtering method to use for higher recall | Filtering method to use for lower latency |
-| :-- | :-- | :-- | :-- | :-- |
-| 10M | 2.5 | 100 | Efficient k-NN filtering/Scoring script | Scoring script |
-| 10M | 38 | 100 | Efficient k-NN filtering | Efficient k-NN filtering |
-| 10M | 80 | 100 | Efficient k-NN filtering | Efficient k-NN filtering |
-| 1M | 2.5 | 100 | Efficient k-NN filtering/Scoring script | Scoring script |
-| 1M | 38 | 100 | Efficient k-NN filtering | Efficient k-NN filtering |
-| 1M | 80 | 100 | Efficient k-NN filtering | Efficient k-NN filtering |
+| 索引中的文档数量| 过滤器返回的文档百分比| k| 用于更高召回的过滤方法| 用于较低延迟的过滤方法|
+| ：-- | ：-- | ：-- | ：-- | ：-- |
+| 10m| 2.5| 100| 高效k-NN过滤/评分脚本| 评分脚本|
+| 10m| 38| 100| 高效k-NN过滤| 高效k-NN过滤|
+| 10m| 80| 100| 高效k-NN过滤| 高效k-NN过滤|
+| 1m| 2.5| 100| 高效k-NN过滤/评分脚本| 评分脚本|
+| 1m| 38| 100| 高效k-NN过滤| 高效k-NN过滤|
+| 1m| 80| 100| 高效k-NN过滤| 高效k-NN过滤|
 
-## Efficient k-NN filtering
+## 高效k-NN过滤
 
-You can perform efficient k-NN filtering with the `lucene` or `faiss` engines. 
+您可以执行高效的K-NN过滤`lucene` 或者`faiss` 引擎。
 
-### Lucene k-NN filter implementation
+### 卢肯·K-NN过滤器实现
 
-k-NN plugin version 2.2 introduced support for running k-NN searches with the Lucene engine using HNSW graphs. Starting with version 2.4, which is based on Lucene version 9.4, you can use Lucene filters for k-NN searches.
+k-NN插件2.2引入了运行K的支持-NN使用HNSW Graphs使用Lucene引擎进行搜索。从基于Lucene版本9.4的2.4版开始，您可以使用Lucene过滤器作为K-nn搜索。
 
-When you specify a Lucene filter for a k-NN search, the Lucene algorithm decides whether to perform an exact k-NN search with pre-filtering or an approximate search with modified post-filtering. The algorithm uses the following variables:
+当您为K指定Lucene过滤器时-nn搜索，Lucene算法决定是否执行精确的K-nn搜索-通过修改后的过滤或近似搜索-过滤。该算法使用以下变量：
 
-- N: The number of documents in the index.
-- P: The number of documents in the document subset after the filter is applied (P <= N).
-- k: The maximum number of vectors to return in the response.
+- N：索引中的文档数量。
+- P：应用过滤器后的文档子集中的文档数（p <= n）。
+- K：响应中返回的最大向量数。
 
-The following flow chart outlines the Lucene algorithm.
+以下流程图概述了Lucene算法。
 
-![Lucene algorithm for filtering]({{site.url}}{{site.baseurl}}/images/lucene-algorithm.png)
+![Lucene算法用于过滤]({{site.url}}{{site.baseurl}}/images/lucene-algorithm.png)
 
-For more information about the Lucene filtering implementation and the underlying `KnnVectorQuery`, see the [Apache Lucene documentation](https://lucene.apache.org/core/9_2_0/core/org/apache/lucene/search/KnnVectorQuery.html).
+有关Lucene过滤实施和基础的更多信息`KnnVectorQuery`，请参阅[Apache Lucene文档](https://lucene.apache.org/core/9_2_0/core/org/apache/lucene/search/KnnVectorQuery.html)。
 
-### Using a Lucene k-NN filter
+### 使用Lucene K-NN过滤器
 
-Consider a dataset that includes 12 documents containing hotel information. The following image shows all hotels on an xy coordinate plane by location. Additionally, the points for hotels that have a rating between 8 and 10, inclusive, are depicted with orange dots, and hotels that provide parking are depicted with green circles. The search point is colored in red:
+考虑一个包含12个包含酒店信息的文档的数据集。下图显示了按位置按XY坐标平面上的所有酒店。此外，用橙色点描绘了8至10之间的酒店的点，并用绿色圈子描绘了提供停车位的酒店。搜索点是红色的：
 
-![Graph of documents with filter criteria]({{site.url}}{{site.baseurl}}/images/knn-doc-set-for-filtering.png)
+![带有过滤标准的文档图]({{site.url}}{{site.baseurl}}/images/knn-doc-set-for-filtering.png)
 
-In this example, you will create an index and search for the three hotels with high ratings and parking that are the closest to the search location.
+在此示例中，您将创建一个索引，并搜索最接近搜索位置的高评级和停车位的三个酒店。
 
-**Step 1: Create a new index**
+**步骤1：创建一个新索引**
 
-Before you can run a k-NN search with a filter, you need to create an index with a `knn_vector` field. For this field, you need to specify `lucene` as the engine and `hnsw` as the `method` in the mapping.
+在运行k之前-NN搜索使用过滤器，您需要使用`knn_vector` 场地。对于此字段，您需要指定`lucene` 作为引擎和`hnsw` 作为`method` 在映射中。
 
-The following request creates a new index called `hotels-index` with a `knn-filter` field called `location`:
+以下请求创建了一个名为的新索引`hotels-index` 与`knn-filter` 字段称为`location`：
 
 ```json
 PUT /hotels-index
@@ -113,13 +113,13 @@ PUT /hotels-index
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-**Step 2: Add data to your index**
+**步骤2：将数据添加到您的索引**
 
-Next, add data to your index.
+接下来，将数据添加到您的索引中。
 
-The following request adds 12 documents that contain hotel location, rating, and parking information:  
+以下请求添加了12个文档，其中包含酒店位置，评级和停车信息：
 
 ```json
 POST /_bulk
@@ -148,13 +148,13 @@ POST /_bulk
 { "index": { "_index": "hotels-index", "_id": "12" } }
 { "location": [5.0, 1.0], "parking" : "true", "rating" : 3 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-**Step 3: Search your data with a filter**
+**步骤3：使用过滤器搜索数据**
 
-Now you can create a k-NN search with filters. In the k-NN query clause, include the point of interest that is used to search for nearest neighbors, the number of nearest neighbors to return (`k`), and a filter with the restriction criteria. Depending on how restrictive you want your filter to be, you can add multiple query clauses to a single request.
+现在您可以创建一个K-NN搜索使用过滤器。在K中-nn查询子句，包括用于搜索最近邻居的兴趣点，返回的最近邻居的数量（`k`），以及具有限制标准的过滤器。根据您希望过滤器的限制程度，您可以在一个请求中添加多个查询子句。
 
-The following request creates a k-NN query that searches for the top three hotels near the location with the coordinates `[5, 4]` that are rated between 8 and 10, inclusive, and provide parking:
+以下请求会创建K-nn查询，搜索与坐标附近的前三家酒店`[5, 4]` 包括8到10之间的额定额定设施，并提供停车位：
 
 ```json
 POST /hotels-index/_search
@@ -192,9 +192,9 @@ POST /hotels-index/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The response returns the three hotels that are nearest to the search point and have met the filter criteria:
+响应返回最接近搜索点并符合过滤器标准的三个酒店：
 
 ```json
 {
@@ -257,36 +257,36 @@ The response returns the three hotels that are nearest to the search point and h
 }
 ```
 
-For more ways to construct a filter, see [Constructing a filter](#constructing-a-filter).
+有关构建过滤器的更多方法，请参阅[构建过滤器](#constructing-a-filter)。
 
-### Faiss k-NN filter implementation 
+### faiss k-NN过滤器实现
 
-For k-NN searches, you can use `faiss` filters with an HNSW algorithm (k-NN plugin versions 2.9 and later) or IVF algorithm (k-NN plugin versions 2.10 and later).
+叉-nn搜索，您可以使用`faiss` 使用HNSW算法的过滤器（K-NN插件版本2.9及以后）或IVF算法（k-NN插件版本2.10及以后）。
 
-When you specify a Faiss filter for a k-NN search, the Faiss algorithm decides whether to perform an exact k-NN search with pre-filtering or an approximate search with modified post-filtering. The algorithm uses the following variables:
+当您为k指定faiss滤波器时-nn搜索，faiss算法决定是否执行精确的k-nn搜索-通过修改后的过滤或近似搜索-过滤。该算法使用以下变量：
 
-- N: The number of documents in the index.
-- P: The number of documents in the document subset after the filter is applied (P <= N).
-- k: The maximum number of vectors to return in the response.
-- R: The number of results returned after performing the filtered approximate nearest neighbor search.
-- FT (filtered threshold): An index-level threshold defined in the [`knn.advanced.filtered_exact_search_threshold` setting]({{site.url}}{{site.baseurl}}/search-plugins/knn/settings/) that specifies to switch to exact search.
-- MDC (max distance computations): The maximum number of distance computations allowed in exact search if `FT` (filtered threshold) is not set. This value cannot be changed.
+- N：索引中的文档数量。
+- P：应用过滤器后的文档子集中的文档数（p <= n）。
+- K：响应中返回的最大向量数。
+- R：执行过滤后的近似邻居搜索后返回的结果数。
+- ft（过滤阈值）：索引-在[`knn.advanced.filtered_exact_search_threshold` 环境]({{site.url}}{{site.baseurl}}/search-plugins/knn/settings/) 该指定要切换到精确的搜索。
+- MDC（最大距离计算）：确切搜索中允许的最大距离计算数量`FT` （过滤阈值）未设置。该值无法更改。
 
-The following flow chart outlines the Faiss algorithm.
+以下流程图概述了FAISS算法。
 
-![Faiss algorithm for filtering]({{site.url}}{{site.baseurl}}/images/faiss-algorithm.jpg)
+![用于过滤的FAISS算法]({{site.url}}{{site.baseurl}}/images/faiss-algorithm.jpg)
 
-### Using a Faiss efficient filter
+### 使用faiss有效的过滤器
 
-Consider an index that contains information about different shirts for an e-commerce application. You want to find the top-rated shirts that are similar to the one you already have but would like to restrict the results by shirt size.
+考虑包含有关E的不同衬衫信息的索引-商业应用。您想找到顶部-与您已经拥有但想限制衬衫尺寸的衬衫相似的衬衫。
 
-In this example, you will create an index and search for shirts that are similar to the shirt you provide.
+在此示例中，您将创建一个索引并搜索与您提供的衬衫相似的衬衫。
 
-**Step 1: Create a new index** 
+**步骤1：创建一个新索引** 
 
-Before you can run a k-NN search with a filter, you need to create an index with a `knn_vector` field. For this field, you need to specify `faiss` and `hnsw` as the `method` in the mapping.
+在运行k之前-NN搜索使用过滤器，您需要使用`knn_vector` 场地。对于此字段，您需要指定`faiss` 和`hnsw` 作为`method` 在映射中。
 
-The following request creates an index that contains vector representations of shirts:
+以下请求创建一个索引，其中包含衬衫的向量表示：
 
 ```json
 PUT /products-shirts
@@ -311,13 +311,13 @@ PUT /products-shirts
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-**Step 2: Add data to your index**
+**步骤2：将数据添加到您的索引**
 
-Next, add data to your index.
+接下来，将数据添加到您的索引中。
 
-The following request adds 12 documents that contain information about shirts, including their vector representation, size, and rating:  
+以下请求添加了12个文档，其中包含有关衬衫的信息，包括其向量表示，大小和评分：
 
 ```json
 POST /_bulk?refresh
@@ -347,13 +347,13 @@ POST /_bulk?refresh
 { "item_vector": [5.0, 1.0, 4.0], "size" : "large", "rating" : 3 }
 
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-**Step 3: Search your data with a filter**
+**步骤3：使用过滤器搜索数据**
 
-Now you can create a k-NN search with filters. In the k-NN query clause, include the vector representation of the shirt that is used to search for similar ones, the number of nearest neighbors to return (`k`), and a filter by size and rating.
+现在您可以创建一个K-NN搜索使用过滤器。在K中-nn查询子句，包括用于搜索类似衬衫的衬衫的向量表示，最近的邻居数（`k`），以及按大小和评分的过滤器。
 
-The following request searches for size small shirts rated between 7 and 10, inclusive:
+以下请求搜索尺寸的小衬衫在7到10之间，包括：
 
 ```json
 POST /products-shirts/_search
@@ -390,9 +390,9 @@ POST /products-shirts/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The response returns the two matching documents:
+响应返回两个匹配文档：
 
 ```json
 {
@@ -444,18 +444,18 @@ The response returns the two matching documents:
 }
 ```
 
-For more ways to construct a filter, see [Constructing a filter](#constructing-a-filter).
+有关构建过滤器的更多方法，请参阅[构建过滤器](#constructing-a-filter)。
 
-### Constructing a filter
+### 构建过滤器
 
-There are multiple ways to construct a filter for the same condition. For example, you can use the following constructs to create a filter that returns hotels that provide parking:
+有多种方法可以为相同条件构建过滤器。例如，您可以使用以下构造来创建一个返回提供停车位的酒店的过滤器：
 
-- A `term` query clause in the `should` clause
-- A `wildcard` query clause in the `should` clause
-- A `regexp` query clause in the `should` clause
-- A `must_not` clause to eliminate hotels with `parking` set to `false`.
+- A`term` 查询子句`should` 条款
+- A`wildcard` 查询子句`should` 条款
+- A`regexp` 查询子句`should` 条款
+- A`must_not` 以消除酒店的条款`parking` 设置`false`。
 
-The following request illustrates these four different ways of searching for hotels with parking:
+以下请求说明了这四种与停车场寻找酒店的不同方式：
 
 ```json
 POST /hotels-index/_search
@@ -510,15 +510,15 @@ POST /hotels-index/_search
   }
 } 
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-## Post-filtering
+## 邮政-过滤
 
-You can achieve post-filtering with a Boolean filter or by providing the `post_filter` parameter.
+您可以达到帖子-用布尔过滤器或通过提供`post_filter` 范围。
 
-### Boolean filter with ANN search
+### 布尔滤清器与安搜索
 
-A Boolean filter consists of a Boolean query that contains a k-NN query and a filter. For example, the following query searches for hotels that are closest to the specified `location` and then filters the results to return hotels with a rating between 8 and 10, inclusive, that provide parking:
+布尔过滤器由包含k的布尔查询组成-nn查询和过滤器。例如，以下查询搜索最接近指定的酒店`location` 然后过滤结果，以返回8到10之间的评级（包括）提供停车位：
 
 ```json
 POST /hotels-index/_search
@@ -563,7 +563,7 @@ POST /hotels-index/_search
 }
 ```
 
-The response includes documents containing the matching hotels:
+响应包括包含匹配酒店的文件：
 
 ```json
 {
@@ -626,9 +626,9 @@ The response includes documents containing the matching hotels:
 }
 ```
 
-### post-filter parameter
+### 邮政-滤波器参数
 
-If you use the `knn` query alongside filters or other clauses (for example, `bool`, `must`, `match`), you might receive fewer than `k` results. In this example, `post_filter` reduces the number of results from 2 to 1:
+如果您使用`knn` 与过滤器或其他条款一起查询（例如，`bool`，，，，`must`，，，，`match`），您可能收到的少于`k` 结果。在此示例中`post_filter` 将结果数量从2减少到1：
 
 ```json
 GET my-knn-index-1/_search
@@ -653,9 +653,9 @@ GET my-knn-index-1/_search
 }
 ```
 
-## Scoring script filter
+## 评分脚本过滤器
 
-A scoring script filter first filters the documents and then uses a brute-force exact k-NN search on the results. For example, the following query searches for hotels with a rating between 8 and 10, inclusive, that provide parking and then performs a k-NN search to return the 3 hotels that are closest to the specified `location`:
+评分脚本过滤器首先过滤文档，然后使用蛮力-力精确k-nn搜索结果。例如，以下查询搜索具有8到10之间的评级（包括）的酒店，可提供停车位，然后执行K-nn搜索以返回最接近指定的3家酒店`location`：
 
 ```json
 POST /hotels-index/_search
@@ -702,4 +702,5 @@ POST /hotels-index/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
+

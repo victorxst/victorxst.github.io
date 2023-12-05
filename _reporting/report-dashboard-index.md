@@ -1,65 +1,66 @@
 ---
 layout: default
-title: Reporting using OpenSearch Dashboards
+title: 使用OpenSearch仪表板报告
 nav_order: 5
 redirect_from:
   - /dashboards/reporting/
 ---
 
 
-# Reporting using OpenSearch Dashboards
+# 使用OpenSearch仪表板报告
 
-You can use OpenSearch Dashboards to create PNG, PDF, and CSV reports. To create reports, you must have the correct permissions. For a summary of the predefined roles and the permissions they grant, see the [Security plugin]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
+您可以使用OpenSearch仪表板来创建PNG，PDF和CSV报告。要创建报告，您必须拥有正确的权限。有关预定义角色及其授予的权限的摘要，请参阅[安全插件]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles)。
 
-CSV reports have a non-configurable 10,000 row limit. They have no explicit size limit (for example, MB), but extremely large documents could cause report generation to fail with an out of memory error from the V8 JavaScript engine.
-{: .tip }
+CSV报告没有-可配置的10,000行限制。它们没有明确的尺寸限制（例如，MB），但是非常大的文档可能会导致报告生成失败，而V8 JavaScript引擎的内存错误失败。
+{： 。提示 }
 
-## Generating reports
+## 生成报告
 
-To generate a report from the interface:
+从接口生成报告：
 
-1. From the navigation panel, choose **Reporting**.
-2. For dashboards, visualizations, or notebooks, choose **Download PDF** or **Download PNG**. If you're creating a report from the Discover page, choose **Generate CSV**.
+1. 从导航面板中选择**报告**。
+2. 对于仪表板，可视化或笔记本，请选择**下载PDF** 或者**下载PNG**。如果您正在从发现页面创建报告，请选择**生成CSV**。
 
-Reports generate asynchronously in the background and might take a few minutes, depending on the size of the report. A notification appears when your report is ready to download.
-{: .note}
+报告在后台产生异步，可能需要几分钟，具体取决于报告的大小。当您的报告准备下载时，会出现通知。
+{： 。笔记}
 
-3. To create a schedule-based report, choose **Create report definition**. Then proceed to [Create reports using a definition](#creating-reports-using-a-definition). This option pre-fills many of the fields for you based on the visualization, dashboard, or data you were viewing.
+3. 创建时间表-基于报告，选择**创建报告定义**。然后继续[使用定义创建报告](#creating-reports-using-a-definition)。此选项pre-根据您正在查看的可视化，仪表板或数据，为您填写许多字段。
 
 
-## Creating reports using a definition
+## 使用定义创建报告
 
-Definitions let you generate reports on a periodic schedule.
+定义可让您按定期时间表生成报告。
 
-1. From the navigation panel, choose **Reporting**.
-1. Choose **Create**.
-1. Under **Report settings**, enter a name and optional description for your report.
-1. Choose the **Report source** (i.e. the page from which the report is generated). You can generate reports from the **Dashboard**, **Visualize**, **Discover** (saved search), or **Notebooks** pages.
-1. Select your dashboard, visualization, saved search, or notebook. Then choose a time range for the report.
-1. Choose an appropriate file format for the report.
-1. (Optional) Add a header or footer to the report. Headers and footers are only available for dashboard, visualization, and notebook reports.
-1. Under **Report trigger**, choose either **On demand** or **Schedule**.
+1. 从导航面板中选择**报告**。
+1. 选择**创造**。
+1. 在下面**报告设置**，为您的报告输入名称和可选描述。
+1. 选择**报告来源** （即生成报告的页面）。您可以从**仪表板**，，，，**可视化**，，，，**发现** （保存搜索）或**笔记本** 页面。
+1. 选择您的仪表板，可视化，保存的搜索或笔记本。然后选择报告的时间范围。
+1. 为报告选择适当的文件格式。
+1. （可选）在报告中添加标头或页脚。标题和页脚仅用于仪表板，可视化和笔记本报告。
+1. 在下面**报告触发器**，选择**一经请求** 或者**日程**。
 
-   For scheduled reports, select either **Recurring** or **Cron based**. You can receive reports daily or at some other time interval, and Cron expressions give you more flexibility. See [Cron expression reference]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/) for more information.
+   对于预定的报告，选择任一**再次发生的** 或者**基于克朗**。您可以每天或在其他某些时间间隔收到报告，而Cron表达式可以使您更加灵活。看[cron表达参考]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/) 了解更多信息。
 
-2. Choose **Create**.
+2. 选择**创造**。
 
-## Troubleshooting
+## 故障排除
 
-You can use the following topics to troubleshoot and resolve issues with reporting.
+您可以使用以下主题来解决和解决报告问题。
 
-### Chromium fails to launch with OpenSearch Dashboards
+### Chromium无法使用OpenSearch仪表板启动
 
-While creating a report for dashboards or visualizations, you might see a the following error:
+在创建仪表板或可视化的报告时，您可能会看到以下错误：
 
-![OpenSearch Dashboards reporting pop-up error message]({{site.url}}{{site.baseurl}}/images/reporting-error.png)
+![OpenSearch仪表板报告流行-UP错误消息]({{site.url}}{{site.baseurl}}/images/reporting-error.png)
 
-This problem can occur for two reasons:
+这个问题可能有两个原因：
 
-- You don't have the correct version of `headless-chrome` to match the operating system on which OpenSearch Dashboards is running. Download the [correct version](https://github.com/opensearch-project/reporting/releases/tag/chromium-1.12.0.0).
+- 您没有正确的版本`headless-chrome` 要匹配OpenSearch仪表板正在运行的操作系统。下载[正确的版本](https://github.com/opensearch-project/reporting/releases/tag/chromium-1.12.0.0)。
 
-- You're missing additional dependencies. Install the required dependencies for your operating system from the [additional libraries](https://github.com/opensearch-project/dashboards-reports/blob/1.x/dashboards-reports/rendering-engine/headless-chrome/README.md#additional-libaries) section.
+- 您缺少其他依赖关系。从[其他库](https://github.com/opensearch-project/dashboards-reports/blob/1.x/dashboards-reports/rendering-engine/headless-chrome/README.md#additional-libaries) 部分。
 
-### Characters not loading in reports
+### 字符不加载在报告中
 
-You might encounter an issue where UTF-8 encoded characters look fine in your browser, but they don't load in your generated reports because you're missing the required font dependencies. Install the [font dependencies](https://github.com/opensearch-project/dashboards-reports#missing-font-dependencies), and then generate your reports again.
+您可能会遇到一个UTF的问题-8个编码字符在您的浏览器中看起来不错，但是由于您缺少所需的字体依赖项，因此它们不会加载到生成的报告中。安装[字体依赖性](https://github.com/opensearch-project/dashboards-reports#missing-font-dependencies)，然后再次生成您的报告。
+

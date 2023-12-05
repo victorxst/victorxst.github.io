@@ -1,34 +1,34 @@
 ---
 layout: default
-title: Using a search pipeline
+title: 使用搜索管道
 nav_order: 20
 has_children: false
-parent: Search pipelines
-grand_parent: Search
+parent: 搜索管道
+grand_parent: 搜索
 ---
 
-# Using a search pipeline
+# 使用搜索管道
 
-You can use a search pipeline in the following ways:
+您可以通过以下方式使用搜索管道：
 
-- [Specify an existing pipeline](#specifying-an-existing-search-pipeline-for-a-request) for a request.
-- [Use a temporary pipeline](#using-a-temporary-search-pipeline-for-a-request) for a request.
-- Set a [default pipeline](#default-search-pipeline) for all requests in an index.
+- [指定现有管道](#specifying-an-existing-search-pipeline-for-a-request) 出于请求。
+- [使用临时管道](#using-a-temporary-search-pipeline-for-a-request) 出于请求。
+- 设置[默认管道](#default-search-pipeline) 对于索引中的所有请求。
 
-## Specifying an existing search pipeline for a request
+## 为请求指定现有的搜索管道
 
-After you [create a search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/creating-search-pipeline/), you can use the pipeline with a query by specifying the pipeline name in the `search_pipeline` query parameter:
+您先请[创建搜索管道]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/creating-search-pipeline/)，您可以通过在“查询”中指定管道名称，将管道与查询使用`search_pipeline` 查询参数：
 
 ```json
 GET /my_index/_search?search_pipeline=my_pipeline
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-For a complete example of using a search pipeline with a `filter_query` processor, see [`filter_query` processor example]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/filter-query-processor#example).
+对于使用搜索管道的完整示例`filter_query` 处理器，请参阅[`filter_query` 处理器示例]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/filter-query-processor#example)。
 
-## Using a temporary search pipeline for a request
+## 使用临时搜索管道作为请求
 
-As an alternative to creating a search pipeline, you can define a temporary search pipeline to be used for only the current query:
+作为创建搜索管道的替代方法，您可以定义临时搜索管道，仅用于当前查询：
 
 ```json
 POST /my-index/_search
@@ -63,17 +63,17 @@ POST /my-index/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-With this syntax, the pipeline does not persist and is used only for the query for which it is specified.
+使用此语法，管道不会持续存在，仅用于指定其指定的查询。
 
-## Default search pipeline
+## 默认搜索管道
 
-For convenience, you can set a default search pipeline for an index. Once your index has a default pipeline, you don't need to specify the `search_pipeline` query parameter in every search request.
+为了方便起见，您可以为索引设置默认的搜索管道。索引有默认管道后，您无需指定`search_pipeline` 在每个搜索请求中查询参数。
 
-### Setting a default search pipeline for an index
+### 为索引设置默认搜索管道
 
-To set a default search pipeline for an index, specify the `index.search.default_pipeline` in the index's settings:
+要设置索引的默认搜索管道，请指定`index.search.default_pipeline` 在索引的设置中：
 
 ```json
 PUT /my_index/_settings 
@@ -81,22 +81,22 @@ PUT /my_index/_settings
   "index.search.default_pipeline" : "my_pipeline"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-After setting the default pipeline for `my_index`, you can try the same search for all documents:
+设置默认管道后`my_index`，您可以尝试对所有文档进行相同的搜索：
 
 ```json
 GET /my_index/_search
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The response contains only the public document, indicating that the pipeline was applied by default:
+响应仅包含公共文件，表明该管道默认情况下应用了：
 
-<details open markdown="block">
+<详细信息打开降价="block">
   <summary>
-    Response
+    回复
   </summary>
-  {: .text-delta}
+  {： 。文本-三角洲}
 
 ```json
 {
@@ -128,20 +128,20 @@ The response contains only the public document, indicating that the pipeline was
   }
 }
 ```
-</details>
+</delect>
 
-### Disabling the default pipeline for a request
+### 禁用请求的默认管道
 
-If you want to run a search request without applying the default pipeline, you can set the `search_pipeline` query parameter to `_none`:
+如果要在不应用默认管道的情况下运行搜索请求，则可以设置`search_pipeline` 查询参数为`_none`：
 
 ```json
 GET /my_index/_search?search_pipeline=_none
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-### Removing the default pipeline
+### 删除默认管道
 
-To remove the default pipeline from an index, set it to `null` or `_none`:
+要从索引中删除默认管道，请将其设置为`null` 或者`_none`：
 
 ```json
 PUT /my_index/_settings 
@@ -149,7 +149,7 @@ PUT /my_index/_settings
   "index.search.default_pipeline" : null
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
 ```json
 PUT /my_index/_settings 
@@ -157,4 +157,5 @@ PUT /my_index/_settings
   "index.search.default_pipeline" : "_none"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
+

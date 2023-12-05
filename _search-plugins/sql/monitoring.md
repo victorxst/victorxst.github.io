@@ -1,44 +1,44 @@
 ---
 layout: default
-title: Monitoring
-parent: SQL and PPL
+title: 监视
+parent: SQL和PPL
 nav_order: 95
 redirect_from:
   - /search-plugins/sql/monitoring/
 ---
 
-# Monitoring
+# 监视
 
-By a stats endpoint, you are able to collect metrics for the plugin
-within the interval. Note that only node level statistics collecting is
-implemented for now. In other words, you only get the metrics for the
-node you're accessing. Cluster level statistics have yet to be
-implemented.
+通过统计信息，您可以收集插件的指标
+在间隔内。请注意，只有节点级统计信息是
+现在实施。换句话说，您只能获得
+您要访问的节点。集群级统计尚未
+实施的。
 
-## Node Stats
+## 节点统计
 
-### Description
+### 描述
 
-The meaning of fields in the response is as follows:
+响应中字段的含义如下：
 
-|                 Field name|                                                    Description|
+|                 字段名称|                                                    描述|
 | ------------------------- | ------------------------------------------------------------- |
-|              request_total|                                         Total count of request|
-|              request_count|                     Total count of request within the interval|
-|failed_request_count_syserr|Count of failed request due to system error within the interval|
-|failed_request_count_cuserr| Count of failed request due to bad request within the interval|
-|    failed_request_count_cb| Indicate if plugin is being circuit broken within the interval|
+|              request_total|                                         请求总数|
+|              request_count|                     间隔内请求的总数|
+|FAILED_REQUEST_COUNT_SYSERR|由于系统错误在间隔内由于系统错误而导致的次数计数|
+|FAILED_REQUEST_COUNT_CUSERR| 在间隔内由于不良请求而导致的不良请求计数|
+|    FAILED_REQUEST_COUNT_CB| 指示插件是否在间隔内断开|
 
 
-### Example
+### 例子
 
-SQL query:
+SQL查询：
 
 ```console
 >> curl -H 'Content-Type: application/json' -X GET localhost:9200/_plugins/_sql/stats
 ```
 
-Result set:
+结果集：
 
 ```json
 {
@@ -50,3 +50,4 @@ Result set:
   "failed_request_count_syserr": 0
 }
 ```
+

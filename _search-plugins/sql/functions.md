@@ -1,25 +1,25 @@
 ---
 layout: default
-title: Functions
-parent: SQL and PPL
+title: 功能
+parent: SQL和PPL
 nav_order: 10
 redirect_from:
   - /search-plugins/sql/functions/
 ---
 
-# Functions
+# 功能
 
-You must enable fielddata in the document mapping for most string functions to work properly.
+您必须在文档映射中启用FieldData，以使大多数字符串函数正常工作。
 
-The specification shows the return type of the function with a generic type `T` as the argument.
-For example, `abs(number T) -> T` means that the function `abs` accepts a numerical argument of type `T`, which could be any subtype of the `number` type, and it returns the actual type of `T` as the return type.
+规范显示了具有通用类型的函数的返回类型`T` 作为论点。
+例如，`abs(number T) -> T` 意味着功能`abs` 接受类型的数值论点`T`，这可能是任何子类型`number` 类型，它返回的实际类型`T` 作为返回类型。
 
-The SQL plugin supports the following common functions shared across the SQL and PPL languages.
+SQL插件支持在SQL和PPL语言上共享的以下常见功能。
 
-## Mathematical
+## 数学
 
-| Function   | Specification                                                    | Example                                        |
-|:-----------|:-----------------------------------------------------------------|:-----------------------------------------------|
+| 功能| 规格| 例子|
+|：-----------|：-----------------------------------------------------------------|：-----------------------------------------------|
 | `abs`      | `abs(number T) -> T`                                             | `SELECT abs(0.5)`                              |
 | `add`      | `add(number T, number T) -> T`                                   | `SELECT add(1, 5)`                             |
 | `cbrt`     | `cbrt(number T) -> double`                                       | `SELECT cbrt(8)`                               |
@@ -32,7 +32,7 @@ The SQL plugin supports the following common functions shared across the SQL and
 | `expm1`    | `expm1(number T) -> double`                                      | `SELECT expm1(0.5)`                            |
 | `floor`    | `floor(number T) -> long`                                        | `SELECT floor(0.5)`                            |
 | `ln`       | `ln(number T) -> double`                                         | `SELECT ln(10)`                                |
-| `log`      | `log(number T) -> double` or `log(number T, number T) -> double` | `SELECT log(10)`, `SELECT log(2, 16)`          |
+| `log`      | `log(number T) -> double` 或者`log(number T, number T) -> double` | `SELECT log(10)`，，，，`SELECT log(2, 16)`          |
 | `log2`     | `log2(number T) -> double`                                       | `SELECT log2(10)`                              |
 | `log10`    | `log10(number T) -> double`                                      | `SELECT log10(10)`                             |
 | `mod`      | `mod(number T, number T) -> T`                                   | `SELECT mod(2, 3)`                             |
@@ -41,9 +41,9 @@ The SQL plugin supports the following common functions shared across the SQL and
 | `pi`       | `pi() -> double`                                                 | `SELECT pi()`                                  |
 | `pow`      | `pow(number T, number T) -> double`                              | `SELECT pow(2, 3)`                             |
 | `power`    | `power(number T, number T) -> double`                            | `SELECT power(2, 3)`                           |
-| `rand`     | `rand() -> float` or `rand(number T) -> float`                   | `SELECT rand()`, `SELECT rand(0.5)`            |
+| `rand`     | `rand() -> float` 或者`rand(number T) -> float`                   | `SELECT rand()`，，，，`SELECT rand(0.5)`            |
 | `rint`     | `rint(number T) -> double`                                       | `SELECT rint(1.5)`                             |
-| `round`    | `round(number T) -> T` or `round(number T, integer) -> T`        | `SELECT round(1.5)`, `SELECT round(1.175, 2)`  |
+| `round`    | `round(number T) -> T` 或者`round(number T, integer) -> T`        | `SELECT round(1.5)`，，，，`SELECT round(1.175, 2)`  |
 | `sign`     | `sign(number T) -> integer`                                      | `SELECT sign(1.5)`                             |
 | `signum`   | `signum(number T) -> integer`                                    | `SELECT signum(0.5)`                           |
 | `sqrt`     | `sqrt(number T) -> double`                                       | `SELECT sqrt(0.5)`                             |
@@ -56,10 +56,10 @@ The SQL plugin supports the following common functions shared across the SQL and
 | `/`        | `number T / number T -> T`                                       | `SELECT 1 / 0.5`                               |
 | `%`        | `number T % number T -> T`                                       | `SELECT 2 % 3`                                 |
 
-## Trigonometric
+## 三角学
 
-| Function  | Specification                         | Example                |
-|:----------|:--------------------------------------|:-----------------------|
+| 功能| 规格| 例子|
+|：----------|：--------------------------------------|：-----------------------|
 | `acos`    | `acos(number T) -> double`            | `SELECT acos(0.5)`     |
 | `asin`    | `asin(number T) -> double`            | `SELECT asin(0.5)`     |
 | `atan`    | `atan(number T) -> double`            | `SELECT atan(0.5)`     |
@@ -73,11 +73,11 @@ The SQL plugin supports the following common functions shared across the SQL and
 | `sinh`    | `sinh(number T) -> double`            | `SELECT sinh(0.5)`     |
 | `tan`     | `tan(number T) -> double`             | `SELECT tan(0.5)`      |
 
-## Date and time
-Functions marked with * are only available in SQL.
+## 日期和时间
+标记为 *的功能仅在SQL中可用。
 
-| Function             | Specification                                                                          | Example                                                                             |
-|:---------------------|:---------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------|
+| 功能| 规格| 例子|
+|：---------------------|：---------------------------------------------------------------------------------------|：------------------------------------------------------------------------------------|
 | `adddate`            | `adddate(date, INTERVAL expr unit) -> date`                                            | `SELECT adddate(date('2020-08-26'), INTERVAL 1 hour)`                               |
 | `addtime`            | `addtime(date, date) -> date`                                                          | `SELECT addtime(date('2008-12-12'), date('2008-12-12'))`                            |
 | `convert_tz`         | `convert_tz(date, string, string) -> date`                                             | `SELECT convert_tz('2008-12-25 05:30:00', '+00:00', 'America/Los_Angeles')`         |
@@ -90,7 +90,7 @@ Functions marked with * are only available in SQL.
 | `datediff`           | `datediff(date, date) -> integer`                                                      | `SELECT datediff(date('2000-01-02'), date('2000-01-01'))`                           |
 | `datetime`           | `datetime(string) -> datetime`                                                         | `SELECT datetime('2008-12-25 00:00:00')`                                            |
 | `date_add`           | `date_add(date, INTERVAL integer UNIT)`                                                | `SELECT date_add('2020-08-26', INTERVAL 1 HOUR)`                                    |
-| `date_format`        | `date_format(date, string) -> string` or `date_format(date, string, string) -> string` | `SELECT date_format(date('2020-08-26'), 'Y')`                                       |
+| `date_format`        | `date_format(date, string) -> string` 或者`date_format(date, string, string) -> string` | `SELECT date_format(date('2020-08-26'), 'Y')`                                       |
 | `date_sub`           | `date_sub(date, INTERVAL expr unit) -> date`                                           | `SELECT date_sub(date('2008-01-02'), INTERVAL 31 day)`                              |
 | `dayofmonth`         | `dayofmonth(date) -> integer`                                                          | `SELECT dayofmonth(date('2001-05-07'))`                                             |
 | `day`                | `day(date) -> integer`                                                                 | `SELECT day(date('2020-08-25'))`                                                    |
@@ -99,37 +99,37 @@ Functions marked with * are only available in SQL.
 | `dayofweek`          | `dayofweek(date) -> integer`                                                           | `SELECT dayofweek(date('2020-08-26'))`                                              |
 | `dayofyear`          | `dayofyear(date) -> integer`                                                           | `SELECT dayofyear(date('2020-08-26'))`                                              |
 | `dayofweek`          | `dayofweek(date) -> integer`                                                           | `SELECT dayofweek(date('2020-08-26'))`                                              |
-| `day_of_month`\*     | `day_of_month(date) -> integer`                                                        | `SELECT day_of_month(date('2020-08-26'))`                                           |
-| `day_of_week`\*      | `day_of_week(date) -> integer`                                                         | `SELECT day_of_week(date('2020-08-26'))`                                            |
-| `day_of_year`\*      | `day_of_year(date) -> integer`                                                         | `SELECT day_of_year(date('2020-08-26'))`                                            |
-| `extract`\*          | `extract(part FROM date) -> integer`                                                   | `SELECT extract(MONTH FROM datetime('2020-08-26 10:11:12'))`                        |
+| `day_of_month`\*| `day_of_month(date) -> integer`                                                        | `SELECT day_of_month(date('2020-08-26'))`                                           |
+| `day_of_week`\*| `day_of_week(date) -> integer`                                                         | `SELECT day_of_week(date('2020-08-26'))`                                            |
+| `day_of_year`\*| `day_of_year(date) -> integer`                                                         | `SELECT day_of_year(date('2020-08-26'))`                                            |
+| `extract`\*| `extract(part FROM date) -> integer`                                                   | `SELECT extract(MONTH FROM datetime('2020-08-26 10:11:12'))`                        |
 | `from_days`          | `from_days(N) -> integer`                                                              | `SELECT from_days(733687)`                                                          |
 | `from_unixtime`      | `from_unixtime(N) -> date`                                                             | `SELECT from_unixtime(1220249547)`                                                  |
 | `get_format`         | `get_format(PART, string) -> string`                                                   | `SELECT get_format(DATE, 'USA')`                                                    |
 | `hour`               | `hour(time) -> integer`                                                                | `SELECT hour(time '01:02:03')`                                                      |
-| `hour_of_day`\*      | `hour_of_day(time) -> integer`                                                         | `SELECT hour_of_day(time '01:02:03')`                                               |
-| `last_day`\*         | `last_day(date) -> integer`                                                            | `SELECT last_day(date('2020-08-26'))`                                               |
+| `hour_of_day`\*| `hour_of_day(time) -> integer`                                                         | `SELECT hour_of_day(time '01:02:03')`                                               |
+| `last_day`\*| `last_day(date) -> integer`                                                            | `SELECT last_day(date('2020-08-26'))`                                               |
 | `localtime`          | `localtime() -> date`                                                                  | `SELECT localtime()`                                                                |
 | `localtimestamp`     | `localtimestamp() -> date`                                                             | `SELECT localtimestamp()`                                                           |
 | `makedate`           | `makedate(double, double) -> date`                                                     | `SELECT makedate(1945, 5.9)`                                                        |
 | `maketime`           | `maketime(integer, integer, integer) -> date`                                          | `SELECT maketime(1, 2, 3)`                                                          |
 | `microsecond`        | `microsecond(expr) -> integer`                                                         | `SELECT microsecond(time '01:02:03.123456')`                                        |
 | `minute`             | `minute(expr) -> integer`                                                              | `SELECT minute(time '01:02:03')`                                                    |
-| `minute_of_day`\*    | `minute_of_day(expr) -> integer`                                                       | `SELECT minute_of_day(time '01:02:03')`                                             |
-| `minute_of_hour`\*   | `minute_of_hour(expr) -> integer`                                                      | `SELECT minute_of_hour(time '01:02:03')`                                            |
+| `minute_of_day`\*| `minute_of_day(expr) -> integer`                                                       | `SELECT minute_of_day(time '01:02:03')`                                             |
+| `minute_of_hour`\*| `minute_of_hour(expr) -> integer`                                                      | `SELECT minute_of_hour(time '01:02:03')`                                            |
 | `month`              | `month(date) -> integer`                                                               | `SELECT month(date('2020-08-26'))`                                                  |
-| `month_of_year`\*    | `month_of_year(date) -> integer`                                                       | `SELECT month_of_year(date('2020-08-26'))`                                          |
+| `month_of_year`\*| `month_of_year(date) -> integer`                                                       | `SELECT month_of_year(date('2020-08-26'))`                                          |
 | `monthname`          | `monthname(date) -> string`                                                            | `SELECT monthname(date('2020-08-26'))`                                              |
 | `now`                | `now() -> date`                                                                        | `SELECT now()`                                                                      |
 | `period_add`         | `period_add(integer, integer)`                                                         | `SELECT period_add(200801, 2)`                                                      |
 | `period_diff`        | `period_diff(integer, integer)`                                                        | `SELECT period_diff(200802, 200703)`                                                |
 | `quarter`            | `quarter(date) -> integer`                                                             | `SELECT quarter(date('2020-08-26'))`                                                |
 | `second`             | `second(time) -> integer`                                                              | `SELECT second(time '01:02:03')`                                                    |
-| `second_of_minute`\* | `second_of_minute(time) -> integer`                                                    | `SELECT second_of_minute(time '01:02:03')`                                          |
-| `sec_to_time`\*      | `sec_to_time(integer) -> date`                                                         | `SELECT sec_to_time(10000)`                                                         |
+| `second_of_minute`\*| `second_of_minute(time) -> integer`                                                    | `SELECT second_of_minute(time '01:02:03')`                                          |
+| `sec_to_time`\*| `sec_to_time(integer) -> date`                                                         | `SELECT sec_to_time(10000)`                                                         |
 | `subdate`            | `subdate(date, INTERVAL expr unit) -> date, datetime`                                  | `SELECT subdate(date('2008-01-02'), INTERVAL 31 day)`                               |
 | `subtime`            | `subtime(date, date) -> date`                                                          | `SELECT subtime(date('2008-12-12'), date('2008-11-15'))`                            |
-| `str_to_date`\*      | `str_to_date(string, format) -> date`                                                  | `SELECT str_to_date("01,5,2013", "%d,%m,%Y")`                                       |
+| `str_to_date`\*| `str_to_date(string, format) -> date`                                                  | `SELECT str_to_date("01,5,2013", "%d,%m,%Y")`                                       |
 | `time`               | `time(expr) -> time`                                                                   | `SELECT time('13:49:00')`                                                           |
 | `timediff`           | `timediff(time, time) -> time`                                                         | `SELECT timediff(time('23:59:59'), time('13:00:00'))`                               |
 | `timestamp`          | `timestamp(date) -> date`                                                              | `SELECT timestamp('2001-05-07 00:00:00')`                                           |
@@ -145,20 +145,20 @@ Functions marked with * are only available in SQL.
 | `utc_timestamp`      | `utc_timestamp() -> date`                                                              | `SELECT utc_timestamp()`                                                            |
 | `week`               | `week(date[mode])  -> integer`                                                         | `SELECT week(date('2008-02-20'))`                                                   |
 | `weekofyear`         | `weekofyear(date[mode])  -> integer`                                                   | `SELECT weekofyear(date('2008-02-20'))`                                             |
-| `week_of_year`\*     | `week_of_year(date[mode])  -> integer`                                                 | `SELECT week_of_year(date('2008-02-20'))`                                           |
+| `week_of_year`\*| `week_of_year(date[mode])  -> integer`                                                 | `SELECT week_of_year(date('2008-02-20'))`                                           |
 | `year`               | `year(date) -> integer`                                                                | `SELECT year(date('2001-07-05'))`                                                   |
-| `yearweek`\*         | `yearweek(date[mode])  -> integer`                                                     | `SELECT yearweek(date('2008-02-20'))`                                               |
+| `yearweek`\*| `yearweek(date[mode])  -> integer`                                                     | `SELECT yearweek(date('2008-02-20'))`                                               |
 
-## String
+## 细绳
 
-| Function    | Specification                                                                       | Example                                                        |
-|:------------|:------------------------------------------------------------------------------------|:---------------------------------------------------------------|
+| 功能| 规格| 例子|
+|：------------|：------------------------------------------------------------------------------------|：---------------------------------------------------------------|
 | `ascii`     | `ascii(string) -> integer`                                                          | `SELECT ascii('h')`                                            |
 | `concat`    | `concat(string, string) -> string`                                                  | `SELECT concat('hello', 'world')`                              |
 | `concat_ws` | `concat_ws(separator, string, string…) -> string`                                   | `SELECT concat_ws(" ", "Hello", "World!")`                     |
 | `left`      | `left(string, integer) -> string`                                                   | `SELECT left('hello', 2)`                                      |
 | `length`    | `length(string) -> integer`                                                         | `SELECT length('hello')`                                       |
-| `locate`    | `locate(string, string, integer) -> integer` or `locate(string, string) -> integer` | `SELECT locate('o', 'hello')`, `locate('l', 'hello world', 5)` |
+| `locate`    | `locate(string, string, integer) -> integer` 或者`locate(string, string) -> integer` | `SELECT locate('o', 'hello')`，，，，`locate('l', 'hello world', 5)` |
 | `replace`   | `replace(string, string, string) -> string`                                         | `SELECT replace('hello', 'l', 'x')`                            |
 | `right`     | `right(string, integer) -> string`                                                  | `SELECT right('hello', 2)`                                     |
 | `rtrim`     | `rtrim(string) -> string`                                                           | `SELECT rtrim('hello   ')`                                     |
@@ -166,23 +166,24 @@ Functions marked with * are only available in SQL.
 | `trim`      | `trim(string) -> string`                                                            | `SELECT trim('   hello')`                                      |
 | `upper`     | `upper(string) -> string`                                                           | `SELECT upper('hello world')`                                  |
 
-## Aggregate
+## 总计的
 
-| Function | Specification            | Example                            |
-|:---------|:-------------------------|:-----------------------------------|
+| 功能| 规格| 例子|
+|：---------|：-------------------------|：-----------------------------------|
 | `avg`    | `avg(number T) -> T`     | `SELECT avg(column) FROM my-index` |
 | `count`  | `count(number T) -> T`   | `SELECT count(date) FROM my-index` |
 | `min`    | `min(number T) -> T`     | `SELECT min(column) FROM my-index` |
 | `show`   | `show(string) -> string` | `SHOW TABLES LIKE my-index`        |
 
-## Advanced
+## 先进的
 
-| Function | Specification                              | Example                                 |
-|:---------|:-------------------------------------------|:----------------------------------------|
+| 功能| 规格| 例子|
+|：---------|：-------------------------------------------|：----------------------------------------|
 | `if`     | `if(boolean, os_type, os_type) -> os_type` | `SELECT if(false, 0, 1),if(true, 0, 1)` |
 | `ifnull` | `ifnull(os_type, os_type) -> os_type`      | `SELECT ifnull(0, 1), ifnull(null, 1)`  |
 | `isnull` | `isnull(os_type) -> integer`               | `SELECT isnull(null), isnull(1)`        |
 
-## Relevance-based search (full-text search)
+## 关联-基于搜索（完整-文字搜索）
 
-These functions are only available in the `WHERE` clause. For their descriptions and usage examples in SQL and PPL, see [Full-text search]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/).
+这些功能仅在`WHERE` 条款。有关他们在SQL和PPL中的描述和使用示例，请参见[满的-文字搜索]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/)。
+

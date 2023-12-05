@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Full-Text Search
-parent: SQL and PPL
+parent: SQL和PPL
 nav_order: 11
 redirect_from:
   - /search-plugins/sql/sql-full-text/

@@ -1,38 +1,38 @@
 ---
 layout: default
-title: Search pipelines
+title: 搜索管道
 nav_order: 100
 has_children: true
 has_toc: false
 ---
 
-# Search pipelines
+# 搜索管道
 
-You can use _search pipelines_ to build new or reuse existing result rerankers, query rewriters, and other components that operate on queries or results. Search pipelines make it easier for you to process search queries and search results within OpenSearch. Moving some of your application functionality into an OpenSearch search pipeline reduces the overall complexity of your application. As part of a search pipeline, you specify a list of processors that perform modular tasks. You can then easily add or reorder these processors to customize search results for your application. 
+您可以使用_search Pipelines _构建新的或重用现有结果的Reranker，查询重写器以及其他在查询或结果上运行的组件。搜索管道使您更容易在OpenSearch中处理搜索查询和搜索结果。将您的某些应用程序功能转移到OpenSearch搜索管道中会降低应用程序的整体复杂性。作为搜索管道的一部分，您指定执行模块化任务的处理器列表。然后，您可以轻松添加或重新排序这些处理器，以自定义应用程序的搜索结果。
 
-## Terminology
+## 术语
 
-The following is a list of search pipeline terminology:
+以下是搜索管道术语的列表：
 
-* [_Search request processor_]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors#search-request-processors): A component that intercepts a search request (the query and the metadata passed in the request), performs an operation with or on the search request, and returns the search request.
-* [_Search response processor_]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors#search-response-processors): A component that intercepts a search response and search request (the query, results, and metadata passed in the request), performs an operation with or on the search response, and returns the search response.
-* [_Search phase results processor_]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors#search-phase-results-processors): A component that runs between search phases at the coordinating node level. A search phase results processor intercepts the results retrieved from one search phase and transforms them before passing them to the next search phase.
-* [_Processor_]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors/): Either a search request processor or a search response processor.
-* _Search pipeline_: An ordered list of processors that is integrated into OpenSearch. The pipeline intercepts a query, performs processing on the query, sends it to OpenSearch, intercepts the results, performs processing on the results, and returns them to the calling application, as shown in the following diagram. 
+*[_搜索请求处理器_]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors#search-request-processors)：一个截获搜索请求的组件（查询和元数据在请求中传递），对搜索请求或搜索请求执行操作，然后返回搜索请求。
+*[_搜索响应处理器_]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors#search-response-processors)：拦截搜索响应和搜索请求的组件（在请求中传递的查询，结果和元数据），对搜索响应进行操作，并返回搜索响应。
+*[_搜索阶段结果处理器_]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors#search-phase-results-processors)：在协调节点级别上搜索阶段之间运行的组件。搜索阶段结果处理器拦截了从一个搜索阶段检索到的结果，并将其转换为下一个搜索阶段。
+*[_处理器_]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors/)：搜索请求处理器或搜索响应处理器。
+* _ Search Pipeline_：集成到OpenSearch中的处理器的有序列表。管道截止查询，在查询上执行处理，将其发送到OpenSearch，拦截结果，对结果进行处理，并将其返回到调用应用程序中，如下图所示。
 
-![Search processor diagram]({{site.url}}{{site.baseurl}}/images/search-pipelines.png)
+![搜索处理器图]({{site.url}}{{site.baseurl}}/images/search-pipelines.png)
 
-Both request and response processing for the pipeline are performed on the coordinator node, so there is no shard-level processing.
-{: .note}
+管道的请求和响应处理都在协调器节点上执行，因此没有碎片-水平处理。
+{： 。笔记}
 
-## Processors
+## 处理器
 
-To learn more about available search processors, see [Search processors]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors/).
+要了解有关可用搜索处理器的更多信息，请参阅[搜索处理器]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-processors/)。
 
 
-## Example
+## 例子
 
-To create a search pipeline, send a request to the search pipeline endpoint specifying an ordered list of processors, which will be applied sequentially:
+要创建搜索管道，请将请求发送到搜索管道端点，指定有序的处理器列表，该列表将依次应用：
 
 ```json
 PUT /_search/pipeline/my_pipeline 
@@ -60,22 +60,23 @@ PUT /_search/pipeline/my_pipeline
   ]
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-For more information about creating and updating a search pipeline, see [Creating a search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/creating-search-pipeline/). 
+有关创建和更新搜索管道的更多信息，请参见[创建搜索管道]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/creating-search-pipeline/)。
 
-To use a pipeline with a query, specify the pipeline name in the `search_pipeline` query parameter:
+要使用查询的管道，请在此处指定管道名称`search_pipeline` 查询参数：
 
 ```json
 GET /my_index/_search?search_pipeline=my_pipeline
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-Alternatively, you can use a temporary pipeline with a request or set a default pipeline for an index. To learn more, see [Using a search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/using-search-pipeline/).
+另外，您可以使用请求的临时管道或为索引设置默认管道。要了解更多，请参阅[使用搜索管道]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/using-search-pipeline/)。
 
-To learn about retrieving details for an existing search pipeline, see [Retrieving search pipelines]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/retrieving-search-pipeline/).
+要了解检索现有搜索管道的详细信息，请参阅[检索搜索管道]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/retrieving-search-pipeline/)。
 
 
-## Search pipeline metrics
+## 搜索管道指标
 
-For information about retrieving search pipeline statistics, see [Search pipeline metrics]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-pipeline-metrics/).
+有关检索搜索管道统计信息的信息，请参见[搜索管道指标]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/search-pipeline-metrics/)
+

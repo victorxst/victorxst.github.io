@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Search relevance
+title: 搜索相关性
 nav_order: 55
 has_children: true
 has_toc: false
@@ -8,42 +8,42 @@ redirect_from:
   - /search-plugins/search-relevance/
 ---
 
-# Search relevance
+# 搜索相关性
 
-Search relevance evaluates the accuracy of the search results returned by a query. The higher the relevance, the better the search engine. Compare Search Results is the first search relevance feature in OpenSearch. 
+搜索相关性评估查询返回的搜索结果的准确性。相关性越高，搜索引擎越好。比较搜索结果是OpenSearch中的第一个搜索相关功能。
 
-## Compare Search Results
+## 比较搜索结果
 
-Compare Search Results in OpenSearch Dashboards lets you compare results from two queries side by side to determine whether one query produces better results than the other. Using this tool, you can evaluate search quality by experimenting with queries. 
+比较OpenSearch仪表板中的搜索结果使您可以并排比较两个查询的结果，以确定一个查询是否会产生比另一个查询更好的结果。使用此工具，您可以通过尝试查询来评估搜索质量。
 
-For example, you can see how results change when you apply one of the following query changes:
+例如，当应用以下查询之一更改时，您可以看到结果如何变化：
 
-- Weighting different fields differently
-- Different stemming or lemmatization strategies
-- Shingling
+- 以不同的方式加权不同的领域
+- 不同的茎或柠檬水策略
+- 摇摆
 
-## Prerequisites
+## 先决条件
 
-Before you get started, you must index data in OpenSearch. To learn how to create a new index, see [Index data]({{site.url}}{{site.baseurl}}/opensearch/index-data). 
+在开始之前，必须在OpenSearch中索引数据。要了解如何创建新索引，请参阅[索引数据]({{site.url}}{{site.baseurl}}/opensearch/index-data)。
 
-Alternatively, you can add sample data in OpenSearch Dashboards using the following steps:
+另外，您可以使用以下步骤在OpenSearch仪表板中添加示例数据：
 
-1. On the top menu bar, go to **OpenSearch Dashboards > Overview**.
-1. Select **View app directory**.
-1. Select **Add sample data**.  
-1. Choose one of the built-in datasets and select **Add data**.
+1. 在顶部菜单栏上，转到**OpenSearch仪表板>概述**。
+1. 选择**查看应用程序目录**。
+1. 选择**添加示例数据**。
+1. 选择其中之一-在数据集中，选择**添加数据**。
 
-## Using Compare Search Results in OpenSearch Dashboards
+## 使用比较搜索仪表板中的搜索结果
 
-To compare search results in OpenSearch Dashboards, perform the following steps.
+要比较OpenSearch仪表板中的搜索结果，请执行以下步骤。
 
-**Step 1:** On the top menu bar, go to **OpenSearch Plugins > Search Relevance**.  
+**步骤1：** 在顶部菜单栏上，转到**OpenSearch插件>搜索相关性**。
 
-**Step 2:** Enter the search text in the search bar.
+**第2步：** 在搜索栏中输入搜索文本。
 
-**Step 3:** Select an index for **Query 1** and enter a query (request body only) in [OpenSearch Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl). The `GET` HTTP method and the `_search` endpoint are implicit. Use the `%SearchText%` variable to refer to the text in the search bar.
+**步骤3：** 选择一个索引**查询1** 并输入查询（仅请求主体）[OpenSearch查询DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl)。这`GET` HTTP方法和`_search` 端点是隐式的。使用`%SearchText%` 可变以参考搜索栏中的文本。
 
-The following is an example query:
+以下是一个示例查询：
 
 ```json
 {
@@ -56,9 +56,9 @@ The following is an example query:
 }
 ```
 
-**Step 4:** Select an index for **Query 2** and enter a query (request body only).
+**步骤4：** 选择一个索引**查询2** 并输入查询（仅请求主体）。
 
-The following example query boosts the `title` field in search results:
+以下示例查询提升`title` 搜索结果中的字段：
 
 ```json
 {
@@ -71,17 +71,17 @@ The following example query boosts the `title` field in search results:
 }
 ```
 
-**Step 5:** Select **Search** and compare the results in **Result 1** and **Result 2**.
+**步骤5：** 选择**搜索** 并比较结果**结果1** 和**结果2**。
 
-The following example screen shows a search for the word "cup" in the `description` and `item_name` fields with and without boosting the `item_name`:
+以下示例屏幕显示了搜索单词"cup" 在里面`description` 和`item_name` 有和没有提升的领域`item_name`：
 
 <img src="{{site.url}}{{site.baseurl}}/images/search_relevance.png" alt="Compare search results"/>{: .img-fluid }
 
-If a result in Result 1 appears in Result 2, the `Up` and `Down` indicators below the result number signify how many places the result moved up or down compared to the same result in Result 2. In this example, the document with the ID 2 is `Up 1` place in Result 2 compared to Result 1 and `Down 1` place in Result 1 compared to Result 2. 
+如果结果1中的结果在结果2中出现，则`Up` 和`Down` 与结果2相比，结果编号低于结果编号，结果与结果2相比。在此示例中，ID 2的文档为`Up 1` 与结果1相比，在结果2中放置`Down 1` 与结果2相比，放置在结果1中。
 
-## Changing the number of results
+## 更改结果数
 
-By default, OpenSearch returns the top 10 results. To change the number of returned results to a different value, specify the `size` parameter in the query:
+默认情况下，OpenSearch返回前10个结果。要将返回结果的数量更改为其他值，请指定`size` 查询中的参数：
 
 ```json
 {
@@ -95,35 +95,35 @@ By default, OpenSearch returns the top 10 results. To change the number of retur
 }
 ```
 
-Setting `size` to a high value (for example, larger than 250 documents) may degrade performance.
-{: .note}
+环境`size` 高价值（例如，大于250个文档）可能会降低性能。
+{： 。笔记}
 
-You cannot save a given comparison for future use, so Compare Search Results is not suitable for systematic testing.
-{: .note}
+您无法保存给定的比较以供将来使用，因此比较搜索结果不适合系统测试。
+{： 。笔记}
 
-## Comparing OpenSearch search results with reranked results
+## 将OpenSearch搜索结果与重新访问结果进行比较
 
-One use case for Compare Search Results is the comparison of raw OpenSearch results with the same results processed by a reranking application. OpenSearch currently integrates with the following two rerankers:
+一个用于比较搜索结果的用例是将RAW OpenSearch结果与通过Reranking应用程序处理相同的结果进行比较。OpenSearch当前与以下两个Rerankers集成：
 
-- [Kendra Intelligent Ranking for OpenSearch](#reranking-results-with-kendra-intelligent-ranking-for-opensearch)
-- [Amazon Personalize Search Ranking](#personalizing-search-results-with-amazon-personalize-search-ranking)
+- [Kendra智能排名opensearch](#reranking-results-with-kendra-intelligent-ranking-for-opensearch)
+- [亚马逊个性化搜索排名](#personalizing-search-results-with-amazon-personalize-search-ranking)
 
-### Reranking results with Kendra Intelligent Ranking for OpenSearch
+### 肯德拉（Kendra）智能排名的重读结果
 
-An example of a reranker is **Kendra Intelligent Ranking for OpenSearch**, contributed by the Amazon Kendra team. This plugin takes search results from OpenSearch and applies Amazon Kendra’s semantic relevance rankings calculated using vector embeddings and other semantic search techniques. For many applications, this provides better result rankings.
+重读者的一个例子是**Kendra智能排名opensearch**由亚马逊肯德拉团队贡献。该插件从OpenSearch获取搜索结果，并应用了使用向量嵌入和其他语义搜索技术计算的Amazon Kendra的语义相关排名。对于许多应用程序，这提供了更好的结果排名。
 
-To try Kendra Intelligent Ranking, you must first set up the Amazon Kendra service. To get started, see [Amazon Kendra](https://aws.amazon.com/kendra/). For detailed information, including plugin setup instructions, see [Intelligently ranking OpenSearch (self managed) results using Amazon Kendra](https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html).
+要尝试Kendra Intelligent排名，您必须首先设置Amazon Kendra服务。要开始，请参阅[亚马逊肯德拉](https://aws.amazon.com/kendra/)。有关详细信息，包括插件设置说明，请参阅[使用Amazon Kendra智能排名OpenSearch（自我管理）结果](https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html)。
 
-### Comparing search results with reranked results in OpenSearch Dashboards
+### 将搜索结果与重新访问的结果进行比较opensearch仪表板中的结果
 
-To compare search results with reranked results in OpenSearch Dashboards, enter a query in **Query 1** and enter the same query using a reranker in **Query 2**. Then compare the search results from OpenSearch with reranked results.
+要将搜索结果与Reranked结果进行比较OpenSearch仪表板的结果，请输入查询**查询1** 并使用reranker输入相同的查询**查询2**。然后将Opensearch的搜索结果与重新依据的结果进行比较。
 
-The following example searches for the text "snacking nuts" in the `abo` index. The documents in the index contain snack descriptions in the `bullet_point` array. 
+以下示例搜索文本"snacking nuts" 在里面`abo` 指数。索引中的文档包含零食描述`bullet_point` 大批。
 
 <img src="{{site.url}}{{site.baseurl}}/images/kendra_query.png" alt="OpenSearch Intelligent Ranking query"/>{: .img-fluid }
 
-1. Enter `snacking nuts` in the search bar.
-1. Enter the following query, which searches the `bullet_point` field for the search text "snacking nuts", in **Query 1**:
+1. 进入`snacking nuts` 在搜索栏中。
+1. 输入以下查询，搜索`bullet_point` 搜索文本的字段"snacking nuts"， 在**查询1**：
 
     ```json
     {
@@ -135,7 +135,7 @@ The following example searches for the text "snacking nuts" in the `abo` index. 
       "size": 25
     }
     ```
-1. Enter the same query with a reranker in **Query 2**. This example uses Kendra Intelligent Ranking:
+1. 使用reranker输入相同的查询**查询2**。此示例使用Kendra智能排名：
 
     ```json
     {
@@ -161,11 +161,12 @@ The following example searches for the text "snacking nuts" in the `abo` index. 
     }
     ```
 
-    In the preceding query, `body_field` refers to the body field of the documents in the index, which Kendra Intelligent Ranking uses to rank the results. The `body_field` is required, while the `title_field` is optional.
-1. Select **Search** and compare the results in **Result 1** and **Result 2**.
+    在上一个查询中，`body_field` 指索引中文档的身体场，肯德拉智能排名用来对结果进行排名。这`body_field` 是必需的，而`title_field` 是可选的。
+1. 选择**搜索** 并比较结果**结果1** 和**结果2**。
 
-### Personalizing search results with Amazon Personalize Search Ranking
+### 亚马逊个性化搜索结果个性化搜索排名
 
-Another example of a reranker is **Amazon Personalize Search Ranking**, contributed by the Amazon Personalize team. Amazon Personalize uses machine learning (ML) techniques to generate custom recommendations for your users. The plugin takes search results from OpenSearch and applies a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) to rerank them according to their Amazon Personalize ranking. The Amazon Personalize rankings are based on the user's past behavior and metadata about the search items and the user. This workflow improves the search experience for your users by personalizing their search results.
+重读者的另一个例子是**亚马逊个性化搜索排名**，由亚马逊个性化团队贡献。亚马逊个性化使用机器学习（ML）技术为您的用户生成自定义建议。该插件从OpenSearch获取搜索结果，并应用[搜索管道]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) 根据他们的亚马逊个性化排名，将它们重读。Amazon个性化排名基于用户的过去行为和有关搜索项和用户的元数据。此工作流程通过个性化搜索结果来改善用户的搜索体验。
 
-To try Amazon Personalize Search Ranking, you must first set up Amazon Personalize. To get started, see [Amazon Personalize](https://docs.aws.amazon.com/personalize/latest/dg/setup.html). For detailed information, including plugin setup instructions, see [Personalizing search results from OpenSearch (self-managed)](https://docs.aws.amazon.com/personalize/latest/dg/personalize-opensearch.html).
+要尝试Amazon个性化搜索排名，您必须首先设置Amazon个性化。要开始，请参阅[亚马逊个性化](https://docs.aws.amazon.com/personalize/latest/dg/setup.html)。有关详细信息，包括插件设置说明，请参阅[个性化搜索结果来自OpenSearch（self-管理）](https://docs.aws.amazon.com/personalize/latest/dg/personalize-opensearch.html)。
+

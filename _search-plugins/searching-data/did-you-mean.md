@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Did-you-mean
-parent: Searching data
+parent: 搜索数据
 nav_order: 25
 redirect_from:
   - /opensearch/search/did-you-mean/
@@ -9,23 +9,23 @@ redirect_from:
 
 # Did-you-mean
 
-The `Did-you-mean` suggester shows suggested corrections for misspelled search terms.
+这`Did-you-mean` Suggester显示，建议对拼写错误的搜索词进行更正。
 
-For example, if a user types "fliud," OpenSearch suggests a corrected search term like "fluid." You can then suggest the corrected term to the user or even automatically correct the search term.
+例如，如果用户类型"fliud," OpenSearch提出了一个更正的搜索词"fluid." 然后，您可以向用户建议更正的术语，甚至可以自动更正搜索词。
 
-You can implement the `did-you-mean` suggester using one of the following methods:
+您可以实现`did-you-mean` 建议使用以下方法之一：
 
-- Use a [term suggester](#term-suggester) to suggest corrections for individual words.
-- Use a [phrase suggester](#phrase-suggester) to suggest corrections for phrases.
+- 用一个[学期建议](#term-suggester) 建议对单个单词进行更正。
+- 用一个[Shere Suggester](#phrase-suggester) 建议对短语进行更正。
 
-## Term suggester
+## 学期建议
 
-Use the term suggester to suggest corrected spellings for individual words.
-The term suggester uses an [edit distance](https://en.wikipedia.org/wiki/Edit_distance) to compute suggestions. 
+使用Suggester一词建议单个单词的更正拼写。
+Suggester一词使用[编辑距离](https://en.wikipedia.org/wiki/Edit_distance) 计算建议。
 
-The edit distance is the number of single-character insertions, deletions, or substitutions that need to be performed for a term to match another term. For example, to change the word "cat" to "hats", you need to substitute "h" for "c" and insert an "s", so the edit distance in this case is 2.
+编辑距离是单个的数量-字符插入，删除或替换需要执行一个术语以匹配另一个术语。例如，更改单词"cat" 到"hats"，你需要替代"h" 为了"c" 并插入"s"，因此在这种情况下的编辑距离为2。
 
-To use the term suggester, you don't need any special field mappings for your index. By default, String字段类型 are mapped as `text`. A `text` field is analyzed, so the `title` in the following example is tokenized into individual words. Indexing the following documents creates a `books` index where `title` is a `text` field:
+要使用Suggester一词，您不需要任何特殊的字段映射来索引。默认情况下，字符串字段类型被映射为`text`。A`text` 分析了字段，因此`title` 在下面的示例中，将其化为单个单词。索引以下文档会创建一个`books` 索引在哪里`title` 是一个`text` 场地：
 
 ```json
 PUT books/_doc/1
@@ -39,7 +39,7 @@ PUT books/_doc/2
 }
 ```
 
-To check how a string is split into tokens, you can use the `_analyze` endpoint. To apply the same analyzer that the field uses, you can specify the field's name in the `field` parameter:
+要检查字符串如何分为令牌，您可以使用`_analyze` 端点。要应用该字段使用的相同分析仪，您可以在该字段中指定字段的名称`field` 范围：
 
 ```json
 GET books/_analyze
@@ -49,7 +49,7 @@ GET books/_analyze
 }
 ```
 
-The default analyzer (`standard`) splits a string at word boundaries, removes punctuation, and lowercases the tokens:
+默认分析仪（`standard`）在单词边界上拆分一个字符串，删除标点符号并降低令牌：
 
 ```json
 {
@@ -93,7 +93,7 @@ The default analyzer (`standard`) splits a string at word boundaries, removes pu
 }
 ```
 
-To get suggestions for a misspelled search term, use the term suggester. Specify the input text that needs suggestions in the `text` field, and specify the field from which to get suggestions in the `field` field: 
+要获取拼写错误的搜索词的建议，请使用Suggester一词。指定需要建议的输入文本`text` 字段，并指定从中获得建议的字段`field` 场地：
 
 ```json
 GET books/_search
@@ -109,7 +109,7 @@ GET books/_search
 }
 ```
 
-The term suggester returns a list of corrections for the input text in the `options` array:
+该术语建议返回了输入文本的校正列表`options` 大批：
 
 ```json
 {
@@ -148,9 +148,9 @@ The term suggester returns a list of corrections for the input text in the `opti
 }
 ```
 
-The `score` value is calculated based on the edit distance. The higher the score, the better the suggestion. The `freq` is the frequency that represents the number of times the term appears in the documents of the specified index.
+这`score` 值是根据编辑距离计算的。分数越高，建议越好。这`freq` 是表示该项出现在指定索引的文档中的次数的频率。
 
-You can include several suggestions in one request. The following example uses the term suggester for two different suggestions:
+您可以在一个请求中包含一些建议。以下示例使用Sugnester一词进行两个不同的建议：
 
 ```json
 GET books/_search
@@ -172,7 +172,7 @@ GET books/_search
 }
 ```
 
-To receive suggestions for the same input text in multiple fields, you can define the text globally to avoid duplication:
+要在多个字段中接收有关相同输入文本的建议，您可以在全球定义文本以避免重复：
 
 ```json
 GET books/_search
@@ -193,34 +193,34 @@ GET books/_search
 }
 ```
 
-If `text` is specified both at the global and individual suggestion levels, the suggestion-level value overrides the global value.
+如果`text` 在全球和个人建议级别上指定的建议-级别值覆盖全球值。
 
-### Term suggester options
+### 定期建议选择
 
-You can specify the following options to the term suggester.
+您可以为Suggester一词指定以下选项。
 
-Option | Description
-:--- | :---
-field | The field from which to source suggestions. Required. Can be set for each suggestion or globally.
-analyzer | The analyzer with which to analyze the input text. Defaults to the analyzer configured for the `field`.
-size | The maximum number of suggestions to return for each token in the input text.
-sort | Specifies how suggestions should be sorted in the response. Valid values are:<br>- `score`: Sort by similarity score, then document frequency, and then the term itself.<br>- `frequency`: Sort by document frequency, then similarity score, and then the term itself.
-suggest_mode | The suggest mode specifies the terms for which suggestions should be included in the response. Valid values are:<br>- `missing`: Return suggestions only for the input text terms that are not in the index. <br>- `popular`: Return suggestions only if they occur in the documents more frequently than in the original input text.<br> - `always`: Always return suggestions for each term in the input text.<br>Default is `missing`.
-max_edits | The maximum edit distance for suggestions. Valid values are in the [1, 2] range. Default is 2.
-prefix_length | An integer that specifies the minimum length the matched prefix must be to start returning suggestions. If the prefix of `prefix_length` is not matched, but the search term is still within the edit distance, no suggestions are returned. Default is 1. Higher values improve spellcheck performance because misspellings don’t tend to occur in the beginning of words.
-min_word_length | The minimum length a suggestion must be in order to be included in the response. Default is 4.
-shard_size | The maximum number of candidate suggestions to obtain from each shard. After all candidate suggestions are considered, the top `shard_size` suggestions are returned. Default is equal to the `size` value. Shard-level document frequencies may not be exact because terms may reside in different shards. If `shard_size` is larger than `size`, the document frequencies for suggestions are more accurate, at the cost of decreased performance. 
-max_inspections | The multiplication factor for `shard_size`. The maximum number of candidate suggestions OpenSearch inspects to find suggestions is calculated as `shard_size` multiplied by `max_inspection`. May improve accuracy at the cost of decreased performance. Default is 5.
-min_doc_freq | The minimum number or percentage of documents in which a suggestion should appear for it to be returned. May improve accuracy by returning only suggestions with high shard-level document frequencies. Valid values are integers that represent the document frequency or floats in the [0, 1] range that represent the percentage of documents. Default is 0 (feature disabled). 
-max_term_freq | The maximum number of documents in which a suggestion should appear in order for it to be returned. Valid values are integers that represent the document frequency or floats in the [0, 1] range that represent the percentage of documents. Default is 0.01. Excluding high-frequency terms improves spellcheck performance because high-frequency terms are usually spelled correctly. Uses shard-level document frequencies.
-string_distance | The edit distance algorithm to use to determine similarity. Valid values are:<br>- `internal`: The default algorithm that is based on the [Damerau-Levenshtein algorithm](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance) but is highly optimized for comparing edit distances for terms in the index.<br> - `damerau_levenshtein`: The edit distance algorithm based on the [Damerau-Levenshtein algorithm](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance). <br>- `levenshtein`: The edit distance algorithm based on the [Levenshtein edit distance algorithm](https://en.wikipedia.org/wiki/Levenshtein_distance).<br> - `jaro_winkler`: The edit distance algorithm based on the [Jaro-Winkler algorithm](https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance).<br> - `ngram`: The edit distance algorithm based on character n-grams.
+选项| 描述
+：--- | ：---
+场地| 从中获取建议的字段。必需的。可以为每个建议或全球设置。
+分析仪| 分析仪可以分析输入文本。默认为配置的分析仪`field`。
+尺寸| 输入文本中每个令牌的最大建议数量。
+种类| 指定在响应中应如何分类建议。有效值是：<br>- `score`：按相似度分数排序，然后按文档频率，然后用术语本身进行排序。<br>- `frequency`：按文档频率进行排序，然后按相似度得分，然后按术语本身进行排序。
+建议_mode| 建议模式指定应在响应中包含建议的术语。有效值是：<br>- `missing`：仅针对不在索引中的输入文本项返回建议。<br>- `popular`：返回建议仅在文档中发生的建议比原始输入文本更频繁。<br>- `always`：始终返回输入文本中每个术语的建议。<br>默认值为`missing`。
+max_edit| 建议的最大编辑距离。有效值在[1，2]范围内。默认值为2。
+prefix_length| 指定最小长度的整数必须是开始返回建议。如果前缀`prefix_length` 不匹配，但是搜索词仍在编辑距离之内，没有返回建议。默认值为1。较高的值可以提高拼写检查的性能，因为拼写错误不会在单词开头发生。
+min_word_length| 必须将最小长度提出建议才能包括在响应中。默认值为4。
+shard_size| 从每个碎片获得的最大候选建议数量。毕竟考虑了所有候选建议，最高`shard_size` 提出建议。默认值等于`size` 价值。碎片-级文档频率可能不是确切的，因为术语可能存在于不同的碎片中。如果`shard_size` 大于`size`，建议的文件频率更准确，而绩效降低为代价。
+max_inspections| 的乘法因子`shard_size`。候选人建议的最大数量开放搜索检查以查找建议是计算的`shard_size` 乘以`max_inspection`。可以以降低性能成本提高准确性。默认值为5。
+min_doc_freq| 建议将其退还建议的最小数量或百分比。仅通过高碎片返回建议，可以提高准确性-级文档频率。有效值是表示文档频率或浮动在表示文档百分比的[0，1]范围内的整数。默认值为0（功能禁用）。
+max_term_freq| 为了退还建议，应出现建议的最大文档数量。有效值是表示文档频率或浮动在表示文档百分比的[0，1]范围内的整数。默认值为0.01。不包括高-频率术语改善了拼写检查性能，因为高-频率术语通常正确拼写。使用碎片-级文档频率。
+string_distance| 用于确定相似性的编辑距离算法。有效值是：<br>- `internal`：基于[达米拉（Damerau）-Levenshtein算法](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance) 但是，高度优化用于比较索引中术语的编辑距离。<br>- `damerau_levenshtein`：基于编辑距离算法[达米拉（Damerau）-Levenshtein算法](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance)。<br>- `levenshtein`：基于编辑距离算法[Levenshtein编辑距离算法](https://en.wikipedia.org/wiki/Levenshtein_distance)。<br>- `jaro_winkler`：基于编辑距离算法[贾罗-Winkler算法](https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance)。<br>- `ngram`：基于字符n的编辑距离算法-克。
 
-## Phrase suggester
+## Shere Suggester
 
-To implement `did-you-mean`, use a phrase suggester.
-The phrase suggester is similar to the term suggester, except it uses n-gram language models to suggest whole phrases instead of individual words.
+实施`did-you-mean`，使用短语建议。
+该短语建议类似于Suggester一词，除了使用n-克语言模型建议整个短语而不是单个单词。
 
-To set up a phrase suggester, create a custom analyzer called `trigram` that uses a `shingle` filter and lowercases tokens. This filter is similar to the `edge_ngram` filter, but it applies to words instead of letters. Then configure the field from which you'll be sourcing suggestions with the custom analyzer you created:
+要设置短语建议，请创建一个称为的自定义分析仪`trigram` 使用的是`shingle` 过滤和下尺寸令牌。该过滤器类似于`edge_ngram` 过滤器，但它适用于单词而不是字母。然后，使用您创建的自定义分析仪来配置您将要从中采购建议的字段：
 
 ```json
 PUT books2
@@ -264,7 +264,7 @@ PUT books2
 }
 ```
 
-Index the documents into the new index:
+将文档索引到新索引：
 
 ```json
 PUT books2/_doc/1
@@ -278,7 +278,7 @@ PUT books2/_doc/2
 }
 ```
 
-Suppose the user searches for an incorrect phrase:
+假设用户搜索不正确的短语：
 
 ```json
 GET books2/_search
@@ -294,7 +294,7 @@ GET books2/_search
 }
 ```
 
-The phrase suggester returns the corrected phrase:
+该短语建议返回校正的短语：
 
 ```json
 {
@@ -332,7 +332,7 @@ The phrase suggester returns the corrected phrase:
 }
 ```
 
-To highlight suggestions, set up the [`highlight`]({{site.url}}{{site.baseurl}}/opensearch/search/highlight) field for the phrase suggester:
+要突出建议，请设置[`highlight`]({{site.url}}{{site.baseurl}}/opensearch/search/highlight) “建议”的字段：
 
 ```json
 GET books2/_search
@@ -353,7 +353,7 @@ GET books2/_search
 }
 ```
 
-The results contain the highlighted text:
+结果包含突出显示的文本：
 
 ```json
 {
@@ -392,39 +392,39 @@ The results contain the highlighted text:
 }
 ```
 
-### Phrase suggester options
+### 短语建议选项
 
-You can specify the following options to the phrase suggester.
+您可以为“建议”一词指定以下选项。
 
-Option | Description
-:--- | :---
-field | The field to use for n-gram lookups. The phrase suggester uses this field to calculate suggestion scores. Required.
-gram_size | The maximum size `n` of the n-grams (shingles) in the field. If the field does not contain n-grams (shingles), omit this option or set it to 1. If the field uses a shingle filter, and `gram_size` is not set, `gram_size` is set to `max_shingle_size`.
-real_word_error_likelihood | The probability that a term is misspelled, even if it exists in the dictionary. Default is 0.95 (5% of the words in the dictionary are misspelled).
-confidence | The confidence level is a float factor that is multiplied by the input phrase's score to calculate a threshold score for other suggestions. Only suggestions with higher scores than the threshold are returned. A confidence level of 1.0 will only return suggestions that score higher than the input phrase. If `confidence` is set to 0, the top `size` candidates are returned. Default is 1.
-max_errors | The maximum number or percentage of the terms that can be erroneous (spelled incorrectly) in order to return a suggestion. Valid values are integers that represent the number of terms or floats in the (0, 1) range that represent the percentage of the terms. Default is 1 (return only suggestions with at most one misspelled term). Setting this value to a high number can decrease performance. We recommend setting `max_errors` to a low number like 1 or 2 to reduce the time spent in suggest calls relative to the time spent in query execution.
-separator | The separator for the terms in the bigram field. Defaults to the space character.
-size | The number of candidate suggestions to generate for each query term. Specifying a higher value can result in terms with higher edit distances being returned. Default is 5.
-analyzer | The analyzer with which to analyze the suggestion text. Defaults to the analyzer configured for the `field`.
-shard_size | The maximum number of candidate suggestions to obtain from each shard. After all candidate suggestions are considered, the top `shard_size` suggestions are returned. Default is 5.
-[collate](#collate-field)| Used to prune suggestions for which there are no matching documents in the index.
-collate.query | Specifies a query against which suggestions are checked to prune the suggestions for which there are no matching documents in the index.
-collate.prune | Specifies whether to return all suggestions. If `prune` is set to `false`, only those suggestions that have matching documents are returned. If `prune` is set to `true`, all suggestions are returned; each suggestion has an additional `collate_match` field that is `true` if the suggestion has matching documents and is `false` otherwise. Default is `false`.
-highlight | Configures suggestion highlighting. Both `pre_tag` and `post_tag` values are required. 
-highlight.pre_tag | The starting tag for highlighting. 
-highlight.post_tag | The ending tag for highlighting.
-[smoothing](#smoothing-models) | Smoothing model to balance the weight of the shingles that exist in the index frequently with the weight of the shingles that exist in the index infrequently.
+选项| 描述
+：--- | ：---
+场地| 用于N的字段-克查找。该短语建议使用此字段来计算建议分数。必需的。
+gram_size| 最大尺寸`n` n-克（带状疱疹）中的克（带状疱疹）。如果字段不包含n-克（带状疱疹），省略此选项或将其设置为1。如果字段使用带状疱疹过滤器，并且`gram_size` 未设置，`gram_size` 被设定为`max_shingle_size`。
+real_word_error_likelihood| 即使在字典中存在术语，该术语的可能性也是如此。默认值为0.95（词典中的单词的5％是拼写错误的）。
+信心| 置信度是一个浮点因子，乘以输入短语的分数，以计算其他建议的阈值得分。仅返回分数高于阈值的建议。1.0的置信度水平只会返回得分高于输入短语的建议。如果`confidence` 设置为0，顶部`size` 候选人退还。默认值为1。
+max_errors| 为了返回建议，该条款的最大数量或百分比可能是错误的（拼写错误）。有效的值是代表表示条款百分比（0，1）范围内的条款或浮动数的整数。默认值为1（最多只有一个拼写错误的返回建议）。将此值设置为高数字可以降低性能。我们建议设置`max_errors` 相对于查询执行所花费的时间，减少了较低的数字或2或2的时间。
+分隔器| Bigram字段中术语的分离器。默认为空格字符。
+尺寸| 为每个查询项生成的候选建议数量。指定更高的值可能会导致返回较高的编辑距离。默认值为5。
+分析仪| 分析仪可以分析建议文本。默认为配置的分析仪`field`。
+shard_size| 从每个碎片获得的最大候选建议数量。毕竟考虑了所有候选建议，最高`shard_size` 提出建议。默认值为5。
+[整理](#collate-field)| 用于修剪索引中没有匹配文档的建议。
+整理| 指定一个查询，该查询需要检查建议，以修剪索引中没有匹配文档的建议。
+整理| 指定是否返回所有建议。如果`prune` 被设定为`false`，仅返回那些具有匹配文档的建议。如果`prune` 被设定为`true`，所有建议均已返回；每个建议都有一个`collate_match` 那是`true` 如果建议有匹配的文档，并且是`false` 否则。默认为`false`。
+强调| 配置建议突出显示。两个都`pre_tag` 和`post_tag` 需要值。
+亮点.pre_tag| 突出显示的起始标签。
+亮点.post_tag| 突出显示的结尾标签。
+[平滑](#smoothing-models) | 平滑模型，以平衡索引中存在的带状疱疹的重量与索引中存在的带状板的重量很少。
 
 
-### Collate field
+### 整理场
 
-To filter out spellchecked suggestions that will not return any results, you can use the `collate` field. This field contains a scripted query that is run for each returned suggestion. See [Search templates]({{site.url}}{{site.baseurl}}/opensearch/search-template) for information on constructing a templated query. You can specify the current suggestion using the `{% raw %}{{suggestion}}{% endraw %}` variable, or you can pass your own template parameters in the `params` field (the suggestion value will be added to the variables you specify).
+为了滤除不会返回任何结果的拼写检查的建议，您可以使用`collate` 场地。该字段包含一个为每个返回建议运行的脚本查询。看[搜索模板]({{site.url}}{{site.baseurl}}/opensearch/search-template) 有关构建模板查询的信息。您可以使用`{% raw %}{{suggestion}}{% endraw %}` 变量，或者您可以在`params` 字段（建议值将添加到您指定的变量中）。
 
-The collate query for a suggestion is run only on the shard from which the suggestion was sourced. The query is required.  
+有关建议的整理查询仅在提出建议的碎片上运行。需要查询。
 
-Additionally, if the `prune` parameter is set to `true`, a `collate_match` field is added to each suggestion. If a query returns no results, the `collate_match` value is `false`. You can then filter out suggestions based on the `collate_match` field. The `prune` parameter's default value is `false`.
+另外，如果`prune` 参数设置为`true`， A`collate_match` 字段添加到每个建议中。如果查询不返回结果，`collate_match` 价值是`false`。然后，您可以根据`collate_match` 场地。这`prune` 参数的默认值为`false`。
 
-For example, the following query configures the `collate` field to run a `match_phrase` query matching the `title` field to the current suggestion:
+例如，以下查询配置`collate` 运行一个字段`match_phrase` 查询匹配`title` 目前的建议：
 
 ```json
 GET books2/_search
@@ -450,7 +450,7 @@ GET books2/_search
 }
 ```
 
-The resulting suggestion contains the `collate_match` field set to `true`, which means the `match_phrase` query will return matching documents for the suggestion:
+由此产生的建议包含`collate_match` 字段设置为`true`，这意味着`match_phrase` 查询将返回该建议的匹配文件：
 
 ```json
 {
@@ -490,20 +490,20 @@ The resulting suggestion contains the `collate_match` field set to `true`, which
 ```
 
 
-### Smoothing models
+### 平滑模型
 
-For most use cases, when calculating a suggestion's score, you want to take into account not only the frequency of a shingle but also the shingle's size. Smoothing models are used to calculate scores for shingles of different sizes, balancing the weight of frequent and infrequent shingles.
+在大多数用例中，计算建议的分数时，您不仅要考虑木瓦的频率，而且要考虑木瓦的尺寸。平滑模型用于计算不同尺寸的带状疱疹的分数，平衡频繁和不经常的带状疱疹的重量。
 
-The following smoothing models are supported.
+支持以下平滑模型。
 
-Model | Description
-:--- | :---
-stupid_backoff | Backs off to lower-order n-gram models if the higher-order n-gram count is 0 and multiplies the lower-order n-gram model by a constant factor (`discount`). This is the default smoothing model.
-stupid.backoff.discount | The factor by which to multiply the lower-order n-gram model. Optional. Default is 0.4.
-laplace | Uses additive smoothing, adding a constant `alpha` to all counts to balance weights.
-laplace.alpha | The constant added to all counts to balance weights, typically 1.0 or smaller. Optional. Default is 0.5.
+模型| 描述
+：--- | ：---
+愚蠢的_backoff| 退回到较低-订单n-克模型，如果较高-订单n-克计数为0，乘以较低-订单n-按恒定因素进行克模型（克`discount`）。这是默认平滑模型。
+愚蠢的backoff.discount| 乘以较低的因素-订单n-克模型。选修的。默认值为0.4。
+拉普拉斯| 使用添加平滑，添加常数`alpha` 所有计数以平衡权重。
+laplace.alpha| 将常数添加到所有计数中，以平衡权重，通常为1.0或更小。选修的。默认值为0.5。
 
-By default, OpenSearch uses the Stupid Backoff model&mdash;a simple algorithm that starts with the shingles of the highest order and takes lower-order shingles if higher-order shingles are not found. For example, if you set up the phrase suggester to have 3-grams, 2-grams, and 1-grams, the Stupid Backoff model first inspects the 3-grams. If there are no 3-grams, it inspects 2-grams but multiplies the score by the `discount` factor. If there are no 2-grams, it inspects 1-grams but again multiplies the score by the `discount` factor. The Stupid Backoff model works well in most cases. If you need to choose the Laplace smoothing model, specify it in the `smoothing` parameter:
+默认情况下，OpenSearch使用愚蠢的向后模型＆mdash;一种简单的算法，该算法从最高阶段的木瓦开始，并降低-订购瓦（如果更高）-找不到订单瓦。例如，如果您设置了“建议”一词为3-克，2-克和1-克，愚蠢的退缩模型首先检查了3-克。如果没有3-克，它检查2-克，但将分数乘以`discount` 因素。如果没有2-克，它检查1-克，但再次将分数乘以`discount` 因素。在大多数情况下，愚蠢的退缩模型效果很好。如果您需要选择拉普拉斯平滑模型，请在`smoothing` 范围：
 
 ```json
 GET books2/_search
@@ -525,11 +525,11 @@ GET books2/_search
 }
 ```
 
-### Candidate generators
+### 候选发电机
 
-Candidate generators provide possible suggestion terms based on the terms in the input text. There is one candidate generator available&mdash;`direct_generator`. A direct generator functions similarly to a term suggester: It is also called for each term in the input text. The phrase suggester supports multiple candidate generators, where each generator is called for each term in the input text. It also lets you specify a pre-filter (an analyzer that analyzes the input text terms before they enter the spellcheck phase) and a post-filter (an analyzer that analyzes the generated suggestions before they are returned).
+候选生成器根据输入文本中的术语提供可能的建议条款。有一个可用的候选生成器＆mdash;`direct_generator`。直接发电机的功能类似于术语Suggester：在输入文本中的每个术语也被调用。该短语建议支持多个候选生成器，其中每个发电机在输入文本中的每个项都被调用。它还可以让您指定一个PRE-过滤器（分析仪在输入文本阶段之前分析输入文本阶段）和帖子-过滤器（分析仪在返回之前分析生成的建议）。
 
-Set up a direct generator for a phrase suggester:
+为Suggester设置直接发电机：
 
 ```json
 GET books2/_search
@@ -553,18 +553,19 @@ GET books2/_search
 }
 ```
 
-You can specify the following direct generator options.
+您可以指定以下直接生成器选项。
 
-Option | Description
-:--- | :---
-field | The field from which to source suggestions. Required. Can be set for each suggestion or globally.
-size | The maximum number of suggestions to return for each token in the input text.
-suggest_mode | The suggest mode specifies the terms for which suggestions generated on each shard should be included. The suggest mode is applied to suggestions for each shard and is not checked when combining suggestions from different shards. Therefore, if the suggest mode is `missing`, suggestions will be returned if the term is missing from one shard but exists on another shard. Valid values are:<br>- `missing`: Return suggestions only for the input text terms that are not in the shard. <br>- `popular`: Return suggestions only if they occur in the documents more frequently than in the original input text on the shard.<br>- `always`: Always return suggestions.<br>Default is `missing`.
-max_edits | The maximum edit distance for suggestions. Valid values are in the [1, 2] range. Default is 2.
-prefix_length | An integer that specifies the minimum length the matched prefix must be to start returning suggestions. If the prefix of `prefix_length` is not matched but the search term is still within the edit distance, no suggestions are returned. Default is 1. Higher values improve spellcheck performance because misspellings don’t tend to occur in the beginning of words.
-min_word_length | The minimum length a suggestion must be in order to be included. Default is 4.
-max_inspections | The multiplication factor for `shard_size`. The maximum number of candidate suggestions OpenSearch inspects to find suggestions is calculated as `shard_size` multiplied by `max_inspection`. May improve accuracy at the cost of decreased performance. Default is 5.
-min_doc_freq | The minimum number or percentage of documents in which a suggestion should appear in order for it to be returned. May improve accuracy by returning only suggestions with high shard-level document frequencies. Valid values are integers that represent the document frequency or floats in the [0, 1] range that represent the percentage of documents. Default is 0 (feature disabled). 
-max_term_freq | The maximum number of documents in which a suggestion should appear in order for it to be returned. Valid values are integers that represent the document frequency or floats in the [0, 1] range that represent the percentage of documents. Default is 0.01. Excluding high-frequency terms improves spellcheck performance because high-frequency terms are usually spelled correctly. Uses shard-level document frequencies.
-pre_filter | An analyzer that is applied to each input text token passed to the generator before a suggestion is generated. 
-post_filter | An analyzer that is applied to each generated suggestion before it is passed to the phrase scorer. 
+选项| 描述
+：--- | ：---
+场地| 从中获取建议的字段。必需的。可以为每个建议或全球设置。
+尺寸| 输入文本中每个令牌的最大建议数量。
+建议_mode| 建议模式指定应包括每个碎片上生成的建议的术语。建议模式适用于每个碎片的建议，在组合不同碎片的建议时未检查。因此，如果建议模式为`missing`，如果一个碎片中缺少该术语，但在另一个碎片上存在，将会返回建议。有效值是：<br>- `missing`：仅针对不在碎片中的输入文本项返回建议。<br>- `popular`：返回建议仅在文档中发生的建议比碎片上的原始输入文本更频繁。<br>- `always`：始终返回建议。<br>默认值为`missing`。
+max_edit| 建议的最大编辑距离。有效值在[1，2]范围内。默认值为2。
+prefix_length| 指定最小长度的整数必须是开始返回建议。如果前缀`prefix_length` 不匹配，但搜索词仍在编辑距离之内，没有返回建议。默认值为1。较高的值可以提高拼写检查的性能，因为拼写错误不会在单词开头发生。
+min_word_length| 必须提出建议的最小长度才能包括在内。默认值为4。
+max_inspections| 的乘法因子`shard_size`。候选人建议的最大数量开放搜索检查以查找建议是计算的`shard_size` 乘以`max_inspection`。可以以降低性能成本提高准确性。默认值为5。
+min_doc_freq| 为了退还建议，应出现建议的最小数量或百分比。仅通过高碎片返回建议，可以提高准确性-级文档频率。有效值是表示文档频率或浮动在表示文档百分比的[0，1]范围内的整数。默认值为0（功能禁用）。
+max_term_freq| 为了退还建议，应出现建议的最大文档数量。有效值是表示文档频率或浮动在表示文档百分比的[0，1]范围内的整数。默认值为0.01。不包括高-频率术语改善了拼写检查性能，因为高-频率术语通常正确拼写。使用碎片-级文档频率。
+pre_filter| 在生成建议之前，将应用于生成器的每个输入文本令牌应用于生成器。
+post_filter| 一个分析仪将其应用于每个生成的建议之前，然后将其传递给短语得分手。
+

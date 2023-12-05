@@ -1,65 +1,65 @@
 ---
 layout: default
-title: Complex Queries
+title: 复杂的查询
 parent: SQL
-grand_parent: SQL and PPL
+grand_parent: SQL和PPL
 nav_order: 6
 Redirect_from:
   - /search-plugins/sql/complex/
 ---
 
-# Complex queries
+# 复杂的查询
 
-Besides simple SFW (`SELECT-FROM-WHERE`) queries, the SQL plugin supports complex queries such as subquery, join, union, and minus. These queries operate on more than one OpenSearch index. To examine how these queries execute behind the scenes, use the `explain` operation.
+除了简单的sfw（`SELECT-FROM-WHERE`）查询，SQL插件支持复杂的查询，例如子查询，加入，联合和减去。这些查询在多个OpenSearch索引上运行。要检查这些查询如何在幕后执行，请使用`explain` 手术。
 
 
-## Joins
+## 加入
 
-OpenSearch SQL supports inner joins, cross joins, and left outer joins.
+OpenSearch SQL支持内部连接，交叉连接并左外连接。
 
-### Constraints
+### 约束
 
-Joins have a number of constraints:
+加入有许多限制：
 
-1. You can only join two indexes.
-1. You must use aliases for indexes (for example, `people p`).
-1. Within an ON clause, you can only use AND conditions.
-1. In a WHERE statement, don't combine trees that contain multiple indexes. For example, the following statement works:
+1. 您只能加入两个索引。
+1. 您必须使用别名进行索引（例如，`people p`）。
+1. 在ON子句中，您只能使用和条件。
+1. 在某个陈述中，不要结合包含多个索引的树。例如，以下语句有效：
 
    ```
    WHERE (a.type1 > 3 OR a.type1 < 0) AND (b.type2 > 4 OR b.type2 < -1)
    ```
 
-   The following statement does not:
+   以下声明没有：
 
    ```
-   WHERE (a.type1 > 3 OR b.type2 < 0) AND (a.type1 > 4 OR b.type2 < -1)
+   其中（a.type1> 3或b.type2 <0）和（a.type1> 4或b.type2 <-1）
    ```
 
 1. You can't use GROUP BY or ORDER BY for results.
-1. LIMIT with OFFSET (e.g. `LIMIT 25 OFFSET 25`) is not supported.
+1. LIMIT with OFFSET (e.g. `限制25偏移25`) is not supported.
 
 ### Description
 
-The `JOIN` clause combines columns from one or more indexes using values common to each.
+The `加入` clause combines columns from one or more indexes using values common to each.
 
 ### Syntax
 
-Rule `tableSource`:
+Rule `Tablesource`:
 
 ![tableSource]({{site.url}}{{site.baseurl}}/images/tableSource.png)
 
-Rule `joinPart`:
+Rule `加入PART`:
 
 ![joinPart]({{site.url}}{{site.baseurl}}/images/joinPart.png)
 
 ### Example 1: Inner join
 
-Inner join creates a new result set by combining columns of two indexes based on your join predicates. It iterates the two indexes and compares each document to find the ones that satisfy the join predicates. You can optionally precede the `JOIN` clause with an `INNER` keyword.
+Inner join creates a new result set by combining columns of two indexes based on your join predicates. It iterates the two indexes and compares each document to find the ones that satisfy the join predicates. You can optionally precede the `加入` clause with an `内` 关键词。
 
-The join predicate(s) is specified by the ON clause.
+JOIN谓词由ON子句指定。
 
-SQL query:
+SQL查询：
 
 ```sql
 SELECT
@@ -70,9 +70,9 @@ JOIN employees_nested e
  ON a.account_number = e.id
 ```
 
-Explain:
+解释：
 
-The `explain` output is complicated, because a `JOIN` clause is associated with two OpenSearch DSL queries that execute in separate query planner frameworks. You can interpret it by examining the `Physical Plan` and `Logical Plan` objects.
+这`explain` 输出很复杂，因为`JOIN` 子句与在单独的查询计划者框架中执行的两个OpenSearch DSL查询相关联。您可以通过检查`Physical Plan` 和`Logical Plan` 对象。
 
 ```json
 {
@@ -142,22 +142,22 @@ The `explain` output is complicated, because a `JOIN` clause is associated with 
 }
 ```
 
-Result set:
+结果集：
 
-| a.account_number | a.firstname | a.lastname | e.id | e.name
-:--- | :--- | :--- | :--- | :---
-6 | Hattie | Bond | 6 | Jane Smith
+| A.ACCOUNT_NUMBER| A.FirstName| a.lastname| E.ID| E.NAME
+：--- | ：--- | ：--- | ：--- | ：---
+6| 哈蒂| 纽带| 6| 简·史密斯
 
-### Example 2: Cross join
+### 示例2：交叉加入
 
-Cross join, also known as cartesian join, combines each document from the first index with each document from the second.
-The result set is the the cartesian product of documents of both indexes.
-This operation is similar to the inner join without the `ON` clause that specifies the join condition.
+Cross Join（也称为笛卡尔联接）将第一个索引中的每个文档与第二个文档结合在一起。
+结果集是两个索引文档的笛卡尔产品。
+此操作类似于没有内在的连接`ON` 指定联接条件的条款。
 
-It's risky to perform cross join on two indexes of large or even medium size. It might trigger a circuit breaker that terminates the query to avoid running out of memory.
-{: .warning }
+在两个大型甚至中等大小的索引上进行交叉连接是有风险的。它可能会触发断路器，该断路器终止查询以避免存储器耗尽。
+{： 。警告 }
 
-SQL query:
+SQL查询：
 
 ```sql
 SELECT
@@ -167,28 +167,28 @@ FROM accounts a
 JOIN employees_nested e
 ```
 
-Result set:
+结果集：
 
-| a.account_number | a.firstname | a.lastname | e.id | e.name
-:--- | :--- | :--- | :--- | :---
-1 | Amber | Duke | 3 | Bob Smith
-1 | Amber | Duke | 4 | Susan Smith
-1 | Amber | Duke | 6 | Jane Smith
-6 | Hattie | Bond | 3 | Bob Smith
-6 | Hattie | Bond | 4 | Susan Smith
-6 | Hattie | Bond | 6 | Jane Smith
-13 | Nanette | Bates | 3 | Bob Smith
-13 | Nanette | Bates | 4 | Susan Smith
-13 | Nanette | Bates | 6 | Jane Smith
-18 | Dale | Adams | 3 | Bob Smith
-18 | Dale | Adams | 4 | Susan Smith
-18 | Dale | Adams | 6 | Jane Smith
+| A.ACCOUNT_NUMBER| A.FirstName| a.lastname| E.ID| E.NAME
+：--- | ：--- | ：--- | ：--- | ：---
+1| 琥珀色| 公爵| 3| 鲍勃·史密斯
+1| 琥珀色| 公爵| 4| 苏珊·史密斯
+1| 琥珀色| 公爵| 6| 简·史密斯
+6| 哈蒂| 纽带| 3| 鲍勃·史密斯
+6| 哈蒂| 纽带| 4| 苏珊·史密斯
+6| 哈蒂| 纽带| 6| 简·史密斯
+13| Nanette| 贝茨| 3| 鲍勃·史密斯
+13| Nanette| 贝茨| 4| 苏珊·史密斯
+13| Nanette| 贝茨| 6| 简·史密斯
+18| 戴尔| 亚当斯| 3| 鲍勃·史密斯
+18| 戴尔| 亚当斯| 4| 苏珊·史密斯
+18| 戴尔| 亚当斯| 6| 简·史密斯
 
-### Example 3: Left outer join
+### 示例3：左外连接
 
-Use left outer join to retain rows from the first index if it does not satisfy the join predicate. The keyword `OUTER` is optional.
+如果不满足联接谓词，则使用左外连接以将行从第一个索引保留。关键字`OUTER` 是可选的。
 
-SQL query:
+SQL查询：
 
 ```sql
 SELECT
@@ -199,23 +199,23 @@ LEFT JOIN employees_nested e
  ON a.account_number = e.id
 ```
 
-Result set:
+结果集：
 
-| a.account_number | a.firstname | a.lastname | e.id | e.name
-:--- | :--- | :--- | :--- | :---
-1 | Amber | Duke | null | null
-6 | Hattie | Bond | 6 | Jane Smith
-13 | Nanette | Bates | null | null
-18 | Dale | Adams | null | null
+| A.ACCOUNT_NUMBER| A.FirstName| a.lastname| E.ID| E.NAME
+：--- | ：--- | ：--- | ：--- | ：---
+1| 琥珀色| 公爵| 无效的| 无效的
+6| 哈蒂| 纽带| 6| 简·史密斯
+13| Nanette| 贝茨| 无效的| 无效的
+18| 戴尔| 亚当斯| 无效的| 无效的
 
-## Subquery
+## 子查询
 
-A subquery is a complete `SELECT` statement used within another statement and enclosed in parenthesis.
-From the explain output, you can see that some subqueries are actually transformed to an equivalent join query to execute.
+子查询是完整的`SELECT` 在另一个语句中使用的语句，并包含在括号中。
+从解释输出中，您可以看到一些子查询实际上被转换为等效的加入查询以执行。
 
-### Example 1: Table subquery
+### 示例1：表子查询
 
-SQL query:
+SQL查询：
 
 ```sql
 SELECT a1.firstname, a1.lastname, a1.balance
@@ -227,7 +227,7 @@ WHERE a1.account_number IN (
 )
 ```
 
-Explain:
+解释：
 
 ```json
 {
@@ -350,16 +350,16 @@ Explain:
 }
 ```
 
-Result set:
+结果集：
 
-| a1.firstname | a1.lastname | a1.balance
-:--- | :--- | :---
-Amber | Duke | 39225
-Nanette | Bates | 32838
+| a1.firstname| a1.lastname| a1.平衡
+：--- | ：--- | ：---
+琥珀色| 公爵| 39225
+Nanette| 贝茨| 32838
 
-### Example 2: From subquery
+### 示例2：来自子查询
 
-SQL query:
+SQL查询：
 
 ```sql
 SELECT a.f, a.l, a.a
@@ -370,7 +370,7 @@ FROM (
 ) AS a
 ```
 
-Explain:
+解释：
 
 ```json
 {
@@ -414,10 +414,11 @@ Explain:
 }
 ```
 
-Result set:
+结果集：
 
-| f | l | a
-:--- | :--- | :---
-Amber | Duke | 32
-Dale | Adams | 33
-Hattie | Bond | 36
+| F| l| A
+：--- | ：--- | ：---
+琥珀色| 公爵| 32
+戴尔| 亚当斯| 33
+哈蒂| 纽带| 36
+

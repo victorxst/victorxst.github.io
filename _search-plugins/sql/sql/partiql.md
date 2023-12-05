@@ -1,22 +1,22 @@
 ---
 layout: default
-title: JSON Support
+title: JSON支持
 parent: SQL
-grand_parent: SQL and PPL
+grand_parent: SQL和PPL
 nav_order: 8
 redirect_from:
   - /search-plugins/sql/partiql/
 ---
 
-# JSON Support
+# JSON支持
 
-SQL plugin supports JSON by following [PartiQL](https://partiql.org/) specification, a SQL-compatible query language that lets you query semi-structured and nested data for any data format. The SQL plugin only supports a subset of the PartiQL specification.
+SQL插件通过关注来支持JSON[partiql](https://partiql.org/) 规格，SQL-兼容查询语言，可让您查询半度-任何数据格式的结构和嵌套数据。SQL插件仅支持PartiQL规范的子集。
 
-## Querying nested collection
+## 查询嵌套集合
 
-PartiQL extends SQL to allow you to query and unnest nested collections. In OpenSearch, this is very useful to query a JSON index with nested objects or fields.
+PartiQl扩展了SQL，使您可以查询和非嵌套的收集。在OpenSearch中，这对于用嵌套对象或字段查询JSON索引非常有用。
 
-To follow along, use the `bulk` operation to index some sample data:
+要跟随，请使用`bulk` 索引一些示例数据的操作：
 
 ```json
 POST employees_nested/_bulk?refresh
@@ -28,9 +28,9 @@ POST employees_nested/_bulk?refresh
 {"id":6,"name":"Jane Smith","title":"Software Eng 2","projects":[{"name":"SQL security","started_year":1998},{"name":"Hello security","started_year":2015,"address":[{"city":"Dallas","state":"TX"}]}]}
 ```
 
-### Example 1: Unnesting a nested collection
+### 示例1：取消嵌套集合
 
-This example finds the nested document (`projects`) with a field value (`name`) that satisfies the predicate (contains `security`). Because each parent document can have more than one nested documents, the nested document that matches is flattened. In other words, the final result is the cartesian product between the parent and nested documents.
+此示例找到嵌套的文档（`projects`）具有场值（`name`）满足谓词（包含`security`）。由于每个父文档都可以具有多个嵌套文档，因此匹配的嵌套文档被扁平。换句话说，最终结果是父母和嵌套文档之间的笛卡尔产品。
 
 ```sql
 SELECT e.name AS employeeName,
@@ -40,7 +40,7 @@ FROM employees_nested AS e,
 WHERE p.name LIKE '%security%'
 ```
 
-Explain:
+解释：
 
 ```json
 {
@@ -102,18 +102,18 @@ Explain:
 }
 ```
 
-Result set:
+结果集：
 
-| employeeName | projectName
-:--- | :---
-Bob Smith | OpenSearch Security
-Bob Smith | SQL security
-Jane Smith | Hello security
-Jane Smith | SQL security
+| 员工姓名| 项目名
+：--- | ：---
+鲍勃·史密斯| OpenSearch安全
+鲍勃·史密斯| SQL安全性
+简·史密斯| 您好安全
+简·史密斯| SQL安全性
 
-### Example 2: Unnesting in existential subquery
+### 示例2：在存在的子查询中不努力
 
-To unnest a nested collection in a subquery to check if it satisfies a condition:
+要在子查询中解开嵌套集合以检查它是否满足条件：
 
 ```sql
 SELECT e.name AS employeeName
@@ -125,7 +125,7 @@ WHERE EXISTS (
 )
 ```
 
-Explain:
+解释：
 
 ```json
 {
@@ -210,9 +210,10 @@ Explain:
 }
 ```
 
-Result set:
+结果集：
 
-| employeeName |
-:--- | :---
-Bob Smith |
-Jane Smith |
+| 员工姓名|
+：--- | ：---
+鲍勃·史密斯|
+简·史密斯|
+

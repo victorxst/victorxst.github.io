@@ -1,20 +1,21 @@
 ---
 layout: default
-title: JDBC Driver
+title: JDBC驱动程序
 parent: SQL
-grand_parent: SQL and PPL
+grand_parent: SQL和PPL
 nav_order: 71
 redirect_from:
   - /search-plugins/sql/jdbc/
 
 ---
 
-# JDBC driver
+# JDBC驱动程序
 
-The Java Database Connectivity (JDBC) driver lets you integrate OpenSearch with your favorite business intelligence (BI) applications.
+Java数据库连接（JDBC）驱动程序使您可以将Opensearch与您喜欢的商业智能（BI）应用程序集成。
 
-For information about downloading and using the JAR file, see [the SQL repository on GitHub](https://github.com/opensearch-project/sql-jdbc).
+有关下载和使用JAR文件的信息，请参阅[GitHub上的SQL存储库](https://github.com/opensearch-project/sql-jdbc)。
 
-## Connecting to Tableau
+## 连接到Tableau
 
-To connect to Tableau, follow the detailed instructions in the [GitHub repository](https://github.com/opensearch-project/sql-jdbc/blob/main/bi-connectors/TableauConnector/README.md).
+要连接到Tableau，请按照[GitHub存储库](https://github.com/opensearch-project/sql-jdbc/blob/main/bi-connectors/TableauConnector/README.md)。
+

@@ -7,33 +7,33 @@ redirect_from:
 nav_order: 210
 ---
 
-# Querqy
+# querqy
 
-Querqy is a community plugin for query rewriting that helps to solve relevance issues, making search engines more precise regarding matching and scoring.
+Querqy是一个用于查询重写的社区插件，有助于解决相关性问题，从而使搜索引擎在匹配和评分方面更加精确。
 
-Querqy is currently only supported in OpenSearch 2.3.
-{: .warning }
+当前仅在OpenSearch 2.3中支持Querqy。
+{： 。警告 }
 
-## Querqy plugin installation
+## querqy插件安装
 
-The Querqy plugin is now available for OpenSearch 2.3.0. Run the following command to install the Querqy plugin.
+现在可用于OpenSearch 2.3.0。运行以下命令以安装Querqy插件。
 
 ````bash
 ./bin/opensearch-plugin install \
    "https://repo1.maven.org/maven2/org/querqy/opensearch-querqy/1.0.os2.3.0/opensearch-querqy-1.0.os2.3.0.zip"
 ````
 
-Answer `yes` to the security prompts during the installation as Querqy requires additional permissions to load query rewriters.
+回答`yes` 在安装期间的安全提示下，由于Querqy需要加载查询重写器的其他权限。
 
-After installing the Querqy plugin you can find comprehensive documentation on the Querqy.org site: [Querqy](https://docs.querqy.org/querqy/index.html)
+安装Querqy插件后，您可以在querqy.org网站上找到全面的文档：[querqy](https://docs.querqy.org/querqy/index.html)
 
-## Path and HTTP methods
+## 路径和HTTP方法
 
 ```
 POST /myindex/_search
 ```
 
-## Example query
+## 示例查询
 
 ````json
 {

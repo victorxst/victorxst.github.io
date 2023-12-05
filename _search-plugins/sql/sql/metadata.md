@@ -1,73 +1,74 @@
 ---
 layout: default
-title: Metadata Queries
+title: 元数据查询
 parent: SQL
-grand_parent: SQL and PPL
+grand_parent: SQL和PPL
 nav_order: 9
 redirect_from:
   - /search-plugins/sql/metadata/
 ---
 
-# Metadata queries
+# 元数据查询
 
-To see basic metadata about your indexes, use the `SHOW` and `DESCRIBE` commands.
+要查看有关您索引的基本元数据，请使用`SHOW` 和`DESCRIBE` 命令。
 
-### Syntax
+### 句法
 
-Rule `showStatement`:
+规则`showStatement`：
 
-![showStatement]({{site.url}}{{site.baseurl}}/images/showStatement.png)
+![展示]({{site.url}}{{site.baseurl}}/images/showStatement.png)
 
-Rule `showFilter`:
+规则`showFilter`：
 
-![showFilter]({{site.url}}{{site.baseurl}}/images/showFilter.png)
+![展览窗]({{site.url}}{{site.baseurl}}/images/showFilter.png)
 
-### Example 1: See metadata for indexes
+### 示例1：有关索引的元数据
 
-To see metadata for indexes that match a specific pattern, use the `SHOW` command.
-Use the wildcard `%` to match all indexes:
+要查看与特定模式匹配的索引的元数据，请使用`SHOW` 命令。
+使用通配符`%` 匹配所有索引：
 
 ```sql
 SHOW TABLES LIKE %
 ```
 
-| TABLE_CAT | TABLE_SCHEM | TABLE_NAME | TABLE_TYPE | REMARKS | TYPE_CAT | TYPE_SCHEM | TYPE_NAME | SELF_REFERENCING_COL_NAME | REF_GENERATION
-:--- | :---
-docker-cluster | null | accounts | BASE TABLE | null | null | null | null | null | null
-docker-cluster  | null | employees_nested | BASE TABLE | null | null | null | null | null | null
+| table_cat| table_schem| table_name| table_type| 评论| type_cat| type_schem| type_name| self_referencing_col_name| ref_generation
+：--- | ：---
+Docker-簇| 无效的| 帐户| 基础表| 无效的| 无效的| 无效的| 无效的| 无效的| 无效的
+Docker-簇| 无效的| 员工_nest| 基础表| 无效的| 无效的| 无效的| 无效的| 无效的| 无效的
 
 
-### Example 2: See metadata for a specific index
+### 示例2：有关特定索引，请参见元数据
 
-To see metadata for an index name with a prefix of `acc`:
+要查看带有前缀的索引名称的元数据`acc`：
 
 ```sql
 SHOW TABLES LIKE acc%
 ```
 
-| TABLE_CAT | TABLE_SCHEM | TABLE_NAME | TABLE_TYPE | REMARKS | TYPE_CAT | TYPE_SCHEM | TYPE_NAME | SELF_REFERENCING_COL_NAME | REF_GENERATION
-:--- | :---
-docker-cluster | null | accounts | BASE TABLE | null | null | null | null | null | null
+| table_cat| table_schem| table_name| table_type| 评论| type_cat| type_schem| type_name| self_referencing_col_name| ref_generation
+：--- | ：---
+Docker-簇| 无效的| 帐户| 基础表| 无效的| 无效的| 无效的| 无效的| 无效的| 无效的
 
 
-### Example 3: See metadata for fields
+### 示例3：有关字段的元数据
 
-To see metadata for field names that match a specific pattern, use the `DESCRIBE` command:
+要查看与特定模式匹配的字段名称的元数据，请使用`DESCRIBE` 命令：
 
 ```sql
 DESCRIBE TABLES LIKE accounts
 ```
 
-| TABLE_CAT | TABLE_SCHEM | TABLE_NAME | COLUMN_NAME | DATA_TYPE | TYPE_NAME | COLUMN_SIZE | BUFFER_LENGTH | DECIMAL_DIGITS | NUM_PREC_RADIX | NULLABLE | REMARKS | COLUMN_DEF | SQL_DATA_TYPE | SQL_DATETIME_SUB | CHAR_OCTET_LENGTH | ORDINAL_POSITION | IS_NULLABLE | SCOPE_CATALOG | SCOPE_SCHEMA | SCOPE_TABLE | SOURCE_DATA_TYPE | IS_AUTOINCREMENT | IS_GENERATEDCOLUMN
-:--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---
-docker-cluster | null | accounts | account_number | null | long | null | null | null | 10 | 2 | null | null | null | null | null | 1 |  | null | null | null | null | NO |
-docker-cluster | null | accounts | firstname | null | text | null | null | null | 10 | 2 | null | null | null | null | null | 2 |  | null | null | null | null | NO | 	 
-docker-cluster | null | accounts | address | null | text | null | null | null | 10 | 2 | null | null | null | null | null | 3 |  | null | null | null | null | NO | 	 
-docker-cluster | null | accounts | balance | null | long | null | null | null | 10 | 2 | null | null | null | null | null | 4 |  | null | null | null | null | NO | 	 
-docker-cluster | null | accounts | gender | null | text | null | null | null | 10 | 2 | null | null | null | null | null | 5 |  | null | null | null | null | NO | 	
-docker-cluster | null | accounts | city | null | text | null | null | null | 10 | 2 | null | null | null | null | null | 6 |  | null | null | null | null | NO | 	 
-docker-cluster | null | accounts | employer | null | text | null | null | null | 10 | 2 | null | null | null | null | null | 7 |  | null | null | null | null | NO | 	
-docker-cluster | null | accounts | state | null | text | null | null | null | 10 | 2 | null | null | null | null | null | 8 |  | null | null | null | null | NO | 	   
-docker-cluster | null | accounts | age | null | long | null | null | null | 10 | 2 | null | null | null | null | null | 9 |  | null | null | null | null | NO | 	
-docker-cluster | null | accounts | email | null | text | null | null | null | 10 | 2 | null | null | null | null | null | 10 |  | null | null | null | null | NO | 	
-docker-cluster | null | accounts | lastname | null | text | null | null | null | 10 | 2 | null | null | null | null | null | 11 |  | null | null | null | null | NO | 	 
+| table_cat| table_schem| table_name| column_name| 数据类型| type_name| column_size| buffer_length| DECIMAL_DIGITS| num_prec_radix| 无效| 评论| column_def| sql_data_type| SQL_DATETIME_SUB| char_octet_length| ordinal_position| is_nullable| scope_catalog| scope_schema| scope_table| source_data_type| is_autoincrement| is_generatedColumn
+：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：---
+Docker-簇| 无效的| 帐户| 帐号| 无效的| 长的| 无效的| 无效的| 无效的| 10| 2| 无效的| 无效的| 无效的| 无效的| 无效的| 1|  | 无效的| 无效的| 无效的| 无效的| 不|
+Docker-簇| 无效的| 帐户| 名| 无效的| 文本| 无效的| 无效的| 无效的| 10| 2| 无效的| 无效的| 无效的| 无效的| 无效的| 2|  | 无效的| 无效的| 无效的| 无效的| 不| 
+Docker-簇| 无效的| 帐户| 地址| 无效的| 文本| 无效的| 无效的| 无效的| 10| 2| 无效的| 无效的| 无效的| 无效的| 无效的| 3|  | 无效的| 无效的| 无效的| 无效的| 不| 
+Docker-簇| 无效的| 帐户| 平衡| 无效的| 长的| 无效的| 无效的| 无效的| 10| 2| 无效的| 无效的| 无效的| 无效的| 无效的| 4|  | 无效的| 无效的| 无效的| 无效的| 不| 
+Docker-簇| 无效的| 帐户| 性别| 无效的| 文本| 无效的| 无效的| 无效的| 10| 2| 无效的| 无效的| 无效的| 无效的| 无效的| 5|  | 无效的| 无效的| 无效的| 无效的| 不| 
+Docker-簇| 无效的| 帐户| 城市| 无效的| 文本| 无效的| 无效的| 无效的| 10| 2| 无效的| 无效的| 无效的| 无效的| 无效的| 6|  | 无效的| 无效的| 无效的| 无效的| 不| 
+Docker-簇| 无效的| 帐户| 雇主| 无效的| 文本| 无效的| 无效的| 无效的| 10| 2| 无效的| 无效的| 无效的| 无效的| 无效的| 7|  | 无效的| 无效的| 无效的| 无效的| 不| 
+Docker-簇| 无效的| 帐户| 状态| 无效的| 文本| 无效的| 无效的| 无效的| 10| 2| 无效的| 无效的| 无效的| 无效的| 无效的| 8|  | 无效的| 无效的| 无效的| 无效的| 不| 
+Docker-簇| 无效的| 帐户| 年龄| 无效的| 长的| 无效的| 无效的| 无效的| 10| 2| 无效的| 无效的| 无效的| 无效的| 无效的| 9|  | 无效的| 无效的| 无效的| 无效的| 不| 
+Docker-簇| 无效的| 帐户| 电子邮件| 无效的| 文本| 无效的| 无效的| 无效的| 10| 2| 无效的| 无效的| 无效的| 无效的| 无效的| 10|  | 无效的| 无效的| 无效的| 无效的| 不| 
+Docker-簇| 无效的| 帐户| 姓| 无效的| 文本| 无效的| 无效的| 无效的| 10| 2| 无效的| 无效的| 无效的| 无效的| 无效的| 11|  | 无效的| 无效的| 无效的| 无效的| 不| 
+

@@ -1,36 +1,36 @@
 ---
 layout: default
-title: Schedule reports with the cron utility
+title: 与Cron实用程序计划报告
 nav_order: 20
-parent: Reporting using the CLI
-grand_parent: Reporting
+parent: 使用CLI报告
+grand_parent: 报告
 redirect_from:
   - /dashboards/reporting-cli/rep-cli-cron/
 ---
 
-# Schedule reports with the cron utility
+# 与Cron实用程序计划报告
 
-You can use the cron command-line utility to initiate a report request with the Reporting CLI that runs periodically at any date or time interval. Follow the cron expression syntax to specify the date and time that precedes the command that you want to initiate.
+您可以使用cron命令-线路实用程序启动报告请求，并在任何日期或时间间隔定期运行的报告CLI。请按照cron表达式语法指定要启动的命令之前的日期和时间。
 
-To learn about the cron expression syntax, see [Cron expression reference]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/cron/). To get help with cron, open the man page by running the following command:
+要了解Cron表达语法，请参阅[cron表达参考]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/cron/)。要获得有关Cron的帮助，请通过运行以下命令打开MAN页面：
 
 ```
 man cron
 ```
 
-### Prerequisites
+### 先决条件
 
-- You need a machine with cron installed.
-- You need to install the Reporting CLI. See [Downloading and installing the Reporting CLI tool]({{site.url}}{{site.baseurl}}/dashboards/reporting-cli/rep-cli-install/)
+- 您需要安装Cron的机器。
+- 您需要安装报告CLI。看[下载和安装报告CLI工具]({{site.url}}{{site.baseurl}}/dashboards/reporting-cli/rep-cli-install/)
 
-## Specifying the report details
+## 指定报告详细信息
 
-Open the crontab editor by running the following command:
+通过运行以下命令打开crontab编辑器：
 
 ```
 crontab -e
 ```
-In the crontab editor, enter the report request. The following example shows a cron report that runs every day at 8:00 AM:
+在Crontab编辑器中，输入报告请求。以下示例显示了每天上午8:00的Cron报告：
 
 ```
 0 8 * * * opensearch-reporting-cli -u https://playground.opensearch.org/app/dashboards#/view/084aed50-6f48-11ed-a3d5-1ddbf0afc873 -e ses -s <sender_email> -r <recipient_email>

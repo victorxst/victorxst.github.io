@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Settings
-parent: SQL and PPL
+title: 设置
+parent: SQL和PPL
 nav_order: 77
 redirect_from:
   - /search-plugins/sql/settings/
 ---
 
-# SQL settings
+# SQL设置
 
-The SQL plugin adds a few settings to the standard OpenSearch cluster settings. Most are dynamic, so you can change the default behavior of the plugin without restarting your cluster. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+SQL插件将一些设置添加到标准OpenSearch集群设置中。大多数是动态的，因此您可以在不重新启动群集的情况下更改插件的默认行为。要了解有关静态和动态设置的更多信息，请参阅[配置OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/)。
 
-It is possible to independently disable processing of `PPL` or `SQL` queries.
+可以独立禁用处理`PPL` 或者`SQL` 查询。
 
-You can update these settings like any other cluster setting:
+您可以像其他任何集群设置一样更新这些设置：
 
 ```json
 PUT _cluster/settings
@@ -24,7 +24,7 @@ PUT _cluster/settings
 }
 ```
 
-Alternatively, you can use the following request format:
+另外，您可以使用以下请求格式：
 
 ```json
 PUT _cluster/settings
@@ -39,7 +39,7 @@ PUT _cluster/settings
 }
 ```
 
-Similarly, you can update the settings by sending a request to the `_plugins/_query/settings` endpoint:
+同样，您可以通过将请求发送到`_plugins/_query/settings` 端点：
 
 ```json
 PUT _plugins/_query/settings
@@ -50,7 +50,7 @@ PUT _plugins/_query/settings
 }
 ```
 
-Alternatively, you can use the following request format:
+另外，您可以使用以下请求格式：
 
 ```json
 PUT _plugins/_query/settings
@@ -65,46 +65,46 @@ PUT _plugins/_query/settings
 }
 ```
 
-Requests to the `_plugins/_ppl` and `_plugins/_sql` endpoints include index names in the request body, so they have the same access policy considerations as the `bulk`, `mget`, and `msearch` operations. Setting the `rest.action.multi.allow_explicit_index` parameter to `false` disables both the `SQL` and `PPL` endpoints.
-{: .note}
+请求`_plugins/_ppl` 和`_plugins/_sql` 端点在请求主体中包含索引名称，因此它们具有与`bulk`，，，，`mget`， 和`msearch` 运营。设置`rest.action.multi.allow_explicit_index` 参数为`false` 禁用两者`SQL` 和`PPL` 端点。
+{： 。笔记}
 
-## Available settings
+## 可用设置
 
-Setting | Default | Description
-:--- | :--- | :---
-`plugins.sql.enabled` | True | Change to `false` to disable the `SQL` support in the plugin.
-`plugins.ppl.enabled` | True | Change to `false` to disable the `PPL` support in the plugin.
-`plugins.sql.slowlog` | 2 seconds | Configures the time limit (in seconds) for slow queries. The plugin logs slow queries as `Slow query: elapsed=xxx (ms)` in `opensearch.log`.
-`plugins.sql.cursor.keep_alive` | 1 minute | Configures how long the cursor context is kept open. Cursor contexts are resource-intensive, so we recommend a low value.
-`plugins.query.memory_limit` | 85% | Configures the heap memory usage limit for the circuit breaker of the query engine.
-`plugins.query.size_limit` | 200 | Sets the default size of index that the query engine fetches from OpenSearch.
+环境| 默认| 描述
+：--- | ：--- | ：---
+`plugins.sql.enabled` | 真的| 改成`false` 禁用`SQL` 在插件中支持。
+`plugins.ppl.enabled` | 真的| 改成`false` 禁用`PPL` 在插件中支持。
+`plugins.sql.slowlog` | 2秒| 为缓慢查询配置时间限制（以秒为单位）。插件将慢速查询记录为`Slow query: elapsed=xxx (ms)` 在`opensearch.log`。
+`plugins.sql.cursor.keep_alive` | 1分钟| 配置光标上下文的打开时间。光标上下文是资源-密集型，因此我们建议低价值。
+`plugins.query.memory_limit` | 85％| 为查询引擎的断路器配置堆内存使用限制。
+`plugins.query.size_limit` | 200| 设置查询引擎从OpenSearch获取的索引的默认大小。
 
-## Spark connector settings
+## 火花连接器设置
 
-The SQL plugin supports [Apache Spark](https://spark.apache.org/) as an augmented compute source. When data sources are defined as tables in Apache Spark, OpenSearch can consume those tables. This allows you to run SQL queries against external sources inside OpenSearch Dashboard's [Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) and observability logs. 
+SQL插件支持[Apache Spark](https://spark.apache.org/) 作为增强的计算源。当数据源定义为Apache Spark中的表时，OpenSearch可以使用这些表。这使您可以针对OpenSearch Dashboard的外部来源运行SQL查询[发现]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) 和可观察性日志。
 
-To get started, enable the following settings to add Spark as a data source and enable the correct permissions.
+首先，启用以下设置将SPARK添加为数据源并启用正确的权限。
 
-Setting | Description
-:--- | :---
-`spark.uri` | The identifier for your Spark data source.
-`spark.auth.type` | The authorization type used to authenticate into Spark.
-`spark.auth.username` | The username for your Spark data source.
-`spark.auth.password` | The password for your Spark data source.
-`spark.datasource.flint.host` | The host of the Spark data source. Default is `localhost`.
-`spark.datasource.flint.port` | The port number for Spark. Default is `9200`.
-`spark.datasource.flint.scheme` | The data scheme used in your Spark queries. Valid values are `http` and `https`.
-`spark.datasource.flint.auth` | The authorization required to access the Spark data source. Valid values are `false` and `sigv4`.
-`spark.datasource.flint.region` | The AWS Region in which your OpenSearch cluster is located. Only use when `auth` is set to `sigv4`. Default value is `us-west-2``.
-`spark.datasource.flint.write.id_name` | The name of the index to which the Spark connector writes.
-`spark.datasource.flint.ignore.id_column` | Excludes the `id` column when exporting data in a query. Default is `true`.
-`spark.datasource.flint.write.batch_size` | Sets the batch size when writing to a Spark-connected index. Default is `1000`.
-`spark.datasource.flint.write.refresh_policy` | Sets the refresh policy for the Spark connection upon failure for the connector to write data to OpenSearch. Either no refresh (`false`), an immediate refresh (`true`), or a set time to wait, `wait_for: X`. Default value is `false`.
-`spark.datasource.flint.read.scroll_size` | Sets the number of results returned by queries run using Spark. Default is `100`.
-`spark.flint.optimizer.enabled` | Enables OpenSearch to be optimized for Spark connection. Default is `true`.
-`spark.flint.index.hybridscan.enabled` | Enables OpenSearch to scan for write data on non-partitioned devices from the data source. Default is `false`.
+环境| 描述
+：--- | ：---
+`spark.uri` | 火花数据源的标识符。
+`spark.auth.type` | 用于身份验证的授权类型。
+`spark.auth.username` | 您的火花数据源的用户名。
+`spark.auth.password` | 火花数据源的密码。
+`spark.datasource.flint.host` | 火花数据源的主机。默认为`localhost`。
+`spark.datasource.flint.port` | 火花的端口号。默认为`9200`。
+`spark.datasource.flint.scheme` | 火花查询中使用的数据方案。有效值是`http` 和`https`。
+`spark.datasource.flint.auth` | 访问火花数据源所需的授权。有效值是`false` 和`sigv4`。
+`spark.datasource.flint.region` | 您的OpenSearch集群所在的AWS区域。仅在何时使用`auth` 被设定为`sigv4`。默认值是`us-west-2``.
+`spark.datasource.flint.write.id_name` | 火花连接器写入的索引的名称。
+`spark.datasource.flint.ignore.id_column` | 不包括`id` 列在查询中导出数据时。默认为`true`。
+`spark.datasource.flint.write.batch_size` | 写入火花时设置批处理大小-连接索引。默认为`1000`。
+`spark.datasource.flint.write.refresh_policy` | 在连接器未能将数据写入OpenSearch时，设置Spark连接的刷新策略。不要刷新（`false`），立即刷新（`true`），或等待的时间，`wait_for: X`。默认值是`false`。
+`spark.datasource.flint.read.scroll_size` | 设置使用Spark运行的查询返回的结果数。默认为`100`。
+`spark.flint.optimizer.enabled` | 使OpenSearch可以针对Spark连接进行优化。默认为`true`。
+`spark.flint.index.hybridscan.enabled` | 启用OpenSearch可以扫描对非非-来自数据源的分区设备。默认为`false`。
 
-Once configured, you can test your Spark connection using the following API call:
+配置后，您可以使用以下API调用测试Spark连接：
 
 ```json
 POST /_plugins/_ppl
@@ -114,3 +114,4 @@ content-type: application/json
    "query": "source = my_spark.sql('select * from alb_logs')"
 }
 ```
+

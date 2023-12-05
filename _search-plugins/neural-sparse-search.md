@@ -1,40 +1,40 @@
 ---
 layout: default
-title: Sparse search
+title: 稀疏搜索
 nav_order: 30
 has_children: false
-parent: Neural search
+parent: 神经搜索
 ---
 
-# Neural sparse search
-Introduced 2.11
-{: .label .label-purple }
+# 神经稀疏搜索
+引入2.11
+{：.label .label-紫色的 }
 
-[Neural text search]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/) relies on dense retrieval that is based on text embedding models. However, dense methods use k-NN search, which consumes a large amount of memory and CPU resources. An alternative to neural text search, sparse neural search is implemented using an inverted index and thus is as efficient as BM25. Sparse search is facilitated by sparse embedding models. When you perform a sparse search, it creates a sparse vector (a list of `token: weight` key-value pairs representing an entry and its weight) and ingests data into a rank features index.
+[神经文本搜索]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/) 依赖于基于文本嵌入模型的密集检索。但是，密集的方法使用k-NN搜索，它消耗了大量内存和CPU资源。替代神经文本搜索，使用倒置索引实现稀疏神经搜索，因此与BM25一样有效。稀疏的嵌入模型促进了稀疏搜索。当您执行稀疏搜索时，它会创建一个稀疏的向量（列表`token: weight` 钥匙-值对表示条目及其权重），并将数据摄入等级功能索引。
 
-When selecting a model, choose one of the following options:
+选择模型时，请选择以下选项之一：
 
-- Use a sparse encoding model at both ingestion time and search time (high performance, relatively high latency).
-- Use a sparse encoding model at ingestion time and a tokenizer model at search time (low performance, relatively low latency).
+- 在摄入时间和搜索时间（高性能，相对较高的延迟）都使用稀疏编码模型。
+- 在摄入时间使用稀疏的编码模型，在搜索时间（低性能，相对较低的延迟）时使用令牌模型。
 
-**PREREQUISITE**<br>
-Before using sparse search, make sure to set up a [pretrained sparse embedding model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sparse-encoding-models) or your own sparse embedding model. For more information, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Connecting to remote models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index/).
-{: .note}
+**先决条件**<br>
+在使用稀疏搜索之前，请确保设置[验证的稀疏嵌入模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sparse-encoding-models) 或您自己的稀疏嵌入模型。有关更多信息，请参阅[在OpenSearch中使用ML模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) 和[连接到远程型号]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index/)。
+{： 。笔记}
 
-## Using sparse search
+## 使用稀疏搜索
 
-To use sparse search, follow these steps:
+要使用稀疏搜索，请执行以下步骤：
 
-1. [Create an ingest pipeline](#step-1-create-an-ingest-pipeline).
-1. [Create an index for ingestion](#step-2-create-an-index-for-ingestion).
-1. [Ingest documents into the index](#step-3-ingest-documents-into-the-index).
-1. [Search the index using neural search](#step-4-search-the-index-using-neural-search).
+1. [创建摄入管道](#step-1-create-an-ingest-pipeline)。
+1. [创建摄入索引](#step-2-create-an-index-for-ingestion)。
+1. [摄取索引的文档](#step-3-ingest-documents-into-the-index)。
+1. [使用神经搜索搜索索引](#step-4-search-the-index-using-neural-search)。
 
-## Step 1: Create an ingest pipeline
+## 步骤1：创建一个摄入管道
 
-To generate vector embeddings, you need to create an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) that contains a [`sparse_encoding` processor]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/processors/sparse-encoding/), which will convert the text in a document field to vector embeddings. The processor's `field_map` determines the input fields from which to generate vector embeddings and the output fields in which to store the embeddings.
+要生成向量嵌入，您需要创建一个[摄入管道]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) 其中包含一个[`sparse_encoding` 处理器]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/processors/sparse-encoding/)，这将将文档字段中的文本转换为向量嵌入。处理器的`field_map` 确定从中生成向量嵌入的输入字段以及用于存储嵌入的输出字段。
 
-The following example request creates an ingest pipeline where the text from `passage_text` will be converted into text embeddings and the embeddings will be stored in `passage_embedding`:
+以下示例请求创建了一个摄入的管道，其中文本来自`passage_text` 将转换为文本嵌入，嵌入将存储在`passage_embedding`：
 
 ```json
 PUT /_ingest/pipeline/nlp-ingest-pipeline-sparse
@@ -52,13 +52,13 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline-sparse
   ]
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-## Step 2: Create an index for ingestion
+## 步骤2：创建摄入索引
 
-In order to use the text embedding processor defined in your pipeline, create a rank features index, adding the pipeline created in the previous step as the default pipeline. Ensure that the fields defined in the `field_map` are mapped as correct types. Continuing with the example, the `passage_embedding` field must be mapped as [`rank_features`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/rank/#rank-features). Similarly, the `passage_text` field should be mapped as `text`.
+为了使用管道中定义的文本嵌入处理器，请创建等级功能索引，并将上一步中创建的管道添加为默认管道。确保在`field_map` 被映射为正确的类型。继续以示例为例`passage_embedding` 字段必须映射为[`rank_features`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/rank/#rank-features)。同样，`passage_text` 字段应映射为`text`。
 
-The following example request creates a rank features index that is set up with a default ingest pipeline:
+以下示例请求创建一个级别功能索引，该索引设置为默认的摄入管道：
 
 ```json
 PUT /my-nlp-index
@@ -81,9 +81,9 @@ PUT /my-nlp-index
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-To save disk space, you can exclude the embedding vector from the source as follows:
+为了节省磁盘空间，您可以将嵌入向量从源中排除，如下所示：
 
 ```json
 PUT /my-nlp-index
@@ -111,14 +111,14 @@ PUT /my-nlp-index
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-Once the `<token, weight>` pairs are excluded from the source, they cannot be recovered. Before applying this optimization, make sure you don't need the  `<token, weight>` pairs for your application.
-{: .important}
+一旦`<token, weight>` 对从源头排除在外，无法恢复它们。在应用此优化之前，请确保您不需要`<token, weight>` 配对用于您的申请。
+{： 。重要的}
 
-## Step 3: Ingest documents into the index
+## 步骤3：将文档摄入索引
 
-To ingest documents into the index created in the previous step, send the following requests:
+要将文档摄取到上一步中创建的索引中，请发送以下请求：
 
 ```json
 PUT /my-nlp-index/_doc/1
@@ -127,7 +127,7 @@ PUT /my-nlp-index/_doc/1
   "id": "s1"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
 ```json
 PUT /my-nlp-index/_doc/2
@@ -136,15 +136,15 @@ PUT /my-nlp-index/_doc/2
   "id": "s2"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-Before the document is ingested into the index, the ingest pipeline runs the `sparse_encoding` processor on the document, generating vector embeddings for the `passage_text` field. The indexed document includes the `passage_text` field, which contains the original text, and the `passage_embedding` field, which contains the vector embeddings. 
+在将文档摄入索引之前，摄入管道运行`sparse_encoding` 文档上的处理器，生成矢量嵌入`passage_text` 场地。索引文档包括`passage_text` 字段，其中包含原始文本，`passage_embedding` 字段，其中包含向量嵌入。
 
-## Step 4: Search the index using neural search
+## 步骤4：使用神经搜索搜索索引
 
-To perform a sparse vector search on your index, use the `neural_sparse` query clause in [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) queries. 
+要在您的索引上执行稀疏的向量搜索，请使用`neural_sparse` 查询子句[查询DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/) 查询。
 
-The following example request uses a `neural_sparse` query to search for relevant documents:
+以下示例请求使用`neural_sparse` 查询以搜索相关文档：
 
 ```json
 GET my-nlp-index/_search
@@ -160,9 +160,9 @@ GET my-nlp-index/_search
   }
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The response contains the matching documents:
+响应包含匹配文档：
 
 ```json
 {
@@ -237,3 +237,4 @@ The response contains the matching documents:
   }
 }
 ```
+

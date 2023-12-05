@@ -1,25 +1,25 @@
 ---
 layout: default
-title: Exact k-NN with scoring script
+title: 精确k-NN带有评分脚本
 nav_order: 10
 parent: k-NN
 has_children: false
 has_math: true
 ---
 
-# Exact k-NN with scoring script
+# 精确k-NN带有评分脚本
 
-The k-NN plugin implements the OpenSearch score script plugin that you can use to find the exact k-nearest neighbors to a given query point. Using the k-NN score script, you can apply a filter on an index before executing the nearest neighbor search. This is useful for dynamic search cases where the index body may vary based on other conditions.
+k-NN插件实现了OpenSearch分数脚本插件，您可以使用该插件来找到确切的K-最近的邻居到给定的查询点。使用k-NN得分脚本，您可以在执行最近的邻居搜索之前在索引上应用过滤器。这对于索引主体可能会根据其他条件变化的动态搜索案例很有用。
 
-Because the score script approach executes a brute force search, it doesn't scale as well as the [approximate approach]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn). In some cases, it might be better to think about refactoring your workflow or index structure to use the approximate approach instead of the score script approach.
+由于得分脚本方法执行蛮力搜索，因此它不像[近似方法]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn)。在某些情况下，最好考虑重构工作流程或索引结构以使用近似方法而不是分数脚本方法。
 
-## Getting started with the score script for vectors
+## 开始使用矢量的分数脚本
 
-Similar to approximate nearest neighbor search, in order to use the score script on a body of vectors, you must first create an index with one or more `knn_vector` fields.
+类似于近似最近的邻居搜索，为了在矢量体上使用得分脚本，您必须首先创建一个或多个索引`knn_vector` 字段。
 
-If you intend to just use the score script approach (and not the approximate approach) you can set `index.knn` to `false` and not set `index.knn.space_type`. You can choose the space type during search. See [spaces](#spaces) for the spaces the k-NN score script suppports.
+如果您打算仅使用分数脚本方法（而不是大致方法），则可以设置`index.knn` 到`false` 并且不设置`index.knn.space_type`。您可以在搜索过程中选择空间类型。看[空间](#spaces) 对于k的空间-NN得分脚本支持。
 
-This example creates an index with two `knn_vector` fields:
+此示例创建一个用两个`knn_vector` 字段：
 
 ```json
 PUT my-knn-index-1
@@ -39,10 +39,10 @@ PUT my-knn-index-1
 }
 ```
 
-If you *only* want to use the score script, you can omit `"index.knn": true`. The benefit of this approach is faster indexing speed and lower memory usage, but you lose the ability to perform standard k-NN queries on the index.
-{: .tip}
+如果您 *仅 *想使用分数脚本，则可以省略`"index.knn": true`。这种方法的好处是更快的索引速度和较低的内存使用量，但是您失去了执行标准k的能力-nn查询索引。
+{： 。提示}
 
-After you create the index, you can add some data to it:
+创建索引后，您可以向其添加一些数据：
 
 ```json
 POST _bulk
@@ -67,7 +67,7 @@ POST _bulk
 
 ```
 
-Finally, you can execute an exact nearest neighbor search on the data using the `knn` script:
+最后，您可以使用`knn` 脚本：
 ```json
 GET my-knn-index-1/_search
 {
@@ -91,20 +91,20 @@ GET my-knn-index-1/_search
 }
 ```
 
-All parameters are required.
+所有参数都是必需的。
 
-- `lang` is the script type. This value is usually `painless`, but here you must specify `knn`.
-- `source` is the name of the script, `knn_score`.
+- `lang` 是脚本类型。这个值通常是`painless`，但是在这里您必须指定`knn`。
+- `source` 是脚本的名称，`knn_score`。
 
-  This script is part of the k-NN plugin and isn't available at the standard `_scripts` path. A GET request to  `_cluster/state/metadata` doesn't return it, either.
+  该脚本是K的一部分-NN插件，标准不可用`_scripts` 小路。获取请求`_cluster/state/metadata` 也不返回它。
 
-- `field` is the field that contains your vector data.
-- `query_value` is the point you want to find the nearest neighbors for. For the Euclidean and cosine similarity spaces, the value must be an array of floats that matches the dimension set in the field's mapping. For Hamming bit distance, this value can be either of type signed long or a base64-encoded string (for the long and binary field types, respectively).
-- `space_type` corresponds to the distance function. See the [spaces section](#spaces).
+- `field` 是包含您的向量数据的字段。
+- `query_value` 是您想找到最近的邻居的观点。对于欧几里得和余弦相似性空间，该值必须是与磁场映射中设置的尺寸相匹配的浮子数组。对于锤击位距离，此值可以是签名长的类型或base64-编码字符串（分别用于长和二进制字段类型）。
+- `space_type` 对应于距离函数。看到[空格部分](#spaces)。
 
-The [post filter example in the approximate approach]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn#using-approximate-k-nn-with-filters) shows a search that returns fewer than `k` results. If you want to avoid this situation, the score script method lets you essentially invert the order of events. In other words, you can filter down the set of documents over which to execute the k-nearest neighbor search.
+这[大约方法中的过滤示例]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn#using-approximate-k-nn-with-filters) 显示搜索返回的搜索少于`k` 结果。如果您想避免这种情况，那么得分脚本方法可以从本质上倒转事件顺序。换句话说，您可以过滤以执行k的文档集-最近的邻居搜索。
 
-This example shows a pre-filter approach to k-NN search with the score script approach. First, create the index:
+此示例显示了一个pre-k的过滤方法-使用分数脚本方法进行搜索。首先，创建索引：
 
 ```json
 PUT my-knn-index-2
@@ -123,7 +123,7 @@ PUT my-knn-index-2
 }
 ```
 
-Then add some documents:
+然后添加一些文档：
 
 ```json
 POST _bulk
@@ -142,7 +142,7 @@ POST _bulk
 
 ```
 
-Finally, use the `script_score` query to pre-filter your documents before identifying nearest neighbors:
+最后，使用`script_score` 查询预先-在识别最近的邻居之前过滤您的文档：
 
 ```json
 GET my-knn-index-2/_search
@@ -173,11 +173,11 @@ GET my-knn-index-2/_search
 }
 ```
 
-## Getting started with the score script for binary data
-The k-NN score script also allows you to run k-NN search on your binary data with the Hamming distance space.
-In order to use Hamming distance, the field of interest must have either a `binary` or `long` field type. If you're using `binary` type, the data must be a base64-encoded string.
+## 二进制数据的分数脚本入门
+k-NN得分脚本还允许您运行k-nn搜索您的二进制数据，并使用锤距离空间进行搜索。
+为了使用锤距，感兴趣的领域必须具有`binary` 或者`long` 字段类型。如果您正在使用`binary` 类型，数据必须是base64-编码字符串。
 
-This example shows how to use the Hamming distance space with a `binary` field type:
+此示例显示了如何使用锤子距离空间`binary` 字段类型：
 
 ```json
 PUT my-index
@@ -196,7 +196,7 @@ PUT my-index
 }
 ```
 
-Then add some documents:
+然后添加一些文档：
 
 ```json
 POST _bulk
@@ -215,7 +215,7 @@ POST _bulk
 
 ```
 
-Finally, use the `script_score` query to pre-filter your documents before identifying nearest neighbors:
+最后，使用`script_score` 查询预先-在识别最近的邻居之前过滤您的文档：
 
 ```json
 GET my-index/_search
@@ -246,7 +246,7 @@ GET my-index/_search
 }
 ```
 
-Similarly, you can encode your data with the `long` field and run a search:
+同样，您可以用`long` 字段并进行搜索：
 
 ```json
 GET my-long-index/_search
@@ -277,51 +277,52 @@ GET my-long-index/_search
 }
 ```
 
-## Spaces
+## 空间
 
-A space corresponds to the function used to measure the distance between two points in order to determine the k-nearest neighbors. From the k-NN perspective, a lower score equates to a closer and better result. This is the opposite of how OpenSearch scores results, where a greater score equates to a better result. The following table illustrates how OpenSearch converts spaces to scores:
+一个空间对应于用于测量两个点之间距离以确定K的函数-最近的邻居。来自k-nn透视图，较低的分数等同于更接近，更好的结果。这与OpenSearch分数结果的相反，其中更高的分数等于更好的结果。下表说明了OpenSearch如何将空间转换为得分：
 
-<table>
-  <thead style="text-align: center">
+<表>
+  <thead样式="text-align: center">
   <tr>
-    <th>spaceType</th>
-    <th>Distance Function (d)</th>
-    <th>OpenSearch Score</th>
+    <th> spaceType </th>
+    <th>距离函数（d）</th>
+    <th> OpenSearch分数</th>
   </tr>
   </thead>
   <tr>
-    <td>l1</td>
-    <td>\[ d(\mathbf{x}, \mathbf{y}) = \sum_{i=1}^n |x_i - y_i| \]</td>
-    <td>\[ score = {1 \over 1 + d } \]</td>
+    <td> l1 </td>
+    <td> \ [D（\ Mathbf {X}，\ Mathbf {y}）= \ sum_ {i = 1}^n|x_i- 义| \] </td>
+    <td> \ [score = {1 \ over 1 + d} \] </td>
   </tr>
   <tr>
-    <td>l2</td>
-    <td>\[ d(\mathbf{x}, \mathbf{y}) = \sum_{i=1}^n (x_i - y_i)^2 \]</td>
-    <td>\[ score = {1 \over 1 + d } \]</td>
+    <td> l2 </td>
+    <td> \ [D（\ Mathbf {x}，\ Mathbf {y}）= \ sum_ {i = 1}^n（x_i- y_i）^2 \] </td>
+    <td> \ [score = {1 \ over 1 + d} \] </td>
   </tr>
   <tr>
-    <td>linf</td>
-    <td>\[ d(\mathbf{x}, \mathbf{y}) = max(|x_i - y_i|) \]</td>
-    <td>\[ score = {1 \over 1 + d } \]</td>
+    <td> linf </td>
+    <td> \ [D（\ Mathbf {x}，\ Mathbf {y}）= max（|x_i- 义|）\] </td>
+    <td> \ [score = {1 \ over 1 + d} \] </td>
   </tr>
   <tr>
-    <td>cosinesimil</td>
-    <td>\[ d(\mathbf{x}, \mathbf{y}) = 1 - cos { \theta } = 1 - {\mathbf{x} &middot; \mathbf{y} \over \|\mathbf{x}\| &middot; \|\mathbf{y}\|}\]\[ = 1 - 
-    {\sum_{i=1}^n x_i y_i \over \sqrt{\sum_{i=1}^n x_i^2} &middot; \sqrt{\sum_{i=1}^n y_i^2}}\]
-    where \(\|\mathbf{x}\|\) and \(\|\mathbf{y}\|\) represent the norms of vectors x and y respectively.</td>
-    <td>\[ score = 2 - d \]</td>
+    <td> cosinesimil </td>
+    <td> \ [D（\ Mathbf {X}，\ Mathbf {y}）= 1- cos {\ theta} = 1- {\ Mathbf {x}＆middot;\ mathbf {y} \ over \|\ Mathbf {X} \| ＆middot;\ \|\ Mathbf {y} \|} \] \ [= 1- 
+    {\ sum_ {i = 1}^n x_i y_i \ over \ sqrt {\ sum_ {i = 1}^n x_i^2}＆middot;\ sqrt {\ sum_ {i = 1}^n y_i^2}}} \]
+    在哪里 \（\|\ Mathbf {X} \|\） 和 \（\|\ Mathbf {y} \|\）分别表示向量x和y的规范。</td>
+    <td> \ [得分= 2- D \] </td>
   </tr>
   <tr>
-    <td>innerproduct (not supported for Lucene)</td>
-    <td>\[ d(\mathbf{x}, \mathbf{y}) = - {\mathbf{x} &middot; \mathbf{y}} = - \sum_{i=1}^n x_i y_i \]</td>
-    <td>\[ \text{If} d \ge 0, \] \[score = {1 \over 1 + d }\] \[\text{If} d < 0, score = &minus;d + 1\]</td>
+    <TD> Interproduct（不支持Lucene）</td>
+    <td> \ [D（\ Mathbf {X}，\ Mathbf {y}）=- {\ Mathbf {x}＆middot;\ Mathbf {y}} =- \ sum_ {i = 1}^n x_i y_i \] </td>
+    <td> \ [\ text {if} d \ ge 0，\] \ [score = {1 \ over 1 + d} \] \ [\ text {if text {if} d <0，score =＆minus; d + 1 \] </td>
   </tr>
   <tr>
-    <td>hammingbit</td>
-    <td>\[ d(\mathbf{x}, \mathbf{y}) = \text{countSetBits}(\mathbf{x} \oplus \mathbf{y})\]</td>
-    <td>\[ score = {1 \over 1 + d } \]</td>
+    <td> Hammingbit </td>
+    <td> \ [D（\ MathBf {X}，\ Mathbf {y}）= \ text {CountsetBits}（\ MathBf {x} \ oplus \ oplus \ mathbf {y}）
+    <td> \ [score = {1 \ over 1 + d} \] </td>
   </tr>
 </table>
 
 
-Cosine similarity returns a number between -1 and 1, and because OpenSearch relevance scores can't be below 0, the k-NN plugin adds 1 to get the final score.
+余弦相似性返回-1和1，并且由于OpenSearch相关性分数不能低于0，所以K-NN插件添加了1个以获得最终分数。
+

@@ -1,22 +1,22 @@
 ---
 layout: default
-title: Delete
+title: 删除
 parent: SQL
-grand_parent: SQL and PPL
+grand_parent: SQL和PPL
 nav_order: 12
 Redirect_from:
   - /search-plugins/sql/delete/
 ---
 
 
-# Delete
+# 删除
 
-The `DELETE` statement deletes documents that satisfy the predicates in the `WHERE` clause.
-If you don't specify the `WHERE` clause, all documents are deleted.
+这`DELETE` 声明删除满足谓词的文档`WHERE` 条款。
+如果您不指定`WHERE` 条款，所有文档均已删除。
 
-### Setting
+### 环境
 
-The `DELETE` statement is disabled by default. To enable the `DELETE` functionality in SQL, you need to update the configuration by sending the following request:
+这`DELETE` 语句默认情况下是禁用的。启用`DELETE` SQL中的功能，您需要通过发送以下请求来更新配置：
 
 ```json
 PUT _plugins/_query/settings
@@ -27,22 +27,22 @@ PUT _plugins/_query/settings
 }
 ```
 
-### Syntax
+### 句法
 
-Rule `singleDeleteStatement`:
+规则`singleDeleteStatement`：
 
-![singleDeleteStatement]({{site.url}}{{site.baseurl}}/images/singleDeleteStatement.png)
+![单骨架]({{site.url}}{{site.baseurl}}/images/singleDeleteStatement.png)
 
-### Example
+### 例子
 
-SQL query:
+SQL查询：
 
 ```sql
 DELETE FROM accounts
 WHERE age > 30
 ```
 
-Explain:
+解释：
 
 ```json
 {
@@ -70,7 +70,7 @@ Explain:
 }
 ```
 
-Result set:
+结果集：
 
 ```json
 {
@@ -91,4 +91,5 @@ Result set:
 }
 ```
 
-The `datarows` field shows the number of documents deleted.
+这`datarows` 字段显示已删除的文档数量。
+

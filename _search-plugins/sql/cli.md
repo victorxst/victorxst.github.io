@@ -1,112 +1,113 @@
 ---
 layout: default
-title: SQL and PPL CLI
-parent: SQL and PPL
+title: SQL和PPL CLI
+parent: SQL和PPL
 nav_order: 3
 redirect_from:
  - /search-plugins/sql/cli/
 ---
 
-# SQL and PPL CLI
+# SQL和PPL CLI
 
-The SQL and PPL command line interface (CLI) is a standalone Python application that you can launch with the `opensearchsql` command.
+SQL和PPL命令行接口（CLI）是一个独立的Python应用程序，您可以使用该应用程序启动`opensearchsql` 命令。
 
- To use the SQL and PPL CLI, install the SQL plugin on your OpenSearch instance, run the CLI using MacOS or Linux, and connect to any valid OpenSearch endpoint.
+ 要使用SQL和PPL CLI，请在OpenSearch实例上安装SQL插件，使用MACOS或Linux运行CLI，然后连接到任何有效的OpenSearch Endpoint。
 
 ![SQL CLI]({{site.url}}{{site.baseurl}}/images/cli.gif)
 
-## Features
+## 特征
 
-The SQL and PPL CLI has the following features:
+SQL和PPL CLI具有以下功能：
 
-- Multi-line input
-- PPL support
-- Autocomplete for SQL syntax and index names
-- Syntax highlighting
-- Formatted output:
-  - Tabular format
-  - Field names with color
-  - Enabled horizontal display (by default) and vertical display when output is too wide for your terminal, for better visualization
-  - Pagination for large output
-- Works with or without security enabled
-- Supports loading configuration files
-- Supports all SQL plugin queries
+- 多-线输入
+- PPL支持
+- SQL语法和索引名称的自动完成
+- 语法突出显示
+- 格式化输出：
+  - 表格格式
+  - 带有颜色的字段名称
+  - 启用了水平显示（默认情况下）和垂直显示，当输出太宽而无法实现您的终端，以获得更好的可视化
+  - 大型输出的分页
+- 使用或不启用安全性的工作
+- 支持加载配置文件
+- 支持所有SQL插件查询
 
-## Install
+## 安装
 
-Launch your local OpenSearch instance and make sure you have the SQL plugin installed.
+启动您的本地OpenSearch实例，并确保已安装SQL插件。
 
-1. Install the CLI:
+1. 安装CLI：
 ```console
 pip3 install opensearchsql
 ```
 
-The SQL CLI only works with Python 3.
-{: .note }
+SQL CLI仅与Python 3一起使用。
+{： 。笔记 }
 
-2. To launch the CLI, run:
+2. 要启动CLI，请运行：
 ```console
 opensearchsql https://localhost:9200 --username admin --password admin
 ```
-By default, the `opensearchsql` command connects to http://localhost:9200.
+默认情况下，`opensearchsql` 命令连接到http：// localhost：9200。
 
-## Configure
+## 配置
 
-When you first launch the SQL CLI, a configuration file is automatically created at `~/.config/opensearchsql-cli/config` (for MacOS and Linux), the configuration is auto-loaded thereafter.
+首次启动SQL CLI时，将自动创建一个配置文件`~/.config/opensearchsql-cli/config` （对于MacOS和Linux），配置为自动-此后加载。
 
-You can configure the following connection properties:
+您可以配置以下连接属性：
 
-- `endpoint`: You do not need to specify an option. Anything that follows the launch command `opensearchsql` is considered as the endpoint. If you do not provide an endpoint, by default, the SQL CLI connects to http://localhost:9200.
-- `-u/-w`: Supports username and password for HTTP basic authentication, such as with the Security plugin or fine-grained access control for Amazon OpenSearch Service.
-- `--aws-auth`: Turns on AWS sigV4 authentication to connect to an Amazon OpenSearch endpoint. Use with the AWS CLI (`aws configure`) to retrieve the local AWS configuration to authenticate and connect.
+- `endpoint`：您无需指定选项。遵循启动命令的任何内容`opensearchsql` 被认为是终点。如果您不提供端点，则默认情况下，SQL CLI连接到http：// localhost：9200。
+- `-u/-w`：支持HTTP基本身份验证的用户名和密码，例如使用安全插件或罚款-Amazon OpenSearch服务的粒度访问控制。
+- `--aws-auth`：打开AWS SIGV4身份验证以连接到Amazon OpenSearch端点。与AWS CLI一起使用（`aws configure`）检索本地AWS配置以进行身份验证和连接。
 
-For a list of all available configurations, see [clirc](https://github.com/opensearch-project/sql/blob/1.x/sql-cli/src/opensearch_sql_cli/conf/clirc).
+有关所有可用配置的列表，请参见[clirc](https://github.com/opensearch-project/sql/blob/1.x/sql-cli/src/opensearch_sql_cli/conf/clirc)。
 
-## Using the CLI
+## 使用CLI
 
-1. Run the CLI tool. If your cluster runs with the default security settings, use the following command:
+1. 运行CLI工具。如果您的群集使用默认的安全设置运行，请使用以下命令：
 ```console
 opensearchsql --username admin --password admin https://localhost:9200
 ```
-If your cluster runs without security, run:
+如果您的群集在没有安全性的情况下运行，请运行：
 ```console
 opensearchsql
 ```
 
-2. Run a sample SQL command:
+2. 运行示例SQL命令：
 ```sql
 SELECT * FROM accounts;
 ```
 
-By default, you see a maximum output of 200 rows. To show more results, add a `LIMIT` clause with the desired value.
+默认情况下，您会看到最大输出为200行。要显示更多结果，请添加一个`LIMIT` 带有所需值的子句。
 
-To exit the CLI tool, select **Ctrl+D**.
-{: .tip }
+要退出CLI工具，请选择**Ctrl+D。**。
+{： 。提示 }
 
-## Using the CLI with PPL
+## 将CLI与PPL一起使用
 
-1. Run the CLI by specifying the query language:
+1. 通过指定查询语言来运行CLI：
 ```console
 opensearchsql -l ppl <params>
 ```
 
-2. Execute a PPL query:
+2. 执行PPL查询：
 ```sql
 source=accounts | fields firstname, lastname
 ```
 
-## Query options
+## 查询选项
 
-Run a single query with the following command line options:
+使用以下命令行选项运行单个查询：
 
-- `-q`: Follow by a single query
-- `-f`: Specify JDBC or raw format output
-- `-v`: Display data vertically
-- `-e`: Translate SQL to DSL
+- `-q`：跟随一个查询
+- `-f`：指定JDBC或原始格式输出
+- `-v`：垂直显示数据
+- `-e`：将SQL转换为DSL
 
-## CLI options
+## CLI选项
 
-- `--help`: Help page for options
-- `-l`: Query language option. Available options are `sql` and `ppl`. Default is `sql`
-- `-p`: Always use pager to display output
-- `--clirc`: Provide path for the configuration file
+- `--help`：帮助页面以获取选项
+- `-l`：查询语言选项。可用选项是`sql` 和`ppl`。默认为`sql`
+- `-p`：始终使用Pager显示输出
+- `--clirc`：提供配置文件的路径
+

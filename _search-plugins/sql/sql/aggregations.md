@@ -1,33 +1,33 @@
 ---
 layout: default
-title: Aggregate Functions
+title: 聚合功能
 parent: SQL
-grand_parent: SQL and PPL
+grand_parent: SQL和PPL
 nav_order: 11
 Redirect_from:
   - /search-plugins/sql/aggregations/
 ---
 
-# Aggregate functions
+# 聚合功能
 
-Aggregate functions operate on subsets defined by the `GROUP BY` clause. In the absence of a `GROUP BY` clause, aggregate functions operate on all elements of the result set. You can use aggregate functions in the `GROUP BY`, `SELECT`, and `HAVING` clauses.
+汇总功能在由`GROUP BY` 条款。在没有`GROUP BY` 子句，汇总函数在结果集的所有元素上运行。您可以在`GROUP BY`，，，，`SELECT`， 和`HAVING` 条款。
 
-OpenSearch supports the following aggregate functions.
+OpenSearch支持以下汇总功能。
 
-Function | Description
-:--- | :---
-`AVG` | Returns the average of the results.
-`COUNT` | Returns the number of results.
-`SUM` | Returns the sum of the results.
-`MIN` | Returns the minimum of the results.
-`MAX` | Returns the maximum of the results.
-`VAR_POP` or `VARIANCE` | Returns the population variance of the results after discarding nulls. Returns 0 when there is only one row of results.
-`VAR_SAMP` | Returns the sample variance of the results after discarding nulls. Returns null when there is only one row of results.
-`STD` or `STDDEV` | Returns the sample standard deviation of the results. Returns 0 when there is only one row of results.
-`STDDEV_POP` | Returns the population standard deviation of the results. Returns 0 when there is only one row of results.
-`STDDEV_SAMP` | Returns the sample standard deviation of the results. Returns null when there is only one row of results.
+功能| 描述
+：--- | ：---
+`AVG` | 返回结果的平均值。
+`COUNT` | 返回结果数。
+`SUM` | 返回结果的总和。
+`MIN` | 返回结果的最小值。
+`MAX` | 返回结果的最大值。
+`VAR_POP` 或者`VARIANCE` | 返回丢弃零值后结果的种群差异。返回0时只有一行结果。
+`VAR_SAMP` | 返回丢弃nulls后结果的样本方差。返回null时只有一行结果。
+`STD` 或者`STDDEV` | 返回结果的样本标准偏差。返回0时只有一行结果。
+`STDDEV_POP` | 返回结果的人口标准偏差。返回0时只有一行结果。
+`STDDEV_SAMP` | 返回结果的样本标准偏差。返回null时只有一行结果。
 
-The examples below reference an `employees` table. You can try out the examples by indexing the following documents into OpenSearch using the bulk index operation:
+下面的示例参考`employees` 桌子。您可以通过使用批量索引操作将以下文档索引到OpenSearch中来尝试示例：
 
 ```json
 PUT employees/_bulk?refresh
@@ -45,29 +45,29 @@ PUT employees/_bulk?refresh
 {"employee_id":18,"department":2, "firstname":"Dale", "lastname":"Adams", "sales":4180, "sale_date":"2022-11-05"}
 ```
 
-## GROUP BY
+## 通过...分组
 
-The `GROUP BY` clause defines subsets of a result set. Aggregate functions operate on these subsets and return one result row for each subset. 
+这`GROUP BY` 子句定义结果集的子集。聚合功能在这些子集上运行，并为每个子集返回一个结果行。
 
-You can use an identifier, ordinal, or expression in the `GROUP BY` clause.
+您可以在`GROUP BY` 条款。
 
-### Using an identifier in GROUP BY
+### 通过在组中使用标识符
 
-You can specify the field name (column name) to aggregate on in the `GROUP BY` clause. For example, the following query returns the department numbers and the total sales for each department: 
+您可以指定字段名称（列名）以在`GROUP BY` 条款。例如，以下查询返回部门编号和每个部门的总销售额：
 ```sql
 SELECT department, sum(sales) 
 FROM employees 
 GROUP BY department;
 ```
 
-| department | sum(sales)
-:--- | :---
-1 | 58700  |
-2 | 37018 |
+| 部门| 总和（销售）
+：--- | ：---
+1| 58700|
+2| 37018|
 
-### Using an ordinal in GROUP BY
+### 通过组中的序数
 
-You can specify the column number to aggregate on in the `GROUP BY` clause. The column number is determined by the column position in the `SELECT` clause. For example, the following query is equivalent to the query above. It returns the department numbers and the total sales for each department. It groups the results by the first column of the result set, which is `department`:
+您可以指定要在`GROUP BY` 条款。列号由列位置确定`SELECT` 条款。例如，以下查询等同于上面的查询。它返回部门号码和每个部门的总销售额。它按结果集的第一列将结果分组为`department`：
 
 ```sql
 SELECT department, sum(sales) 
@@ -75,14 +75,14 @@ FROM employees
 GROUP BY 1;
 ```
 
-| department | sum(sales)
-:--- | :---
-1 | 58700  |
-2 | 37018 |
+| 部门| 总和（销售）
+：--- | ：---
+1| 58700|
+2| 37018|
 
-### Using an expression in GROUP BY
+### 通过在组中使用表达式
 
-You can use an expression in the `GROUP BY` clause. For example, the following query returns the average sales for each year:
+您可以在`GROUP BY` 条款。例如，以下查询返回每年的平均销售额：
 
 ```sql
 SELECT year(sale_date), avg(sales) 
@@ -90,19 +90,19 @@ FROM employees
 GROUP BY year(sale_date);
 ```
 
-| year(start_date) | avg(sales)
-:--- | :---
-| 2020  | 1356.0 |
-| 2021 | 22455.0 |
-| 2022 | 16484.0  |
+| 年（start_date）| AVG（销售）
+：--- | ：---
+| 2020| 1356.0|
+| 2021| 22455.0|
+| 2022| 16484.0|
 
-## SELECT
+## 选择
 
-You can use aggregate expressions in the `SELECT` clause either directly or as part of a larger expression. In addition, you can use expressions as arguments of aggregate functions.
+您可以在`SELECT` 子句直接或作为较大表达式的一部分。此外，您可以将表达式用作汇总函数的参数。
 
-### Using aggregate expressions directly in SELECT
+### 直接在SELECT中使用骨料表达式
 
-The following query returns the average sales for each department:
+以下查询返回每个部门的平均销售额：
 
 ```sql
 SELECT department, avg(sales) 
@@ -110,14 +110,14 @@ FROM employees
 GROUP BY department;
 ```
 
-| department | avg(sales)
-:--- | :---
-1 | 14675.0 |
-2 | 18509.0 |
+| 部门| AVG（销售）
+：--- | ：---
+1| 14675.0|
+2| 18509.0|
 
-### Using aggregate expressions as part of larger expressions in SELECT
+### 将骨料表达式用作选择中较大表达式的一部分
 
-The following query calculates the average commission for the employees of each department as 5% of the average sales:
+以下查询计算了每个部门员工的平均佣金，为平均销售额的5％：
 
 ```sql
 SELECT department, avg(sales) * 0.05 as avg_commission 
@@ -125,14 +125,14 @@ FROM employees
 GROUP BY department;
 ```
 
-| department | avg_commission
-:--- | :---
-1 | 733.75 |
-2 | 925.45 |
+| 部门| avg_commission
+：--- | ：---
+1| 733.75|
+2| 925.45|
 
-### Using expressions as arguments to aggregate functions
+### 将表达式作为参数来汇总函数
 
-The following query calculates the average commission amount for each department. First it calculates the commission amount for each `sales` value as 5% of the `sales`. Then it determines the average of all commission values:
+以下查询计算每个部门的平均佣金金额。首先，它计算每个的佣金金额`sales` 价值为5％`sales`。然后，它决定了所有佣金价值的平均值：
 
 ```sql
 SELECT department, avg(sales * 0.05) as avg_commission 
@@ -140,22 +140,22 @@ FROM employees
 GROUP BY department;
 ```
 
-| department | avg_commission
-:--- | :---
-1 | 733.75 |
-2 | 925.45 |
+| 部门| avg_commission
+：--- | ：---
+1| 733.75|
+2| 925.45|
 
-### COUNT
+### 数数
 
-The `COUNT` function accepts arguments, such as `*`, or literals, such as `1`.
-The following table describes how various forms of the `COUNT` function operate.
+这`COUNT` 功能接受参数，例如`*`，或文字，例如`1`。
+下表描述了各种形式的方式`COUNT` 功能运行。
 
-| Function type | Description
-`COUNT(field)` | Counts the number of rows where the value of the given field (or expression) is not null.
-`COUNT(*)` | Counts the total number of rows in a table.
-`COUNT(1)` (same as `COUNT(*)`) | Counts any non-null literal.
+| 功能类型| 描述
+`COUNT(field)` | 计算给定字段（或表达式）的值不为空的行数。
+`COUNT(*)` | 计算表中的行总数。
+`COUNT(1)` （与...一样`COUNT(*)`）| 计数任何非-零字面。
 
-For example, the following query returns the count of sales for each year:
+例如，以下查询返回每年的销售计数：
 
 ```sql
 SELECT year(sale_date), count(sales) 
@@ -163,23 +163,23 @@ FROM employees
 GROUP BY year(sale_date);
 ```
 
-| year(sale_date) | count(sales)
-:--- | :---
-2020 | 1
-2021 | 2
-2022 | 3
+| 年（sale_date）| 计数（销售）
+：--- | ：---
+2020| 1
+2021| 2
+2022| 3
 
-## HAVING
+## 有
 
-Both `WHERE` and `HAVING` are used to filter results. The `WHERE` filter is applied before the `GROUP BY` phase, so you cannot use aggregate functions in a `WHERE` clause. However, you can use the `WHERE` clause to limit the rows to which the aggregate is then applied.
+两个都`WHERE` 和`HAVING` 用于过滤结果。这`WHERE` 过滤器在`GROUP BY` 阶段，因此您不能在`WHERE` 条款。但是，您可以使用`WHERE` 子句限制然后应用聚集的行。
 
-The `HAVING` filter is applied after the `GROUP BY` phase, so you can use the `HAVING` clause to limit the groups that are included in the results. 
+这`HAVING` 过滤器在`GROUP BY` 阶段，因此您可以使用`HAVING` 条款以限制结果中包含的组。
 
-### HAVING with GROUP BY
+### 与小组合作
 
-You can use aggregate expressions or their aliases defined in a `SELECT` clause in a `HAVING` condition.
+您可以使用汇总表达式或在A中定义的别名`SELECT` 条款`HAVING` 健康）状况。
 
-The following query uses an aggregate expression in the `HAVING` clause. It returns the number of sales for each employee who made more than one sale:
+以下查询在`HAVING` 条款。它返回每位进行多个销售的员工的销售量：
 
 ```sql
 SELECT employee_id, count(sales)
@@ -188,12 +188,12 @@ GROUP BY employee_id
 HAVING count(sales) > 1;
 ```
 
-| employee_id | count(sales)
-:--- | :---
-1 | 2 |
-6 | 2
+| 员工ID| 计数（销售）
+：--- | ：---
+1| 2|
+6| 2
 
-The aggregations in a `HAVING` clause do not have to be the same as the aggregations in a `SELECT` list. The following query uses the `count` function in the `HAVING` clause but the `sum` function in the `SELECT` clause. It returns the total sales amount for each employee who made more than one sale:
+一个集合`HAVING` 条款不必与一个集合相同`SELECT` 列表。以下查询使用`count` 功能在`HAVING` 条款但是`sum` 功能在`SELECT` 条款。它返回每位进行多个销售的员工的总销售额：
 
 ```sql
 SELECT employee_id, sum(sales)
@@ -202,12 +202,12 @@ GROUP BY employee_id
 HAVING count(sales) > 1;
 ```
 
-| employee_id | sum (sales)
-:--- | :---
-1 | 40580 |
-6 | 18120
+| 员工ID| 总和（销售）
+：--- | ：---
+1| 40580|
+6| 18120
 
-As an extension of the SQL standard, you are not restricted to using only identifiers in the `GROUP BY` clause. The following query uses an alias in the `GROUP BY` clause and is equivalent to the previous query:
+作为SQL标准的扩展，您不仅限于仅使用标识符`GROUP BY` 条款。以下查询在`GROUP BY` 子句，等效于先前的查询：
 
 ```sql
 SELECT employee_id as id, sum(sales)
@@ -216,12 +216,12 @@ GROUP BY id
 HAVING count(sales) > 1;
 ```
 
-| id | sum (sales)
-:--- | :---
-1 | 40580 |
-6 | 18120
+| ID| 总和（销售）
+：--- | ：---
+1| 40580|
+6| 18120
 
-You can also use an alias for an aggregate expression in the `HAVING` clause. The following query returns the total sales for each department where sales exceed $40,000:
+您也可以使用别名在`HAVING` 条款。以下查询返回销售额超过$ 40,000的每个部门的总销售额：
 
 ```sql
 SELECT department, sum(sales) as total
@@ -230,11 +230,11 @@ GROUP BY department
 HAVING total > 40000;
 ```
 
-| department | total
-:--- | :---
-1 | 58700 |
+| 部门| 全部的
+：--- | ：---
+1| 58700|
 
-If an identifier is ambiguous (for example, present both as a `SELECT` alias and as an index field), the preference is given to the alias. In the following query the identifier is replaced with the expression aliased in the `SELECT` clause:
+如果标识符是模棱两可的（例如，同时将其作为一个`SELECT` 别名和索引字段），偏爱别名。在下面的查询中，标识符被替换为在`SELECT` 条款：
 
 ```sql
 SELECT department, sum(sales) as sales
@@ -243,24 +243,25 @@ GROUP BY department
 HAVING sales > 40000;
 ```
 
-| department | sales
-:--- | :---
-1 | 58700 |
+| 部门| 销售量
+：--- | ：---
+1| 58700|
 
-### HAVING without GROUP BY
+### 没有小组
 
-You can use a `HAVING` clause without a `GROUP BY` clause. In this case, the whole set of data is to be considered one group. The following query will return `True` if there is more than one value in the `department` column:
+您可以使用`HAVING` 子句没有一个`GROUP BY` 条款。在这种情况下，整个数据集应视为一组。以下查询将返回`True` 如果有多个值`department` 柱子：
 
 ```sql
 SELECT 'True' as more_than_one_department FROM employees HAVING min(department) < max(department);
 ```
 
-| more_than_one_department |
-:--- |
-True |
+| more_than_one_department|
+：--- |
+真的|
 
-If all employees in the employee table belonged to the same department, the result would contain zero rows:
+如果员工表中的所有员工都属于同一部门，则结果将包含零行：
 
 | more_than_one_department
-:--- |
+：--- |
  |
+

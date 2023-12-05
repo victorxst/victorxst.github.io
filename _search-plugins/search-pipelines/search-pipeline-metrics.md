@@ -1,22 +1,22 @@
 ---
 layout: default
-title: Search pipeline metrics
+title: 搜索管道指标
 nav_order: 50
 has_children: false
-parent: Search pipelines
-grand_parent: Search
+parent: 搜索管道
+grand_parent: 搜索
 ---
 
-# Search pipeline metrics
+# 搜索管道指标
 
-To view search pipeline metrics, use the [Nodes Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/):
+要查看搜索管道指标，请使用[节点统计API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/)：
 
 ```json
 GET /_nodes/stats/search_pipeline
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The response contains statistics for all search pipelines:
+响应包含所有搜索管道的统计信息：
 
 ```json
 {
@@ -165,4 +165,5 @@ The response contains statistics for all search pipelines:
 }
 ```
 
-For descriptions of each field in the response, see the [Nodes Stats search pipeline section]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/#search_pipeline). 
+有关响应中每个字段的描述，请参阅[节点统计搜索管道部分]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/#search_pipeline)。
+

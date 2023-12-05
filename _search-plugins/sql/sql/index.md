@@ -1,7 +1,7 @@
 ---
 layout: default
 title: SQL
-parent: SQL and PPL
+parent: SQL和PPL
 nav_order: 4
 has_children: true
 has_toc: false
@@ -12,23 +12,23 @@ redirect_from:
 
 # SQL
 
-SQL in OpenSearch bridges the gap between traditional relational database concepts and the flexibility of OpenSearch's document-oriented data storage. This integration gives you the ability to use your SQL knowledge to query, analyze, and extract insights from your OpenSearch data.
+OpenSearch中的SQL桥接传统关系数据库概念与OpenSearch文档的灵活性之间的差距-定向数据存储。这种集成使您能够利用您的SQL知识从OpenSearch数据查询，分析和提取见解。
 
-## SQL and OpenSearch terminology
+## SQL和OpenSearch术语
 
-Here’s how core SQL concepts map to OpenSearch:
+这是核心SQL概念映射到OpenSearch的方式：
 
-SQL | OpenSearch
-:--- | :---
-Table | Index
-Row | Document
-Column | Field
+SQL| OpenSearch
+：--- | ：---
+桌子| 指数
+排| 文档
+柱子| 场地
 
 ## REST API
 
-For a complete REST API reference for the SQL plugin, see [SQL/PPL API]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql-ppl-api/). 
+有关SQL插件的完整REST API参考，请参见[SQL/PPL API]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql-ppl-api/)。
 
-To use the SQL plugin with your own applications, send requests to the `_plugins/_sql` endpoint:
+要将SQL插件与您自己的应用一起使用，请将请求发送到`_plugins/_sql` 端点：
 
 ```json
 POST _plugins/_sql
@@ -36,9 +36,9 @@ POST _plugins/_sql
   "query": "SELECT * FROM my-index LIMIT 50"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-You can query multiple indexes by using a comma-separated list:
+您可以使用逗号查询多个索引-分开列表：
 
 ```json
 POST _plugins/_sql
@@ -46,9 +46,9 @@ POST _plugins/_sql
   "query": "SELECT * FROM my-index1,myindex2,myindex3 LIMIT 50"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-You can specify an index pattern with a wildcard expression:
+您可以指定具有通配符表达式的索引模式：
 
 ```json
 POST _plugins/_sql
@@ -56,16 +56,16 @@ POST _plugins/_sql
   "query": "SELECT * FROM my-index* LIMIT 50"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-To run the preceding query in the command line, use the [curl](https://curl.haxx.se/) command:
+要在命令行中运行前面的查询，请使用[卷曲](https://curl.haxx.se/) 命令：
 
 ```bash
 curl -XPOST https://localhost:9200/_plugins/_sql -u 'admin:admin' -k -H 'Content-Type: application/json' -d '{"query": "SELECT * FROM my-index* LIMIT 50"}'
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-You can specify the [response format]({{site.url}}{{site.baseurl}}/search-plugins/sql/response-formats/) as JDBC, standard OpenSearch JSON, CSV, or raw. By default, queries return data in JDBC format. The following query sets the format to JSON:
+您可以指定[响应格式]({{site.url}}{{site.baseurl}}/search-plugins/sql/response-formats/) 作为JDBC，标准OpenSearch JSON，CSV或RAW。默认情况下，查询以JDBC格式返回数据。以下查询将格式设置为JSON：
 
 ```json
 POST _plugins/_sql?format=json
@@ -73,6 +73,7 @@ POST _plugins/_sql?format=json
   "query": "SELECT * FROM my-index LIMIT 50"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-For more information about request parameters, settings, supported operations, and tools, see the related topics under [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/index/).
+有关请求参数，设置，支持操作和工具的更多信息，请参阅下面的相关主题[SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/index/)。
+

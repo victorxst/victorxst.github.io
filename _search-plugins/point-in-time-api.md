@@ -1,16 +1,16 @@
 ---
 layout: default
-title: Point in Time API
+title: 时间点API
 nav_order: 59
 has_children: false
-parent: Point in Time
+parent: 时间点
 redirect_from:
   - /opensearch/point-in-time-api/
 ---
 
-# Point in Time API
+# 时间点API
 
-Use the [Point in Time (PIT)]({{site.url}}{{site.baseurl}}/opensearch/point-in-time/) API to manage PITs. 
+使用[时间点（坑）]({{site.url}}{{site.baseurl}}/opensearch/point-in-time/) API管理坑。
 
 ---
 
@@ -20,41 +20,41 @@ Use the [Point in Time (PIT)]({{site.url}}{{site.baseurl}}/opensearch/point-in-t
 
 ---
 
-## Create a PIT
-Introduced 2.4
-{: .label .label-purple }
+## 创建一个坑
+引入2.4
+{：.label .label-紫色的 }
 
-Creates a PIT. The `keep_alive` query parameter is required; it specifies how long to keep a PIT.
+创建一个坑。这`keep_alive` 需要查询参数；它指定了要保持坑的时间。
 
-### Path and HTTP methods
+### 路径和HTTP方法
 
 ```json
 POST /<target_indexes>/_search/point_in_time?keep_alive=1h&routing=&expand_wildcards=&preference= 
 ```
 
-### Path parameters
+### 路径参数
 
-Parameter | Data type | Description 
-:--- | :--- | :---
-target_indexes | String | The name(s) of the target index(es) for the PIT. May contain a comma-separated list or a wildcard index pattern.
+范围| 数据类型| 描述
+：--- | ：--- | ：---
+target_indexes| 细绳| 坑的目标索引的名称。可能包含一个逗号-分开列表或通配符索引模式。
 
-### Query parameters
+### 查询参数
 
-Parameter | Data type | Description
-:--- | :--- | :---
-keep_alive | Time |  The amount of time to keep the PIT. Every time you access a PIT by using the Search API, the PIT lifetime is extended by the amount of time equal to the `keep_alive` parameter. Required.
-preference | String | The node or the shard used to perform the search. Optional. Default is random.
-routing | String | Specifies to route search requests to a specific shard. Optional. Default is the document's `_id`. 
-expand_wildcards | String | The type of index that can match the wildcard pattern. Supports comma-separated values. Valid values are the following:<br>- `all`: Match any index or data stream, including hidden ones. <br>- `open`: Match open, non-hidden indexes or non-hidden data streams. <br>- `closed`: Match closed, non-hidden indexes or non-hidden data streams. <br>- `hidden`: Match hidden indexes or data streams. Must be combined with `open`, `closed` or both `open` and `closed`.<br>- `none`: No wildcard patterns are accepted.<br> Optional. Default is `open`.
-allow_partial_pit_creation | Boolean | Specifies whether to create a PIT with partial failures. Optional. Default is `true`.
+范围| 数据类型| 描述
+：--- | ：--- | ：---
+活着| 时间|  保持坑的时间。每当您使用搜索API访问坑时，坑寿命都会延长到等于`keep_alive` 范围。必需的。
+偏爱| 细绳| 节点或用于执行搜索的碎片。选修的。默认值是随机的。
+路由| 细绳| 指定将搜索请求路由到特定的碎片。选修的。默认是文档的`_id`。
+Expand_WildCard| 细绳| 可以匹配通配符模式的索引类型。支持逗号-分离的值。有效值如下：<br>- `all`：匹配任何索引或数据流，包括隐藏的索引流。<br>- `open`：匹配打开，非-隐藏索引或非-隐藏的数据流。<br>- `closed`：比赛关闭，非-隐藏索引或非-隐藏的数据流。<br>- `hidden`：匹配隐藏索引或数据流。必须与`open`，，，，`closed` 或两者`open` 和`closed`。<br>- `none`：不接受通配符模式。<br>可选。默认为`open`。
+laster_partial_pit_creation| 布尔| 指定是否要创建部分失败。选修的。默认为`true`。
 
-#### Example request
+#### 示例请求
 
 ```json
 POST /my-index-1/_search/point_in_time?keep_alive=100m
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -69,16 +69,16 @@ POST /my-index-1/_search/point_in_time?keep_alive=100m
 }
 ```
 
-### Response fields
+### 响应字段
 
-Field | Data type | Description 
-:--- | :--- | :---  
-pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) | The PIT ID.
-creation_time | long | The time the PIT was created, in milliseconds since the epoch. 
+场地| 数据类型| 描述
+：--- | ：--- | ：---  
+pit_id| [BASE64编码二进制]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) | 坑ID。
+creation_time| 长的| 自时代以来，矿坑的创建时间是在毫秒内创建的。
 
-## Extend a PIT time
+## 延长进站
 
-You can extend a PIT time by providing a `keep_alive` parameter in the `pit` object when you perform a search:
+您可以通过提供一个`keep_alive` 参数`pit` 当您执行搜索时对象：
 
 ```json
 GET /_search
@@ -102,26 +102,26 @@ GET /_search
 }
 ```
 
-The `keep_alive` parameter in a search request is optional. It specifies the amount by which to extend the time to keep a PIT.
-{: .note}
+这`keep_alive` 搜索请求中的参数是可选的。它指定了延长时间以保持坑的时间的数量。
+{： 。笔记}
 
-## List all PITs
-Introduced 2.4
-{: .label .label-purple }
+## 列出所有坑
+引入2.4
+{：.label .label-紫色的 }
 
-Returns all PITs in the OpenSearch cluster.
+返回OpenSearch集群中的所有坑。
 
-### Cross-cluster behavior
+### 叉-聚类行为
 
-The List All PITs API returns only local PITs or mixed PITs (PITs created in both local and remote clusters). It does not return fully remote PITs. 
+列表所有坑API仅返回本地坑或混合坑（在本地和远程簇中创建的坑）。它不会返回完全远程凹坑。
 
-#### Example request
+#### 示例请求
 
 ```json
 GET /_search/point_in_time/_all
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -140,47 +140,47 @@ GET /_search/point_in_time/_all
 }
 ```
 
-### Response fields
+### 响应字段
 
-Field | Data type | Description 
-:--- | :--- | :---  
-pits | Array of JSON objects | The list of all PITs. 
+场地| 数据类型| 描述
+：--- | ：--- | ：---  
+坑| JSON对象的数组| 所有坑的列表。
 
-Each PIT object contains the following fields.
+每个坑对象都包含以下字段。
 
-Field | Data type | Description 
-:--- | :--- | :---  
-pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) | The PIT ID.
-creation_time | long | The time the PIT was created, in milliseconds since the epoch. 
-keep_alive | long |  The amount of time to keep the PIT, in milliseconds.
+场地| 数据类型| 描述
+：--- | ：--- | ：---  
+pit_id| [BASE64编码二进制]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) | 坑ID。
+creation_time| 长的| 自时代以来，矿坑的创建时间是在毫秒内创建的。
+活着| 长的|  将坑保持在毫秒内的时间。
 
-## Delete PITs
-Introduced 2.4
-{: .label .label-purple }
+## 删除坑
+引入2.4
+{：.label .label-紫色的 }
 
-Deletes one, several, or all PITs. PITs are automatically deleted when the `keep_alive` time period elapses. However, to deallocate resources, you can delete a PIT using the Delete PIT API. The Delete PIT API supports deleting a list of PITs by ID or deleting all PITs at once.
+删除一个，几个或所有坑。当坑被自动删除时`keep_alive` 时间段。但是，要处理资源，您可以使用DELETE PIT API删除坑。删除PIT API支持通过ID或一次删除所有坑来删除坑列表。
 
-### Cross-cluster behavior
+### 叉-聚类行为
 
-The Delete PITs by ID API fully supports deleting cross-cluster PITs. 
+ID API的删除坑完全支持删除十字架-集群坑。
 
-The Delete All PITs API deletes only local PITs or mixed PITs (PITs created in both local and remote clusters). It does not delete fully remote PITs. 
+删除所有凹坑API仅删除本地坑或混合坑（在本地和远程簇中创建的凹坑）。它不会删除完全远程的凹坑。
 
-#### Example request: Delete all PITs
+#### 示例请求：删除所有坑
 
 ```json
 DELETE /_search/point_in_time/_all
 ```
 
-If you want to delete one or several PITs, specify their PIT IDs in the request body.
+如果要删除一个或几个坑，请在请求正文中指定其坑ID。
 
-### Request fields
+### 请求字段
 
-Field | Data type | Description  
-:--- | :--- | :---
-pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) or an array of binaries | The PIT IDs of the PITs to be deleted. Required.
+场地| 数据类型| 描述
+：--- | ：--- | ：---
+pit_id| [BASE64编码二进制]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) 或一系列二进制| 要删除的坑的坑ID。必需的。
 
-#### Example request: Delete PITs by ID
+#### 示例请求：通过ID删除坑
 
 ```json
 DELETE /_search/point_in_time
@@ -193,9 +193,9 @@ DELETE /_search/point_in_time
 }
 ```
 
-#### Example response
+#### 示例响应
 
-For each PIT, the response contains a JSON object with a PIT ID and a `successful` field that specifies whether the deletion was successful. Partial failures are treated as failures. 
+对于每个坑，响应包含一个带有坑ID和一个的JSON对象`successful` 指定删除是否成功的字段。部分失败被视为失败。
 
 ```json
 {
@@ -212,34 +212,34 @@ For each PIT, the response contains a JSON object with a PIT ID and a `successfu
 }
 ```
 
-### Response fields
+### 响应字段
 
-Field | Data type | Description  
-:--- | :--- | :---
-successful | Boolean | Whether the delete operation was successful.
-pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary)  | The PIT ID of the PIT to be deleted.
+场地| 数据类型| 描述
+：--- | ：--- | ：---
+成功的| 布尔| 删除操作是否成功。
+pit_id| [BASE64编码二进制]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary)  | 要删除的坑的坑ID。
 
-## PIT segments
-Introduced 2.4
-{: .label .label-purple }
+## 坑段
+引入2.4
+{：.label .label-紫色的 }
 
-Similarly to the [CAT Segments API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-segments), the PIT Segments API provides low-level information about the disk utilization of a PIT by describing its Lucene segments. The PIT Segments API supports listing segment information of a specific PIT by ID or of all PITs at once.
+类似于[猫节API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-segments)，坑段API可提供低-通过描述其Lucene段的磁盘利用磁盘利用的水平信息。PIT段API支持列出特定坑的段信息ID或所有凹坑的信息。
 
-#### Example request: PIT segments of all PITs
+#### 示例请求：所有坑的坑段
 
 ```json
 GET /_cat/pit_segments/_all
 ```
 
-If you want to list segments for one or several PITs, specify their PIT IDs in the request body.
+如果要列出一个或几个坑的细分，请在请求正文中指定其坑ID。
 
-### Request fields
+### 请求字段
 
-Field | Data type | Description  
-:--- | :--- | :---
-pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) or an array of binaries | The PIT IDs of the PITs whose segments are to be listed. Required.
+场地| 数据类型| 描述
+：--- | ：--- | ：---
+pit_id| [BASE64编码二进制]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) 或一系列二进制| 将要列出的坑的坑ID。必需的。
 
-#### Example request: PIT segments of PITs by ID
+#### 示例请求：ID的坑段
 
 ```json
 GET /_cat/pit_segments
@@ -252,7 +252,7 @@ GET /_cat/pit_segments
 }
 ```
 
-#### Example response
+#### 示例响应
 
 ```json
 index  shard prirep ip            segment generation docs.count docs.deleted  size size.memory committed searchable version compound
@@ -261,11 +261,12 @@ index1 1     p      10.212.36.190 _0               0          3            0 3.7
 index1 2     r      10.212.74.139 _0               0          2            0 3.6kb        1364 false     true       8.8.2   true
 ```
 
-## PIT settings
+## 维修区设置
 
-You can specify the following settings for a PIT.
+您可以为坑指定以下设置。
 
-Setting | Description | Default 
-:--- | :--- | :---
-point_in_time.max_keep_alive | A cluster-level setting that specifies the maximum value for the `keep_alive` parameter. | 24h
-search.max_open_pit_context | A node-level setting that specifies the maximum number of open PIT contexts for the node. | 300
+环境| 描述| 默认
+：--- | ：--- | ：---
+point_in_time.max_keep_alive| 集群-指定最大值的级别设置`keep_alive` 范围。| 24H
+search.max_open_pit_context| 节点-指定节点的最大开放端上下文数量的级别设置。| 30
+

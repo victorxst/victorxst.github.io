@@ -1,61 +1,61 @@
 ---
 layout: default
-title: ODBC Driver
+title: ODBC驱动程序
 parent: SQL
-grand_parent: SQL and PPL
+grand_parent: SQL和PPL
 nav_order: 72
 redirect_from:
   - /search-plugins/sql/odbc/
 ---
 
-# ODBC driver
+# ODBC驱动程序
 
-The Open Database Connectivity (ODBC) driver is a read-only ODBC driver for Windows and macOS that lets you connect business intelligence (BI) and data visualization applications like [Microsoft Excel](https://github.com/opensearch-project/sql-odbc/blob/main/docs/user/microsoft_excel_support.md) and [Power BI](https://github.com/opensearch-project/sql-odbc/blob/main/bi-connectors/PowerBIConnector/README.md) to the SQL plugin.
+开放数据库连接（ODBC）驱动程序是一个读取-仅用于Windows和MacOS的ODBC驱动程序，才能连接商业智能（BI）和数据可视化应用程序[Microsoft Excel](https://github.com/opensearch-project/sql-odbc/blob/main/docs/user/microsoft_excel_support.md) 和[Power BI](https://github.com/opensearch-project/sql-odbc/blob/main/bi-connectors/PowerBIConnector/README.md) 到SQL插件。
 
-For information on downloading and using the driver, see [the SQL repository on GitHub](https://github.com/opensearch-project/sql-odbc).
+有关下载和使用驱动程序的信息，请参阅[GitHub上的SQL存储库](https://github.com/opensearch-project/sql-odbc)。
 
-## Specifications
+## 规格
 
-The ODBC driver is compatible with ODBC version 3.51.
+ODBC驱动程序与ODBC版本3.51兼容。
 
-## Supported OS versions
+## 支持的OS版本
 
-The following operating systems are supported:
+支持以下操作系统：
 
-Operating System | Version
-:--- | :---
-Windows | Windows 10, Windows 11
-macOS | Catalina 10.15.4, Mojave 10.14.6, Big Sur 11.6.7, Monterey 12.4
-
-
-## Concepts
-
-Term | Definition
-:--- | :---
-**DSN** | A DSN (Data Source Name) is used to store driver information in the system. By storing the information in the system, the information does not need to be specified each time the driver connects.
-**.tdc** file | The TDC file contains configuration information that Tableau applies to any connection matching the database vendor name and driver name defined in the file. This configuration allows you to fine-tune parts of your ODBC data connection and turn on/off certain features not supported by the data source.
+操作系统| 版本
+：--- | ：---
+视窗| Windows 10，Windows 11
+苹果系统| Catalina 10.15.4，Mojave 10.14.6，Big Sur 11.6.7，蒙特雷12.4
 
 
-## Install driver
+## 概念
 
-To install the driver, download the bundled distribution installer from [here](https://opensearch.org/downloads.html) or by build from the source.
+学期| 定义
+：--- | ：---
+**DSN** | DSN（数据源名称）用于将驱动程序信息存储在系统中。通过将信息存储在系统中，无需每次驱动程序连接时指定信息。
+**.tdc** 文件| TDC文件包含Tableau适用于与数据库供应商名称和驱动程序名称相匹配的任何连接的配置信息。这种配置使您可以罚款-调整ODBC数据连接的部分并打开/关闭数据源不支持的某些功能。
 
 
-### Windows
+## 安装驱动程序
 
-1. Open the downloaded `OpenSearch SQL ODBC Driver-<version>-Windows.msi` installer.
+要安装驱动程序，请从[这里](https://opensearch.org/downloads.html) 或通过源头构建。
 
-   The installer is unsigned and shows a security dialog. Choose **More info** and **Run anyway**.
 
-2. Choose **Next** to proceed with the installation.
+### 视窗
 
-3. Accept the agreement, and choose **Next**.
+1. 打开下载`OpenSearch SQL ODBC Driver-<version>-Windows.msi` 安装程序。
 
-4. The installer comes bundled with documentation and useful resource files to connect to various BI tools (for example, a `.tdc` file for Tableau). You can choose to keep or remove these resources. Choose **Next**.
+   安装程序未签名，并显示一个安全对话框。选择**更多信息** 和**无论如何运行**。
 
-5. Choose **Install** and **Finish**.
+2. 选择**下一个** 进行安装。
 
-The following connection information is set up as part of the default DSN:
+3. 接受协议，然后选择**下一个**。
+
+4. 安装程序包含文档和有用的资源文件，以连接到各种BI工具（例如，一个`.tdc` 申请Tableau）。您可以选择保留或删除这些资源。选择**下一个**。
+
+5. 选择**安装** 和**结束**。
+
+作为默认DSN的一部分设置以下连接信息：
 
 ```
 Host: localhost
@@ -63,147 +63,148 @@ Port: 9200
 Auth: NONE
 ```
 
-To customize the DSN, use **ODBC Data Source Administrator** which is pre-installed on Windows 10.
+要自定义DSN，请使用**ODBC数据源管理员** 哪个是-安装在Windows 10上。
 
 
-### macOS
+### 苹果系统
 
-Before installing the ODBC Driver on macOS, install the iODBC Driver Manager.
+在MACOS上安装ODBC驱动程序之前，请安装IODBC驱动程序管理器。
 
-1. Open the downloaded `OpenSearch SQL ODBC Driver-<version>-Darwin.pkg` installer.
+1. 打开下载`OpenSearch SQL ODBC Driver-<version>-Darwin.pkg` 安装程序。
 
-   The installer is unsigned and shows a security dialog. Right-click on the installer and choose **Open**.
+   安装程序未签名，并显示一个安全对话框。正确的-单击安装程序，然后选择**打开**。
 
-2. Choose **Continue** several times to proceed with the installation.
+2. 选择**继续** 几次进行安装。
 
-3. Choose the **Destination** to install the driver files.
+3. 选择**目的地** 安装驱动程序文件。
 
-4. The installer comes bundled with documentation and useful resources files to connect to various BI tools (for example, a `.tdc` file for Tableau). You can choose to keep or remove these resources. Choose **Continue**.
+4. 安装程序包含文档和有用的资源文件以连接到各种BI工具（例如，一个`.tdc` 申请Tableau）。您可以选择保留或删除这些资源。选择**继续**。
 
-5. Choose **Install** and **Close**.
+5. 选择**安装** 和**关闭**。
 
-Currently, the DSN is not set up as part of the installation and needs to be configured manually. First, open `iODBC Administrator`:
+当前，DSN尚未作为安装的一部分设置，需要手动配置。首先，打开`iODBC Administrator`：
 
 ```
 sudo /Applications/iODBC/iODBC\ Administrator64.app/Contents/MacOS/iODBC\ Administrator64
 ```
 
-This command gives the application permissions to save the driver and DSN configurations.
+此命令允许应用程序权限保存驱动程序和DSN配置。
 
-1. Choose **ODBC Drivers** tab.
-2. Choose **Add a Driver** and fill in the following details:
-   - **Description of the Driver**: Enter the driver name that you used for the ODBC connection (for example, OpenSearch SQL ODBC Driver).
-   - **Driver File Name**: Enter the path to the driver file (default: `<driver-install-dir>/bin/libopensearchsqlodbc.dylib`).
-   - **Setup File Name**: Enter the path to the setup file (default: `<driver-install-dir>/bin/libopensearchsqlodbc.dylib`).
+1. 选择**ODBC驱动程序** 标签。
+2. 选择**添加驱动程序** 并填写以下详细信息：
+   - **驾驶员的描述**：输入您用于ODBC连接的驱动程序名称（例如，OpenSearch SQL ODBC驱动程序）。
+   - **驱动程序文件名**：输入驱动程序文件的路径（默认：`<driver-install-dir>/bin/libopensearchsqlodbc.dylib`）。
+   - **设置文件名**：输入设置文件的路径（默认值：`<driver-install-dir>/bin/libopensearchsqlodbc.dylib`）。
 
-3. Choose the user driver.
-4. Choose **OK** to save the options.
-5. Choose the **User DSN** tab.
-6. Select **Add**.
-7. Choose the driver that you added above.
-8. For **Data Source Name (DSN)**, enter the name of the DSN used to store connection options (for example, OpenSearch SQL ODBC DSN).
-9. For **Comment**, add an optional comment.
-10. Add key-value pairs by using the `+` button. We recommend the following options for a default local OpenSearch installation:
-   - **Host**: `localhost` - OpenSearch server endpoint
-   - **Port**: `9200` - The server port
-   - **Auth**: `NONE` - The authentication mode
-   - **Username**: `(blank)` - The username used for BASIC auth
-   - **Password**: `(blank)`- The password used for BASIC auth
-   - **ResponseTimeout**: `10` - The number of seconds to wait for a response from the server
-   - **UseSSL**: `0` - Do not use SSL for connections
+3. 选择用户驱动程序。
+4. 选择**好的** 保存选项。
+5. 选择**用户DSN** 标签。
+6. 选择**添加**。
+7. 选择您上面添加的驱动程序。
+8. 为了**数据源名称（DSN）**，输入用于存储连接选项的DSN的名称（例如，OpenSearch SQL ODBC DSN）。
+9. 为了**评论**，添加可选评论。
+10. 添加密钥-通过使用`+` 按钮。我们建议为默认的本地OpenSearch安装提供以下选项：
+   - **主持人**：`localhost` - OpenSearch服务器端点
+   - **港口**：`9200` - 服务器端口
+   - **auth**：`NONE` - 身份验证模式
+   - **用户名**：`(blank)` - 用于基本验证的用户名
+   - **密码**：`(blank)`- 基本验证的密码
+   - **响应时间out**：`10` - 等待服务器响应的秒数
+   - **Usessl**：`0` - 请勿使用SSL进行连接
 
-11. Choose **OK** to save the DSN configuration.
-12. Choose **OK** to exit the iODBC Administrator.
-
-
-## Customizing the ODBC driver
-
-The driver is in the form of a library file: `opensearchsqlodbc.dll` for Windows and `libopensearchsqlodbc.dylib` for macOS.
-
-If you're using with ODBC compatible BI tools, refer to your BI tool documentation for configuring a new ODBC driver.
-Typically, all that's required is to make the BI tool aware of the location of the driver library file and then use it to set up the database (i.e., OpenSearch) connection.
+11. 选择**好的** 保存DSN配置。
+12. 选择**好的** 退出IODBC管理员。
 
 
-### Connection strings and other settings
+## 自定义ODBC驱动程序
 
-The ODBC driver uses an ODBC connection string.
-The connection strings are semicolon-delimited strings that specify the set of options that you can use for a connection.
-Typically, a connection string will either:
-  - Specify a Data Source Name (DSN) that contains a pre-configured set of options (`DSN=xxx;User=xxx;Password=xxx;`).
-  - Or, configure options explicitly using the string (`Host=xxx;Port=xxx;LogLevel=ES_DEBUG;...`).
+驱动程序是库文件的形式：`opensearchsqlodbc.dll` 对于Windows和`libopensearchsqlodbc.dylib` 对于macos。
 
-You can configure the following driver options using a DSN or connection string:
-
-All option names are case-insensitive.
-{: .note }
+如果您使用ODBC兼容的BI工具，请参阅您的BI工具文档以配置新的ODBC驱动程序。
+通常，所需的只是让BI工具知道驱动程序库文件的位置，然后使用它来设置数据库（即OpenSearch）连接。
 
 
-#### Basic options
+### 连接字符串和其他设置
 
-Option | Description | Type | Default
-:--- | :---
-`DSN` | Data source name that you used for configuring the connection. | `string` | -
-`Host / Server` | Hostname or IP address for the target cluster. | `string` | -
-`Port` | Port number on which the OpenSearch cluster's REST interface is listening. | `string` | -
+ODBC驱动程序使用ODBC连接字符串。
+连接字符串是半隆-划界字符串指定可以用于连接的选项集。
+通常，连接字符串将要么：
+  - 指定包含PRE的数据源名称（DSN）-配置的选项集（`DSN=xxx;User=xxx;Password=xxx;`）。
+  - 或者，使用字符串明确配置选项（`Host=xxx;Port=xxx;LogLevel=ES_DEBUG;...`）。
 
-#### Authentication Options
+您可以使用DSN或连接字符串配置以下驱动程序选项：
 
-Option | Description | Type | Default
-:--- | :---
-`Auth` | Authentication mechanism to use. | `BASIC` (basic HTTP), `AWS_SIGV4` (AWS auth), or `NONE` | `NONE`
-`User / UID` | [`Auth=BASIC`] Username for the connection. | `string` | -
-`Password / PWD` | [`Auth=BASIC`] Password for the connection. | `string` | -
-`Region` | [`Auth=AWS_SIGV4`] Region used for signing requests. | `AWS region (for example, us-west-1)` | -
+所有选项名称都是案例-不敏感。
+{： 。笔记 }
 
-#### Advanced options
 
-Option | Description | Type | Default
-:--- | :---
-`UseSSL` | Whether to establish the connection over SSL/TLS. | `boolean (0 or 1)` | `false (0)`
-`HostnameVerification` | Indicates whether certificate hostname verification should be performed for an SSL/TLS connection. | `boolean` (0 or 1) | `true (1)`
-`ResponseTimeout` | The maximum time to wait for responses from the host, in seconds. | `integer` | `10`
+#### 基本选项
 
-#### Logging options
+选项| 描述| 类型| 默认
+：--- | ：---
+`DSN` | 您用于配置连接的数据源名称。| `string` | -
+`Host / Server` | 目标群集的主机名或IP地址。| `string` | -
+`Port` | OpenSearch集群的REST接口正在侦听的端口号。| `string` | -
 
-Option | Description | Type | Default
-:--- | :---
-`LogLevel` | Severity level for driver logs. | `LOG_OFF`, `LOG_FATAL`, `LOG_ERROR`, `LOG_INFO`, `LOG_DEBUG`, `LOG_TRACE`, or `LOG_ALL` | `LOG_WARNING`
-`LogOutput` | Location for storing driver logs. | `string` | `WIN: C:\`, `MAC: /tmp`
+#### 身份验证选项
 
-You need administrative privileges to change the logging options.
-{: .note }
+选项| 描述| 类型| 默认
+：--- | ：---
+`Auth` | 使用的身份验证机制。| `BASIC` （基本HTTP），`AWS_SIGV4` （AWS Auth），或`NONE` | `NONE`
+`User / UID` | [`Auth=BASIC`]连接的用户名。| `string` | -
+`Password / PWD` | [`Auth=BASIC`]连接的密码。| `string` | -
+`Region` | [`Auth=AWS_SIGV4`]用于签署请求的区域。| `AWS region (for example, us-west-1)` | -
 
-## Connecting to Tableau
+#### 高级选项
 
-Pre-requisites:
+选项| 描述| 类型| 默认
+：--- | ：---
+`UseSSL` | 是否在SSL/TLS上建立连接。| `boolean (0 or 1)` | `false (0)`
+`HostnameVerification` | 指示是否应针对SSL/TLS连接执行证书主机名验证。| `boolean` （0或1）| `true (1)`
+`ResponseTimeout` | 在几秒钟内等待主机的响应的最大时间。| `integer` | `10`
 
-- Make sure the DSN is already set up.
-- Make sure OpenSearch is running on _host_ and _port_ as configured in DSN.
-- Make sure the `.tdc` is copied to `<user_home_directory>/Documents/My Tableau Repository/Datasources` in both macOS and Windows.
+#### 记录选项
 
-1. Start Tableau. Under the **Connect** section, go to **To a Server** and choose **Other Databases (ODBC)**.
+选项| 描述| 类型| 默认
+：--- | ：---
+`LogLevel` | 驱动程序日志的严重性水平。| `LOG_OFF`，，，，`LOG_FATAL`，，，，`LOG_ERROR`，，，，`LOG_INFO`，，，，`LOG_DEBUG`，，，，`LOG_TRACE`， 或者`LOG_ALL` | `LOG_WARNING`
+`LogOutput` | 存储驱动程序日志的位置。| `string` | `WIN: C:\`，，，，`MAC: /tmp`
 
-2. In the **DSN drop-down**, select the OpenSearch DSN you set up in the previous set of steps. The options you added will be automatically filled in under the **Connection Attributes**.
+您需要管理特权来更改记录选项。
+{： 。笔记 }
 
-3. Select **Sign In**. After a few seconds, Tableau connects to your OpenSearch server. Once connected, you will be directed to the **Datasource** window. The **Database** will be already be populated with the name of the OpenSearch cluster.
-To list all the indexes, click the search icon under **Table**.
+## 连接到Tableau
 
-4. Start experimenting with data by dragging the table to the connection area. Choose **Update Now** or **Automatically Update** to populate the table data.
+pre-要求：
 
-See more detailed instructions in the [GitHub repository](https://github.com/opensearch-project/sql/blob/1.x/sql-odbc/docs/user/tableau_support.md).
+- 确保已经设置了DSN。
+- 确保OpenSearch在_host_和_Port_上运行，如DSN中配置。
+- 确保`.tdc` 被复制到`<user_home_directory>/Documents/My Tableau Repository/Datasources` 在MacOS和Windows中。
 
-### Troubleshooting
+1. 启动Tableau。在下面**连接** 部分，转到**到服务器** 并选择**其他数据库（ODBC）**。
 
-**Problem**
+2. 在里面**DSN下降-向下**，选择您在上一组步骤中设置的OpenSearch DSN。您添加的选项将自动填写**连接属性**。
 
-Unable to connect to server.
+3. 选择**登入**。几秒钟后，Tableau连接到OpenSearch Server。连接后，您将被指向**数据源** 窗户。这**数据库** OpenSearch集群的名称已经填充了。
+要列出所有索引，请单击下面的搜索图标**桌子**。
 
-**Workaround**
+4. 通过将表拖到连接区域开始尝试数据。选择**现在更新** 或者**自动更新** 填充表数据。
 
-This is most likely due to OpenSearch server not running on **host** and **post** configured in DSN.
-Confirm **host** and **post** are correct and OpenSearch server is running with OpenSearch SQL plugin.
-Also make sure `.tdc` that was downloaded with the installer is copied correctly to `<user_home_directory>/Documents/My Tableau Repository/Datasources` directory.
+在此处查看更多详细说明[GitHub存储库](https://github.com/opensearch-project/sql/blob/1.x/sql-odbc/docs/user/tableau_support.md)。
 
-## Connecting to Microsoft Power BI
+### 故障排除
 
-Follow the [installation instructions](https://github.com/opensearch-project/sql-odbc/tree/main/bi-connectors/PowerBIConnector/README.md) and the [configuration instructions](https://github.com/opensearch-project/sql-odbc/blob/main/bi-connectors/PowerBIConnector/power_bi_support.md) published in the GitHub repository.
+**问题**
+
+无法连接到服务器。
+
+**解决方法**
+
+这很可能是由于OpenSearch服务器未运行**主持人** 和**邮政** 在DSN中配置。
+确认**主持人** 和**邮政** 正确，OpenSearch Server使用OpenSearch SQL插件运行。
+也确保`.tdc` 使用安装程序下载的该文件正确地复制到`<user_home_directory>/Documents/My Tableau Repository/Datasources` 目录。
+
+## 连接到Microsoft Power BI
+
+跟着[安装说明](https://github.com/opensearch-project/sql-odbc/tree/main/bi-connectors/PowerBIConnector/README.md) 和[配置说明](https://github.com/opensearch-project/sql-odbc/blob/main/bi-connectors/PowerBIConnector/power_bi_support.md) 发表在GitHub存储库中。
+

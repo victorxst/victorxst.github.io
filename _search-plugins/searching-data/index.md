@@ -7,14 +7,15 @@ has_toc: false
 redirect_from: /opensearch/ux/
 ---
 
-# Searching data
+# 搜索数据
 
-What users expect from search engines has evolved over the years. Just returning relevant results quickly is no longer enough for most users. Now users seek methods that allow them to get even more relevant results, to sort and organize results, and to highlight their queries. OpenSearch includes many features, described in the following table, that enhance the search experience.
+这些年来，用户对搜索引擎的期望发生了发展。对于大多数用户来说，仅仅返回相关结果还不够。现在，用户寻求使他们获得更相关结果，分类和组织结果并突出其查询的方法。OpenSearch包括下表中描述的许多功能，可以增强搜索体验。
 
-Feature | Description
-:--- | :---
-[Autocomplete functionality]({{site.url}}{{site.baseurl}}/opensearch/search/autocomplete/) | Suggest phrases as the user types.
-[Did-you-mean functionality]({{site.url}}{{site.baseurl}}/opensearch/search/did-you-mean/) | Check spelling of phrases as the user types.
-[Paginate results]({{site.url}}{{site.baseurl}}/opensearch/search/paginate/) | Rather than a single, long list, separate search results into pages.
-[Sort results]({{site.url}}{{site.baseurl}}/opensearch/search/sort/) | Allow sorting of results by different criteria.
-[Highlight query matches]({{site.url}}{{site.baseurl}}/opensearch/search/highlight/) | Highlight the search term in the results.
+特征| 描述
+：--- | ：---
+[自动完成功能]({{site.url}}{{site.baseurl}}/opensearch/search/autocomplete/) | 建议短语作为用户类型。
+[做过-你-平均功能]({{site.url}}{{site.baseurl}}/opensearch/search/did-you-mean/) | 将短语拼写作为用户类型。
+[分页效果]({{site.url}}{{site.baseurl}}/opensearch/search/paginate/) | 而不是单个长列表中的单独搜索结果。
+[排序结果]({{site.url}}{{site.baseurl}}/opensearch/search/sort/) | 允许通过不同的标准对结果进行排序。
+[突出显示查询匹配]({{site.url}}{{site.baseurl}}/opensearch/search/highlight/) | 突出显示结果中的搜索词。
+

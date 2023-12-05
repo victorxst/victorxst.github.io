@@ -1,27 +1,27 @@
 ---
 layout: default
-title: Performance tuning
+title: 性能调整
 parent: k-NN
 nav_order: 45
 ---
 
-# Performance tuning
+# 性能调整
 
-This topic provides performance tuning recommendations to improve indexing and search performance for approximate k-NN (ANN). From a high level, k-NN works according to these principles:
-* Native library indexes are created per knn_vector field / (Lucene) segment pair.
-* Queries execute on segments sequentially inside the shard (same as any other OpenSearch query).
-* Each native library index in the segment returns <=k neighbors.
-* The coordinator node picks up final size number of neighbors from the neighbors returned by each shard.
+此主题提供了性能调整建议，以提高大约k的索引和搜索性能-nn（ann）。从高水平开始-NN根据这些原则工作：
+*本地库索引是根据KNN_Vector字段 /（Lucene）段对创建的。
+*查询在碎片内依次在段上执行（与任何其他OpenSearch查询相同）。
+*该段中的每个本地库索引返回<= k邻居。
+*协调员节点从每个碎片返回的邻居那里拾取邻居的最终尺寸数量。
 
-This topic also provides recommendations for comparing approximate k-NN to exact k-NN with score script.
+该主题还提供了比较近似k的建议-nn至确切的k-带有得分脚本的nn。
 
-## Indexing performance tuning
+## 索引性能调整
 
-Take the following steps to improve indexing performance, especially when you plan to index a large number of vectors at once:
+采取以下步骤来提高索引性能，尤其是当您计划一次索引大量向量时：
 
-* **Disable the refresh interval**
+***禁用刷新间隔**
 
-   Either disable the refresh interval (default = 1 sec), or set a long duration for the refresh interval to avoid creating multiple small segments:
+   禁用刷新间隔（默认= 1秒），或为刷新间隔设置较长的持续时间以避免创建多个小段：
 
    ```json
    PUT /<index_name>/_settings
@@ -31,37 +31,37 @@ Take the following steps to improve indexing performance, especially when you pl
        }
    }
    ```
-   **Note**: Make sure to reenable `refresh_interval` after indexing finishes.
+   **笔记**：确保重新启用`refresh_interval` 索引完成后。
 
-* **Disable replicas (no OpenSearch replica shard)**
+***禁用复制品（无opensearch副本碎片）**
 
-   Set replicas to `0` to prevent duplicate construction of native library indexes in both primary and replica shards. When you enable replicas after indexing finishes, the serialized native library indexes are directly copied. If you have no replicas, losing nodes might cause data loss, so it's important that the data lives elsewhere so this initial load can be retried in case of an issue.
+   将副本设置为`0` 为了防止在主要和复制碎片中重复构造本地图书馆索引。当您在索引完成后启用副本时，串行的本机库索引将直接复制。如果您没有复制品，则丢失节点可能会导致数据丢失，因此重要的是数据居住在其他地方很重要，因此在出现问题的情况下，可以重述此初始负载。
 
-* **Increase the number of indexing threads**
+***增加索引线的数量**
 
-   If the hardware you choose has multiple cores, you can allow multiple threads in native library index construction by speeding up the indexing process. Determine the number of threads to allot with the [knn.algo_param.index_thread_qty]({{site.url}}{{site.baseurl}}/search-plugins/knn/settings#cluster-settings) setting.
+   如果您选择的硬件具有多个内核，则可以通过加快索引过程来允许本机库索引构建中的多个线程。确定对分配的线程数[knn.algo_param.index_thread_qty]({{site.url}}{{site.baseurl}}/search-plugins/knn/settings#cluster-settings) 环境。
 
-  Keep an eye on CPU utilization and choose the correct number of threads. Because native library index construction is costly, having multiple threads can cause additional CPU load.
+  密切关注CPU利用率，然后选择正确数量的线程。由于本机库索引构建成本高昂，因此拥有多个线程可能会导致额外的CPU负载。
 
-## Search performance tuning
+## 搜索性能调整
 
-Take the following steps to improve search performance:
+采取以下步骤来提高搜索性能：
 
-* **Reduce segment count**
+***减少细分计数**
 
-   To improve search performance, you must keep the number of segments under control. Lucene's IndexSearcher searches over all of the segments in a shard to find the 'size' best results.
+   为了提高搜索性能，您必须控制片段的数量。Lucene的IndexSearcher在碎片中搜索所有细分市场，以找到“大小”最佳结果。
 
-   Ideally, having one segment per shard provides the optimal performance with respect to search latency. You can configure an index to have multiple shards to avoid giant shards and achieve more parallelism.
+   理想情况下，每个碎片的一个细分市场可提供有关搜索延迟的最佳性能。您可以配置一个索引以具有多个碎片，以避免巨型碎片并实现更多的并行性。
 
-   You can control the number of segments by choosing a larger refresh interval, or during indexing by asking OpenSearch to slow down segment creation by disabling the refresh interval.
+   您可以通过选择较大的刷新间隔来控制片段的数量，或者通过要求OpenSearch通过禁用刷新间隔来减慢细分的创建来控制段。
 
-* **Warm up the index**
+***热身指数**
 
-   Native library indexes are constructed during indexing, but they're loaded into memory during the first search. In Lucene, each segment is searched sequentially (so, for k-NN, each segment returns up to k nearest neighbors of the query point), and the top 'size' number of results based on the score are returned from all the results returned by segments at a shard level (higher score = better result).
+   本地库索引是在索引期间构建的，但是在第一次搜索过程中将它们加载到内存中。在Lucene中，依次搜索每个片段（因此，对于K-nn，每个段返回查询点最近的k最近的邻居），基于分数的最高“大小”数量的结果是从分片级别返回的所有结果中返回的（更高的分数=更好的结果）。
 
-   Once a native library index is loaded (native library indexes are loaded outside OpenSearch JVM), OpenSearch caches them in memory. Initial queries are expensive and take a few seconds, while subsequent queries are faster and take milliseconds (assuming the k-NN circuit breaker isn't hit).
+   一旦加载了本机库索引（本机库索引在OpenSearch JVM之外加载），OpenSearch将其放在存储器中。初始查询很昂贵，需要几秒钟，而随后的查询速度更快并进行毫秒（假设K-nn断路器未击中）。
 
-   To avoid this latency penalty during your first queries, you can use the warmup API operation on the indexes you want to search:
+   为了避免在第一次查询期间这种延迟罚款，您可以在要搜索的索引上使用热身API操作：
 
    ```json
    GET /_plugins/_knn/warmup/index1,index2,index3?pretty
@@ -74,28 +74,29 @@ Take the following steps to improve search performance:
    }
    ```
 
-   The warmup API operation loads all native library indexes for all shards (primary and replica) for the specified indexes into the cache, so there's no penalty to load native library indexes during initial searches.
+   热身API操作为指定索引的所有碎片（主要和复制）加载所有本机库索引到缓存中，因此在初始搜索过程中没有加载本机库索引的罚款。
 
-   **Note**: This API operation only loads the segments of the indexes it ***sees*** into the cache. If a merge or refresh operation finishes after the API runs, or if you add new documents, you need to rerun the API to load those native library indexes into memory.
+   **笔记**：此API操作仅加载索引的段***看到***进入缓存。如果合并或刷新操作在API运行后完成，或者添加新文档，则需要重新运行API以将这些本机库索引加载到内存中。
 
-* **Avoid reading stored fields**
+***避免阅读存储的字段**
 
-   If your use case is simply to read the IDs and scores of the nearest neighbors, you can disable reading stored fields, which saves time retrieving the vectors from stored fields.
+   如果您的用例仅仅是为了读取最近邻居的ID和分数，则可以禁用读取存储的字段，从而节省了从存储字段中检索矢量的时间。
 
-* **Use `mmap` file I/O**
+***使用`mmap` 文件I/O**
 
-   For the Lucene-based approximate k-NN search, there is no dedicated cache layer that speeds up read/write operations. Instead, the plugin relies on the existing caching mechanism in OpenSearch core. In versions 2.4 and earlier of the Lucene-based approximate k-NN search, read/write operations were based on Java NIO by default, which can be slow, depending on the Lucene version and number of segments per shard. Starting with version 2.5, k-NN enables [`mmap`](https://en.wikipedia.org/wiki/Mmap) file I/O by default when the store type is `hybridfs` (the default store type in OpenSearch). This leads to fast file I/O operations and improves the overall performance of both data ingestion and search. The two file extensions specific to vector values that use `mmap` are `.vec` and `.vem`. For more information about these file extensions, see [the Lucene documentation](https://lucene.apache.org/core/9_0_0/core/org/apache/lucene/codecs/lucene90/Lucene90HnswVectorsFormat.html).
+   对于露西恩-基于近似k-nn搜索，没有加快读取/写入操作的专用缓存层。相反，插件依赖OpenSearch Core中现有的缓存机制。在版本2.4和Lucene的早期-基于近似k-NN搜索，读/写操作默认情况下基于Java Nio，这可能会很慢，具体取决于Lucene版本和每个碎片的段数。从2.5版开始，K-nn启用[`mmap`](https://en.wikipedia.org/wiki/Mmap) 默认情况下，文件I/O时，商店类型为`hybridfs` （opensearch中的默认存储类型）。这会导致快速文件I/O操作，并提高数据摄入和搜索的整体性能。使用使用的两个文件扩展名`mmap` 是`.vec` 和`.vem`。有关这些文件扩展程序的更多信息，请参阅[Lucene文档](https://lucene.apache.org/core/9_0_0/core/org/apache/lucene/codecs/lucene90/Lucene90HnswVectorsFormat.html)。
 
-   The `mmap` file I/O uses the system file cache rather than memory allocated for the Java heap, so no additional allocation is required. To change the default list of extensions set by the plugin, update the `index.store.hybrid.mmap.extensions` setting at the cluster level using the [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings). **Note**: This is an expert-level setting that requires closing the index before updating the setting and reopening it after the update.
+   这`mmap` 文件I/O使用系统文件缓存，而不是为Java堆分配的内存，因此不需要其他分配。要更改插件设置的扩展名的默认列表，请更新`index.store.hybrid.mmap.extensions` 使用群集级别设置[集群设置API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings)。**笔记**：这是专家-在更新设置并在更新后重新打开之前，需要关闭索引的级别设置。
 
-## Improving recall
+## 改善召回
 
-Recall depends on multiple factors like number of vectors, number of dimensions, segments, and so on. Searching over a large number of small segments and aggregating the results leads to better recall than searching over a small number of large segments and aggregating results. The larger the native library index, the more chances of losing recall if you're using smaller algorithm parameters. Choosing larger values for algorithm parameters should help solve this issue but sacrifices search latency and indexing time. That being said, it's important to understand your system's requirements for latency and accuracy, and then choose the number of segments you want your index to have based on experimentation.
+召回取决于多种因素，例如矢量数量，维度数量，段等。搜索大量的小细分市场并汇总结果，比搜索少量的大段和汇总结果更好。本机库索引越大，如果您使用较小的算法参数，失去召回的机会就越大。选择算法参数的较大值应有助于解决此问题，但牺牲搜索延迟和索引时间。话虽这么说，重要的是要了解系统对延迟和准确性的要求，然后选择您希望根据实验所需的索引的段数。
 
-The default parameters work on a broader set of use cases, but make sure to run your own experiments on your data sets and choose the appropriate values. For index-level settings, see [Index settings]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#index-settings).
+默认参数可在更广泛的用例中工作，但请确保在数据集上运行自己的实验并选择适当的值。用于索引-等级设置，请参阅[索引设置]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#index-settings)。
 
-## Approximate nearest neighbor versus score script
+## 大约最近的邻居与得分脚本
 
-The standard k-NN query and custom scoring option perform differently. Test with a representative set of documents to see if the search results and latencies match your expectations.
+标准k-nn查询和自定义评分选项的性能不同。使用一组代表性的文档进行测试，以查看搜索结果和潜伏期是否与您的期望相匹配。
 
-Custom scoring works best if the initial filter reduces the number of documents to no more than 20,000. Increasing shard count can improve latency, but be sure to keep shard size within the [recommended guidelines]({{site.url}}{{site.baseurl}}/opensearch#primary-and-replica-shards).
+如果初始过滤器将文档数量减少到不超过20,000，则定制评分效果最好。增加的碎片计数可以提高延迟，但请确保将碎片尺寸保持在[推荐准则]({{site.url}}{{site.baseurl}}/opensearch#primary-and-replica-shards)。
+

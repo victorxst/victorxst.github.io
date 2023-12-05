@@ -1,118 +1,119 @@
 ---
 layout: default
-title: Data Types
-parent: SQL and PPL
+title: 数据类型
+parent: SQL和PPL
 nav_order: 7
 ---
 
-# Data types
+# 数据类型
 
-The following table shows the data types supported by the SQL plugin and how each one maps to SQL and OpenSearch data types:
+下表显示了由SQL插件支持的数据类型，以及每个数据如何映射到SQL和OpenSearch Data类型：
 
-| OpenSearch SQL Type | OpenSearch Type | SQL Type
-:--- | :--- | :---
-boolean |	boolean |	BOOLEAN
-byte |	byte |	TINYINT
-short |	byte |	SMALLINT
-integer |	integer |	INTEGER
-long | long |	BIGINT
-float |	float |	REAL
-half_float | float | FLOAT
-scaled_float | float | DOUBLE
-double | double | DOUBLE
-keyword |	string | VARCHAR
-text | text | VARCHAR
-date | timestamp | TIMESTAMP
-date_nanos | timestamp | TIMESTAMP
-ip | ip | VARCHAR
-date | timestamp | TIMESTAMP
-binary | binary | VARBINARY
-object | struct | STRUCT
-nested | array | STRUCT
+| OpenSearch SQL类型| OpenSearch类型| SQL类型
+：--- | ：--- | ：---
+布尔|布尔|布尔
+字节|字节|微小
+短的|字节|小网
+整数|整数|整数
+长的| 长的|bigint
+漂浮|漂浮|真实的
+half_float| 漂浮| 漂浮
+scaled_float| 漂浮| 双倍的
+双倍的| 双倍的| 双倍的
+关键词|细绳| Varchar
+文本| 文本| Varchar
+日期| 时间戳| 时间戳
+date_nanos| 时间戳| 时间戳
+IP| IP| Varchar
+日期| 时间戳| 时间戳
+二进制| 二进制| Varbinary
+目的| 结构| 结构
+嵌套| 大批| 结构
 
-In addition to this list, the SQL plugin also supports the `datetime` type, though it doesn't have a corresponding mapping with OpenSearch or SQL.
-To use a function without a corresponding mapping, you must explicitly convert the data type to one that does.
-
-
-## Date and time types
-
-The date and time types represent a time period: `DATE`, `TIME`, `DATETIME`, `TIMESTAMP`, and `INTERVAL`. By default, the OpenSearch DSL uses the `date` type as the only date-time related type that contains all information of an absolute time point.
-
-To integrate with SQL, each type other than the `timestamp` type holds part of the time period information. To use date-time functions, see [datetime]({{site.url}}{{site.baseurl}}/search-plugins/sql/functions#date-and-time). Some functions might have restrictions for the input argument type.
+除此列表外，SQL插件还支持`datetime` 类型，尽管它没有使用OpenSearch或SQL的相应映射。
+要使用没有相应映射的函数，您必须将数据类型明确转换为执行的函数。
 
 
-### Date
+## 日期和时间类型
 
-The `date` type represents the calendar date regardless of the time zone. A given date value is a 24-hour period, but this period varies in different timezones and might have flexible hours during daylight saving programs. The `date` type doesn't contain time information and it only supports a range of `1000-01-01` to `9999-12-31`.
+日期和时间类型代表一个时间段：`DATE`，，，，`TIME`，，，，`DATETIME`，，，，`TIMESTAMP`， 和`INTERVAL`。默认情况下，OpenSearch DSL使用`date` 输入唯一日期-时间相关类型包含绝对时间点的所有信息。
 
-| Type | Syntax | Range
-:--- | :--- | :---
-date | `yyyy-MM-dd` | `0001-01-01` to `9999-12-31`
-
-### Time
-
-The `time` type represents the time of a clock regardless of its timezone. The `time` type doesn't contain date information.
-
-| Type | Syntax | Range
-:--- | :--- | :---
-time | `hh:mm:ss[.fraction]` | `00:00:00.0000000000` to `23:59:59.9999999999`
-
-### Datetime
-
-The `datetime` type is a combination of date and time. It doesn't contain timezone information. For an absolute time point that contains date, time, and timezone information, see [Timestamp](#timestamp).
-
-| Type | Syntax | Range
-:--- | :--- | :---
-datetime | `yyyy-MM-dd hh:mm:ss[.fraction]` | `0001-01-01 00:00:00.0000000000` to `9999-12-31 23:59:59.9999999999`
-
-### Timestamp
-
-The `timestamp` type is an absolute instance independent of timezone or convention. For example, for a given point of time, if you change the timestamp to a different timezone, its value changes accordingly.
-
-The `timestamp` type is stored differently from the other types. It's converted from its current timezone to UTC for storage and converted back to its set timezone from UTC when it's retrieved.
-
-| Type | Syntax | Range
-:--- | :--- | :---
-timestamp | `yyyy-MM-dd hh:mm:ss[.fraction]` | `0001-01-01 00:00:01.9999999999` UTC to `9999-12-31 23:59:59.9999999999`
-
-### Interval
-
-The `interval` type represents a temporal duration or a period.
-
-| Type | Syntax
-:--- | :---
-interval | `INTERVAL expr unit`
-
-The `expr` unit is any expression that eventually iterates to a quantity value. It represents a unit for interpreting the quantity, including `MICROSECOND`, `SECOND`, `MINUTE`, `HOUR`, `DAY`, `WEEK`, `MONTH`, `QUARTER`, and `YEAR`. The `INTERVAL` keyword and the unit specifier are not case sensitive.
-
-The `interval` type has two classes of intervals: year-week intervals and day-time intervals.
-
-- Year-week intervals store years, quarters, months, and weeks.
-- Day-time intervals store days, hours, minutes, seconds, and microseconds.
+要与SQL集成，两种类型`timestamp` 类型包含一部分时间段信息。使用日期-时间功能，请参阅[约会时间]({{site.url}}{{site.baseurl}}/search-plugins/sql/functions#date-and-time)。某些功能可能对输入参数类型有限制。
 
 
-### Convert between date and time types
+### 日期
 
-Apart from the `interval` type, all date and time types can be converted to each other. The conversion might alter the value or cause some information loss. For example, when extracting the `time` value from a `datetime` value, or converting a `date` value to a `datetime` value, and so on.
+这`date` 类型代表日历日期，无论时区如何。给定的日期值为24-小时期，但是此期间在不同的时区有所不同，并且在日光节省计划中可能会有灵活的时间。这`date` 类型不包含时间信息，它仅支持一系列`1000-01-01` 到`9999-12-31`。
 
-The SQL plugin supports the following conversion rules for each of the types:
+| 类型| 句法| 范围
+：--- | ：--- | ：---
+日期| `yyyy-MM-dd` | `0001-01-01` 到`9999-12-31`
 
-**Convert from date**
+### 时间
 
-- Because the `date` value doesn't have any time information, conversion to the `time` type isn't useful and always returns a zero time value of `00:00:00`.
-- Converting from `date` to `datetime` has a data fill-up due to the lack of time information. It attaches the time `00:00:00` to the original date by default and forms a `datetime` instance. For example, conversion of `2020-08-17` to a `datetime` type is `2020-08-17 00:00:00`.
-- Converting to `timestamp` type alternates both the `time` value and the `timezone` information. It attaches the zero time value `00:00:00` and the session timezone (UTC by default) to the date. For example, conversion of `2020-08-17` to a `datetime` type with a session timezone UTC is `2020-08-17 00:00:00 UTC`.
+这`time` 类型代表时钟的时间，无论其时区如何。这`time` 类型不包含日期信息。
 
-**Convert from time**
+| 类型| 句法| 范围
+：--- | ：--- | ：---
+时间| `hh:mm:ss[.fraction]` | `00:00:00.0000000000` 到`23:59:59.9999999999`
 
-- You cannot convert the `time` type to any other date and time types because it doesn't contain any date information.
+### 约会时间
 
-**Convert from datetime**
+这`datetime` 类型是日期和时间的组合。它不包含时区信息。对于包含日期，时间和时区信息的绝对时间点，请参见[时间戳](#timestamp)。
 
-- Converting `datetime` to `date` extracts the date value from the `datetime` value. For example, conversion of `2020-08-17 14:09:00` to a `date` type is `2020-08-08`.
-- Converting `datetime` to `time` extracts the time value from the `datetime` value. For example, conversion of `2020-08-17 14:09:00` to a `time` type is `14:09:00`.
-- Because the `datetime` type doesn't contain timezone information, converting to `timestamp` type fills up the timezone value with the session timezone. For example, conversion of `2020-08-17 14:09:00` (UTC) to a `timestamp` type is `2020-08-17 14:09:00 UTC`.
+| 类型| 句法| 范围
+：--- | ：--- | ：---
+约会时间| `yyyy-MM-dd hh:mm:ss[.fraction]` | `0001-01-01 00:00:00.0000000000` 到`9999-12-31 23:59:59.9999999999`
 
-**Convert from timestamp**
+### 时间戳
 
-- Converting from a `timestamp` type to a `date` type extracts the date value and converting to a `time` type extracts the time value. Converting from a `timestamp` type to `datetime` type extracts only the `datetime` value and leaves out the timezone value. For example, conversion of `2020-08-17 14:09:00` UTC to a `date` type is `2020-08-17`, to a `time` type is `14:09:00`, and to a `datetime` type is `2020-08-17 14:09:00`.
+这`timestamp` 类型是独立于时区或约定的绝对实例。例如，对于给定时间点，如果将时间戳更改为另一个时区，则其值会相应地变化。
+
+这`timestamp` 类型的存储与其他类型不同。它已从当前的时区转换为UTC进行存储，并在检索时从UTC转换回了其设定的时区。
+
+| 类型| 句法| 范围
+：--- | ：--- | ：---
+时间戳| `yyyy-MM-dd hh:mm:ss[.fraction]` | `0001-01-01 00:00:01.9999999999` UTC到`9999-12-31 23:59:59.9999999999`
+
+### 间隔
+
+这`interval` 类型代表时间持续时间或时期。
+
+| 类型| 句法
+：--- | ：---
+间隔| `INTERVAL expr unit`
+
+这`expr` 单位是最终迭代到数量值的任何表达式。它代表一个解释数量的单元，包括`MICROSECOND`，，，，`SECOND`，，，，`MINUTE`，，，，`HOUR`，，，，`DAY`，，，，`WEEK`，，，，`MONTH`，，，，`QUARTER`， 和`YEAR`。这`INTERVAL` 关键字和单位规范不敏感。
+
+这`interval` 类型有两类的间隔：年-周间和一天-时间间隔。
+
+- 年-每周隔壁存储年度，四分之一，几个月和周。
+- 天-时间间隔存储天数，小时，分钟，秒和微秒。
+
+
+### 在日期和时间类型之间转换
+
+除了`interval` 类型，所有日期和时间类型都可以相互转换。转换可能会改变价值或导致一些信息损失。例如，提取`time` 来自a的价值`datetime` 价值或转换`date` 值`datetime` 价值等等。
+
+SQL插件支持每种类型的以下转换规则：
+
+**从日期转换**
+
+- 因为`date` 价值没有任何时间信息，转换为`time` 类型没有用，始终返回零时间值的`00:00:00`。
+- 从`date` 到`datetime` 有数据填充-由于缺乏时间信息。它附加了时间`00:00:00` 默认情况下为原始日期，并形成`datetime` 实例。例如，转换`2020-08-17` 到`datetime` 类型是`2020-08-17 00:00:00`。
+- 转换为`timestamp` 类型交替`time` 价值和`timezone` 信息。它附加零时间值`00:00:00` 以及会话时区（默认情况下为UTC）到日期。例如，转换`2020-08-17` 到`datetime` 使用会话时区UTC键入`2020-08-17 00:00:00 UTC`。
+
+**从时间转换**
+
+- 你不能转换`time` 输入任何其他日期和时间类型，因为它不包含任何日期信息。
+
+**从DateTime转换**
+
+- 转换`datetime` 到`date` 从`datetime` 价值。例如，转换`2020-08-17 14:09:00` 到`date` 类型是`2020-08-08`。
+- 转换`datetime` 到`time` 从`datetime` 价值。例如，转换`2020-08-17 14:09:00` 到`time` 类型是`14:09:00`。
+- 因为`datetime` 类型不包含时区信息，转换为`timestamp` 类型用会话时区填充时区值。例如，转换`2020-08-17 14:09:00` （UTC）`timestamp` 类型是`2020-08-17 14:09:00 UTC`。
+
+**从时间戳转换**
+
+- 从a转换`timestamp` 输入`date` 类型提取日期值并转换为`time` 类型提取时间值。从a转换`timestamp` 类型为`datetime` 类型仅提取`datetime` 价值并忽略时区值。例如，转换`2020-08-17 14:09:00` UTC到a`date` 类型是`2020-08-17`，到`time` 类型是`14:09:00`，然后`datetime` 类型是`2020-08-17 14:09:00`。
+

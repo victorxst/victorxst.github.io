@@ -1,14 +1,15 @@
 ---
 layout: default
-title: Reporting
+title: 报告
 nav_order: 1
 has_children: false
 nav_exclude: true
 ---
 
-# Reporting
+# 报告
 
-Learn more about the following reporting features in OpenSearch:
+了解有关OpenSearch中以下报告功能的更多信息：
 
-- [Reporting using OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/reporting/report-dashboard-index/) 
-- [Reporting using the CLI]({{site.url}}{{site.baseurl}}/reporting/rep-cli-index/)
+- [使用OpenSearch仪表板报告]({{site.url}}{{site.baseurl}}/reporting/report-dashboard-index/) 
+- [使用CLI报告]({{site.url}}{{site.baseurl}}/reporting/rep-cli-index/)
+

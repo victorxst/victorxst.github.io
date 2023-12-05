@@ -1,34 +1,34 @@
 ---
 layout: default
-title: Filter query
+title: 过滤器查询
 nav_order: 10
 has_children: false
-parent: Search processors
-grand_parent: Search pipelines
+parent: 搜索处理器
+grand_parent: 搜索管道
 ---
 
-# Filter query processor
+# 过滤器查询处理器
 
-The `filter_query` search request processor intercepts a search request and applies an additional query to the request, filtering the results. This is useful when you don't want to rewrite existing queries in your application but need additional filtering of the results.
+这`filter_query` 搜索请求处理器拦截搜索请求，并将其他查询应用于请求，从而过滤结果。当您不想在应用程序中重写现有查询，而需要对结果进行其他过滤时，这很有用。
 
-## Request fields
+## 请求字段
 
-The following table lists all available request fields.
+下表列出了所有可用的请求字段。
 
-Field | Data type | Description
-:--- | :--- | :---
-`query` | Object | A query in query domain-specific language (DSL). For a list of OpenSearch query types, see [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/). Required. 
-`tag` | String | The processor's identifier. Optional.
-`description` | String | A description of the processor. Optional.
-`ignore_failure` | Boolean | If `true`, OpenSearch [ignores any failure]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/creating-search-pipeline/#ignoring-processor-failures) of this processor and continues to run the remaining processors in the search pipeline. Optional. Default is `false`.
+场地| 数据类型| 描述
+：--- | ：--- | ：---
+`query` | 目的| 查询域中的查询-特定语言（DSL）。有关OpenSearch查询类型的列表，请参见[查询DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/)。必需的。
+`tag` | 细绳| 处理器的标识符。选修的。
+`description` | 细绳| 处理器的描述。选修的。
+`ignore_failure` | 布尔| 如果`true`，OpenSearch[忽略任何故障]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/creating-search-pipeline/#ignoring-processor-failures) 该处理器并继续在搜索管道中运行其余的处理器。选修的。默认为`false`。
 
-## Example 
+## 例子
 
-The following example demonstrates using a search pipeline with a `filter_query` processor.
+以下示例证明了使用搜索管道与`filter_query` 处理器。
 
-### Setup
+### 设置
 
-Create an index named `my_index` and index two documents, one public and one private:
+创建一个名称的索引`my_index` 和索引两个文件，一个公共和一家私人：
 
 ```json
 POST /my_index/_doc/1
@@ -37,7 +37,7 @@ POST /my_index/_doc/1
   "visibility":"public"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
 ```json
 POST /my_index/_doc/2
@@ -46,11 +46,11 @@ POST /my_index/_doc/2
   "visibility": "private"
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-### Creating a search pipeline 
+### 创建搜索管道
 
-The following request creates a search pipeline called `my_pipeline` with a `filter_query` request processor that uses a term query to return only public messages:
+以下请求创建了一个称为搜索管道`my_pipeline` 与`filter_query` 请求使用术语查询仅返回公共消息的处理器：
 
 ```json
 PUT /_search/pipeline/my_pipeline 
@@ -70,24 +70,24 @@ PUT /_search/pipeline/my_pipeline
   ]
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-### Using a search pipeline
+### 使用搜索管道
 
-Search for documents in `my_index` without a search pipeline:
+搜索文档`my_index` 没有搜索管道：
 
 ```json
 GET /my_index/_search
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The response contains both documents:
+响应包含两个文档：
 
-<details open markdown="block">
+<详细信息打开降价="block">
   <summary>
-    Response
+    回复
   </summary>
-  {: .text-delta}
+  {： 。文本-三角洲}
 ```json
 {
   "took" : 47,
@@ -127,22 +127,22 @@ The response contains both documents:
   }
 }
 ```
-</details>
+</delect>
 
-To search with a pipeline, specify the pipeline name in the `search_pipeline` query parameter:
+要使用管道搜索，请在`search_pipeline` 查询参数：
 
 ```json
 GET /my_index/_search?search_pipeline=my_pipeline
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-The response contains only the document with `public` visibility:
+响应仅包含文档`public` 能见度：
 
-<details open markdown="block">
+<详细信息打开降价="block">
   <summary>
-    Response
+    回复
   </summary>
-  {: .text-delta}
+  {： 。文本-三角洲}
 ```json
 {
   "took" : 19,
@@ -173,4 +173,5 @@ The response contains only the document with `public` visibility:
   }
 }
 ```
-</details>
+</详细信息
+

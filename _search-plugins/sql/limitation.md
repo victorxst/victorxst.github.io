@@ -1,23 +1,23 @@
 ---
 layout: default
-title: Limitations
-parent: SQL and PPL
+title: 限制
+parent: SQL和PPL
 nav_order: 99
 redirect_from:
   - /search-plugins/sql/limitation/
 ---
 
-# Limitations
+# 限制
 
-The SQL plugin has the following limitations:
+SQL插件具有以下限制：
 
-## Aggregation over expression is not supported
+## 不支持表达的汇总
 
-You can only apply aggregation to fields. Aggregations cannot accept an expression as a parameter. For example, `avg(log(age))` is not supported.
+您只能将聚合应用于字段。聚合不能接受表达式作为参数。例如，`avg(log(age))` 不支持。
 
-## Subquery in the FROM clause
+## 从子句中的子查询
 
-Subquery in the `FROM` clause in this format: `SELECT outer FROM (SELECT inner)` is supported only when the query is merged into one query. For example, the following query is supported:
+子查询`FROM` 该格式的条款：`SELECT outer FROM (SELECT inner)` 仅当查询合并到一个查询中时才会支持。例如，支持以下查询：
 
 ```sql
 SELECT t.f, t.d
@@ -27,18 +27,18 @@ FROM (
     WHERE OriginCountry = 'US') t
 ```
 
-But, if the outer query has `GROUP BY` or `ORDER BY`, then it's not supported.
+但是，如果外部查询具有`GROUP BY` 或者`ORDER BY`，那么不支持。
 
-## JOIN does not support aggregations on the joined result
+## 加入不支持在加入结果上的聚合
 
-The `join` query does not support aggregations on the joined result.
-For example, e.g. `SELECT depo.name, avg(empo.age) FROM empo JOIN depo WHERE empo.id == depo.id GROUP BY depo.name` is not supported.
+这`join` 查询不支持加入结果上的聚合。
+例如，例如`SELECT depo.name, avg(empo.age) FROM empo JOIN depo WHERE empo.id == depo.id GROUP BY depo.name` 不支持。
 
-## Pagination only supports basic queries
+## 分页只支持基本查询
 
-The pagination query enables you to get back paginated responses.
+分页查询使您能够恢复分页的响应。
 
-Currently, the pagination only supports basic queries. For example, the following query returns the data with cursor id.
+目前，分页仅支持基本查询。例如，以下查询将使用光标ID返回数据。
 
 ```json
 POST _plugins/_sql/
@@ -48,7 +48,7 @@ POST _plugins/_sql/
 }
 ```
 
-The response in JDBC format with cursor id.
+具有光标ID的JDBC格式的响应。
 
 ```json
 {
@@ -73,28 +73,29 @@ The response in JDBC format with cursor id.
 }
 ```
 
-The query with `aggregation` and `join` does not support pagination for now.
+查询`aggregation` 和`join` 目前不支持分页。
 
-## Query processing engines
+## 查询处理引擎
 
-The SQL plugin has two query processing engines, `V1` and `V2`. Most of the features are supported by both engines, but only the new engine is actively being developed. A query that is first executed on the `V2` engine falls back to the `V1` engine in case of failure. If a query is supported in `V2` but not included in `V1`, the query will fail with an error response.
+SQL插件具有两个查询处理引擎，`V1` 和`V2`。大多数功能都得到了两个发动机的支持，但是只有新引擎正在积极开发。首先在`V2` 发动机倒回到`V1` 引擎在失败的情况下。如果支持查询`V2` 但不包括`V1`，查询将通过错误响应失败。
 
-### V1 engine limitations
+### V1发动机限制
 
-* The select literal expression without `FROM` clause is not supported. For example, `SELECT 1` is not supported.
-* The `WHERE` clause does not support expressions. For example, `SELECT FlightNum FROM opensearch_dashboards_sample_data_flights where (AvgTicketPrice + 100) <= 1000` is not supported.
-* Most [relevancy search functions]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/) are implemented in the `V2` engine only.
+*没有的文字表达`FROM` 条款不支持。例如，`SELECT 1` 不支持。
+* 这`WHERE` 条款不支持表达式。例如，`SELECT FlightNum FROM opensearch_dashboards_sample_data_flights where (AvgTicketPrice + 100) <= 1000` 不支持。
+* 最多[相关搜索功能]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/) 在`V2` 仅发动机。
 
-Such queries are successfully executed by the `V2` engine unless they have `V1`-specific functions. You will likely never meet these limitations.
+此类查询已由`V2` 发动机，除非他们有`V1`-特定功能。您可能永远不会达到这些限制。
 
-### V2 engine limitations
+### V2发动机限制
 
-* The [cursor feature](#pagination-only-supports-basic-queries) is supported by the `V1` engine only.
-  * For support of `cursor`/`pagination` in the `V2` engine, track [GitHub issue #656](https://github.com/opensearch-project/sql/issues/656).
-* `json` formatted output is supported in `V1` engine only. 
-* The `V2` engine does not track query execution time, so slow queries are not reported.
-* The `V2` query engine not only runs queries in the OpenSearch engine but also supports post-processing for complex queries. Accordingly, the `explain` output is no longer OpenSearch domain-specific language (DSL) but also includes query plan information from the `V2` query engine.
-Suggested change
-* The `V2` query engine does not support aggregation queries such as `histogram`, `date_histogram`, `percentiles`, `topHits`, `stats`, `extended_stats`, `terms`, or `range`.
-* JOINs and sub-queries are not supported. To stay up to date on the development for JOINs and sub-queries, track [GitHub issue #1441](https://github.com/opensearch-project/sql/issues/1441) and [GitHub issue #892](https://github.com/opensearch-project/sql/issues/892).
-* PartiQL syntax for `nested` queries are not supported.  Additionally, arrays of objects and primitive types return the first index of the array, while in `V1` they return the entire array as a JSON object. 
+* 这[光标功能](#pagination-only-supports-basic-queries) 由`V1` 仅发动机。
+  *以支持`cursor`/`pagination` 在里面`V2` 引擎，轨道[Github问题#656](https://github.com/opensearch-project/sql/issues/656)。
+*`json` 在`V1` 仅发动机。
+* 这`V2` 引擎没有跟踪查询执行时间，因此未报告查询缓慢。
+* 这`V2` 查询引擎不仅在OpenSearch Engine中运行查询，还支持发布-处理复杂查询。因此，`explain` 输出不再是OpenSearch域-特定语言（DSL），但还包括来自的查询计划信息`V2` 查询引擎。
+建议更改
+* 这`V2` 查询引擎不支持聚合查询，例如`histogram`，，，，`date_histogram`，，，，`percentiles`，，，，`topHits`，，，，`stats`，，，，`extended_stats`，，，，`terms`， 或者`range`。
+*加入和sub-不支持查询。保持最新的加入和sub的开发-查询，跟踪[Github问题#1441](https://github.com/opensearch-project/sql/issues/1441) 和[Github问题#892](https://github.com/opensearch-project/sql/issues/892)。
+* partiql语法`nested` 不支持查询。此外，对象和原始类型的数组返回数组的第一个索引，而`V1` 他们将整个数组作为JSON对象返回。
+

@@ -1,38 +1,39 @@
 ---
 layout: default
-title: Reporting using the CLI
+title: 使用CLI报告
 nav_order: 10
 has_children: true
 redirect_from:
   - /dashboards/reporting-cli/rep-cli-index/
 ---
 
-# Reporting using the CLI
+# 使用CLI报告
 
-You can programmatically create dashboard reports in PDF or PNG format with the Reporting CLI without using OpenSearch Dashboards or the Reporting plugin. This allows you to create reports automatically within your email workflows.
+您可以在不使用OpenSearch仪表板或报告插件的情况下，以PDF或PNG格式编程以PDF或PNG格式创建仪表板报告。这使您可以在电子邮件工作流中自动创建报告。
 
-If you want to download a CSV file, you need to have the Reporting plugin installed.
-{: .note }
+如果要下载CSV文件，则需要安装报告插件。
+{： 。笔记 }
 
-For any dashboard view, you can request a report in PNG or PDF format to be sent to an email address. This can be useful for sending reports to multiple email recipients with an email alias. The only dashboard application that supports creating a CSV report is **Discover**.
+对于任何仪表板视图，您可以请求以PNG或PDF格式的报告发送到电子邮件地址。这对于通过电子邮件别名将报告发送给多个电子邮件收件人很有用。支持创建CSV报告的唯一仪表板应用程序是**发现**。
 
-With the Reporting CLI, you can specify options for your report in the command line. The report is sent to an email address as a PDF attachment by default. You can also request a PNG image or a CSV file with the `--formats` argument.
+使用报告CLI，您可以在命令行中指定报告的选项。默认情况下，该报告将作为PDF附件发送到电子邮件地址。您还可以请求PNG图像或CSV文件`--formats` 争论。
 
-You can download the report to the directory in which you are running the Reporting CLI, or you can email the report by specifying Amazon Simple Email Service (Amazon SES) or SMTP for the email transport option.
+您可以将报告下载到正在运行报告CLI的目录中，也可以通过指定Amazon Simple电子邮件服务（Amazon SES）或SMTP来通过电子邮件发送电子邮件。
 
-You can connect to OpenSearch with any of the following authentication types:
+您可以使用以下任何身份验证类型连接到OpenSearch：
 
-- **Basic** – Basic HTTP authentication. Use `-a basic`.
-- **Cognito** – Authentication through Amazon Cognito. Use `-a cognito`.
-- **SAML** – Authentication between an identity provider and a service provider. Use `-a saml`. Okta provides the SAML third-party authentication.
-- **No auth** – No authentication. Use `-a none`. Authentication defaults to No auth if the `-a` flag is not specified.
+- **基本的**  - 基本的HTTP身份验证。使用`-a basic`。
+- **认知**  - 通过Amazon Cognito进行身份验证。使用`-a cognito`。
+- **SAML**  - 身份提供商和服务提供商之间的身份验证。使用`-a saml`。Okta提供SAML第三-政党身份验证。
+- **没有auth**  - 没有身份验证。使用`-a none`。身份验证默认为无验证`-a` 标志未指定。
 
-To learn more about Amazon Cognito, see [What is Amazon Cognito?](https://docs.aws.amazon.com/cognito/latest/developerguide/what-is-amazon-cognito.html).
+要了解有关Amazon Cognito的更多信息，请参阅[什么是亚马逊Cognito？](https://docs.aws.amazon.com/cognito/latest/developerguide/what-is-amazon-cognito.html)。
 
-<!--
-### Bypass authentication option
+<！--
+### 旁路身份验证选项
 
-The Reporting CLI tool allows you to integrate it into your own workflow or environment so that you can bypass authentication or potential security issues. For example, if you use the Reporting CLI tool within an AWS Lambda instance, no security issues would occur as long as you run the Reporting plugin in OpenSearch Dashboards. In this case, you would use "No auth" to bypass the authentication process. To specify "No Auth" use `--auth none` in your request. Lambda users should test to make sure they can bypass access to Dashboards without credentials using No Auth.  
+报告CLI工具使您可以将其集成到自己的工作流程或环境中，以便您可以绕过身份验证或潜在的安全问题。例如，如果您在AWS lambda实例中使用报告CLI工具，只要您在OpenSearch仪表板中运行报告插件，就不会发生安全问题。在这种情况下，您将使用"No auth" 绕过身份验证过程。指定"No Auth" 使用`--auth none` 在您的要求中。Lambda用户应测试以确保他们可以绕过仪表板的访问，而无需使用NO auth。
 
-To get a list of all options, see [Reporting CLI options](#reporting-cli-options).
--->
+要获取所有选项的列表，请参见[报告CLI选项](#reporting-cli-options)。
+--
+

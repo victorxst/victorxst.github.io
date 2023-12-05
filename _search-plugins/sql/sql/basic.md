@@ -1,23 +1,23 @@
 ---
 layout: default
-title: Basic Queries
+title: 基本查询
 parent: SQL
-grand_parent: SQL and PPL
+grand_parent: SQL和PPL
 nav_order: 5
 Redirect_from:
   - /search-plugins/sql/basic/
 ---
 
 
-# Basic queries
+# 基本查询
 
-Use the `SELECT` clause, along with `FROM`, `WHERE`, `GROUP BY`, `HAVING`, `ORDER BY`, and `LIMIT` to search and aggregate data.
+使用`SELECT` 条款，以及`FROM`，，，，`WHERE`，，，，`GROUP BY`，，，，`HAVING`，，，，`ORDER BY`， 和`LIMIT` 搜索和汇总数据。
 
-Among these clauses, `SELECT` and `FROM` are required, as they specify which fields to retrieve and which indexes to retrieve them from. All other clauses are optional. Use them according to your needs.
+在这些条款中，`SELECT` 和`FROM` 需要，因为他们指定要检索哪些字段以及从哪些字段中检索它们。所有其他条款都是可选的。根据您的需求使用它们。
 
-### Syntax
+### 句法
 
-The complete syntax for searching and aggregating data is as follows:
+用于搜索和汇总数据的完整语法如下：
 
 ```sql
 SELECT [DISTINCT] (* | expression) [[AS] alias] [, ...]
@@ -29,29 +29,29 @@ FROM index_name
 [LIMIT [offset, ] size]
 ```
 
-### Fundamentals
+### 基本面
 
-Apart from the predefined keywords of SQL, the most basic elements are literal and identifiers.
-A literal is a numeric, string, date or boolean constant. An identifier is an OpenSearch index or field name.
-With arithmetic operators and SQL functions, use literals and identifiers to build complex expressions.
+除了SQL的预定义关键字外，最基本的元素是字面和标识符。
+文字是数字，字符串，日期或布尔常数。标识符是OpenSearch索引或字段名称。
+使用算术运算符和SQL功能，使用文字和标识符来构建复杂的表达式。
 
-Rule `expressionAtom`:
+规则`expressionAtom`：
 
-![expressionAtom]({{site.url}}{{site.baseurl}}/images/expressionAtom.png)
+![表达状态]({{site.url}}{{site.baseurl}}/images/expressionAtom.png)
 
-The expression in turn can be combined into a predicate with logical operator. Use a predicate in the `WHERE` and `HAVING` clause to filter out data by specific conditions.
+依次可以将表达式与逻辑运算符合并为谓词。在`WHERE` 和`HAVING` 条款以特定条件过滤数据。
 
-Rule `expression`:
+规则`expression`：
 
-![expression]({{site.url}}{{site.baseurl}}/images/expression.png)
+![表达]({{site.url}}{{site.baseurl}}/images/expression.png)
 
-Rule `predicate`:
+规则`predicate`：
 
-![expression]({{site.url}}{{site.baseurl}}/images/predicate.png)
+![表达]({{site.url}}{{site.baseurl}}/images/predicate.png)
 
-### Execution Order
+### 执行顺序
 
-These SQL clauses execute in an order different from how they appear:
+这些SQL条款的执行顺序与它们的外观不同：
 
 ```sql
 FROM index
@@ -63,49 +63,49 @@ FROM index
       LIMIT size
 ```
 
-## Select
+## 选择
 
-Specify the fields to be retrieved.
+指定要检索的字段。
 
-### Syntax
+### 句法
 
-Rule `selectElements`:
+规则`selectElements`：
 
-![selectElements]({{site.url}}{{site.baseurl}}/images/selectElements.png)
+![选择点]({{site.url}}{{site.baseurl}}/images/selectElements.png)
 
-Rule `selectElement`:
+规则`selectElement`：
 
-![selectElements]({{site.url}}{{site.baseurl}}/images/selectElement.png)
+![选择点]({{site.url}}{{site.baseurl}}/images/selectElement.png)
 
-*Example 1*: Use `*` to retrieve all fields in an index:
+*示例1*：使用`*` 在索引中检索所有字段：
 
 ```sql
 SELECT *
 FROM accounts
 ```
 
-| account_number | firstname | gender | city | balance | employer | state | email | address | lastname | age
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---
-| 1 | Amber | M | Brogan | 39225 | Pyrami | IL | amberduke@pyrami.com | 880 Holmes Lane | Duke | 32
-| 16 | Hattie | M | Dante | 5686 | Netagy | TN | hattiebond@netagy.com | 671 Bristol Street | 	Bond | 36
-| 13 | Nanette | F | Nogal | 32838 | Quility | VA | nanettebates@quility.com | 789 Madison Street | Bates | 28
-| 18 | Dale | M | Orick | 4180 |  | MD | daleadams@boink.com | 467 Hutchinson Court | Adams | 33
+| 帐号| 名| 性别| 城市| 平衡| 雇主| 状态| 电子邮件| 地址| 姓| 年龄
+| ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：---
+| 1| 琥珀色| m| 布罗根| 39225| Pyrami| il| amberduke@pyrami.com| 880 Holmes Lane| 公爵| 32
+| 16| 哈蒂| m| 但丁| 5686| 网络| TN| hattiebond@netagy.com| 布里斯托尔街671号| 纽带| 36
+| 13| Nanette| F| Nogal| 32838| 裁员| VA| nanettebates@quility.com| 麦迪逊街789号| 贝茨| 28
+| 18| 戴尔| m| 奥里克| 4180|  | MD| daleadams@boink.com| 467 Hutchinson Court| 亚当斯| 33
 
-*Example 2*: Use field name(s) to retrieve only specific fields:
+*示例2*：使用字段名称仅检索特定字段：
 
 ```sql
 SELECT firstname, lastname
 FROM accounts
 ```
 
-| firstname | lastname
-| :--- | :---
-| Amber | Duke
-| Hattie | Bond
-| Nanette | Bates
-| Dale | Adams
+| 名| 姓
+| ：--- | ：---
+| 琥珀色| 公爵
+| 哈蒂| 纽带
+| Nanette| 贝茨
+| 戴尔| 亚当斯
 
-*Example 3*: Use field aliases instead of field names. Field aliases are used to make field names more readable:
+*示例3*：使用字段别名而不是字段名称。字段别名用于使字段名称更具可读性：
 
 ```sql
 SELECT account_number AS num
@@ -113,94 +113,94 @@ FROM accounts
 ```
 
 | num
-:---
+：---
 | 1
 | 6
 | 13
 | 18
 
-*Example 4*: Use the `DISTINCT` clause to get back only unique field values. You can specify one or more field names:
+*示例4*：使用`DISTINCT` 条款仅返回唯一的字段值。您可以指定一个或多个字段名称：
 
 ```sql
 SELECT DISTINCT age
 FROM accounts
 ```
 
-| age
-:---
+| 年龄
+：---
 | 28
 | 32
 | 33
 | 36
 
-## From
+## 从
 
-Specify the index that you want search.
-You can specify subqueries within the `FROM` clause.
+指定要搜索的索引。
+您可以在`FROM` 条款。
 
-### Syntax
+### 句法
 
-Rule `tableName`:
+规则`tableName`：
 
-![tableName]({{site.url}}{{site.baseurl}}/images/tableName.png)
+![tablename]({{site.url}}{{site.baseurl}}/images/tableName.png)
 
-*Example 1*: Use index aliases to query across indexes. To learn about index aliases, see [Index Alias]({{site.url}}{{site.baseurl}}/opensearch/index-alias/).
-In this sample query, `acc` is an alias for the `accounts` index:
+*示例1*：使用索引别名跨索引查询。要了解索引别名，请参阅[索引别名]({{site.url}}{{site.baseurl}}/opensearch/index-alias/)。
+在此示例查询中，`acc` 是一个别名`accounts` 指数：
 
 ```sql
 SELECT account_number, accounts.age
 FROM accounts
 ```
 
-or
+或者
 
 ```sql
 SELECT account_number, acc.age
 FROM accounts acc
 ```
 
-| account_number | age
-| :--- | :---
-| 1 | 32
-| 6 | 36
-| 13 | 28
-| 18 | 33
+| 帐号| 年龄
+| ：--- | ：---
+| 1| 32
+| 6| 36
+| 13| 28
+| 18| 33
 
-*Example 2*: Use index patterns to query indexes that match a specific pattern:
+*示例2*：使用索引模式查询匹配特定模式的索引：
 
 ```sql
 SELECT account_number
 FROM account*
 ```
 
-| account_number
-:---
+| 帐号
+：---
 | 1
 | 6
 | 13
 | 18
 
-## Where
+## 在哪里
 
-Specify a condition to filter the results.
+指定过滤结果的条件。
 
-| Operators | Behavior
-:--- | :---
-`=` | Equal to.
-`<>` | Not equal to.
-`>` | Greater than.
-`<` | Less than.
-`>=` | Greater than or equal to.
-`<=` | Less than or equal to.
-`IN` | Specify multiple `OR` operators.
-`BETWEEN` | Similar to a range query. For more information about range queries, see [Range query]({{site.url}}{{site.baseurl}}/query-dsl/term/range/).
-`LIKE` | Use for full-text search. For more information about full-text queries, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index/).
-`IS NULL` | Check if the field value is `NULL`.
-`IS NOT NULL` | Check if the field value is `NOT NULL`.
+| 操作员| 行为
+：--- | ：---
+`=` | 等于。
+`<>` | 不等于。
+`>` | 比...更棒。
+`<` | 少于。
+`>=` | 大于或等于。
+`<=` | 小于或等于。
+`IN` | 指定倍数`OR` 操作员。
+`BETWEEN` | 类似于范围查询。有关范围查询的更多信息，请参阅[范围查询]({{site.url}}{{site.baseurl}}/query-dsl/term/range/)。
+`LIKE` | 用于完整-文字搜索。有关完整的更多信息-文字查询，请参阅[满的-文本查询]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index/)。
+`IS NULL` | 检查字段值是否为`NULL`。
+`IS NOT NULL` | 检查字段值是否为`NOT NULL`。
 
-Combine comparison operators (`=`, `<>`, `>`, `>=`, `<`, `<=`) with boolean operators `NOT`, `AND`, or `OR` to build more complex expressions.
+结合比较操作员（`=`，，，，`<>`，，，，`>`，，，，`>=`，，，，`<`，，，，`<=`）与布尔运营商`NOT`，，，，`AND`， 或者`OR` 建立更复杂的表情。
 
-*Example 1*: Use comparison operators for numbers, strings, or dates:
+*示例1*：使用比较操作员进行数字，字符串或日期：
 
 ```sql
 SELECT account_number
@@ -208,11 +208,11 @@ FROM accounts
 WHERE account_number = 1
 ```
 
-| account_number
-| :---
+| 帐号
+| ：---
 | 1
 
-*Example 2*: OpenSearch allows for flexible schema，so documents in an index may have different fields. Use `IS NULL` or `IS NOT NULL` to retrieve only missing fields or existing fields. OpenSearch does not differentiate between missing fields and fields explicitly set to `NULL`:
+*示例2*：OpenSearch允许使用灵活的模式，因此索引中的文档可能具有不同的字段。使用`IS NULL` 或者`IS NOT NULL` 仅检索缺失字段或现有字段。OpenSearch不会区分缺失字段和明确设置为`NULL`：
 
 ```sql
 SELECT account_number, employer
@@ -220,22 +220,22 @@ FROM accounts
 WHERE employer IS NULL
 ```
 
-| account_number | employer
-| :--- | :---
-| 18 |
+| 帐号| 雇主
+| ：--- | ：---
+| 18|
 
-*Example 3*: Deletes a document that satisfies the predicates in the `WHERE` clause:
+*示例3*：删除满足谓词的文档`WHERE` 条款：
 
 ```sql
 DELETE FROM accounts
 WHERE age > 30
 ```
 
-## Group By
+## 通过...分组
 
-Group documents with the same field value into buckets.
+将具有相同字段值的组文档分为存储桶。
 
-*Example 1*: Group by fields:
+*示例1*：组成的组：
 
 ```sql
 SELECT age
@@ -243,14 +243,14 @@ FROM accounts
 GROUP BY age
 ```
 
-| id | age
-:--- | :---
-0 | 28
-1 | 32
-2 | 33
-3 | 36
+| ID| 年龄
+：--- | ：---
+0| 28
+1| 32
+2| 33
+3| 36
 
-*Example 2*: Group by field alias:
+*示例2*：组性别名的组：
 
 ```sql
 SELECT account_number AS num
@@ -258,14 +258,14 @@ FROM accounts
 GROUP BY num
 ```
 
-| id | num
-:--- | :---
-0 | 1
-1 | 6
-2 | 13
-3 | 18
+| ID| num
+：--- | ：---
+0| 1
+1| 6
+2| 13
+3| 18
 
-*Example 4*: Use scalar functions in the `GROUP BY` clause:
+*示例4*：使用标量功能`GROUP BY` 条款：
 
 ```sql
 SELECT ABS(age) AS a
@@ -273,19 +273,19 @@ FROM accounts
 GROUP BY ABS(age)
 ```
 
-| id | a
-:--- | :---
-0 | 28.0
-1 | 32.0
-2 | 33.0
-3 | 36.0
+| ID| A
+：--- | ：---
+0| 28.0
+1| 32.0
+2| 33.0
+3| 36.0
 
-## Having
+## 有
 
-Use the `HAVING` clause to aggregate inside each bucket based on aggregation functions (`COUNT`, `AVG`, `SUM`, `MIN`, and `MAX`).
-The `HAVING` clause filters results from the `GROUP BY` clause:
+使用`HAVING` 基于聚合函数在每个存储桶内的子句（子句）（`COUNT`，，，，`AVG`，，，，`SUM`，，，，`MIN`， 和`MAX`）。
+这`HAVING` 子句过滤来自`GROUP BY` 条款：
 
-*Example 1*:
+*示例1*：
 
 ```sql
 SELECT age, MAX(balance)
@@ -293,16 +293,16 @@ FROM accounts
 GROUP BY age HAVING MIN(balance) > 10000
 ```
 
-| id | age | MAX (balance)
-:--- | :---
-0 | 28 | 32838
-1 | 32 | 39225
+| ID| 年龄| 最大（平衡）
+：--- | ：---
+0| 28| 32838
+1| 32| 39225
 
-## Order By
+## 订购
 
-Use the `ORDER BY` clause to sort results into your desired order.
+使用`ORDER BY` 条款将结果分类为您所需的订单。
 
-*Example 1*: Use `ORDER BY` to sort by ascending or descending order. Besides regular field names, using `ordinal`, `alias`, or `scalar` functions are supported:
+*示例1*：使用`ORDER BY` 通过上升或降序排序。除了常规字段名称，使用`ordinal`，，，，`alias`， 或者`scalar` 支持功能：
 
 ```sql
 SELECT account_number
@@ -310,14 +310,14 @@ FROM accounts
 ORDER BY account_number DESC
 ```
 
-| account_number
-| :---
+| 帐号
+| ：---
 | 18
 | 13
 | 6
 | 1
 
-*Example 2*: Specify if documents with missing fields are to be put at the beginning or at the end of the results. The default behavior of OpenSearch is to return nulls or missing fields at the end. To push them before non-nulls, use the `IS NOT NULL` operator:
+*示例2*：指定是否要将具有缺失字段的文档放在结果的开始或结束时。OpenSearch的默认行为是返回末尾的nulls或缺少字段。将它们推到非-nulls，使用`IS NOT NULL` 操作员：
 
 ```sql
 SELECT employer
@@ -325,18 +325,18 @@ FROM accounts
 ORDER BY employer IS NOT NULL
 ```
 
-| employer
-| :---
+| 雇主
+| ：---
 ||
-| Netagy
+| 网络
 | Pyrami
-| Quility
+| 裁员
 
-## Limit
+## 限制
 
-Specify the maximum number of documents that you want to retrieve. Used to prevent fetching large amounts of data into memory.
+指定要检索的最大文档数量。用于防止将大量数据获取到内存中。
 
-*Example 1*: If you pass in a single argument, it's mapped to the `size` parameter in OpenSearch and the `from` parameter is set to 0.
+*示例1*：如果您通过一个参数，则将其映射到`size` OpenSearch和`from` 参数设置为0。
 
 ```sql
 SELECT account_number
@@ -344,12 +344,12 @@ FROM accounts
 ORDER BY account_number LIMIT 1
 ```
 
-| account_number
-| :---
+| 帐号
+| ：---
 | 1
 
-*Example 2*: If you pass in two arguments, the first is mapped to the `from` parameter and the second to the `size` parameter in OpenSearch. You can use this for simple pagination for small indexes, as it's inefficient for large indexes.
-Use `ORDER BY` to ensure the same order between pages:
+*示例2*：如果您通过两个参数，则第一个映射到`from` 参数，第二个`size` opensearch中的参数。您可以将其用于简单的小索引，因为它对于大索引效率低下。
+使用`ORDER BY` 确保页面之间相同的顺序：
 
 ```sql
 SELECT account_number
@@ -357,6 +357,7 @@ FROM accounts
 ORDER BY account_number LIMIT 1, 1
 ```
 
-| account_number
-| :---
+| 帐号
+| ：---
 | 6
+
