@@ -1,64 +1,64 @@
 ---
 layout: default
-title: Active Directory and LDAP
-parent: Authentication backends
+title: 活动目录和 LDAP
+parent: 身份验证后端
 nav_order: 60
 redirect_from:
   - /security/configuration/ldap/
   - /security-plugin/configuration/ldap/
 ---
 
-# Active Directory and LDAP
+# Active Directory和LDAP
 
-Active Directory and LDAP can be used for both authentication and authorization (the `authc` and `authz` sections of the configuration, respectively). Authentication checks whether the user has entered valid credentials. Authorization retrieves any backend roles for the user.
+Active Directory和LDAP可用于身份验证和授权（`authc` 和`authz` 配置的部分）。身份验证检查用户是否已输入有效的凭据。授权检索用户的任何后端角色。
 
-In most cases, you want to configure both authentication and authorization. You can also use authentication only and map the users retrieved from LDAP directly to Security plugin roles.
+在大多数情况下，您需要配置身份验证和授权。您还可以仅使用身份验证，并将从LDAP检索到的用户直接映射到安全插件角色。
 
 
-## Docker example
+## Docker示例
 
-We provide a fully functional example that can help you understand how to use an LDAP server for both authentication and authorization.
+我们提供了一个功能齐全的示例，可以帮助您了解如何使用LDAP服务器进行身份验证和授权。
 
-1. Download and unzip [the example zip file]({{site.url}}{{site.baseurl}}/assets/examples/ldap-example.zip).
-1. At the command line, run `docker-compose up`.
-1. Review the files:
+1. 下载并解压缩[示例zip文件]({{site.url}}{{site.baseurl}}/assets/examples/ldap-example.zip)。
+1. 在命令行，运行`docker-compose up`。
+1. 查看文件：
 
-   * `docker-compose.yml` defines a single OpenSearch node, an LDAP server, and a PHP administration tool for the LDAP server.
+   *`docker-compose.yml` 定义单个OpenSearch节点，LDAP服务器和LDAP服务器的PHP管理工具。
 
-     You can access the administration tool at https://localhost:6443. Acknowledge the security warning and log in using `cn=admin,dc=example,dc=org` and `changethis`.
+     您可以通过https：// localhost访问管理工具：6443。确认安全警告并登录使用`cn=admin,dc=example,dc=org` 和`changethis`。
 
-   * `directory.ldif` seeds the LDAP server with three users and two groups.
+   *`directory.ldif` 用三个用户和两个组播种LDAP服务器。
 
-     `psantos` is in the `Administrator` and `Developers` groups. `jroe` and `jdoe` are in the `Developers` group. The Security plugin loads these groups as backend roles.
+     `psantos` 在里面`Administrator` 和`Developers` 组。`jroe` 和`jdoe` 在`Developers` 团体。安全插件将这些组作为后端角色加载。
 
-   * `roles_mapping.yml` maps the `Administrator` and `Developers` LDAP groups (as backend roles) to security roles so that users gain the appropriate permissions after authenticating.
+   *`roles_mapping.yml` 地图`Administrator` 和`Developers` LDAP组（作为后端角色）担任安全角色，以便用户在身份验证后获得适当的权限。
 
-   * `internal_users.yml` removes all default users except `administrator` and `kibanaserver`.
+   *`internal_users.yml` 除了`administrator` 和`kibanaserver`。
 
-   * `config.yml` includes all necessary LDAP settings.
+   *`config.yml` 包括所有必要的LDAP设置。
 
-1. Index a document as `psantos`:
+1. 索引文档为`psantos`：
 
    ```bash
    curl -XPUT 'https://localhost:9200/new-index/_doc/1' -H 'Content-Type: application/json' -d '{"title": "Spirited Away"}' -u 'psantos:password' -k
    ```
 
-   If you try the same request as `jroe`, it fails. The `Developers` group is mapped to the `readall`, `manage_snapshots`, and `kibana_user` roles and has no write permissions.
+   如果您尝试与`jroe`， 它失败。这`Developers` 组映射到`readall`，，，，`manage_snapshots`， 和`kibana_user` 角色，没有写入权限。
 
-1. Search for the document as `jroe`:
+1. 搜索文档`jroe`：
 
    ```bash
-   curl -XGET 'https://localhost:9200/new-index/_search?pretty' -u 'jroe:password' -k
+   卷曲-XGet'https：// localhost：9200/new-索引/_search？漂亮'-u'Jroe：密码'-k
    ```
 
-   This request succeeds, because the `Developers` group is mapped to the `readall` role.
+   This request succeeds, because the `开发人员` group is mapped to the `读取` role.
 
-1. If you want to examine the contents of the various containers, run `docker ps` to find the container ID and then `docker exec -it <container-id> /bin/bash`.
+1. If you want to examine the contents of the various containers, run `Docker PS` to find the container ID and then `Docker Exec-它<容器-id> /bin /bash`.
 
 
 ## Connection settings
 
-To enable LDAP authentication and authorization, add the following lines to `config/opensearch-security/config.yml`:
+To enable LDAP authentication and authorization, add the following lines to `config/opensearch-安全/config.yml`:
 
 ```yml
 authc:
@@ -86,12 +86,12 @@ authz:
       ...
 ```
 
-The connection settings are identical for authentication and authorization and are added to the `config` sections.
+The connection settings are identical for authentication and authorization and are added to the `config` 部分。
 
 
-### Hostname and port
+### 主机名和端口
 
-To configure the hostname and port of your Active Directory servers, use the following:
+要配置Active Directory服务器的主机名和端口，请使用以下内容：
 
 ```yml
 config:
@@ -100,12 +100,12 @@ config:
     - secondary.ldap.example.com:389
 ```
 
-You can configure more than one server here. If the Security plugin cannot connect to the first server, it tries to connect to the remaining servers sequentially.
+您可以在此处配置多个服务器。如果安全插件无法连接到第一台服务器，则试图依次连接到其余服务器。
 
 
-### Timeouts
+### 超时
 
-To configure connection and response timeouts to your Active Directory server, use the following (values are in milliseconds):
+要将连接和响应超时配置为Active Directory Server，请使用以下（值为毫秒）：
 
 ```yml
 config:
@@ -113,12 +113,12 @@ config:
   response_timeout: 0
 ```
 
-If your server supports two-factor authentication (2FA), the default timeout settings might result in login errors. You can increase `connect_timeout` to accommodate the 2FA process. Setting `response_timeout` to 0 (the default) indicates an indefinite waiting period.
+如果您的服务器支持两个-因子身份验证（2FA），默认超时设置可能会导致登录错误。您可以增加`connect_timeout` 适应2FA过程。环境`response_timeout` 到0（默认值）表示无限期的等待时间。
 
 
-### Bind DN and password
+### 绑定DN和密码
 
-To configure the `bind_dn` and `password` that the Security plugin uses when issuing queries to your server, use the following:
+配置`bind_dn` 和`password` 安全插件在向您的服务器发出查询时使用，请使用以下内容：
 
 ```yml
 config:
@@ -126,12 +126,12 @@ config:
   password: password
 ```
 
-If your server supports anonymous authentication, both `bind_dn` and `password` can be set to `null`.
+如果您的服务器支持匿名身份验证，则`bind_dn` 和`password` 可以设置为`null`。
 
 
-### TLS settings
+### TLS设置
 
-Use the following parameters to configure TLS for connecting to your server:
+使用以下参数配置TLS以连接到您的服务器：
 
 ```yml
 config:
@@ -141,26 +141,26 @@ config:
   verify_hostnames: <true|false>
 ```
 
-Name | Description
-:--- | :---
-`enable_ssl` | Whether to use LDAP over SSL (LDAPS).
-`enable_start_tls` | Whether to use STARTTLS. Can't be used in combination with LDAPS.
-`enable_ssl_client_auth` | Whether to send the client certificate to the LDAP server.
-`verify_hostnames` | Whether to verify the hostnames of the server's TLS certificate.
+姓名| 描述
+：--- | ：---
+`enable_ssl` | 是否在SSL（LDAP）上使用LDAP。
+`enable_start_tls` | 是否使用StartTL。不能与LDAP结合使用。
+`enable_ssl_client_auth` | 是否将客户端证书发送到LDAP服务器。
+`verify_hostnames` | 是否验证服务器TLS证书的主机名。
 
 
-### Certificate validation
+### 证书验证
 
-By default, the Security plugin validates the TLS certificate of the LDAP servers against the root CA configured in `opensearch.yml`, either as a PEM certificate or a truststore:
+默认情况下，安全插件验证了LDAP服务器的TLS证书，该证书与配置在`opensearch.yml`，作为PEM证书或信托基地：
 
 ```
 plugins.security.ssl.transport.pemtrustedcas_filepath: ...
 plugins.security.ssl.http.truststore_filepath: ...
 ```
 
-If your server uses a certificate signed by a different CA, import this CA into your truststore or add it to your trusted CA file on each node.
+如果您的服务器使用其他CA签名的证书，请将此CA导入您的信托店，或将其添加到每个节点上的受信任的CA文件中。
 
-You can also use a separate root CA in PEM format by setting one of the following configuration options:
+您还可以通过设置以下配置选项之一，以PEM格式使用单独的根CA：
 
 ```yml
 config:
@@ -177,15 +177,15 @@ config:
 ```
 
 
-Name | Description
-:--- | :---
-`pemtrustedcas_filepath` | Absolute path to the PEM file containing the root CAs of your Active Directory/LDAP server.
-`pemtrustedcas_content` | The root CA content of your Active Directory/LDAP server. Cannot be used when `pemtrustedcas_filepath` is set.
+姓名| 描述
+：--- | ：---
+`pemtrustedcas_filepath` | 绝对路径到包含Active Directory/LDAP服务器的root CAS的PEM文件。
+`pemtrustedcas_content` | Active Directory/LDAP服务器的根CA内容。不能使用`pemtrustedcas_filepath` 设置。
 
 
-### Client authentication
+### 客户端认证
 
-If you use TLS client authentication, the Security plugin sends the PEM certificate of the node, as configured in `opensearch.yml`. Set one of the following configuration options:
+如果使用TLS客户端身份验证，则安全插件将发送节点的PEM证书，如在`opensearch.yml`。设置以下配置选项之一：
 
 ```yml
 config:
@@ -194,7 +194,7 @@ config:
   pemcert_filepath: /full/path/to/certificate.pem
 ```
 
-or
+或者
 
 ```yml
 config:
@@ -211,18 +211,18 @@ config:
     ...
 ```
 
-Name | Description
-:--- | :---
-`pemkey_filepath` | Absolute path to the file containing the private key of your certificate.
-`pemkey_content` | The content of the private key of your certificate. Cannot be used when `pemkey_filepath` is set.
-`pemkey_password` | The password of your private key, if any.
-`pemcert_filepath` | Absolute path to the client certificate.
-`pemcert_content` | The content of the client certificate. Cannot be used when `pemcert_filepath` is set.
+姓名| 描述
+：--- | ：---
+`pemkey_filepath` | 包含证书的私钥的文件的绝对路径。
+`pemkey_content` | 证书的私钥内容。不能使用`pemkey_filepath` 设置。
+`pemkey_password` | 私钥的密码（如果有）。
+`pemcert_filepath` | 绝对通往客户端证书的路径。
+`pemcert_content` | 客户证书的内容。不能使用`pemcert_filepath` 设置。
 
 
-### Enabled ciphers and protocols
+### 启用密码和协议
 
-You can limit the allowed ciphers and TLS protocols for the LDAP connection. For example, you can allow only strong ciphers and limit the TLS versions to the most recent ones:
+您可以限制LDAP连接的允许的密码和TLS协议。例如，您只能允许强烈的密码，并将TLS版本限制在最近的版本中：
 
 ```yml
 ldap:
@@ -240,111 +240,111 @@ ldap:
         - "TLSv1.2"
 ```
 
-Name | Description
-:--- | :---
-`enabled_ssl_ciphers` | Array, enabled TLS ciphers. Only the Java format is supported.
-`enabled_ssl_protocols` | Array, enabled TLS protocols. Only the Java format is supported.
+姓名| 描述
+：--- | ：---
+`enabled_ssl_ciphers` | 数组，启用了TLS密码。仅支持Java格式。
+`enabled_ssl_protocols` | 数组，启用的TLS协议。仅支持Java格式。
 
 
 ---
 
 ## Use Active Directory and LDAP for authentication
 
-To use Active Directory/LDAP for authentication, first configure a respective authentication domain in the `authc` section of `config/opensearch-security/config.yml`:
+要使用Active Directory/LDAP进行身份验证，请首先在`authc` 部分`config/opensearch-security/config.yml`：
 
 ```yml
-authc:
-  ldap:
-    http_enabled: true
-    transport_enabled: true
-    order: 1
-    http_authenticator:
-      type: basic
-      challenge: true
-    authentication_backend:
-      type: ldap
-      config:
+authc：
+  LDAP：
+    http_enabled：true
+    transport_enabled：true
+    订单：1
+    http_authenticator：
+      类型：基本
+      挑战：是的
+    Authentication_backend：
+      类型：LDAP
+      配置：
         ...
 ```
 
-Next, add the [connection settings](#connection-settings) for your Active Directory/LDAP server to the config section of the authentication domain:
+接下来，添加[连接设置]（#联系-设置））为Active Directory/LDAP服务器到身份验证域的配置部分：
 
 ```yml
-config:
-  enable_ssl: true
-  enable_start_tls: false
-  enable_ssl_client_auth: false
-  verify_hostnames: true
-  hosts:
+配置：
+  enable_ssl：true
+  enable_start_tls：false
+  enable_ssl_client_auth：false
+  verify_hostnames：true
+  主持人：
     - ldap.example.com:8389
-  bind_dn: cn=admin,dc=example,dc=com
-  password: passw0rd
+  bind_dn：cn = admin，dc =示例，dc = com
+  密码：passw0rd
 ```
 
-Authentication works by issuing an LDAP query containing the user name against the user subtree of the LDAP tree.
+身份验证通过发出包含LDAP树用户子树的LDAP查询来起作用。
 
-The Security plugin first takes the configured LDAP query and replaces the placeholder `{0}` with the user name from the user's credentials.
+安全插件首先采用配置的LDAP查询并替换占位符`{0}` 使用用户凭据的用户名。
 
 ```yml
-usersearch: '(sAMAccountName={0})'
+usersearch：'（samaccountname = {0}）'
 ```
 
-Then it issues this query against the user subtree. Currently, the entire subtree under the configured `userbase` is searched:
+然后，它针对用户子树发出此查询。当前，配置的整个子树`userbase` 被搜索：
 
 ```yml
-userbase: 'ou=people,dc=example,dc=com'
+用户群：'OU =人，DC =示例，dc = com'
 ```
 
-If the query is successful, the Security plugin retrieves the user name from the LDAP entry. You can specify which attribute from the LDAP entry the Security plugin should use as the user name:
+如果查询成功，则安全插件将从LDAP条目中检索用户名。您可以从安全插件应用作用户名的LDAP条目中指定哪些属性：
 
 ```yml
-username_attribute: uid
+username_attribute：uid
 ```
 
-If this key is not set or null, then the distinguished name (DN) of the LDAP entry is used.
+如果此键未设置或空，则使用LDAP条目的特殊名称（DN）。
 
 
 ### Configuration summary
 
-Name | Description
-:--- | :---
-`userbase` | Specifies the subtree in the directory where user information is stored.
-`usersearch` | The actual LDAP query that the Security plugin executes when trying to authenticate a user. The variable {0} is substituted with the user name.
-`username_attribute` | The Security plugin uses this attribute of the directory entry to look for the user name. If set to null, the DN is used (default).
+姓名| 描述
+：--- | ：---
+`userbase` | 指定存储用户信息的目录中的子树。
+`usersearch` | 安全插件尝试身份验证用户时执行的实际LDAP查询。变量{0}用用户名代替。
+`username_attribute` | 安全插件使用目录条目的此属性来查找用户名。如果设置为null，则使用DN（默认值）。
 
 
 ### Complete authentication example
 
 ```yml
-ldap:
-  http_enabled: true
-  transport_enabled: true
-  order: 1
-  http_authenticator:
-    type: basic
-    challenge: true
-  authentication_backend:
-    type: ldap
-    config:
-      enable_ssl: true
-      enable_start_tls: false
-      enable_ssl_client_auth: false
-      verify_hostnames: true
-      hosts:
+LDAP：
+  http_enabled：true
+  transport_enabled：true
+  订单：1
+  http_authenticator：
+    类型：基本
+    挑战：是的
+  Authentication_backend：
+    类型：LDAP
+    配置：
+      enable_ssl：true
+      enable_start_tls：false
+      enable_ssl_client_auth：false
+      verify_hostnames：true
+      主持人：
         - ldap.example.com:636
-      bind_dn: cn=admin,dc=example,dc=com
-      password: password
-      userbase: 'ou=people,dc=example,dc=com'
-      usersearch: '(sAMAccountName={0})'
-      username_attribute: uid
+      bind_dn：cn = admin，dc =示例，dc = com
+      密码：密码
+      用户群：'OU =人，DC =示例，dc = com'
+      usersearch：'（samaccountname = {0}）'
+      username_attribute：uid
 ```
 
 
 ---
 
-## Use Active Directory and LDAP for authorization
+## 使用Active Directory和LDAP进行授权
 
-To use Active Directory/LDAP for authorization, first configure a respective authorization domain in the `authz` section of `config.yml`:
+要使用Active Directory/LDAP进行授权，请首先在`authz` 部分`config.yml`：
 
 ```yml
 authz:
@@ -357,91 +357,91 @@ authz:
       ...
 ```
 
-Authorization is the process of retrieving backend roles for an authenticated user from an LDAP server. This is typically the same servers that you use for authentication, but you can also use a different server. The only requirement is that the user you use to fetch the roles actually exists on the LDAP server.
+授权是从LDAP服务器检索身份验证用户的后端角色的过程。这通常是您用于身份验证的服务器，但您也可以使用其他服务器。唯一的要求是，您用来获取角色的用户实际上存在于LDAP服务器上。
 
-Because the Security plugin always checks if a user exists in the LDAP server, you must also configure `userbase`, `usersearch` and `username_attribute` in the `authz` section.
+因为安全插件始终检查LDAP服务器中的用户是否存在，因此您还必须配置`userbase`，，，，`usersearch` 和`username_attribute` 在里面`authz` 部分。
 
-Authorization works similarly to authentication. The Security plugin issues an LDAP query containing the user name against the role subtree of the LDAP tree.
+授权与身份验证类似。安全插件发布了包含用户名的LDAP查询，该查询针对LDAP树的角色子树。
 
-As an alternative, the Security plugin can also fetch roles that are defined as a direct attribute of the user entry in the user subtree.
+作为替代方案，安全插件还可以获取定义为用户子树中用户条目的直接属性的角色。
 
 
-### Approach 1: Query the role subtree
+### 方法1：查询角色子树
 
-The Security plugin first takes the LDAP query for fetching roles ("rolesearch") and substitutes any variables found in the query. For example, for a standard Active Directory installation, you would use the following role search:
+安全插件首先采用LDAP查询以获取角色（"rolesearch"）并替换查询中发现的任何变量。例如，对于标准的Active Directory安装，您将使用以下角色搜索：
 
 ```yml
 rolesearch: '(member={0})'
 ```
 
-You can use the following variables:
+您可以使用以下变量：
 
-- `{0}` is substituted with the DN of the user.
-- `{1}` is substituted with the user name, as defined by the `username_attribute` setting.
-- `{2}` is substituted with an arbitrary attribute value from the authenticated user's directory entry.
+- `{0}` 用用户的DN替换。
+- `{1}` 用用户名代替`username_attribute` 环境。
+- `{2}` 从身份验证的用户目录条目中替换为任意属性值。
 
-The variable `{2}` refers to an attribute from the user's directory entry. The attribute that you should use is specified by the `userroleattribute` setting:
+变量`{2}` 请参考用户目录条目中的属性。您应该使用的属性由`userroleattribute` 环境：
 
 ```yml
 userroleattribute: myattribute
 ```
 
-The Security plugin then issues the substituted query against the configured role subtree. The entire subtree under `rolebase` is searched:
+然后，安全插件对配置的角色子树发出替换的查询。整个子树下`rolebase` 被搜索：
 
 ```yml
 rolebase: 'ou=groups,dc=example,dc=com'
 ```
 
-If you use nested roles (roles that are members of other roles), you can configure the Security plugin to resolve them:
+如果您使用嵌套角色（角色的角色），则可以配置安全插件以解决它们：
 
 ```yml
 resolve_nested_roles: false
 ```
 
-After all roles have been fetched, the Security plugin extracts the final role names from a configurable attribute of the role entries:
+在所有角色都得到了所有角色之后，安全插件从角色条目的可配置属性中提取了最终角色名称：
 
 ```yml
 rolename: cn
 ```
 
-If this is not set, the DN of the role entry is used. You can now use this role name for mapping it to one or more of the Security plugin roles, as defined in `roles_mapping.yml`.
+如果未设置此功能，则使用角色输入的DN。您现在可以使用此角色名称将其映射到一个或多个安全插件角色，如在`roles_mapping.yml`。
 
 
-### Approach 2: Use a user's attribute as the role name
+### 方法2：使用用户的属性作为角色名称
 
-If you store the roles as a direct attribute of the user entries in the user subtree, you need to configure only the attribute name:
+如果将角色作为用户条目的直接属性存储在用户子树中，则需要仅配置属性名称：
 
 ```yml
 userrolename: roles
 ```
 
-You can configure multiple attribute names:
+您可以配置多个属性名称：
 
 ```yml
 userrolename: roles, otherroles
 ```
 
-This approach can be combined with querying the role subtree. The Security plugin fetches the roles from the user's role attribute and then executes the role search.
+该方法可以与查询角色子树的查询结合使用。安全插件从用户的角色属性中获取角色，然后执行角色搜索。
 
-If you don't use or have a role subtree, you can disable the role search completely:
+如果您不使用或有角色子树，则可以完全禁用角色搜索：
 
 ```yml
 rolesearch_enabled: false
 ```
 
 
-### (Advanced) Control LDAP user attributes
+### （高级）控制LDAP用户属性
 
-By default, the Security plugin reads all LDAP user attributes and makes them available for index name variable substitution and DLS query variable substitution. If your LDAP entries have a lot of attributes, you might want to control which attributes should be made available. The fewer the attributes, the better the performance.
+默认情况下，安全插件读取所有LDAP用户属性，并使其可用于索引名称变量替换和DLS查询变量替换。如果您的LDAP条目具有很多属性，则可能需要控制应提供哪些属性。属性越少，性能就越好。
 
-Note that this setting is made in the authentication `authc` section of the config.yml file.
+请注意，此设置是在身份验证中进行的`authc` config.yml文件的部分。
 
-Name | Description
-:--- | :---
-`custom_attr_allowlist`  | String array. Specifies the LDAP attributes that should be made available for variable substitution.
-`custom_attr_maxval_len`  | Integer. Specifies the maximum allowed length of each attribute. All attributes longer than this value are discarded. A value of `0` disables custom attributes altogether. Default is 36.
+姓名| 描述
+：--- | ：---
+`custom_attr_allowlist`  | 字符串数组。指定应可用于可变替换的LDAP属性。
+`custom_attr_maxval_len`  | 整数。指定每个属性的最大允许长度。所有属性更长的属性都被丢弃。一个值`0` 完全禁用自定义属性。默认值为36。
 
-Example:
+例子：
 
 ```yml
 authc:
@@ -459,15 +459,15 @@ authc:
 ```
 
 
-### (Advanced) Exclude certain users from role lookup
+### （高级）将某些用户排除在角色查找之外
 
-If you are using multiple authentication methods, it can make sense to exclude certain users from the LDAP role lookup.
+如果您使用的是多种身份验证方法，则将某些用户从LDAP角色查找中排除是有意义的。
 
-Consider the following scenario for a typical OpenSearch Dashboards setup: All OpenSearch Dashboards users are stored in an LDAP/Active Directory server.
+考虑典型的OpenSearch仪表板设置的以下方案：所有OpenSearch Dashboards用户都存储在LDAP/Active Directory Server中。
 
-However, you also have an OpenSearch Dashboards server user. OpenSearch Dashboards uses this user to manage stored objects and perform monitoring and maintenance tasks. You do not want to add this user to your Active Directory installation, but rather store it in the Security plugin internal user database.
+但是，您还拥有OpenSearch仪表板服务器用户。OpenSearch仪表板使用此用户来管理存储的对象并执行监视和维护任务。您不想将此用户添加到Active Directory安装中，而是将其存储在“安全插件”内部用户数据库中。
 
-In this case, it makes sense to exclude the OpenSearch Dashboards server user from the LDAP authorization because we already know that there is no corresponding entry. You can use the `skip_users` configuration setting to define which users should be skipped. Wildcards and regular expressions are supported:
+在这种情况下，将OpenSearch仪表板服务器用户从LDAP授权中排除是有意义的，因为我们已经知道没有相应的条目。您可以使用`skip_users` 配置设置以定义应跳过哪些用户。支持通配符和正则表达式：
 
 ```yml
 skip_users:
@@ -477,13 +477,13 @@ skip_users:
 ```
 
 
-### (Advanced) Exclude roles from nested role lookups
+### （高级）将角色排除在嵌套角色查找之外
 
-If the users in your LDAP installation have a large number of roles, and you have the requirement to resolve nested roles as well, you might run into performance issues.
+如果LDAP安装中的用户具有大量角色，并且您还需要解决嵌套角色，那么您可能会遇到性能问题。
 
-In most cases, however, not all user roles are related to OpenSearch and OpenSearch Dashboards. You might need only a couple of roles. In this case, you can use the nested role filter feature to define a list of roles that are filtered out from the list of the user's roles. Wildcards and regular expressions are supported.
+但是，在大多数情况下，并非所有用户角色都与Opensearch和OpenSearch仪表板有关。您可能只需要几个角色。在这种情况下，您可以使用嵌套的角色过滤器功能来定义从用户角色列表中滤除的角色列表。支持通配符和正则表达式。
 
-This has an effect only if `resolve_nested_roles` is `true`:
+只有在`resolve_nested_roles` 是`true`：
 
 ```yml
 nested_role_filter:
@@ -492,25 +492,25 @@ nested_role_filter:
 ```
 
 
-### Configuration summary
+### 配置摘要
 
-Name | Description
-:--- | :---
-`rolebase`  | Specifies the subtree in the directory where role/group information is stored.
-`rolesearch` | The actual LDAP query that the Security plugin executes when trying to determine the roles of a user. You can use three variables here (see below).
-`userroleattribute`  | The attribute in a user entry to use for `{2}` variable substitution.
-`userrolename`  | If the roles/groups of a user are not stored in the groups subtree, but as an attribute of the user's directory entry, define this attribute name here.
-`rolename`  | The attribute of the role entry that should be used as the role name.
-`resolve_nested_roles`  | Boolean. Whether or not to resolve nested roles. Default is `false`.
-`max_nested_depth`  | Integer. When `resolve_nested_roles` is `true`, this defines the maximum number of nested roles to traverse. Setting smaller values can reduce the amount of data retrieved from LDAP and improve authentication times at the cost of failing to discover deeply nested roles. Default is `30`.
-`skip_users`  | Array of users that should be skipped when retrieving roles. Wildcards and regular expressions are supported.
-`nested_role_filter`  | Array of role DNs that should be filtered before resolving nested roles. Wildcards and regular expressions are supported.
-`rolesearch_enabled`  | Boolean. Enable or disable the role search. Default is `true`.
-`custom_attr_allowlist`  | String array. Specifies the LDAP attributes that should be made available for variable substitution.
-`custom_attr_maxval_len`  | Integer. Specifies the maximum allowed length of each attribute. All attributes longer than this value are discarded. A value of `0` disables custom attributes altogether. Default is 36.
+姓名| 描述
+：--- | ：---
+`rolebase`  | 在存储角色/组信息的目录中指定子树。
+`rolesearch` | 安全插件在尝试确定用户角色时执行的实际LDAP查询。您可以在此处使用三个变量（见下文）。
+`userroleattribute`  | 用户条目中的属性用于使用`{2}` 可变替代。
+`userrolename`  | 如果用户的角色/组未存储在组子树中，而是作为用户目录条目的属性，请在此处定义此属性名称。
+`rolename`  | 角色输入的属性应用作角色名称。
+`resolve_nested_roles`  | 布尔。是否解决嵌套角色。默认为`false`。
+`max_nested_depth`  | 整数。什么时候`resolve_nested_roles` 是`true`，这定义了嵌套角色的最大数量。设置较小的值可以减少从LDAP检索到的数据量，并以未能发现深嵌套角色的成本来改善身份验证时间。默认为`30`。
+`skip_users`  | 取回角色时应该跳过的用户阵列。支持通配符和正则表达式。
+`nested_role_filter`  | 在解决嵌套角色之前应过滤的角色DN阵列。支持通配符和正则表达式。
+`rolesearch_enabled`  | 布尔。启用或禁用角色搜索。默认为`true`。
+`custom_attr_allowlist`  | 字符串数组。指定应可用于可变替换的LDAP属性。
+`custom_attr_maxval_len`  | 整数。指定每个属性的最大允许长度。所有属性更长的属性都被丢弃。一个值`0` 完全禁用自定义属性。默认值为36。
 
 
-### Complete authorization example
+### 完整的授权示例
 
 ```yml
 authz:
@@ -543,9 +543,9 @@ authz:
           - '/\S*/'
 ```
 
-### (Advanced) Configuring multiple user and role bases
+### （高级）配置多个用户和角色库
 
-To configure multiple user bases in the authc and/or authz section, use the following syntax:
+要在Authc和/或Authz部分中配置多个用户基础，请使用以下语法：
 
 ```yml
         ...
@@ -562,7 +562,7 @@ To configure multiple user bases in the authc and/or authz section, use the foll
         ...
 ```
 
-Similarly, use the following setup to configure multiple role bases in the authz section:
+同样，使用以下设置在Authz部分中配置多个角色库：
 
 ```yml
         ...
@@ -578,7 +578,7 @@ Similarly, use the following setup to configure multiple role bases in the authz
         ...
 ```
 
-### Complete authentication and authorization with multiple user and role bases example:
+### 具有多个用户和角色库的完整身份验证和授权示例：
 
 ```yml
 authc:
@@ -644,3 +644,4 @@ authz:
         rolename: cn
         resolve_nested_roles: true
 ```
+

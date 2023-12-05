@@ -1,7 +1,7 @@
 ---
 layout: default
 title: SAML
-parent: Authentication backends
+parent: 身份验证后端
 nav_order: 55
 redirect_from:
   - /security/configuration/saml/
@@ -10,55 +10,55 @@ redirect_from:
 
 # SAML
 
-The Security plugin supports user authentication through SAML single sign-on. The Security plugin implements the web browser SSO profile of the SAML 2.0 protocol.
+安全插件通过SAML单个符号支持用户身份验证-在。安全插件实现了SAML 2.0协议的Web浏览器SSO配置文件。
 
-This profile is meant for use with web browsers. It is not a general-purpose way of authenticating users against the Security plugin, so its primary use case is to support OpenSearch Dashboards single sign-on.
+此配置文件旨在与Web浏览器一起使用。这不是一般-针对安全插件进行身份验证用户的目的方法，因此其主要用例是支持OpenSearch仪表板单个标志-在。
 
 
-## Docker example
+## Docker示例
 
-We provide a fully functional example that can help you understand how to use SAML with OpenSearch Dashboards.
+我们提供了一个功能齐全的示例，可以帮助您了解如何将SAML与OpenSearch仪表板一起使用。
 
-1. Download [the example zip file]({{site.url}}{{site.baseurl}}/assets/examples/saml-example-custom.zip) to a preferred location in your directory and unzip it.
-1. At the command line, specify the location of the files in your directory and run `docker-compose up`.
-1. Review the files:
+1. 下载[示例zip文件]({{site.url}}{{site.baseurl}}/assets/examples/saml-example-custom.zip) 到您的目录中的首选位置并解压缩。
+1. 在命令行，指定目录中文件的位置并运行`docker-compose up`。
+1. 查看文件：
 
-   * `customize-docker-compose.yml`: Defines two OpenSearch nodes, an OpenSearch Dashboards server, and a SAML server.  
-   * `customize-opensearch_dashboards.yml`: Includes SAML settings for the default `opensearch_dashboards.yml` file.
-   * `customize-config.yml`: Configures SAML for authentication.
+   *`customize-docker-compose.yml`：定义两个OpenSearch节点，一个OpenSearch Dashboards Server和SAML Server。
+   *`customize-opensearch_dashboards.yml`：包括默认设置的SAML设置`opensearch_dashboards.yml` 文件。
+   *`customize-config.yml`：配置SAML用于身份验证。
 
-   You can remove "customize" from the file names if you plan to modify and keep these files for production.
-   {: .tip }  
+   您可以删除"customize" 如果您打算修改并将这些文件保留进行生产，则从文件名中。
+   {： 。提示 }
 
-1. In the `docker-compose.yml` file, specify your OpenSearch version number in the `image` field for nodes 1 and 2, and OpenSearch Dashboards server. For example, if you are running OpenSearch version 2.6, the `image` fields will resemble the following examples:
+1. 在里面`docker-compose.yml` 文件，在`image` 节点1和2的字段，以及OpenSearch仪表板服务器。例如，如果您正在运行OpenSearch版本2.6，则`image` 字段将类似于以下示例：
    
-   ```yml
-   opensearch-saml-node1:
-    image: opensearchproject/opensearch:2.8.0
+   ```YML
+   OpenSearch-SAML-Node1：
+    图片：OpenSearchProject/OpenSearch：2.8.0
     ```
-    ```yml
-    opensearch-saml-node2:
-    image: opensearchproject/opensearch:2.8.0
+    ```YML
+    OpenSearch-SAML-Node2：
+    图片：OpenSearchProject/OpenSearch：2.8.0
     ```
-    ```yml
-    opensearch-saml-dashboards:
-    image: opensearchproject/opensearch-dashboards:2.8.0
+    ```YML
+    OpenSearch-SAML-仪表板：
+    图片：OpenSearchProject/OpenSearch-仪表板：2.8.0
     ```
 
 1. Access OpenSearch Dashboards at [http://localhost:5601](http://localhost:5601){:target='\_blank'}. Note that OpenSearch Dashboards immediately redirects you to the SAML login page.
 
-1. Log in as `admin` with a password of `admin`.
+1. Log in as `行政` with a password of `行政`.
 
-1. After logging in, note that your user in the upper-right is `SAMLAdmin`, as defined in `/var/www/simplesamlphp/config/authsources.php` of the SAML server.
+1. After logging in, note that your user in the upper-right is `Samladmin`, as defined in `/var/www/simplesamlphp/config/authsources.php` SAML Server的。
 
-1. If you want to examine the SAML server, run `docker ps` to find its container ID and then `docker exec -it <container-id> /bin/bash`.
+1. 如果要检查SAML Server，请运行`docker ps` 找到其容器ID，然后`docker exec -it <container-id> /bin/bash`。
 
-   In particular, you might find it helpful to review the contents of the `/var/www/simplesamlphp/config/` and `/var/www/simplesamlphp/metadata/` directories.
+   特别是，您可能会发现查看内容的内容很有帮助`/var/www/simplesamlphp/config/` 和`/var/www/simplesamlphp/metadata/` 目录。
 
 
-## Activating SAML
+## 激活SAML
 
-To use SAML for authentication, you need to configure a respective authentication domain in the `authc` section of `config/opensearch-security/config.yml`. Because SAML works solely on the HTTP layer, you do not need any `authentication_backend` and can set it to `noop`. Place all SAML-specific configuration options in this chapter in the `config` section of the SAML HTTP authenticator:
+要使用SAML进行身份验证，您需要在`authc` 部分`config/opensearch-security/config.yml`。因为SAML仅在HTTP层上工作，所以您不需要任何`authentication_backend` 并可以将其设置为`noop`。将所有SAML放置-本章中的特定配置选项`config` SAML HTTP身份验证者的部分：
 
 ```yml
 authc:
@@ -77,12 +77,12 @@ authc:
       type: noop
 ```
 
-After you have configured SAML in `config.yml`, you must also [activate it in OpenSearch Dashboards](#opensearch-dashboards-configuration).
+在配置SAML之后`config.yml`，你也必须[在OpenSearch仪表板中激活它](#opensearch-dashboards-configuration)。
 
 
-## Running multiple authentication domains
+## 运行多个身份验证域
 
-We recommend adding at least one other authentication domain, such as LDAP or the internal user database, to support API access to OpenSearch without SAML. For OpenSearch Dashboards and the internal OpenSearch Dashboards server user, you also must add another authentication domain that supports basic authentication. This authentication domain should be placed first in the chain, and the `challenge` flag must be set to `false`:
+我们建议添加至少一个其他身份验证域，例如LDAP或内部用户数据库，以支持无需SAML的API访问Opensearch。对于OpenSearch仪表板和内部OpenSearch仪表板服务器用户，您还必须添加另一个支持基本身份验证的身份验证域。该身份验证域应首先放在链中，然后`challenge` 标志必须设置为`false`：
 
 ```yml
 authc:
@@ -109,30 +109,30 @@ authc:
 ```
 
 
-## Identity provider metadata
+## 身份提供者元数据
 
-A SAML identity provider (IdP) provides a SAML 2.0 metadata file describing the IdP's capabilities and configuration. The Security plugin can read IdP metadata either from a URL or a file. The choice that you make depends on your IdP and your preferences. The SAML 2.0 metadata file is required.
+SAML身份提供商（IDP）提供了描述IDP功能和配置的SAML 2.0元数据文件。安全插件可以从URL或文件读取IDP元数据。您做出的选择取决于您的IDP和偏好。需要SAML 2.0元数据文件。
 
-Name | Description
-:--- | :---
-`idp.metadata_file` | The path to the SAML 2.0 metadata file of your IdP. Place the metadata file in the `config` directory of OpenSearch. The path has to be specified relative to the `config` directory. Required if `idp.metadata_url` is not set.
-`idp.metadata_url` | The SAML 2.0 metadata URL of your IdP. Required if `idp.metadata_file` is not set.
+姓名| 描述
+：--- | ：---
+`idp.metadata_file` | IDP的SAML 2.0元数据文件的路径。将元数据文件放在`config` OpenSearch目录。该路径必须相对于`config` 目录。如果需要`idp.metadata_url` 未设置。
+`idp.metadata_url` | IDP的SAML 2.0元数据URL。如果需要`idp.metadata_file` 未设置。
 
 
-## IdP and service provider entity ID
+## IDP和服务提供商实体ID
 
-An entity ID is a globally unique name for a SAML entity, either an IdP or a service provider (SP). The IdP entity ID is usually provided by your IdP. The SP entity ID is the name of the configured application or client in your IdP. We recommend adding a new application for OpenSearch Dashboards and using the URL of your OpenSearch Dashboards installation as the SP entity ID.
+实体ID是SAML实体的全球唯一名称，即IDP或服务提供商（SP）。IDP实体ID通常由您的IDP提供。SP实体ID是IDP中配置的应用程序或客户端的名称。我们建议添加一个用于OpenSearch仪表板的新应用程序，并使用OpenSearch仪表板安装的URL作为SP实体ID。
 
-Name | Description
-:--- | :---
-`idp.entity_id` | The entity ID of your IdP. Required.
-`sp.entity_id` | The entity ID of the service provider. Required.
+姓名| 描述
+：--- | ：---
+`idp.entity_id` | IDP的实体ID。必需的。
+`sp.entity_id` | 服务提供商的实体ID。必需的。
 
-## Time disparity compensation for JWT validation
+## JWT验证的时间差异补偿
 
-Occasionally you may find that the clock times between the authentication server and the OpenSearch node are not perfectly synchronized. When this is the case, even by a few seconds, the system that either issues or receives a JSON Web Token (JWT) may try to validate `nbf` (not before) and `exp` (expiration) claims and fail to authenticate the user due to the time disparity.
+有时，您可能会发现身份验证服务器和OpenSearch节点之间的时钟时间不是完全同步的。在这种情况下，即使是几秒钟，发行或接收JSON Web令牌（JWT）的系统可能会尝试验证`nbf` （不是之前）和`exp` （到期）索赔，并且由于时间差异而无法验证用户。
 
-By default, OpenSearch Security allows for a window of 30 seconds to compensate for possible misalignment between server clock times. To set a custom value for this feature and override the default, you can add the `jwt_clock_skew_tolerance_seconds` setting to the `config.yml`.
+默认情况下，OpenSearch Security允许使用30秒的窗口来补偿服务器时钟时间之间可能的未对准。要为此功能设置自定义值并覆盖默认值，您可以添加`jwt_clock_skew_tolerance_seconds` 设置为`config.yml`。
 
 ```yml
 http_authenticator:
@@ -144,18 +144,18 @@ http_authenticator:
     jwt_clock_skew_tolerance_seconds: 20
 ```
 
-## OpenSearch Dashboards settings
+## OpenSearch仪表板设置
 
-The web browser SSO profile exchanges information through HTTP GET or POST. For example, after you log in to your IdP, it sends an HTTP POST back to OpenSearch Dashboards containing the SAML response. You must configure the base URL of your OpenSearch Dashboards installation where the HTTP requests are being sent to.
+Web浏览器SSO配置文件通过HTTP GET或发布来交换信息。例如，登录到IDP后，它将HTTP帖子发送回包含SAML响应的OpenSearch仪表板。您必须配置发送HTTP请求的OpenSearch仪表板安装的基本URL。
 
-Name | Description
-:--- | :---
-`kibana_url` | The OpenSearch Dashboards base URL. Required.
+姓名| 描述
+：--- | ：---
+`kibana_url` | OpenSearch仪表板基础URL。必需的。
 
 
-## Username and Role attributes
+## 用户名和角色属性
 
-Subjects (for example, user names) are usually stored in the `NameID` element of a SAML response:
+受试者（例如，用户名）通常存储在`NameID` SAML响应的元素：
 
 ```
 <saml2:Subject>
@@ -164,9 +164,9 @@ Subjects (for example, user names) are usually stored in the `NameID` element of
 </saml2:Subject>
 ```
 
-If your IdP is compliant with the SAML 2.0 specification, you do not need to set anything special. If your IdP uses a different element name, you can also specify its name explicitly.
+如果您的IDP符合SAML 2.0规范，则无需设置任何特殊内容。如果您的IDP使用其他元素名称，则还可以明确指定其名称。
 
-Role attributes are optional. However, most IdPs can be configured to add roles in the SAML assertions as well. If present, you can use these roles in your [role mappings]({{site.url}}{{site.baseurl}}/security/access-control/index/#concepts):
+角色属性是可选的。但是，大多数IDP也可以配置为在SAML断言中添加角色。如果存在，您可以在您的[角色映射]({{site.url}}{{site.baseurl}}/security/access-control/index/#concepts)：
 
 ```
 <saml2:Attribute Name='Role'>
@@ -175,68 +175,68 @@ Role attributes are optional. However, most IdPs can be configured to add roles 
 </saml2:Attribute>
 ```
 
-If you want to extract roles from the SAML response, you need to specify the element name that contains the roles.
+如果要从SAML响应中提取角色，则需要指定包含角色的元素名称。
 
-Name | Description
-:--- | :---
-`subject_key` | The attribute in the SAML response where the subject is stored. Optional. If not configured, the `NameID` attribute is used.
-`roles_key` | The attribute in the SAML response where the roles are stored. Optional. If not configured, no roles are used.
-
-
-## Request signing
-
-Requests from the Security plugin to the IdP can optionally be signed. Use the following settings to configure request signing.
-
-Name | Description
-:--- | :---
-`sp.signature_private_key` | The private key used to sign the requests or to decode encrypted assertions. Optional. Cannot be used when `private_key_filepath` is set.
-`sp.signature_private_key_password` | The password of the private key, if any.
-`sp.signature_private_key_filepath` | Path to the private key. The file must be placed under the OpenSearch `config` directory, and the path must be specified relative to that same directory.
-`sp.signature_algorithm` | The algorithm used to sign the requests. See the next table for possible values.
-
-The private key must be in PKCS#8 format. If you want to use an encrypted key, it must be encrypted with a PKCS#12-compatible algorithm (3DES).
-
-The Security plugin supports the following signature algorithms.
-
-Algorithm | Value
-:--- | :---
-DSA_SHA1 | http://www.w3.org/2000/09/xmldsig#dsa-sha1;
-RSA_SHA1 | http://www.w3.org/2000/09/xmldsig#rsa-sha1;
-RSA_SHA256 | http://www.w3.org/2001/04/xmldsig-more#rsa-sha256;
-RSA_SHA384 | http://www.w3.org/2001/04/xmldsig-more#rsa-sha384;
-RSA_SHA512 | http://www.w3.org/2001/04/xmldsig-more#rsa-sha512;
+姓名| 描述
+：--- | ：---
+`subject_key` | SAML响应中存储主题的属性。选修的。如果未配置，`NameID` 使用属性。
+`roles_key` | 在存储角色的SAML响应中的属性。选修的。如果未配置，则不使用任何角色。
 
 
-## Logout
+## 请求签名
 
-Usually, IdPs provide information about their individual logout URL in their SAML 2.0 metadata. If this is the case, the Security plugin uses them to render the correct logout link in OpenSearch Dashboards. If your IdP does not support an explicit logout, you can force a re-login when the user visits OpenSearch Dashboards again.
+可以选择从安全插件到IDP的请求。使用以下设置配置请求签名。
 
-Name | Description
-:--- | :---
-`sp.forceAuthn` | Force a re-login even if the user has an active session with the IdP.
+姓名| 描述
+：--- | ：---
+`sp.signature_private_key` | 用于签署请求或解码加密断言的私钥。选修的。不能使用`private_key_filepath` 设置。
+`sp.signature_private_key_password` | 私钥的密码（如果有）。
+`sp.signature_private_key_filepath` | 通往私钥的路径。该文件必须放在OpenSearch下`config` 目录和路径必须相对于同一目录指定。
+`sp.signature_algorithm` | 该算法用于签署请求。有关可能的值，请参见下表。
 
-Currently, the Security plugin supports only the `HTTP-Redirect` logout binding. Make sure this is configured correctly in your IdP.
+私钥必须在PKC中#8格式。如果要使用加密密钥，则必须使用PKC进行加密#12-兼容算法（3DES）。
+
+安全插件支持以下签名算法。
+
+算法| 价值
+：--- | ：---
+DSA_SHA1| http://www.w3.org/2000/09/xmldsig#DSA-sha1;
+RSA_SHA1| http://www.w3.org/2000/09/xmldsig#RSA-sha1;
+RSA_SHA256| http://www.w3.org/2001/04/xmldsig-更多的#RSA-SHA256;
+RSA_SHA384| http://www.w3.org/2001/04/xmldsig-更多的#RSA-SHA384;
+RSA_SHA512| http://www.w3.org/2001/04/xmldsig-更多的#RSA-SHA512;
 
 
-## Exchange key settings
+## 登出
 
-SAML, unlike other protocols, is not meant to be used for exchanging user credentials with each request. The Security plugin trades the SAML response for a lightweight JWT that stores the validated user attributes. This token is signed by an exchange key of your choice. Note that when you change this key, all tokens signed with it become invalid immediately.
+通常，IDP在其SAML 2.0元数据中提供有关其单独注销URL的信息。如果是这种情况，则安全插件使用它们在OpenSearch仪表板中呈现正确的注销链接。如果您的IDP不支持明确的注销，则可以强制RE-当用户再次访问OpenSearch仪表板时登录。
 
-Name | Description
-:--- | :---
-`exchange_key` | The key to sign the token. The algorithm is HMAC256, so it should have at least 32 characters.
+姓名| 描述
+：--- | ：---
+`sp.forceAuthn` | 强迫-即使用户与IDP进行活动会话，登录也是如此。
+
+当前，安全插件仅支持`HTTP-Redirect` 注销绑定。确保在IDP中正确配置这一点。
 
 
-## TLS settings
+## 交换密钥设置
 
-If you are loading the IdP metadata from a URL, we recommend that you use SSL/TLS. If you use an external IdP like Okta or Auth0 that uses a trusted certificate, you usually do not need to configure anything. If you host the IdP yourself and use your own root CA, you can customize the TLS settings as follows. These settings are used only for loading SAML metadata over HTTPS.
+SAML与其他协议不同，并不是要与每个请求交换用户凭据。安全插件将SAML响应交易为轻量级JWT，该JWT存储经过验证的用户属性。这个令牌由您选择的交换键签名。请注意，当您更改此键时，所有令牌都会立即签名。
 
-Name | Description
-:--- | :---
-`idp.enable_ssl` | Whether to enable the custom TLS configuration. Default is false (JDK settings are used).
-`idp.verify_hostnames` | Whether to verify the hostnames of the server's TLS certificate.
+姓名| 描述
+：--- | ：---
+`exchange_key` | 签署令牌的钥匙。该算法是HMAC256，因此它至少应具有32个字符。
 
-Example:
+
+## TLS设置
+
+如果您是从URL加载IDP元数据，我们建议您使用SSL/TLS。如果使用使用受信任证书的OKTA或AUTH0（例如Okta或Auth0）的外部IDP，则通常不需要配置任何内容。如果您亲自托管IDP并使用自己的根CA，则可以按以下方式自定义TLS设置。这些设置仅用于通过HTTPS加载SAML元数据。
+
+姓名| 描述
+：--- | ：---
+`idp.enable_ssl` | 是否启用自定义TLS配置。默认值为false（使用JDK设置）。
+`idp.verify_hostnames` | 是否验证服务器TLS证书的主机名。
+
+例子：
 
 ```yml
 authc:
@@ -257,9 +257,9 @@ authc:
 ```
 
 
-### Certificate validation
+### 证书验证
 
-Configure the root CA used for validating the IdP TLS certificate by setting **one** of the following configuration options:
+配置用于通过设置验证IDP TLS证书的根CA**一** 以下配置选项：
 
 ```yml
 config:
@@ -277,38 +277,38 @@ config:
       ...
 ```
 
-Name | Description
-:--- | :---
-`idp.pemtrustedcas_filepath` | Path to the PEM file containing the root CAs of your IdP. The files must be placed under the OpenSearch `config` directory, and you must specify the path relative to that same directory.
-`idp.pemtrustedcas_content` | The root CA content of your IdP server. Cannot be used when `pemtrustedcas_filepath` is set.
+姓名| 描述
+：--- | ：---
+`idp.pemtrustedcas_filepath` | 通往包含IDP根CA的PEM文件的路径。文件必须放在OpenSearch下`config` 目录，您必须指定相对于同一目录的路径。
+`idp.pemtrustedcas_content` | IDP服务器的根CA内容。不能使用`pemtrustedcas_filepath` 设置。
 
 
-### Client authentication
+### 客户端认证
 
-The Security plugin can use TLS client authentication when fetching the IdP metadata. If enabled, the Security plugin sends a TLS client certificate to the IdP for each metadata request. Use the following keys to configure client authentication.
+安全插件在获取IDP元数据时可以使用TLS客户端身份验证。如果启用，安全插件将为每个元数据请求发送TLS客户端证书。使用以下键配置客户端身份验证。
 
-Name | Description
-:--- | :---
-`idp.enable_ssl_client_auth` | Whether to send a client certificate to the IdP server. Default is false.
-`idp.pemcert_filepath` | Path to the PEM file containing the client certificate. The file must be placed under the OpenSearch `config` directory, and the path must be specified relative to the `config` directory.
-`idp.pemcert_content` | The content of the client certificate. Cannot be used when `pemcert_filepath` is set.
-`idp.pemkey_filepath` | Path to the private key of the client certificate. The file must be placed under the OpenSearch `config` directory, and the path must be specified relative to the `config` directory.
-`idp.pemkey_content` | The content of the private key of your certificate. Cannot be used when `pemkey_filepath` is set.
-`idp.pemkey_password` | The password of your private key, if any.
-
-
-### Enabled ciphers and protocols
-
-You can limit the allowed ciphers and TLS protocols for the IdP connection. For example, you can only enable strong ciphers and limit the TLS versions to the most recent ones.
-
-Name | Description
-:--- | :---
-`idp.enabled_ssl_ciphers` | Array of enabled TLS ciphers. Only the Java format is supported.
-`idp.enabled_ssl_protocols` | Array of enabled TLS protocols. Only the Java format is supported.
+姓名| 描述
+：--- | ：---
+`idp.enable_ssl_client_auth` | 是否将客户端证书发送到IDP服务器。默认值为false。
+`idp.pemcert_filepath` | 通往包含客户端证书的PEM文件的路径。该文件必须放在OpenSearch下`config` 目录，并且必须相对于`config` 目录。
+`idp.pemcert_content` | 客户证书的内容。不能使用`pemcert_filepath` 设置。
+`idp.pemkey_filepath` | 通往客户端证书的私钥的路径。该文件必须放在OpenSearch下`config` 目录，并且必须相对于`config` 目录。
+`idp.pemkey_content` | 证书的私钥内容。不能使用`pemkey_filepath` 设置。
+`idp.pemkey_password` | 私钥的密码（如果有）。
 
 
-## Minimal configuration example
-The following example shows the minimal configuration:
+### 启用密码和协议
+
+您可以限制IDP连接的允许的密码和TLS协议。例如，您只能启用强大的密码，并将TLS版本限制在最近的版本中。
+
+姓名| 描述
+：--- | ：---
+`idp.enabled_ssl_ciphers` | 启用的TLS密码数组。仅支持Java格式。
+`idp.enabled_ssl_protocols` | 启用TLS协议的数组。仅支持Java格式。
+
+
+## 最小配置示例
+以下示例显示了最小配置：
 
 ```yml
 authc:
@@ -332,53 +332,54 @@ authc:
       type: noop
 ```
 
-## OpenSearch Dashboards configuration
+## OpenSearch仪表板配置
 
-Because most of the SAML-specific configuration is done in the Security plugin, just activate SAML in your `opensearch_dashboards.yml` by adding the following:
+因为大多数saml-在安全插件中完成了特定的配置，只需激活您的SAML`opensearch_dashboards.yml` 通过添加以下内容：
 
 ```yml
 opensearch_security.auth.type: "saml"
 ```
 
-In addition, you must add the OpenSearch Dashboards endpoint for validating the SAML assertions to your allow list:
+此外，您必须添加OpenSearch仪表板端点，以将SAML主张验证到您的允许列表：
 
 ```yml
 server.xsrf.allowlist: ["/_opendistro/_security/saml/acs"]
 ```
 
-If you use the logout POST binding, you also need to ad the logout endpoint to your allow list:
+如果您使用注销帖子绑定，则还需要将注销端点广告到您的允许列表：
 
 ```yml
 server.xsrf.allowlist: ["/_opendistro/_security/saml/acs", "/_opendistro/_security/saml/logout"]
 ```
 
-To include SAML with other authentication types in the Dashboards sign-in window, see [Configuring sign-in options]({{site.url}}{{site.baseurl}}/security/configuration/multi-auth/).
-{: .note }
+在仪表板标志中包括SAML与其他身份验证类型-在窗口中，请参阅[配置标志-在选项中]({{site.url}}{{site.baseurl}}/security/configuration/multi-auth/)。
+{： 。笔记 }
 
-#### Session management with additional cookies
+#### 会话管理以及其他cookie
 
-To improve session management---especially for users who have multiple roles assigned to them---Dashboards provides an option to split cookie payloads into multiple cookies and then recombine the payloads when receiving them. This can help prevent larger SAML assertions from exceeding size limits for each cookie. The two settings in the following example allow you to set a prefix name for additional cookies and specify the number of them. They are added to the `opensearch_dashboards.yml` file. The default number of additional cookies is three:
+改善会话管理---特别是对于分配了多个角色的用户---仪表板提供了将cookie有效载荷分为多个cookie的选项，然后在接收时重组有效载荷。这可以帮助防止更大的SAML断言每个cookie的尺寸限制。以下示例中的两个设置允许您为其他cookie设置一个前缀名称，并指定其中的数量。他们被添加到`opensearch_dashboards.yml` 文件。其他cookie的默认数量为三：
 
 ```yml
 opensearch_security.saml.extra_storage.cookie_prefix: security_authentication_saml
 opensearch_security.saml.extra_storage.additional_cookies: 3
 ```
 
-Note that reducing the number of additional cookies can cause some of the cookies that were in use before the change to stop working. We recommend establishing a fixed number of additional cookies and not changing the configuration after that.
+请注意，减少其他cookie的数量可能会导致一些在更改之前使用的cookie停止工作。我们建议建立固定数量的其他cookie，然后不更改配置。
 
-If the ID token from the IdP is especially large, OpenSearch may throw a server log authentication error indicating that the HTTP header is too large. In this case, you can increase the value for the `http.max_header_size` setting in the `opensearch.yml` file.
-{: .tip }
+如果来自IDP的ID令牌特别大，OpenSearch可能会丢弃服务器日志身份验证错误，以表明HTTP标头太大。在这种情况下，您可以增加`http.max_header_size` 设置在`opensearch.yml` 文件。
+{： 。提示 }
 
-### IdP-initiated SSO
+### IDP-启动SSO
 
-To use IdP-initiated SSO, set the Assertion Consumer Service endpoint of your IdP to this:
+使用IDP-启动SSO，将IDP的主张消费者服务终点设置为：
 
 ```
 /_opendistro/_security/saml/acs/idpinitiated
 ```
 
-Then add this endpoint to `server.xsrf.allowlist` in `opensearch_dashboards.yml`:
+然后将此端点添加到`server.xsrf.allowlist` 在`opensearch_dashboards.yml`：
 
 ```yml
 server.xsrf.allowlist: ["/_opendistro/_security/saml/acs/idpinitiated", "/_opendistro/_security/saml/acs", "/_opendistro/_security/saml/logout"]
 ```
+

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Audit logs
+title: 审核日志
 nav_order: 125
 has_children: true
 has_toc: false
@@ -9,82 +9,82 @@ redirect_from:
   - /security-plugin/audit-logs/index/
 ---
 
-# Audit logs
+# 审核日志
 
 ---
 
-<details closed markdown="block">
+<详细信息关闭的markdown ="block">
   <summary>
-    Table of contents
+    目录
   </summary>
-  {: .text-delta }
+  {： 。文本-delta}
 - TOC
 {:toc}
-</details>
+</delect>
 
 ---
 
-Audit logs let you track access to your OpenSearch cluster and are useful for compliance purposes or in the aftermath of a security breach. You can configure the categories to be logged, the detail level of the logged messages, and where to store the logs.
+审核日志可让您跟踪对OpenSearch集群的访问，并且可用于合规性或安全漏洞后。您可以配置要记录的类别，已记录消息的详细级别以及存储日志的位置。
 
-To enable audit logging:
+启用审核记录：
 
-1. Add the following line to `opensearch.yml` on each node:
+1. 将以下行添加到`opensearch.yml` 在每个节点上：
 
    ```yml
    plugins.security.audit.type: internal_opensearch
    ```
 
-   This setting stores audit logs on the current cluster. For other storage options, see [Audit Log Storage Types]({{site.url}}{{site.baseurl}}/security/audit-logs/storage-types/).
+   此设置将审核日志存储在当前群集上。有关其他存储选项，请参阅[审核日志存储类型]({{site.url}}{{site.baseurl}}/security/audit-logs/storage-types/)。
 
-2. Restart each node.
+2. 重新启动每个节点。
 
-After this initial setup, you can use OpenSearch Dashboards to manage your audit log categories and other settings. In OpenSearch Dashboards, select **Security** and then **Audit logs**. 
+在此初始设置之后，您可以使用OpenSearch仪表板来管理您的审核日志类别和其他设置。在OpenSearch仪表板中，选择**安全** 进而**审核日志**。
 
-An alternative is to specify initial settings for audit logging in the `audit.yml` and `opensearch.yml` files (which file depends on the setting---see [Audit log settings](#audit-log-settings)). Thereafter, you can use Dashboards or the [Audit logs]({{site.url}}{{site.baseurl}}/security/access-control/api/#audit-logs) API to manage and update settings.
-
-
-## Tracked events
-
-Audit logging records events in two ways: HTTP requests (REST) and the transport layer. The following table provides descriptions of tracked events and whether or not they are logged on the REST or transport layer.
-
-Event | Logged on REST | Logged on transport | Description
-:--- | :--- | :--- | :---
-`FAILED_LOGIN` | Yes | Yes | The credentials of a request could not be validated, most likely because the user does not exist or the password is incorrect.
-`AUTHENTICATED` | Yes | Yes | A user successfully authenticated.
-`MISSING_PRIVILEGES` | No | Yes | The user does not have the required permissions to make the request.
-`GRANTED_PRIVILEGES` | No | Yes | A user made a successful request to OpenSearch.
-`SSL_EXCEPTION` | Yes | Yes | An attempt was made to access OpenSearch without a valid SSL/TLS certificate.
-`opensearch_SECURITY_INDEX_ATTEMPT` | No | Yes | An attempt was made to modify the Security plugin internal user and privileges index without the required permissions or TLS admin certificate.
-`BAD_HEADERS` | Yes | Yes | An attempt was made to spoof a request to OpenSearch with the Security plugin internal headers.
+另一种选择是指定初始设置以审核`audit.yml` 和`opensearch.yml` 文件（哪个文件取决于设置---看[审核日志设置](#audit-log-settings)）。此后，您可以使用仪表板或[审核日志]({{site.url}}{{site.baseurl}}/security/access-control/api/#audit-logs) API管理和更新设置。
 
 
-## Audit log settings
+## 追踪事件
 
-The following default log settings work well for most use cases. However, you can change settings to save storage space or adapt the information to your exact needs. 
+审核记录记录以两种方式记录事件：http请求（休息）和传输层。下表提供了跟踪事件的描述，以及它们是否在其余部分或运输层登录。
+
+事件| 登录休息| 登录运输| 描述
+：--- | ：--- | ：--- | ：---
+`FAILED_LOGIN` | 是的| 是的| 无法验证请求的凭据，这很可能是因为用户不存在或密码不正确。
+`AUTHENTICATED` | 是的| 是的| 用户成功身份验证。
+`MISSING_PRIVILEGES` | 不| 是的| 用户没有提出请求的要求的权限。
+`GRANTED_PRIVILEGES` | 不| 是的| 用户成功地请求进行搜索。
+`SSL_EXCEPTION` | 是的| 是的| 试图在没有有效的SSL/TLS证书的情况下访问Opensearch。
+`opensearch_SECURITY_INDEX_ATTEMPT` | 不| 是的| 试图修改安全插件内部用户和特权索引，而无需权限或TLS管理员证书。
+`BAD_HEADERS` | 是的| 是的| 试图欺骗要求使用安全插件内部标头进行搜索的请求。
 
 
-### Settings in audit.yml
+## 审核日志设置
 
-The following settings are stored in the `audit.yml` file.
+以下默认日志设置在大多数用例中都可以正常工作。但是，您可以更改设置以节省存储空间或根据您的确切需求调整信息。
 
 
-#### Exclude categories
+### 审核中的设置
 
-To exclude categories, list them in the following setting:
+以下设置存储在`audit.yml` 文件。
+
+
+#### 排除类别
+
+要排除类别，请在以下设置中列出它们：
 
 ```yml
 plugins.security.audit.config.disabled_rest_categories: <disabled categories>
 plugins.security.audit.config.disabled_transport_categories: <disabled categories>
 ```
 
-For example:
+例如：
 
 ```yml
 plugins.security.audit.config.disabled_rest_categories: AUTHENTICATED, opensearch_SECURITY_INDEX_ATTEMPT
 plugins.security.audit.config.disabled_transport_categories: GRANTED_PRIVILEGES
 ```
 
-If you want to log events in all categories, use `NONE`:
+如果要在所有类别中记录事件，请使用`NONE`：
 
 ```yml
 plugins.security.audit.config.disabled_rest_categories: NONE
@@ -92,9 +92,9 @@ plugins.security.audit.config.disabled_transport_categories: NONE
 ```
 
 
-#### Disable REST or the transport layer
+#### 禁用休息或运输层
 
-By default, the Security plugin logs events on both REST and the transport layer. You can disable either type:
+默认情况下，安全插件在REST和运输层上都记录事件。您可以禁用任何一种类型：
 
 ```yml
 plugins.security.audit.config.enable_rest: false
@@ -102,20 +102,20 @@ plugins.security.audit.config.enable_transport: false
 ```
 
 
-#### Disable request body logging
+#### 禁用请求身体记录
 
-By default, the Security plugin includes the body of the request (if available) for both REST and the transport layer. If you do not want or need the request body, you can disable it:
+默认情况下，安全插件包括REST和运输层的请求正文（如果有）。如果您不需要或需要请求主体，则可以将其禁用：
 
 ```yml
 plugins.security.audit.config.log_request_body: false
 ```
 
 
-#### Log index names
+#### 日志索引名称
 
-By default, the Security plugin logs all indexes affected by a request. Because index names can be aliases and contain wildcards/date patterns, the Security plugin logs the index name that the user submitted *and* the actual index name to which it resolves.
+默认情况下，安全插件记录所有受请求影响的索引。由于索引名称可以是别名并且包含通配符/日期模式，因此安全插件记录了用户提交的 *和 *其解决的实际索引名称的索引名称。
 
-For example, if you use an alias or a wildcard, the audit event might look like:
+例如，如果您使用别名或通配符，审计事件可能看起来像：
 
 ```json
 audit_trace_indices: [
@@ -126,41 +126,41 @@ audit_trace_resolved_indices: [
 ]
 ```
 
-You can disable this feature by setting:
+您可以通过设置禁用此功能：
 
 ```yml
 plugins.security.audit.config.resolve_indices: false
 ```
 
-This feature is only disabled if `plugins.security.audit.config.log_request_body` is also set to `false`.
-{: .note }
+此功能仅在`plugins.security.audit.config.log_request_body` 也设置为`false`。
+{： 。笔记 }
 
 
-#### Configure bulk request handling
+#### 配置批量请求处理
 
-Bulk requests can contain many indexing operations. By default, the Security plugin only logs the single bulk request, not each individual operation.
+批量请求可以包含许多索引操作。默认情况下，安全插件仅记录单个批量请求，而不是每个单独的操作。
 
-The Security plugin can be configured to log each indexing operation as a separate event:
+可以将安全插件配置为将每个索引操作记录为一个单独的事件：
 
 ```yml
 plugins.security.audit.config.resolve_bulk_requests: true
 ```
 
-This change can create an extremely large number of events in the audit logs, so we don't recommend enabling this setting if you frequently use the `_bulk` API.
+此更改可以在审核日志中创建大量的事件，因此，如果您经常使用该设置，我们不建议启用此设置`_bulk` API。
 
 
-#### Exclude requests
+#### 排除请求
 
-You can exclude certain requests from being logged by configuring actions for transport requests and/or HTTP request paths (REST):
+您可以通过为运输请求和/或HTTP请求路径配置操作来将某些请求排除在记录中（ret）：
 
 ```yml
 plugins.security.audit.config.ignore_requests: ["indices:data/read/*", "SearchRequest"]
 ```
 
 
-#### Exclude users
+#### 排除用户
 
-By default, the Security plugin logs events from all users but excludes the internal OpenSearch Dashboards server user `kibanaserver`. You can exclude other users:
+默认情况下，安全插件登录所有用户的事件，但不包括内部OpenSearch仪表板服务器用户`kibanaserver`。您可以排除其他用户：
 
 ```yml
 plugins.security.audit.config.ignore_users:
@@ -168,55 +168,56 @@ plugins.security.audit.config.ignore_users:
   - admin
 ```
 
-If requests from all users should be logged, use `NONE`:
+如果应记录所有用户的请求，请使用`NONE`：
 
 ```yml
 plugins.security.audit.config.ignore_users: NONE
 ```
 
 
-#### Exclude headers
+#### 排除标题
 
-You can exclude sensitive headers from being included in the logs---for example, the `Authorization:` header:
+您可以将敏感的标头排除在日志中---例如，`Authorization:` 标头：
 
 ```yml
 plugins.security.audit.config.exclude_sensitive_headers: true
 ```
 
 
-### Settings in opensearch.yml
+### opensearch.yml中的设置
 
-The following settings are stored in the `opensearch.yml` file.
+以下设置存储在`opensearch.yml` 文件。
 
 
-#### Configure the audit log index name
+#### 配置审核日志索引名称
 
-By default, the Security plugin stores audit events in a daily rolling index named `auditlog-YYYY.MM.dd`:
+默认情况下，安全插件将审计事件存储在名为的每日滚动索引中`auditlog-YYYY.MM.dd`：
 
 ```yml
 plugins.security.audit.config.index: myauditlogindex
 ```
 
-Use a date pattern in the index name to configure daily, weekly, or monthly rolling indexes:
+使用索引名称中的日期模式每天配置，每周或每月滚动索引：
 
 ```yml
 plugins.security.audit.config.index: "'auditlog-'YYYY.MM.dd"
 ```
 
-For a reference on the date pattern format, see the [Joda DateTimeFormat documentation](https://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html).
+有关日期模式格式的参考，请参见[Joda DateTimeFormat文档](https://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html)。
 
 
-#### (Advanced) Tune the thread pool
+#### （高级）调整线程池
 
-The Search plugin logs events asynchronously, which minimizes the performance impact on your cluster. The plugin uses a fixed thread pool to log events:
+搜索插件异步地记录事件，从而最大程度地减少了对群集的性能影响。该插件使用固定的线程池进行日志事件：
 
 ```yml
 plugins.security.audit.config.threadpool.size: <integer>
 ```
 
-The default setting is `10`. Setting this value to `0` disables the thread pool, which means the plugin logs events synchronously. To set the maximum queue length per thread:
+默认设置为`10`。将此值设置为`0` 禁用线程池，这意味着插件同步记录事件。要设置每个线程的最大队列长度：
 
 ```yml
 plugins.security.audit.config.threadpool.max_queue_len: 100000
 ```
+
 

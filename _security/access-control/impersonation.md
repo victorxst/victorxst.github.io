@@ -1,25 +1,25 @@
 ---
 layout: default
-title: User impersonation
-parent: Access control
+title: 用户模仿
+parent: 访问控制
 nav_order: 100
 redirect_from:
  - /security/access-control/impersonation/
  - /security-plugin/access-control/impersonation/
 ---
 
-# User impersonation
+# 用户模仿
 
-User impersonation allows specially privileged users to act as another user without knowledge of nor access to the impersonated user's credentials.
+用户模仿允许特别特权用户充当另一个用户，而不了解或访问假冒用户的凭据。
 
-Impersonation can be useful for testing and troubleshooting, or for allowing system services to safely act as a user.
+模仿对于测试和故障排除或允许系统服务安全充当用户可能是有用的。
 
-Impersonation can occur on either the REST interface or at the transport layer.
+在休息界面或运输层上可能发生模拟。
 
 
-## REST interface
+## REST接口
 
-To allow one user to impersonate another, add the following to `opensearch.yml`:
+要允许一个用户模仿另一个用户，请将以下内容添加到`opensearch.yml`：
 
 ```yml
 plugins.security.authcz.rest_impersonation_user:
@@ -28,12 +28,12 @@ plugins.security.authcz.rest_impersonation_user:
     - <IMPERSONATED_USER_2>
 ```
 
-The impersonated user field supports wildcards. Setting it to `*` allows `AUTHENTICATED_USER` to impersonate any user.
+模仿的用户领域支持通配符。设置为`*` 允许`AUTHENTICATED_USER` 冒充任何用户。
 
 
-## Transport interface
+## 运输界面
 
-In a similar fashion, add the following to enable transport layer impersonation:
+以类似的方式，添加以下内容以使运输层模仿：
 
 ```yml
 plugins.security.authcz.impersonation_dn:
@@ -42,10 +42,11 @@ plugins.security.authcz.impersonation_dn:
 ```
 
 
-## Impersonating Users
+## 模仿用户
 
-To impersonate another user, submit a request to the system with the HTTP header `opendistro_security_impersonate_as` set to the name of the user to be impersonated. A good test is to make a GET request to the `_plugins/_security/authinfo` URI:
+为了模拟另一个用户，请使用HTTP标头向系统提交请求`opendistro_security_impersonate_as` 设置为要模拟的用户名称。一个很好的测试是向`_plugins/_security/authinfo` URI：
 
 ```bash
 curl -XGET -u 'admin:admin' -k -H "opendistro_security_impersonate_as: user_1" https://localhost:9200/_plugins/_security/authinfo?pretty
 ```
+

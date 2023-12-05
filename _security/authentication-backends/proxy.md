@@ -1,138 +1,138 @@
 ---
 layout: default
-title: Proxy-based authentication
-parent: Authentication backends
+title: 基于代理的身份验证
+parent: 身份验证后端
 nav_order: 65
 redirect_from:
  - /security-plugin/configuration/proxy/
 ---
 
-# Proxy-based authentication
+# 基于代理的身份验证
 
-If you already have a single sign-on (SSO) solution in place, you might want to use it as an authentication backend.
+如果您已经有一个标志-在（SSO）解决方案上，您可能需要将其用作身份验证后端。
 
-Most solutions work as a proxy in front of OpenSearch and the Security plugin. If proxy authentication succeeds, the proxy adds the (verified) username and its (verified) roles in HTTP header fields. The names of these fields depend on the SSO solution you have in place.
+大多数解决方案在OpenSearch和Security插件面前充当代理。如果代理身份验证成功，则代理将在HTTP标头字段中添加（经过验证的）用户名及其（经过验证的）角色。这些字段的名称取决于您已经存在的SSO解决方案。
 
-The Security plugin then extracts these HTTP header fields from the request and uses the values to determine the user's permissions.
+然后，安全插件从请求中提取这些HTTP标头字段，并使用值来确定用户的权限。
 
 
-## Enable proxy detection
+## 启用代理检测
 
-To enable proxy detection for OpenSearch, configure it in the `xff` section of `config.yml`:
+要启用OpenSearch的代理检测，请在`xff` 部分`config.yml`：
 
 ```yml
 ---
-_meta:
-  type: "config"
-  config_version: 2
+_meta：
+  类型："config"
+  config_version：2
 
-config:
-  dynamic:
-    http:
-      anonymous_auth_enabled: false
-      xff:
-        enabled: true
-        internalProxies: '192\.168\.0\.10|192\.168\.0\.11'
-        remoteIpHeader: 'x-forwarded-for'
+配置：
+  动态的：
+    http：
+      anonymous_auth_enabled：false
+      XFF：
+        启用：true
+        internessproxies：'192 \ .168 \ .0 \ .10|192 \ .168 \ .0 \ .11'
+        遥不可说：'x-转发-为了'
 ```
 
-You can configure the following settings:
+您可以配置以下设置：
 
-Name | Description
-:--- | :---
-`enabled` | Enables or disables proxy support. Default is false.
-`internalProxies` | A regular expression containing the IP addresses of all trusted proxies. The pattern `.*` trusts all internal proxies.
-`remoteIpHeader` | Name of the HTTP header field that has the hostname chain. Default is `x-forwarded-for`.
+姓名| 描述
+：--- | ：---
+`enabled` | 启用或禁用代理支持。默认值为false。
+`internalProxies` | 包含所有受信任代理的IP地址的正则表达式。图案`.*` 信任所有内部代理。
+`remoteIpHeader` | 具有主机名链的HTTP标头字段的名称。默认为`x-forwarded-for`。
 
-To determine whether a request comes from a trusted internal proxy, the Security plugin compares the remote address of the HTTP request with the list of configured internal proxies.  If the remote address is not in the list, the plugin treats the request like a client request.
+为了确定请求是否来自受信任的内部代理，安全插件将HTTP请求的远程地址与已配置的内部代理列表进行比较。如果远程地址不在列表中，则插件将请求像客户端请求一样对待。
 
 
 ## Enable proxy authentication
 
-Configure the names of the HTTP header fields that carry the authenticated username and role(s) in in the `proxy` HTTP authenticator section:
+配置携带身份验证的用户名和角色的HTTP标头字段的名称`proxy` HTTP身份验证器部分：
 
 ```yml
-proxy_auth_domain:
-  http_enabled: true
-  transport_enabled: true
-  order: 0
-  http_authenticator:
-    type: proxy
-    challenge: false
-    config:
-      user_header: "x-proxy-user"
-      roles_header: "x-proxy-roles"
-  authentication_backend:
-    type: noop
+proxy_auth_domain：
+  http_enabled：true
+  transport_enabled：true
+  订单：0
+  http_authenticator：
+    类型：代理
+    挑战：错误
+    配置：
+      USER_HEADER："x-proxy-user"
+      Roles_header："x-proxy-roles"
+  Authentication_backend：
+    类型：noop
 ```
 
-Name | Description
-:--- | :---
-`user_header` | The HTTP header field containing the authenticated username. Default is `x-proxy-user`.
-`roles_header` | The HTTP header field containing the comma-separated list of authenticated role names. The Security plugin uses the roles found in this header field as backend roles. Default is `x-proxy-roles`.
-`roles_separator` | The separator for roles. Default is `,`.
+姓名| 描述
+：--- | ：---
+`user_header` | HTTP标头字段包含已认证的用户名。默认为`x-proxy-user`。
+`roles_header` | 包含逗号的HTTP标头字段-分离的身份验证的角色名称列表。该安全插件将在此标头字段中找到的角色作为后端角色。默认为`x-proxy-roles`。
+`roles_separator` | 角色分离器。默认为`,`。
 
 
 ## Enable extended proxy authentication
 
-The Security plugin has an extended version of the `proxy` type that lets you pass additional user attributes for use with document-level security. Aside from `type: extended-proxy` and `attr_header_prefix`, configuration is identical:
+安全插件具有扩展版本的`proxy` 键入可让您传递其他用户属性以供文档使用-级别的安全性。除了`type: extended-proxy` 和`attr_header_prefix`，配置是相同的：
 
 ```yml
-proxy_auth_domain:
-  http_enabled: true
-  transport_enabled: true
-  order: 0
-  http_authenticator:
-    type: extended-proxy
-    challenge: false
-    config:
-      user_header: "x-proxy-user"
-      roles_header: "x-proxy-roles"
-      attr_header_prefix: "x-proxy-ext-"
-  authentication_backend:
-    type: noop
+proxy_auth_domain：
+  http_enabled：true
+  transport_enabled：true
+  订单：0
+  http_authenticator：
+    类型：扩展-代理人
+    挑战：错误
+    配置：
+      USER_HEADER："x-proxy-user"
+      Roles_header："x-proxy-roles"
+      attr_header_prefix："x-proxy-ext-"
+  Authentication_backend：
+    类型：noop
 ```
 
-Name | Description
-:--- | :---
-`attr_header_prefix` | The header prefix that the proxy uses to provide user attributes. For example, if the proxy provides `x-proxy-ext-namespace: my-namespace`, use `${attr.proxy.namespace}` in document-level security queries.
+姓名| 描述
+：--- | ：---
+`attr_header_prefix` | 代理用来提供用户属性的标头前缀。例如，如果代理提供`x-proxy-ext-namespace: my-namespace`， 使用`${attr.proxy.namespace}` 在文档中-级别的安全查询。
 
 
 ## Example
 
-The following example uses an nginx proxy in front of a three-node OpenSearch cluster. For simplicity, we use hardcoded values for `x-proxy-user` and `x-proxy-roles`. In a real world example you would set these headers dynamically. The example also includes a commented header for use with the extended proxy.
+以下示例在三个前面使用nginx代理-节点OpenSearch集群。为简单起见，我们使用硬编码值`x-proxy-user` 和`x-proxy-roles`。在现实世界中，您将动态设置这些标题。该示例还包括一个评论的标题，可与扩展代理一起使用。
 
 ```
-events {
-  worker_connections  1024;
+事件{
+  Worker_connections 1024;
 }
 
 http {
 
-  upstream opensearch {
-    server node1.example.com:9200;
-    server node2.example.com:9200;
-    server node3.example.com:9200;
-    keepalive 15;
+  上游OpenSearch {
+    服务器node1.example.com:9200;
+    服务器node2.com:9200;
+    服务器node3.3200;
+    保存15;
   }
 
-  server {
-    listen       8090;
-    server_name  nginx.example.com;
+  服务器 {
+    听8090；
+    server_name nginx.example.com;
 
-    location / {
-      proxy_pass https://opensearch;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header x-proxy-user test;
-      proxy_set_header x-proxy-roles test;
-      #proxy_set_header x-proxy-ext-namespace my-namespace;
+    地点 / {
+      proxy_pass https：// opensearch;
+      proxy_set_header x-转发-对于$ proxy_add_x_forwarded_for;
+      proxy_set_header x-代理人-用户测试；
+      proxy_set_header x-代理人-角色测试；
+      #proxy_set_header x-代理人-分机-命名空间-名称空间；
     }
   }
 
 }
 ```
 
-The corresponding minimal `config.yml` looks like:
+相应的最小值`config.yml` 好像：
 
 ```yml
 ---
@@ -163,47 +163,48 @@ config:
           type: noop
 ```
 
-The important part is to enable the `X-Forwarded-For (XFF)` resolution and set the IP(s) of the internal proxies correctly:
+重要的部分是启用`X-Forwarded-For (XFF)` 解决方案并正确设置内部代理的IP：
 
 ```yml
 enabled: true
 internalProxies: '172.16.0.203' # nginx proxy
 ```
 
-In this case, `nginx.example.com` runs on `172.16.0.203`, so add this IP to the list of internal proxies. Be sure to set `internalProxies` to the minimum number of IP addresses so that the Security plugin only accepts requests from trusted IPs.
+在这种情况下，`nginx.example.com` 运行`172.16.0.203`，因此将此IP添加到内部代理列表中。确保设置`internalProxies` 至少IP地址数量，因此安全插件仅接受受信任IP的请求。
 
 
-## OpenSearch Dashboards proxy authentication
+## OpenSearch仪表板代理身份验证
 
-To use proxy authentication with OpenSearch Dashboards, the most common configuration is to place the proxy in front of OpenSearch Dashboards and let OpenSearch Dashboards pass the user and role headers to the Security plugin.
+要与OpenSearch仪表板一起使用代理身份验证，最常见的配置是将代理放置在OpenSearch仪表板的前面，并让OpenSearch搜索仪表板将用户和角色标头传递到安全插件。
 
-In this case, the remote address of the HTTP call is the IP of OpenSearch Dashboards, because it sits directly in front of OpenSearch. Add the IP of OpenSearch Dashboards to the list of internal proxies:
+在这种情况下，HTTP调用的远程地址是OpenSearch仪表板的IP，因为它直接位于OpenSearch的前面。将OpenSearch仪表板的IP添加到内部代理列表中：
 
 ```yml
 ---
-_meta:
-  type: "config"
-  config_version: 2
+_meta：
+  类型："config"
+  config_version：2
 
-config:
-  dynamic:
-    http:
-      xff:
-        enabled: true
-        remoteIpHeader: "x-forwarded-for"
-        internalProxies: '<opensearch-dashboards-ip-address>'
+配置：
+  动态的：
+    http：
+      XFF：
+        启用：true
+        遥控器："x-forwarded-for"
+        内部替代：'<OpenSearch-仪表板-IP-地址>'
 ```
 
-To pass the user and role headers that the authenticating proxy adds from OpenSearch Dashboards to the Security plugin, add them to the HTTP header allow list in `opensearch_dashboards.yml`:
+要将身份验证代理从OpenSearch仪表板添加到安全插件的用户和角色标头，请将其添加到HTTP标头中`opensearch_dashboards.yml`：
 
 ```yml
-opensearch.requestHeadersAllowlist: ["securitytenant","Authorization","x-forwarded-for","x-proxy-user","x-proxy-roles"]
+opensearch.requestheadersallowlist：["securitytenant"，，，，"Authorization"，，，，"x-forwarded-for"，，，，"x-proxy-user"，，，，"x-proxy-roles"这是给出的
 ```
 
-You must also enable the authentication type in `opensearch_dashboards.yml`:
+您还必须启用身份验证类型`opensearch_dashboards.yml`：
 
 ```yml
-opensearch_security.auth.type: "proxy"
-opensearch_security.proxycache.user_header: "x-proxy-user"
-opensearch_security.proxycache.roles_header: "x-proxy-roles"
+opensearch_security.auth.type："proxy"
+opensearch_security.proxycache.user_header："x-proxy-user"
+opensearch_security.proxycache.roles_header："x-proxy-roles"
 ```
+

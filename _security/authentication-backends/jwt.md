@@ -1,40 +1,40 @@
 ---
 layout: default
-title: JSON Web Token
-parent: Authentication backends
+title: JSON网络令牌
+parent: 身份验证后端
 nav_order: 47
 redirect_from:
 ---
 
 
-# JSON Web Token
+# JSON网络令牌
 
-JSON Web Tokens (JWTs) are JSON-based access tokens that assert one or more claims. They are commonly used to implement single sign-on (SSO) solutions and fall in the category of token-based authentication systems. The basic information-transmission and identity-verification lifecycle for a JWT is described in the following steps:
+JSON Web令牌（JWTS）是JSON-主张一个或多个主张的基于访问令牌。它们通常用于实现单个标志-在（SSO）解决方案上，属于令牌类别-基于身份验证系统。基本信息-传输和身份-以下步骤描述了JWT的验证生命周期：
 
-1. A user logs in to an authentication server by providing credentials (for example, a username and password).
-1. The authentication server validates the credentials.
-1. The authentication server creates an access token and signs it.
-1. The authentication server returns the token to the user.
-1. The user stores the access token.
-1. The user sends the access token alongside every request to the service that it wants to use.
-1. The service verifies the token and grants or denies access.
-1. With granted access, the user has access until the expiration time of the token. The expiration time is typically set by the issuer in the token's payload.
+1. 用户通过提供凭据（例如，用户名和密码）来登录身份验证服务器。
+1. 身份验证服务器验证凭据。
+1. 身份验证服务器创建访问令牌并签名。
+1. 身份验证服务器将令牌返回给用户。
+1. 用户存储访问令牌。
+1. 用户将访问令牌与每个请求一起发送到要使用的服务。
+1. 该服务将验证令牌和赠款或拒绝访问权限。
+1. 通过授予访问权限，用户可以访问到令牌的到期时间。到期时间通常由发行人在令牌有效载荷中设置。
 
-A JWT is self-contained in the sense that it carries within it all of the information necessary to verify a user. The tokens are base64-encoded, signed JSON objects.
-
-
-## JWT elements
-
-JWTs consist of three parts:
-
-* Header
-* Payload
-* Signature
+JWT是自我的-从某种意义上说，它包含在其中验证用户所需的所有信息。令牌是base64-编码，签名的JSON对象。
 
 
-### Header
+## JWT元素
 
-The header contains information about the signing mechanism being used, including the algorithm used for encoding the token. The following example shows typical properties and values for the header:
+JWT由三个部分组成：
+
+*标题
+*有效载荷
+* 签名
+
+
+### 标题
+
+标题包含有关正在使用的签名机制的信息，包括用于编码令牌的算法。以下示例显示了标头的典型属性和值：
 
 ```json
 {
@@ -43,20 +43,20 @@ The header contains information about the signing mechanism being used, includin
 }
 ```
 
-In this case, the header states that the message was signed using the hashing algorithm HMAC-SHA256.
+在这种情况下，标题指出该消息是使用Hashing算法HMAC签署的-SHA256。
 
 
-### Payload
+### 有效载荷
 
-The payload of a JWT contains the [JWT claims](https://auth0.com/docs/secure/tokens/json-web-tokens/json-web-token-claims). A claim is a piece of information about a user of the token that serves as a unique identifier. This allows the issuer of the token to verify identity. Claims are name-value pairs, and a payload typically includes multiple claims. While the options for adding claims are numerous, it is a good practice to avoid adding too many and making the payload excessively large, which would defeat the purpose of the JWT being compact.
+JWT的有效载荷包含[JWT声称](https://auth0.com/docs/secure/tokens/json-web-tokens/json-web-token-claims)。索赔是有关令牌用户的一条信息，它用作唯一的标识符。这允许令牌的发行人验证身份。索赔是名字-价值对，有效载荷通常包括多个索赔。虽然增加索赔的选项很多，但避免添加太多并使有效载荷过大的习惯是一种很好的做法，这将使JWT紧凑的目的失败。
 
-There are three types of claims:
+主张有三种类型：
 
-* [Registered claims](https://www.iana.org/assignments/jwt/jwt.xhtml#claims) are defined by the JWT specification and comprise a set of standard claims with reserved names. Some examples of these claims include token issuer (iss), expiration time (exp), and subject (sub).
-* Public claims, on the other hand, are defined at the will of the parties sharing the token. They can contain arbitrary information, such as the username and the roles of the user. As a precaution, the specification advises either registering the name or, at least, ensuring that the name is [collision resistant](https://www.rfc-editor.org/rfc/rfc7519#section-4.2) with other claims.
-* Private claims provide another option for assigning custom information to the payload: for example, an email address. As such, they are also referred to as _custom_ claims. The two parties sharing the token must agree on their use because they are considered to be neither registered nor public claims. 
+*[注册索赔](https://www.iana.org/assignments/jwt/jwt.xhtml#claims) 由JWT规范定义，并包括一组带有保留名称的标准索赔。这些主张的一些示例包括令牌发行人（ISS），到期时间（EXP）和主题（Sub）。
+*另一方面，公开索赔是在共享令牌的各方的意愿下定义的。它们可以包含任意信息，例如用户的用户名和角色。为了预防措施，该规范建议注册该名称，或者至少确保名称为[抵抗碰撞](https://www.rfc-editor.org/rfc/rfc7519#section-4.2) 与其他主张。
+*私人索赔提供了将自定义信息分配给有效载荷的另一种选择：例如，电子邮件地址。因此，它们也称为_custom_索赔。共享令牌的双方必须同意他们的使用，因为他们既不是注册也不是公开索赔。
 
-The following example shows these JSON properties as name-value pairs:
+以下示例将这些JSON属性显示为名称-价值对：
 
 ```json
 {
@@ -67,11 +67,11 @@ The following example shows these JSON properties as name-value pairs:
 }
 ```
 
-### Signature
+### 签名
 
-The issuer of the token generates the token's signature by applying a cryptographic hash function to the base64-encoded header and payload. The client receiving the JWT decrypts and validates this signature in the final step of transmission.
+令牌的发行人通过将加密哈希函数应用于base64来生成令牌的签名-编码标头和有效载荷。接收JWT解密并在传输的最后一步中验证此签名的客户。
 
-These three parts---header, payload, and signature---are concatenated using periods to form a complete JWT:
+这三个部分---标题，有效载荷和签名---使用时期串联以形成完整的JWT：
 
 ```
 encoded = base64UrlEncode(header) + "." + base64UrlEncode(payload)
@@ -79,18 +79,18 @@ signature = HMACSHA256(encoded, 'secretkey');
 jwt = encoded + "." + base64UrlEncode(signature)
 ```
 
-Example:
+例子：
 ```
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2Mzh9.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI
 ```
 
 
-## Configuring JWTs
+## 配置JWT
 
-If you use a JWT as your only authentication method, disable the user cache by setting the `plugins.security.cache.ttl_minutes` property to `0`. For more information about this property, see [opensearch.yml]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#opensearchyml).
-{: .important }
+如果使用JWT作为唯一的身份验证方法，请通过设置用户缓存来禁用用户缓存`plugins.security.cache.ttl_minutes` 财产为`0`。有关此属性的更多信息，请参阅[opensearch.yml]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#opensearchyml)。
+{： 。重要的 }
 
-Set up an authentication domain and choose `jwt` as the HTTP authentication type. Because the tokens already contain all required information to verify the request, `challenge` must be set to `false` and `authentication_backend` to `noop`:
+设置身份验证域并选择`jwt` 作为HTTP身份验证类型。由于令牌已经包含所有必需的信息来验证请求，所以`challenge` 必须设置为`false` 和`authentication_backend` 到`noop`：
 
 ```yml
 jwt_auth_domain:
@@ -111,23 +111,23 @@ jwt_auth_domain:
 I    type: noop
 ```
 
-The following table lists the configuration parameters.
+下表列出了配置参数。
 
-Name | Description
-:--- | :---
-`signing_key` | The signing key to use when verifying the token. If you use a symmetric key algorithm, it is the base64-encoded shared secret. If you use an asymmetric algorithm, it contains the public key.
-`jwt_header` | The HTTP header in which the token is transmitted. This is typically the `Authorization` header with the `Bearer` schema: `Authorization: Bearer <token>`. Default is `Authorization`.
-`jwt_url_parameter` | If the token is not transmitted in the HTTP header but rather as an URL parameter, define the name of the parameter here.
-`subject_key` | The key in the JSON payload that stores the username. If not set, the [subject](https://tools.ietf.org/html/rfc7519#section-4.1.2) registered claim is used.
-`roles_key` | The key in the JSON payload that stores the user's roles. The value of this key must be a comma-separated list of roles.
-`jwt_clock_skew_tolerance_seconds` | Sets a window of time, in seconds, to compensate for any disparity between the JWT authentication server and OpenSearch node clock times, thereby preventing authentication failures due to the misalignment. Security sets 30 seconds as the default. Use this setting to apply a custom value.
+姓名| 描述
+：--- | ：---
+`signing_key` | 验证令牌时要使用的签名键。如果使用对称密钥算法，则是base64-编码共享的秘密。如果您使用不对称算法，则包含公共密钥。
+`jwt_header` | 将令牌传输的HTTP标头。这通常是`Authorization` 标题与`Bearer` 模式：`Authorization: Bearer <token>`。默认为`Authorization`。
+`jwt_url_parameter` | 如果代币不是在HTTP标头中传输的，而是在URL参数中传输，请在此处定义参数的名称。
+`subject_key` | 存储用户名的JSON有效载荷中的密钥。如果未设置，[主题](https://tools.ietf.org/html/rfc7519#section-4.1.2) 使用注册索赔。
+`roles_key` | JSON有效负载中存储用户角色的钥匙。该密钥的价值必须是逗号-分开的角色列表。
+`jwt_clock_skew_tolerance_seconds` | 在几秒钟内设置一个时间窗口，以弥补JWT身份验证服务器和OpenSearch节点时钟时间之间的任何差异，从而防止由于未对准而导致身份验证故障。安全设置为30秒为默认值。使用此设置应用自定义值。
 
-Because JWTs are self-contained and the user is authenticated at the HTTP level, no additional `authentication_backend` is needed. Set this value to `noop`.
+因为JWT是自我-包含并在HTTP级别进行身份验证，没有其他`authentication_backend` 需要。将此值设置为`noop`。
 
 
-### Symmetric key algorithms: HMAC
+### 对称密钥算法：HMAC
 
-Hash-based message authentication codes (HMACs) are a group of algorithms that provide a way of signing messages by means of a shared key. The key is shared between the authentication server and the Security plugin. It must be configured as a base64-encoded value in the `signing_key` setting:
+哈希-基于消息身份验证代码（HMACS）是一组算法，可提供一种通过共享密钥签名消息的方法。密钥在身份验证服务器和安全插件之间共享。它必须配置为base64-编码值`signing_key` 环境：
 
 ```yml
 jwt_auth_domain:
@@ -138,13 +138,13 @@ jwt_auth_domain:
 ```
 
 
-### Asymmetric key algorithms: RSA and ECDSA
+### 非对称密钥算法：RSA和ECDSA
 
-RSA and ECDSA are asymmetric encryption and digital signature algorithms that use a public/private key pair to sign and verify tokens. This means that they use a private key for signing the token, while the Security plugin needs to know only the public key to verify it.
+RSA和ECDA是不对称的加密和数字签名算法，使用公共/私钥对签名和验证令牌。这意味着他们使用私钥签名令牌，而安全插件只需要知道公共密钥来验证它。
 
-Because you cannot issue new tokens with the public key---and because you can make valid assumptions about the creator of the token---RSA and ECDSA are considered to be more secure than HMAC.
+因为您无法使用公钥发布新令牌---而且因为您可以对代币的创建者做出有效的假设---RSA和ECDA被认为比HMAC更安全。
 
-To use RS256, you need to configure only the (non-base64-encoded) public RSA key as the `signing_key` in the JWT configuration:
+要使用RS256，您需要仅配置（非-基础64-编码）公共RSA密钥作为`signing_key` 在JWT配置中：
 
 ```yml
 jwt_auth_domain:
@@ -157,25 +157,25 @@ jwt_auth_domain:
       ...
 ```
 
-The Security plugin automatically detects the algorithm (RSA/ECDSA). If necessary, you can break the key into multiple lines.
+安全插件自动检测算法（RSA/ECDSA）。如有必要，您可以将密钥分解为多行。
 
 
-### Bearer authentication for HTTP requests
+### HTTP请求的载体身份验证
 
-The most common way of transmitting a JWT in an HTTP request is to add it as an HTTP header with the bearer authentication schema:
+在HTTP请求中传输JWT的最常见方法是将其添加为带有载体身份验证模式的HTTP标头：
 
 ```
 Authorization: Bearer <JWT>
 ```
 
-The default name of the header is `Authorization`. If required by your authentication server or proxy, you can also use a different HTTP header name using the `jwt_header` configuration key.
+标题的默认名称是`Authorization`。如果您的身份验证服务器或代理需要，您也可以使用其他HTTP标头名称使用`jwt_header` 配置密钥。
 
-As with HTTP basic authentication, you should use HTTPS instead of HTTP when transmitting JWTs in HTTP requests.
+与HTTP基本身份验证一样，在HTTP请求中传输JWT时，应使用HTTP而不是HTTP。
 
 
-### URL parameters for HTTP requests
+### HTTP请求的URL参数
 
-Although the most common way to transmit JWTs in HTTP requests is to use a header field, the Security plugin also supports parameters. Configure the name of the `GET` parameter using the following key:
+尽管在HTTP请求中传输JWT的最常见方法是使用标头字段，但安全插件也支持参数。配置名称`GET` 使用以下键参数：
 
 ```yml
     config:
@@ -185,21 +185,21 @@ Although the most common way to transmit JWTs in HTTP requests is to use a heade
       roles_key: ...
 ```
 
-As with HTTP basic authentication, you should use HTTPS instead of HTTP.
+与HTTP基本身份验证一样，您应该使用HTTP而不是HTTP。
 
 
-### Validated registered claims
+### 经过验证的注册索赔
 
-The following registered claims are validated automatically:
+以下注册索赔会自动验证：
 
-* "iat" (Issued At) Claim
-* "nbf" (Not Before) Claim
-* "exp" (Expiration Time) Claim
+*"iat" （在）索赔
+*"nbf" （不是以前）
+*"exp" （到期时间）索赔
 
 
-### Supported formats and algorithms
+### 支持格式和算法
 
-The Security plugin supports digitally signed, compact JWTs with all standard algorithms:
+安全插件支持具有所有标准算法的数字签名，紧凑的JWT：
 
 ```
 HS256: HMAC using SHA-256
@@ -217,13 +217,13 @@ ES512: ECDSA using P-521 and SHA-512
 ```
 
 
-## Using a JWKS endpoint to validate a JWT
+## 使用JWKS端点验证JWT
 
-Validating the signature of the signed JWT is the last step in granting user access. OpenSearch validates the signature when the client sends the JWT with a REST request. The signature is verified in every authentication request.
+验证签名JWT的签名是授予用户访问的最后一步。OpenSearch通过REST请求发送JWT时验证签名。在每个身份验证请求中验证签名。
 
-Rather than store the cryptographic key used for validation in the local `config.yml` file's `authc` section, you can specify a JSON Web Key Set (JWKS) endpoint to retrieve the key from its location on the issuer's server. This method of validating the JWT can help streamline management of public keys and certificates.
+而不是存储用于验证的加密密钥`config.yml` 文件的`authc` 部分，您可以指定JSON Web密钥集（JWKS）端点，以从发行者服务器上的位置检索键。这种验证JWT的方法可以帮助简化公共钥匙和证书的管理。
 
-In OpenSearch, this method of validation makes use of the [OpenID Connect authentication domain configuration]({{site.url}}{{site.baseurl}}/security/authentication-backends/openid-connect/#configure-openid-connect-integration). To specify the JWKS endpoint, replace the `openid_connect_url` setting in the configuration with the `jwks_uri` setting and add the URL to the setting as its value. This is shown in the following example:
+在OpenSearch中，这种验证方法利用了[OpenID连接身份验证域配置]({{site.url}}{{site.baseurl}}/security/authentication-backends/openid-connect/#configure-openid-connect-integration)。要指定JWKS端点，请替换`openid_connect_url` 用配置设置`jwks_uri` 设置并将URL添加到设置为其值。这在以下示例中显示：
 
 ```yml
 openid_auth_domain:
@@ -241,22 +241,22 @@ openid_auth_domain:
     type: noop
 ```
 
-The endpoint should be documented by the JWT issuer. You can use it to retrieve the keys needed to validate the signed JWT. For more information about the content and format of JSON Web Keys, see [JSON Web Key (JWK) format](https://datatracker.ietf.org/doc/html/rfc7517#section-4).
+端点应由JWT发行人记录。您可以使用它来检索验证签名的JWT所需的密钥。有关JSON Web键的内容和格式的更多信息，请参见[JSON Web密钥（JWK）格式](https://datatracker.ietf.org/doc/html/rfc7517#section-4)。
 
 
-## Troubleshooting common issues
+## 解决常见问题
 
-This section details how to troubleshoot common issues with your security configuration.
-
-
-### Verify correct claims
-
-Ensure that the JWT token contains the correct `iat` (issued at), `nbf` (not before), and `exp` (expiry) claims, all of which OpenSearch validates automatically.
+本节详细介绍了如何使用安全配置解决常见问题。
 
 
-### JWT URL parameter
+### 验证正确的索赔
 
-When using the JWT URL parameter containing the default admin role `all_access` (for example, `curl http://localhost:9200?jwtToken=<jwt-token>`), the request fails and throws the following error:
+确保JWT令牌包含正确的`iat` （发出于），`nbf` （不是之前），`exp` （有效期）索赔，所有这些索引都会自动验证。
+
+
+### JWT URL参数
+
+使用包含默认管理角色的JWT URL参数时`all_access` （例如，`curl http://localhost:9200?jwtToken=<jwt-token>`），请求失败并引发以下错误：
 
 ```json
 {
@@ -274,22 +274,23 @@ When using the JWT URL parameter containing the default admin role `all_access` 
 }
 ```
 
-To correct this, ensure that the role `all_access` is mapped directly to the internal user and not to a backend role. To do this, navigate to **Security > Roles > all_access** and select the **Mapped users** tab. Select **Manage mapping** and add "admin" to the **Users** section.
+要纠正这一点，请确保角色`all_access` 直接映射到内部用户，而不是后端角色。为此，导航到**安全>角色> all_access** 并选择**映射的用户** 标签。选择**管理映射** 并添加"admin" 到**用户** 部分。
 
-![image](https://user-images.githubusercontent.com/5849965/179158704-b2bd6d48-8816-4b03-a960-8c612465cf75.png)
+![图像](https://user-images.githubusercontent.com/5849965/179158704-b2bd6d48-8816-4b03-a960-8c612465cf75.png)
 
-The user should then appear on the **Mapped Users** tab.
+然后，用户应出现在**映射的用户** 标签。
 
-![image](https://user-images.githubusercontent.com/5849965/179158750-1bb5e232-dd61-449a-a561-0613b71bfd68.png)
+![图像](https://user-images.githubusercontent.com/5849965/179158750-1bb5e232-dd61-449a-a561-0613b71bfd68.png)
 
 
-### OpenSearch Dashboards configuration
+### OpenSearch仪表板配置
 
-Even though JWT URL parameter authentication works when querying OpenSearch directly, it fails when used to access OpenSearch Dashboards. 
+即使直接查询OpenSearch时，JWT URL参数身份验证有效，但用于访问OpenSearch仪表板时，它会失败。
 
-**Solution:** Ensure the following lines are present in the `opensearch_dashboards.yml` configuration file:
+**解决方案：** 确保存在以下几行`opensearch_dashboards.yml` 配置文件：
 
 ```yml
 opensearch_security.auth.type: "jwt"
 opensearch_security.jwt.url_param: <your-param-name-here>
 ```
+

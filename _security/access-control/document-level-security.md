@@ -1,23 +1,23 @@
 ---
 layout: default
-title: Document-level security
-parent: Access control
+title: 文档-级别的安全性
+parent: 访问控制
 nav_order: 85
 redirect_from:
  - /security/access-control/document-level-security/
  - /security-plugin/access-control/document-level-security/
 ---
 
-# Document-level security (DLS)
+# 文档-级别安全性（DLS）
 
-Document-level security lets you restrict a role to a subset of documents in an index. The easiest way to get started with document- and field-level security is to open OpenSearch Dashboards and choose **Security**. Then choose **Roles**, create a new role, and review the **Index permissions** section.
+文档-级别的安全性使您可以将角色限制为索引中的文档子集。开始文档的最简单方法- 和字段-级别安全是打开OpenSearch仪表板，然后选择**安全**。然后选择**角色**，创建一个新角色，并审查**指数许可** 部分。
 
-![Document- and field-level security screen in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/security-dls.png)
+![文档- 和字段-OpenSearch仪表板中的级别安全屏幕]({{site.url}}{{site.baseurl}}/images/security-dls.png)
 
 
-## Simple roles
+## 简单的角色
 
-Document-level security uses the OpenSearch query DSL to define which documents a role grants access to. In OpenSearch Dashboards, choose an index pattern and provide a query in the **Document level security** section:
+文档-Level Security使用OpenSearch查询DSL来定义哪些记录角色授予访问权限。在OpenSearch仪表板中，选择索引模式并在**文档级别的安全性** 部分：
 
 ```json
 {
@@ -31,11 +31,11 @@ Document-level security uses the OpenSearch query DSL to define which documents 
 }
 ```
 
-This query specifies that for the role to have access to a document, its `genres` field must include `Comedy`.
+此查询指定该角色可以访问文档，`genres` 字段必须包括`Comedy`。
 
-A typical request to the `_search` API includes `{ "query": { ... } }` around the query, but in this case, you only need to specify the query itself.
+对`_search` API包括`{ "query": { ... } }` 在查询周围，但是在这种情况下，您只需要指定查询本身即可。
 
-In the REST API, you provide the query as a string, so you must escape your quotes. This role allows a user to read any document in any index with the field `public` set to `true`:
+在其余API中，您将查询作为字符串提供，因此您必须逃脱引号。此角色允许用户读取字段中任何索引中的任何文档`public` 设置`true`：
 
 ```json
 PUT _plugins/_security/api/roles/public_data
@@ -55,14 +55,14 @@ PUT _plugins/_security/api/roles/public_data
 }
 ```
 
-These queries can be as complex as you want, but we recommend keeping them simple to minimize the performance impact that the document-level security feature has on the cluster.
-{: .warning }
+这些查询可能会随意进行复杂，但我们建议保持它们简单，以最大程度地减少文档的性能影响-级别安全功能在集群上。
+{： 。警告 }
 
-### A note on Unicode special characters in text fields
+### 关于文本字段中Unicode特殊字符的注释
 
-Due to word boundaries associated with Unicode special characters, the Unicode standard analyzer cannot index a [text field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text/) value as a whole value when it includes one of these special characters. As a result, a text field value that includes a special character is parsed by the standard analyzer as multiple values separated by the special character, effectively tokenizing the different elements on either side of it. This can lead to unintentional filtering of documents and potentially compromise control over their access.
+由于与Unicode特殊字符相关的单词边界，Unicode标准分析仪无法索引[文本字段类型]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text/) 当包含这些特殊字符之一时，值为整体值。结果，标准分析仪将包含特殊字符的文本字段值解析为由特殊字符隔开的多个值，从而有效地将其两侧的不同元素示意。这可能导致对文档的无意过滤，并可能损害其访问权限的控制。
 
-The examples below illustrate values containing special characters that will be parsed improperly by the standard analyzer. In this example, the existence of the hyphen/minus sign in the value prevents the analyzer from distinguishing between the two different users for `user.id` and interprets them as one and the same:
+下面的示例说明了包含特殊字符的值，这些值将由标准分析仪不正确地解析。在此示例中，该值中连字符/减号的存在阻止分析仪区分两个不同的用户`user.id` 并将它们解释为同一：
 
 ```json
 {
@@ -88,16 +88,16 @@ The examples below illustrate values containing special characters that will be 
 }
 ```
 
-To avoid this circumstance when using either Query DSL or the REST API, you can use a custom analyzer or map the field as `keyword`, which performs an exact-match search. See [Keyword field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/) for the latter option.
+为了避免使用查询DSL或REST API时，您可以使用自定义分析仪或将字段映射为`keyword`，执行确切的-匹配搜索。看[关键字字段类型]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/) 对于后一个选项。
 
-For a list of characters that should be avoided when field type is `text`, see [Word Boundaries](https://unicode.org/reports/tr29/#Word_Boundaries).
+对于当字段类型为时应避免的字符列表`text`， 看[单词边界](https://unicode.org/reports/tr29/#Word_Boundaries)。
 
 
-## Parameter substitution
+## 参数替代
 
-A number of variables exist that you can use to enforce rules based on the properties of a user. For example, `${user.name}` is replaced with the name of the current user.
+存在许多变量，您可以根据用户的属性来执行规则。例如，`${user.name}` 被当前用户的名称替换。
 
-This rule allows a user to read any document where the username is a value of the `readable_by` field:
+该规则允许用户读取任何文档，其中用户名是`readable_by` 场地：
 
 ```json
 PUT _plugins/_security/api/roles/user_data
@@ -117,23 +117,23 @@ PUT _plugins/_security/api/roles/user_data
 }
 ```
 
-This table lists substitutions.
+该表列出了替换。
 
-Term | Replaced with
-:--- | :---
-`${user.name}` | Username.
-`${user.roles}` | A comma-separated, quoted list of user backend roles.
-`${user.securityRoles}` | A comma-separated, quoted list of user security roles. 
-`${attr.<TYPE>.<NAME>}` | An attribute with name `<NAME>` defined for a user. `<TYPE>` is `internal`, `jwt`, `proxy` or `ldap`
+学期| 取代
+：--- | ：---
+`${user.name}` | 用户名。
+`${user.roles}` | 逗号-分开，引用用户后端角色列表。
+`${user.securityRoles}` | 逗号-分开，引用用户安全角色列表。
+`${attr.<TYPE>.<NAME>}` | 名称的属性`<NAME>` 为用户定义。`<TYPE>` 是`internal`，，，，`jwt`，，，，`proxy` 或者`ldap`
 
 
-## Attribute-based security
+## 属性-基于安全性
 
-You can use roles and parameter substitution with the `terms_set` query to enable attribute-based security.
+您可以使用角色和参数替代`terms_set` 查询启用属性-基于安全性。
 
-> Note that the `security_attributes` of the index need to be of type `keyword`.
+> 请注意`security_attributes` 索引的类型需要`keyword`。
 
-#### User definition
+#### 用户定义
 
 ```json
 PUT _plugins/_security/api/internalusers/user1
@@ -146,7 +146,7 @@ PUT _plugins/_security/api/internalusers/user1
 }
 ```
 
-#### Role definition
+#### 角色定义
 
 ```json
 PUT _plugins/_security/api/roles/abac
@@ -162,26 +162,27 @@ PUT _plugins/_security/api/roles/abac
   }]
 }
 ```
-## Use term-level lookup queries (TLQs) with DLS 
+## 使用术语-带DLS的Level Lookup查询（TLQ）
 
-You can perform term-level lookup queries (TLQs) with document-level security (DLS) using either of two modes: adaptive or filter level. The default mode is adaptive, where OpenSearch automatically switches between Lucene-level or filter-level mode depending on whether or not there is a TLQ. DLS queries without TLQs are executed in Lucene-level mode, whereas DLS queries with TLQs are executed in filter-level mode.
+您可以执行术语-带文档的级别查找查询（TLQ）-使用两种模式之一：自适应或过滤器级别。默认模式是自适应的，其中OpenSearch自动在Lucene之间切换-级别或过滤器-级别模式取决于是否有TLQ。Lucene执行了没有TLQ的DLS查询-级别模式，而在过滤器中执行了带有TLQ的DLS查询-级别模式。
 
-By default, the Security plugin detects if a DLS query contains a TLQ or not and chooses the appropriate mode automatically at runtime.
+默认情况下，安全插件检测到DLS查询是否包含TLQ，并在运行时自动选择适当的模式。
 
-To learn more about OpenSearch queries, see [Term-level queries]({{site.url}}{{site.baseurl}}/query-dsl/term/index/).
+要了解有关OpenSearch查询的更多信息，请参阅[学期-级查询]({{site.url}}{{site.baseurl}}/query-dsl/term/index/)。
 
-### How to set the DLS evaluation mode in `opensearch.yml`
+### 如何在`opensearch.yml`
 
-By default, the DLS evaluation mode is set to `adaptive`. You can also explicitly set the mode in `opensearch.yml` with the `plugins.security.dls.mode` setting. Add a line to `opensearch.yml` with the desired evaluation mode. 
-For example, to set it to filter level, add this line:
+默认情况下，DLS评估模式设置为`adaptive`。您也可以明确设置模式`opensearch.yml` 与`plugins.security.dls.mode` 环境。添加一条线`opensearch.yml` 具有所需的评估模式。
+例如，要将其设置为过滤级别，请添加以下行：
 ```
 plugins.security.dls.mode: filter-level
 ```
 
-#### DLS evaluation modes
+#### DLS评估模式
 
-| Evaluation mode | Parameter | Description | Usage |
-:--- | :--- | :--- | :--- |
-Lucene-level DLS | `lucene-level` | This setting makes all DLS queries apply to the Lucene level. | Lucene-level DLS modifies Lucene queries and data structures directly. This is the most efficient mode but does not allow certain advanced constructs in DLS queries, including TLQs.
-Filter-level DLS | `filter-level` | This setting makes all DLS queries apply to the filter level. | In this mode, OpenSearch applies DLS by modifying queries that OpenSearch receives. This allows for term-level lookup queries in DLS queries, but you can only use the `get`, `search`, `mget`, and `msearch` operations to retrieve data from the protected index. Additionally, cross-cluster searches are limited with this mode.
-Adaptive | `adaptive-level` | The default setting that allows OpenSearch to automatically choose the mode. | DLS queries without TLQs are executed in Lucene-level mode, while DLS queries that contain TLQ are executed in filter- level mode.
+| 评估模式| 范围| 描述| 用法|
+：--- | ：--- | ：--- | ：--- |
+露西恩-DLS级| `lucene-level` | 此设置使所有DLS查询都适用于Lucene级别。| 露西恩-级别DLS直接修改Lucene查询和数据结构。这是最有效的模式，但不允许在包括TLQ在内的DLS查询中某些高级构造。
+筛选-DLS级| `filter-level` | 此设置使所有DLS查询都应用于过滤器级别。| 在此模式下，OpenSearch通过修改OpenSearch收到的查询来应用DLS。这允许术语-DLS查询中的Level查找查询，但您只能使用`get`，，，，`search`，，，，`mget`， 和`msearch` 从保护索引中检索数据的操作。另外，交叉-群集搜索在此模式下受到限制。
+自适应| `adaptive-level` | 允许OpenSearch自动选择模式的默认设置。| Lucene执行了没有TLQ的DLS查询-级别模式，而在过滤器中执行包含TLQ的DLS查询- 级别模式。
+

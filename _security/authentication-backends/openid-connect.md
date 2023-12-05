@@ -1,36 +1,36 @@
 ---
 layout: default
-title: OpenID Connect
-parent: Authentication backends
+title: OpenID连接
+parent: 身份验证后端
 nav_order: 50
 redirect_from:
   - /security-plugin/configuration/openid-connect/
 ---
 
-# OpenID Connect
+# OpenID连接
 
-The Security plugin can integrate with identify providers that use the OpenID Connect standard. This feature enables the following:
+安全插件可以与使用OpenID Connect标准的识别提供商集成。此功能可以启用以下内容：
 
-* Automatic configuration
+*自动配置
 
-  Point the Security plugin to the metadata of your identity provider (IdP), and the Security plugin uses that data for configuration.
+  将安全插件指向您的身份提供商（IDP）的元数据，安全插件使用该数据进行配置。
 
-* Automatic key fetching
+*自动钥匙提取
 
-  The Security plugin automatically retrieves the public key for validating the JSON Web Tokens (JWTs) from the JSON Web Key Set (JWKS) endpoint of your IdP. You don't have to configure keys or shared secrets in `config.yml`.
+  安全插件会自动检索从IDP的JSON Web密钥集（JWKS）端点验证JSON Web令牌（JWTS）的公共密钥。您不必在`config.yml`。
 
-* Key rollover
+*钥匙翻转
 
-  You can change the keys used for signing the JWTs directly in your IdP. If the Security plugin detects an unknown key, it tries to retrieve it from the IdP. This rollover is transparent to the user.
+  您可以更改直接在IDP中签名JWT的键。如果安全插件检测到未知键，它将尝试从IDP检索。此翻转对用户是透明的。
 
-* OpenSearch Dashboards as single sign-on or as one option among multiple authentication types in the Dashboards sign-in window.
+* OpenSearch仪表板作为单个标志-在仪表板符号中多种身份验证类型中的一个选项或作为一个选项-在窗口中。
 
 
-## Configure OpenID Connect integration
+## 配置OpenID连接集成
 
-To integrate with an OpenID IdP, set up an authentication domain and choose `openid` as the HTTP authentication type. JWTs already contain all of the information required to verify the request, so set `challenge` to `false` and `authentication_backend` to `noop`.
+要与OpenID IDP集成，请设置身份验证域并选择`openid` 作为HTTP身份验证类型。JWTS已经包含验证请求所需的所有信息，因此设置`challenge` 到`false` 和`authentication_backend` 到`noop`。
 
-This is the minimal configuration:
+这是最小配置：
 
 ```yml
 openid_auth_domain:
@@ -48,30 +48,30 @@ openid_auth_domain:
     type: noop
 ```
 
-The following table shows the configuration parameters.
+下表显示了配置参数。
 
-Name | Description
-:--- | :---
-`openid_connect_url` | The URL of your IdP where the Security plugin can find the OpenID Connect metadata/configuration settings. This URL differs between IdPs. Required when using OpenID Connect as your backend.
-`jwt_header` | The HTTP header that stores the token. Typically the `Authorization` header with the `Bearer` schema: `Authorization: Bearer <token>`. Optional. Default is `Authorization`.
-`jwt_url_parameter` | If the token is not transmitted in the HTTP header, but as an URL parameter, define the name of the parameter here. Optional.
-`subject_key` | The key in the JSON payload that stores the user's name. If not defined, the [subject](https://tools.ietf.org/html/rfc7519#section-4.1.2) registered claim is used. Most IdP providers use the `preferred_username` claim. Optional.
-`roles_key` | The key in the JSON payload that stores the user's roles. The value of this key must be a comma-separated list of roles. Required only if you want to use roles in the JWT.
+姓名| 描述
+：--- | ：---
+`openid_connect_url` | 安全插件可以找到OpenID连接元数据/配置设置的IDP的URL。此URL在IDP之间有所不同。使用OpenID Connect作为后端时需要。
+`jwt_header` | 存储令牌的HTTP标头。通常是`Authorization` 标题与`Bearer` 模式：`Authorization: Bearer <token>`。选修的。默认为`Authorization`。
+`jwt_url_parameter` | 如果代币未在HTTP标头中传输，而是作为URL参数，请在此处定义参数的名称。选修的。
+`subject_key` | JSON有效负载中存储用户名称的键。如果未定义，[主题](https://tools.ietf.org/html/rfc7519#section-4.1.2) 使用注册索赔。大多数IDP提供商使用`preferred_username` 宣称。选修的。
+`roles_key` | JSON有效负载中存储用户角色的钥匙。该密钥的价值必须是逗号-分开的角色列表。仅当您想在JWT中使用角色时才需要。
 
 
-## OpenID Connect URL
+## OpenID连接URL
 
-OpenID Connect specifies various endpoints for integration purposes. The most important endpoint is `well-known`, which lists endpoints and other configuration options for the Security plugin.
+OpenID Connect指定各种端点以进行集成目的。最重要的终点是`well-known`，其中列出了安全插件的端点和其他配置选项。
 
-The URL differs between IdPs, but usually ends in `/.well-known/openid-configuration`.
+URL在IDP之间有所不同，但通常以`/.well-known/openid-configuration`。
 
-Keycloak example:
+KeyCloak示例：
 
 ```
 http(s)://<server>:<port>/auth/realms/<realm>/.well-known/openid-configuration
 ```
 
-The main information that the Security plugin needs is `jwks_uri`. This URI specifies where the IdP's public keys in JWKS format can be found. For example:
+安全插件需要的主要信息是`jwks_uri`。此URI指定以JWKS格式的IDP公共键。例如：
 
 ```
 jwks_uri: "https://keycloak.example.com:8080/auth/realms/master/protocol/openid-connect/certs"
@@ -92,21 +92,21 @@ jwks_uri: "https://keycloak.example.com:8080/auth/realms/master/protocol/openid-
 }
 ```
 
-For more information about IdP endpoints, see the following:
+有关IDP端点的更多信息，请参见以下内容：
 
 - [Okta](https://developer.okta.com/docs/api/resources/oidc#well-knownopenid-configuration)
-- [Keycloak](https://www.keycloak.org/docs/latest/securing_apps/index.html#other-openid-connect-libraries)
+- [KeyCloak](https://www.keycloak.org/docs/latest/securing_apps/index.html#other-openid-connect-libraries)
 - [Auth0](https://auth0.com/docs/protocols/oidc/openid-connect-discovery)
-- [Connect2ID](https://connect2id.com/products/server/docs/api/discovery)
-- [Salesforce](https://help.salesforce.com/articleView?id=remoteaccess_using_openid_discovery_endpoint.htm&type=5)
-- [IBM OpenID Connect](https://www.ibm.com/support/knowledgecenter/en/SSEQTP_8.5.5/com.ibm.websphere.wlp.doc/ae/rwlp_oidc_endpoint_urls.html)
+- [connect2ID](https://connect2id.com/products/server/docs/api/discovery)
+- [销售队伍](https://help.salesforce.com/articleView?id=remoteaccess_using_openid_discovery_endpoint.htm&type=5)
+- [IBM OpenID连接](https://www.ibm.com/support/knowledgecenter/en/SSEQTP_8.5.5/com.ibm.websphere.wlp.doc/ae/rwlp_oidc_endpoint_urls.html)
 
 
-## Time disparity compensation for JWT validation
+## JWT验证的时间差异补偿
 
-Occasionally you may find that the clock times between the authentication server and the OpenSearch node are not perfectly synchronized. When this is the case, even by a few seconds, the system that either issues or receives a JWT may try to validate `nbf` (not before) and `exp` (expiration) claims and fail to authenticate the user due to the time disparity.
+有时，您可能会发现身份验证服务器和OpenSearch节点之间的时钟时间不是完全同步的。在这种情况下，即使是几秒钟，发行或接收JWT的系统可能会试图验证`nbf` （不是之前）和`exp` （到期）索赔，并且由于时间差异而无法验证用户。
 
-By default, Security allows for a window of 30 seconds to compensate for possible misalignment between server clock times. To set a custom value for this feature and override the default, you can add the `jwt_clock_skew_tolerance_seconds` setting to the `config.yml`:
+默认情况下，安全性允许30秒的窗口来补偿服务器时钟时间之间可能的未对准。要为此功能设置自定义值并覆盖默认值，您可以添加`jwt_clock_skew_tolerance_seconds` 设置为`config.yml`：
 
 ```yml
 http_authenticator:
@@ -120,9 +120,9 @@ http_authenticator:
 ```
 
 
-## Fetching public keys
+## 获取公共钥匙
 
-When an IdP generates and signs a JWT, it must add the ID of the key to the JWT header. For example:
+当IDP生成并签名JWT时，它必须将密钥的ID添加到JWT标头中。例如：
 
 ```
 {
@@ -132,38 +132,38 @@ When an IdP generates and signs a JWT, it must add the ID of the key to the JWT 
 }
 ```
 
-As per the [OpenID Connect specification](https://openid.net/specs/openid-connect-messages-1_0-20.html), the `kid` (key ID) is mandatory. Token verification does not work if an IdP fails to add the `kid` field to the JWT.
+按照[OpenID连接规范](https://openid.net/specs/openid-connect-messages-1_0-20.html)， 这`kid` （密钥ID）是强制性的。如果IDP未能添加，则令牌验证无效`kid` 字段到JWT。
 
-If the Security plugin receives a JWT with an unknown `kid`, it visits the IdP's `jwks_uri` and retrieves all available, valid keys. These keys are used and cached until a refresh is triggered by retrieving another unknown key ID.
-
-
-## Key rollover and multiple public keys
-
-The Security plugin can maintain multiple valid public keys at once. The OpenID specification does not allow for a validity period of public keys, so a key is valid until it has been removed from the list of valid keys in your IdP and the list of valid keys has been refreshed.
-
-If you want to roll over a key in your IdP, follow these best practices:
-
-- Create a new key pair in your IdP, and give the new key a higher priority than the currently used key.
-
-  Your IdP uses this new key over the old key.
-
-- Upon first appearance of the new `kid` in a JWT, the Security plugin refreshes the key list.
-
-  At this point, both the old key and the new key are valid. Tokens signed with the old key are also still valid.
-
-- The old key can be removed from your IdP when the last JWT signed with this key has timed out.
-
-If you have to immediately change your public key, you can also delete the old key first and then create a new one. In this case, all JWTs signed with the old key become invalid immediately.
+如果安全插件接收一个带有未知的JWT`kid`，它访问了IDP的`jwks_uri` 并检索所有可用的有效密钥。这些键被使用并缓存，直到通过检索另一个未知密钥ID触发刷新。
 
 
-## TLS settings
+## 钥匙翻转和多个公共钥匙
 
-To prevent man-in-the-middle attacks, you should secure the connection between the Security plugin and your IdP with TLS.
+安全插件可以一次维护多个有效的公共密钥。OpenID规范不允许公开密钥的有效期，因此，直到将其从IDP中的有效键列表中删除并且有效密钥列表已刷新为止。
+
+如果您想滚动IDP中的钥匙，请遵循以下最佳实践：
+
+- 在您的IDP中创建一个新的密钥对，并将新密钥比当前使用的密钥更高。
+
+  您的IDP在旧密钥上使用此新键。
+
+- 首次出现新的`kid` 在JWT中，安全插件将刷新键列表。
+
+  在这一点上，旧密钥和新密钥都是有效的。用旧密钥签名的令牌也仍然有效。
+
+- 当带有此键的最后一个JWT签名时，可以从IDP中删除旧键。
+
+如果您必须立即更改公钥，则还可以先删除旧密钥，然后创建一个新密钥。在这种情况下，所有与旧钥匙签名的JWT立即变得无效。
 
 
-### Enabling TLS
+## TLS设置
 
-Use the following parameters to enable TLS for connecting to your IdP:
+防止人-在-这-中间攻击，您应该使用TLS保护安全插件和IDP之间的连接。
+
+
+### 启用TLS
+
+使用以下参数启用TLS以连接到IDP：
 
 ```yml
 config:
@@ -172,15 +172,15 @@ config:
     verify_hostnames: <true|false>
 ```
 
-Name | Description
-:--- | :---
-`enable_ssl` | Whether to use TLS. Default is false.
-`verify_hostnames` | Whether to verify the hostnames of the IdP's TLS certificate. Default is true.
+姓名| 描述
+：--- | ：---
+`enable_ssl` | 是否使用TLS。默认值为false。
+`verify_hostnames` | 是否验证IDP TLS证书的主机名。默认是正确的。
 
 
-### Certificate validation
+### 证书验证
 
-To validate the TLS certificate of your IdP, configure either the path to the IdP's root CA or the root certificate's content:
+要验证IDP的TLS证书，请配置IDP root CA的路径或根证书的内容：
 
 ```yml
 config:
@@ -201,15 +201,15 @@ config:
 ```
 
 
-| Name | Description |
-| :--- | :--- |
-| `pemtrustedcas_filepath` | Absolute path to the PEM file containing the root CAs of your IdP. |
-| `pemtrustedcas_content` | The root CA content of your IdP. Cannot be used if `pemtrustedcas_filepath` is set. |
+| 姓名| 描述|
+| ：--- | ：--- |
+| `pemtrustedcas_filepath` | 绝对路径到包含IDP根CA的PEM文件。|
+| `pemtrustedcas_content` | IDP的根CA内容。如果不能使用`pemtrustedcas_filepath` 设置。|
 
 
-### TLS client authentication
+### TLS客户端身份验证
 
-To use TLS client authentication, configure the PEM certificate and private key the Security plugin should send for TLS client authentication (or its content):
+要使用TLS客户端身份验证，请配置PEM证书和私钥安全插件应发送用于TLS客户端身份验证（或其内容）的插件：
 
 ```yml
 config:
@@ -237,74 +237,74 @@ config:
     ...
 ```
 
-Name | Description
-:--- | :---
-`enable_ssl_client_auth` | Whether to send the client certificate to the IdP server. Default is false.
-`pemcert_filepath` | Absolute path to the client certificate.
-`pemcert_content` | The content of the client certificate. Cannot be used when `pemcert_filepath` is set.
-`pemkey_filepath` | Absolute path to the file containing the private key of the client certificate.
-`pemkey_content` | The content of the private key of your client certificate. Cannot be used when `pemkey_filepath` is set.
-`pemkey_password` | The password of your private key, if any.
+姓名| 描述
+：--- | ：---
+`enable_ssl_client_auth` | 是否将客户端证书发送到IDP服务器。默认值为false。
+`pemcert_filepath` | 绝对通往客户端证书的路径。
+`pemcert_content` | 客户证书的内容。不能使用`pemcert_filepath` 设置。
+`pemkey_filepath` | 包含客户端证书的私钥的文件的绝对路径。
+`pemkey_content` | 客户端证书的私钥内容。不能使用`pemkey_filepath` 设置。
+`pemkey_password` | 私钥的密码（如果有）。
 
 
-### Enabled ciphers and protocols
+### 启用密码和协议
 
-You can limit the allowed ciphers and TLS protocols by using the following keys.
+您可以使用以下键限制允许的密码和TLS协议。
 
-Name | Description
-:--- | :---
-`enabled_ssl_ciphers` | Array. Enabled TLS cipher suites. Only Java format is supported.
-`enabled_ssl_protocols` | Array. Enabled TLS protocols. Only Java format is supported.
-
-
-## (Advanced) DoS protection
-
-To help protect against denial-of-service (DoS) attacks, the Security plugin only allows a maximum number of new key IDs in a certain span of time. If the number of new key IDs exceeds this threshold, the Security plugin returns HTTP status code 503 (Service Unavailable) and refuses to query the IdP. By default, the Security plugin does not allow for more than 10 unknown key IDs within 10 seconds. The following table shows how to modify these settings.
-
-Name | Description
-:--- | :---
-`refresh_rate_limit_count` | The maximum number of unknown key IDs in the time frame. Default is 10.
-`refresh_rate_limit_time_window_ms` | The time frame to use when checking the maximum number of unknown key IDs, in milliseconds. Default is 10000 (10 seconds).
+姓名| 描述
+：--- | ：---
+`enabled_ssl_ciphers` | 大批。启用了TLS密码套件。仅支持Java格式。
+`enabled_ssl_protocols` | 大批。启用了TLS协议。仅支持Java格式。
 
 
-## OpenSearch Dashboards single sign-on
+## （高级）DOS保护
 
-Activate OpenID Connect by adding the following to `opensearch_dashboards.yml`:
+帮助防止否认-的-服务（DOS）攻击，安全插件仅允许在一定时间内允许最大数量的新密钥ID。如果新密钥ID的数量超过此阈值，则安全插件将返回HTTP状态代码503（服务不可用），并拒绝查询IDP。默认情况下，安全插件在10秒内不允许超过10个未知的密钥ID。下表显示了如何修改这些设置。
+
+姓名| 描述
+：--- | ：---
+`refresh_rate_limit_count` | 时间范围内未知密钥ID的最大数量。默认值为10。
+`refresh_rate_limit_time_window_ms` | 以毫秒为单位检查最大未知密钥ID的时间范围。默认值为10000（10秒）。
+
+
+## OpenSearch仪表板单个标志-在
+
+通过将以下添加到`opensearch_dashboards.yml`：
 
 ```
 opensearch_security.auth.type: "openid"
 ```
 
 
-### Configuration
+### 配置
 
-OpenID Connect providers usually publish their configuration in JSON format under the *metadata url*. Therefore, most settings can be pulled in automatically, so the OpenSearch Dashboards configuration becomes minimal. The most important settings are the following:
+OpenID Connect提供商通常以 *元数据URL *以JSON格式发布其配置。因此，大多数设置可以自动拉动，因此OpenSearch仪表板配置变得最小。最重要的设置是：
 
-- [Connect URL](#openid-connect-url)
-- Client ID
+- [连接URL](#openid-connect-url)
+- 客户ID
 
-  Every IdP can host multiple clients (sometimes called applications) with different settings and authentication protocols. When enabling OpenID Connect, you should create a new client for OpenSearch Dashboards in your IdP. The client ID uniquely identifies OpenSearch Dashboards.
+  每个IDP都可以托管具有不同设置和身份验证协议的多个客户端（有时称为应用程序）。启用OpenID连接时，您应该在IDP中为OpenSearch仪表板创建一个新客户端。客户端ID唯一标识OpenSearch仪表板。
 
-- Client secret
+- 客户秘密
 
-  Beyond the ID, each client also has a client secret assigned. The client secret is usually generated when the client is created. Applications can obtain an identity token only when they provide a client secret. You can find this secret in the settings of the client on your IdP.
-
-
-### Configuration settings
-
-Name | Description
-:--- | :---
-`opensearch_security.openid.connect_url` | The URL where the IdP publishes the OpenID metadata. Required.
-`opensearch_security.openid.client_id` | The ID of the OpenID Connect client configured in your IdP. Required.
-`opensearch_security.openid.client_secret` | The client secret of the OpenID Connect client configured in your IdP. Required.
-`opensearch_security.openid.scope` | The [scope of the identity token](https://openid.net/specs/openid-connect-messages-1_0-20.html#scopes) issued by the IdP. Optional. Default is `openid profile email address phone`.
-`opensearch_security.openid.header` | HTTP header name of the JWT token. Optional. Default is `Authorization`.
-`opensearch_security.openid.logout_url` | The logout URL of your IdP. Optional. Only necessary if your IdP does not publish the logout URL in its metadata.
-`opensearch_security.openid.base_redirect_url` | The base of the redirect URL that will be sent to your IdP. Optional. Only necessary when OpenSearch Dashboards is behind a reverse proxy, in which case it should be different than `server.host` and `server.port` in `opensearch_dashboards.yml`.
-`opensearch_security.openid.trust_dynamic_headers` | Compute `base_redirect_url` from the reverse proxy HTTP headers (`X-Forwarded-Host` / `X-Forwarded-Proto`). Optional. Default is `false`.
+  除了ID之外，每个客户端还分配了一个客户端秘密。客户秘密通常是在创建客户端时生成的。申请只有在提供客户秘密时才能获得身份令牌。您可以在IDP的客户端的设置中找到此秘密。
 
 
-### Configuration example
+### 配置设置
+
+姓名| 描述
+：--- | ：---
+`opensearch_security.openid.connect_url` | IDP发布OpenID元数据的URL。必需的。
+`opensearch_security.openid.client_id` | IDP中配置的OpenID连接客户端的ID。必需的。
+`opensearch_security.openid.client_secret` | IDP中配置的OpenID Connect客户端的客户端秘密。必需的。
+`opensearch_security.openid.scope` | 这[身份令牌的范围](https://openid.net/specs/openid-connect-messages-1_0-20.html#scopes) 由IDP发行。选修的。默认为`openid profile email address phone`。
+`opensearch_security.openid.header` | JWT令牌的HTTP标题名称。选修的。默认为`Authorization`。
+`opensearch_security.openid.logout_url` | IDP的注销网址。选修的。仅当您的IDP未在其元数据中发布注销URL时才需要。
+`opensearch_security.openid.base_redirect_url` | 将发送到您的IDP的重定向URL的底座。选修的。仅当OpenSearch仪表板在反向代理后面时才需要`server.host` 和`server.port` 在`opensearch_dashboards.yml`。
+`opensearch_security.openid.trust_dynamic_headers` | 计算`base_redirect_url` 从反向代理HTTP标头（`X-Forwarded-Host` /`X-Forwarded-Proto`）。选修的。默认为`false`。
+
+
+### 配置示例
 
 ```yml
 # Enable OpenID authentication
@@ -333,43 +333,43 @@ opensearch.ssl.verificationMode: none
 opensearch.requestHeadersAllowlist: ["Authorization", "security_tenant"]
 ```
 
-To include OpenID Connect with other authentication types in the Dashboards sign-in window, see [Configuring sign-in options]({{site.url}}{{site.baseurl}}/security/configuration/multi-auth/).
-{: .note } 
+在仪表板标志中与其他身份验证类型一起包含OpenID连接-在窗口中，请参阅[配置标志-在选项中]({{site.url}}{{site.baseurl}}/security/configuration/multi-auth/)。
+{： 。笔记 }
 
-### Additional parameters
+### 其他参数
 
-Some identity providers require custom parameters to complete the authentication process. You can add custom parameters `opensearch_dashboards.yml` configuration file  under the `opensearch_security.openid.additional_parameters` namespace. You can find these additional parameters by making a GET request to your identity provider. This feature allows for greater flexibility and customization when communicating with various identity providers.
+一些身份提供者需要自定义参数来完成身份验证过程。您可以添加自定义参数`opensearch_dashboards.yml` 配置文件`opensearch_security.openid.additional_parameters` 名称空间。您可以通过向您的身份提供商提出请求来找到这些其他参数。此功能在与各种身份提供者进行交流时可以更大的灵活性和自定义。
 
-In the following example, two custom parameters, `foo` and `acr_values`, and their values, `bar` and `1`, were found using a GET request to OpenID provider:
+在下面的示例中，两个自定义参数，`foo` 和`acr_values`，及其价值观，`bar` 和`1`，发现使用get请求对OpenID提供商的请求：
 
 ```yml
 opensearch_security.openid.additional_parameters.foo: "bar"
 opensearch_security.openid.additional_parameters.acr_values: "1"
 ```
-{% include copy.html %}
+{％include copy.html％}
 
 
 
-#### Session management with additional cookies
+#### 会话管理以及其他cookie
 
-To improve session management---especially for users who have multiple roles assigned to them---Dashboards provides an option to split cookie payloads into multiple cookies and then recombine the payloads when receiving them. This can help prevent larger OpenID Connect assertions from exceeding size limits for each cookie. The two settings in the following example allow you to set a prefix name for additional cookies and specify the number of them. They are added to the `opensearch_dashboards.yml` file. The default number of additional cookies is three:
+改善会话管理---特别是对于分配了多个角色的用户---仪表板提供了将cookie有效载荷分为多个cookie的选项，然后在接收时重组有效载荷。这可以有助于防止更大的OpenID连接断言超过每个cookie的尺寸限制。以下示例中的两个设置允许您为其他cookie设置一个前缀名称，并指定其中的数量。他们被添加到`opensearch_dashboards.yml` 文件。其他cookie的默认数量为三：
 
 ```yml
 opensearch_security.openid.extra_storage.cookie_prefix: security_authentication_oidc
 opensearch_security.openid.extra_storage.additional_cookies: 3
 ```
 
-Note that reducing the number of additional cookies can cause some of the cookies that were in use before the change to stop working. We recommend establishing a fixed number of additional cookies and not changing the configuration after that.
+请注意，减少其他cookie的数量可能会导致一些在更改之前使用的cookie停止工作。我们建议建立固定数量的其他cookie，然后不更改配置。
 
-If the ID token from the IdP is especially large, OpenSearch may throw a server log authentication error indicating that the HTTP header is too large. In this case, you can increase the value for the `http.max_header_size` setting in the `opensearch.yml` file.
-{: .tip }
+如果来自IDP的ID令牌特别大，OpenSearch可能会丢弃服务器日志身份验证错误，以表明HTTP标头太大。在这种情况下，您可以增加`http.max_header_size` 设置在`opensearch.yml` 文件。
+{： 。提示 }
 
 
-### OpenSearch security configuration
+### OpenSearch安全配置
 
-Because OpenSearch Dashboards requires that the internal OpenSearch Dashboards server user can authenticate through HTTP basic authentication, you must configure two authentication domains. For OpenID Connect, the HTTP basic domain has to be placed first in the chain. Make sure you set the challenge flag to `false`.
+因为OpenSearch仪表板要求内部OpenSearch dashboards Server用户可以通过HTTP基本身份验证进行身份验证，因此您必须配置两个身份验证域。对于OpenID Connect，HTTP基本域必须首先放在链中。确保将挑战旗设置为`false`。
 
-Modify and apply the following example settings in `config.yml`:
+修改并应用以下示例设置`config.yml`：
 
 ```yml
 basic_internal_auth_domain:
@@ -395,3 +395,4 @@ openid_auth_domain:
   authentication_backend:
     type: noop
 ```
+

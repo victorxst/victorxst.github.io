@@ -1,21 +1,21 @@
 ---
 layout: default
-title: API rate limiting
-parent: Configuration
+title: API速率限制
+parent: 配置
 nav_order: 30
 ---
 
 
-# API rate limiting
+# API速率限制
 
-API rate limiting is typically used to restrict the number of API calls that users can make in a set span of time, thereby helping to manage the rate of API traffic. For security purposes, rate limiting features, by restricting failed login attempts, have the potential to defend against denial of service (DoS) attacks or repeated login attempts intended to gain access through trial and error.
+API速率限制通常用于限制用户在设定的时间内可以进行的API调用数量，从而有助于管理API流量的速率。出于安全目的，通过限制登录失败的尝试来限制限制功能，有可能防御拒绝服务（DOS）攻击或重复登录尝试，旨在通过反复试验和错误获得访问权限。
 
-You have the option to configure the Security plugin for username rate limiting, IP address rate limiting, or both. These configurations are made in the `config.yml` file. See the following sections for information about each type of rate limiting configuration.
+您可以选择为用户名限制，IP地址率限制或两者配置安全插件。这些配置是在`config.yml` 文件。有关每种类型的速率限制配置的信息，请参见以下各节。
 
 
-## Username rate limiting
+## 用户名率限制
 
-The username rate limiting configuration limits login attempts by username. When a login fails, the username is blocked from use by any machine in the network. The following example shows `config.yml` file settings configured for username rate limiting:
+用户名限制配置限制了用户名的登录尝试。当登录失败时，用户名被网络中的任何机器都阻止。以下示例显示`config.yml` 为用户名率限制配置的文件设置：
 
 ```yml
 auth_failure_listeners:
@@ -28,26 +28,26 @@ auth_failure_listeners:
         max_blocked_clients: 100000
         max_tracked_clients: 100000
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-The following table describes the individual settings for this type of configuration.
+下表描述了此类配置的各个设置。
 
-| Setting | Description |
-| :--- | :--- |
-| `type` | The type of rate limiting. In this case, `username`. |
-| `authentication_backend` | The internal backend. Enter `internal`. |
-| `allowed_tries` | The number of login attempts allowed before login attempts are blocked. Be aware that increasing the number increases heap usage. |
-| `time_window_seconds` | The window of time during which the value for `allowed_tries` is enforced. For example, if `allowed_tries` is `3` and `time_window_seconds` is `60`, a username has 3 attempts to log in successfully within a 60-second time span before login attempts are blocked. |
-| `block_expiry_seconds` | The window of time during which login attempts remain blocked after a failed login. After this time elapses, login is reset and the username can attempt to log in again. |
-| `max_blocked_clients` | The maximum number of blocked usernames. This limits heap usage to avoid a potential DoS attack. |
-| `max_tracked_clients` | The maximum number of tracked usernames with failed login attempts. This limits heap usage to avoid a potential DoS attack. |
+| 环境| 描述|
+| ：--- | ：--- |
+| `type` | 利率限制的类型。在这种情况下，`username`。|
+| `authentication_backend` | 内部后端。进入`internal`。|
+| `allowed_tries` | 在阻止登录尝试之前允许的登录尝试数。请注意，增加数量会增加用法。|
+| `time_window_seconds` | 时间窗口的价值`allowed_tries` 被执行。例如，如果`allowed_tries` 是`3` 和`time_window_seconds` 是`60`，一个用户名有3次尝试在60个中成功登录-登录尝试之前的第二个时间跨度被阻止。|
+| `block_expiry_seconds` | 登录失败后，登录尝试保持阻塞的时间窗口。在这段时间之后，登录被重置，用户名可以尝试再次登录。|
+| `max_blocked_clients` | 最大阻止用户名的数量。这限制了堆的用法，以避免潜在的DOS攻击。|
+| `max_tracked_clients` | 登录尝试失败的跟踪用户名的最大数量。这限制了堆的用法，以避免潜在的DOS攻击。|
 
 
-## IP address rate limiting
+## IP地址率限制
 
-The IP address rate limiting configuration limits login attempts by IP address. When a login fails, the IP address specific to the machine being used for login is blocked. 
+IP地址限制配置限制IP地址登录尝试。当登录失败时，特定于用于登录的机器的IP地址将被阻止。
 
-Configuring IP address rate limiting involves two steps. First, set the `challenge` setting to `false` in the `http_authenticator` section of the `config.yml` file:
+配置IP地址限制涉及两个步骤。首先，设置`challenge` 设置为`false` 在里面`http_authenticator` 部分`config.yml` 文件：
 
 ```yml
 http_authenticator:
@@ -55,9 +55,9 @@ http_authenticator:
   challenge: false
 ```
 
-For more information about this setting, see [HTTP basic authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/basic-authc/).
+有关此设置的更多信息，请参阅[HTTP基本身份验证]({{site.url}}{{site.baseurl}}/security/authentication-backends/basic-authc/)。
 
-Second, configure the IP address rate limiting settings. The following example shows a completed configuration:
+其次，配置IP地址速率限制设置。以下示例显示了完整的配置：
 
 ```yml
 auth_failure_listeners:
@@ -69,16 +69,17 @@ auth_failure_listeners:
         max_blocked_clients: 100000
         max_tracked_clients: 100000
 ```
-{% include copy.html %}
+{％include copy.html％}
 
-The following table describes the individual settings for this type of configuration.
+下表描述了此类配置的各个设置。
 
-| Setting | Description |
-| :--- | :--- |
-| `type` | The type of rate limiting. In this case, `ip`. |
-| `allowed_tries` | The number of login attempts allowed before login attempts are blocked. Be aware that increasing the number increases heap usage. |
-| `time_window_seconds` | The window of time during which the value for `allowed_tries` is enforced. For example, if `allowed_tries` is `3` and `time_window_seconds` is `60`, an IP address has 3 attempts to log in successfully within a 60-second time span before login attempts are blocked. |
-| `block_expiry_seconds` | The window of time during which login attempts remain blocked after a failed login. After this time elapses, login is reset and the IP address can attempt to log in again. |
-| `max_blocked_clients` | The maximum number of blocked IP addresses. This limits heap usage to avoid a potential DoS attack. |
-| `max_tracked_clients` | The maximum number of tracked IP addresses with failed login attempts. This limits heap usage to avoid a potential DoS attack. |
+| 环境| 描述|
+| ：--- | ：--- |
+| `type` | 利率限制的类型。在这种情况下，`ip`。|
+| `allowed_tries` | 在阻止登录尝试之前允许的登录尝试数。请注意，增加数量会增加用法。|
+| `time_window_seconds` | 时间窗口的价值`allowed_tries` 被执行。例如，如果`allowed_tries` 是`3` 和`time_window_seconds` 是`60`，IP地址有3次尝试在60中成功登录-登录尝试之前的第二个时间跨度被阻止。|
+| `block_expiry_seconds` | 登录失败后，登录尝试保持阻塞的时间窗口。在此时间之后，重置登录，IP地址可以尝试再次登录。|
+| `max_blocked_clients` | 最大阻止IP地址的数量。这限制了堆的用法，以避免潜在的DOS攻击。|
+| `max_tracked_clients` | 登录尝试失败的最大跟踪IP地址数量。这限制了堆的用法，以避免潜在的DOS攻击。|
+
 

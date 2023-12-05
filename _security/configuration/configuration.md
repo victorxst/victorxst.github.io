@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Configuring the Security backend
-parent: Configuration
+title: 配置安全后端
+parent: 配置
 nav_order: 5
 redirect_from:
  - /security-plugin/configuration/configuration/
 ---
 
-# Configuring the Security backend
+# 配置安全后端
 
-One of the first steps when setting up the Security plugin is deciding which authentication backend to use. The role played by the backend in authentication is covered in [steps 2 and 3 of the authentication flow]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/#authentication-flow). The plugin has an internal user database, but many people prefer to use an existing authentication backend, such as an LDAP server, or some combination of the two.
+设置安全插件时的第一步之一是确定要使用哪种身份验证后端。后端在身份验证中扮演的角色涵盖[身份验证流的步骤2和3]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/#authentication-flow)。该插件具有内部用户数据库，但是许多人喜欢使用现有的身份验证后端，例如LDAP服务器或两者的某种组合。
 
-The primary file used to configure an authentication and authorization backend is `config/opensearch-security/config.yml`. This file defines how the Security plugin retrieves user credentials, how it verifies the credentials, and how it fetches additional roles when the backend selected for authentication and authorization supports this feature. This topic provides a basic overview of the configuration file and its requirements for setting up security. For information about configuring a specific backend, see [Authentication backends]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/).
+用于配置身份验证和授权后端的主要文件是`config/opensearch-security/config.yml`。该文件定义了安全插件如何检索用户凭据，如何验证凭据以及当选择后端进行身份验证和授权支持此功能时如何拿起其他角色。本主题提供了配置文件及其设置安全性要求的基本概述。有关配置特定后端的信息，请参见[身份验证后端]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/)。
 
-The `config.yml` file includes three main parts:
+这`config.yml` 文件包括三个主要部分：
 
 ```yml
 config:
@@ -26,12 +26,12 @@ config:
       ...
 ```
 
-The sections that follow describe the main elements in each part of the `config.yml` file and provide basic examples of their configuration. For a more detailed example, see the [sample file on GitHub](https://github.com/opensearch-project/security/blob/main/config/config.yml).
+以下各节描述了该部分的主要元素`config.yml` 文件并提供其配置的基本示例。有关一个更详细的例子，请参阅[github上的示例文件](https://github.com/opensearch-project/security/blob/main/config/config.yml)。
 
 
-## HTTP
+## http
 
-The `http` section includes the following format:
+这`http` 部分包括以下格式：
 
 ```yml
 http:
@@ -44,20 +44,20 @@ http:
     trustedProxies: <string> # Regex pattern
 ```
 
-The settings used in this configuration are described in the following table.
+下表中描述了此配置中使用的设置。
 
-| Setting | Description |
-| :--- | :--- |
-| `anonymous_auth_enabled` | Either enables or disables anonymous authentication. When `true`, HTTP authenticators try to find user credentials in the HTTP request. If credentials are found, the user is authenticated. If none are found, the user is authenticated as an "anonymous" user. This user then has the username "anonymous" and one role named "anonymous_backendrole". When you enable anonymous authentication, all defined [HTTP authenticators](#authentication) are non-challenging. Also see [The challenge setting]({{site.url}}{{site.baseurl}}/security/authentication-backends/basic-authc/#the-challenge-setting). |
-| `xff` | Used to configure proxy-based authentication. For more information about this backend, see [Proxy-based authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/proxy/). |
+| 环境| 描述|
+| ：--- | ：--- |
+| `anonymous_auth_enabled` | 启用或禁用匿名身份验证。什么时候`true`，HTTP身份验证器尝试在HTTP请求中查找用户凭据。如果找到凭据，则对用户进行身份验证。如果找不到，则用户被认证为"anonymous" 用户。然后，该用户具有用户名"anonymous" 还有一个命名的角色"anonymous_backendrole"。当您启用匿名身份验证时，所有定义[HTTP身份验证者](#authentication) 是非-具有挑战性的。也看[挑战设置]({{site.url}}{{site.baseurl}}/security/authentication-backends/basic-authc/#the-challenge-setting)。|
+| `xff` | 用于配置代理-基于身份验证。有关此后端的更多信息，请参阅[代理人-基于身份验证]({{site.url}}{{site.baseurl}}/security/authentication-backends/proxy/)。|
 
-If you disable anonymous authentication, the Security plugin won't initialize if you have not provided at least one `authc`.
-{: .important }
+如果禁用匿名身份验证，则安全插件将不会初始化，如果您没有提供至少一个`authc`。
+{： 。重要的 }
 
 
-## Authentication
+## 验证
 
-The `authc` section has the following format:
+这`authc` 部分具有以下格式：
 
 ```yml
 authc:
@@ -71,19 +71,19 @@ authc:
       ...
 ```
 
-An entry in the `authc` section is called an *authentication domain*. It specifies where to get the user credentials and against which backend they should be authenticated.
+进入`authc` 部分称为 *身份验证域 *。它指定了获得用户凭据的位置以及应对其进行身份验证的后端。
 
-You can use more than one authentication domain. Each authentication domain has a name (for example, `basic_auth_internal`), settings for enabling the domain on the REST and transport layers, and an `order`. The order makes it possible to chain authentication domains together. The Security plugin uses them in the order that you provide. If the user successfully authenticates with one domain, the Security plugin skips the remaining domains.
+您可以使用多个身份验证域。每个身份验证域都有一个名称（例如，`basic_auth_internal`），用于在其余和运输层上启用域的设置，然后`order`。该顺序使链条身份验证域成为可能。安全插件按照您提供的顺序使用它们。如果用户成功地使用一个域进行身份验证，则安全插件会跳过其余域。
 
-Settings that are typically found in this part of the configuration are included in the following table.
+下表中包含在配置的这一部分中通常找到的设置。
 
-| Setting | Description |
-| :--- | :--- |
-| `http_enabled` | Enables or disables authentication on the REST layer. Default is `true` (enabled). |
-| `transport_enabled` | Enables or disables authentication on the transport layer. Default is `true` (enabled). |
-| `order` | Determines the order in which an authentication domain is queried with an authentication request when multiple backends are configured in combination. Once authentication succeeds, any remaining domains do not need to be queried. Its value is an integer. |
+| 环境| 描述|
+| ：--- | ：--- |
+| `http_enabled` | 在其余层上启用或禁用身份验证。默认为`true` （启用）。|
+| `transport_enabled` | 在运输层上启用或禁用身份验证。默认为`true` （启用）。|
+| `order` | 确定在组合配置多个后端时，确定身份验证域与身份验证请求查询的顺序。一旦身份验证成功，任何剩余的域就无需查询。它的价值是整数。|
 
-The `http_authenticator` definition specifies the authentication method for the HTTP layer. The following example shows the syntax used for defining an HTTP authenticator:
+这`http_authenticator` 定义指定HTTP层的身份验证方法。以下示例显示了用于定义HTTP身份验证器的语法：
 
 ```yml
 http_authenticator:
@@ -93,18 +93,18 @@ http_authenticator:
     ...
 ```
 
-The `type` setting for `http_authenticator` accepts the following values. For more information about each of the authentication options, see the links to authentication backends in [Next steps](#next-steps).
+这`type` 设置`http_authenticator` 接受以下值。有关每个身份验证选项的更多信息，请参阅“身份验证后端的链接”[下一步](#next-steps)。
 
-| Value | Description |
-| :--- | :--- |
-| `basic` | HTTP basic authentication. For more information about using basic authentication, see the HTTP basic authentication documentation. |
-| `jwt` | JSON Web Token (JWT) authentication. See the JSON Web Token documentation for additional configuration information. |
-| `openid` | OpenID Connect authentication. See the OpenID Connect documentation for additional configuration information. |
-| `saml` | SAML authentication. See the SAML documentation for additional configuration information. |
-| `proxy`, `extended-proxy` | Proxy-based authentication. The `extended-proxy` type authenticator allows you to pass additional user attributes for use with document-level security. See the Proxy-based authentication documentation for additional configuration information. |
-| `clientcert` | Authentication through a client TLS certificate. This certificate must be trusted by one of the root certificate authorities (CAs) in the truststore of your nodes. See the Client certificate authentication documentation for additional configuration information. |
+| 价值| 描述|
+| ：--- | ：--- |
+| `basic` | HTTP基本身份验证。有关使用基本身份验证的更多信息，请参见HTTP基本身份验证文档。|
+| `jwt` | JSON Web令牌（JWT）身份验证。有关其他配置信息，请参见JSON Web令牌文档。|
+| `openid` | OpenID连接身份验证。有关其他配置信息，请参见OpenID Connect文档。|
+| `saml` | SAML身份验证。有关其他配置信息，请参见SAML文档。|
+| `proxy`，，，，`extended-proxy` | 代理人-基于身份验证。这`extended-proxy` 键入Authenticator允许您传递其他用户属性以供文档使用-级别的安全性。请参阅代理-基于其他配置信息的基于身份验证文档。|
+| `clientcert` | 通过客户端TLS证书进行身份验证。该证书必须由您的节点信托店的根证书机构之一（CAS）信任。有关其他配置信息，请参见客户端证书身份验证文档。|
 
-After setting an HTTP authenticator, you must specify against which backend system you want to authenticate the user:
+设置HTTP身份验证器后，您必须指定要对用户进行身份验证的后端系统：
 
 ```yml
 authentication_backend:
@@ -113,18 +113,18 @@ authentication_backend:
     ...
 ```
 
-The following table shows the possible values for the `type` setting under `authentication_backend`.
+下表显示了`type` 设置下`authentication_backend`。
 
-| Value | Description |
-| :--- | :--- |
-| `noop` | No further authentication against any backend system is performed. Use `noop` if the HTTP authenticator has already authenticated the user completely, as in the case of JWT or client certificate authentication. |
-| `internal` | Use the users and roles defined in `internal_users.yml` for authentication. |
-| `ldap` | Authenticate users against an LDAP server. This setting requires [additional LDAP-specific configuration settings]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/). |
+| 价值| 描述|
+| ：--- | ：--- |
+| `noop` | 没有对任何后端系统进行进一步的身份验证。使用`noop` 如果HTTP身份验证者已经完全对用户进行了认证，例如JWT或客户端证书身份验证。|
+| `internal` | 使用用户和定义的角色`internal_users.yml` 用于身份验证。|
+| `ldap` | 针对LDAP服务器进行身份验证用户。此设置需要[其他LDAP-特定的配置设置]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/)。|
 
 
-## Authorization
+## 授权
 
-The `authz` configuration is used to extract backend roles from an LDAP implementation. After the user has been authenticated, the Security plugin can optionally collect additional roles from the backend system. The authorization configuration has the following format:
+这`authz` 配置用于从LDAP实现中提取后端角色。对用户进行身份验证后，安全插件可以选择从后端系统收集其他角色。授权配置具有以下格式：
 
 ```yml
 authz:
@@ -137,62 +137,62 @@ authz:
         ...
 ```
 
-You can define multiple entries in this section, as with authentication entries. In this case, however, the execution order is not relevant and the `order` setting is not used.
+您可以与身份验证条目一样定义本节中的多个条目。但是，在这种情况下，执行订单与`order` 设置不使用。
 
-The following table shows the possible values for the `type` setting under `authorization_backend`.
+下表显示了`type` 设置下`authorization_backend`。
 
-| Value | Description |
-| :--- | :--- |
-| `noop` | Skips the authorization configuration step altogether. |
-| `ldap` | Fetches additional roles from an LDAP server. This setting requires [additional LDAP-specific configuration settings]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/). |
-
-
-## Backend configuration examples
-
-The default `config/opensearch-security/config.yml` file included in your OpenSearch distribution contains many configuration examples. Use these examples as a starting point and customize them to your needs. 
+| 价值| 描述|
+| ：--- | ：--- |
+| `noop` | 完全跳过授权配置步骤。|
+| `ldap` | 从LDAP服务器中获取其他角色。此设置需要[其他LDAP-特定的配置设置]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/)。|
 
 
-## Next steps
+## 后端配置示例
 
-To learn about configuring the authentication backends, see the [Authentication backends]({{site.url}}{{site.baseurl}}/security/authentication-backends/) documentation. Alternatively, you can view documentation for a specific backend by using the links in the following list of topics:
-
-* [HTTP basic authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/basic-authc/)
-* [JSON Web Token]({{site.url}}{{site.baseurl}}/security/authentication-backends/jwt/)
-* [OpenID Connect]({{site.url}}{{site.baseurl}}/security/authentication-backends/openid-connect/)
-* [SAML]({{site.url}}{{site.baseurl}}/security/authentication-backends/saml/)
-* [Active Directory and LDAP]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/)
-* [Proxy-based authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/proxy/)
-* [Client certificate authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/client-auth/)
+默认值`config/opensearch-security/config.yml` 您的OpenSearch发行版中包含的文件包含许多配置示例。将这些示例作为起点，并根据您的需求自定义它们。
 
 
-<!--- Remvoving Kerberos documentation until issue #907 is resolved.
-### Kerberos
+## 下一步
 
-Kerberos authentication does not work with OpenSearch Dashboards. To track OpenSearch's progress in adding support for Kerberos in OpenSearch Dashboards, see [issue #907](https://github.com/opensearch-project/security-dashboards-plugin/issues/907) in the Dashboard's Security plugin repository. 
-{: .warning }
+要了解配置身份验证后端，请参阅[身份验证后端]({{site.url}}{{site.baseurl}}/security/authentication-backends/) 文档。另外，您可以使用以下主题列表中的链接查看特定后端的文档：
 
-Due to the nature of Kerberos, you must define some settings in `opensearch.yml` and some in `config.yml`.
+*[HTTP基本身份验证]({{site.url}}{{site.baseurl}}/security/authentication-backends/basic-authc/)
+*[JSON网络令牌]({{site.url}}{{site.baseurl}}/security/authentication-backends/jwt/)
+*[OpenID连接]({{site.url}}{{site.baseurl}}/security/authentication-backends/openid-connect/)
+*[SAML]({{site.url}}{{site.baseurl}}/security/authentication-backends/saml/)
+*[Active Directory和LDAP]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/)
+*[代理人-基于身份验证]({{site.url}}{{site.baseurl}}/security/authentication-backends/proxy/)
+*[客户证书身份验证]({{site.url}}{{site.baseurl}}/security/authentication-backends/client-auth/)
 
-In `opensearch.yml`, define the following:
+
+<！--- 将kerberos文档删除直到发行#907已解决。
+### kerberos
+
+Kerberos身份验证不适用于OpenSearch仪表板。要跟踪OpenSearch在添加OpenSearch仪表板中对Kerberos的支持方面的进度，请参见[问题#907](https://github.com/opensearch-project/security-dashboards-plugin/issues/907) 在仪表板的安全插件存储库中。
+{： 。警告 }
+
+由于Kerberos的性质，您必须定义一些设置`opensearch.yml` 还有一些`config.yml`。
+
+在`opensearch.yml`，定义以下内容：
 
 ```yml
 plugins.security.kerberos.krb5_filepath: '/etc/krb5.conf'
 plugins.security.kerberos.acceptor_keytab_filepath: 'eskeytab.tab'
 ```
 
-- `plugins.security.kerberos.krb5_filepath` defines the path to your Kerberos configuration file. This file contains various settings regarding your Kerberos installation, for example, the realm names, hostnames, and ports of the Kerberos key distribution center (KDC).
+- `plugins.security.kerberos.krb5_filepath` 定义kerberos配置文件的路径。该文件包含有关您的Kerberos安装的各种设置，例如，Kerberos密钥配电中心（KDC）的领域名称，主机名和端口。
 
-- `plugins.security.kerberos.acceptor_keytab_filepath` defines the path to the keytab file, which contains the principal that the Security plugin uses to issue requests against Kerberos.
+- `plugins.security.kerberos.acceptor_keytab_filepath` 定义了键盘文件的路径，其中包含安全插件用于针对Kerberos发出请求的主体。
 
-- `plugins.security.kerberos.acceptor_principal: 'HTTP/localhost'` defines the principal that the Security plugin uses to issue requests against Kerberos. This value must be present in the keytab file.
+- `plugins.security.kerberos.acceptor_principal: 'HTTP/localhost'` 定义安全插件用于针对Kerberos发出请求的主体。此值必须在Keytab文件中存在。
 
-Due to security restrictions, the keytab file must be placed in `config` or a subdirectory, and the path in `opensearch.yml` must be relative, not absolute.
-{: .note }
+由于安全限制，必须将keytab文件放入`config` 或子目录，以及`opensearch.yml` 必须是相对的，而不是绝对的。
+{： 。笔记 }
 
 
-#### Dynamic configuration
+#### 动态配置
 
-A typical Kerberos authentication domain in `config.yml` looks like this:
+典型的Kerberos身份验证域中`config.yml` 看起来这样：
 
 ```yml
     authc:
@@ -209,19 +209,20 @@ A typical Kerberos authentication domain in `config.yml` looks like this:
           type: noop
 ```
 
-Authentication against Kerberos through a browser on an HTTP level is achieved using SPNEGO. Kerberos/SPNEGO implementations vary, depending on your browser and operating system. This is important when deciding if you need to set the `challenge` flag to `true` or `false`.
+使用Spnego在HTTP级别通过浏览器对Kerberos进行身份验证。Kerberos/Spnego实施情况有所不同，具体取决于您的浏览器和操作系统。当您确定是否需要设置`challenge` 标记为`true` 或者`false`。
 
-As with [HTTP Basic Authentication](#http-basic), this flag determines how the Security plugin should react when no `Authorization` header is found in the HTTP request or if this header does not equal `negotiate`.
+和[HTTP基本身份验证](#http-basic)，此标志确定安全插件在没有的情况下应如何反应`Authorization` 标题是在HTTP请求中找到的，或者此标头不等于`negotiate`。
 
-If set to `true`, the Security plugin sends a response with status code 401 and a `WWW-Authenticate` header set to `negotiate`. This tells the client (browser) to resend the request with the `Authorization` header set. If set to `false`, the Security plugin cannot extract the credentials from the request, and authentication fails. Setting `challenge` to `false` thus makes sense only if the Kerberos credentials are sent in the initial request.
+如果设置为`true`，安全插件发送带有状态代码401和A的响应`WWW-Authenticate` 标题设置为`negotiate`。这告诉客户端（浏览器）用`Authorization` 标题集。如果设置为`false`，安全插件无法从请求中提取凭据，并且身份验证失败。环境`challenge` 到`false` 因此，只有在初始请求中发送kerberos凭据时，才有意义。
 
-As the name implies, setting `krb_debug` to `true` will output Kerberos-specific debugging messages to `stdout`. Use this setting if you encounter problems with your Kerberos integration.
+顾名思义，设置`krb_debug` 到`true` 将输出Kerberos-特定调试消息到`stdout`。如果遇到Kerberos集成问题，请使用此设置。
 
-If you set `strip_realm_from_principal` to `true`, the Security plugin strips the realm from the user name.
+如果您设置`strip_realm_from_principal` 到`true`，安全插件从用户名剥离了领域。
 
 
-#### Authentication backend
+#### 身份验证后端
 
-Because Kerberos/SPNEGO authenticates users on an HTTP level, no additional `authentication_backend` is needed. Set this value to `noop`.
+由于Kerberos/Spnego在HTTP级别对用户进行身份验证，因此没有其他`authentication_backend` 需要。将此值设置为`noop`。
 --->
+
 

@@ -1,18 +1,18 @@
 ---
 layout: default
-title: Field-level security
-parent: Access control
+title: 现场级安全
+parent: 访问控制
 nav_order: 90
 redirect_from:
  - /security/access-control/field-level-security/
  - /security-plugin/access-control/field-level-security/
 ---
 
-# Field-level security
+# 现场级安全
 
-Field-level security lets you control which document fields a user can see. Just like [document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/), you control access by index within a role.
+场地-级别的安全性使您可以控制用户可以看到的哪些文档字段。就像[文档-级别的安全性]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/)，您可以在角色内通过索引来控制访问。
 
-The easiest way to get started with document- and field-level security is open OpenSearch Dashboards and choose **Security**. Then choose **Roles**, create a new role, and review the **Index permissions** section.
+开始文档的最简单方法- 和字段-级别安全是开放式搜索仪表板，然后选择**安全**。然后选择**角色**，创建一个新角色，并审查**指数许可** 部分。
 
 ---
 
@@ -23,9 +23,9 @@ The easiest way to get started with document- and field-level security is open O
 
 ---
 
-## Include or exclude fields
+## 包括或排除字段
 
-You have two options when you configure field-level security: include or exclude fields. If you include fields, users see *only* those fields when they retrieve a document. For example, if you include the `actors`, `title`, and `year` fields, a search result might look like this:
+配置字段时，您有两个选择-级别安全性：包括或排除字段。如果包含字段，则用户在检索文档时只会看到 * *这些字段。例如，如果您包括`actors`，，，，`title`， 和`year` 字段，搜索结果可能看起来像这样：
 
 ```json
 {
@@ -42,7 +42,7 @@ You have two options when you configure field-level security: include or exclude
 }
 ```
 
-If you exclude fields, users see everything *but* those fields when they retrieve a document. For example, if you exclude those same fields, the same search result might look like this:
+如果您排除字段，用户会看到所有内容 *但是 *这些字段在检索文档时。例如，如果您排除了相同的字段，则相同的搜索结果可能看起来像：
 
 ```json
 {
@@ -62,24 +62,24 @@ If you exclude fields, users see everything *but* those fields when they retriev
 }
 ```
 
-You can achieve the same outcomes using inclusion or exclusion, so choose whichever makes sense for your use case. Mixing the two doesn't make sense and is not supported.
+您可以使用包含或排除实现相同的结果，因此请选择对您的用例有意义的选择。混合两者是没有意义的，也不支持。
 
-You can specify field-level security settings using OpenSearch Dashboards, `roles.yml`, and the REST API.
+您可以指定字段-使用OpenSearch仪表板的级别安全设置，`roles.yml`和其余的API。
 
-- To exclude fields in `roles.yml` or the REST API, add `~` before the field name.
-- Field names support wildcards (`*`).
+- 排除字段`roles.yml` 或REST API，添加`~` 在字段名称之前。
+- 字段名称支持通配符（`*`）。
 
-  Wildcards are especially useful for excluding *subfields*. For example, if you index a document that has a string (e.g. `{"title": "Thor"}`), OpenSearch creates a `title` field of type `text`, but it also creates a `title.keyword` subfield of type `keyword`. In this example, to prevent unauthorized access to data in the `title` field, you must also exclude the `title.keyword` subfield. Use `title*` to match all fields that begin with `title`.
-
-
-### OpenSearch Dashboards
-
-1. Choose a role and **Add index permission**.
-1. Choose an index pattern.
-1. Under **Field level security**, use the drop-down to select your preferred option. Then specify one or more fields and press Enter.
+  通配符对于排除 *子场 *特别有用。例如，如果索引具有字符串的文档（例如`{"title": "Thor"}`），OpenSearch创建`title` 类型字段`text`，但这也创造了一个`title.keyword` 类型子字段`keyword`。在此示例中，为了防止未经授权访问数据`title` 字段，您还必须排除`title.keyword` 子场。使用`title*` 匹配以开头的所有字段`title`。
 
 
-### roles.yml
+### OpenSearch仪表板
+
+1. 选择角色和**添加索引许可**。
+1. 选择索引模式。
+1. 在下面**现场级别的安全性**，使用滴-向下选择您的首选选项。然后指定一个或多个字段，然后按Enter。
+
+
+### 角色
 
 ```yml
 someonerole:
@@ -96,14 +96,14 @@ someonerole:
 
 ### REST API
 
-See [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role).
+看[创建角色]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role)。
 
 
-## Interaction with multiple roles
+## 与多个角色的互动
 
-If you map a user to multiple roles, we recommend that those roles use either include *or* exclude statements for each index. The Security plugin evaluates field-level security settings using the `AND` operator, so combining include and exclude statements can lead to neither behavior working properly.
+如果将用户映射到多个角色，我们建议这些角色使用include *或 *排除每个索引的语句。安全插件评估字段-使用级别的安全设置`AND` 操作员，因此结合和排除语句可以导致行为既不正常。
 
-For example, in the `movies` index, if you include `actors`, `title`, and `year` in one role, exclude `actors`, `title`, and `genres` in another role, and then map both roles to the same user, a search result might look like this:
+例如，在`movies` 索引，如果包括`actors`，，，，`title`， 和`year` 在一个角色中，排除`actors`，，，，`title`， 和`genres` 在另一个角色中，然后将两个角色都映射到同一用户，搜索结果可能看起来像：
 
 ```json
 {
@@ -119,6 +119,7 @@ For example, in the `movies` index, if you include `actors`, `title`, and `year`
 ```
 
 
-## Interaction with document-level security
+## 与文档的互动-级别的安全性
 
-[Document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/) relies on OpenSearch queries, which means that all fields in the query must be visible in order for it to work properly. If you use field-level security in conjunction with document-level security, make sure you don't restrict access to the fields that document-level security uses.
+[文档-级别的安全性]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/) 依靠OpenSearch查询，这意味着必须看到查询中的所有字段才能正常工作。如果您使用字段-与文档结合使用的级别安全性-级别的安全性，请确保您不限制对文档的字段的访问-级别安全用途。
+

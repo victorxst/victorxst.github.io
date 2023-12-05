@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Full-Text Search
+title: 全文搜索
 parent: SQL和PPL
 nav_order: 11
 redirect_from:
   - /search-plugins/sql/sql-full-text/
 ---
 
-# Full-text search
+# 全文搜索
 
 Use SQL commands for full-text search. The SQL plugin supports a subset of full-text queries available in OpenSearch.
 

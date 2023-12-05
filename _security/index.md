@@ -1,6 +1,6 @@
 ---
 layout: default
-title: About Security
+title: 关于安全性
 nav_order: 1
 has_children: false
 has_toc: false
@@ -11,68 +11,69 @@ redirect_from:
   - /security/
 ---
 
-# About Security in OpenSearch
+# 关于OpenSearch中的安全性
 
-Security in OpenSearch is built around four main features that work together to safeguard data and track activity within a cluster. Separately, these features are:
+OpenSearch中的安全性是围绕四个主要功能构建的，这些功能共同努力，以保护数据并跟踪集群中的活动。另外，这些功能是：
 
-* Encryption.
-* Authentication.
-* Access control.
-* Audit logging and compliance.
+*加密。
+* 验证。
+* 访问控制。
+*审核记录和合规性。
 
-Used together they provide effective protection of sensitive data by placing it behind multiple layers of defense and granting or restricting access to the data at different levels in the OpenSearch data structure. Most implementations use a combination of options for these features to meet specific security needs.
+他们一起使用，通过将其放置在多层防御层，并授予或限制对OpenSearch数据结构中不同级别的数据的访问来提供有效的敏感数据。大多数实现都将这些功能的选项组合使用，以满足特定的安全需求。
 
-## Features at a glance
+## 一目了然
 
-The following topics provide a general description of the features that define security in OpenSearch.
+以下主题对定义OpenSearch中的安全性的功能提供了一般描述。
 
-### Encryption
+### 加密
 
-Encryption typically addresses the protection of data both at rest and in transit. OpenSearch Security is responsible for managing encryption in transit.
+加密通常解决静止和运输中数据的保护。OpenSearch Security负责管理运输中的加密。
 
-In transit, Security encrypts data moving to, from, and within the cluster. OpenSearch uses the TLS protocol, which covers both client-to-node encryption (the REST layer) and node-to-node encryption (the transport layer). This combination of in-transit encryption helps ensure that both requests to OpenSearch and the movement of data among different nodes are safe from tampering.
+在运输中，安全加密数据移至群集内和内部。OpenSearch使用TLS协议，该协议涵盖了两个客户-到-节点加密（其余层）和节点-到-节点加密（传输层）。这种组合-过境加密有助于确保两个请求对搜索的要求，并且在不同节点之间的数据移动是可以保护的。
 
-You can find out more about configuring TLS in the [Configuring TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/) section.
+您可以找到有关配置TLS的更多信息[配置TLS证书]({{site.url}}{{site.baseurl}}/security/configuration/tls/) 部分。
 
-Encryption at rest, on the other hand, protects data stored in the cluster, including indexes, logs, swap files, automated snapshots, and all data in the application directory. This type of encryption is managed by the operating system on each OpenSearch node. For information about enabling encryption at rest, see [Encryption at rest]({{site.url}}{{site.baseurl}}/troubleshoot/index/#encryption-at-rest).
+另一方面，静止加密保护集群中存储的数据，包括索引，日志，交换文件，自动快照以及应用程序目录中的所有数据。这种类型的加密由每个OpenSearch节点上的操作系统管理。有关启用静止加密的信息，请参阅[休息时加密]({{site.url}}{{site.baseurl}}/troubleshoot/index/#encryption-at-rest)。
 
-### Authentication
+### 验证
 
-Authentication is used to validate the identity of users and works by verifying an end user’s credentials against a backend configuration. These credentials can be a simple name and password, a JSON web token, or a TLS certificate. Once the authentication domain extracts those credentials from a user’s request, it can check their validity against the authentication backend.
+身份验证用于验证用户的身份，并通过针对后端配置验证最终用户的凭据来工作。这些凭据可以是简单的名称和密码，JSON Web令牌或TLS证书。一旦身份验证域从用户的请求中提取这些凭据，就可以检查其对身份验证后端的有效性。
 
-The backend used for validation can be OpenSearch's built-in internal user database—used for storing user and role configurations and hashed passwords—or one of a wide range of industry-standard identification protocols such as LDAP, Active Directory, SAML, or OpenID Connect. A common practice is to chain together more than one authentication method to create a more robust defense against unauthorized access. This might involve, for example, HTTP basic authentication followed by a backend configuration that specifies the LDAP protocol. See the [Configuring the Security backend]({{site.url}}{{site.baseurl}}/security/configuration/configuration/) section to learn more about setting up the backend.
+用于验证的后端可以构建-在内部用户数据库中 - 用于存储用户和角色配置和哈希密码，或广泛的行业之一-标准标识协议，例如LDAP，Active Directory，SAML或OpenID Connect。一种常见的做法是将多种身份验证方法链接在一起，以对未经授权的访问创建更强大的防御。这可能涉及HTTP基本身份验证，然后是指定LDAP协议的后端配置。看到[配置安全后端]({{site.url}}{{site.baseurl}}/security/configuration/configuration/) 一节了解有关设置后端的更多信息。
 
-### Access control
+### 访问控制
 
-Access control (or authorization) generally involves selectively assigning permissions to users that allow them to perform specific tasks, such as clearing the cache for a particular index or taking a snapshot of a cluster. However, rather than assign individual permissions directly to users, OpenSearch assigns these permissions to roles and then maps the roles to users. For more on setting up these relationships, see [Users and roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/). Roles, therefore, define the actions that users can perform, including the data they can read, the cluster settings they can modify, the indexes to which they can write, and so on. Roles are reusable across multiple users, and users can have multiple roles.
+访问控件（或授权）通常涉及将权限选择性分配给用户，以使他们可以执行特定的任务，例如清除特定索引的缓存或拍摄集群的快照。但是，OpenSearch并没有将这些权限分配给角色，然后将角色映射到用户，而不是将这些权限分配给用户，而是将这些权限分配给用户。有关建立这些关系的更多信息，请参阅[用户和角色]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/)。因此，角色定义了用户可以执行的操作，包括他们可以读取的数据，可以修改的群集设置，可以编写的索引等等。角色可以在多个用户之间重复使用，并且用户可以具有多个角色。
 
-Another notable characteristic of access control in OpenSearch is the ability to assign user access through levels of increasing granularity. Fine-grained access control (FGAC) means that a role can control permissions for users at not only the cluster level but also the index level, the document level, and even the field level. For example, a role may provide a user access to certain cluster-level permissions but at the same time prevent the user from accessing a given group of indexes. Likewise, that role may grant access to certain types of documents but not others, or it may even include access to specific fields within a document but exclude access to other sensitive fields. Field masking further extends FGAC by providing options to mask certain types of data, such as a list of emails, which can still be aggregated but not made viewable to a role.
+OpenSearch中访问控制的另一个值得注意的特征是能够通过增加粒度级别来分配用户访问。美好的-粒度访问控制（FGAC）意味着角色不仅可以在群集级别，还可以控制用户的权限，还可以控制索引级别，文档级别甚至字段级别。例如，角色可以为用户访问某些群集-级别的权限，但同时阻止用户访问给定的一组索引。同样，该角色可能会授予对某些类型的文档的访问权限，而不是其他文档，或者甚至可能包括对文档中特定字段的访问，但不包括对其他敏感字段的访问。通过提供选项来掩盖某些类型的数据，例如电子邮件列表，这些选项仍然可以汇总但无法视为角色，从而扩展了FGAC。
 
-To learn more about this feature, see the [Access control]({{site.url}}{{site.baseurl}}/security/access-control/index/) section of the security documentation.
+要了解有关此功能的更多信息，请参阅[访问控制]({{site.url}}{{site.baseurl}}/security/access-control/index/) 安全文档的部分。
 
-### Audit logging and compliance
+### 审核记录和合规性
 
-Finally, audit logging and compliance refer to mechanisms that allow for tracking and analysis of activity within a cluster. This is important after data breaches (unauthorized access) or when data suffers unintended exposure, as could happen when the data is left vulnerable in an unsecured location. However, audit logging can be just as valuable a tool for assessing excessive loads on a cluster or surveying trends for a given task. This feature allows you to review changes made anywhere in a cluster and track access patterns and API requests of all types, whether valid or invalid.
+最后，审核日志记录和合规性是指允许跟踪和分析集群活动的机制。在数据泄露（未经授权的访问）或数据遭受意外暴露时，这很重要，当数据在无抵押位置中易受攻击时可能发生。但是，审计记录可能同样有价值的工具，用于评估群集或针对给定任务的趋势的过多负载。此功能使您可以查看在集群中进行的任何地方进行的更改，并跟踪所有类型的访问模式和API请求，无论是有效的还是无效的。
 
-How OpenSearch archives logging is configurable at many levels of detail, and there are a number of options for where those logs are stored. Compliance features also ensure that all data is available if and when compliance auditing is required. In this case, the logging can be automated to focus on data especially pertinent to those compliance requirements.
+OpenSearch Archives Loggging如何在许多级别的细节上进行配置，并且对于存储这些日志的位置有许多选项。合规性功能还可以确保所有数据在需要合规性审核时可用。在这种情况下，可以将记录自动化以专注于数据，尤其与这些合规要求有关。
 
-See the [Audit logs]({{site.url}}{{site.baseurl}}/security/audit-logs/index/) section of the security documentation to read more about this feature.
+看到[审核日志]({{site.url}}{{site.baseurl}}/security/audit-logs/index/) 安全文档的部分以阅读有关此功能的更多信息。
 
-## Other features and functionality
+## 其他功能
 
-OpenSearch includes other features that complement the security infrastructure.
+OpenSearch包含其他补充安全基础架构的功能。
 
-### Dashboards multi-tenancy
+### 仪表板多-租赁
 
-One such feature is OpenSearch Dashboards multi-tenancy. Tenants are work spaces that include visualizations, index patterns, and other Dashboards objects. Multi-tenancy allows for the sharing of tenants among users of Dashboards and leverages OpenSearch roles to manage access to tenants and safely make them available to others.
-For more information about creating tenants, see [OpenSearch Dashboards multi-tenancy]({{site.url}}{{site.baseurl}}/security/multi-tenancy/tenant-index/).
+一个这样的功能就是OpenSearch仪表板Multi-租赁。租户是包括可视化，索引模式和其他仪表板对象的工作空间。多-租赁允许在仪表板的用户中共享租户和OpenSearch opensearch角色，以管理与租户的访问权限，并安全地将其提供给其他人。
+有关创建租户的更多信息，请参阅[OpenSearch仪表板多-租赁]({{site.url}}{{site.baseurl}}/security/multi-tenancy/tenant-index/)。
 
-### Cross-cluster search
+### 叉-集群搜索
 
-Another notable feature is cross-cluster search. This feature provides users with the ability to perform searches from one node in a cluster across other clusters that have been set up to coordinate this type of search. As with other features, cross-cluster search is supported by the OpenSearch access control infrastructure, which defines the permissions users have for working with this feature.
-To learn more, see [Cross-cluster search]({{site.url}}{{site.baseurl}}/security/access-control/cross-cluster-search/).
+另一个值得注意的功能是交叉-集群搜索。此功能使用户能够通过设置为协调此类搜索的其他群集中的群集中的一个节点进行搜索。与其他功能一样-集群搜索由OpenSearch Access Control基础结构支持，该基础结构定义了用户使用此功能的权限。
+要了解更多，请参阅[叉-集群搜索]({{site.url}}{{site.baseurl}}/security/access-control/cross-cluster-search/)。
 
-## Next steps
+## 下一步
 
-To get started, see the configuration overview in the [Security configuration]({{site.url}}{{site.baseurl}}/security/configuration/index/) section, which provides the basic steps for setting up security in your OpenSearch implementation and includes links to information about customizing security for your business needs.
+要开始，请查看配置概述[安全配置]({{site.url}}{{site.baseurl}}/security/configuration/index/) 该部分提供了在OpenSearch实施中设置安全性的基本步骤，并包括有关为您的业务需求定制安全性的信息的链接。
+
 

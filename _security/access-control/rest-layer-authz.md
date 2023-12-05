@@ -1,42 +1,42 @@
 ---
 layout: default
-title: REST layer authorization
-parent: Access control
+title: REST层授权
+parent: 访问控制
 nav_order: 80
 ---
 
 
-# REST layer authorization
+# REST层授权
 
-Authorization on the REST layer provides an added level of security for plugin and extension API requests by offering a mechanism for authorization checks on the REST layer. This level of security sits atop the transport layer and provides a complementary method of authorization without replacing, modifying, or in any way changing the same process on the transport layer. REST layer authorization was initially created to address the need for an authorization check for extensions, which do not communicate on the transport layer. However, the feature is also available to developers who wish to use it when creating future plugins for OpenSearch.
+其余层上的授权通过在其余层上提供授权检查机制，为插件和扩展API请求提供了额外的安全性。这种安全级别位于运输层的顶部，并提供了一种互补的授权方法，而无需更换，修改或以任何方式更改运输层上相同过程。最初创建了REST层授权，目的是满足对扩展的授权检查的需求，该扩展名不会在运输层上进行通信。但是，该功能也适用于希望在创建未来插件进行OpenSearch时使用它的开发人员。
 
-For users that work with REST layer authorization, the methods of assigning roles and mapping users and roles, and the general usage of plugins and extensions, remain the same---the only additional requirement being that users become familiar with a new scheme for permissions. 
+对于使用REST层授权工作的用户，分配角色和映射用户和角色的方法以及插件和扩展的一般用法保持不变---唯一的要求是用户熟悉新的权限计划。
 
-Developers, on the other hand, will need to understand the ideas behind `NamedRoute` and how the new route scheme is constructed. For detailed information, see [Authorization at REST Layer for plugins](https://github.com/opensearch-project/security/blob/main/REST_AUTHZ_FOR_PLUGINS.md).
+另一方面，开发人员将需要了解背后的想法`NamedRoute` 以及如何构建新路线方案。有关详细信息，请参阅[在插件的休息层授权](https://github.com/opensearch-project/security/blob/main/REST_AUTHZ_FOR_PLUGINS.md)。
 
-The benefits of using the REST layer for authorization include the ability to authorize requests at the REST layer and filter out unauthorized requests. As a result, this decreases the processing burden on the transport layer while allowing granular control over access to APIs.
+使用其余层进行授权的好处包括能够在其余层授权请求并过滤未经授权的请求。结果，这减轻了运输层的处理负担，同时允许对访问API的粒状控制。
 
-You must have the Security plugin enabled to use REST layer authorization.
-{: .note }
+您必须具有启用安全插件来使用REST层授权。
+{： 。笔记 }
 
 
-## NamedRoute
+## 名为弗洛特
 
-REST layer authorization provides cluster administrators with the ability to grant or revoke access to specific endpoints in a cluster. To achieve this, the route to the resource uses a unique name.
+REST层授权使集群管理员能够授予或撤销群集中特定端点的访问。为了实现这一目标，通往资源的路线使用唯一名称。
 
-To facilitate REST layer authorization, the OpenSearch Project has introduced the idea of [`NamedRoute`](https://github.com/opensearch-project/OpenSearch/blob/main/server/src/main/java/org/opensearch/rest/NamedRoute.java) for route registration. For developers, this standard requires a new method of registering routes that uses a unique name. While transport actions typically consist of a method name, a part, and a corresponding transport action, this new implementation requires a method name, a part, and a unique name for the route. As the name suggests, it is essential that it be unique among all plugins and extensions or, in other words, not registered to any other route.
+为了促进休息层授权，OpenSearch项目介绍了[`NamedRoute`](https://github.com/opensearch-project/OpenSearch/blob/main/server/src/main/java/org/opensearch/rest/NamedRoute.java) 用于路线注册。对于开发人员而言，此标准需要一种使用唯一名称的注册路由的新方法。虽然运输操作通常由方法名称，零件和相应的运输操作组成，但此新实现需要方法名称，零件和该路由的唯一名称。顾名思义，至关重要的是，它在所有插件和扩展程序中都是唯一的，换句话说，不注册到任何其他路线。
 
-For example, consider the following route for an Anomaly Detection resource:
+例如，考虑以下途径以获取异常检测资源：
 
 `_/detectors/<detectorId>/profile`
 
-For extensions, you can create a `NamedRoute` from this by referencing the `routeNamePrefix` value in the `settings.yml` file for the resource (`ad` in this case) and adding it to the route to complete a unique name. The result is shown in the following example:
+对于扩展，您可以创建一个`NamedRoute` 从中引用`routeNamePrefix` 价值`settings.yml` 申请资源（`ad` 在这种情况下）并将其添加到路由中以完成唯一名称。结果显示在以下示例中：
 
 `ad:detectors/profile`
 
-For plugins, you can use the plugin's name instead of the `routeNamePrefix` value.
+对于插件，您可以使用插件的名称而不是`routeNamePrefix` 价值。
 
-The route name can then be mapped to a role in the same way a traditional permission is mapped. This is demonstrated in the following example:
+然后可以将路由名称映射到一个角色，就像传统权限所绘制的方式一样。以下示例中证明了这一点：
 
 ```yml
 ad_role:
@@ -46,11 +46,11 @@ ad_role:
 ```
 
 
-## Mapping users and roles
+## 映射用户和角色
 
-There is no change to the way you map users and roles with `NamedRoute`. Also, the new format for the permission is compatible with existing configurations. This section provides an example of how user and role mappings appear for legacy and `NamedRoute` configurations and how they authorize registered routes for actions.
+您映射用户和角色的方式没有变化`NamedRoute`。此外，供许可的新格式与现有配置兼容。本节提供了一个示例，说明了用户和角色映射如何出现遗产和`NamedRoute` 配置及其如何授权注册路线进行操作。
 
-When a user initiates a REST request, the user's roles are examined, and each permission associated with the user is evaluated to determine whether there is a match with the unique name assigned to the route or a match with any of the legacy actions defined during the route's registration. A user can be mapped to roles that contain permissions formatted for a unique name or a legacy action. Consider the following role for a fictional plugin `abc`:
+当用户启动REST请求时，请检查用户的角色，并评估与用户关联的每个许可，以确定是否与分配给路由的唯一名称或与在此期间定义的任何遗留操作的匹配匹配路线的注册。可以将用户映射到包含针对唯一名称或旧行动的权限的角色。考虑虚构插件的以下角色`abc`：
 
 ```yml
 abcplugin_read_access:
@@ -59,7 +59,7 @@ abcplugin_read_access:
      - 'cluster:admin/opensearch/abcplugin/route/get'
 ```
 
-Also consider the following role mapping:
+还要考虑以下角色映射：
 
 ```yml
 abcplugin_read_access:
@@ -68,9 +68,9 @@ abcplugin_read_access:
 		 - "user-A"
 ```
 
-If `user-A` makes a REST API call to the route `/_plugins/_abcplugin/route/get`, the user is granted authorization for the action. However, for a different route, such as `/_plugins/_abcplugin/route/delete`, the request is denied.
+如果`user-A` 将REST API拨打到路线`/_plugins/_abcplugin/route/get`，授予用户授权该操作。但是，对于不同的路线，例如`/_plugins/_abcplugin/route/delete`，请求被拒绝。
 
-The same logic holds true for roles and role mappings that use a unique name for the route and the concept of `NamedRoute`. Consider the following role for the same plugin `abc`:
+相同的逻辑对于使用唯一名称的路线和概念的角色和角色映射也是如此`NamedRoute`。考虑同一插件的以下角色`abc`：
 
 ```yml
 abcplugin_read_access_nr:
@@ -81,7 +81,7 @@ abcplugin_read_access_nr:
      - 'abcplugin:routeDelete'
 ```
 
-Also consider the following role mapping:
+还要考虑以下角色映射：
 
 ```yml
 abcplugin_read_access_nr:
@@ -90,5 +90,6 @@ abcplugin_read_access_nr:
 		 - "user-B"
 ```
 
-In this second case, if `user-B` makes a REST API call to any of the routes `/_plugins/_abcplugin/route/get`, `/_plugins/_abcplugin/route/put`, or `/_plugins/_abcplugin/route/delete`, the user is granted authorization for the action.
+在第二种情况下，如果`user-B` 对任何路线进行休息API调用`/_plugins/_abcplugin/route/get`，，，，`/_plugins/_abcplugin/route/put`， 或者`/_plugins/_abcplugin/route/delete`，授予用户授权该操作。
+
 

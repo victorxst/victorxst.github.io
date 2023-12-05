@@ -1,30 +1,30 @@
 ---
 layout: default
-title: Client certificate authentication
-parent: Authentication backends
+title: 客户证书身份验证
+parent: 身份验证后端
 nav_order: 70
 redirect_from:
   - /security/configuration/client-auth/
   - /security-plugin/configuration/client-auth/
 ---
 
-# Client certificate authentication
+# 客户证书身份验证
 
-After obtaining your own certificates either from a certificate authority (CA) or by [generating your own certificates using OpenSSL]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates), you can start configuring OpenSearch to authenticate a user using a client certificate.
+从证书机构（CA）或通过[使用openssl生成自己的证书]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates)，您可以开始配置OpenSearch使用客户端证书对用户进行身份验证。
 
-Client certificate authentication offers more security advantages than just using basic authentication (username and password). Because client certificate authentication requires both a client certificate and its private key, which are often in the user's possession, it is less vulnerable to brute force attacks in which malicious individuals try to guess a user's password.
+客户端证书身份验证提供的安全优势不仅仅是使用基本身份验证（用户名和密码）。由于客户端证书身份验证需要客户证书及其私钥，这通常是用户拥有的，因此它不太容易受到蛮力攻击的攻击，其中恶意个人试图猜测用户的密码。
 
-Another benefit of client certificate authentication is you can use it along with basic authentication, providing two layers of security.
+客户证书身份验证的另一个好处是，您可以将其与基本身份验证一起使用，提供两层安全性。
 
-## Enabling client certificate authentication
+## 启用客户证书身份验证
 
-To enable client certificate authentication, you must first set `clientauth_mode` in `opensearch.yml` to either `OPTIONAL` or `REQUIRE`:
+要启用客户端证书身份验证，您必须首先设置`clientauth_mode` 在`opensearch.yml` 要点`OPTIONAL` 或者`REQUIRE`：
 
 ```yml
 plugins.security.ssl.http.clientauth_mode: OPTIONAL
 ```
 
-Next, enable client certificate authentication in the `client_auth_domain` section of `config.yml`.
+接下来，在`client_auth_domain` 部分`config.yml`。
 
 ```yml
 clientcert_auth_domain:
@@ -41,13 +41,13 @@ clientcert_auth_domain:
     type: noop
 ```
 
-## Assigning roles to your common name
+## 将角色分配给您的通用名称
 
-You can now assign your certificate's common name (CN) to a role. For this step, you must know your certificate's CN and the role you want to assign to. To get a list of all predefined roles in OpenSearch, refer to our [list of predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#predefined-roles). If you want to first create a role, refer to [how to create a role]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#create-users), and then map your certificate's CN to that role.
+现在，您可以将证书的通用名称（CN）分配给角色。在此步骤中，您必须知道证书的CN和要分配的角色。要获取OpenSearch中所有预定义角色的列表，请参阅我们的[预定角色清单]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#predefined-roles)。如果您想首先创建角色，请参考[如何创造角色]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#create-users)，然后将您的证书的CN映射到该角色。
 
-After deciding which role you want to map your certificate's CN to, you can use [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#map-users-to-roles), [`roles_mapping.yml`]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#roles_mappingyml), or the [REST API]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role-mapping) to map your certificate's CN to the role. The following example uses the `REST API` to map the common name `CLIENT1` to the role `readall`.
+在确定要映射证书的CN的角色之后，您可以使用[OpenSearch仪表板]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#map-users-to-roles)，，，，[`roles_mapping.yml`]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#roles_mappingyml)， 或者[REST API]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role-mapping) 将证书的CN映射到角色。以下示例使用`REST API` 映射通用名称`CLIENT1` 扮演角色`readall`。
 
-**Example request**
+**示例请求**
 
 ```json
 PUT _plugins/_security/api/rolesmapping/readall
@@ -58,7 +58,7 @@ PUT _plugins/_security/api/rolesmapping/readall
 }
 ```
 
-**Example response**
+**示例响应**
 
 ```json
 {
@@ -67,9 +67,9 @@ PUT _plugins/_security/api/rolesmapping/readall
 }
 ```
 
-After mapping a role to your client certificate's CN, you're ready to connect to your cluster using those credentials.
+将角色映射到客户端证书的CN之后，您可以使用这些凭据连接到群集。
 
-The code example below uses the Python `requests` library to connect to a local OpenSearch cluster and sends a GET request to the `movies` index.
+下面的代码示例使用Python`requests` 库连接到本地OpenSearch集群，并将GET请求发送到`movies` 指数。
 
 ```python
 import requests
@@ -89,12 +89,12 @@ response = requests.get(url, cert = (cert_file_path, key_file_path), verify=root
 print(response.text)
 ```
 
-{% comment %}
-## Configuring Beats
+{％ 评论 ％}
+## 配置节拍
 
-You can also configure your Beats so that it uses a client certificate for authentication with OpenSearch. Afterwards, it can start sending output to OpenSearch.
+您还可以配置Beats，以便使用OpenSearch使用客户端证书进行身份验证。之后，它可以开始将输出发送到OpenSearch。
 
-This output configuration specifies which settings you need for client certificate authentication:
+此输出配置指定客户端证书身份验证所需的设置：
 
 ```yml
 output.opensearch:
@@ -108,8 +108,9 @@ output.opensearch:
   ssl.certificate: "/full/path/to/client-cert.pem"
   ssl.key: "/full/path/to/to/client-cert-key.pem"
 ```
-{% endcomment %}
+{％endcomment％}
 
-## Using certificates with Docker
+## 与Docker一起使用证书
 
-While we recommend using the [tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/tar/) installation of ODFE to test client certificate authentication configurations, you can also use any of the other install types. For instructions on using Docker security, see [Configuring basic security settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#configuring-basic-security-settings).
+虽然我们建议使用[tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/tar/) 安装ODFE来测试客户端证书身份验证配置，还可以使用其他任何安装类型。有关使用Docker安全的说明，请参阅[配置基本的安全设置]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#configuring-basic-security-settings)。
+

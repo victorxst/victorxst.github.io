@@ -1,136 +1,136 @@
 ---
 layout: default
-title: Generating self-signed certificates
-parent: Configuration
+title: 生成自签名证书
+parent: 配置
 nav_order: 20
 redirect_from:
   - /security-plugin/configuration/generate-certificates/
 ---
 
-# Generating self-signed certificates
+# 生成自签名证书
 
-If you don't have access to a certificate authority (CA) for your organization and want to use OpenSearch for non-demo purposes, you can generate your own self-signed certificates using [OpenSSL](https://www.openssl.org/){:target='\_blank'}.
+如果您无法访问组织的证书授权（CA），而是想将OpenSearch用于非-演示目的，您可以产生自己的自我-使用的签名证书[Openssl](https://www.openssl.org/){：target ='\ _ blank'}。
 
-You can probably find OpenSSL in the package manager for your operating system.
+您可能可以在操作系统的软件包管理器中找到OpenSSL。
 
-On CentOS, use Yum:
+在CentOS上，使用百胜：
 
 ```bash
 sudo yum install openssl
 ```
 
-On macOS, use [Homebrew](https://brew.sh/){:target='\_blank'}:
+在MacOS上，使用[自制](https://brew.sh/){：target ='\ _ blank'}：
 
 ```bash
 brew install openssl
 ```
 
 
-## Generate a private key
+## 生成私钥
 
-The first step in this process is to generate a private key using the `openssl genrsa` command. As the name suggests, you should keep this file private.
+此过程的第一步是使用`openssl genrsa` 命令。顾名思义，您应该将此文件保密。
 
-Private keys must be of sufficient length to be secure, so specify `2048`:
+私钥必须足够长才能安全，因此请指定`2048`：
 
 ```bash
 openssl genrsa -out root-ca-key.pem 2048
 ```
 
-You can optionally add the `-aes256` option to encrypt the key using the AES-256 standard. This option requires a password.
+您可以选择添加`-aes256` 使用AES加密密钥的选项-256标准。此选项需要密码。
 
 
-## Generate a root certificate
+## 生成根证书
 
-Next, use the private key to generate a self-signed certificate for the root CA:
+接下来，使用私钥生成自我-Root CA的签名证书：
 
 ```bash
 openssl req -new -x509 -sha256 -key root-ca-key.pem -out root-ca.pem -days 730
 ```
 
-The default `-days` value of 30 is only useful for testing purposes. This sample command specifies 730 (two years) for the certificate expiration date, but use whatever value makes sense for your organization.
+默认值`-days` 30值仅对测试目的有用。此示例命令指定证书到期日期的730（两年），但使用任何值对您的组织有意义的。
 
-- The `-x509` option specifies that you want a self-signed certificate rather than a certificate request.
-- The `-sha256` option sets the hash algorithm to SHA-256. SHA-256 is the default in later versions of OpenSSL, but earlier versions might use SHA-1.
+- 这`-x509` 选项指定您想要自我-签名证书而不是证书请求。
+- 这`-sha256` 选项将哈希算法设置为SHA-256.莎-256是后期版本的openssl的默认值，但早期版本可能会使用SHA-1。
 
-Follow the prompts to specify details for your organization. Together, these details form the distinguished name (DN) of your CA.
+请按照提示为您的组织指定详细信息。这些细节共同构成了您CA的杰出名称（DN）。
 
 
-## Generate an admin certificate
+## 生成管理证书
 
-To generate an admin certificate, first create a new key:
+要生成管理证书，请首先创建一个新密钥：
 
 ```bash
 openssl genrsa -out admin-key-temp.pem 2048
 ```
 
-Then convert that key to PKCS#8 format for use in Java using a PKCS#12-compatible algorithm (3DES):
+然后将该键转换为PKCS#8格式用于使用PKC在Java中使用#12-兼容算法（3DE）：
 
 ```bash
 openssl pkcs8 -inform PEM -outform PEM -in admin-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out admin-key.pem
 ```
 
-Next, create a certificate signing request (CSR). This file acts as an application to a CA for a signed certificate:
+接下来，创建一个证书签名请求（CSR）。该文件充当签名证书的CA的申请：
 
 ```bash
 openssl req -new -key admin-key.pem -out admin.csr
 ```
 
-Follow the prompts to fill in the details. You don't need to specify a challenge password. As noted in the [OpenSSL Cookbook](https://www.feistyduck.com/books/openssl-cookbook/){:target='\_blank'}, "Having a challenge password does not increase the security of the CSR in any way."
+请按照提示填写详细信息。您无需指定挑战密码。如在[OpenSSL食谱](https://www.feistyduck.com/books/openssl-cookbook/){：target ='\ _ blank'}，"Having a challenge password does not increase the security of the CSR in any way."
 
-If you generate TLS certificates and have enabled hostname verification by setting `plugins.security.ssl.transport.enforce_hostname_verification` to `true` (default), be sure to specify a common name (CN) for each certificate signing request (CSR) that matches the corresponding DNS A record of the intended node.
+如果您生成TLS证书并通过设置启用了主机名验证`plugins.security.ssl.transport.enforce_hostname_verification` 到`true` （默认值），请确保为每个证书签名请求（CSR）指定一个与相应的DNS记录匹配的通用名称（CSR）。
 
-If you want to use the same node certificate on all nodes (not recommended), set hostname verification to `false`. For more information, see [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/#advanced-hostname-verification-and-dns-lookup).
+如果要在所有节点上使用相同的节点证书（不建议），请将主机名验证设置为`false`。有关更多信息，请参阅[配置TLS证书]({{site.url}}{{site.baseurl}}/security/configuration/tls/#advanced-hostname-verification-and-dns-lookup)。
 
-Now that the private key and signing request have been created, generate the certificate:
+现在已经创建了私钥和签名请求，生成证书：
 
 ```bash
 openssl x509 -req -in admin.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out admin.pem -days 730
 ```
 
-Just like the root certificate, use the `-days` option to specify an expiration date of longer than 30 days.
+就像根证书一样，使用`-days` 指定到期日期超过30天的到期日期的选项。
 
 
-## (Optional) Generate node and client certificates
+## （可选）生成节点和客户端证书
 
-Similar to the steps in [Generate an admin certificate](#generate-an-admin-certificate), you will generate keys and CSRs with new file names for each node and as many client certificates as you need. For example, you might generate one client certificate for OpenSearch Dashboards and another for a Python client. Each certificate should use its own private key and should be generated from a unique CSR with matching SAN extension specific to the intended host. A SAN extension is not needed for the admin cert because that cert is not tied to a specific host.
+类似于步骤[生成管理证书](#generate-an-admin-certificate)，您将生成每个节点的新文件名和最多客户证书的密钥和CSR。例如，您可能会生成一个用于OpenSearch仪表板的客户端证书，而为Python客户端生成了另一个客户端证书。每个证书应使用自己的私钥，并应从唯一的企业社会责任中生成，其匹配的SAN扩展特定于预期的主机。管理证书不需要SAN扩展名，因为该证书与特定主机没有绑定。
 
-To generate a node or client certificate, first create a new key:
+要生成节点或客户端证书，请首先创建一个新密钥：
 
 ```bash
 openssl genrsa -out node1-key-temp.pem 2048
 ```
 
-Then convert that key to PKCS#8 format for use in Java using a PKCS#12-compatible algorithm (3DES):
+然后将该键转换为PKCS#8格式用于使用PKC在Java中使用#12-兼容算法（3DE）：
 
 ```bash
 openssl pkcs8 -inform PEM -outform PEM -in node1-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out node1-key.pem
 ```
 
-Next, create the CSR:
+接下来，创建CSR：
 
 ```bash
 openssl req -new -key node1-key.pem -out node1.csr
 ```
 
-For all host and client certificates, you should specify a subject alternative name (SAN) to ensure compliance with [RFC 2818 (HTTP Over TLS)](https://datatracker.ietf.org/doc/html/rfc2818). The SAN should match the corresponding CN so that both refer to the same DNS A record.
-{: .note }
+对于所有主持人和客户证书，您应该指定主题替代名称（SAN）以确保符合[RFC 2818（TLS上的HTTP）](https://datatracker.ietf.org/doc/html/rfc2818)。SAN应与相应的CN匹配，以便两者都指相同的DNS记录。
+{： 。笔记 }
 
-Before generating a signed certificate, create a SAN extension file which describes the DNS A record for the host:
+在生成签名证书之前，创建一个SAN扩展文件，该文件描述了主机的DNS记录：
 
 ```bash
 echo 'subjectAltName=DNS:node1.dns.a-record' > node1.ext
 ```
 
-Generate the certificate:
+生成证书：
 
 ```bash
 openssl x509 -req -in node1.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out node1.pem -days 730 -extfile node1.ext
 ```
 
 
-## Sample script
+## 示例脚本
 
-If you already know the certificate details and don't want to specify them interactively, use the `-subj` option in your `root-ca.pem` and CSR commands. This script creates a root certificate, admin certificate, two node certificates, and a client certificate, all with an expiration dates of two years (730 days):
+如果您已经知道证书详细信息并且不想交互方式指定它们，请使用`-subj` 您的选项`root-ca.pem` 和CSR命令。该脚本创建一个根证书，管理证书，两个节点证书和客户证书，均为两年（730天）：
 
 ```bash
 #!/bin/sh
@@ -175,9 +175,9 @@ rm client.ext
 ```
 
 
-## Add distinguished names to opensearch.yml
+## 在opensearch.yml中添加杰出的名称
 
-You must specify the distinguished names (DNs) for all admin and node certificates in `opensearch.yml` on all nodes. Using the certificates from the sample script above, part of `opensearch.yml` might look like this:
+您必须为所有管理员指定所有管理员和节点证书`opensearch.yml` 在所有节点上。使用上面示例脚本的证书，一部分`opensearch.yml` 看起来像这样：
 
 ```yml
 plugins.security.authcz.admin_dn:
@@ -187,34 +187,34 @@ plugins.security.nodes_dn:
   - 'CN=node2.dns.a-record,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'
 ```
 
-But if you look at the `subject` of the certificate after creating it, you might see different formatting:
+但是，如果您看着`subject` 证书创建后，您可能会看到不同的格式：
 
 ```
 subject=/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=node1.dns.a-record
 ```
 
-If you compare this string to the ones above, you can see that you need to invert the order of elements and use commas rather than slashes. Enter this command to get the correct string:
+如果将此字符串与上面的字符串进行比较，则可以看到需要倒入元素的顺序并使用逗号而不是斜线。输入此命令以获取正确的字符串：
 
 ```bash
 openssl x509 -subject -nameopt RFC2253 -noout -in node.pem
 ```
 
-Then copy and paste the output into `opensearch.yml`.
+然后将输出复制并粘贴到`opensearch.yml`。
 
 
-## Add certificate files to opensearch.yml
+## 将证书文件添加到OpenSearch.yml
 
-This process generates many files, but these are the ones you need to add to each node:
+此过程生成了许多文件，但是这些文件是您需要添加到每个节点的文件：
 
 - `root-ca.pem`
-- (Optional) `admin.pem`
-- (Optional) `admin-key.pem`
-- (Optional) `node1.pem`
-- (Optional) `node1-key.pem`
+- （选修的）`admin.pem`
+- （选修的）`admin-key.pem`
+- （选修的）`node1.pem`
+- （选修的）`node1-key.pem`
 
-For most users, the `admin.pem` and `admin-key.pem` files only need to be added to the nodes you plan to run the `securityadmin` script or reload certificates from. For information about how to use the `securityadmin` script, see [Applying changes to configuration files]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/). If you intend to run the `securityadmin` script directly from a node, that node will need to have a copy of `admin.pem` and `admin-key.pem` on it.
+对于大多数用户，`admin.pem` 和`admin-key.pem` 文件仅需要添加到您计划运行的节点`securityadmin` 脚本或重新加载证书。有关如何使用的信息`securityadmin` 脚本，请参阅[将更改应用于配置文件]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/)。如果您打算运行`securityadmin` 直接来自节点的脚本，该节点需要具有`admin.pem` 和`admin-key.pem` 在上面。
 
-On one node, the security configuration portion of `opensearch.yml` might look like this:
+在一个节点上，安全配置部分`opensearch.yml` 看起来像这样：
 
 ```yml
 plugins.security.ssl.transport.pemcert_filepath: node1.pem
@@ -232,8 +232,9 @@ plugins.security.nodes_dn:
   - 'CN=node2.dns.a-record,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'
 ```
 
-For more information about adding and using these certificates in your own setup, see [Configuring basic security settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#configuring-basic-security-settings) for Docker, [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/), and [Client certificate authentication]({{site.url}}{{site.baseurl}}/security/configuration/client-auth/).
+有关在您自己的设置中添加和使用这些证书的更多信息，请参见[配置基本的安全设置]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#configuring-basic-security-settings) 对于Docker，[配置TLS证书]({{site.url}}{{site.baseurl}}/security/configuration/tls/)， 和[客户证书身份验证]({{site.url}}{{site.baseurl}}/security/configuration/client-auth/)。
 
-## OpenSearch Dashboards
+## OpenSearch仪表板
 
-For information on using your root CA and a client certificate to enable TLS for OpenSearch Dashboards, see [Configure TLS for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tls/).
+有关使用Root CA和客户端证书启用TLS的信息，请参见[为OpenSearch仪表板配置TLS]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tls/)。
+

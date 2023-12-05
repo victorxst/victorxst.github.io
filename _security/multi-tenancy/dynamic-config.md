@@ -1,55 +1,55 @@
 ---
 layout: default
-title: Dynamic configuration in OpenSearch Dashboards
-parent: OpenSearch Dashboards multi-tenancy
+title: OpenSearch仪表板中的动态配置
+parent: OpenSearch 仪表板多租户
 nav_order: 147
 ---
 
 
-# Dynamic configuration in OpenSearch Dashboards
+# OpenSearch仪表板中的动态配置
 
-Multi-tenancy includes dynamic configuration options in OpenSearch Dashboards so you can manage common settings for tenancy without having to make changes to the configuration YAML files on each node and then restart the cluster. You can take advantage of this functionality by using the Dashboards interface or the REST API. The following list includes descriptions of the options currently covered by dynamic configuration:
+多-租赁包括OpenSearch仪表板中的动态配置选项，因此您可以管理租赁的通用设置，而无需更改每个节点上的配置YAML文件，然后重新启动群集。您可以使用仪表板接口或REST API来利用此功能。以下列表包括动态配置当前涵盖的选项的描述：
 
-- **Disable or enable multi-tenancy** - Administrators can disable and enable multi-tenancy dynamically. Disabling multi-tenancy does not pose a risk of data loss. If and when an administrator chooses to reenable tenancy, all previously saved objects are preserved and made available.  The default is `true`.
+- **禁用或启用多重-租赁** - 管理员可以禁用并启用多款-租赁动态。禁用多重-租赁不会构成数据丢失的风险。如果管理员选择重新租赁时，则保留并提供所有先前保存的对象。默认值为`true`。
   
-  This setting does not have an impact on the global tenant, which always remains enabled.
-  {: .note }
+  此设置对全球租户没有影响，该租户始终保持启用。
+  {： 。笔记 }
 
-- **Disable or enable private tenant** - This option allows administrators to disable and enable private tenants. As with the enable multi-tenancy setting, when private tenants are reenabled all previously saved objects are preserved and made available.
-- **Default tenant** - This option allows an administrator to choose either a global, private, or custom tenant as the default when users log in. In cases where a user doesn't have access to the default tenant (for example, if a custom tenant unavailable to the user was specified as the default), the default transitions to the preferred tenant, which is specified by the `opensearch_security.multitenancy.tenants.preferred` setting in the `opensearch-dashboards.yml` file. See [Multi-tenancy configuration]({{site.url}}{{site.baseurl}}/security/multi-tenancy/multi-tenancy-config/) for more information about this setting.
+- **禁用或启用私人租户** - 此选项允许管理员禁用和启用私人租户。与启用多数-租赁设置，当重新确定私人租户时，将保留所有先前保存的对象并提供。
+- **默认租户** - 此选项允许管理员在用户登录时选择全局，私人或自定义租户作为默认设置。在用户无法访问默认租户的情况下（例如，如果用户无法使用自定义租户，则被指定为默认值），默认过渡到优先租户，该租户由`opensearch_security.multitenancy.tenants.preferred` 设置在`opensearch-dashboards.yml` 文件。看[多-租赁配置]({{site.url}}{{site.baseurl}}/security/multi-tenancy/multi-tenancy-config/) 有关此设置的更多信息。
 
-Depending on the specific changes made to multi-tenancy using dynamic configuration, some users may be logged out of their Dashboards session once the changes are saved. For example, if an admin user disables multi-tenancy, users with either a private or custom tenant as their selected tenant will be logged out and will need to log back in. Similarly, if an admin user disables private tenants, users with the private tenant selected will be logged out and will need to log back in. 
+取决于对多人的具体更改-使用动态配置的租赁，一旦保存更改，可能会将某些用户从其仪表板会话中记录出来。例如，如果管理员用户禁用了多个-租赁，拥有私人或自定义租户的用户将被登录其选定的租户，并且需要重新注销。同样，如果管理员用户禁用私人租户，则选择了拥有私人租户的用户，将需要登记，并且需要登录。
 
-The global tenant, however, is a special case. Because this tenant is never disabled, users with the global tenant selected as their active tenant will experience no interruption to their session. Furthermore, changing the default tenant has no impact on a user's session.
-
-
-## Configuring multi-tenancy in OpenSearch Dashboards
-
-To configure multi-tenancy in Dashboards, follow these steps:
-
-1. Begin by selecting **Security** in the Dashboards home page menu. Then select **Tenancy** from the Security menu on the left side of the screen. The **Multi-tenancy** page is displayed. 
-1. By default, the **Manage** tab is displayed. Select the **Configure** tab to display the dynamic settings for multi-tenancy.
-   * In the **Multi-tenancy** field, select the **Enable tenancy** check box to enable multi-tenancy. Clear the check box to disable the feature. The default is `true`.
-   * In the **Tenants** field, you can enable or disable private tenants for users. By default the check box is selected and the feature is enabled.
-   * In the **Default tenant** field, use the dropdown menu to select a default tenant. The menu includes Global, Private, and any other custom tenants that are available to users.
-1. After making your preferred changes, select **Save changes** in the lower right corner of the window. A pop-up window appears listing the configuration items you've changed and asks you to review your changes.
-1. Select the check boxes beside the items you want to confirm and then select **Apply changes**. The changes are implemented dynamically.
+但是，全球租户是一个特殊情况。由于该租户从未被禁用，因此选择全球租户的用户被选为他们的活跃租户，不会在会议上遇到任何中断。此外，更改默认租户对用户的会话没有影响。
 
 
-## Configuring multi-tenancy with the REST API
+## 配置Multi-OpenSearch仪表板的租赁
 
-In addition to using the Dashboards interface, you can manage dynamic configurations using the REST API. 
+配置多型-仪表板的租赁，请执行以下步骤：
 
-### Get tenancy configuration
+1. 首先选择**安全** 在仪表板主页菜单中。然后选择**租赁** 从屏幕左侧的安全菜单中。这**多-租赁** 显示页面。
+1. 默认情况下，**管理** 标签显示。选择**配置** 选项卡以显示多个的动态设置-租赁。
+   * 在里面**多-租赁** 字段，选择**启用租赁** 复选框以启用Multi-租赁。清除复选框以禁用该功能。默认值为`true`。
+   * 在里面**租户** 字段，您可以为用户启用或禁用私人租户。默认情况下，选择了复选框，并启用了该功能。
+   * 在里面**默认租户** 字段，使用下拉菜单选择默认租户。菜单包括用户可用的全球，私人和任何其他自定义租户。
+1. 进行首选更改后，选择**保存更改** 在窗户的右下角。流行音乐-出现向上窗口，列出您更改的配置项目，并要求您查看更改。
+1. 选择要确认的项目旁边的复选框，然后选择**应用更改**。更改是动态实现的。
 
-The GET call retrieves settings for the dynamic configuration:
+
+## 配置Multi-其余API的租约
+
+除了使用仪表板接口外，您还可以使用REST API管理动态配置。
+
+### 获取租赁配置
+
+Get呼叫检索设置的动态配置：
 
 ```json
 GET /_plugins/_security/api/tenancy/config
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -59,9 +59,9 @@ GET /_plugins/_security/api/tenancy/config
 }
 ```
 
-### Update tenant configuration
+### 更新租户配置
 
-The PUT call updates settings for dynamic configuration:
+用于动态配置的PUT呼叫更新设置：
 
 ```json
 PUT /_plugins/_security/api/tenancy/config
@@ -71,9 +71,9 @@ PUT /_plugins/_security/api/tenancy/config
     "mulitenancy_enabled": true
 }
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-### Example response
+### 示例响应
 
 ```json
 {
@@ -85,14 +85,14 @@ PUT /_plugins/_security/api/tenancy/config
 
 ### Dashboardsinfo API
 
-You can also use the Dashboardsinfo API to retrieve the status of multi-tenancy settings for the user logged in to Dashboards:
+您也可以使用dashboardsinfo api检索Multi的状态-登录仪表板的用户的租赁设置：
 
 ```json
 GET /_plugins/_security/dashboardsinfo
 ```
-{% include copy-curl.html %}
+{％包含副本-curl.html％}
 
-### Example response
+### 示例响应
 
 ```json
 {
@@ -106,4 +106,5 @@ GET /_plugins/_security/dashboardsinfo
   "default_tenant" : "Private"
 }
 ```
+
 

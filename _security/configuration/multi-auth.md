@@ -1,38 +1,38 @@
 ---
 layout: default
-title: Configuring sign-in options
-parent: Configuration
+title: 配置登录选项
+parent: 配置
 nav_order: 35
 ---
 
-# Configuring Dashboards sign-in for multiple authentication options
+# 配置仪表板登录以使用多个身份验证选项
 
-You can configure the sign-in window for OpenSearch Dashboards to provide either a single option for authenticating users at sign-in or multiple options. Currently, Dashboards supports basic authentication, OpenID Connect, and SAML as the multiple options.
+您可以配置标志-在OpenSearch仪表板的窗口中，可以为在标志处验证用户提供一个选项-在或多个选项中。当前，仪表板支持基本身份验证，OpenID Connect和SAML作为多个选项。
 
-## General steps for configuring multiple authentication options
+## 配置多个身份验证选项的一般步骤
 
-Consider the following sequence of steps before configuring the sign-in window for multiple authentication options. 
+在配置符号之前，请考虑以下步骤顺序-在多个身份验证选项的窗口中。
 
-1. Decide which types of authentication to make available at sign-in.
-1. Configure each authentication type, including an authentication domain for the identity provider (IdP) and the essential settings that give each type sign-in access to OpenSearch Dashboards. For OpenId Connect backend configuration, see [OpenID Connect]({{site.url}}{{site.baseurl}}/security/authentication-backends/openid-connect/). For SAML backend configuration, see [SAML]({{site.url}}{{site.baseurl}}/security/authentication-backends/saml/).
-1. Add, enable, and configure multiple option authentication settings in the `opensearch_dashboards.yml` file.
+1. 确定在标志处提供哪种类型的身份验证-在。
+1. 配置每种身份验证类型，包括身份提供商（IDP）的身份验证域和给出每个类型标志的基本设置-访问OpenSearch仪表板。对于OpenID Connect Backend配置，请参阅[OpenID连接]({{site.url}}{{site.baseurl}}/security/authentication-backends/openid-connect/)。对于SAML后端配置，请参阅[SAML]({{site.url}}{{site.baseurl}}/security/authentication-backends/saml/)。
+1. 添加，启用和配置多个选项身份验证设置`opensearch_dashboards.yml` 文件。
 
-## Enabling multiple authentication options
+## 启用多个身份验证选项
 
-By default, Dashboards provides basic authentication for sign-in. To enable multiple options for authentication, begin by adding `opensearch_security.auth.multiple_auth_enabled` to the `opensearch_dashboards.yml` file and setting it to `true`.
+默认情况下，仪表板为符号提供基本身份验证-在。要启用多个身份验证选项，请先添加`opensearch_security.auth.multiple_auth_enabled` 到`opensearch_dashboards.yml` 文件并将其设置为`true`。
 
-To specify the multiple authentication types as options during sign-in, add the `opensearch_security.auth.type` setting to the `opensearch_dashboards.yml` file and enter multiple types as values. When more than one authentication type is added to the setting, the Dashboards sign-in window recognizes multiple types and adjusts to accommodate the sign-in options.
+指定多种身份验证类型为符号期间的选项-在中，添加`opensearch_security.auth.type` 设置为`opensearch_dashboards.yml` 文件并输入多种类型作为值。当将多种身份验证类型添加到设置中时，仪表板符号-在窗口中识别多种类型和调整以适应标志-在选项中。
 
-When setting up Dashboards to provide multiple authentication options, basic authentication is always required as one of the values for the setting.
-{: .note }
+在设置仪表板以提供多个身份验证选项时，始终需要基本身份验证作为设置的值之一。
+{： 。笔记 }
 
-Add a single value to the setting when only one authentication type is needed.
+当仅需要一种身份验证类型时，将单个值添加到设置中。
 
 ```yml
 opensearch_security.auth.type: "openid"
 ```
 
-For multiple authentication options, add values to the setting as an array separated by commas. As a reminder, Dashboards currently supports a combination of basic authentication, OpenID Connect, and SAML as a valid set of values. In the setting, these values are expressed as `"basicauth"`, `"openid"`, and `"saml"`.
+对于多个身份验证选项，请将值添加到设置中，作为由逗号分隔的数组。提醒您，仪表板当前支持基本身份验证，OpenID Connect和SAML作为有效值集的组合。在设置中，这些值表示为`"basicauth"`，，，，`"openid"`， 和`"saml"`。
 
 ```yml
 opensearch_security.auth.type: ["basicauth","openid"]
@@ -49,51 +49,51 @@ opensearch_security.auth.type: ["basicauth","saml","openid"]
 opensearch_security.auth.multiple_auth_enabled: true
 ```
 
-When the `opensearch_security.auth.type` setting contains `basicauth` and one other authentication type, the sign-in window appears as in the following example.
+当。。。的时候`opensearch_security.auth.type` 设置包含`basicauth` 还有另一种身份验证类型，标志-在窗口中显示如下示例。
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/OneOptionWithoutLogo.png" alt="Basic authentication and one other type in the sign-in window" width="350">
 
-With all three valid authentication types specified, the sign-in window appears as in the following example.
+指定了所有三种有效的身份验证类型，-在窗口中显示如下示例。
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/TwoOptionWithoutLogo.png" alt="All three authentication types specified in the sign-in window" width="350">
 
-## Customizing the sign-in environment
+## 自定义标志-在环境中
 
-In addition to the essential sign-in settings for each authentication type, you can configure additional settings in the `opensearch_dashboards.yml` file to customize the sign-in window so that it clearly represents the options that are available. For example, you can replace the label on the sign-in button with the name and icon of the IdP. Refer to the settings and descriptions that follow.
+除了基本迹象-在每种身份验证类型的设置中，您可以在`opensearch_dashboards.yml` 文件以自定义标志-在窗口中，可以清楚地表示可用的选项。例如，您可以替换标牌上的标签-在包含IDP的名称和图标的按钮中。请参阅以下的设置和描述。
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/TwoOptionWithLogo.png" alt="Multi-option sign-in window with with some customization" width="350">
 
-### Basic authentication settings
+### 基本身份验证设置
 
-These settings allow you to customize the basic username and password sign-in button.
+这些设置允许您自定义基本的用户名和密码符号-在按钮中。
 
-Setting | Description
-:--- | :--- |:--- |:--- |
-`opensearch_security.ui.basicauth.login.brandimage` |  Login button logo. Supported file types are SVG, PNG, and GIF.
-`opensearch_security.ui.basicauth.login.showbrandimage` |  Determines whether a logo for the login button is displayed or not. Default is `true`. 
+环境| 描述
+：--- | ：--- |：--- |：--- |
+`opensearch_security.ui.basicauth.login.brandimage` |  登录按钮徽标。支持的文件类型为SVG，PNG和GIF。
+`opensearch_security.ui.basicauth.login.showbrandimage` |  确定是否显示登录按钮的徽标。默认为`true`。
 
-### OpenID Connect authentication settings
+### OpenID连接身份验证设置
 
-These settings allow you to customize the sign-in button associated with OpenID Connect authentication. For the essential settings required to use OpenID Connect as a single sign-in option, see [OpenSearch Dashboards single sign-on]({{site.url}}{{site.baseurl}}/security/authentication-backends/openid-connect/#opensearch-dashboards-single-sign-on).
+这些设置使您可以自定义标志-在与OpenID Connect身份验证相关的按钮中。对于使用OpenID Connect所需的基本设置-在选项中，请参阅[OpenSearch仪表板单个标志-在]({{site.url}}{{site.baseurl}}/security/authentication-backends/openid-connect/#opensearch-dashboards-single-sign-on)。
 
-Setting | Description
-:--- | :--- |:--- |:--- |
-`opensearch_security.ui.openid.login.buttonname` |  Display name for the login button. "Log in with single sign-on" by default.
-`opensearch_security.ui.openid.login.brandimage` |  Login button logo. Supported file types are SVG, PNG, and GIF.
-`opensearch_security.ui.openid.login.showbrandimage` |  Determines whether a logo for the login button is displayed or not. Default is `false`.
+环境| 描述
+：--- | ：--- |：--- |：--- |
+`opensearch_security.ui.openid.login.buttonname` |  显示登录按钮的名称。"Log in with single sign-on" 默认情况下。
+`opensearch_security.ui.openid.login.brandimage` |  登录按钮徽标。支持的文件类型为SVG，PNG和GIF。
+`opensearch_security.ui.openid.login.showbrandimage` |  确定是否显示登录按钮的徽标。默认为`false`。
 
-### SAML authentication settings
+### SAML身份验证设置
 
-These settings allow you to customize the sign-in button associated with SAML authentication. For the essential settings required to use SAML as a sign-in option, see [OpenSearch Dashboards configuration]({{site.url}}{{site.baseurl}}/security/authentication-backends/saml/#opensearch-dashboards-configuration).
+这些设置使您可以自定义标志-在与SAML身份验证相关的按钮中。对于使用SAML作为标志所需的基本设置-在选项中，请参阅[OpenSearch仪表板配置]({{site.url}}{{site.baseurl}}/security/authentication-backends/saml/#opensearch-dashboards-configuration)。
 
-Setting | Description
-:--- | :--- |:--- |:--- |
-`opensearch_security.ui.saml.login.buttonname` |  Display name for the login button. "Log in with single sign-on" by default.
-`opensearch_security.ui.saml.login.brandimage` |  Login button logo. Supported file types are SVG, PNG, and GIF.
-`opensearch_security.ui.saml.login.showbrandimage` |  Determines whether a logo for the login button is displayed or not. Default is `false`.
+环境| 描述
+：--- | ：--- |：--- |：--- |
+`opensearch_security.ui.saml.login.buttonname` |  显示登录按钮的名称。"Log in with single sign-on" 默认情况下。
+`opensearch_security.ui.saml.login.brandimage` |  登录按钮徽标。支持的文件类型为SVG，PNG和GIF。
+`opensearch_security.ui.saml.login.showbrandimage` |  确定是否显示登录按钮的徽标。默认为`false`。
 
-## Sample setup
-The following example shows basic settings in the `opensearch_dashboards.yml` file  when it is configured for two types of authentication at sign-in.
+## 样本设置
+以下示例在`opensearch_dashboards.yml` 在标志时为两种类型的身份验证配置的文件-在。
 
 ```yml
 # The several settings directly below are typical of all `opensearch_dashboards.yml` configurations. #
@@ -130,3 +130,4 @@ opensearch_security.openid.connect_url: <"OIDC connect URL">
 opensearch_security.openid.client_id: <Client ID>
 opensearch_security.openid.client_secret: <Client secret>
 ```
+

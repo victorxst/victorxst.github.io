@@ -1,18 +1,18 @@
 ---
 layout: default
-title: Field masking
-parent: Access control
+title: 场遮蔽
+parent: 访问控制
 nav_order: 95
 redirect_from:
  - /security/access-control/field-masking/
  - /security-plugin/access-control/field-masking/
 ---
 
-# Field masking
+# 场遮蔽
 
-If you don't want to remove fields from a document using [field-level security]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security/), you can mask their values. Currently, field masking is only available for string-based fields and replaces the field's value with a cryptographic hash.
+如果您不想使用文档中删除字段[场地-级别的安全性]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security/)，您可以掩盖它们的价值观。当前，字段掩码仅适用于字符串-基于字段并用加密哈希替换字段的值。
 
-Field masking works alongside field-level security on the same per-role, per-index basis. You can allow certain roles to see sensitive fields in plain text and mask them for others. A search result with a masked field might look like this:
+现场蒙版与现场一起工作-相同的级别安全性-角色，per-索引基础。您可以允许某些角色在纯文本中查看敏感的字段，并为他人掩盖它们。带有蒙版字段的搜索结果看起来像这样：
 
 ```json
 {
@@ -28,33 +28,33 @@ Field masking works alongside field-level security on the same per-role, per-ind
 ```
 
 
-## Set the salt
+## 放盐
 
-You set the salt (a random string used to hash your data) in `opensearch.yml`:
+您将盐设置为盐（用于哈希数据的随机字符串）`opensearch.yml`：
 
 ```yml
 plugins.security.compliance.salt: abcdefghijklmnopqrstuvqxyz1234567890
 ```
 
-Property | Description
-:--- | :---
-`plugins.security.compliance.salt` | The salt to use when generating the hash value. Must be at least 32 characters. Only ASCII characters are allowed. Optional.
+财产| 描述
+：--- | ：---
+`plugins.security.compliance.salt` | 生成哈希值时要使用的盐。必须至少32个字符。仅允许ASCII字符。选修的。
 
-Setting the salt is optional, but we highly recommend it.
-
-
-## Configure field masking
-
-You configure field masking using OpenSearch Dashboards, `roles.yml`, or the REST API.
-
-### OpenSearch Dashboards
-
-1. Choose a role.
-1. Choose an index permission.
-1. For **Anonymization**, specify one or more fields and press Enter.
+设置盐是可选的，但我们强烈建议它。
 
 
-### roles.yml
+## 配置字段掩码
+
+您使用OpenSearch仪表板配置字段掩码，`roles.yml`，或剩下的API。
+
+### OpenSearch仪表板
+
+1. 选择角色。
+1. 选择索引许可。
+1. 为了**匿名化**，指定一个或多个字段，然后按Enter。
+
+
+### 角色
 
 ```yml
 someonerole:
@@ -71,14 +71,14 @@ someonerole:
 
 ### REST API
 
-See [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role).
+看[创建角色]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role)。
 
 
-## (Advanced) Use an alternative hash algorithm
+## （高级）使用替代哈希算法
 
-By default, the Security plugin uses the BLAKE2b algorithm, but you can use any hashing algorithm that your JVM provides. This list typically includes MD5, SHA-1, SHA-384, and SHA-512.
+默认情况下，安全插件使用Blake2B算法，但是您可以使用JVM提供的任何哈希算法。此列表通常包括MD5，SHA-1，莎-384和莎-512。
 
-To specify a different algorithm, add it after the masked field:
+要指定其他算法，请在蒙版字段之后添加：
 
 ```yml
 someonerole:
@@ -93,9 +93,9 @@ someonerole:
 ```
 
 
-## (Advanced) Pattern-based field masking
+## （高级）模式-基于现场掩蔽
 
-Rather than creating a hash, you can use one or more regular expressions and replacement strings to mask a field. The syntax is `<field>::/<regular-expression>/::<replacement-string>`. If you use multiple regular expressions, the results are passed from left to right, like piping in a shell:
+您可以使用一个或多个正则表达式和替换字符串来掩盖字段，而不是创建哈希。语法是`<field>::/<regular-expression>/::<replacement-string>`。如果您使用多个正则表达式，则结果将从从左到右传递，例如在外壳中的管道：
 
 ```yml
 hr_employee:
@@ -119,9 +119,10 @@ someonerole:
 
 ```
 
-The `title` statement changes each character in the field to `*`, so you can still discern the length of the masked string. The `genres` statement changes the first three characters of the string to `XXX` and the last three characters to `YYY`.
+这`title` 语句将字段中的每个字符更改为`*`，因此您仍然可以辨别蒙版字符串的长度。这`genres` 语句将字符串的前三个字符更改为`XXX` 最后三个字符`YYY`。
 
 
-## Effect on audit logging
+## 对审计记录的影响
 
-The read history feature lets you track read access to sensitive fields in your documents. For example, you might track access to the email field of your customer records. Access to masked fields are excluded from read history, because the user only saw the hash value, not the clear text value of the field.
+读取历史记录功能使您可以跟踪文档中对敏感字段的访问。例如，您可能会跟踪对客户记录的电子邮件字段的访问。从读取历史记录中排除了对蒙版字段的访问，因为用户只看到了哈希值，而不是该字段的清晰文本值。
+

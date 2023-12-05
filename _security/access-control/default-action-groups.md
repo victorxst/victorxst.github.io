@@ -1,56 +1,57 @@
 ---
 layout: default
-title: Default action groups
-parent: Access control
+title: 默认操作组
+parent: 访问控制
 nav_order: 115
 redirect_from:
  - /security/access-control/default-action-groups/
  - /security-plugin/access-control/default-action-groups/
 ---
 
-# Default action groups
+# 默认操作组
 
-This page catalogs all default action groups. Often, the most coherent way to create new action groups is to use a combination of these default groups and [individual permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/).
-
-
-## General
-
-Name | Description
-:--- | :---
-unlimited | Grants complete access. Can be used on an cluster- or index-level. Equates to `"*"`.
-{% comment %}kibana_all_read | asdf
-kibana_all_write | asdf{% endcomment %}
+此页面分类所有默认操作组。通常，创建新行动组的最连贯方法是使用这些默认组的组合和[个人许可]({{site.url}}{{site.baseurl}}/security/access-control/permissions/)。
 
 
+## 一般的
 
-## Cluster-level
-
-Name | Description
-:---| :---
-cluster_all | Grants all cluster permissions. Equates to `cluster:*`.
-cluster_monitor | Grants all cluster monitoring permissions. Equates to `cluster:monitor/*`.
-cluster_composite_ops_ro | Grants read-only permissions to execute requests like `mget`, `msearch`, or `mtv`, plus permissions to query for aliases.
-cluster_composite_ops | Same as `CLUSTER_COMPOSITE_OPS_RO`, but also grants `bulk` permissions and all aliases permissions.
-manage_snapshots | Grants permissions to manage snapshots and repositories.
-cluster_manage_pipelines | Grants permissions to manage ingest pipelines.
-cluster_manage_index_templates | Grants permissions to manage index templates.
+姓名| 描述
+：--- | ：---
+无限| 赠款完全访问。可以在集群上使用- 或索引-等级。等于`"*"`。
+{％注释％} kibana_all_read| ASDF
+kibana_all_write| ASDF {％端次}
 
 
-## Index-level
 
-Name | Description
-:--- | :---
-indices_all | Grants all permissions on the index. Equates to `indices:*`.
-get | Grants permissions to use `get` and `mget` actions only.
-read | Grants read permissions such as search, get field mappings, `get`, and `mget`.
-write | Grants permissions to create and update documents within *existing indices*. To create new indexes, see `create_index`.
-delete | Grants permissions to delete documents.
-crud | Combines the `read`, `write`, and `delete` action groups. Included in the `data_access` action group.
-search | Grants permissions to search documents. Includes `suggest`.
-suggest | Grants permissions to use the suggest API. Included in the `read` action group.
-create_index | Grants permissions to create indexes and mappings.
-indices_monitor | Grants permissions to execute all index monitoring actions (e.g. recovery, segments info, index stats, and status).
-index | A more limited version of the `write` action group.
-data_access | Combines the `crud` action group with `indices:data/*`.
-manage_aliases | Grants permissions to manage aliases.
-manage | Grants all monitoring and administration permissions for indexes.
+## 簇-等级
+
+姓名| 描述
+：---| ：---
+cluster_all| 授予所有集群权限。等于`cluster:*`。
+cluster_monitor| 授予所有集群监控权限。等于`cluster:monitor/*`。
+cluster_composite_ops_ro| 赠款阅读-仅执行请求之类的许可`mget`，，，，`msearch`， 或者`mtv`，加上查询别名的许可。
+cluster_composite_ops| 与...一样`CLUSTER_COMPOSITE_OPS_RO`，但也赠款`bulk` 权限和所有别名许可。
+manage_snapshots| 授予管理快照和存储库的权限。
+cluster_manage_pipelines| 授予管理摄入管道的许可。
+cluster_manage_index_templates| 授予管理索引模板的权限。
+
+
+## 指数-等级
+
+姓名| 描述
+：--- | ：---
+indices_all| 授予索引上的所有权限。等于`indices:*`。
+得到| 赠款使用权限`get` 和`mget` 仅动作。
+读| 赠款阅读许可，例如搜索，获取现场映射，`get`， 和`mget`。
+写| 授予在 *现有索引 *中创建和更新文档的权限。要创建新索引，请参阅`create_index`。
+删除| 授予删除文件的许可。
+克鲁德| 结合`read`，，，，`write`， 和`delete` 行动组。包括在`data_access` 行动小组。
+搜索| 授予搜索文件的许可。包括`suggest`。
+建议| 授予使用建议API的许可。包括在`read` 行动小组。
+create_index| 授予创建索引和映射的权限。
+indices_monitor| 授予执行所有索引监视操作的权限（例如恢复，段信息，索引统计和状态）。
+指数| 更有限的版本的`write` 行动小组。
+data_access| 结合`crud` 行动小组与`indices:data/*`。
+manage_aliases| 授予管理别名的许可。
+管理| 授予所有监控和管理权限的索引许可。
+

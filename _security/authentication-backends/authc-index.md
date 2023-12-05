@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Authentication backends
+title: 身份验证后端
 nav_order: 45
 has_children: true
 has_toc: false
@@ -9,24 +9,25 @@ redirect_from:
   - /security-plugin/configuration/concepts/
 ---
 
-# Authentication backends
+# 身份验证后端
 
-Authentication backend configurations determine the method or methods you use for authenticating users and the way users pass their credentials and sign in to OpenSearch. Having an understanding of the basic authentication flow before getting started can help with the configuration process for whichever backend you choose. Consider the high-level sequence of events in the description that follows, and then refer to the detailed steps for configuring the authentication type you choose to use with OpenSearch.
+身份验证后端配置确定您使用的方法或方法来验证用户以及用户传递凭据并登录OpenSearch的方式。在开始之前了解基本的身份验证流可以帮助您选择哪个后端的配置过程。考虑高-以下描述中事件的级别顺序，然后参考配置您选择与OpenSearch一起使用的身份验证类型的详细步骤。
 
-## Authentication flow
+## 身份验证流
 
-1. To identify a user who wants to access the cluster, the Security plugin needs the user's credentials.
+1. 要确定想要访问群集的用户，安全插件需要用户的凭据。
 
-   These credentials differ depending on how you've configured the plugin. For example, if you use basic authentication, the credentials are a username and password. If you use a JSON web token, the credentials (username and roles) are stored within the token itself. If you use TLS certificates, the credentials are the distinguished name (DN) of the certificate. No matter which backend you use, these credentials are included in the request for authentication. Note, the Security plugin does not distinguish between identity providers when handling standard role mappings. As a result, only backend roles will differ between two users with the same name coming from two different identity providers. 
+   这些凭据不同，具体取决于您如何配置插件。例如，如果您使用基本身份验证，则凭据是用户名和密码。如果您使用JSON Web令牌，则将存储在令牌本身中。如果使用TLS证书，则凭据是证书的杰出名称（DN）。无论您使用哪个后端，这些凭据都包含在身份验证请求中。请注意，安全插件在处理标准角色映射时不会区分身份提供商。结果，两个用户之间只有两个不同的身份提供者的后端角色会有所不同。
 
-2. The Security plugin authenticates a request against a backend configured for an authentication provider. Some examples of authentication providers used with OpenSearch include Basic Auth (which uses the internal user database), LDAP/Active Directory, JSON web tokens, SAML, or another authentication protocol.
+2. 安全插件对为身份验证提供商配置的后端进行身份验证请求。与OpenSearch一起使用的身份验证提供商的一些示例包括基本AUTH（使用内部用户数据库），LDAP/Active Directory，JSON Web令牌，SAML或其他身份验证协议。
 
-   The plugin supports chaining backends in `config/opensearch-security/config.yml`. If more than one backend is present, the plugin tries to authenticate the user sequentially against each until one succeeds. A common use case is to combine the internal user database of the Security plugin with LDAP/Active Directory.
+   该插件支持链接后端`config/opensearch-security/config.yml`。如果存在多个后端，则该插件试图在每个后端对用户进行依次对用户进行身份验证，直到成功为止。一个常见的用例是将安全插件的内部用户数据库与LDAP/Active Directory相结合。
 
-3. After a backend verifies the user's credentials, the plugin collects any [backend roles]({{site.url}}{{site.baseurl}}/security/access-control/index/#concepts). The authentication provider determines the way these roles are retrieved. For example, LDAP extracts backend roles from its directory service based on their mappings to roles in OpenSearch, while SAML stores the roles as attributes. When basic authentication is used, the internal user database refers to role mappings configured in OpenSearch.
+3. 后端验证用户的凭据后，插件将收集任何[后端角色]({{site.url}}{{site.baseurl}}/security/access-control/index/#concepts)。身份验证提供商确定了这些角色的检索方式。例如，LDAP根据其目录服务提取后端角色，基于其映射到OpenSearch中的角色，而SAML将角色存储为属性。当使用基本身份验证时，内部用户数据库是指在OpenSearch中配置的角色映射。
 
-4. After the user is authenticated and any backend roles are retrieved, the Security plugin uses the role mapping to assign security roles to the user.
+4. 在用户进行身份验证并检索任何后端角色后，安全插件使用角色映射将安全角色分配给用户。
 
-   If the role mapping doesn't include the user (or the user's backend roles), the user is successfully authenticated, but has no permissions.
+   如果角色映射不包括用户（或用户的后端角色），则可以成功验证用户，但没有权限。
 
-5. The user can now perform actions as defined by the mapped security roles. For example, a user might map to the `kibana_user` role and thus have permissions to access OpenSearch Dashboards.
+5. 用户现在可以执行由映射的安全角色定义的操作。例如，用户可能会映射到`kibana_user` 角色，因此具有访问OpenSearch仪表板的权限。
+
