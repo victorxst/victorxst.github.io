@@ -1,13 +1,14 @@
 ---
 layout: default
-title: RCA Reference
-parent: Root Cause Analysis
-grand_parent: Performance Analyzer
+title: RCA参考
+parent: 根本原因分析
+grand_parent: 性能分析仪
 nav_order: 3
 redirect_from:
   - /monitoring-plugins/pa/rca/reference/
 ---
 
-# RCA reference
+# RCA参考
 
-You can find a reference of available RCAs and their purposes on [GitHub](https://github.com/opensearch-project/performance-analyzer-rca/tree/main/docs).
+您可以找到可用的RCA及其目的的参考[github](https://github.com/opensearch-project/performance-analyzer-rca/tree/main/docs)。
+

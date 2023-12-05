@@ -1,39 +1,39 @@
 ---
 layout: default
 title: API
-parent: Performance Analyzer
+parent: 性能分析仪
 nav_order: 1
 redirect_from:
   - /monitoring-plugins/pa/api/
 ---
 
-# Performance Analyzer API
-Introduced 1.0
+# 性能分析仪API
+引入1.0
 {: .label .label-purple }
 
-Performance Analyzer uses a single HTTP method and URI for most requests:
+性能分析仪用于大多数请求使用单个HTTP方法和URI：
 
 ```
 GET <endpoint>:9600/_plugins/_performanceanalyzer/metrics
 ```
 
-Note the use of port 9600. Provide parameters for metrics, aggregations, dimensions, and nodes (optional):
+请注意使用端口9600。提供指标，聚合，尺寸和节点（可选）的参数：
 
 ```
 ?metrics=<metrics>&agg=<aggregations>&dim=<dimensions>&nodes=all"
 ```
 
-For a full list of metrics, see [Metrics reference]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/reference/). Performance Analyzer updates its data every five seconds. If you create a custom client, we recommend using that same interval for calls to the API.
+有关指标的完整列表，请参阅[指标参考]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/reference/)。性能分析仪每五秒钟一次更新其数据。如果创建自定义客户端，我们建议使用相同的间隔来调用API。
 
 
-#### Example request
+#### 示例请求
 
 ```
 GET localhost:9600/_plugins/_performanceanalyzer/metrics?metrics=Latency,CPU_Utilization&agg=avg,max&dim=ShardID&nodes=all
 ```
 
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -100,19 +100,19 @@ GET localhost:9600/_plugins/_performanceanalyzer/metrics?metrics=Latency,CPU_Uti
 }
 ```
 
-In this case, each top-level object represents a node. The API returns names and data types for the metrics and dimensions that you specified, along with values from five seconds ago and current values (if different). Null values represent inactivity during that time period.
+在这种情况下，每个顶部-级别对象代表一个节点。API返回您指定的指标和尺寸的名称和数据类型，以及五秒钟前的值以及当前值（如果不同的话）。零值表示在此期间的无活动。
 
-Performance Analyzer has one additional URI that returns the unit for each metric.
+性能分析仪还有一个额外的URI，可以返回每个度量标准的设备。
 
 
-#### Example request
+#### 示例请求
 
 ```
 GET localhost:9600/_plugins/_performanceanalyzer/metrics/units
 ```
 
 
-#### Example response
+#### 示例响应
 
 ```json
 {
@@ -191,3 +191,4 @@ GET localhost:9600/_plugins/_performanceanalyzer/metrics/units
   "Net_TCP_NumFlows": "count"
 }
 ```
+

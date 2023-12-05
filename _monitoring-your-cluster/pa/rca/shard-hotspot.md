@@ -1,36 +1,36 @@
 ---
 layout: default
-title: Hot shard identification
-parent: Root Cause Analysis
-grand_parent: Performance Analyzer
+title: 热碎片识别
+parent: 根本原因分析
+grand_parent: 性能分析仪
 nav_order: 30
 ---
 
-# Hot shard identification
+# 热碎片识别
 
-Hot shard identification root cause analysis (RCA) lets you identify a hot shard within an index. A hot shard is an outlier that consumes more resources than other shards and may lead to poor indexing and search performance. The hot shard identification RCA monitors the following metrics:
+热碎片识别根本原因分析（RCA）可让您在索引中识别热碎片。热碎片是一个比其他碎片更多的不同资源的异常值，并且可能导致索引和搜索性能差。Hot Shard识别RCA监视以下指标：
 
-- CPU utilization
-- Heap allocation rate
+- CPU利用率
+- 堆分配率
 
-Shards may become hot because of the nature of your workload. When you use a `_routing` parameter or a custom document ID, a specific shard or several shards within the cluster receive frequent updates, consuming more CPU and heap resources than other shards.
+由于工作量的性质，碎片可能会变得热。当您使用`_routing` 参数或自定义文档ID，特定的碎片或群集中的几片接收到频繁的更新，比其他碎片要消耗更多的CPU和堆资源。
 
-The hot shard identification RCA compares the CPU utilization and heap allocation rates against their threshold values. If the usage for either metric is greater than the threshold, the shard is considered to be _hot_.
+热碎片识别RCA将CPU利用率和堆分配速率与其阈值值进行比较。如果任一个指标的用法大于阈值，则将碎片视为_hot_。
 
-For more information about the hot shard identification RCA implementation, see [Hot Shard RCA](https://github.com/opensearch-project/performance-analyzer-rca/blob/main/src/main/java/org/opensearch/performanceanalyzer/rca/store/rca/hotshard/docs/README.md).
+有关Hot Shard标识RCA实施的更多信息，请参见[热shard rca](https://github.com/opensearch-project/performance-analyzer-rca/blob/main/src/main/java/org/opensearch/performanceanalyzer/rca/store/rca/hotshard/docs/README.md)。
 
-#### Example request
+#### 示例请求
 
-The following query requests hot shard identification:
+以下查询请求热碎片标识：
 
 ```bash
 GET _plugins/_performanceanalyzer/rca?name=HotShardClusterRca
 ```
 {% include copy-curl.html %}
 
-#### Example Response
+#### 示例响应
 
-The response contains a list of unhealthy shards:
+响应包含不健康的碎片清单：
 
 ```json
 "HotShardClusterRca": [{
@@ -78,28 +78,29 @@ The response contains a list of unhealthy shards:
 }]
 ```
 
-## Response fields
+## 响应字段
 
-The following table lists the response fields.
+下表列出了响应字段。
 
-Field | Type | Description
+场地| 类型| 描述
 :--- | :--- | :---
-rca_name | String | The name of the RCA. In this case, "HotShardClusterRca".
-timestamp | Integer | The timestamp of the RCA.
-state | Object | The state of the cluster determined by the RCA. The `state` can be `healthy`, `unhealthy`, or `unknown`.
-HotClusterSummary.HotNodeSummary.number_of_nodes | Integer | The number of nodes in the cluster.
-HotClusterSummary.HotNodeSummary.number_of_unhealthy_nodes | Integer | The number of nodes found to be in an `unhealthy` state.
-HotClusterSummary.HotNodeSummary.HotResourceSummary.resource_type | Object | The type of resource causing the unhealthy state, either "cpu usage" or "heap".
-HotClusterSummary.HotNodeSummary.HotResourceSummary.resource_metric | String | The definition of the resource_type. Either "cpu usage(num of cores)" or "heap alloc rate(heap alloc rate in bytes per second)".
-HotClusterSummary.HotNodeSummary.HotResourceSummary.threshold | Float | The value that determines whether a resource is contended.
-HotClusterSummary.HotNodeSummary.HotResourceSummary.value | Float | The current value of the resource.
-HotClusterSummary.HotNodeSummary.HotResourceSummary.time_period_seconds | Time | The amount of time that a shard was monitored before its state was declared to be healthy or unhealthy.
-HotClusterSummary.HotNodeSummary.HotResourceSummary.meta_data | String | The metadata associated with the resource_type.
+rca_name| 细绳| RCA的名称。在这种情况下，"HotShardClusterRca"。
+时间戳| 整数| RCA的时间戳。
+状态| 目的| 由RCA确定的群集的状态。这`state` 可`healthy`，`unhealthy`， 或者`unknown`。
+hotclustersummary.hotnodesummary.number_of_nodes| 整数| 集群中的节点数量。
+hotclustersummary.hotnodesummary.number_of_unhealthy_nodes| 整数| 发现节点的数量在`unhealthy` 状态。
+hotclustersummary.hotnodesummary.hotresourcesummary.resource_type| 目的| 引起不健康状态的资源类型"cpu usage" 或者"heap"。
+hotclustersummary.hotnodesummary.hotresourcesummary.resource_metric| 细绳| resource_type的定义。任何一个"cpu usage(num of cores)" 或者"heap alloc rate(heap alloc rate in bytes per second)"。
+hotclustersummary.hotnodesummary.hotresourcesummary.threshold| 漂浮| 确定是否争夺资源的值。
+hotclustersummary.hotnodesummary.hotresourcesummary.value| 漂浮| 资源的当前值。
+hotclustersummary.hotnodesummary.hotresourcesummary.time_period_seconds| 时间| 在宣布其状态之前对碎片进行监测的时间。
+hotclustersummary.hotnodesummary.hotresourcesummary.meta_data| 细绳| 与resource_type关联的元数据。
 
-In the preceding example response, `meta_data` is `QRF4rBM7SNCDr1g3KU6HyA index9 0`. The `meta_data` string consists of three fields:
+在上一个示例响应中，`meta_data` 是`QRF4rBM7SNCDr1g3KU6HyA index9 0`。这`meta_data` 字符串由三个字段组成：
 
-- Node name: `QRF4rBM7SNCDr1g3KU6HyA`
-- Index name: `index9`
-- Shard ID: `0`
+- 节点名称：`QRF4rBM7SNCDr1g3KU6HyA`
+- 索引名称：`index9`
+- 碎片ID：`0`
 
-This means that shard `0` of index `index9` on node `QRF4rBM7SNCDr1g3KU6HyA` is hot.
+这意味着碎片`0` 索引`index9` 在节点上`QRF4rBM7SNCDr1g3KU6HyA` 火爆
+

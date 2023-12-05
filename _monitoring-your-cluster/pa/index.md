@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Performance Analyzer
+title: 性能分析仪
 nav_order: 58
 has_children: true
 redirect_from:
@@ -8,44 +8,44 @@ redirect_from:
   - /monitoring-plugins/pa/index/
 ---
 
-# Performance Analyzer
+# 性能分析仪
 
-Performance Analyzer is a plugin that contains an agent and REST API that allow you to query numerous cluster performance metrics, including aggregations of those metrics. 
+Performance Analyzer是一个包含代理和REST API的插件，可让您查询众多集群性能指标，包括这些指标的聚合。
 
-The Performance Analyzer plugin is installed by default in OpenSearch versions 2.0 and later. If you want to use OpenSearch 2.0 or later with Performance Analyzer disabled, see [Disable Performance Analyzer](#disable-performance-analyzer).
+默认情况下，在OpenSearch版本2.0及更高版本中安装了性能分析仪插件。如果要使用禁用性能分析仪使用OpenSearch 2.0或以后，请参见[禁用性能分析仪](#disable-performance-analyzer)。
 {: .note }
 
-## Prerequisites
+## 先决条件
 
-Before using Performance Analyzer with OpenSearch, review the following prerequisites.
+在使用OpenSearch使用性能分析仪之前，请查看以下先决条件。
 
-### Storage
+### 贮存
 
-Performance Analyzer uses `/dev/shm` for temporary storage. During heavy cluster workloads, Performance Analyzer can use up to 1 GB of space.
+性能分析仪使用`/dev/shm` 用于临时存储。在重型集群工作负载期间，性能分析仪最多可以使用1 GB的空间。
 
-Docker, however, has a default `/dev/shm` size of 64 MB. To change this value, you can use the `docker run --shm-size 1gb` flag or [a similar setting in Docker Compose](https://docs.docker.com/compose/compose-file#shm_size).
+但是，Docker有一个默认`/dev/shm` 大小为64 MB。要更改此值，您可以使用`docker run --shm-size 1gb` 标志或[Docker中的类似设置](https://docs.docker.com/compose/compose-file#shm_size)。
 
-If you're not using Docker, you can check the size of `/dev/shm` using `df -h`. The default value should be adequate, but if you need to change its size, add the following line to `/etc/fstab`:
+如果您不使用Docker，则可以检查`/dev/shm` 使用`df -h`。默认值应该足够，但是如果您需要更改其大小，将以下行添加到`/etc/fstab`：
 
 ```bash
 tmpfs /dev/shm tmpfs defaults,noexec,nosuid,size=1G 0 0
 ```
 
-Then remount the file system:
+然后重新安装文件系统：
 
 ```bash
 mount -o remount /dev/shm
 ```
 
-### Security 
+### 安全
 
-Performance Analyzer supports encryption in transit for requests. It currently does *not* support client or server authentication for requests. To enable encryption in transit, edit `performance-analyzer.properties` in your `$OPENSEARCH_HOME` directory:
+绩效分析仪支持请求中的运输中的加密。当前，它 *不 *支持请求客户端或服务器身份验证。要在运输中启用加密，请编辑`performance-analyzer.properties` 在你的`$OPENSEARCH_HOME` 目录：
 
 ```properties
 vi $OPENSEARCH_HOME/config/opensearch-performance-analyzer/performance-analyzer.properties
 ```
 
-Change the following lines to configure encryption in transit. Note that `certificate-file-path` must be a certificate for the server and not a root certificate authority (CA).
+更改以下行以在运输中配置加密。注意`certificate-file-path` 必须是服务器的证书，而不是根证书授权（CA）。
 
 ````properties
 https-enabled = true
@@ -56,55 +56,55 @@ certificate-file-path = specify_path
 private-key-file-path = specify_path
 ````
 
-## Install Performance Analyzer 
+## 安装性能分析仪
 
-The Performance Analyzer plugin is included in the installations for [Docker]({{site.url}}{{site.baseurl}}/opensearch/install/docker/) and [tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/), but you can also install the plugin manually. 
+性能分析仪插件包含在安装中[Docker]({{site.url}}{{site.baseurl}}/opensearch/install/docker/) 和[tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/)，但是您也可以手动安装插件。
 
-To install the Performance Analyzer plugin manually, download the plugin from [Maven](https://search.maven.org/search?q=org.opensearch.plugin) and install it using the standard [plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/) process. Performance Analyzer runs on each node in a cluster.
+要手动安装性能分析仪插件，请从[小牛](https://search.maven.org/search?q=org.opensearch.plugin) 并使用标准安装[插件安装]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/) 过程。性能分析仪在集群中的每个节点上运行。
 
-To start the Performance Analyzer root cause analysis (RCA) agent on a tarball installation, run the following command:
+要在Tarball安装上启动Performance Analyzer根本原因分析（RCA）代理，请运行以下命令：
       
 ````bash
 OPENSEARCH_HOME=~/opensearch-2.2.1 OPENSEARCH_JAVA_HOME=~/opensearch-2.2.1/jdk OPENSEARCH_PATH_CONF=~/opensearch-2.2.1/bin ./performance-analyzer-agent-cli
 ````
 
-The following command enables the Performance Analyzer plugin. 
+以下命令启用性能分析仪插件。
 
 ````bash
 curl -XPOST localhost:9200/_plugins/_performanceanalyzer/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}'
 ````
 
-## Disable Performance Analyzer
+## 禁用性能分析仪
 
-If you prefer to save memory and run your local instance of OpenSearch with the Performance Analyzer plugin disabled, perform the following steps:
+如果您希望通过禁用Performance Analyzer插件来保存内存并运行OpenSearch的本地实例，请执行以下步骤：
 
-1. Before disabling Performance Analyzer, stop any currently running RCA agent action by using the following command:
+1. 在禁用性能分析仪之前，请使用以下命令停止任何当前运行的RCA代理操作：
 
   ```bash
   curl -XPOST localhost:9200/_plugins/_performanceanalyzer/rca/cluster/config -H 'Content-Type: application/json' -d '{"enabled": false}'
   ```
 
-2. Shut down the Performance Analyzer RCA agent by running the following command:
+2. 通过运行以下命令来关闭性能分析仪RCA代理：
 
   ```bash
   kill $(ps aux | grep -i 'PerformanceAnalyzerApp' | grep -v grep | awk '{print $2}')
   ```
 
-3. Disable the Performance Analyzer plugin by running the following command:
+3. 通过运行以下命令来禁用性能分析仪插件：
 
   ```bash
   curl -XPOST localhost:9200/_plugins/_performanceanalyzer/cluster/config -H 'Content-Type: application/json' -d '{"enabled": false}'
   ```
 
-4. Uninstall the Performance Analyzer plugin by running the following command:
+4. 通过运行以下命令来卸载性能分析仪插件：
 
   ```bash
   bin/opensearch-plugin remove opensearch-performance-analyzer
   ```
 
-## Configure Performance Analyzer 
+## 配置性能分析仪
 
-To configure the Performance Analyzer plugin, edit the `performance-analyzer.properties` configuration file in the `config/opensearch-performance-analyzer/` directory. Make sure to uncomment the line `#webservice-bind-host` and set it to `0.0.0.0`. You can reference the following example configuration.
+要配置性能分析仪插件，请编辑`performance-analyzer.properties` 配置文件`config/opensearch-performance-analyzer/` 目录。确保不加句子`#webservice-bind-host` 并将其设置为`0.0.0.0`。您可以参考以下示例配置。
 
 ````bash
 # ======================== OpenSearch Performance Analyzer plugin config =========================
@@ -145,16 +145,16 @@ plugin-stats-metadata = plugin-stats-metadata
 # Agent Stats Metadata file name, expected to be in the same location
 agent-stats-metadata = agent-stats-metadata
 ````
-To start the Performance Analyzer RCA agent, run the following command:
+要启动性能分析仪RCA代理，请运行以下命令：
 
 ````bash
 OPENSEARCH_HOME=~/opensearch-2.2.1 OPENSEARCH_JAVA_HOME=~/opensearch-2.2.1/jdk OPENSEARCH_PATH_CONF=~/opensearch-2.2.1/bin ./performance-analyzer-agent-cli
 ````
 
 
-## Enable Performance Analyzer for RPM/YUM installations
+## 启用rpm/yum安装的性能分析仪
 
-If you installed OpenSearch from an RPM distribution, you can start and stop Performance Analyzer with `systemctl`:
+如果您从RPM分发安装了OpenSearch，则可以使用`systemctl`：
 
 ```bash
 # Start OpenSearch Performance Analyzer
@@ -163,15 +163,15 @@ sudo systemctl start opensearch-performance-analyzer.service
 sudo systemctl stop opensearch-performance-analyzer.service
 ```
 
-## Example API query and response
+## 示例API查询和响应
 
-The following is an example Performance Analyzer API query. The query pulls performance metrics related to your OpenSearch cluster:
+以下是示例性能分析仪API查询。查询拉出与您的OpenSearch集群相关的性能指标：
   
 ````bash
 GET localhost:9600/_plugins/_performanceanalyzer/metrics/units
 ````
 
-The following is an example response:
+以下是一个示例响应：
 
 ````json
 {"Disk_Utilization":"%","Cache_Request_Hit":"count", 
@@ -230,39 +230,39 @@ The following is an example response:
 "Net_TCP_NumFlows":"count","Election_Term":"count"}
 ````
 
-## Root cause analysis
+## 根本原因分析
 
-The [root cause analysis]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/rca/index/) (RCA) framework uses the information from Performance Analyzer to inform administrators of the root cause of performance and availability issues experienced by their clusters.
+这[根本原因分析]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/rca/index/) （RCA）框架使用绩效分析仪的信息将其群集遇到的性能和可用性问题的根本原因告知管理员。
 
-### Enable the RCA framework
+### 启用RCA框架
 
-To enable the RCA framework, run the following command:
+要启用RCA框架，请运行以下命令：
 
 ```bash
 curl -XPOST http://localhost:9200/_plugins/_performanceanalyzer/rca/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}'
 ```
 
-If you encounter the `curl: (52) Empty reply from server` response, run the following command to enable RCA:
+如果您遇到`curl: (52) Empty reply from server` 响应，运行以下命令以启用RCA：
 
 ```bash
 curl -XPOST https://localhost:9200/_plugins/_performanceanalyzer/rca/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}' -u 'admin:admin' -k
 ```
 
-### Example API query and response
+### 示例API查询和响应
 
-To request all available RCAs, run the following command:
+要请求所有可用的RCA，请运行以下命令：
 
 ````bash
 GET localhost:9600/_plugins/_performanceanalyzer/rca
 ````
 
-To request a specific RCA, run the following command:
+要请求特定的RCA，请运行以下命令：
 
 ````bash
 GET localhost:9600/_plugins/_performanceanalyzer/rca?name=HighHeapUsageClusterRCA
 ````
 
-The following is an example response:
+以下是一个示例响应：
 
 ```json
 {
@@ -306,11 +306,12 @@ The following is an example response:
 ```
 
 
-### Related links
+### 相关链接
 
-Further documentation on the use of Performance Analyzer and RCA can be found at the following links:
+可以在以下链接中找到有关性能分析仪和RCA使用的进一步文档：
 
-- [Performance Analyzer API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/api/)
-- [Root cause analysis]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/rca/index/)
-- [Root cause analysis]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/rca/api/).
-- [RFC: Root cause analysis](https://github.com/opensearch-project/performance-analyzer-rca/blob/main/docs/rfc-rca.pdf)
+- [性能分析仪API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/api/)
+- [根本原因分析]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/rca/index/)
+- [根本原因分析]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/rca/api/)。
+- [RFC：根本原因分析](https://github.com/opensearch-project/performance-analyzer-rca/blob/main/docs/rfc-rca.pdf)
+

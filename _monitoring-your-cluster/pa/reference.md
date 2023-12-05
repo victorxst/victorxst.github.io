@@ -1,847 +1,848 @@
 ---
 layout: default
-title: Metrics Reference
-parent: Performance Analyzer
+title: 指标参考
+parent: 性能分析仪
 nav_order: 3
 redirect_from:
   - /monitoring-plugins/pa/reference/
 ---
 
-# Metrics reference
+# 指标参考
 
-Performance Analyzer provides a number of metrics to help you evaluate performance. The following tables describe the available metrics, grouped by the dimensions that are most relevant for that metric. All metrics support the `avg`, `sum`, `min`, and `max` aggregations, although for certain metrics, the measured value is the same regardless of aggregation type. 
+性能分析仪提供了许多指标来帮助您评估性能。以下表描述了可用的指标，该指标由与该指标最相关的尺寸分组。所有指标都支持`avg`，`sum`，`min`， 和`max` 汇总，尽管对于某些指标，但无论聚集类型如何，测量值都是相同的。
 
-For information about each of the dimensions, see [dimensions reference](#dimensions-reference) later in this topic.
+有关每个维度的信息，请参见[维度参考](#dimensions-reference) 在此主题的后面。
 
-This list is extensive. We recommend using Ctrl/Cmd + F to find what you're looking for.
+此列表是广泛的。我们建议使用CTRL/CMD + F查找所需的内容。
 {: .tip }
 
-## Relevant dimensions: `ShardID`, `IndexName`, `Operation`, `ShardRole`
+## 相关维度：`ShardID`，`IndexName`，`Operation`，`ShardRole`
 
-<table>
- <thead style="text-align: left">
+<表>
+ <thead样式="text-align: left">
     <tr>
-      <th>Metric</th>
-      <th>Description</th>
+      <th>公制</th>
+      <th>描述</th>
     </tr>
  </thead>
   <tbody>
     <tr>
-      <td>CPU_Utilization
+      <td> cpu_utilization
       </td>
-      <td>CPU usage ratio. CPU time (in milliseconds) used by the associated thread(s) in the past five seconds, divided by 5000 milliseconds.
-      </td>
-    </tr>
-    <tr>
-      <td>Paging_MajfltRate
-      </td>
-      <td>The number of major faults per second in the past five seconds. A major fault requires the process to load a memory page from disk.
+      <TD> CPU使用率。在过去五秒钟内，相关线使用的CPU时间（以毫秒为单位）除以5000毫秒。
       </td>
     </tr>
     <tr>
-      <td>Paging_MinfltRate
+      <td> paging_majfltrate
       </td>
-      <td>The number of minor faults per second in the past five seconds. A minor fault does not requires the process to load a memory page from disk.
-      </td>
-    </tr>
-    <tr>
-      <td>Paging_RSS
-      </td>
-      <td>The number of pages the process has in real memory---the pages that count towards text, data, or stack space. This number does not include pages that have not been demand-loaded in or swapped out.
+      <td>在过去五秒钟内每秒的主要故障数量。一个主要故障需要该过程从磁盘加载存储页面。
       </td>
     </tr>
     <tr>
-      <td>Sched_Runtime
+      <td> paging_minfltrate
       </td>
-      <td>Time (seconds) spent executing on the CPU per context switch.
-      </td>
-    </tr>
-    <tr>
-      <td>Sched_Waittime
-      </td>
-      <td>Time (seconds) spent waiting on a run queue per context switch.
+      <td>在过去五秒钟内每秒的小故障数量。次要故障不需要从磁盘加载内存页面的过程。
       </td>
     </tr>
     <tr>
-      <td>Sched_CtxRate
+      <td> paging_rss
       </td>
-      <td>Number of times run on the CPU per second in the past five seconds.
-      </td>
-    </tr>
-    <tr>
-      <td>Heap_AllocRate
-      </td>
-      <td>An approximation, in bytes, of the heap memory allocated per second in the last 5 seconds.
+      <td>该过程在真实内存中具有的页数---计算文本，数据或堆栈空间的页面。这个数字不包括尚未要求的页面-加载或交换。
       </td>
     </tr>
     <tr>
-      <td>IO_ReadThroughput
+      <td> sched_runtime
       </td>
-      <td>Number of bytes read per second in the last five seconds.
-      </td>
-    </tr>
-    <tr>
-      <td>IO_WriteThroughput
-      </td>
-      <td>Number of bytes written per second in the last five seconds.
+      <td>时间（秒）在每个上下文开关上执行CPU。
       </td>
     </tr>
     <tr>
-      <td>IO_TotThroughput
+      <td> sched_waittime
       </td>
-      <td>Number of bytes read or written per second in the last five seconds.
-      </td>
-    </tr>
-    <tr>
-      <td>IO_ReadSyscallRate
-      </td>
-      <td>Read system calls per second in the last five seconds.
+      <TD>时间（秒）在每个上下文开关等待运行队列上花费。
       </td>
     </tr>
     <tr>
-      <td>IO_WriteSyscallRate
+      <td> sched_ctxrate
       </td>
-      <td>Write system calls per second in the last five seconds.
-      </td>
-    </tr>
-    <tr>
-      <td>IO_TotalSyscallRate
-      </td>
-      <td>Read and write system calls per second in the last five seconds.
+      <td>在过去五秒钟内每秒运行的CPU次数。
       </td>
     </tr>
     <tr>
-      <td>Thread_Blocked_Time
+      <TD> HEAP_OLLOCRATE
       </td>
-      <td>The average amount of time, in seconds, that the associated thread has been blocked from entering or reentering a monitor.
-      </td>
-    </tr>
-    <tr>
-      <td>Thread_Blocked_Event
-      </td>
-      <td>The total number of times that the associated thread has been blocked from entering or reentering a monitor (that is, the number of times a thread has been in the `blocked` state).
+      <td>在过去5秒内分配的每秒分配的堆内存的近似值。
       </td>
     </tr>
     <tr>
-      <td>Thread_Waited_Time
+      <TD> io_readThroughtup
       </td>
-      <td>The average amount of time, in seconds, that the associated thread has waited to enter or reenter a monitor (that is, the amount of time a thread has been in the `WAITING` or `TIMED_WAITING` state)".
-      </td>
-    </tr>
-    <tr>
-      <td>Thread_Waited_Event
-      </td>
-      <td>The total number of times that the associated thread has waited to enter or reenter a monitor (that is, the number of times a thread has been in the <code>WAITING</code> or <code>TIMED_WAITING</code> state).
+      <td>在过去五秒钟内每秒读取的字节数。
       </td>
     </tr>
     <tr>
-      <td>ShardEvents
+      <TD> io_writeThrougt
       </td>
-      <td>The total number of events executed on a shard in the past five seconds.
+      <td>在过去五秒钟内每秒写的字节数。
       </td>
     </tr>
     <tr>
-      <td>ShardBulkDocs
+      <td> io_totThroughtup
       </td>
-      <td>The total number of documents indexed in the past five seconds.
+      <td>在过去五秒钟内每秒读取或书写的字节数。
       </td>
-    </tr> 
+    </tr>
+    <tr>
+      <TD> io_readsyscallrate
+      </td>
+      <td>在过去五秒钟内每秒读取系统呼叫。
+      </td>
+    </tr>
+    <tr>
+      <td> io_writesyscallrate
+      </td>
+      <td>在过去五秒钟内每秒写系统呼叫。
+      </td>
+    </tr>
+    <tr>
+      <TD> io_totalsyscallrate
+      </td>
+      <td>在过去五秒钟内每秒读取和写入系统调用。
+      </td>
+    </tr>
+    <tr>
+      <TD> thread_blocked_time
+      </td>
+      <td>平均时间为几秒钟的时间，即关联的线程已被阻止输入或重新输入监视器。
+      </td>
+    </tr>
+    <tr>
+      <TD> thread_blocked_event
+      </td>
+      <td>关联线程已阻止输入或重新输入监视器的总数（即，线程已在`blocked` 状态）。
+      </td>
+    </tr>
+    <tr>
+      <TD> thread_waited_time
+      </td>
+      <td>相关线程已经等待输入或重新输入监视器的平均时间（即，线程已在`WAITING` 或者`TIMED_WAITING` 状态）”。
+      </td>
+    </tr>
+    <tr>
+      <TD> thread_waited_event
+      </td>
+      <td>关联线程已经等待输入或重新输入监视器的总次数（即，在<code>等待</code>或<code> timed_waiting </code </code>>状态）。
+      </td>
+    </tr>
+    <tr>
+      <td> shardevents
+      </td>
+      <td>在过去五秒钟内，在碎片上执行的事件总数。
+      </td>
+    </tr>
+    <tr>
+      <td> shardbulkdocs
+      </td>
+      <td>在过去五秒钟内索引的文档总数。
+      </td>
+    </tr>
   </tbody>
 </table>
 
-## Relevant dimensions: `ShardID`, `IndexName` 
+## 相关维度：`ShardID`，`IndexName` 
 
-<table>
-  <thead style="text-align: left">
+<表>
+  <thead样式="text-align: left">
     <tr>
-      <th>Metric</th>
-      <th>Description</th>
+      <th>公制</th>
+      <th>描述</th>
     </tr>
   </thead>
   <tbody>
   <tr>
-      <td>Indexing_ThrottleTime
+      <td>索引_throttletime
       </td>
-      <td>Time (milliseconds) that the index has been under merge throttling control in the past five seconds.
-      </td>
-    </tr>
-    <tr>
-      <td>Cache_Query_Hit
-      </td>
-      <td>The number of successful lookups in the query cache in the past five seconds.
+      <td>时间（毫秒），该指数在过去五秒钟内一直处于合并节流控制状态。
       </td>
     </tr>
     <tr>
-      <td>Cache_Query_Miss
+      <td> cache_query_hit
       </td>
-      <td>The number of lookups in the query cache that failed to retrieve a `DocIdSet` in the past five seconds. `DocIdSet` is a set of document IDs in Lucene.
-      </td>
-    </tr>
-    <tr>
-      <td>Cache_Query_Size
-      </td>
-      <td>Query cache memory size in bytes.
+      <td>过去五秒钟中查询缓存中成功查找的数量。
       </td>
     </tr>
     <tr>
-      <td>Cache_FieldData_Eviction
+      <td> cache_query_miss
       </td>
-      <td>The number of times OpenSearch has evicted data from the fielddata heap space (occurs when the heap space is full) in the past five seconds.
-      </td>
-    </tr>
-    <tr>
-      <td>Cache_FieldData_Size
-      </td>
-      <td>Fielddata memory size in bytes.
+      <td>查询缓存中未能检索的查找数量`DocIdSet` 在过去的五秒钟中。`DocIdSet` 是Lucene中的一组文档ID。
       </td>
     </tr>
     <tr>
-      <td>Cache_Request_Hit
+      <td> cache_query_size
       </td>
-      <td>The number of successful lookups in the shard request cache in the past five seconds.
-      </td>
-    </tr>
-    <tr>
-      <td>Cache_Request_Miss
-      </td>
-      <td>The number of lookups in the request cache that failed to retrieve the results of search requests in the past five seconds.
+      <td>查询缓存内存大小在字节中。
       </td>
     </tr>
     <tr>
-      <td>Cache_Request_Eviction
+      <td> cache_fielddata_eviction
       </td>
-      <td>The number of times OpenSearch evicts data from shard request cache (occurs when the request cache is full) in the past five seconds.
-      </td>
-    </tr>
-    <tr>
-      <td>Cache_Request_Size
-      </td>
-      <td>Shard request cache memory size in bytes.
+      <td>在过去五秒钟内，OpenSearch的次数已从FieldData Heap空间驱逐数据（发生在堆积空间时）。
       </td>
     </tr>
     <tr>
-      <td>Refresh_Event
+      <td> cache_fielddata_size
       </td>
-      <td>The total number of refreshes executed in the past five seconds.
-      </td>
-    </tr>
-    <tr>
-      <td>Refresh_Time
-      </td>
-      <td>The total time (milliseconds) spent executing refreshes in the past five seconds
+      <TD>字节中的fieldData内存大小。
       </td>
     </tr>
     <tr>
-      <td>Flush_Event
+      <td> cache_request_hit
       </td>
-      <td>The total number of flushes executed in the past five seconds.
-      </td>
-    </tr>
-    <tr>
-      <td>Flush_Time
-      </td>
-      <td>The total time (milliseconds) spent executing flushes in the past five seconds.
+      <td>过去五秒钟内，碎片请求缓存中成功查找的数量。
       </td>
     </tr>
     <tr>
-      <td>Merge_Event
+      <td> cache_request_miss
       </td>
-      <td>The total number of merges executed in the past five seconds.
-      </td>
-    </tr>
-    <tr>
-      <td>Merge_Time
-      </td>
-      <td>The total time (milliseconds) spent executing merges in the past five seconds.
+      <td>在过去五秒钟内未能检索搜索请求结果的请求缓存中的查找数量。
       </td>
     </tr>
     <tr>
-      <td>Merge_CurrentEvent
+      <td> cache_request_eviction
       </td>
-      <td>The current number of merges executing.
-      </td>
-    </tr>
-    <tr>
-      <td>Indexing_Buffer
-      </td>
-      <td>Index buffer memory size in bytes.
+      <td>在过去五秒钟内，OpenSearch的次数OpenSearch驱逐出从Shard Request Cache中驱逐数据（发生在请求缓存已满时）。
       </td>
     </tr>
     <tr>
-      <td>Segments_Total
+      <td> cache_request_size
       </td>
-      <td>The number of segments.
-      </td>
-    </tr>
-    <tr>
-      <td>IndexWriter_Memory
-      </td>
-      <td>Estimated memory usage by the index writer in bytes.
+      <td> shard请求缓存内存大小在字节中。
       </td>
     </tr>
     <tr>
-      <td>Bitset_Memory
+      <td> refresh_event
       </td>
-      <td>Estimated memory usage for the cached bit sets in bytes.
-      </td>
-    </tr>
-    <tr>
-      <td>VersionMap_Memory
-      </td>
-      <td>Estimated memory usage of the version map in bytes.
+      <td>在过去五秒钟内执行的刷新总数。
       </td>
     </tr>
     <tr>
-      <td>Shard_Size_In_Bytes
+      <td> refresh_time
       </td>
-      <td>Estimated disk usage of the shard in bytes.
+      <td>总时间（毫秒）在过去的五秒钟内花费了刷新
+      </td>
+    </tr>
+    <tr>
+      <td> flush_event
+      </td>
+      <td>过去五秒钟内执行的冲洗总数。
+      </td>
+    </tr>
+    <tr>
+      <td> flush_time
+      </td>
+      <td>在过去五秒钟内，总时间（毫秒）花费了冲洗。
+      </td>
+    </tr>
+    <tr>
+      <TD> Merge_event
+      </td>
+      <td>在过去五秒钟内执行的合并总数。
+      </td>
+    </tr>
+    <tr>
+      <td> Merge_time
+      </td>
+      <td>在过去五秒钟内，总时间（毫秒）花费了合并。
+      </td>
+    </tr>
+    <tr>
+      <TD> Merge_currentevent
+      </td>
+      <td>当前的合并执行数。
+      </td>
+    </tr>
+    <tr>
+      <TD>索引_Buffer
+      </td>
+      <TD>字节中的索引缓冲区内存大小。
+      </td>
+    </tr>
+    <tr>
+      <td> segments_total
+      </td>
+      <td>段数。
+      </td>
+    </tr>
+    <tr>
+      <TD> indexwriter_memory
+      </td>
+      <TD>索引作者在字节中估计的内存使用情况。
+      </td>
+    </tr>
+    <tr>
+      <td> bitset_memory
+      </td>
+      <TD>字节中的缓存位集的估计内存使用量。
+      </td>
+    </tr>
+    <tr>
+      <td>版本map_memory
+      </td>
+      <TD>字节中版本映射的估计内存使用情况。
+      </td>
+    </tr>
+    <tr>
+      <td> shard_size_in_bytes
+      </td>
+      <TD>估计字节中碎片的磁盘使用情况。
       </td>
     </tr>
   </tbody>
 </table>
 
-## Relevant dimensions: `ShardID`, `IndexName`, `IndexingStage`  
+## 相关维度：`ShardID`，`IndexName`，`IndexingStage`  
   
-<table>
-  <thead style="text-align: left">
+<表>
+  <thead样式="text-align: left">
    <tr>
-    <th>Metric</th>
-    <th>Description</th>
+    <th>公制</th>
+    <th>描述</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Indexing_Pressure_Current_Limits
+      <td> indexing_pressure_current_limits
       </td>
-      <td>The total heap size, in bytes, that is available for use by an index shard in a particular indexing stage (Coordinating, Primary, or Replica).
-      </td>
-    </tr>
-    <tr>
-      <td>Indexing_Pressure_Current_Bytes
-      </td>
-      <td>The total heap size, in bytes, occupied by an index shard in a particular indexing stage (Coordinating, Primary, or Replica).
+      <td>在特定索引阶段（协调，主或副本）中，索引碎片可用于索引碎片的总堆大小。
       </td>
     </tr>
     <tr>
-      <td>Indexing_Pressure_Last_Successful_Timestamp
+      <td> indexing_pressure_current_bytes
       </td>
-      <td>The timestamp of a successful request for an index shard in a particular indexing stage (Coordinating, Primary, or Replica).
-      </td>
-    </tr>
-    <tr>
-      <td>Indexing_Pressure_Rejection_Count
-      </td>
-      <td>The total number of rejections performed by OpenSearch for an index shard in a particular indexing stage (Coordinating, Primary, or Replica).
+      <td>在特定索引阶段（协调，主或副本）在特定索引阶段占据的总堆大小，在字节中。
       </td>
     </tr>
     <tr>
-      <td>Indexing_Pressure_Average_Window_Throughput
+      <td> indexing_pressure_last_successful_timestamp
       </td>
-      <td>The average throughput of the last n requests (The value of n is determined by the `shard_indexing_pressure.secondary_parameter.throughput.request_size_window` setting) for an index shard in a particular indexing stage (Coordinating, Primary, or Replica).
+      <td>在特定索引阶段（协调，主或副本）中成功请求索引碎片的时间戳。
+      </td>
+    </tr>
+    <tr>
+      <TD>索引
+      </td>
+      <td>在特定索引阶段（协调，主或副本），OpenSearch对索引碎片执行的拒绝总数。
+      </td>
+    </tr>
+    <tr>
+      <td>索引
+      </td>
+      <td>最后n请求的平均吞吐量（n的值由`shard_indexing_pressure.secondary_parameter.throughput.request_size_window` 设置）在特定索引阶段（协调，主或副本）处的索引碎片。
       </td>
     </tr>
    </tbody>
  </table>
     
-## Relevant dimensions: `Operation`, `Exception`, `Indices`, `HTTPRespCode`, `ShardID`, `IndexName`, `ShardRole`    
+## 相关维度：`Operation`，`Exception`，`Indices`，`HTTPRespCode`，`ShardID`，`IndexName`，`ShardRole`    
    
- <table>
-  <thead style="text-align: left">
+ <表>
+  <thead样式="text-align: left">
     <tr>
-     <th>Metric</th>
-     <th>Description</th>
+     <th>公制</th>
+     <th>描述</th>
     </tr>
    </thead>
    <tbody>
     <tr>
-     <td>Latency
+     <TD>延迟
       </td>
-      <td>Latency (milliseconds) of a request.
+      <TD>请求的延迟（毫秒）。
       </td>
     </tr>
    </tbody>
  </table>
 
-## Relevant dimension: `MemType`   
+## 相关维度：`MemType`   
    
- <table>
-   <thead style="text-align: left">
+ <表>
+   <thead样式="text-align: left">
     <tr>
-      <th>Metric</th>
-      <th>Description</th>
+      <th>公制</th>
+      <th>描述</th>
     </tr>
    </thead>
-   <tbody>  
+   <tbody>
     <tr>
-      <td>GC_Collection_Event
+      <td> gc_collection_event
       </td>
-      <td>The number of garbage collections that have occurred in the past five seconds.
+      <td>过去五秒钟内发生的垃圾收集数量。
       </td>
     </tr>
     <tr>
-      <td>GC_Collection_Time
+      <TD> gc_collection_time
       </td>
-      <td>The approximate accumulated time (milliseconds) of all garbage collections that have occurred in the past five seconds.
-      </td>
-    </tr>
-    <tr>
-      <td>Heap_Committed
-      </td>
-      <td>The amount of memory (bytes) that is committed for the JVM to use.
+      <td>在过去五秒钟内发生的所有垃圾收集的大约累积时间（毫秒）。
       </td>
     </tr>
     <tr>
-      <td>Heap_Init
+      <TD> HEAP_COMMENT
       </td>
-      <td>The amount of memory (bytes) that the JVM initially requests from the operating system for memory management.
-      </td>
-    </tr>
-    <tr>
-      <td>Heap_Max
-      </td>
-      <td>The maximum amount of memory (bytes) that can be used for memory management.
+      <td>供JVM使用的内存（字节）。
       </td>
     </tr>
     <tr>
-      <td>Heap_Used
+      <TD> HEAP_INIT
       </td>
-      <td>The amount of used memory in bytes.
+      <TD> JVM最初从操作系统请求内存管理的内存（字节）。
+      </td>
+    </tr>
+    <tr>
+      <TD> HAEP_MAX
+      </td>
+      <td>可用于内存管理的最大内存（字节）。
+      </td>
+    </tr>
+    <tr>
+      <td> hape_used
+      </td>
+      <td>字节中使用的内存的量。
       </td>
     </tr>
    </tbody>
   </table>
 
-## Relevant dimension: `DiskName`   
+## 相关维度：`DiskName`   
    
- <table>
-   <thead style="text-align: left">
+ <表>
+   <thead样式="text-align: left">
     <tr>
-      <th>Metric</th>
-      <th>Description</th>
+      <th>公制</th>
+      <th>描述</th>
     </tr>
    </thead>
-   <tbody>  
+   <tbody>
     <tr>
-      <td>Disk_Utilization
+      <td> disk_utilization
       </td>
-      <td>Disk utilization rate: percentage of disk time spent reading and writing by the OpenSearch process in the past five seconds.
+      <TD>磁盘利用率：过去五秒钟在OpenSearch过程中所花费的磁盘时间的百分比。
       </td>
     </tr>
     <tr>
-      <td>Disk_WaitTime
+      <td> disk_waittime
       </td>
-      <td>Average duration (milliseconds) of read and write operations in the past five seconds.
+      <td>在过去五秒钟内，读写操作的平均持续时间（毫秒）。
       </td>
     </tr>
     <tr>
-      <td>Disk_ServiceRate
+      <td> disk_servicerate
       </td>
-      <td>Service rate: MB read or written per second in the past five seconds. This metric assumes that each disk sector stores 512 bytes.
+      <TD>服务率：MB在过去五秒钟内每秒读取或书写。该度量假定每个磁盘扇区存储512个字节。
       </td>
     </tr>
   </tbody>
 </table>
 
-## Relevant dimension: `DestAddr`   
+## 相关维度：`DestAddr`   
    
- <table>
-  <thead style="text-align: left">
+ <表>
+  <thead样式="text-align: left">
    <tr>
-     <th>Metric</th>
-     <th>Description</th>
+     <th>公制</th>
+     <th>描述</th>
    </tr>
   </thead>
-  <tbody>  
+  <tbody>
    <tr>
-     <td>Net_TCP_NumFlows
+     <td> net_tcp_numflows
      </td>
-     <td>The number of samples collected. Performance Analyzer collects 1 sample every 5 seconds.
+     <td>收集的样品数量。性能分析仪每5秒收集1个样本。
      </td>
    </tr>
    <tr>
-     <td>Net_TCP_TxQ
+     <TD> net_tcp_txq
      </td>
-     <td>The average number of TCP packets in the send buffer.
-     </td>
-   </tr>
-   <tr>
-     <td>Net_TCP_RxQ
-     </td>
-     <td>The average number of TCP packets in the receive buffer.
+     <TD>发送缓冲区中TCP数据包的平均数量。
      </td>
    </tr>
    <tr>
-     <td>Net_TCP_Lost
+     <TD> net_tcp_rxq
      </td>
-     <td>The average number of unrecovered recurring timeouts. This number is reset when the recovery finishes or `SND.UNA` is advanced. `SND.UNA` is the sequence number of the first byte of data that has been sent but not yet acknowledged.
+     <td>接收缓冲区中TCP数据包的平均数量。
+     </td>
+   </tr>
+   <tr>
+     <TD> net_tcp_lost
+     </td>
+     <td>未恢复的重复超时的平均数量。恢复完成或`SND.UNA` 是先进的。`SND.UNA` 是已发送但尚未确认的数据字节的序列编号。
      </td>
   </tr>
   <tr>
-     <td>Net_TCP_SendCWND
+     <td> net_tcp_sendcwnd
      </td>
-     <td>The average size, in bytes, of the sending congestion window.
+     <td>发送拥塞窗口的平均大小，字节。
      </td>
    </tr>
    <tr>
-     <td>Net_TCP_SSThresh
+     <td> net_tcp_ssthresh
      </td>
-     <td>The average size, in bytes, of the slow start size threshold.
+     <td>较慢的开始尺寸阈值的平均大小，字节。
      </td>
    </tr>
  </tbody>
 </table>
 
-## Relevant dimension: `Direction`    
+## 相关维度：`Direction`    
    
- <table>
-   <thead style="text-align: left">
+ <表>
+   <thead样式="text-align: left">
    <tr>
-     <th>Metric</th>
-     <th>Description</th>
+     <th>公制</th>
+     <th>描述</th>
    </tr>
    </thead>
-   <tbody>  
+   <tbody>
     <tr>
-     <td>Net_PacketRate4
+     <td> net_packetrate4
      </td>
-     <td>The total number of IPv4 datagrams transmitted/received from/by interfaces per second, including those transmitted or received in error.
+     <td> IPv4数据报的总数每秒从/接收到接口，包括错误的传输或接收到的。
      </td>
     </tr>
     <tr>
-      <td>Net_PacketDropRate4
+      <TD> net_packetdraprate4
       </td>
-      <td>The total number of IPv4 datagrams transmitted or received in error per second.
-      </td>
-    </tr>
-    <tr>
-      <td>Net_PacketRate6
-      </td>
-      <td>The total number of IPv6 datagrams transmitted or received from or by interfaces per second, including those transmitted or received in error.
+      <td>每秒发出或收到的IPv4数据报的总数。
       </td>
     </tr>
     <tr>
-      <td>Net_PacketDropRate6
+      <TD> net_packetrate6
       </td>
-      <td>The total number of IPv6 datagrams transmitted or received in error per second.
+      <td>每秒从接口传输或接收到的IPv6数据报的总数，包括错误或接收到的误差。
       </td>
     </tr>
     <tr>
-      <td>Net_Throughput
+      <td> net_packetwratrate6
       </td>
-      <td>The number of bits transmitted or received per second by all network interfaces.
+      <td>每秒发出或接收到的IPv6数据报的总数。
+      </td>
+    </tr>
+    <tr>
+      <td> net_throughtup
+      </td>
+      <td>所有网络接口每秒传输或接收的位数。
       </td>
     </tr>
    </tbody>
   </table>
 
 
-## Relevant dimension: `ThreadPoolType`   
+## 相关维度：`ThreadPoolType`   
    
- <table>
-   <thead style="text-align: left">
+ <表>
+   <thead样式="text-align: left">
     <tr>
-     <th>Metric</th>
-     <th>Description</th>
+     <th>公制</th>
+     <th>描述</th>
     </tr>
   </thead>
-  <tbody>  
+  <tbody>
    <tr>
-     <td>ThreadPool_QueueSize
+     <td> threadpool_queuesize
      </td>
-     <td>The size of the task queue.
+     <td>任务队列的大小。
      </td>
    </tr>
    <tr>
-     <td>ThreadPool_RejectedReqs
+     <td> threadpool_rejectedreqs
      </td>
-     <td>The number of rejected executions.
-     </td>
-   </tr>
-   <tr>
-     <td>ThreadPool_TotalThreads
-     </td>
-     <td>The current number of threads in the pool.
+     <td>被拒绝的执行的数量。
      </td>
    </tr>
    <tr>
-     <td>ThreadPool_ActiveThreads
+     <td> threadpool_totalthreads
      </td>
-     <td>The approximate number of threads that are actively executing tasks.
-     </td>
-   </tr>
-   <tr>
-     <td>ThreadPool_QueueLatency
-     </td>
-     <td>The latency of the task queue.
+     <td>池中的当前线程数。
      </td>
    </tr>
    <tr>
-     <td>ThreadPool_QueueCapacity
+     <td> threadpool_activethreads
      </td>
-     <td>The current capacity of the task queue.
+     <td>主动执行任务的线程数量的近似数。
+     </td>
+   </tr>
+   <tr>
+     <td> threadpool_queuelatency
+     </td>
+     <td>任务队列的延迟。
+     </td>
+   </tr>
+   <tr>
+     <td> threadpool_queuecapacity
+     </td>
+     <td>任务队列的当前容量。
      </td>
     </tr>
   </tbody>
 </table>
 
-## Relevant dimension: `ClusterManager_PendingTaskType`  
+## 相关维度：`ClusterManager_PendingTaskType`  
    
- <table>
-  <thead style="text-align: left">
+ <表>
+  <thead样式="text-align: left">
    <tr>
-    <th>Metric</th>
-    <th>Description</th>
+    <th>公制</th>
+    <th>描述</th>
    </tr>
   </thead>
-  <tbody>  
+  <tbody>
    <tr>
-     <td>ClusterManager_PendingQueueSize
+     <td> clustermanager_pendingqueuesize
      </td>
-     <td>The current number of pending tasks in the cluster state update thread. Each node has a cluster state update thread that submits cluster state update tasks, such as create index, update mapping, allocate shard, and fail shard.
+     <td>集群状态更新线程中的当前待处理任务数。每个节点都有一个集群状态更新线程，该线程提交群集状态更新任务，例如创建索引，更新映射，分配碎片和失败shard。
      </td>
    </tr>
   </tbody>
  </table>
 
-## Relevant dimensions: `Operation`, `Exception`, `Indices`, `HTTPRespCode`   
+## 相关维度：`Operation`，`Exception`，`Indices`，`HTTPRespCode`   
    
-<table>
-  <thead style="text-align: left">
+<表>
+  <thead样式="text-align: left">
    <tr>
-     <th>Metric</th>
-     <th>Description</th>
+     <th>公制</th>
+     <th>描述</th>
    </tr>
   </thead>
-  <tbody>  
+  <tbody>
    <tr>
-    <td>HTTP_RequestDocs
+    <td> http_requestdocs
     </td>
-    <td>The number of items in the request (only for the `_bulk` request type).
+    <td>请求中的项目数（仅针对`_bulk` 请求类型）。
     </td>
   </tr>
   <tr>
-    <td>HTTP_TotalRequests
+    <td> http_totalrequests
     </td>
-    <td>The number of requests completed in the last 5 seconds.
+    <td>在过去5秒内完成的请求数。
     </td>
   </tr>
   </tbody>
 </table>
 
-## Relevant dimension: `CBType` 
+## 相关维度：`CBType` 
   
-<table>
-  <thead style="text-align: left">
+<表>
+  <thead样式="text-align: left">
    <tr>
-     <th>Metric</th>
-     <th>Description</th>
+     <th>公制</th>
+     <th>描述</th>
    </tr>
   </thead>
-  <tbody>  
+  <tbody>
    <tr>
-     <td>CB_EstimatedSize
+     <td> cb_estimatedsize
      </td>
-     <td>The current number of estimated bytes.
-     </td>
-    </tr>
-    <tr>
-     <td>CB_TrippedEvents
-     </td>
-     <td>The number of times that the circuit breaker has tripped.
+     <td>当前的估计字节数。
      </td>
     </tr>
     <tr>
-      <td>CB_ConfiguredSize
+     <td> cb_trippedevents
+     </td>
+     <td>断路器绊倒的次数。
+     </td>
+    </tr>
+    <tr>
+      <td> cb_configuredsize
       </td>
-      <td>The limit, in bytes, of the amount of memory operations can use.
+      <td>在字节中的限制可以使用内存操作的量。
       </td>
     </tr>
    </tbody>
   </table>
 
-## Relevant dimensions: `ClusterManagerTaskInsertOrder`, `ClusterManagerTaskPriority`, `ClusterManagerTaskType`, `ClusterManagerTaskMetadata`
+## 相关维度：`ClusterManagerTaskInsertOrder`，`ClusterManagerTaskPriority`，`ClusterManagerTaskType`，`ClusterManagerTaskMetadata`
  
-<table>
- <thead style="text-align: left">
+<表>
+ <thead样式="text-align: left">
    <tr>
-     <th>Metric</th>
-     <th>Description</th>
+     <th>公制</th>
+     <th>描述</th>
    </tr>
  </thead>
- <tbody>  
+ <tbody>
    <tr>
-     <td>ClusterManager_Task_Queue_Time
+     <td> clustermanager_task_queue_time
      </td>
-     <td>The amount of time, in milliseconds, that a cluster manager task spent in the queue.
+     <td>千分之一的时间是集群管理器在队列中花费的时间。
      </td>
    </tr>
    <tr>
-      <td>ClusterManager_Task_Run_Time
+      <td> clusterManager_task_run_time
       </td>
-      <td>The amount of time, in milliseconds, that a cluster manager task has been running.
+      <td>千分之一的时间是集群管理器任务正在运行的时间。
       </td>
     </tr>
  </tbody>
 </table>
      
-## Relevant dimension: `CacheType` 
+## 相关维度：`CacheType` 
   
-<table>
-  <thead style="text-align: left">
+<表>
+  <thead样式="text-align: left">
     <tr>
-     <th>Metric</th>
-     <th>Description</th>
+     <th>公制</th>
+     <th>描述</th>
    </tr>
   </thead>
-  <tbody>  
+  <tbody>
    <tr>
-     <td>Cache_MaxSize
+     <td> cache_maxsize
      </td>
-     <td>The maximum size of the cache, in bytes.
+     <td>高速缓存的最大大小，字节。
      </td>
    </tr>
  </tbody>
 </table>
 
-## Relevant dimension: `ControllerName` 
-<table>
- <thead style="text-align: left">
+## 相关维度：`ControllerName` 
+<表>
+ <thead样式="text-align: left">
   <tr>
-    <th>Metric</th>
-    <th>Description</th>
+    <th>公制</th>
+    <th>描述</th>
   </tr>
  </thead>
- <tbody>  
+ <tbody>
   <tr>
-    <td>AdmissionControl_RejectionCount 
+    <td> gensission control_dectiondCount
     </td>
-    <td>The total number of rejections performed by a Controller of Admission Control.
+    <td>由入院控制器控制器执行的拒绝总数。
     </td>
   </tr>
   <tr>
-    <td>AdmissionControl_CurrentValue 
+    <td> gensission control_currentvalue
     </td>
-    <td>The current value for Controller of Admission Control.
+    <td>入院控制器控制器的当前值。
     </td>
   </tr>
   <tr>
-    <td>AdmissionControl_ThresholdValue
+    <td>录取control_thresholdvalue
     </td>
-    <td>The threshold value for Controller of Admission Control.
+    <td>入学控制控制器控制器的阈值。
     </td>
   </tr>
  </tbody>
 </table>
 
-## Relevant dimension: `NodeID` 
+## 相关维度：`NodeID` 
   
-<table>
-  <thead style="text-align: left">
+<表>
+  <thead样式="text-align: left">
    <tr>
-   <th>Metric</th>
-   <th>Description</th>
+   <th>公制</th>
+   <th>描述</th>
     </tr>
   </thead>
-  <tbody>  
+  <tbody>
     <tr>
-      <td>Data_RetryingPendingTasksCount 
+      <td> data_retryingpendingTaskScount
       </td>
-      <td>The number of throttled pending tasks on which the data node is actively performing retries. It is an absolute metric at that point in time.
+      <td>数据节点正在积极执行重试的节流待处理任务的数量。在那个时间点，这是绝对的度量。
       </td>
     </tr>
     <tr>
-      <td>ClusterManager_ThrottledPendingTasksCount 
+      <td> clustermanager_throttledpendertaskscount
       </td>
-      <td>The sum of the total pending tasks that were throttled by the cluster manager node. This is a cumulative metric, so make sure to check the max aggregation.
+      <td>群集管理器节点限制的总待处理任务的总和。这是一个累积度量，因此请确保检查最大聚合。
       </td>
     </tr>
   </tbody>
  </table>
 
-## Relevant dimensions: N/A
-The following metrics are relevant to the cluster as a whole and do not require specific dimensions.
+## 相关维度：不/a
+以下指标与整个集群有关，不需要特定的维度。
 
-<table>
-  <thead style="text-align: left">
+<表>
+  <thead样式="text-align: left">
    <tr>
-     <th>Metric</th>
-     <th>Description</th>
+     <th>公制</th>
+     <th>描述</th>
    </tr>
   </thead>
-  <tbody>  
+  <tbody>
    <tr>
-     <td>Election_Term 
+     <TD> eprection_term
      </td>
-     <td>A number that increases monotonically with every cluster manager election.
+     <td>每个集群经理选举中单调增加的数字。
      </td>
    </tr>
    <tr>
-     <td>PublishClusterState_Latency 
+     <TD> PublishClusterState_latency
      </td>
-     <td>The amount of time taken by the quorum of nodes to publish the new cluster state. This metric is available for the current cluster manager.
-     </td>
-   </tr>
-   <tr>
-     <td>PublishClusterState_Failure 
-     </td>
-     <td>The number of times the new cluster state failed to publish on the cluster manager node.
+     <td>节点法定人数发布新群集状态的时间。该指标可用于当前集群管理器。
      </td>
    </tr>
    <tr>
-     <td>ClusterApplierService_Latency 
+     <TD> PublishClusterState_failure
      </td>
-     <td>The amount of time taken by each node for the apply cluster state sent by the cluster manager.
+     <td>新群集状态未能在群集管理器节点上发布的次数。
      </td>
    </tr>
    <tr>
-     <td>ClusterApplierService_Failure 
+     <td> clusterApplierService_latency
      </td>
-     <td>The number of times that the apply cluster state action failed on each node.
+     <td>每个节点为群集管理器发送的应用群集状态所花费的时间。
+     </td>
+   </tr>
+   <tr>
+     <td> clusterApplierService_failure
+     </td>
+     <td>每个节点上应用群集状态操作失败的次数。
      </td>
    </tr>
   </tbody>
  </table>
 
-## Relevant dimensions: `IndexName`, `NodeName`, `ShardType`, `ShardID`
+## 相关维度：`IndexName`，`NodeName`，`ShardType`，`ShardID`
   
-<table>
-   <thead style="text-align: left">
+<表>
+   <thead样式="text-align: left">
    <tr>
-     <th>Metric</th>
-     <th>Description</th>
+     <th>公制</th>
+     <th>描述</th>
    </tr>
   </thead>
-  <tbody>  
+  <tbody>
    <tr>
-     <td>Shard_State 
+     <td> shard_state
      </td>
-     <td>The state of each shard, for example, `STARTED`, `UNASSIGNED`, or `RELOCATING`.
+     <td>每个碎片的状态，例如`STARTED`，`UNASSIGNED`， 或者`RELOCATING`。
      </td>
    </tr>
    </tbody>
 </table>
 
 
-## Dimensions reference
+## 维度参考
 
-| Dimension            | Return values                                   |
+| 方面| 返回值|
 |----------------------|-------------------------------------------------|
-| ShardID              | The ID of the shard, for example, `1`.           |
-| IndexName            | The name of the index, for example, `my-index`.   |
-| Operation            | The type of operation, for example, `shardbulk`.  |
-| ShardRole            | The shard role, for example, `primary` or `replica`.                            |
-| Exception            | OpenSearch exceptions, for example, `org.opensearch.index_not_found_exception`. |
-| Indices              | The list of indexes in the request URL.        |
-| HTTPRespCode         | The response code from OpenSearch, for example, `200`. |
-| MemType              | The memory type, for example, `totYoungGC`, `totFullGC`, `Survivor`, `PermGen`, `OldGen`, `Eden`, `NonHeap`, or `Heap`. |
-| DiskName             | The name of the disk, for example, `sda1`.        |
-| DestAddr             | The destination address, for example, `010015AC`. |
-| Direction            | The direction, for example, `in` or `out`.                                    |
-| ThreadPoolType       | The OpenSearch thread pools, for example, `index`, `search`, or `snapshot`. |
-| CBType               | The circuit breaker type, for example, `accounting`, `fielddata`, `in_flight_requests`, `parent`, or `request`. |
-| ClusterManagerTaskInsertOrder| The order in which the task was inserted, for example, `3691`. |
-| ClusterManagerTaskPriority   | The priority of the task, for example, `URGENT`. OpenSearch executes higher-priority tasks before lower-priority ones, regardless of `insert_order`. |
-| ClusterManagerTaskType       | The task type, for example, `shard-started`, `create-index`, `delete-index`, `refresh-mapping`, `put-mapping`, `CleanupSnapshotRestoreState`, or `Update snapshot state`. |
-| ClusterManagerTaskMetadata   | The metadata for the task (if any).                 |
-| CacheType            | The cache type, for example, `Field_Data_Cache`, `Shard_Request_Cache`, or `Node_Query_Cache`. |
+| Shardid| 例如，碎片的ID`1`。|
+| indexname| 索引的名称，例如`my-index`。|
+| 手术| 例如，操作类型`shardbulk`。|
+| 碎片| 例如，碎片角色`primary` 或者`replica`。|
+| 例外| openSearch例外，例如`org.opensearch.index_not_found_exception`。|
+| 指数| 请求URL中的索引列表。|
+| httprespcode| 例如，OpenSearch的响应代码，例如`200`。|
+| memtype| 例如，内存类型`totYoungGC`，`totFullGC`，`Survivor`，`PermGen`，`OldGen`，`Eden`，`NonHeap`， 或者`Heap`。|
+| 不解体| 例如，磁盘的名称，例如`sda1`。|
+| Destaddr| 例如，目标地址`010015AC`。|
+| 方向| 例如，方向`in` 或者`out`。|
+| 线程pooltype| 例如，OpenSearch线程池`index`，`search`， 或者`snapshot`。|
+| cbtype| 例如，断路器类型`accounting`，`fielddata`，`in_flight_requests`，`parent`， 或者`request`。|
+| ClusterManagerTaskInsertorder| 例如，插入任务的顺序`3691`。|
+| clusterManagerTaskPriority| 任务的优先级，例如`URGENT`。OpenSearch执行更高-较低之前的优先任务-优先的，不管`insert_order`。|
+| clusterManagerTaskType| 例如，任务类型`shard-started`，`create-index`，`delete-index`，`refresh-mapping`，`put-mapping`，`CleanupSnapshotRestoreState`， 或者`Update snapshot state`。|
+| clustermanagertaskmetadata| 任务的元数据（如果有）。|
+| Cachetype| 例如，缓存类型，例如`Field_Data_Cache`，`Shard_Request_Cache`， 或者`Node_Query_Cache`。|
+
 

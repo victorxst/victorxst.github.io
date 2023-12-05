@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Job Scheduler
+title: 工作调度程序
 nav_order: 1
 has_children: false
 has_toc: false
@@ -8,32 +8,32 @@ redirect_from:
   - /job-scheduler-plugin/index/
 ---
 
-# Job Scheduler
+# 工作调度程序
 
-The OpenSearch Job Scheduler plugin provides a framework that can be used to build schedules for common tasks performed on your cluster. You can use Job Scheduler’s Service Provider Interface (SPI) to define schedules for cluster management tasks such as taking snapshots, managing your data’s lifecycle, and running periodic jobs. Job Scheduler has a sweeper that listens for updated events on the OpenSearch cluster and a scheduler that manages when jobs run.
+OpenSearch作业调度程序插件提供了一个框架，可用于为在群集上执行的常见任务构建计划。您可以使用作业调度程序的服务提供商界面（SPI）来定义集群管理任务的时间表，例如拍摄快照，管理数据的生命周期和运行定期作业。作业调度程序有一个清扫器，可在OpenSearch集群上聆听更新的事件，以及在运行工作时管理的调度程序。
 
-You can install the Job Scheduler plugin by following the standard [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/plugins/) process. The sample-extension-plugin example provided in the [Job Scheduler GitHub repository](https://github.com/opensearch-project/job-scheduler) provides a complete example of utilizing Job Scheduler when building a plugin. To define schedules, you build a plugin that implements the interfaces provided in the Job Scheduler library. You can schedule jobs by specifying an interval, or you can use a Unix cron expression such as `0 12 * * ?`, which runs at noon every day, to define a more flexible schedule.
+您可以按照标准安装作业调度程序插件[OpenSearch插件安装]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/plugins/) 过程。例子-扩大-插件示例[工作调度程序GitHub存储库](https://github.com/opensearch-project/job-scheduler) 提供了一个完整的示例，即在构建插件时使用工作调度程序。要定义时间表，您可以构建一个实现作业调度程序库中提供的接口的插件。您可以通过指定间隔来安排作业，也可以使用Unix Cron表达式`0 12 * * ?`每天中午运行，以定义更灵活的时间表。
 
-## Building a plugin for Job Scheduler
+## 为工作调度程序构建插件
 
-OpenSearch plugin developers can extend the Job Scheduler plugin to schedule jobs to perform on the cluster. Jobs you can schedule include running aggregation queries against raw data, saving the aggregated data to a new index every hour, or continuing to monitor the shard allocation by calling the OpenSearch API and then posting the output to a webhook.
+OpenSearch插件开发人员可以将作业调度程序插件扩展到计划作业以在集群上执行。您可以安排的作业包括针对原始数据运行聚合查询，将聚合数据保存到每小时的新索引中，或通过调用OpenSearch API，然后将输出发布到Webhook中，继续监视碎片分配。
 
-For examples of building a plugin that uses the Job Scheduler plugin, see the Job Scheduler [README](https://github.com/opensearch-project/job-scheduler/blob/main/README.md).
+有关构建使用作业调度程序插件的插件的示例，请参见作业调度程序[读书我](https://github.com/opensearch-project/job-scheduler/blob/main/README.md)。
 
-## Defining an endpoint
+## 定义端点
 
-You can configure your plugin's API endpoint by referencing the [example](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleExtensionRestHandler.java) `SampleExtensionRestHandler.java` file. Set the endpoint URL that your plugin will expose with `WATCH_INDEX_URI`:
+您可以通过引用插件的API端点来配置[例子](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleExtensionRestHandler.java) `SampleExtensionRestHandler.java` 文件。设置您的插件将显示的端点URL`WATCH_INDEX_URI`：
 
 ```java
 public class SampleExtensionRestHandler extends BaseRestHandler {
     public static final String WATCH_INDEX_URI = "/_plugins/scheduler_sample/watch";
 ```
 
-You can define the job configuration by [extending](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) `ScheduledJobParameter`. You can also define the fields used by your plugin, like `indexToWatch`, as shown in the [example](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) `SampleJobParameter` file. This job configuration will be saved as a document in an index you define, as shown in [this example](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleExtensionPlugin.java#L54).
+您可以通过[扩展](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) `ScheduledJobParameter`。您还可以定义插件使用的字段，例如`indexToWatch`，如图所示[例子](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) `SampleJobParameter` 文件。此作业配置将作为文档保存在您定义的索引中，如图所示[这个示例](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleExtensionPlugin.java#L54)。
 
-## Configuring parameters
+## 配置参数
 
-You can configure your plugin's parameters by referencing the [example](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) `SampleJobParameter.java` file and modifying it to fit your needs:
+您可以通过引用插件的参数来配置插件的参数[例子](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) `SampleJobParameter.java` 文件并修改以满足您的需求：
 
 ```java
 /**
@@ -64,7 +64,7 @@ public class SampleJobParameter implements ScheduledJobParameter {
     private Double jitter;
 ```
 
-Next, configure the request parameters you would like your plugin to use with Job Scheduler. These will be based on the variables you declare when configuring your plugin. The following example shows the request parameters you set when building your plugin:
+接下来，配置您希望插件与作业调度程序一起使用的请求参数。这些将基于您在配置插件时声明的变量。以下示例显示构建插件时设置的请求参数：
 
 ```java
 public SampleJobParameter(String id, String name, String indexToWatch, Schedule schedule, Long lockDurationSeconds, Double jitter) {
@@ -115,31 +115,32 @@ public SampleJobParameter(String id, String name, String indexToWatch, Schedule 
     }
 ```
 
-The following table describes the request parameters configured in the previous example. All the request parameters shown are required.
+下表描述了上一个示例中配置的请求参数。所示的所有请求参数都是必需的。
 
-| Field | Data type | Description |
+| 场地| 数据类型| 描述|
 :--- | :--- | :---
-| getName | String | Returns the name of the job. |
-| getLastUpdateTime | Time unit | Returns the time that the job was last run. |
-| getEnabledTime | Time unit | Returns the time that the job was enabled. |
-| getSchedule | Unix cron | Returns the job schedule formatted in Unix cron syntax. |
-| isEnabled | Boolean | Indicates whether or not the job is enabled. |
-| getLockDurationSeconds | Integer | Returns the duration of time for which the job is locked. |
-| getJitter | Integer | Returns the defined jitter value. |
+| getName| 细绳| 返回工作名称。|
+| getlastupdateTime| 时间单元| 返回工作最后运行的时间。|
+| getEnabledtime| 时间单元| 返回启用工作的时间。|
+| getSchedule| Unix Cron| 返回以UNIX CRON语法格式的工作时间表。|
+| 类别| 布尔| 指示是否启用了作业。|
+| getlockdurationseconds| 整数| 返回作业锁定的时间。|
+| GetJitter| 整数| 返回定义的抖动值。|
 
-The logic used by your job should be defined by a class extended from `ScheduledJobRunner` in the `SampleJobParameter.java` sample file, such as `SampleJobRunner`. While the job is running, there is a locking mechanism you can use to prevent other nodes from running the same job. First, [acquire](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobRunner.java#L96) the lock. Then make sure to release the lock before the [job finishes](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobRunner.java#L116).
+您的作业使用的逻辑应由从延长的类定义`ScheduledJobRunner` 在里面`SampleJobParameter.java` 示例文件，例如`SampleJobRunner`。在运行该作业时，您可以使用一种锁定机制来防止其他节点运行相同的作业。第一的，[获得](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobRunner.java#L96) 锁。然后确保在[工作完成](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobRunner.java#L116)。
 
-For more information, see the Job Scheduler [sample extension](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) directory in the [Job Scheduler GitHub repo](https://github.com/opensearch-project/job-scheduler).
+有关更多信息，请参阅工作调度程序[样品扩展](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) 目录中的目录[作业调度程序GitHub回购](https://github.com/opensearch-project/job-scheduler)。
 
-## Job Scheduler cluster settings
+## 作业调度程序集群设置
 
-The Job Scheduler plugin supports the following cluster settings. All settings are dynamic. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+作业调度程序插件支持以下群集设置。所有设置都是动态的。要了解有关静态和动态设置的更多信息，请参阅[配置OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/)。
 
-| Setting | Data type | Description |
+| 环境| 数据类型| 描述|
 :--- | :--- | :---
-| `plugins.jobscheduler.jitter_limit` | Double | Defines the maximum delay multiplier for job execution time. Too many jobs starting at the same time can cause high resource consumption. To balance the load, you can add a random jitter delay to the start time. For example, if the time interval is 10 minutes and the jitter is 0.6, the next job run will be randomly delayed by a time period between 0 and 6 minutes. |
-| `plugins.jobscheduler.request_timeout` | Time unit | The background sweep search timeout. Background sweep refers to the automatic scheduling and execution of registered jobs. It occurs on an interval and iterates through each extending plugin's registered job index, searching for jobs to be executed. |
-| `plugins.jobscheduler.retry_count` | Integer | Used to define the retry count of an exponential backoff policy. Backoff policies determine how long bulk processors will wait before the bulk operation is retried. It is used whenever bulk indexing requests are impacted or rejected because of resource constraints at the time of a request. For the Job Scheduler plugin, this impacts searching registered job indexes. |
-| `plugins.jobscheduler.sweeper.backoff_millis` | Time unit | Used to define the initial wait period of an exponential backoff policy, in milliseconds. Backoff policies determine how long bulk processors will wait before the bulk operation is retried. It is used whenever bulk indexing requests are impacted or rejected because of resource constraints at the time of a request. For the Job Scheduler plugin, this impacts searching registered job indexes. |
-| `plugins.jobscheduler.sweeper.page_size` | Integer | Configures the search request used to find job documents within a registered job index. Defines the number of search hits to return. |
-| `plugins.jobscheduler.sweeper.period` | Time unit | Defines the initial delay period before a background sweep is executed. |
+| `plugins.jobscheduler.jitter_limit` | 双倍的| 定义作业执行时间的最大延迟乘数。从同一时间开始的工作太多会导致高度的资源消耗。为了平衡负载，您可以在开始时间添加一个随机的抖动延迟。例如，如果时间间隔为10分钟，而抖动为0.6，则下一个工作运行将随机延迟0到6分钟。|
+| `plugins.jobscheduler.request_timeout` | 时间单元| 背景扫描搜索超时。背景扫描是指注册作业的自动调度和执行。它发生在间隔中，并通过每个扩展插件的注册作业索引进行迭代，以搜索要执行的作业。|
+| `plugins.jobscheduler.retry_count` | 整数| 用于定义指数退回策略的重试计数。退缩策略决定了大量处理器将等待多长时间，然后再进行批量操作。由于在请求时的资源限制，因此每当批量索引请求受到影响或拒绝时都会使用。对于工作调度程序插件，这会影响搜索注册的作业索引。|
+| `plugins.jobscheduler.sweeper.backoff_millis` | 时间单元| 用于以毫秒为单位定义指数退回策略的初始等待期。退缩策略决定了大量处理器将等待多长时间，然后再进行批量操作。由于在请求时的资源限制，因此每当批量索引请求受到影响或拒绝时都会使用。对于工作调度程序插件，这会影响搜索注册的作业索引。|
+| `plugins.jobscheduler.sweeper.page_size` | 整数| 配置用于在注册作业索引中查找作业文档的搜索请求。定义要返回的搜索命中次数。|
+| `plugins.jobscheduler.sweeper.period` | 时间单元| 在执行背景扫描之前定义初始延迟期。|
+

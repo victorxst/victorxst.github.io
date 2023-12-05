@@ -1,8 +1,8 @@
 ---
 layout: default
 title: API
-parent: Root Cause Analysis
-grand_parent: Performance Analyzer
+parent: 根本原因分析
+grand_parent: 性能分析仪
 nav_order: 1
 redirect_from:
   - /monitoring-plugins/pa/rca/api/

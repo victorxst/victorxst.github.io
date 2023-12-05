@@ -1,18 +1,19 @@
 ---
 layout: default
-title: Monitoring your cluster
+title: 监视群集
 nav_order: 1
 has_children: false
 has_toc: false
 nav_exclude: true
 ---
 
-# Monitoring your cluster
+# 监视群集
 
-OpenSearch provides several ways for you to monitor your cluster health and performance and automate common tasks:
+OpenSearch为您提供了几种监控群集健康和性能并自动化常见任务的方法：
 
-- The OpenSearch [logs]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/logs/) include valuable information for monitoring cluster operations and troubleshooting issues. 
+- OpenSearch[日志]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/logs/) 包括有价值的信息，以监视群集操作和故障排除问题。
 
-- [Performance analyzer]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/index/) is an agent and REST API that allows you to query numerous performance metrics for your cluster, including aggregations of those metrics. 
+- [性能分析仪]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/index/) 是一种代理和REST API，可让您为群集查询众多性能指标，包括这些指标的聚合。
 
-- OpenSearch [Job Scheduler]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/job-scheduler/index/) plugin provides a framework that you can use to build schedules for common cluster management tasks.
+- OpenSearch[工作调度程序]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/job-scheduler/index/) 插件提供了一个框架，您可以使用该框架来构建针对常见群集管理任务的计划
+

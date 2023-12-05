@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Create PerfTop Dashboards
-parent: Performance Analyzer
+title: 创建Perftop仪表板
+parent: 性能分析仪
 nav_order: 2
 redirect_from:
   - /monitoring-plugins/pa/dashboards/
 ---
 
-# PerfTop dashboards
+# Perftop仪表板
 
-Dashboards are defined in JSON and composed of three main elements: tables, line graphs, and bar graphs. You define a grid of rows and columns and then place elements within that grid, with each element spanning as many rows and columns as you specify.
+仪表板在JSON中定义，由三个主要元素组成：表，线图和条形图。您可以定义一个行和列的网格，然后将元素放置在该网格中，每个元素均按照指定的数量和列的数量。
 
-The best way to get started with building custom dashboards is to duplicate and modify one of the existing JSON files in the `dashboards` directory.
+开始构建自定义仪表板的最佳方法是复制和修改现有的JSON文件之一`dashboards` 目录。
 {: .tip }
 
 ---
@@ -23,32 +23,32 @@ The best way to get started with building custom dashboards is to duplicate and 
 ---
 
 
-## Summary of elements
+## 元素摘要
 
-- Tables show metrics per dimension. For example, if your metric is `CPU_Utilization` and your dimension `ShardID`, a PerfTop table shows a row for each shard on each node.
-- Bar graphs are aggregated for the cluster, unless you add `nodeName` to the dashboard. See the [options for all elements](#all-elements).
-- Line graphs are aggregated for each node. Each line represents a node.
+- 表显示每个维度的指标。例如，如果您的指标是`CPU_Utilization` 和你的尺寸`ShardID`，一个perftop表显示了每个节点上每个碎片的一行。
+- 条形图是为集群汇总的，除非您添加`nodeName` 到仪表板。看到[所有元素的选项](#all-elements)。
+- 每个节点汇总了线图。每行代表一个节点。
 
 
-## Position elements
+## 位置元素
 
-PerfTop positions elements within a grid. For example, consider this 12 * 12 grid.
+perftop位置元素在网格中。例如，考虑此12 * 12网格。
 
-![Dashboard grid]({{site.url}}{{site.baseurl}}/images/perftop-grid.png)
+![仪表板网格]({{site.url}}{{site.baseurl}}/images/perftop-grid.png)
 
-The upper-left of the grid represents row 0, column 0, so the starting positions for the three boxes are:
+上层-网格的左表示第0行，第0列，因此三个框的起始位置是：
 
-- Orange: row 0, column 0
-- Purple: row 2, column 2
-- Green: row 1, column 6
+- 橙色：第0行，第0列
+- 紫色：第2行，第2列
+- 绿色：第1行，第6列
 
-These boxes span a number of rows and columns. In this case:
+这些框横跨许多行和列。在这种情况下：
 
-- Orange: 2 rows, 4 columns
-- Purple: 1 row, 4 columns
-- Green: 3 rows, 2 columns
+- 橙色：2行，4列
+- 紫色：1行，4列
+- 绿色：3行，2列
 
-In JSON form, we have the following:
+以JSON形式，我们有以下内容：
 
 ```json
 {
@@ -92,12 +92,12 @@ In JSON form, we have the following:
 }
 ```
 
-At this point, however, all the JSON does is define the size and position of three tables.  To fill elements with data, you specify a query.
+但是，在这一点上，JSON所做的就是定义三个表的大小和位置。要用数据填充元素，请指定查询。
 
 
-## Add queries
+## 添加查询
 
-Queries use the same elements as the [REST API]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/api/), just in JSON form:
+查询使用与[REST API]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/api/)，仅以JSON形式：
 
 ```json
 {
@@ -110,55 +110,56 @@ Queries use the same elements as the [REST API]({{site.url}}{{site.baseurl}}/mon
 }
 ```
 
-For details on available metrics, see [Metrics reference]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/reference/).
+有关可用指标的详细信息，请参阅[指标参考]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/reference/)。
 
 
-## Add options
+## 添加选项
 
-Options include labels, colors, and a refresh interval. Different elements types have different options.
+选项包括标签，颜色和刷新间隔。不同的元素类型具有不同的选项。
 
-Dashboards support the 16 ANSI colors: black, red, green, yellow, blue, magenta, cyan, and white. For the "bright" variants of these colors, use the numbers 8--15. If your terminal supports 256 colors, you can also use hex codes (e.g. `#6D40ED`).
+仪表板支持16种ANSI颜色：黑色，红色，绿色，黄色，蓝色，洋红色，青色和白色。为了"bright" 这些颜色的变体，使用数字8--15.如果您的终端支持256种颜色，则也可以使用十六进制代码（例如，`#6D40ED`）。
 {: .note }
 
 
-### All elements
+### 所有元素
 
-Option | Type | Description
+选项| 类型| 描述
 :--- | :--- | :---
-`label` | String or integer | The text in the upper-left corner of the box.
-`labelColor` | String or integer | The color of the label.
-`refreshInterval` | Integer | The number of milliseconds between calls to the Performance Analyzer API for new data. Minimum value is 5000.
-`dimensionFilters` | String array | The dimension value to display for the graph. For example, if you query for `metric=Net_Throughput&agg=sum&dim=Direction` and the possible dimension values are `in` and `out`, you can define `dimensionFilters: ["in"]` to only display the metric data for `in` dimension
-`nodeName` | String | If non-null, lets you restrict elements to individual nodes. You can specify the node name directly in the dashboard file, but the better approach is to use `"nodeName": "#nodeName"` in the dashboard and include the `--nodename <node_name>` argument when starting PerfTop.
+`label` | 字符串或整数| 鞋面中的文字-盒子的左角。
+`labelColor` | 字符串或整数| 标签的颜色。
+`refreshInterval` | 整数| 拨打绩效分析仪API的毫秒数以获取新数据。最低值为5000。
+`dimensionFilters` | 字符串数组| 图表显示的尺寸值。例如，如果您查询`metric=Net_Throughput&agg=sum&dim=Direction` 并且可能的维度值为`in` 和`out`，您可以定义`dimensionFilters: ["in"]` 仅显示用于的度量数据`in` 方面
+`nodeName` | 细绳| 如果不-无效，让您将元素限制为单个节点。您可以直接在仪表板文件中指定节点名称，但更好的方法是使用`"nodeName": "#nodeName"` 在仪表板中，包括`--nodename <node_name>` 启动perftop时的论点。
 
 
-### Tables
+### 表
 
-Option | Type | Description
+选项| 类型| 描述
 :--- | :--- | :---
-`bg` | String or integer | The background color.
-`fg` | String or integer | The text color.
-`selectedFg` | String or integer | The text color for focused text.
-`selectedBg` | String or integer | The background color for focused text.
-`columnSpacing` | Integer | The amount of space (measured in characters) between columns.
-`keys` | Boolean | Has no impact at this time.
+`bg` | 字符串或整数| 背景颜色。
+`fg` | 字符串或整数| 文字颜色。
+`selectedFg` | 字符串或整数| 专注文本的文本颜色。
+`selectedBg` | 字符串或整数| 专注文本的背景颜色。
+`columnSpacing` | 整数| 列之间的空间数量（以字符为单位）。
+`keys` | 布尔| 目前没有影响。
 
 
-### Bars
+### 酒吧
 
-Option | Type | Description
+选项| 类型| 描述
 :--- | :--- | :---
-`barWidth` | Integer | The width of each bar (measured in characters) in the graph.
-`xOffset` | Integer | The amount of space (measured in characters) between the y-axis and the first bar in the graph.
-`maxHeight` | Integer | The maximum height of each bar (measured in characters) in the graph.
+`barWidth` | 整数| 图中每个条的宽度（以字符测量）。
+`xOffset` | 整数| Y之间的空间数量（以字符为单位）-轴和图中的第一个条。
+`maxHeight` | 整数| 图中每个条的最大高度（以字符为单位测量）。
 
 
-### Lines
+### 线
 
-Option | Type | Description
+选项| 类型| 描述
 :--- | :--- | :---
-`showNthLabel` | Integer | Which of the `xAxis` labels to show. For example, `"showNthLabel": 2` shows every other label.
-`showLegend` | Boolean | Whether or not to display a legend for the line graph.
-`legend.width` | Integer | The width of the legend (measured in characters) in the graph.
-`xAxis` | String array | Array of labels for the x-axis. For example, `["0:00", "0:10", "0:20", "0:30", "0:40", "0:50"]`.
-`colors` | String array | Array of line colors to choose from. For example, `["magenta", "cyan"]`. If you don't provide this value, PerfTop chooses random colors for each line.
+`showNthLabel` | 整数| 哪一个`xAxis` 显示标签。例如，`"showNthLabel": 2` 显示所有其他标签。
+`showLegend` | 布尔| 是否显示线图的传奇。
+`legend.width` | 整数| 图表中的传说宽度（以字符为单位）。
+`xAxis` | 字符串数组| X的标签数组-轴。例如，`["0:00", "0:10", "0:20", "0:30", "0:40", "0:50"]`。
+`colors` | 字符串数组| 一系列线色可供选择。例如，`["magenta", "cyan"]`。如果您不提供此值，则Perftop为每行选择随机颜色。
+
