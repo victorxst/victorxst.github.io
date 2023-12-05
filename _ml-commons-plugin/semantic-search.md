@@ -206,7 +206,7 @@ POST /_plugins/_ml/model_groups/_search
   }
 }
 ```
-</delect>
+</details>
 
 
 ### 步骤1（c）：将模型注册到模型组
@@ -426,7 +426,7 @@ GET /_plugins/_ml/models/aVeif4oB5Vm0Tdw8zYO2
 ```json
 GET /_plugins/_ml/profile/models
 ```
-</delect>
+</details>
 
 ## 步骤2：通过神经搜索获取数据
 
@@ -486,7 +486,7 @@ GET /_ingest/pipeline
   }
 }
 ```
-</delect>
+</details>
 
 ### 步骤2（b）：创建K-NN索引
 
@@ -718,7 +718,7 @@ GET /my-nlp-index/_search
   }
 }
 ```
-</delect>
+</details>
 
 ### 使用神经搜索搜索
 
@@ -819,7 +819,7 @@ GET /my-nlp-index/_search
   }
 }
 ```
-</delect>
+</details>
 
 ### 使用混合搜索搜索
 
@@ -967,7 +967,7 @@ openSearch返回文档不仅与语义含义相匹配`wild west`，但是现在�
   }
 }
 ```
-</delect>
+</details>
 
 您没有在每个请求中指定搜索管道，而可以将其设置为索引的默认搜索管道，如下所示：
 

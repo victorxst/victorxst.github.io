@@ -44,7 +44,7 @@ host.keyword:*
 
 ## 用布尔查询搜索
 
-要混合和匹配或组合多个查询以获得更精致的结果，您可以使用布尔操作员`and`，，，，`or`， 和`not`。DQL不敏感，所以`AND` 和`and` 例如，相同：
+要混合和匹配或组合多个查询以获得更精致的结果，您可以使用布尔操作员`and`，`or`， 和`not`。DQL不敏感，所以`AND` 和`and` 例如，相同：
 
 ```
 host.keyword:www.example.com and response.keyword:200
@@ -56,7 +56,7 @@ host.keyword:www.example.com and response.keyword:200
 geo.dest:US or response.keyword:200 and host.keyword:www.example.com
 ```
 
-请记住，布尔操作员遵循的逻辑优先顺序`not`，，，，`and`， 和`or`，因此，如果您在上一个示例中的表达式类似于表达式，`response.keyword:200 and host.keyword:www.example.com` 首先评估。
+请记住，布尔操作员遵循的逻辑优先顺序`not`，`and`， 和`or`，因此，如果您在上一个示例中的表达式类似于表达式，`response.keyword:200 and host.keyword:www.example.com` 首先评估。
 
 为避免混乱，请使用括号决定要评估操作数的顺序。如果您想评估`geo.dest:US or response.keyword:200` 首先，您可以使用以下表达式：
 
@@ -100,28 +100,28 @@ DQL支持数字不等式，例如`bytes >= 15 and memory < 15`。
   ]
 }
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 要检索使用DQL匹配特定字段的文档，请指定该字段，例如：
 
 ```
 superheroes: {hero-name: Superman}
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 要检索匹配多个字段的文档，请指定所有字段，例如：
 
 ```
 superheroes: {hero-name: Superman} and superheroes: {hero-name: Batman}
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 您可以组合多个布尔值和范围查询以创建一个更精致的查询，例如：
 
 ```
 superheroes: {hero-name: Superman and age < 50}
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 查询双嵌套对象
 
@@ -157,7 +157,7 @@ superheroes: {hero-name: Superman and age < 50}
 ]
 }
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 下图显示了使用示例符号表示查询结果`justice-league.superheroes: {hero-name:Superman}`。
 

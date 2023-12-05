@@ -15,7 +15,7 @@ nav_order: 58
 下表描述了用于生成映射的目标键的配置选项。
 
 选项| 必需的| 类型| 描述
-：--- | ：--- | ：--- | ：---
+:--- | :--- | :--- | :---
 `key` | 是的| 细绳| 在生成的映射中将要提取为键的字段的钥匙。
 `source` | 是的| 细绳| 具有的对象列表`key` 要转换为生成地图的键的字段。
 `target` | 不| 细绳| 生成地图的目标。如果未指定，生成的地图将放在根节点中。
@@ -32,7 +32,7 @@ nav_order: 58
 ```json
 {"mylist":[{"name":"a","value":"val-a"},{"name":"b","value":"val-b1"},{"name":"b",  "value":"val-b2"},{"name":"c","value":"val-c"}]}
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 接下来，创建一个`pipeline.yaml` 使用的文件`logs_json.log` 文件作为`source` 通过指向`.log` 文件的正确路径：
 
@@ -52,7 +52,7 @@ pipeline:
   sink:
     - stdout:
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 运行管道。如果成功，处理器将返回生成的映射，并根据其对象根据其映射的对象`value_key`。类似于原始源，其中包含一行，因此，处理器将以下JSON作为一行返回。为了可读性，已调整了以下示例和所有随后的JSON示例以跨越多行：
 
@@ -103,7 +103,7 @@ pipeline:
   sink:
     - stdout:
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 生成的地图出现在目标密钥下：
 
@@ -154,7 +154,7 @@ pipeline:
   sink:
     - stdout:
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 来自生成地图的值出现为原始对象`.log` 来源，如以下示例响应所示：
 
@@ -215,7 +215,7 @@ pipeline:
   sink:
     - stdout:
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 处理器地图对象`b` 值`val-b2` 因为`val-b2` 是对象中的最后一个元素`b`，如以下输出所示：
 
@@ -267,7 +267,7 @@ pipeline:
   sink:
     - stdout:
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 响应中的某些对象的值可能具有多个元素，如以下响应所示：
 

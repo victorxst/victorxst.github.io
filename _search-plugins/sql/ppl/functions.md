@@ -23,7 +23,7 @@ dedup [int] <field-list> [keepempty=<bool>] [consecutive=<bool>]
 ```
 
 场地| 描述| 类型| 必需的| 默认
-：--- | ：--- |：--- |：--- |：---
+:--- | :--- |:--- |:--- |：---
 `int` |  保留每种组合的指定数量的重复事件。数字必须大于0。如果您不指定数字，则仅保留第一个发生的事件，并且所有其他重复项都从结果中删除。| `string` | 不| 1
 `keepempty` | 如果为true，请保留文档，如果字段列表中的任何字段具有空值或缺少字段。| `nested list of objects` | 不| 错误的
 `consecutive` | 如果为true，则仅删除具有重复组合的连续事件。| `Boolean` | 不| 错误的
@@ -38,7 +38,7 @@ search source=accounts | dedup gender | fields account_number, gender;
 ```
 
 | 帐号| 性别
-：--- | ：--- |
+:--- | :--- |
 1| m
 13| F
 
@@ -52,7 +52,7 @@ search source=accounts | dedup 2 gender | fields account_number, gender;
 ```
 
 | 帐号| 性别
-：--- | ：--- |
+:--- | :--- |
 1| m
 6| m
 13| F
@@ -66,7 +66,7 @@ search source=accounts | dedup email keepempty=true | fields account_number, ema
 ```
 
 | 帐号| 电子邮件
-：--- | ：--- |
+:--- | :--- |
 1| amberduke@pyrami.com
 6| hattiebond@netagy.com
 13| 无效的
@@ -79,7 +79,7 @@ search source=accounts | dedup email | fields account_number, email;
 ```
 
 | 帐号| 电子邮件
-：--- | ：--- |
+:--- | :--- |
 1| amberduke@pyrami.com
 6| hattiebond@netagy.com
 18| daleadams@boink.com
@@ -93,7 +93,7 @@ search source=accounts | dedup gender consecutive=true | fields account_number, 
 ```
 
 | 帐号| 性别
-：--- | ：--- |
+:--- | :--- |
 1| m
 13| F
 18| m
@@ -113,7 +113,7 @@ eval <field>=<expression> ["," <field>=<expression> ]...
 ```
 
 场地| 描述| 必需的
-：--- | ：--- |：---
+:--- | :--- |：---
 `field` | 如果不存在字段名称，则添加一个新字段。如果字段名称已经存在，则将其覆盖。| 是的
 `expression` | 指定任何支持的表达式。| 是的
 
@@ -126,7 +126,7 @@ search source=accounts | eval doubleAge = age * 2 | fields age, doubleAge;
 ```
 
 | 年龄| 双打
-：--- | ：--- |
+:--- | :--- |
 32| 64
 36| 72
 28| 56
@@ -156,7 +156,7 @@ search source=accounts | eval doubleAge = age * 2, ddAge = doubleAge * 2 | field
 ```
 
 | 年龄| 双打| ddage
-：--- | ：--- |
+:--- | :--- |
 | 32| 64| 128
 | 36| 72| 144
 | 28| 56| 112
@@ -178,20 +178,20 @@ fields [+|-] <field-list>
 ```
 
 场地| 描述| 必需的| 默认
-：--- | ：--- |：---|：---
+:--- | :--- |：---|：---
 `index` | 加上（+）仅保留字段列表中指定的字段。减 （-）删除字段列表中指定的所有字段。| 不| +
 `field list` | 指定逗号-界定字段列表。| 是的| 没有默认值
 
 **示例1：从结果中选择指定的字段**
 
-要得到`account_number`，，，，`firstname`， 和`lastname` 搜索结果的字段：
+要得到`account_number`，`firstname`， 和`lastname` 搜索结果的字段：
 
 ```sql
 search source=accounts | fields account_number, firstname, lastname;
 ```
 
 | 帐号| 名| 姓
-：--- | ：--- |
+:--- | :--- |
 | 1| 琥珀色| 公爵
 | 6| 哈蒂| 纽带
 | 13| Nanette| 贝茨
@@ -206,7 +206,7 @@ search source=accounts | fields account_number, firstname, lastname | fields - a
 ```
 
 | 名| 姓
-：--- | ：--- |
+:--- | :--- |
 | 琥珀色| 公爵
 | 哈蒂| 纽带
 | Nanette| 贝茨
@@ -224,7 +224,7 @@ parse <field> <regular-expression>
 ```
 
 场地| 描述| 必需的
-：--- | ：--- |：---
+:--- | :--- |：---
 场地| 文本字段。| 是的
 常规的-表达| 正则表达式用于从给定的测试字段提取新字段。如果存在新字段名称，它将替换原始字段。| 是的
 
@@ -240,7 +240,7 @@ fetched rows / total rows = 4/4
 ```
 
 | 电子邮件| 主持人
-：--- | ：--- |
+:--- | :--- |
 | amberduke@pyrami.com| pyrami.com
 | hattiebond@netagy.com| netagy.com
 | 无效的| 无效的
@@ -272,7 +272,7 @@ fetched rows / total rows = 3/3
 ```
 
 | 街牌号码| 街道
-：--- | ：--- |
+:--- | :--- |
 | 671| 布里斯托尔街
 | 789| 麦迪逊街
 | 880| 福尔摩斯巷
@@ -297,7 +297,7 @@ rename <source-field> AS <target-field>["," <source-field> AS <target-field>]...
 ```
 
 场地| 描述| 必需的
-：--- | ：--- |：---
+:--- | :--- |：---
 `source-field` | 您要重命名的字段名称。| 是的
 `target-field` | 您要重命名的名称。| 是的
 
@@ -325,7 +325,7 @@ search source=accounts | rename account_number as an, employer as emp | fields a
 ```
 
 | 一个| emp
-：--- | ：--- |
+:--- | :--- |
 | 1| Pyrami
 | 6| 网络
 | 13| 裁员
@@ -346,7 +346,7 @@ sort [count] <[+|-] sort-field>...
 ```
 
 场地| 描述| 必需的| 默认
-：--- | ：--- |：---
+:--- | :--- |：---
 `count` | 从排序结果返回的最大数字结果。如果计数= 0，则所有结果将返回。| 不| 1000
 `[+|-]` | 使用加上[+]按升序和减去[-]按降序排序。| 不| 上升顺序
 `sort-field` | 指定您要排序的字段。| 是的| -
@@ -360,7 +360,7 @@ search source=accounts | sort age | fields account_number, age;
 ```
 
 | 帐号| 年龄|
-：--- | ：--- |
+:--- | :--- |
 | 13| 28
 | 1| 32
 | 18| 33
@@ -375,7 +375,7 @@ search source=accounts | sort 0 age | fields account_number, age;
 ```
 
 | 帐号| 年龄|
-：--- | ：--- |
+:--- | :--- |
 | 13| 28
 | 1| 32
 | 18| 33
@@ -390,7 +390,7 @@ search source=accounts | sort - age | fields account_number, age;
 ```
 
 | 帐号| 年龄|
-：--- | ：--- |
+:--- | :--- |
 | 6| 36
 | 18| 33
 | 1| 32
@@ -405,7 +405,7 @@ search source=accounts | sort 2 age | fields account_number, age;
 ```
 
 | 帐号| 年龄|
-：--- | ：--- |
+:--- | :--- |
 | 13| 28
 | 1| 32
 
@@ -418,7 +418,7 @@ search source=accounts | sort + gender, - age | fields account_number, gender, a
 ```
 
 | 帐号| 性别| 年龄|
-：--- | ：--- | ：--- |
+:--- | :--- | :--- |
 | 13| F| 28
 | 6| m| 36
 | 18| m| 33
@@ -431,7 +431,7 @@ search source=accounts | sort + gender, - age | fields account_number, gender, a
 下表列出了聚合功能，还指示每个人如何处理null或缺失值：
 
 功能| 无效的| 丢失的
-：--- | ：--- |：---
+:--- | :--- |：---
 `COUNT` | 不算| 不算
 `SUM` | 忽略| 忽略
 `AVG` | 忽略| 忽略
@@ -446,7 +446,7 @@ stats <aggregation>... [by-clause]...
 ```
 
 场地| 描述| 必需的| 默认
-：--- | ：--- |：---
+:--- | :--- |：---
 `aggregation` | 指定统计聚合函数。此功能的参数必须是一个字段。| 是的| 1000
 `by-clause` | 指定一个或多个字段以按结果进行分组。如果未指定，`stats` 命令仅返回一行，这是整个结果集中的聚合。| 不| -
 
@@ -471,7 +471,7 @@ search source=accounts | stats avg(age) by gender;
 ```
 
 | 性别| AVG（年龄）
-：--- | ：--- |
+:--- | :--- |
 | F| 28.0
 | m| 33.66666666666664
 
@@ -484,7 +484,7 @@ search source=accounts | stats avg(age), sum(age) by gender;
 ```
 
 | 性别| AVG（年龄）| 总和（年龄）
-：--- | ：--- |
+:--- | :--- |
 | F| 28| 28
 | m| 33.66666666666664| 101
 
@@ -509,7 +509,7 @@ search source=accounts | stats max(age), min(age) by gender;
 ```
 
 | 性别| 最小（年龄）| 最大（年龄）
-：--- | ：--- | ：--- |
+:--- | :--- | :--- |
 | F| 28| 28
 | m| 32| 36
 
@@ -524,7 +524,7 @@ where <boolean-expression>
 ```
 
 场地| 描述| 必需的
-：--- | ：--- |：---
+:--- | :--- |：---
 `bool-expression` | 评估布尔值的表达式。| 不
 
 **示例：带有条件的过滤结果设置**
@@ -536,7 +536,7 @@ search source=accounts | where account_number=1 or gender=\"F\" | fields account
 ```
 
 | 帐号| 性别
-：--- | ：--- |
+:--- | :--- |
 | 1| m
 | 13| F
 
@@ -551,7 +551,7 @@ head [N]
 ```
 
 场地| 描述| 必需的| 默认
-：--- | ：--- |：---
+:--- | :--- |：---
 `N` | 指定要返回的结果数。| 不| 10
 
 **示例1：获取前10个结果**
@@ -563,7 +563,7 @@ search source=accounts | fields firstname, age | head;
 ```
 
 | 名| 年龄
-：--- | ：--- |
+:--- | :--- |
 | 琥珀色| 32
 | 哈蒂| 36
 | Nanette| 28
@@ -577,7 +577,7 @@ search source=accounts | fields firstname, age | head 2;
 ```
 
 | 名| 年龄
-：--- | ：--- |
+:--- | :--- |
 | 琥珀色| 32
 | 哈蒂| 36
 
@@ -597,7 +597,7 @@ rare <field-list> [by-clause]
 ```
 
 场地| 描述| 必需的
-：--- | ：--- |：---
+:--- | :--- |：---
 `field-list` | 指定逗号-字段名称的界定列表。| 不
 `by-clause` | 指定一个或多个字段以按结果进行分组。| 不
 
@@ -623,7 +623,7 @@ search source=accounts | rare age by gender;
 ```
 
 | 性别| 年龄
-：--- | ：--- |
+:--- | :--- |
 | F| 28
 | m| 32
 | m| 33
@@ -643,7 +643,7 @@ top [N] <field-list> [by-clause]
 ```
 
 场地| 描述| 默认
-：--- | ：--- |：---
+:--- | :--- |：---
 `N` | 指定要返回的结果数。| 10
 `field-list` | 指定逗号-字段名称的界定列表。| -
 `by-clause` | 指定一个或多个字段以按结果进行分组。| -
@@ -682,7 +682,7 @@ search source=accounts | top 1 age by gender;
 ```
 
 | 性别| 年龄
-：--- | ：--- |
+:--- | :--- |
 | F| 28
 | m| 32
 
@@ -701,7 +701,7 @@ ad <shingle_size> <time_decay> <time_field>
 ```
 
 场地| 描述| 必需的
-：--- | ：--- |：---
+:--- | :--- |：---
 `shingle_size` | 最新记录的连续序列。默认值为8。| 不
 `time_decay` | 指定在计算异常分数时要考虑的过去的多少。默认值为0.001。| 不
 `time_field` | 指定RCF用作时间的时间-系列数据。必须是一个长的值，例如Miliseconds中的时间戳，或者是字符串值"yyyy-MM-dd HH:mm:ss"。| 是的
@@ -713,7 +713,7 @@ ad <shingle_size> <time_decay>
 ```
 
 场地| 描述| 必需的
-：--- | ：--- |：---
+:--- | :--- |：---
 `shingle_size` | 最新记录的连续序列。默认值为8。| 不
 `time_decay` | 指定在计算异常分数时要考虑的过去的多少。默认值为0.001。| 不
 
@@ -728,7 +728,7 @@ os> source=nyc_taxi | fields value, timestamp | AD time_field='timestamp' | wher
 ```
 
 价值| 时间戳| 分数| Anomaly_grade
-：--- | ：--- |：--- | ：---
+:--- | :--- |:--- | :---
 10844.0| 1404172800000| 0.0| 0.0
 
 **示例2：通过非出租车乘车数据检测纽约市的事件-时间-系列数据**
@@ -740,7 +740,7 @@ os> source=nyc_taxi | fields value | AD | where value=10844.0
 ```
 
 价值| 分数| 异常
-：--- | ：--- |：--- 
+:--- | :--- |：--- 
 | 10844.0| 0.0| 错误的
 
 ## Kmeans
@@ -766,7 +766,7 @@ os> source=iris_data | fields sepal_length_in_cm, sepal_width_in_cm, petal_lengt
 ```
 
 sepal_length_in_cm| sepal_width_in_cm| petal_length_in_cm| petal_width_in_cm| 聚类
-：--- | ：--- |：--- | ：--- | ：--- 
+:--- | :--- |:--- | :--- | :--- 
 | 5.1| 3.5| 1.4| 0.2| 1
 | 5.6| 3.0| 4.1| 1.3| 0
 | 6.7| 2.5| 5.8| 1.8| 2

@@ -30,7 +30,7 @@ public class Student
     public double Gpa { get; init; }
 }
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 安装opensearch.net客户端
 
@@ -48,7 +48,7 @@ public class Student
   </ItemGroup>
 </Project>
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 连接到OpenSearch
 
@@ -57,7 +57,7 @@ public class Student
 ```cs
 var client  = new OpenSearchLowLevelClient();
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 要通过带有已知地址的单个节点连接到OpenSearch cluster，请使用该地址创建一个连接configuration对象，然后将其传递到OpenSearch.net constructor：
 
@@ -66,7 +66,7 @@ var nodeAddress = new Uri("http://myserver:9200");
 var config = new ConnectionConfiguration(nodeAddress);
 var client = new OpenSearchLowLevelClient(config);
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 您也可以使用[连接池]({{site.url}}{{site.baseurl}}/clients/dot-net-conventions#connection-pools) 管理集群中的节点。此外，您可以设置连接配置，以使OpenSearch返回响应为格式的JSON。
 
@@ -76,7 +76,7 @@ var connectionPool = new SingleNodeConnectionPool(uri);
 var settings = new ConnectionConfiguration(connectionPool).PrettyJson();
 var client = new OpenSearchLowLevelClient(settings);
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 要使用多个节点连接到OpenSearch集群，请创建一个带有其地址的连接池。在此示例中，[`SniffingConnectionPool`]({{site.url}}{{site.baseurl}}/clients/dot-net-conventions#connection-pools) 之所以使用，是因为它可以跟踪被删除或添加到群集中的节点，因此它最适合自动扩展的群集。
 
@@ -91,7 +91,7 @@ var connectionPool = new SniffingConnectionPool(uris);
 var settings = new ConnectionConfiguration(connectionPool).PrettyJson();
 var client = new OpenSearchLowLevelClient(settings);
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 连接到Amazon OpenSearch服务
 
@@ -117,7 +117,7 @@ namespace Application
     }
 }
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 连接到Amazon OpenSearch无服务器
 
@@ -143,7 +143,7 @@ namespace Application
     }
 }
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 
 ## 使用Connectionsettings
@@ -166,7 +166,7 @@ var settings = new ConnectionSettings(connectionPool)
 
 var client = new OpenSearchLowLevelClient(settings);
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 索引一个文档
 
@@ -181,7 +181,7 @@ var student = new Student {
     GradYear = 2021 
 };
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 另外，您可以使用匿名类型创建学生的实例：
 
@@ -194,7 +194,7 @@ var student = new {
     GradYear = 2021 
 };
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 接下来，将这个学生上传到`students` 使用`Index` 方法：
 
@@ -203,7 +203,7 @@ var response = client.Index<StringResponse>("students", "100",
                                 PostData.Serializable(student));
 Console.WriteLine(response.Body);
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 的通用类型参数`Index` 方法指定响应身体类型。在上面的示例中，响应是字符串。
 
@@ -232,7 +232,7 @@ var studentArray = new object[]
 
 var manyResponse = client.Bulk<StringResponse>(PostData.MultiJson(studentArray));
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 您可以将请求主体作为一个匿名对象，字符串，字节数组或流中的流式传输。对于使用Multiline JSON的API，您可以将其发送为字节列表或对象列表，例如上面的示例。这`PostData` 班级具有静态方法，可以以所有这些形式发送身体。
 
@@ -262,7 +262,7 @@ var searchResponseLow = client.Search<StringResponse>("students",
 
 Console.WriteLine(searchResponseLow.Body);
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 另外，您可以使用字符串来构建请求。使用字符串时，您必须逃脱`"` 特点：
 
@@ -283,7 +283,7 @@ var searchResponse = client.Search<StringResponse>("students",
 
 Console.WriteLine(searchResponse.Body);
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 使用opensearch.net方法异步
 
@@ -298,7 +298,7 @@ var response = client.Index<StringResponse>("students", "100",
 var response = client.IndexAsync<StringResponse>("students", "100", 
                                     PostData.Serializable(student));
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 处理例外
 
@@ -321,7 +321,7 @@ var searchResponse = client.Search<StringResponse>("students1",
 
 Console.WriteLine(searchResponse.Body);
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 响应包含错误状态代码404，这是搜索请求的预期错误代码之一，因此没有例外。您可以在`status` 场地：
 
@@ -358,7 +358,7 @@ var settings = new ConnectionConfiguration(connectionPool)
                         .PrettyJson().ThrowExceptions();
 var client = new OpenSearchLowLevelClient(settings);
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 您可以使用响应对象的以下属性来确定响应成功：
 
@@ -471,5 +471,5 @@ internal class Program
     }
 }
 ```
-{％include copy.html％}
+{% include copy.html %}
 

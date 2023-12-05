@@ -51,7 +51,7 @@ opensearch-cli ad delete ecommerce-count-quantity --profile staging
 
 ## 概况
 
-配置文件可让您轻松地在不同的群集和用户凭据之间切换。首先，运行`opensearch-cli profile create` 与`--auth-type`，，，，`--endpoint`， 和`--name` 选项：
+配置文件可让您轻松地在不同的群集和用户凭据之间切换。首先，运行`opensearch-cli profile create` 与`--auth-type`，`--endpoint`， 和`--name` 选项：
 
 ```bash
 opensearch-cli profile create --auth-type basic --endpoint https://localhost:9200 --name docker-local

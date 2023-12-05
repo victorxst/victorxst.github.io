@@ -10,7 +10,7 @@ redirect_from:
 # 分析Jaeger Trace数据
 
 引入2.5
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 现在，OpenSearch可观察性插件中的跟踪分析功能支持Jaeger跟踪数据。如果您使用OpenSearch作为Jaeger Trace Data的后端，则可以使用构建-在跟踪分析功能中。这提供了对OpenTelemetry（Otel）跟踪数据的支持。
 

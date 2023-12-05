@@ -18,7 +18,7 @@ grand_parent: 可用性和恢复
 段重复背压默认情况下是禁用的。为了启用，设置`segrep.pressure.enabled` 到`true`。您可以使用以下动态群集设置来使用[集群设置]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) API端点。
 
 场地| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `segrep.pressure.enabled `| 布尔| 启用细分复制背压机制。默认为`false`。
 `segrep.pressure.time.limit` | 时间单元| 复制碎片可以从主碎片中复制的最长时间。一次`segrep.pressure.time.limit` 被违反`segrep.pressure.checkpoint.limit`，启动片段复制背压机制。默认为`5 minutes`。
 `segrep.pressure.checkpoint.limit` | 整数| 从主复制时，复制碎片的最大索引检查点可能会落后。一次`segrep.pressure.checkpoint.limit` 被违反`segrep.pressure.time.limit`，启动片段复制背压机制。默认为`4` 检查点。
@@ -31,7 +31,7 @@ grand_parent: 可用性和恢复
 ```bash
 GET _cat/segment_replication
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例响应
 

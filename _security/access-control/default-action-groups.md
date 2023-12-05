@@ -16,7 +16,7 @@ redirect_from:
 ## 一般的
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 无限| 赠款完全访问。可以在集群上使用- 或索引-等级。等于`"*"`。
 {％注释％} kibana_all_read| ASDF
 kibana_all_write| ASDF {％端次}
@@ -29,7 +29,7 @@ kibana_all_write| ASDF {％端次}
 ：---| ：---
 cluster_all| 授予所有集群权限。等于`cluster:*`。
 cluster_monitor| 授予所有集群监控权限。等于`cluster:monitor/*`。
-cluster_composite_ops_ro| 赠款阅读-仅执行请求之类的许可`mget`，，，，`msearch`， 或者`mtv`，加上查询别名的许可。
+cluster_composite_ops_ro| 赠款阅读-仅执行请求之类的许可`mget`，`msearch`， 或者`mtv`，加上查询别名的许可。
 cluster_composite_ops| 与...一样`CLUSTER_COMPOSITE_OPS_RO`，但也赠款`bulk` 权限和所有别名许可。
 manage_snapshots| 授予管理快照和存储库的权限。
 cluster_manage_pipelines| 授予管理摄入管道的许可。
@@ -39,13 +39,13 @@ cluster_manage_index_templates| 授予管理索引模板的权限。
 ## 指数-等级
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 indices_all| 授予索引上的所有权限。等于`indices:*`。
 得到| 赠款使用权限`get` 和`mget` 仅动作。
 读| 赠款阅读许可，例如搜索，获取现场映射，`get`， 和`mget`。
 写| 授予在 *现有索引 *中创建和更新文档的权限。要创建新索引，请参阅`create_index`。
 删除| 授予删除文件的许可。
-克鲁德| 结合`read`，，，，`write`， 和`delete` 行动组。包括在`data_access` 行动小组。
+克鲁德| 结合`read`，`write`， 和`delete` 行动组。包括在`data_access` 行动小组。
 搜索| 授予搜索文件的许可。包括`suggest`。
 建议| 授予使用建议API的许可。包括在`read` 行动小组。
 create_index| 授予创建索引和映射的权限。

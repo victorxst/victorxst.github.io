@@ -43,11 +43,11 @@ GET testindex/_search
 
     - [地理和XY查询]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-and-xy/index/)：使用地理查询搜索包含地理数据的文档。使用XY查询搜索两个在两个中包含点和形状的文档-维坐标系。
 
-    - 加入查询：使用加入查询搜索嵌套字段或返回与特定查询相匹配的父和子文档。加入查询类型包括`nested`，，，，`has_child`，，，，`has_parent`， 和`parent_id` 查询。
+    - 加入查询：使用加入查询搜索嵌套字段或返回与特定查询相匹配的父和子文档。加入查询类型包括`nested`，`has_child`，`has_parent`， 和`parent_id` 查询。
 
     - [跨度查询]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/span-query/)：使用跨度查询执行精确的位置搜索。跨度查询很低-级别，可以控制指定查询条款的顺序和接近性的特定查询。它们主要用于搜索法律文件。
 
-    - [专门查询]({{site.url}}{{site.baseurl}}/query-dsl/specialized/index/)：专门查询包括所有其他查询类型（`distance_feature`，，，，`more_like_this`，，，，`percolate`，，，，`rank_feature`，，，，`script`，，，，`script_score`， 和`wrapper`）。
+    - [专门查询]({{site.url}}{{site.baseurl}}/query-dsl/specialized/index/)：专门查询包括所有其他查询类型（`distance_feature`，`more_like_this`，`percolate`，`rank_feature`，`script`，`script_score`， 和`wrapper`）。
 
 - **复合查询**：复合查询是多个叶子或复合条款的包装器，可以结合其结果或修改其行为。它们包括布尔值，最大分离，恒定得分，功能分数和提高查询类型。要了解更多，请参阅[复合查询]({{site.url}}{{site.baseurl}}/query-dsl/compound/index/)。
 
@@ -106,7 +106,7 @@ PUT _cluster/settings
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 要跟踪昂贵的查询，请启用[慢记录]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/logs/#slow-logs)。
 {： 。提示

@@ -79,8 +79,8 @@ OpenSearch将取消的数量限制为成功完成任务完成的一部分。此�
 搜索背压将几个设置添加到标准OpenSearch集群设置中。这些设置是动态的，因此您可以在不重新启动群集的情况下更改此功能的默认行为。
 
 环境| 默认| 描述
-：--- | ：--- | ：---
-search_backpressure.mode| `monitor_only` | 搜索背压[模式](#search-backpressure-modes)。有效值是`monitor_only`，，，，`enforced`， 或者`disabled`。
+:--- | :--- | :---
+search_backpressure.mode| `monitor_only` | 搜索背压[模式](#search-backpressure-modes)。有效值是`monitor_only`，`enforced`， 或者`disabled`。
 search_backpressure.cancellation_ratio <br> *在2.6中弃用。替换为search_backpressure.search_shard_task.cancellation_ratio*| 10％| 取消任务的最大任务数量是成功完成任务的百分比。
 search_backpressure.cancellation_rate <br> *在2.6中弃用。替换为search_backpressure.search_shard_task.cancellation_rate*| 0.003| 每毫秒段的时间消除的任务数量最大数量。
 search_backpressure.cancellation_burst <br> *在2.6中弃用。替换为search_backpressure.search_shard_task.cancellation_burst*| 10| 在观察者线程的单个迭代中取消的最大搜索碎片任务数量。
@@ -108,7 +108,7 @@ search_backpressure.search_shard_task.cpu_time_millis_threshold| 15,000| 单个�
 
 ## 搜索背压统计数据API
 引入2.4
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 您可以使用[节点统计API操作]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats) 监视服务器-侧请求取消。
 
@@ -207,7 +207,7 @@ GET _nodes/stats/search_backpressure
 响应包含以下字段。
 
 字段名称| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 search_backpressure| 目的| 有关搜索背压的统计数据。
 search_backpressure.search_task| 目的| 搜索任务的统计信息。
 search_backpressure.search_task。[Resource_tracker_stats](#resource_tracker_stats) | 目的| 有关当前搜索任务的统计信息。
@@ -219,14 +219,14 @@ search_backpressure.mode| 细绳| 这[模式](#search-backpressure-modes) 用于
 
 ### `resource_tracker_stats`
 
-这`resource_tracker_stats` 对象包含每个资源跟踪器的统计信息：[`elapsed_time_tracker`](#elapsed_time_tracker)，，，，[`heap_usage_tracker`](#heap_usage_tracker)， 和[`cpu_usage_tracker`](#cpu_usage_tracker)。
+这`resource_tracker_stats` 对象包含每个资源跟踪器的统计信息：[`elapsed_time_tracker`](#elapsed_time_tracker)，[`heap_usage_tracker`](#heap_usage_tracker)， 和[`cpu_usage_tracker`](#cpu_usage_tracker)。
 
 #### `elapsed_time_tracker`
 
 这`elapsed_time_tracker` 对象包含以下与经过时间有关的统计信息。
 
 字段名称| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 cancellation_count| 整数| 自从节点上次重新启动以来，由于过度经过的时间标记了取消的任务数量。
 current_max_millis| 整数| 对于当前在节点上运行的所有任务（以毫秒为单位）的最大时间。
 current_avg_millis| 整数| 当前在节点上运行的所有任务的平均时间（以毫秒为单位）。
@@ -236,7 +236,7 @@ current_avg_millis| 整数| 当前在节点上运行的所有任务的平均时�
 这`heap_usage_tracker` 对象包含与堆用法相关的以下统计信息。
 
 字段名称| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 cancellation_count| 整数| 自从节点上次重新启动以来，由于过度使用堆的过多使用而标记的任务数量。
 current_max_bytes| 整数| 当前在节点上运行的所有任务，字节中的所有任务的最大用法。
 current_avg_bytes| 整数| 当前在节点上运行的所有任务的平均堆用法，字节。
@@ -247,7 +247,7 @@ rolling_avg_bytes| 整数| 滚动的平均堆量`n` 最新任务，字节。`n` 
 这`cpu_usage_tracker` 对象包含以下与CPU使用相关的统计信息。
 
 字段名称| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 cancellation_count| 整数| 自从节点上次重新启动以来的CPU使用过多，因此标记为取消的任务数量。
 current_max_millis| 整数| 当前在节点上运行的所有任务的最大CPU时间，以毫秒为单位。
 current_avg_millis| 整数| 当前在节点上运行的所有任务的平均CPU时间为毫秒。
@@ -257,7 +257,7 @@ current_avg_millis| 整数| 当前在节点上运行的所有任务的平均CPU�
 这`cancellation_stats` 对象包含以下统计信息，用于标记取消的任务。
 
 字段名称| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 cancellation_count| 整数| 自节点上次重新启动以来，标记为取消的任务总数。
 CANCELLATION_LIMIT_REACHED_COUNT| 整数| 有资格取消的任务数量超过集合取消阈值的次数
 

@@ -51,7 +51,7 @@ pipeline:
 下表描述了您可以配置的选项`opensearch` 下沉。
 
 选项| 必需的| 类型| 描述
-：--- | ：--- | ：--- | ：---
+:--- | :--- | :--- | :---
 主持人| 是的| 列表| openSearch主机列表要写入（例如，`["https://localhost:9200", "https://remote-cluster:9200"]`）。
 证书| 不| 细绳| 通往安全证书的路径（例如，`"config/root-ca.pem"`）如果群集使用OpenSearch安全插件。
 用户名| 不| 细绳| HTTP基本身份验证的用户名。
@@ -63,9 +63,9 @@ AWS_STS_ROLE_ARN| 不| 细绳| 插件用来签署发送给Amazon OpenSearch服�
 socket_timeout| 不| 整数| 超时，以毫秒为单位，等待数据返回（或两个连续数据包之间的最大不活动时间）。零超时值被解释为无限超时。如果此超时值为负或未设置，那么基础的Apache HTTPClient将依靠操作系统设置来管理套接字超时。
 connect_timeout| 不| 整数| 从连接管理器请求连接时使用的毫秒中的超时。零超时值被解释为无限超时。如果此超时值为负或未设置，则基础Apache HTTPCLEINT将依靠操作系统设置来管理连接超时。
 不安全| 不| 布尔| 是否要验证SSL证书。如果设置为true，则禁用证书授权（CA）证书验证，而不是发送不安全的HTTP请求。默认值是`false`。
-代理人| 不| 细绳| 一个地址[向前http代理服务器](https://en.wikipedia.org/wiki/Proxy_server)。格式为"&lt;host name or IP&gt;:&lt;port&gt;"。例子："example.com:8100"，，，，"http://example.com:8100"，，，，"112.112.112.112:8100"。端口号无法省略。
+代理人| 不| 细绳| 一个地址[向前http代理服务器](https://en.wikipedia.org/wiki/Proxy_server)。格式为"&lt;host name or IP&gt;:&lt;port&gt;"。例子："example.com:8100"，"http://example.com:8100"，"112.112.112.112:8100"。端口号无法省略。
 指数| 有条件的| 细绳| 导出索引的名称。仅在`index_type` 是`custom`。
-index_type| 不| 细绳| 该索引类型告诉接收器插件正在处理哪种类型的数据。有效值：`custom`，，，，`trace-analytics-raw`，，，，`trace-analytics-service-map`，，，，`management-disabled`。默认值是`custom`。
+index_type| 不| 细绳| 该索引类型告诉接收器插件正在处理哪种类型的数据。有效值：`custom`，`trace-analytics-raw`，`trace-analytics-service-map`，`management-disabled`。默认值是`custom`。
 template_type| 不| 细绳| 定义要使用哪种类型的OpenSearch模板。可用选项是`v1` 和`index-template`。默认值是`v1`，使用原始的OpenSearch模板可用`_template` API端点。这`index-template` 选项使用可复合的[索引模板]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) 可以通过OpenSearch的`_index_template` API。合并索引类型的灵活性比默认值更高，并且当OpenSearch群集已经存在索引模板时，必不可少。可组合模板可用于所有版本的OpenSearch和一些后来版本的Elasticsearch。什么时候`distribution_version` 被设定为`es6`，数据预先执行`template_type` 作为`v1`。
 Template_File| 不| 细绳| json的道路[索引模板]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) 文件，例如`/your/local/template-file.json` 什么时候`index_type` 被设定为`custom`。有关示例模板文件，请参阅[奥特尔-V1-APM-跨度-指数-template.json](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/src/main/resources/otel-v1-apm-span-index-template.json)。如果提供模板文件，则必须匹配由`template_type` 范围。
 document_id_field| 不| 细绳| 从源数据到OpenSearch文档ID的字段（例如，`"my-field"`） 如果`index_type` 是`custom`。
@@ -249,9 +249,9 @@ OpenSearch无服务器集合接收器具有以下限制：
                "index/collection-name/*"
             ]，，
             "Permission"：[[
-               "aoss:CreateIndex"，，，，
-               "aoss:UpdateIndex"，，，，
-               "aoss:DescribeIndex"，，，，
+               "aoss:CreateIndex"，
+               "aoss:UpdateIndex"，
+               "aoss:DescribeIndex"，
                "aoss:WriteDocument"
             ]，，
             "ResourceType"："index"

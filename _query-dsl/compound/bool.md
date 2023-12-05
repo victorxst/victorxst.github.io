@@ -17,7 +17,7 @@ redirect_from:
 在一个内使用以下查询子句`bool` 询问：
 
 条款| 行为
-：--- | ：---
+:--- | :---
 `must` | 逻辑`and` 操作员。结果必须匹配此条款中的所有查询。
 `must_not` | 逻辑`not` 操作员。所有匹配都排除在结果之外。
 `should` | 逻辑`or` 操作员。结果必须匹配至少一个查询。匹配更多`should` 条款增加了文档的相关性分数。您可以设置必须使用该查询数量的最小数量[`minimum_should_match`]({{site.url}}{{site.baseurl}}/query-dsl/query-dsl/minimum-should-match/) 范围。如果查询包含一个`must` 或者`filter` 条款，默认`minimum_should_match` 值为0。否则，默认`minimum_should_match` 值为1。

@@ -64,7 +64,7 @@ curl -k -u admin:admin https://localhost:9200			# the "-k" option skips SSL cert
 ```bash
 pip3 install opensearch-benchmark
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 安装完成后，通过输入以下命令来验证OpenSearch基准测试：
 
@@ -134,7 +134,7 @@ Find out more about Benchmark at https://opensearch.org/docs
 ```bash
 opensearch-benchmark execute-test --pipeline=benchmark-only --workload=percolator --target-host=https://localhost:9200 --client-options=basic_auth_user:admin,basic_auth_password:admin,verify_certs:false --test-mode
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 当。。。的时候`execute_test` 命令运行，所有任务和操作`percolator` 工作负载依次运行。
 
@@ -264,7 +264,7 @@ opensearch-benchmark execute-test --pipeline=benchmark-only --workload=percolato
 ```bash
 opensearch-benchmark execute-test --pipeline=benchmark-only --workload=percolator --target-host=<OpenSearch Cluster Endpoint> --client-options=basic_auth_user:admin,basic_auth_password:admin
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 下一步
 

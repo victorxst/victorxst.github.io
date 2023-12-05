@@ -24,7 +24,7 @@ OpenSearch使用Apache Lucene搜索库，该库提供了高效的数据结构和
 下表列出了全部-文本查询类型。
 
 查询类型| 描述
-：--- | ：--- 
+:--- | :--- 
 [`intervals`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/intervals/) | 允许-对匹配术语的近距离和顺序的粒度控制。
 [`match`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match/) | 默认完整-文本查询，可用于模糊匹配，短语或接近搜索。
 [`match_bool_prefix`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-bool-prefix/) | 创建一个[布尔查询]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) 这与任何位置的所有术语匹配，将最后一个术语视为前缀。

@@ -25,23 +25,23 @@ GET _search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ## 简单查询字符串语法
 
-查询字符串由_terms_和_operators _组成。一个术语是一个单词（例如，在查询中`wind rises`，这些条款是`wind` 和`rises`）。如果几个术语被引号包围，则将其视为一个短语，其中单词按照它们出现的顺序进行（例如，`"wind rises"`）。运营商，例如`+`，，，，`|`， 和`-` 指定用于解释查询字符串中文本的布尔逻辑。
+查询字符串由_terms_和_operators _组成。一个术语是一个单词（例如，在查询中`wind rises`，这些条款是`wind` 和`rises`）。如果几个术语被引号包围，则将其视为一个短语，其中单词按照它们出现的顺序进行（例如，`"wind rises"`）。运营商，例如`+`，`|`， 和`-` 指定用于解释查询字符串中文本的布尔逻辑。
 
 ## 操作员
 
 简单查询字符串语法支持以下运算符。
 
 操作员| 描述
-：--- | ：---
+:--- | :---
 `+` | 充当`AND` 操作员。
 `|` | 充当`OR` 操作员。
 `*` | 在学期结束时使用时，表示前缀查询。
 `"` | 将几个术语包裹在短语中（例如，`"wind rises"`）。
-`(`，，，，`)` | 将条款以优先级为单位（例如，`wind + (rises | rising)`）。
+`(`，`)` | 将条款以优先级为单位（例如，`wind + (rises | rising)`）。
 `~n` | 术语后使用时（例如，`wnid~3`）， 套`fuzziness`。用短语使用时，设置`slop`。
 `-` | 否定该术语。
 
@@ -59,7 +59,7 @@ PUT /customers/_doc/1
   "address":"880 Holmes Lane"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ```json
 PUT /customers/_doc/2
@@ -69,7 +69,7 @@ PUT /customers/_doc/2
   "address":"671 Bristol Street"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ```json
 PUT /customers/_doc/3
@@ -79,7 +79,7 @@ PUT /customers/_doc/3
   "address":"789 Madison St"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ```json
 PUT /customers/_doc/4
@@ -89,7 +89,7 @@ PUT /customers/_doc/4
   "address":"467 Hutchinson Court"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 以下查询尝试查找文档，地址包含单词`street` 或者`st` 并且不包含这个词`madison`：
 
@@ -105,7 +105,7 @@ GET /customers/_search
 }
 
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 但是，结果不仅包括预期文件，而且包括所有四个文件：
 
@@ -176,7 +176,7 @@ GET /customers/_search
   }
 }
 ```
-</delect>
+</details>
 
 因为默认操作员是`OR`，此查询包括包含单词的文档`street` 或者`st` （文档2和3）以及不包含单词的文档`madison` （文档1和4）。
 
@@ -193,7 +193,7 @@ GET /customers/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 或者，指定`AND` 作为默认运算符，并使用分离作为单词`street` 和`st`：
 
@@ -209,7 +209,7 @@ GET /customers/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 上述查询返回文档2：
 
@@ -250,11 +250,11 @@ GET /customers/_search
   }
 }
 ```
-</delect>
+</details>
 
 ## 限制操作员
 
-为了限制简单查询字符串解析器的受支持的操作员，包括您要支持的操作员`|`， 在里面`flags` 范围。例如，以下查询仅启用`OR`，，，，`AND`， 和`FUZZY` 操作员：
+为了限制简单查询字符串解析器的受支持的操作员，包括您要支持的操作员`|`， 在里面`flags` 范围。例如，以下查询仅启用`OR`，`AND`， 和`FUZZY` 操作员：
 
 ```json
 GET /customers/_search
@@ -268,12 +268,12 @@ GET /customers/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 下表列出了所有可用的操作员标志。
 
 旗帜| 描述
-：--- | ：--- 
+:--- | :--- 
 `ALL` （默认）| 启用所有操作员。
 `AND` | 启用`+` （（`AND`） 操作员。
 `ESCAPE` | 启用`\` 作为逃生角色。
@@ -303,7 +303,7 @@ GET /customers/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ## 提升
 
@@ -322,7 +322,7 @@ GET /customers/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ## 多-位置令牌
 
@@ -344,7 +344,7 @@ GET /testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 对于此查询，OpenSearch创建以下布尔查询：`(ml OR (machine AND learning)) models`。
 
@@ -353,7 +353,7 @@ GET /testindex/_search
 下表列出了顶部-级别参数`simple_query_string` 查询支持。除所有参数外`query` 是可选的。
 
 范围| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `query`| 细绳| 可能包含表达式的文本[简单查询字符串语法](#simple-query-string-syntax) 用于搜索。必需的。
 `analyze_wildcard` | 布尔| 指定OpenSearch是否应该尝试分析通配符术语。默认为`false`。
 `analyzer` | 细绳| 该分析仪用于标记查询字符串文本。默认是索引-指定的时间分析仪`default_field`。如果未针对`default_field`， 这`analyzer` 是索引的默认分析仪。

@@ -42,7 +42,7 @@ GET shakespeare/_search
 ```
 {% include copy-curl.html %}
 
-有效值[建造-在分析仪中]({{site.url}}{{site.baseurl}}/analyzers/index#built-in-analyzers) 是`standard`，，，，`simple`，，，，`whitespace`，，，，`stop`，，，，`keyword`，，，，`pattern`，，，，`fingerprint`，或任何受支持的[语言分析仪]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/)。
+有效值[建造-在分析仪中]({{site.url}}{{site.baseurl}}/analyzers/index#built-in-analyzers) 是`standard`，`simple`，`whitespace`，`stop`，`keyword`，`pattern`，`fingerprint`，或任何受支持的[语言分析仪]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/)。
 
 ## 为字段指定搜索分析
 

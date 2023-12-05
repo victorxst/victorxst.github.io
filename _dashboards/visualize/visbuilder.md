@@ -44,11 +44,11 @@ vis_builder.enabled: false
    - 从顶部菜单中选择**管理** >**仪表板管理** >**高级设置**。
    - 选择**可视化** 并验证该选项是否已打开。
    
-   <img src ="{{site.url}}{{site.baseurl}}/images/enable-experimental-viz.png" alt ="Enable experimental visualizations" 宽度="600">
+   <img src ="{{site.url}}{{site.baseurl}}/images/enable-experimental-viz.png" alt ="Enable experimental visualizations" width="600">
 
 3. 从顶部菜单中选择**可视化** **>** **创建可视化** **>** **visbuilder**。
 
-   <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/vis-builder-1.png" alt ="Select the VisBuilder visualization type" 宽度="550">
+   <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/vis-builder-1.png" alt ="Select the VisBuilder visualization type" width="550">
 
 4. 将左列的字段名称拖动到**配置** 面板生成可视化。
 

@@ -17,7 +17,7 @@ nav_order: 80
 使用其余层进行授权的好处包括能够在其余层授权请求并过滤未经授权的请求。结果，这减轻了运输层的处理负担，同时允许对访问API的粒状控制。
 
 您必须具有启用安全插件来使用REST层授权。
-{： 。笔记 }
+{: .note }
 
 
 ## 名为弗洛特
@@ -90,6 +90,6 @@ abcplugin_read_access_nr:
 		 - "user-B"
 ```
 
-在第二种情况下，如果`user-B` 对任何路线进行休息API调用`/_plugins/_abcplugin/route/get`，，，，`/_plugins/_abcplugin/route/put`， 或者`/_plugins/_abcplugin/route/delete`，授予用户授权该操作。
+在第二种情况下，如果`user-B` 对任何路线进行休息API调用`/_plugins/_abcplugin/route/get`，`/_plugins/_abcplugin/route/put`， 或者`/_plugins/_abcplugin/route/delete`，授予用户授权该操作。
 
 

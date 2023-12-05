@@ -25,7 +25,7 @@ Trace Analytics允许您收集跟踪数据并自定义一条管道，该管道�
 
 ## 跟踪分析管道
 
-为了监视数据预先数据的跟踪分析，我们提供了三个管道：`entry-pipeline`，，，，`raw-trace-pipeline`， 和`service-map-pipeline`。以下图像概述了管道如何共同工作以监视跟踪分析。
+为了监视数据预先数据的跟踪分析，我们提供了三个管道：`entry-pipeline`，`raw-trace-pipeline`， 和`service-map-pipeline`。以下图像概述了管道如何共同工作以监视跟踪分析。
 
 <img src="{{site.url}}{{site.baseurl}}/images/data-prepper/trace-analytics/trace-analytics-pipeline.jpg" alt="Trace analytics pipeline overview">{: .img-fluid}
 
@@ -84,7 +84,7 @@ OpenSearch提供了一个通用的水槽，将数据写入OpenSearch作为目的
 
 #### 本地磁盘
 
-Data Prepper使用本地磁盘来存储服务地图处理所需的元数据，因此我们建议仅存储以下关键字段：`traceId`，，，，`spanId`，，，，`parentSpanId`，，，，`spanKind`，，，，`spanName`， 和`serviceName`。这`service-map` 插件仅存储两个文件，每个文件存储`window_duration` 秒的数据。例如，用吞吐量进行测试`3000 spans/second` 导致总磁盘使用的`4 MB`。
+Data Prepper使用本地磁盘来存储服务地图处理所需的元数据，因此我们建议仅存储以下关键字段：`traceId`，`spanId`，`parentSpanId`，`spanKind`，`spanName`， 和`serviceName`。这`service-map` 插件仅存储两个文件，每个文件存储`window_duration` 秒的数据。例如，用吞吐量进行测试`3000 spans/second` 导致总磁盘使用的`4 MB`。
 
 Data Prepper还使用本地磁盘编写日志。在最新版本的Data Prepper中，您可以将日志重定向到首选的路径。
 
@@ -309,7 +309,7 @@ service-map-pipeline:
 ```
 
 您需要修改OpenSearch集群的前面配置，以使配置匹配您的环境。请注意，它有两个`opensearch` 需要修改的水槽。
-{： 。笔记}
+{: .note}
 
 您必须进行以下更改：
 *`hosts`  - 设置为您的主机。

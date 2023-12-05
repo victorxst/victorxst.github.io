@@ -64,7 +64,7 @@ ecs_compatibility => disabled
 - [AuditBeat OSS 7.12.1](https://elastic.co/downloads/past-releases/auditbeat-oss-7-12-1)
 
 一些用户在这些版本的节拍上报告了与摄入管道的兼容性问题。如果您在OpenSearch中使用摄入管道，请考虑使用Beats的7.10.2版本。
-{： 。笔记 }
+{: .note }
 
 
 ## 兼容矩阵
@@ -75,7 +75,7 @@ ecs_compatibility => disabled
 ### logstash的兼容性矩阵
 
 | | logstash OSS 7.0.0至7.11.x| logstash OSS 7.12.x \*| logstash 7.13.x-7.16.x无openSearch输出插件| logstash 7.13.x-7.16.x带有OpenSearch输出插件| logstash 8.x+带有OpenSearch输出插件
-| ：---| ：--- | ：--- | ：--- | ：--- | ：--- |
+| ：---| :--- | :--- | :--- | :--- | :--- |
 | Elasticsearch OSS 7.0.0至7.9.x| *是的*| *是的*| *不*| *是的*| *是的*|
 | Elasticsearch OSS 7.10.2| *是的*| *是的*| *不*| *是的*| *是的*|
 | ODFE 1.0至1.12| *是的*| *是的*| *不*| *是的*| *是的*|
@@ -88,7 +88,7 @@ ecs_compatibility => disabled
 ### 节拍的兼容性矩阵
 
 | | 击败OSS 7.0.0至7.11.x \*\*| 击败OSS 7.12.x \*| 击败7.13.x|
-| ：--- | ：--- | ：--- | ：--- |
+| :--- | :--- | :--- | :--- |
 | Elasticsearch OSS 7.0.0至7.9.x| *是的*| *是的*| 不|
 | Elasticsearch OSS 7.10.2| *是的*| *是的*| 不|
 | ODFE 1.0至1.12| *是的*| *是的*| 不|
@@ -103,7 +103,7 @@ ecs_compatibility => disabled
 \* \* Beats OSS包括所有Apache 2.0 Beats代理（即FileBeat，MetricBeat，auditBeat，heartbeat，winlogbeat和packetBeat）。
 
 OpenSearch不支持BEATS版本比7.12.x的新版本。如果您必须将环境中的Beats代理更新为较新版本，则可以通过将流量从Beats到LogStash并使用Logstash输出插件来摄取数据以将数据摄取到OpenSearch。
-{： 。警告 }
+{: .warning }
 
 ## OpenSearch CLI
 

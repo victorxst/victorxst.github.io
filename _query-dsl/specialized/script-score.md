@@ -21,7 +21,7 @@ PUT testindex1/_doc/1
   "multiplier": 0.5
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 您可以使用`match` 查询以返回所有包含的文档`John` 在里面`name` 场地：
 
@@ -35,7 +35,7 @@ GET testindex1/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 在响应中，文件1的分数为`0.2876821`：
 
@@ -89,7 +89,7 @@ GET testindex1/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 在响应中，文件1的分数是原始分数的一半：
 
@@ -129,7 +129,7 @@ GET testindex1/_search
 这`script_score` 查询支持以下顶部-级别参数。
 
 范围| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `query` | 目的| 用于搜索的查询。必需的。
 `script` | 目的| 用于计算文档分数的脚本`query`。必需的。
 `min_score` | 漂浮| 不包括低于分数的文件`min_score` 从结果。选修的。
@@ -167,7 +167,7 @@ GET articles/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ### 乙状结肠
 
@@ -194,7 +194,7 @@ GET articles/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ### 随机分数
 
@@ -222,7 +222,7 @@ GET articles/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ### 衰减功能
 
@@ -268,7 +268,7 @@ GET articles/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例：地理点字段
 
@@ -297,7 +297,7 @@ GET hotels/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例：日期字段
 
@@ -326,7 +326,7 @@ GET blogs/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ### 术语频率函数
 
@@ -372,8 +372,8 @@ GET /demo_index_v1/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
-如果[`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) 被设定为`false`，，，，`script_score` 查询未执行。
+如果[`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) 被设定为`false`，`script_score` 查询未执行。
 {： 。重要的
 

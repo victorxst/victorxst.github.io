@@ -13,7 +13,7 @@ k-NN插件添加了几个用于管理，监视和优化K的API-NN工作量。
 
 ## 统计
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 k-nn`stats` API提供有关K当前状态的信息-NN插件。该插件可以跟踪两个群集-级别和节点-水平统计。簇-级别统计信息对于整个群集具有一个值。节点-级别统计信息在群集中的每个节点都有一个值。您可以通过`nodeId` 和`statName`：
 ```
@@ -21,7 +21,7 @@ GET /_plugins/_knn/nodeId1,nodeId2/stats/statName1,statName2
 ```
 
 统计|  描述
-：--- | ：---
+:--- | :---
 `circuit_breaker_triggered` | 指示是否触发断路器。该统计量仅与近似K有关-nn搜索。
 `total_load_time` | 纳秒k的时间-NN已将本地库索引加载到缓存中。该统计量仅与近似K有关-nn搜索。
 `eviction_count` | 由于内存约束或空闲时间，已从缓存驱逐的本机库索引数量。该统计量仅与近似K有关-nn搜索。<br />**笔记**：由于索引删除而发生的显式驱逐不计算。
@@ -44,7 +44,7 @@ GET /_plugins/_knn/nodeId1,nodeId2/stats/statName1,statName2
 `script_query_errors` | 脚本查询期间的错误数。该统计量仅与K有关-NN得分脚本搜索。
 `nmslib_initialized` | 布尔值表示是否已在节点上加载和初始化 * nmslib * jni库。
 `faiss_initialized` | 布尔值表示是否已在节点上加载和初始化 * faiss * jni库。
-`model_index_status` | 模型系统索引的状态。有效值是"red"，，，，"yellow"，，，，"green"。如果索引不存在，则将是无效的。
+`model_index_status` | 模型系统索引的状态。有效值是"red"，"yellow"，"green"。如果索引不存在，则将是无效的。
 `indexing_from_model_degraded` | 布尔值表示是否降级了来自模型的索引。如果没有足够的JVM内存来缓存模型，这将发生。
 `training_requests` | 向节点提出的培训请求数。
 `training_errors` | 节点上发生的训练错误的数量。
@@ -127,7 +127,7 @@ GET /_plugins/_knn/HYMrXXsBSamUkcAjhjeN0w/stats/circuit_breaker_triggered,graph_
 
 ## 热身操作
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 用于执行近似K的本地库索引-最近的邻居（K-nn）搜索作为特殊文件和其他Apache Lucene细分文件存储。为了您使用K对这些索引进行搜索-NN插件，插件需要将这些文件加载到本机内存中。
 
@@ -176,7 +176,7 @@ GET /_tasks
 
 ## 获取模型
 引入了1.2
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 用于检索集群中存在的模型的信息。一些本地库索引配置需要
 在索引和查询之前，培训步骤可以开始。培训的输出是一个模型，然后可以用来
@@ -187,10 +187,10 @@ GET /_plugins/_knn/models/{model_id}
 ```
 
 响应字段|  描述
-：--- | ：---
+:--- | :---
 `model_id` | 获取模型的ID。
 `model_blob` | 基本64编码序列化模型的字符串。
-`state` | 模型的当前状态。任何一个"created"，，，，"failed"，，，，"training"。
+`state` | 模型的当前状态。任何一个"created"，"failed"，"training"。
 `timestamp` | 创建模型的时间。
 `description` | 用户提供了模型的描述。
 `error` | 错误消息说明为什么模型处于失败状态。
@@ -225,7 +225,7 @@ GET /_plugins/_knn/models/test-model?pretty&filter_path=model_id,state
 
 ## 搜索模型
 引入了1.2
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 使用OpenSearch查询在索引中搜索模型。
 
@@ -276,7 +276,7 @@ GET/POST /_plugins/_knn/models/_search?pretty&_source_excludes=model_blob
 
 ## 删除模型
 引入了1.2
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 用于删除集群中的特定模型。
 
@@ -292,7 +292,7 @@ DELETE /_plugins/_knn/models/{model_id}
 
 ## 火车模型
 引入了1.2
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 创建并训练可用于初始化k的模型-NN本地库在索引期间索引。这个API会
 从一个`knn_vector` 在培训指数中进行字段，然后创建和训练模型，然后序列化
@@ -300,12 +300,12 @@ DELETE /_plugins/_knn/models/{model_id}
 训练开始时会返回。要监视模型的状态，请使用[获取模型API](#get-model)。
 
 查询参数|  描述
-：--- | ：---
+:--- | :---
 `model_id` | （可选）获取模型的ID。如果未指定，将生成随机ID。
 `node_id` | （可选）首选节点用于执行培训。如果设置，则该节点将被视为有能力进行培训。
 
 请求参数|  描述
-：--- | ：---
+:--- | :---
 `training_index` | 从哪里培训数据的索引。
 `training_field` | `knn_vector` 字段来自`training_index` 从中获取培训数据。该领域的维度必须匹配`dimension` 传递到此请求。
 `dimension` | 维度此模型是为了。

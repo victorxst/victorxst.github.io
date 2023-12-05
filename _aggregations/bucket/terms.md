@@ -77,7 +77,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 *如果文档不包含`_doc_count` 字段，聚合使用该文档将计数增加1。
 
 依赖精确文档计数的OpenSearch功能说明了使用`_doc_count` 场地。要查看该字段如何用于支持其他搜索工具，请参阅[索引汇总](https://opensearch.org/docs/latest/im-plugin/index-rollups/index/)，用于索引管理（IM）插件的OpenSearch功能，该插件将文档存储使用PRE-汇总索引中的汇总数据。
-{： 。提示}
+{: .tip}
 
 #### 示例请求
 

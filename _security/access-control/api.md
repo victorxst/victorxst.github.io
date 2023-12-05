@@ -27,14 +27,14 @@ redirect_from:
 ```yml
 plugins.security.restapi.roles_enabled: ["<role>", ...]
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 这些角色现在可以访问所有API。为了防止访问某些API：
 
 ```yml
 plugins.security.restapi.endpoints_disabled.<role>.<endpoint>: ["<method>", ...]
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 角色还允许您控制对特定REST API的访问。您可以将单个或多个集群权限添加到角色中，并在将其映射到角色时授予用户访问相关的API。以下集群权限列表包括与安全性REST API相对应的端点：
 
@@ -79,14 +79,14 @@ plugins.security.restapi.roles_enabled: ["all_access", "security_rest_api_access
 plugins.security.restapi.endpoints_disabled.test-role.ROLES: ["PUT", "POST", "DELETE", "PATCH"]
 plugins.security.restapi.endpoints_disabled.test-role.INTERNALUSERS: ["PUT", "POST", "DELETE", "PATCH"]
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 使用PUT和补丁方法[配置API](#configuration)，将以下行添加到`opensearch.yml`：
 
 ```yml
 plugins.security.unsupported.restapi.allow_securityconfig_modification: true
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 
 ## 保留和隐藏的资源
@@ -99,7 +99,7 @@ plugins.security.unsupported.restapi.allow_securityconfig_modification: true
 kibana_user:
   reserved: true
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 同样，您可以将用户，角色，角色映射和行动组标记为隐藏。将该标志设置为true的资源未由REST API返回，也不可见在OpenSearch仪表板中：
 
@@ -107,7 +107,7 @@ kibana_user:
 kibana_user:
   hidden: true
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 隐藏的资源自动保留。
 
@@ -136,7 +136,7 @@ kibana_user:
 
 ```json
 {
-  "user_name"："admin"，，，，
+  "user_name"："admin"，
   "is_reserved"： 真的，
   "is_hidden"： 错误的，
   "is_internal_user"： 真的，
@@ -151,7 +151,7 @@ kibana_user:
     "admin"： 真的
   }，，
   "roles"：[[
-    "all_access"，，，，
+    "all_access"，
     "own_index"
   这是给出的
 }
@@ -183,7 +183,7 @@ kibana_user:
 ```json
 放置_plugins/_ security/api/帐户
 {
-    "current_password"："old-password"，，，，
+    "current_password"："old-password"，
     "password"："new-password"
 }
 ```
@@ -194,7 +194,7 @@ kibana_user:
 
 ```json
 {
-  "status"："OK"，，，，
+  "status"："OK"，
   "message"："'test-user' updated."
 }
 ```
@@ -213,21 +213,21 @@ kibana_user:
 
 ### 获取行动小组
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 检索一个动作小组。
 
 ```json
 GET _plugins/_security/api/actiongroups/<action-group>
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 要求
 
 ```json
 GET _plugins/_security/api/actiongroups/custom_action_group
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例响应
 
@@ -250,7 +250,7 @@ GET _plugins/_security/api/actiongroups/custom_action_group
 
 ### 获取行动组
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 检索所有行动组。
 
@@ -260,7 +260,7 @@ GET _plugins/_security/api/actiongroups/custom_action_group
 ```json
 GET _plugins/_security/api/actiongroups/
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例响应
 
@@ -295,14 +295,14 @@ GET _plugins/_security/api/actiongroups/
 
 ### 删除行动组
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 #### 要求
 
 ```json
 DELETE _plugins/_security/api/actiongroups/<action-group>
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例响应
 
@@ -316,7 +316,7 @@ DELETE _plugins/_security/api/actiongroups/<action-group>
 
 ### 创建行动组
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 创建或替换指定的操作组。
 
@@ -335,7 +335,7 @@ PUT _plugins/_security/api/actiongroups/<action-group>
   ]
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例响应
 
@@ -349,7 +349,7 @@ PUT _plugins/_security/api/actiongroups/<action-group>
 
 ### 补丁动作组
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 更新操作组的各个属性。
 
@@ -363,7 +363,7 @@ PATCH _plugins/_security/api/actiongroups/<action-group>
   }
 ]
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例响应
 
@@ -377,7 +377,7 @@ PATCH _plugins/_security/api/actiongroups/<action-group>
 
 ### 补丁动作组
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 在单个呼叫中创建，更新或删除多个操作组。
 
@@ -394,7 +394,7 @@ PATCH _plugins/_security/api/actiongroups
   }
 ]
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例响应
 
@@ -430,11 +430,11 @@ PATCH _plugins/_security/api/actiongroups
 ```json
 {
   "kirk"：{
-    "hash"：""，，，，
-    "roles"：[["captains"，，，，"starfleet" ]，，
+    "hash"：""，
+    "roles"：[["captains"，"starfleet" ]，，
     "attributes"：{
-       "attribute1"："value1"，，，，
-       "attribute2"："value2"，，，，
+       "attribute1"："value1"，
+       "attribute2"："value2"，
     }
   }
 }
@@ -457,11 +457,11 @@ PATCH _plugins/_security/api/actiongroups
 ```json
 {
   "kirk"：{
-    "hash"：""，，，，
-    "roles"：[["captains"，，，，"starfleet" ]，，
+    "hash"：""，
+    "roles"：[["captains"，"starfleet" ]，，
     "attributes"：{
-       "attribute1"："value1"，，，，
-       "attribute2"："value2"，，，，
+       "attribute1"："value1"，
+       "attribute2"："value2"，
     }
   }
 }
@@ -483,7 +483,7 @@ PATCH _plugins/_security/api/actiongroups
 
 ```json
 {
-  "status"："OK"，，，，
+  "status"："OK"，
   "message"："user kirk deleted."
 }
 ```
@@ -502,11 +502,11 @@ PATCH _plugins/_security/api/actiongroups
 ```json
 放置_plugins/_ security/api/internalusers/<username>
 {
-  "password"："kirkpass"，，，，
-  "opendistro_security_roles"：[["maintenance_staff"，，，，"database_manager"]，，
-  "backend_roles"：[["role 1"，，，，"role 2"]，，
+  "password"："kirkpass"，
+  "opendistro_security_roles"：[["maintenance_staff"，"database_manager"]，，
+  "backend_roles"：[["role 1"，"role 2"]，，
   "attributes"：{
-    "attribute1"："value1"，，，，
+    "attribute1"："value1"，
     "attribute2"："value2"
   }
 }
@@ -517,7 +517,7 @@ PATCH _plugins/_security/api/actiongroups
 
 ```json
 {
-  "status"："CREATED"，，，，
+  "status"："CREATED"，
   "message"："User kirk created"
 }
 ```
@@ -535,13 +535,13 @@ PATCH _plugins/_security/api/actiongroups
 补丁_plugins/_ security/api/internalusers/<username>
 [
   {
-    "op"："replace"，，，，"path"："/backend_roles"，，，，"value"：[["klingons"这是给出的
+    "op"："replace"，"path"："/backend_roles"，"value"：[["klingons"这是给出的
   }，，
   {
-    "op"："replace"，，，，"path"："/opendistro_security_roles"，，，，"value"：[["ship_manager"这是给出的
+    "op"："replace"，"path"："/opendistro_security_roles"，"value"：[["ship_manager"这是给出的
   }，，
   {
-    "op"："replace"，，，，"path"："/attributes"，，，，"value"：{"newattribute"："newvalue" }
+    "op"："replace"，"path"："/attributes"，"value"：{"newattribute"："newvalue" }
   }
 这是给出的
 ```
@@ -551,7 +551,7 @@ PATCH _plugins/_security/api/actiongroups
 
 ```json
 {
-  "status"："OK"，，，，
+  "status"："OK"，
   "message"："'kirk' updated."
 }
 ```
@@ -568,13 +568,13 @@ PATCH _plugins/_security/api/actiongroups
 补丁_plugins/_ security/api/internestusers
 [
   {
-    "op"："add"，，，，"path"："/spock"，，，，"value"：{"password"："testpassword1"，，，，"backend_roles"：[["testrole1"]}}
+    "op"："add"，"path"："/spock"，"value"：{"password"："testpassword1"，"backend_roles"：[["testrole1"]}}
   }，，
   {
-    "op"："add"，，，，"path"："/worf"，，，，"value"：{"password"："testpassword2"，，，，"backend_roles"：[["testrole2"]}}
+    "op"："add"，"path"："/worf"，"value"：{"password"："testpassword2"，"backend_roles"：[["testrole2"]}}
   }，，
   {
-    "op"："remove"，，，，"path"："/riker"
+    "op"："remove"，"path"："/riker"
   }
 这是给出的
 ```
@@ -584,7 +584,7 @@ PATCH _plugins/_security/api/actiongroups
 
 ```json
 {
-  "status"："OK"，，，，
+  "status"："OK"，
   "message"："Resource updated."
 }
 ```
@@ -597,7 +597,7 @@ PATCH _plugins/_security/api/actiongroups
 
 ### 发挥作用
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 检索一个角色。
 
@@ -606,7 +606,7 @@ PATCH _plugins/_security/api/actiongroups
 ```json
 GET _plugins/_security/api/roles/<role>
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例响应
 
@@ -646,7 +646,7 @@ GET _plugins/_security/api/roles/<role>
 
 ### 获得角色
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 检索所有角色。
 
@@ -655,7 +655,7 @@ GET _plugins/_security/api/roles/<role>
 ```json
 GET _plugins/_security/api/roles/
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例响应
 
@@ -689,14 +689,14 @@ GET _plugins/_security/api/roles/
 
 ### 删除角色
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 #### 要求
 
 ```json
 DELETE _plugins/_security/api/roles/<role>
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例响应
 
@@ -710,7 +710,7 @@ DELETE _plugins/_security/api/roles/<role>
 
 ### 创建角色
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 创建或替换指定角色。
 
@@ -744,7 +744,7 @@ PUT _plugins/_security/api/roles/<role>
   }]
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例响应
 
@@ -762,12 +762,12 @@ PUT _plugins/_security/api/roles/<role>
 >为避免这种情况，您可以使用自定义分析仪或将字段映射为`keyword`，执行确切的-匹配搜索。看[关键字字段类型]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/) 对于后一个选项。
 >
 >对于当字段类型为时应避免的字符列表`text`， 看[单词边界](https://unicode.org/reports/tr29/#Word_Boundaries)。
-{： 。警告}
+{: .warning}
 
 
 ### 补丁角色
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 更新角色的个人属性。
 
@@ -784,7 +784,7 @@ PATCH _plugins/_security/api/roles/<role>
   }
 ]
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例响应
 
@@ -798,7 +798,7 @@ PATCH _plugins/_security/api/roles/<role>
 
 ### 补丁角色
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 在单个呼叫中创建，更新或删除多个角色。
 
@@ -818,7 +818,7 @@ PATCH _plugins/_security/api/roles
   }
 ]
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例响应
 
@@ -852,7 +852,7 @@ PATCH _plugins/_security/api/roles
 ```json
 {
   "role_starfleet" ：{
-    "backend_roles" ：[["starfleet"，，，，"captains"，，，，"defectors"，，，，"cn=ldaprole,ou=groups,dc=example,dc=com" ]，，
+    "backend_roles" ：[["starfleet"，"captains"，"defectors"，"cn=ldaprole,ou=groups,dc=example,dc=com" ]，，
     "hosts" ：[["*.starfleetintranet.com" ]，，
     "users" ：[["worf" 这是给出的
   }
@@ -878,7 +878,7 @@ PATCH _plugins/_security/api/roles
 ```json
 {
   "role_starfleet" ：{
-    "backend_roles" ：[["starfleet"，，，，"captains"，，，，"defectors"，，，，"cn=ldaprole,ou=groups,dc=example,dc=com" ]，，
+    "backend_roles" ：[["starfleet"，"captains"，"defectors"，"cn=ldaprole,ou=groups,dc=example,dc=com" ]，，
     "hosts" ：[["*.starfleetintranet.com" ]，，
     "users" ：[["worf" 这是给出的
   }
@@ -903,7 +903,7 @@ delete _plugins/_security/api/rolesmapping/<croun>
 
 ```json
 {
-  "status"："OK"，，，，
+  "status"："OK"，
   "message"："'my-role' deleted."
 }
 ```
@@ -920,7 +920,7 @@ delete _plugins/_security/api/rolesmapping/<croun>
 ```json
 放置_plugins/_ security/api/rolesmapping/<croun>
 {
-  "backend_roles" ：[["starfleet"，，，，"captains"，，，，"defectors"，，，，"cn=ldaprole,ou=groups,dc=example,dc=com" ]，，
+  "backend_roles" ：[["starfleet"，"captains"，"defectors"，"cn=ldaprole,ou=groups,dc=example,dc=com" ]，，
   "hosts" ：[["*.starfleetintranet.com" ]，，
   "users" ：[["worf" 这是给出的
 }
@@ -931,7 +931,7 @@ delete _plugins/_security/api/rolesmapping/<croun>
 
 ```json
 {
-  "status"："CREATED"，，，，
+  "status"："CREATED"，
   "message"："'my-role' created."
 }
 ```
@@ -949,10 +949,10 @@ delete _plugins/_security/api/rolesmapping/<croun>
 补丁_plugins/_ security/api/rolesmapping/<croum>
 [
   {
-    "op"："replace"，，，，"path"："/users"，，，，"value"：[["myuser"这是给出的
+    "op"："replace"，"path"："/users"，"value"：[["myuser"这是给出的
   }，，
   {
-    "op"："replace"，，，，"path"："/backend_roles"，，，，"value"：[["mybackendrole"这是给出的
+    "op"："replace"，"path"："/backend_roles"，"value"：[["mybackendrole"这是给出的
   }
 这是给出的
 ```
@@ -962,7 +962,7 @@ delete _plugins/_security/api/rolesmapping/<croun>
 
 ```json
 {
-  "status"："OK"，，，，
+  "status"："OK"，
   "message"："'my-role' updated."
 }
 ```
@@ -980,10 +980,10 @@ delete _plugins/_security/api/rolesmapping/<croun>
 补丁_plugins/_ security/api/rolesmapping
 [
   {
-    "op"："add"，，，，"path"："/human_resources"，，，，"value"：{"users"：[["user1"]，，"backend_roles"：[["backendrole2"]}}
+    "op"："add"，"path"："/human_resources"，"value"：{"users"：[["user1"]，，"backend_roles"：[["backendrole2"]}}
   }，，
   {
-    "op"："add"，，，，"path"："/finance"，，，，"value"：{"users"：[["user2"]，，"backend_roles"：[["backendrole2"]}}
+    "op"："add"，"path"："/finance"，"value"：{"users"：[["user2"]，，"backend_roles"：[["backendrole2"]}}
   }
 这是给出的
 ```
@@ -993,7 +993,7 @@ delete _plugins/_security/api/rolesmapping/<croun>
 
 ```json
 {
-  "status"："OK"，，，，
+  "status"："OK"，
   "message"："Resource updated."
 }
 ```
@@ -1005,7 +1005,7 @@ delete _plugins/_security/api/rolesmapping/<croun>
 
 ### 找租户
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 检索一个租户。
 
@@ -1014,7 +1014,7 @@ delete _plugins/_security/api/rolesmapping/<croun>
 ```json
 GET _plugins/_security/api/tenants/<tenant>
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例响应
 
@@ -1032,7 +1032,7 @@ GET _plugins/_security/api/tenants/<tenant>
 
 ### 找租户
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 检索所有租户。
 
@@ -1041,7 +1041,7 @@ GET _plugins/_security/api/tenants/<tenant>
 ```json
 GET _plugins/_security/api/tenants/
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例响应
 
@@ -1065,7 +1065,7 @@ GET _plugins/_security/api/tenants/
 
 ### 删除房客
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 删除指定的租户。
 
@@ -1074,7 +1074,7 @@ GET _plugins/_security/api/tenants/
 ```json
 DELETE _plugins/_security/api/tenants/<tenant>
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例响应
 
@@ -1088,7 +1088,7 @@ DELETE _plugins/_security/api/tenants/<tenant>
 
 ### 创建房客
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 创建或替换指定的租户。
 
@@ -1100,7 +1100,7 @@ PUT _plugins/_security/api/tenants/<tenant>
   "description": "A tenant for the human resources team."
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例响应
 
@@ -1114,7 +1114,7 @@ PUT _plugins/_security/api/tenants/<tenant>
 
 ### 补丁租户
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 添加，删除或修改单个租户。
 
@@ -1128,7 +1128,7 @@ PATCH _plugins/_security/api/tenants/<tenant>
   }
 ]
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例响应
 
@@ -1142,7 +1142,7 @@ PATCH _plugins/_security/api/tenants/<tenant>
 
 ### 补丁租户
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 在一个呼叫中添加，删除或修改多个租户。
 
@@ -1165,7 +1165,7 @@ PATCH _plugins/_security/api/tenants/
   }
 ]
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例响应
 
@@ -1207,13 +1207,13 @@ PATCH _plugins/_security/api/tenants/
 放置_plugins/_ security/api/securityConfig/config
 {
   "dynamic"：{
-    "filtered_alias_mode"："warn"，，，，
+    "filtered_alias_mode"："warn"，
     "disable_rest_auth"： 错误的，
     "disable_intertransport_auth"： 错误的，
     "respect_request_indices_options"： 错误的，
     "opensearch-dashboards"：{
       "multitenancy_enabled"： 真的，
-      "server_username"："kibanaserver"，，，，
+      "server_username"："kibanaserver"，
       "index"：".opensearch-dashboards"
     }，，
     "http"：{
@@ -1226,11 +1226,11 @@ PATCH _plugins/_security/api/tenants/
         "order"：0，
         "http_authenticator"：{
           "challenge"： 真的，
-          "type"："basic"，，，，
+          "type"："basic"，
           "config"：{}
         }，，
         "authentication_backend"：{
-          "type"："intern"，，，，
+          "type"："intern"，
           "config"：{}
         }，，
         "description"："Authenticate via HTTP Basic against internal users database"
@@ -1239,7 +1239,7 @@ PATCH _plugins/_security/api/tenants/
     "auth_failure_listeners"：{}，
     "do_not_fail_on_forbidden"： 错误的，
     "multi_rolespan_enabled"： 真的，
-    "hosts_resolver_mode"："ip-only"，，，，
+    "hosts_resolver_mode"："ip-only"，
     "do_not_fail_on_forbidden_empty"： 错误的
   }
 }
@@ -1250,7 +1250,7 @@ PATCH _plugins/_security/api/tenants/
 
 ```json
 {
-  "status"："OK"，，，，
+  "status"："OK"，
   "message"："'config' updated."
 }
 ```
@@ -1275,7 +1275,7 @@ PATCH _plugins/_security/api/tenants/
 补丁_plugins/_ security/api/securityConfig
 [
   {
-    "op"："replace"，，，，"path"："/config/dynamic/authc/basic_internal_auth_domain/transport_enabled"，，，，"value"："true"
+    "op"："replace"，"path"："/config/dynamic/authc/basic_internal_auth_domain/transport_enabled"，"value"："true"
   }
 这是给出的
 ```
@@ -1285,7 +1285,7 @@ PATCH _plugins/_security/api/tenants/
 
 ```json
 {
-  "status"："OK"，，，，
+  "status"："OK"，
   "message"："Resource updated."
 }
 ```
@@ -1301,7 +1301,7 @@ PATCH _plugins/_security/api/tenants/
 ```yml
 plugins.security.nodes_dn_dynamic_config_enabled: true
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 
 ### 获取杰出的名字
@@ -1313,7 +1313,7 @@ plugins.security.nodes_dn_dynamic_config_enabled: true
 ```json
 GET _plugins/_security/api/nodesdn
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例响应
 
@@ -1334,7 +1334,7 @@ GET _plugins/_security/api/nodesdn
 ```json
 GET _plugins/_security/api/nodesdn/<cluster-name>
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例响应
 
@@ -1363,7 +1363,7 @@ PUT _plugins/_security/api/nodesdn/<cluster-name>
   ]
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例响应
 
@@ -1383,13 +1383,13 @@ PUT _plugins/_security/api/nodesdn/<cluster-name>
 ```json
 PATCH _plugins/_security/api/nodesdn
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 请求字段
 
 | 场地| 数据类型| 描述| 必需的|
 |：----------------|：-----------|：------------------------------------------------------------------------------------------------------------------|：---------|
-| OP| 细绳| 在动作组上执行的操作。可能的值：`remove`，，，，`add`，，，，`replace`，，，，`move`，，，，`copy`，，，，`test`。| 是的|
+| OP| 细绳| 在动作组上执行的操作。可能的值：`remove`，`add`，`replace`，`move`，`copy`，`test`。| 是的|
 | 小路| 细绳| 资源的路径。| 是的|
 | 价值| 大批| 用于更新的新值。| 是的|
 
@@ -1406,7 +1406,7 @@ PATCH _plugins/_security/api/nodesdn
    }
 ]
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ##### 示例响应
 
@@ -1434,7 +1434,7 @@ PATCH _plugins/_security/api/nodesdn
 ```json
 DELETE _plugins/_security/api/nodesdn/<cluster-name>
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例响应
 
@@ -1469,19 +1469,19 @@ DELETE _plugins/_security/api/nodesdn/<cluster-name>
 {
   "http_certificates_list"：[[
     {
-      "issuer_dn"："CN=Example Com Inc. Root CA,OU=Example Com Inc. Root CA,O=Example Com Inc.,DC=example,DC=com"，，，，
-      "subject_dn"："CN=node-0.example.com,OU=node,O=node,L=test,DC=de"，，，，
-      "san"："[[8, 1.2.3.4.5.5], [2, node-0.example.com]"，，，，
-      "not_before"："2018-04-22T03:43:47Z"，，，，
+      "issuer_dn"："CN=Example Com Inc. Root CA,OU=Example Com Inc. Root CA,O=Example Com Inc.,DC=example,DC=com"，
+      "subject_dn"："CN=node-0.example.com,OU=node,O=node,L=test,DC=de"，
+      "san"："[[8, 1.2.3.4.5.5], [2, node-0.example.com]"，
+      "not_before"："2018-04-22T03:43:47Z"，
       "not_after"："2028-04-19T03:43:47Z"
     }
   ]，，
   "transport_certificates_list"：[[
     {
-      "issuer_dn"："CN=Example Com Inc. Root CA,OU=Example Com Inc. Root CA,O=Example Com Inc.,DC=example,DC=com"，，，，
-      "subject_dn"："CN=node-0.example.com,OU=node,O=node,L=test,DC=de"，，，，
-      "san"："[[8, 1.2.3.4.5.5], [2, node-0.example.com]"，，，，
-      "not_before"："2018-04-22T03:43:47Z"，，，，
+      "issuer_dn"："CN=Example Com Inc. Root CA,OU=Example Com Inc. Root CA,O=Example Com Inc.,DC=example,DC=com"，
+      "subject_dn"："CN=node-0.example.com,OU=node,O=node,L=test,DC=de"，
+      "san"："[[8, 1.2.3.4.5.5], [2, node-0.example.com]"，
+      "not_before"："2018-04-22T03:43:47Z"，
       "not_after"："2028-04-19T03:43:47Z"
     }
   这是给出的
@@ -1510,7 +1510,7 @@ put/_plugins/_security/api/ssl/ssl/transport/reloadcerts
 
 ```json
 {
-  "status"："OK"，，，，
+  "status"："OK"，
   "message"："updated transport certs"
 }
 ```
@@ -1546,7 +1546,7 @@ put/_plugins/_security/api/ssl/http/reloadcerts
 
 ```json
 {
-  "status"："OK"，，，，
+  "status"："OK"，
   "message"："updated http certs"
 }
 ```
@@ -1564,7 +1564,7 @@ put/_plugins/_security/api/ssl/http/reloadcerts
 
 ### 冲洗缓存
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 冲洗安全插件用户，身份验证和授权缓存。
 
@@ -1574,7 +1574,7 @@ put/_plugins/_security/api/ssl/http/reloadcerts
 ```json
 DELETE _plugins/_security/api/cache
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 
 #### 示例响应
@@ -1611,7 +1611,7 @@ DELETE _plugins/_security/api/cache
 ```json
 {
   "message"： 无效的，
-  "mode"："strict"，，，，
+  "mode"："strict"，
   "status"："UP"
 }
 ```
@@ -1635,13 +1635,13 @@ DELETE _plugins/_security/api/cache
 #### 请求字段
 
 场地| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `enabled` | 布尔| 启用或禁用审核记录。默认为`true`。
 `audit` | 目的| 包含用于审核记录配置的字段。
 `audit.ignore_users` | 大批| 用户将被排除在审核之外。支持通配符模式<br>示例：`ignore_users: ["test-user", employee-*"]`
 `audit.ignore_requests` | 大批| 要求被排除在审核之外。支持通配符模式。<br>示例：`ignore_requests: ["indices:data/read/*", "SearchRequest"]`
-`audit.disabled_rest_categories` | 大批| 将排除REST API审核的类别。默认类别是`AUTHENTICATED`，，，，`GRANTED_PRIVILEGES`。
-`audit.disabled_transport_categories` | 大批| 将排除运输API审核的类别。默认类别是`AUTHENTICATED`，，，，`GRANTED_PRIVILEGES`。
+`audit.disabled_rest_categories` | 大批| 将排除REST API审核的类别。默认类别是`AUTHENTICATED`，`GRANTED_PRIVILEGES`。
+`audit.disabled_transport_categories` | 大批| 将排除运输API审核的类别。默认类别是`AUTHENTICATED`，`GRANTED_PRIVILEGES`。
 `audit.log_request_body` | 布尔| 包括休息和运输层的请求主体（如果有）。默认为`true`。
 `audit.resolve_indices` | 布尔| 记录所有受请求影响的索引。解决别名和通配符/日期模式。默认为`true`。
 `audit.resolve_bulk_requests` | 布尔| 根据批量请求记录单个操作。默认为`false`。
@@ -1661,7 +1661,7 @@ DELETE _plugins/_security/api/cache
 `compliance.internal_config` | 布尔| 日志更新内部安全性更改。默认为`true`。
 
 更改`_readonly` 属性导致409误差，如下响应中所示。
-{： 。笔记}
+{: .note}
 
 ```json
 {
@@ -1682,7 +1682,7 @@ ag呼叫检索审核配置。
 ```json
 GET /_opendistro/_security/api/audit
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 **放**
 
@@ -1724,7 +1724,7 @@ PUT /_opendistro/_security/api/audit/config
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 **修补**
 
@@ -1735,10 +1735,10 @@ PUT /_opendistro/_security/api/audit/config
 ```bash
 curl -X PATCH -k -i --cert <admin_cert file name> --key <admin_cert_key file name> <domain>/_opendistro/_security/api/audit -H 'Content-Type: application/json' -d'[{"op":"add","path":"/config/enabled","value":"true"}]'
 ```
-{％include copy.html％}
+{% include copy.html %}
 
-OpenSearch仪表板开发工具当前不支持补丁方法。您可以使用[卷曲](https://curl.se/)，，，，[邮差](https://www.postman.com/)，或使用此方法更新配置的另一个替代过程。要遵循GitHub问题以支持仪表板中的补丁方法，请参见[问题#2343](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/2343)。
-{： 。笔记}
+OpenSearch仪表板开发工具当前不支持补丁方法。您可以使用[卷曲](https://curl.se/)，[邮差](https://www.postman.com/)，或使用此方法更新配置的另一个替代过程。要遵循GitHub问题以支持仪表板中的补丁方法，请参见[问题#2343](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/2343)。
+{: .note}
 
 #### 示例响应
 

@@ -28,11 +28,11 @@ has_children: true
 1. 在OpenSearch仪表板主菜单中，选择**管理** >**数据源**。
 2. 在**数据源** 页面，选择**新数据源** >**S3**。下图显示了一个示例UI。
 
-    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/data-sources-UI.png" alt ="Amazon S3 data sources UI" 宽度="700"/>
+    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/data-sources-UI.png" alt ="Amazon S3 data sources UI" width="700"/>
 
-3. 在**配置Amazon S3数据源** 页面，输入所需的**数据源详细信息**，，，，**AWS胶认证细节**，，，，**AWS GLUE索引商店详细信息**， 和**查询权限**。下图显示了一个示例UI。
+3. 在**配置Amazon S3数据源** 页面，输入所需的**数据源详细信息**，**AWS胶认证细节**，**AWS GLUE索引商店详细信息**， 和**查询权限**。下图显示了一个示例UI。
 
-    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/S3-config-UI.png" alt ="Amazon S3 configuration UI" 宽度="700"/>
+    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/S3-config-UI.png" alt ="Amazon S3 configuration UI" width="700"/>
 
 4. 选择**查看配置** 按钮并验证详细信息。
 5. 选择**连接到Amazon S3** 按钮。
@@ -44,7 +44,7 @@ has_children: true
 1. 在**管理数据源** 选项卡，从列表中选择一个日期源。
 2. 在该数据源的页面上，您可以管理数据源，选择用例并管理访问控件和配置。下图显示了一个示例UI。
 
-    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/manage-data-source-UI.png" alt ="Manage data sources UI" 宽度="700"/>
+    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/manage-data-source-UI.png" alt ="Manage data sources UI" width="700"/>
 
 3. （可选）探索Amazon S3用例，包括查询数据并优化查询性能。去**下一步** 要了解有关每种用例的更多信息。
 

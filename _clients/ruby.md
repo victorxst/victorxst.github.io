@@ -7,7 +7,7 @@ has_children: false
 
 # Ruby客户端
 
-OpenSearch Ruby客户端使您可以通过Ruby方法而不是HTTP方法和RAW JSON与OpenSearch群集进行交互。有关客户的完整API文档和其他示例，请参见[`opensearch-transport`](https://rubydoc.info/gems/opensearch-transport)，，，，[`opensearch-api`](https://rubydoc.info/gems/opensearch-api)，，，，[`opensearch-dsl`](https://rubydoc.info/gems/opensearch-dsl)， 和[`opensearch-ruby`](https://rubydoc.info/gems/opensearch-ruby/) 宝石文档。
+OpenSearch Ruby客户端使您可以通过Ruby方法而不是HTTP方法和RAW JSON与OpenSearch群集进行交互。有关客户的完整API文档和其他示例，请参见[`opensearch-transport`](https://rubydoc.info/gems/opensearch-transport)，[`opensearch-api`](https://rubydoc.info/gems/opensearch-api)，[`opensearch-dsl`](https://rubydoc.info/gems/opensearch-dsl)， 和[`opensearch-ruby`](https://rubydoc.info/gems/opensearch-ruby/) 宝石文档。
 
 该入门指南说明了如何连接到OpenSearch，索引文档和运行查询。有关客户端源代码，请参阅[OpenSearch-Ruby Repo](https://github.com/opensearch-project/opensearch-ruby)。
 
@@ -18,14 +18,14 @@ OpenSearch Ruby客户端使您可以通过Ruby方法而不是HTTP方法和RAW JS
 ```bash
 gem install opensearch-ruby
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 要使用客户端，请将其导入一个模块：
 
 ```ruby
 require 'opensearch'
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 连接到OpenSearch
 
@@ -34,7 +34,7 @@ require 'opensearch'
 ```ruby
 client = OpenSearch::Client.new(host: 'http://localhost:9200')
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 以下示例使用自定义URL创建客户端对象和`log` 选项设置为`true`。它设置了`retry_on_failure` 重试失败请求的参数五次而不是默认的三次。最后，通过设置`request_timeout` 参数至120秒。然后，它返回基本的群集健康信息：
 
@@ -48,7 +48,7 @@ client = OpenSearch::Client.new(
 
 client.cluster.health
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 输出如下：
 
@@ -114,7 +114,7 @@ client.delete(index: index, id: '1')
 # delete the index
 client.indices.delete(index: index)
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 连接到Amazon OpenSearch无服务器
 
@@ -154,7 +154,7 @@ client.delete(index: index, id: '1')
 # delete the index
 client.indices.delete(index: index)
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 
 ## 创建索引
@@ -176,7 +176,7 @@ client.indices.create(
     body: index_body
 )
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 映射
 
@@ -193,7 +193,7 @@ client.indices.put_mapping(
     }
 )
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 默认情况下，字符串字段映射为`text`，但在上面的映射中`first_name` 和`last_name` 字段被映射为`keyword`。该映射信号向OpenSearch进行了搜索，说这些字段不应进行分析，并且仅支持完整案例-敏感匹配。
 
@@ -202,7 +202,7 @@ client.indices.put_mapping(
 ```ruby
 response = client.indices.get_mapping(index: 'students')
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 如果您提前知道文档的映射并想要避免映射错误（例如，字段名称的拼写错误），则可以设置`dynamic` 参数为`strict`：
 
@@ -220,7 +220,7 @@ client.indices.put_mapping(
     }
 )
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 使用严格的映射，您可以将文档索引，但您无法用新字段索引文档。例如，用拼写错误为以下文档索引`grad_yea` 字段失败：
 
@@ -239,7 +239,7 @@ client.index(
     refresh: true
 )
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 OpenSearch返回映射错误：
 
@@ -266,7 +266,7 @@ client.index(
     refresh: true
 )
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 更新文档
 
@@ -278,7 +278,7 @@ client.update(index: 'students',
               body: { doc: { gpa: 3.25 } }, 
               refresh: true)
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 删除文档
 
@@ -291,7 +291,7 @@ client.delete(
     refresh: true
 )
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 批量操作
 
@@ -308,7 +308,7 @@ actions = [
 ]
 client.bulk(body: actions, refresh: true)
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 您可以删除多个文档，如下所示：
 
@@ -320,7 +320,7 @@ actions = [
 ]
 client.bulk(body: actions, refresh: true)
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 使用时，您可以执行不同的操作`bulk` 如下：
 
@@ -337,7 +337,7 @@ actions = [
 ]
 client.bulk(body: actions, refresh: true)
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 在上面的示例中，您将数据和标头传递在一起，然后用`data:` 钥匙。
 
@@ -362,14 +362,14 @@ response = client.search(
   index: 'students'
 )
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 如果您省略了请求主体`search` 方法，您的查询变成了`match_all` 查询并返回索引中的所有文档：
 
 ```ruby
 client.search(index: 'students')
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 布尔查询
 
@@ -396,7 +396,7 @@ query = {
 
 response = client.search(index: 'students', from: 0, size: 10, body: query)
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 并发-搜索
 
@@ -411,7 +411,7 @@ actions = [
 ]
 response = client.msearch(index: 'students', body: actions)
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 滚动
 
@@ -426,7 +426,7 @@ while response['hits']['hits'].size.positive?
     response = client.scroll(scroll: '1m', body: { scroll_id: scroll_id })
 end
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 首先，您发出搜索查询，指定`scroll` 和`size` 参数。这`scroll` 参数告诉OpenSearch保持搜索上下文多长时间。在这种情况下，将其设置为两分钟。这`size` 参数指定您要在每个请求中返回多少文档。
 
@@ -439,7 +439,7 @@ end
 ```ruby
 response = client.indices.delete(index: index_name)
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 样本程序
 
@@ -630,7 +630,7 @@ response = client.indices.delete(index: index_name)
 
 puts MultiJson.dump(response, pretty: "true")
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 # Ruby AWS SIGV4客户
 

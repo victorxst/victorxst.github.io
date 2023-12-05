@@ -15,7 +15,7 @@ OpenSearch中的异步搜索使您可以发送在后台运行的搜索请求。�
 
 ## REST API
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 要执行异步搜索，请将请求发送到`_plugins/_asynchronous_search`，在请求正文中查询您的查询：
 
@@ -26,7 +26,7 @@ POST _plugins/_asynchronous_search
 您可以指定以下选项。
 
 选项| 描述| 默认值| 必需的
-：--- | ：--- |：--- |：--- |
+:--- | :--- |:--- |:--- |
 `wait_for_completion_timeout` |  您计划等待结果的时间。您可以像在正常搜索中一样看到这段时间内获得的任何结果。您可以根据ID进行轮询剩余结果。最大值为300秒。| 1秒| 不
 `keep_on_completion` |  搜索完成后，是否要将结果保存在群集中。您可以在以后检查存储的结果。| `false` | 不
 `keep_alive` |  结果保存在群集中的时间。例如，`2d` 意味着结果存储在群集中48小时。保存的搜索结果将在此期间或取消搜索后删除。请注意，这包括查询执行时间。如果查询这次超越，则该过程会自动取消此查询。| 12小时| 不
@@ -100,9 +100,9 @@ POST _plugins/_asynchronous_search/?pretty&size=10&wait_for_completion_timeout=1
 #### 响应参数
 
 选项| 描述
-：--- | ：---
+:--- | :---
 `id` | 异步搜索的ID。使用此ID监视搜索的进度，获得部分结果和/或删除结果。如果异步搜索在超时期内完成，则响应不包括ID，因为结果未存储在群集中。
-`state` | 指定搜索是否仍在运行，是否已经完成，以及结果是否持续存在。可能的状态是`RUNNING`，，，，`SUCCEEDED`，，，，`FAILED`，，，，`PERSISTING`，，，，`PERSIST_SUCCEEDED`，，，，`PERSIST_FAILED`，，，，`CLOSED` 和`STORE_RESIDENT`。
+`state` | 指定搜索是否仍在运行，是否已经完成，以及结果是否持续存在。可能的状态是`RUNNING`，`SUCCEEDED`，`FAILED`，`PERSISTING`，`PERSIST_SUCCEEDED`，`PERSIST_FAILED`，`CLOSED` 和`STORE_RESIDENT`。
 `start_time_in_millis` | 毫秒开始的开始时间。
 `expiration_time_in_millis` | 到期时间以毫秒为单位。
 `took` | 搜索正在运行的总时间。
@@ -114,7 +114,7 @@ POST _plugins/_asynchronous_search/?pretty&size=10&wait_for_completion_timeout=1
 
 ## 获得部分结果
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 提交异步搜索请求后，您可以在异步搜索响应中看到的ID请求部分响应。
 
@@ -191,7 +191,7 @@ GET _plugins/_asynchronous_search/<ID>?pretty
 
 ## 删除搜索和结果
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 删除异步搜索：
 
@@ -213,7 +213,7 @@ DELETE _plugins/_asynchronous_search/<ID>?pretty
 
 ## 监视统计数据
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 您可以使用STATS API操作来监视正在运行，完成和/或持续存在的异步搜索。
 
@@ -252,7 +252,7 @@ GET _plugins/_asynchronous_search/stats
 #### 响应参数
 
 选项| 描述
-：--- | ：---
+:--- | :---
 `submitted` | 提交的异步搜索请求的数量。
 `initialized` | 初始化的异步搜索请求的数量。
 `rejected` | 被拒绝的异步搜索请求的数量。

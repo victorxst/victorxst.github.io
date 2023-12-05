@@ -19,7 +19,7 @@ redirect_from:
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/new-look.png" alt="Light and dark mode UI on Discover and Dashboard tools' home page" width="700">
 
-{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class ="inline-icon" alt ="alert icon"/> {：/}**笔记**<br>在开始之前，请确保已安装了OpenSearch和OpenSearch仪表板。有关安装和配置的信息，请参阅[安装和配置OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) 和[安装和配置OpenSearch仪表板]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)。
+{::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class ="inline-icon" alt ="alert icon"/> {:/}**笔记**<br>在开始之前，请确保已安装了OpenSearch和OpenSearch仪表板。有关安装和配置的信息，请参阅[安装和配置OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) 和[安装和配置OpenSearch仪表板]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)。
 {: .note}
 # 添加样本数据
 
@@ -29,7 +29,7 @@ redirect_from:
 1. 在OpenSearch仪表板上**家** 页面，选择**添加示例数据**。
 2. 选择**添加数据** 添加数据集，如下图所示。
 
-    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/add-sample-data.png" alt ="Sample datasets" 宽度="700">
+    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/add-sample-data.png" alt ="Sample datasets" width="700">
 
 # 探索和检查数据
 
@@ -44,15 +44,15 @@ redirect_from:
 1. 在OpenSearch仪表板上**家** 页面，选择**发现**。
 1. 更改[时间过滤器]({{site.url}}{{site.baseurl}}/dashboards/discover/time-filter/) 到**最近7天**，如下图所示。
 
-    <img src ="{{site.url}}{{site.baseurl}}/images/last-7--days.png" alt ="Time filter interface" 宽度="250"/>
+    <img src ="{{site.url}}{{site.baseurl}}/images/last-7--days.png" alt ="Time filter interface" width="250"/>
 
 2. 使用DQL查询搜索`FlightDelay:true AND DestCountry: US AND FlightDelayMin >= 60` 然后选择**更新**。你应该为我们看到结果-如下图所示，绑定的航班延迟了60分钟或更长时间。
    
-    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/dql-search-field.png" alt ="DQL search field example" 宽度="700"/>
+    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/dql-search-field.png" alt ="DQL search field example" width="700"/>
 
-3. 要过滤数据，请选择**添加过滤器** 然后选择一个**可用字段**。例如，选择`FlightDelayType`，，，，**是**， 和**天气延迟** 来自**场地**，，，，**操作员**， 和**价值** 下拉列表，如下图所示。
+3. 要过滤数据，请选择**添加过滤器** 然后选择一个**可用字段**。例如，选择`FlightDelayType`，**是**， 和**天气延迟** 来自**场地**，**操作员**， 和**价值** 下拉列表，如下图所示。
 
-    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/filter-data-discover.png" alt ="Filter data by FlightDelayType field" 宽度="250"/>
+    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/filter-data-discover.png" alt ="Filter data by FlightDelayType field" width="250"/>
 
 # 可视化数据
 
@@ -68,14 +68,14 @@ redirect_from:
 1. 在OpenSearch仪表板上**家** 页面，选择**仪表板**。
 1. 选择**[航班]全球航班数据** 在里面**仪表板** 窗口，如下图所示。
 
-    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/dashboard-flight-quickstart.png" alt ="Data visualization dashboard" 宽度="700"/>
+    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/dashboard-flight-quickstart.png" alt ="Data visualization dashboard" width="700"/>
 
 1. 要将面板添加到仪表板中，请选择**编辑** 进而**添加** 从工具栏。
 1. 在里面**添加面板** 窗口，选择现有面板**[航班]延迟存储桶**。您会看到流行音乐-向上右下方的窗口确认您已经添加了面板。
 1. 选择`x` 关闭**添加面板** 窗户。
 1. 查看添加的面板**[航班]延迟存储桶**，如下图所示，它是仪表板上的最后一个面板。
 
-    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/add-panel.png" alt ="Add panel to dashboard" 宽度="700"/>
+    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/add-panel.png" alt ="Add panel to dashboard" width="700"/>
 
 ## 尝试：创建一个可视化面板
 
@@ -104,13 +104,13 @@ redirect_from:
 另外，您可以使用仪表板工具栏应用过滤器：
 
 1. 在仪表板工具栏中，选择**添加过滤器**。
-1. 来自**场地**，，，，**操作员**， 和**价值** 下拉列表，选择**载体**，，，，**是**， 和**OpenSearch-空气**，分别如下图所示。
+1. 来自**场地**，**操作员**， 和**价值** 下拉列表，选择**载体**，**是**， 和**OpenSearch-空气**，分别如下图所示。
 
-    <img src ="{{site.url}}{{site.baseurl}}/images/edit-filter.png" alt ="Edit field interface" 宽度="400"/>
+    <img src ="{{site.url}}{{site.baseurl}}/images/edit-filter.png" alt ="Edit field interface" width="400"/>
 
 1. 选择**节省**。仪表板自动更新，结果是下图中显示的仪表板。
 
-  <img src ="{{site.url}}{{site.baseurl}}/images/interact-filter-dashboard.png" alt ="Dashboard view after applying Carrier filter" 宽度="700"/>
+  <img src ="{{site.url}}{{site.baseurl}}/images/interact-filter-dashboard.png" alt ="Dashboard view after applying Carrier filter" width="700"/>
 
 # 下一步
 

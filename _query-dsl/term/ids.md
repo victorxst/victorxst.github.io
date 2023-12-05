@@ -23,13 +23,13 @@ GET shakespeare/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ## 参数
 
 查询接受以下参数。
 
 范围| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `values` | 弦数| 要搜索的文档ID。必需的。
 

@@ -59,13 +59,13 @@ logsource：
 
 ```json
 {
-    "_id"："M1Rm1IMByX0LvTiGvde2"，，，，
+    "_id"："M1Rm1IMByX0LvTiGvde2"，
     "_version"：1，
     "rule"：{
-        "category"："windows"，，，，
-        "title"："Moriya Rootkit"，，，，
-        "log_source"：""，，，，
-        "description"："Detects the use of Moriya rootkit as described in the securelist's Operation TunnelSnake report"，，，，
+        "category"："windows"，
+        "title"："Moriya Rootkit"，
+        "log_source"：""，
+        "description"："Detects the use of Moriya rootkit as described in the securelist's Operation TunnelSnake report"，
         "tags"：[[
             {
                 "value"："attack.persistence"
@@ -82,15 +82,15 @@ logsource：
                 "value"："https://securelist.com/operation-tunnelsnake-and-moriya-rootkit/101831"
             }
         ]，，
-        "level"："critical"，，，，
+        "level"："critical"，
         "false_positives"：[[
             {
                 "value"："Unknown"
             }
         ]，，
-        "author"："Bhabesh Raj"，，，，
-        "status"："experimental"，，，，
-        "last_update_time"："2021-05-06T00:00:00.000Z"，，，，
+        "author"："Bhabesh Raj"，
+        "status"："experimental"，
+        "last_update_time"："2021-05-06T00:00:00.000Z"，
         "rule"："title: Moriya Rootkit\nid: 25b9c01c-350d-4b95-bed1-836d04a4f324\ndescription: Detects the use of Moriya rootkit as described in the securelist's Operation TunnelSnake report\nstatus: experimental\nauthor: Bhabesh Raj\ndate: 2021/05/06\nmodified: 2021/11/30\nreferences:\n    - https://securelist.com/operation-tunnelsnake-and-moriya-rootkit/101831\ntags:\n    - attack.persistence\n    - attack.privilege_escalation\n    - attack.t1543.003\nlogsource:\n    product: windows\n    service: system\ndetection:\n    selection:\n        Provider_Name: 'Service Control Manager'\n        EventID: 7045\n        ServiceName: ZzNetSvc\n    condition: selection\nlevel: critical\nfalsepositives:\n    - Unknown"
     }
 }
@@ -103,14 +103,14 @@ logsource：
   "error"：{
     "root_cause"：[[
       {
-        "type"："security_analytics_exception"，，，，
+        "type"："security_analytics_exception"，
         "reason"："{\"错误\":\"Sigma规则必须具有日志源\",\"错误\":\"Sigma规则必须具有检测定义\"}"
       }
     ]，，
-    "type"："security_analytics_exception"，，，，
-    "reason"："{\"错误\":\"Sigma规则必须具有日志源\",\"错误\":\"Sigma规则必须具有检测定义\"}"，，，，
+    "type"："security_analytics_exception"，
+    "reason"："{\"错误\":\"Sigma规则必须具有日志源\",\"错误\":\"Sigma规则必须具有检测定义\"}"，
     "caused_by"：{
-      "type"："exception"，，，，
+      "type"："exception"，
       "reason"："java.util.Arrays$ArrayList: {\"错误\":\"Sigma规则必须具有日志源\",\"错误\":\"Sigma规则必须具有检测定义\"}"
     }
   }，，
@@ -222,13 +222,13 @@ logsource：
 
 ```json
 {
-    "_id"："ZaFv1IMBdLpXWBiBa1XI"，，，，
+    "_id"："ZaFv1IMBdLpXWBiBa1XI"，
     "_version"：1，
     "rule"：{
-        "category"："windows"，，，，
-        "title"："Moriya Rooskit"，，，，
-        "log_source"：""，，，，
-        "description"："Detects the use of Moriya rootkit as described in the securelist's Operation TunnelSnake report"，，，，
+        "category"："windows"，
+        "title"："Moriya Rooskit"，
+        "log_source"：""，
+        "description"："Detects the use of Moriya rootkit as described in the securelist's Operation TunnelSnake report"，
         "tags"：[[
             {
                 "value"："attack.persistence"
@@ -245,15 +245,15 @@ logsource：
                 "value"："https://securelist.com/operation-tunnelsnake-and-moriya-rootkit/101831"
             }
         ]，，
-        "level"："critical"，，，，
+        "level"："critical"，
         "false_positives"：[[
             {
                 "value"："Unknown"
             }
         ]，，
-        "author"："Bhabesh Raj"，，，，
-        "status"："experimental"，，，，
-        "last_update_time"："2021-05-06T00:00:00.000Z"，，，，
+        "author"："Bhabesh Raj"，
+        "status"："experimental"，
+        "last_update_time"："2021-05-06T00:00:00.000Z"，
         "rule"："title: Moriya Rooskit\nid: 25b9c01c-350d-4b95-bed1-836d04a4f324\ndescription: Detects the use of Moriya rootkit as described in the securelist's Operation TunnelSnake report\nstatus: experimental\nauthor: Bhabesh Raj\ndate: 2021/05/06\nmodified: 2021/11/30\nreferences:\n    - https://securelist.com/operation-tunnelsnake-and-moriya-rootkit/101831\ntags:\n    - attack.persistence\n    - attack.privilege_escalation\n    - attack.t1543.003\nlogsource:\n    product: windows\n    service: system\ndetection:\n    selection:\n        Provider_Name: 'Service Control Manager'\n        EventID: 7045\n        ServiceName: ZzNetSvc\n    condition: selection\nlevel: critical\nfalsepositives:\n    - Unknown"
     }
 }
@@ -369,7 +369,7 @@ post/_plugins/_security_analytics/ulues/_search？pre_packaged = false
   "size"：20，
   "query"：{
     "nested"：{
-      "path"："rule"，，，，
+      "path"："rule"，
       "query"：{
         "bool"：{
           "must"：[[
@@ -402,17 +402,17 @@ post/_plugins/_security_analytics/ulues/_search？pre_packaged = false
         "max_score"：0.2876821，
         "hits"：[[
             {
-                "_index"：".opensearch-custom-rules-config"，，，，
-                "_id"："ZaFv1IMBdLpXWBiBa1XI"，，，，
+                "_index"：".opensearch-custom-rules-config"，
+                "_id"："ZaFv1IMBdLpXWBiBa1XI"，
                 "_version"：2，
                 "_seq_no"：1，
                 "_primary_term"：1，
                 "_score"：0.2876821，
                 "_source"：{
-                    "category"："windows"，，，，
-                    "title"："Moriya Rooskit"，，，，
-                    "log_source"：""，，，，
-                    "description"："Detects the use of Moriya rootkit as described in the securelist's Operation TunnelSnake report"，，，，
+                    "category"："windows"，
+                    "title"："Moriya Rooskit"，
+                    "log_source"：""，
+                    "description"："Detects the use of Moriya rootkit as described in the securelist's Operation TunnelSnake report"，
                     "references"：[[
                         {
                             "value"："https://securelist.com/operation-tunnelsnake-and-moriya-rootkit/101831"
@@ -429,15 +429,15 @@ post/_plugins/_security_analytics/ulues/_search？pre_packaged = false
                             "value"："attack.t1543.003"
                         }
                     ]，，
-                    "level"："critical"，，，，
+                    "level"："critical"，
                     "false_positives"：[[
                         {
                             "value"："Unknown"
                         }
                     ]，，
-                    "author"："Bhabesh Raj"，，，，
-                    "status"："experimental"，，，，
-                    "last_update_time"："2021-05-06T00:00:00.000Z"，，，，
+                    "author"："Bhabesh Raj"，
+                    "status"："experimental"，
+                    "last_update_time"："2021-05-06T00:00:00.000Z"，
                     "queries"：[[
                         {
                             "value"："(Provider_Name: \"service_ws_control_ws_manager \") AND (event_uid: 7045) AND (ServiceName: \"zznetsvc \")"
@@ -495,7 +495,7 @@ delete/_plugins/_security_analytics/rules/zafv1imbdlpxwbiba1xi？强制= true = 
 
 ```json
 {
-    "_id"："ZaFv1IMBdLpXWBiBa1XI"，，，，
+    "_id"："ZaFv1IMBdLpXWBiBa1XI"，
     "_version"：1
 }
 ```

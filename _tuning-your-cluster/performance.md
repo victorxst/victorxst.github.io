@@ -27,14 +27,14 @@ has_children: false
 对于纯索引工作负载，请考虑增加`flush_threshold_size` 例如，约有25％的Java堆尺寸以提高索引性能。
 
 增加`index.translog.flush_threshold_size` 还可以增加翻译完成所需的时间。如果碎片失败，则恢复需要更多时间，因为翻译较大。
-{： 。笔记}
+{: .note}
 
 在增加之前`index.translog.flush_threshold_size`，致电以下API操作以获取当前的冲洗操作统计信息：
 
 ```json
 curl -XPOST "os-endpoint/index-name/_stats/flush?pretty"
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 
 更换`os-endpoint` 和`index-name` 带有您的端点和索引名称。
@@ -55,22 +55,22 @@ curl -XPOST "os-endpoint/index-name/_stats/flush?pretty"
 ```json
 curl -XPUT "os-endpoint/index-name/_settings?pretty" -d "{"index":{"translog.flush_threshold_size" : "1024MB"}}"
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 在此示例中，齐平阈值大小设置为1024 MB，这是具有超过32 GB内存的实例的理想选择。
 
 为群集选择适当的阈值大小。
-{： 。笔记}
+{: .note}
 
 再次运行STATS API操作，以查看冲洗活动是否更改：
 
 ```json
 curl -XGET "os-endpoint/index-name/_stats/flush?pretty"
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 这是增加的最佳实践`index.translog.flush_threshold_size` 仅针对当前索引。确认结果后，将更改应用于索引模板。
-{： 。笔记}
+{: .note}
 
 ## 索引刷新间隔
 
@@ -110,7 +110,7 @@ Java堆尺寸或字节数。在大多数情况下，JVM内存的10％的默认�
 如果您预计索引重量，请考虑设置`index.number_of_replicas` 价值`0`。每个副本都复制索引过程。结果，禁用复制品可以改善您的群集性能。重量索引完成后，重新激活复制的索引。
 
 如果在禁用副本时节点失败，则可能会丢失数据。仅当您可以在短时间内忍受数据丢失时，才禁用复制品。
-{： 。重要的 }
+{: .important }
 
 ## 实验以找到最佳的批量请求尺寸
 
@@ -124,7 +124,7 @@ i3实例提供快速和本地内存Express（NVME）存储。I3实例比使用�
 
 为了减少OpenSearch响应的大小，请使用`filter_path` 参数排除不必要的字段。确保您不会过滤识别或重试失败的请求所需的任何字段。这些字段可能因客户端而异。
 
-在下面的示例中，`index-name`，，，，`type-name`， 和`took` 田地被排除在响应之外：
+在下面的示例中，`index-name`，`type-name`， 和`took` 田地被排除在响应之外：
 
 ```json
 curl -XPOST "es-endpoint/index-name/type-name/_bulk?pretty&filter_path=-took,-items.index._index,-items.index._type" -H 'Content-Type: application/json' -d'
@@ -133,7 +133,7 @@ curl -XPOST "es-endpoint/index-name/type-name/_bulk?pretty&filter_path=-took,-it
 { "update" : {"_id" : "1", "_index" : "test2"} }
 { "doc" : {"user" : "example"} }
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 压缩编解码器
 

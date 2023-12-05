@@ -88,7 +88,7 @@ Z：时区偏移（例如，+0400；-0400;-04:00）<br>
 ### 数字日期格式
 
 格式名称和描述| 例子
-：--- | ：---
+:--- | :---
 `epoch_millis` <br>自时代以来的毫秒数。最低是-2 <sup> 63 </sup>。最大值为2 <sup> 63 </sup>＆减去;1。| 1553391286000
 `epoch_second` <br>自时代以来的秒数。最低是-2 <sup> 63 </sup>＆Divide;1000.最大值IS（2 <sup> 63 </sup>＆minus; 1）＆Divide;1000。| 1553391286
 
@@ -97,7 +97,7 @@ Z：时区偏移（例如，+0400；-0400;-04:00）<br>
 基本日期格式的组成部分不会被定界符分开。例如，"20190323"。
 
 格式名称和描述| 模式和示例
-：--- | ：---
+:--- | :---
 **日期**| 
 `basic_date_time` <br>一个基本日期和时间分开`T`。| "yyyyMMdd`T`HHmmss.SSSZ"<br>"20190323T213446.123-04:00"
 `basic_date_time_no_millis` <br>基本日期和时间没有毫秒`T`。| "yyyyMMdd`T`HHmmssZ"<br>"20190323T213446-04:00"
@@ -122,7 +122,7 @@ Z：时区偏移（例如，+0400；-0400;-04:00）<br>
 全约日期格式的组件由`-` 定界符日期和`:` 时间的定界符。例如，"2019-03-23T21:34"。
 
 格式名称和描述| 模式和示例
-：--- | ：---
+:--- | :---
 **日期** |
 `date_optional_time`<br>`strict_date_optional_time` <br>通用的全日期和时间。需要年。一个月，一天和时间是可选的。时间从日期分开`T`。| 多种模式。<br>"2019-03-23T21:34:46.123456789-04:00" <br>"2019-03-23T21:34:46" <br>"2019-03-23T21:34" <br>"2019"
 `strict_date_optional_time_nanos` <br>通用的全日期和时间。需要年。一个月，一天和时间是可选的。如果指定时间，则必须包含小时，分钟和秒，但是一秒钟的部分是可选的。一秒钟的一秒钟是长达九位数，并且具有纳秒分辨率。时间从日期分开`T`。| 多种模式。<br>"2019-03-23T21:34:46.123456789-04:00" <br>"2019-03-23T21:34:46" <br>"2019" 
@@ -225,7 +225,7 @@ GET testindex/_search
 
 ## 日期数学
 
-日期字段类型使用日期数学支持查询中的持续时间。例如，`gt`，，，，`gte`，，，，`lt`， 和`lte` 参数在[范围查询]({{site.url}}{{site.baseurl}}/query-dsl/term/range/) 和`from` 和`to` 参数在[日期范围聚合]({{site.url}}{{site.baseurl}}/query-dsl/aggregations/bucket/date-range/) 接受日期数学表达式。
+日期字段类型使用日期数学支持查询中的持续时间。例如，`gt`，`gte`，`lt`， 和`lte` 参数在[范围查询]({{site.url}}{{site.baseurl}}/query-dsl/term/range/) 和`from` 和`to` 参数在[日期范围聚合]({{site.url}}{{site.baseurl}}/query-dsl/aggregations/bucket/date-range/) 接受日期数学表达式。
 
 日期数学表达式包含固定的日期，然后选择一个或多个数学表达式。固定日期可以是`now` （自时代以来的当前日期和时间为毫秒）或以结尾的字符串`||` 指定日期（例如，`2022-05-18||`）。日期必须在[默认格式](#default-format) （那是`strict_date_time_no_millis||strict_date_optional_time||epoch_millis` 默认情况下）。
 

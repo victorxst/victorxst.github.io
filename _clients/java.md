@@ -27,7 +27,7 @@ OpenSearch Java客户端使您可以通过Java方法和数据结构而不是HTTP
   <version>5.2.1</version>
 </dependency>
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 如果您使用的是Gradle，请将以下依赖项添加到您的项目中：
 
@@ -36,7 +36,7 @@ dependencies {
   implementation 'org.opensearch.client:opensearch-java:2.6.0'
 }
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 现在，您可以启动OpenSearch cluster。
 
@@ -57,7 +57,7 @@ dependencies {
   <version>2.6.0</version>
 </dependency>
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 如果您使用的是Gradle，请将以下依赖项添加到您的项目中”
 
@@ -67,7 +67,7 @@ dependencies {
   implementation 'org.opensearch.client:opensearch-java:2.6.0'
 }
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 现在，您可以启动OpenSearch cluster。
 
@@ -80,7 +80,7 @@ dependencies {
 ```bash
 keytool -import <path-to-cert> -alias <alias-to-call-cert> -keystore <truststore-name>
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 现在，您可以将Java客户端指向TrustStore，并设置可以访问安全群集的基本身份验证凭据（请参阅下面的示例代码有关方法）。
 
@@ -124,7 +124,7 @@ static class IndexData {
   }
 }
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 使用Apache HTTPClient 5 Transpers启用SSL和TLS初始化客户端
 
@@ -240,7 +240,7 @@ public class OpenSearchClientExample {
   }
 }
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 连接到Amazon OpenSearch服务
 
@@ -264,7 +264,7 @@ System.out.println(info.version().distribution() + ": " + info.version().number(
 
 httpClient.close();
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 连接到Amazon OpenSearch无服务器
 
@@ -288,7 +288,7 @@ System.out.println(info.version().distribution() + ": " + info.version().number(
 
 httpClient.close();
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 
 ## 创建索引
@@ -304,7 +304,7 @@ IndexSettings indexSettings = new IndexSettings.Builder().autoExpandReplicas("0-
 PutIndicesSettingsRequest putIndicesSettingsRequest = new PutIndicesSettingsRequest.Builder().index(index).value(indexSettings).build();
 client.indices().putSettings(putIndicesSettingsRequest);
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 索引数据
 
@@ -315,7 +315,7 @@ IndexData indexData = new IndexData("first_name", "Bruce");
 IndexRequest<IndexData> indexRequest = new IndexRequest.Builder<IndexData>().index(index).id("1").document(indexData).build();
 client.index(indexRequest);
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 搜索文档
 
@@ -327,7 +327,7 @@ for (int i = 0; i< searchResponse.hits().hits().size(); i++) {
   System.out.println(searchResponse.hits().hits().get(i).source());
 }
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 删除文档
 
@@ -336,7 +336,7 @@ for (int i = 0; i< searchResponse.hits().hits().size(); i++) {
 ```java
 client.delete(b -> b.index(index).id("1"));
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ### 删除索引
 
@@ -346,7 +346,7 @@ client.delete(b -> b.index(index).id("1"));
 DeleteIndexRequest deleteIndexRequest = new DeleteRequest.Builder().index(index).build();
 DeleteIndexResponse deleteIndexResponse = client.indices().delete(deleteIndexRequest);
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 样本程序
 
@@ -438,5 +438,5 @@ public class OpenSearchClientExample {
   }
 }
 ```
-{％include copy.html％}
+{% include copy.html %}
 

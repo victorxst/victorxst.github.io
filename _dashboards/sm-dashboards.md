@@ -47,7 +47,7 @@ redirect_from:
 ```
 6. 选择**添加** 按钮。
 
-{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/star-icon.png" class ="inline-icon" alt ="star icon"/> {：/}**笔记：** 如果您需要自动化快照创建，则可以使用快照策略。
+{::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/star-icon.png" class ="inline-icon" alt ="star icon"/> {:/}**笔记：** 如果您需要自动化快照创建，则可以使用快照策略。
 {：.. note purple}
 
 ## 删除存储库
@@ -134,13 +134,13 @@ redirect_from:
 1. 选择要还原的快照旁边的复选框。一个示例如下图：
     <img src ="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-main.png" alt ="Snapshots"> {：.img-体液}
 
-    {:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/star-icon.png" class ="inline-icon" alt ="star icon"/> {：/}**笔记：** 您只能以状态恢复快照`Success` 或者`Partial`。快照的状态显示在**快照状态** 柱子。
+    {::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/star-icon.png" class ="inline-icon" alt ="star icon"/> {:/}**笔记：** 您只能以状态恢复快照`Success` 或者`Partial`。快照的状态显示在**快照状态** 柱子。
     {：.. note purple}
 1. 在里面**还原快照** 飞翔，选择用于恢复快照的选项。
 
     这**还原快照** Flyout列出了快照名称和状态。要查看快照中的索引列表，请选择下面的编号**指数** （例如，`27` 在下面的图像中）。该数字表示快照中的索引数。
 
-    <img src ="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot.png" alt ="Restore Snapshot" 宽度="450">
+    <img src ="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot.png" alt ="Restore Snapshot" width="450">
 
     有关有关选项的更多信息**还原快照** 飞翔，看[还原快照]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#restore-snapshots)。
 
@@ -154,9 +154,9 @@ redirect_from:
         ＆emsp;＆＆#x2022;选择**自定义索引设置** 复选框为指定的索引设置提供新值。所有新恢复的索引都将使用这些值，而不是快照中的值。<br>
         ＆emsp;＆＆#x2022;选择**忽略索引设置** 复选框以指定快照中的设置以忽略。所有新恢复的索引都将用于这些设置的群集默认值。
 
-    下图集中的示例`index.number_of_replicas` 到`0`，，，，`index.auto_expand_replicas` 到`true`， 和`index.refresh_interval` 和`index.max_script_fields` 对于所有新还原索引的群集默认值。
+    下图集中的示例`index.number_of_replicas` 到`0`，`index.auto_expand_replicas` 到`true`， 和`index.refresh_interval` 和`index.max_script_fields` 对于所有新还原索引的群集默认值。
 
-    <img src ="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-custom.png" alt ="Custom settings" 宽度="450">
+    <img src ="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-custom.png" alt ="Custom settings" width="450">
 
     有关索引设置的更多信息，请参阅[索引设置]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/)。
 
@@ -169,7 +169,7 @@ redirect_from:
 
     您可以查看已完成的工作百分比**地位** 柱子。快照还原完成后，**地位** 更改为`Completed (100%)`。
 
-    {:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/star-icon.png" class ="inline-icon" alt ="star icon"/> {：/}**笔记：** 这**恢复正在进行的活动** 面板不持续。它仅显示当前还原操作的进度。如果多个还原操作正在运行，则面板将显示最新操作。
+    {::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/star-icon.png" class ="inline-icon" alt ="star icon"/> {:/}**笔记：** 这**恢复正在进行的活动** 面板不持续。它仅显示当前还原操作的进度。如果多个还原操作正在运行，则面板将显示最新操作。
     {：.. note purple}
     要查看要恢复的每个索引的状态，请在**索引正在恢复** 列（在前面的图像中，`27 Indices` 关联）。这**索引正在恢复** 飞行（如下图所示）显示每个索引及其还原状态。
 

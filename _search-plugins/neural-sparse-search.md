@@ -8,7 +8,7 @@ parent: 神经搜索
 
 # 神经稀疏搜索
 引入2.11
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 [神经文本搜索]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/) 依赖于基于文本嵌入模型的密集检索。但是，密集的方法使用k-NN搜索，它消耗了大量内存和CPU资源。替代神经文本搜索，使用倒置索引实现稀疏神经搜索，因此与BM25一样有效。稀疏的嵌入模型促进了稀疏搜索。当您执行稀疏搜索时，它会创建一个稀疏的向量（列表`token: weight` 钥匙-值对表示条目及其权重），并将数据摄入等级功能索引。
 
@@ -19,7 +19,7 @@ parent: 神经搜索
 
 **先决条件**<br>
 在使用稀疏搜索之前，请确保设置[验证的稀疏嵌入模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sparse-encoding-models) 或您自己的稀疏嵌入模型。有关更多信息，请参阅[在OpenSearch中使用ML模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) 和[连接到远程型号]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index/)。
-{： 。笔记}
+{: .note}
 
 ## 使用稀疏搜索
 
@@ -52,7 +52,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline-sparse
   ]
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ## 步骤2：创建摄入索引
 
@@ -81,7 +81,7 @@ PUT /my-nlp-index
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 为了节省磁盘空间，您可以将嵌入向量从源中排除，如下所示：
 
@@ -111,7 +111,7 @@ PUT /my-nlp-index
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 一旦`<token, weight>` 对从源头排除在外，无法恢复它们。在应用此优化之前，请确保您不需要`<token, weight>` 配对用于您的申请。
 {： 。重要的}
@@ -127,7 +127,7 @@ PUT /my-nlp-index/_doc/1
   "id": "s1"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ```json
 PUT /my-nlp-index/_doc/2
@@ -136,7 +136,7 @@ PUT /my-nlp-index/_doc/2
   "id": "s2"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 在将文档摄入索引之前，摄入管道运行`sparse_encoding` 文档上的处理器，生成矢量嵌入`passage_text` 场地。索引文档包括`passage_text` 字段，其中包含原始文本，`passage_embedding` 字段，其中包含向量嵌入。
 
@@ -160,7 +160,7 @@ GET my-nlp-index/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 响应包含匹配文档：
 

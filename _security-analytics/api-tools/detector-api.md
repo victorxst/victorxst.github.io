@@ -23,10 +23,10 @@ nav_order: 35
 您可以在创建检测器时指定以下字段。
 
 场地| 类型| 描述
-：--- | ：--- |：--- |
+:--- | :--- |：--- |
 `enabled` | 布尔| 将检测器设置为活动（true）或无效（false）。默认为`true` 创建新的检测器时。必需的。
 `name` | 细绳| 检测器的名称。名称应仅由上下小写字母组成，数字0-9，连字符，空间和下划线。使用5至50个字符。必需的。
-`detector_type` | 细绳| 定义检测器的日志类型。选项是`linux`，，，，`network` ，，，，`windows`，，，，`ad_ldap`，，，，`apache_access`，，，，`cloudtrail`，，，，`dns`， 和`s3`。必需的。
+`detector_type` | 细绳| 定义检测器的日志类型。选项是`linux`，`network` ，`windows`，`ad_ldap`，`apache_access`，`cloudtrail`，`dns`， 和`s3`。必需的。
 `schedule` | 目的| 确定检测器运行频率的时间表。有关在API中指定固定间隔的信息，请参见[cron表达式参考]（{{site.url}}} {{site.baseurl}}/Monitoring-插件/警报/cron/）。
 `schedule.period` | 目的| 时间表频率的详细信息。
 `schedule.period.interval` | 整数| 检测器运行的间隔。
@@ -73,12 +73,12 @@ nav_order: 35
       "unit"："MINUTES"
     }
   }，，
-  "detector_type"："WINDOWS"，，，，
-  "type"："detector"，，，，
+  "detector_type"："WINDOWS"，
+  "type"："detector"，
   "inputs"：[[
     {
       "detector_input"：{
-        "description"："windows detector for security analytics"，，，，
+        "description"："windows detector for security analytics"，
         "custom_rules"：[[
           {
             "id"："bc2RB4QBrbtylUb_1Pbm"
@@ -104,29 +104,29 @@ nav_order: 35
       "tags"：[[
         "attack.defense_evasion"
       ]，，
-      "severity"："1"，，，，
+      "severity"："1"，
       "actions"：[{{
-          "id"："hVTLkZYzlA"，，，，
-          "destination_id"："6r8ZBoQBKW_6dKriacQb"，，，，
+          "id"："hVTLkZYzlA"，
+          "destination_id"："6r8ZBoQBKW_6dKriacQb"，
           "subject_template"：{
-            "source"："Trigger: {{ctx.trigger.name}}"，，，，
+            "source"："Trigger: {{ctx.trigger.name}}"，
             "lang"："mustache"
           }，，
-          "name"："hello_world"，，，，
+          "name"："hello_world"，
           "throttle_enabled"： 错误的，
           "message_template"：{
             "source"："Detector {{ctx.detector.name}} just entered alert status. Please investigate the issue." +
             "- Trigger: {{ctx.trigger.name}}" +
-            "- Severity: {{ctx.trigger.severity}}"，，，，
+            "- Severity: {{ctx.trigger.severity}}"，
             "lang"："mustache"
           }，，
           "throttle"：{
-            "unit"："MINUTES"，，，，
+            "unit"："MINUTES"，
             "value"：108
           }
         }
       ]，，
-      "id"："8qhrBoQBYK1JzUUDzH-N"，，，，
+      "id"："8qhrBoQBYK1JzUUDzH-N"，
       "sev_levels"：[]，，
       "name"："test-trigger"
     }
@@ -140,11 +140,11 @@ nav_order: 35
 
 ```json
 {
-    "_id"："dc2VB4QBrbtylUb_Hfa3"，，，，
+    "_id"："dc2VB4QBrbtylUb_Hfa3"，
     "_version"：1，
     "detector"：{
-        "name"："nbReFCjlfn"，，，，
-        "detector_type"："windows"，，，，
+        "name"："nbReFCjlfn"，
+        "detector_type"："windows"，
         "enabled"： 真的，
         "schedule"：{
             "period"：{
@@ -155,7 +155,7 @@ nav_order: 35
         "inputs"：[[
             {
                 "detector_input"：{
-                    "description"："windows detector for security analytics"，，，，
+                    "description"："windows detector for security analytics"，
                     "indices"：[[
                         "windows"
                     ]，，
@@ -174,9 +174,9 @@ nav_order: 35
         ]，，
         "triggers"：[[
             {
-                "id"："8qhrBoQBYK1JzUUDzH-N"，，，，
-                "name"："test-trigger"，，，，
-                "severity"："1"，，，，
+                "id"："8qhrBoQBYK1JzUUDzH-N"，
+                "name"："test-trigger"，
+                "severity"："1"，
                 "types"：[]，，
                 "ids"：[[
                     "06724a9a-52fc-11ed-bdc3-0242ac120002"
@@ -187,18 +187,18 @@ nav_order: 35
                 ]，，
                 "actions"：[[
                     {
-                        "id"："hVTLkZYzlA"，，，，
-                        "name"："hello_world"，，，，
-                        "destination_id"："6r8ZBoQBKW_6dKriacQb"，，，，
+                        "id"："hVTLkZYzlA"，
+                        "name"："hello_world"，
+                        "destination_id"："6r8ZBoQBKW_6dKriacQb"，
                         "message_template"：{
-                            "source"："Trigger: {{ctx.trigger.name}}"，，，，
+                            "source"："Trigger: {{ctx.trigger.name}}"，
                             "lang"："mustache"
                         }，，
                         "throttle_enabled"： 错误的，
                         "subject_template"：{
                             "source"："Detector {{ctx.detector.name}} just entered alert status. Please investigate the issue." +
                     "- Trigger: {{ctx.trigger.name}}" +
-                    "- Severity: {{ctx.trigger.severity}}"，，，，
+                    "- Severity: {{ctx.trigger.severity}}"，
                             "lang"："mustache"
                         }，，
                         "throttle"：{
@@ -209,7 +209,7 @@ nav_order: 35
                 这是给出的
             }
         ]，，
-        "last_update_time"："2022-10-24T01:22:03.738379671Z"，，，，
+        "last_update_time"："2022-10-24T01:22:03.738379671Z"，
         "enabled_time"："2022-10-24T01:22:03.738376103Z"
     }
 }
@@ -229,8 +229,8 @@ PUT /_plugins/_security_analytics/detectors/<detector_Id>
 更新检测器时，您可以指定以下字段。
 
 场地| 类型| 描述
-：--- | ：--- |：--- |
-`detector_type` | 细绳| 定义检测器的日志类型。选项是`linux`，，，，`network` ，，，，`windows`，，，，`ad_ldap`，，，，`apache_access`，，，，`cloudtrail`，，，，`dns`， 和`s3`。
+:--- | :--- |：--- |
+`detector_type` | 细绳| 定义检测器的日志类型。选项是`linux`，`network` ，`windows`，`ad_ldap`，`apache_access`，`cloudtrail`，`dns`， 和`s3`。
 `name` | 细绳| 检测器的名称。名称应仅由上下小写字母组成，数字0-9，连字符，空间和下划线。使用5至50个字符。必需的。
 `enabled` | 布尔| 将检测器设置为活动（true）或无效（false）。
 `schedule.period.interval` | 整数| 检测器运行的间隔。
@@ -292,7 +292,7 @@ PUT /_plugins/_security_analytics/detectors/J1RX1IMByX0LvTiGTddR
   ]
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ### 示例响应
 
@@ -335,7 +335,7 @@ PUT /_plugins/_security_analytics/detectors/J1RX1IMByX0LvTiGTddR
 #### 响应字段
 
 场地| 类型| 描述
-：--- | ：--- |：--- |
+:--- | :--- |：--- |
 `_version` | 细绳| 更新的版本号。
 `detector.last_update_time` | 细绳| 最后更新的日期和时间。
 `detector.enabled_time` | 细绳| 最后启用检测器的日期和时间。
@@ -362,7 +362,7 @@ delete/_plugins/_security_analytics/detectors/<检测器ID>
 
 ```json
 {
-  "_id" ："IJAXz4QBrmVplM4JYxx_"，，，，
+  "_id" ："IJAXz4QBrmVplM4JYxx_"，
   "_version" ：1
 }
 ```
@@ -383,7 +383,7 @@ GET /_plugins/_security_analytics/detectors/x-dwFIYBT6_n8WeuQjo4
 ```json
 GET /_plugins/_security_analytics/detectors/<detector Id>
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ### 示例响应
 
@@ -431,10 +431,10 @@ GET /_plugins/_security_analytics/detectors/<detector Id>
 ### Request fields
 
 场地| 类型| 描述
-：--- | ：--- |：--- |
+:--- | :--- |：--- |
 `_id` | 细绳| 更新的版本号。
 `detector.name` | 细绳| 检测器的名称。
-`detector_type` | 细绳| 检测器的日志类型。选项是`linux`，，，，`network` ，，，，`windows`，，，，`ad_ldap`，，，，`apache_access`，，，，`cloudtrail`，，，，`dns`， 和`s3`。
+`detector_type` | 细绳| 检测器的日志类型。选项是`linux`，`network` ，`windows`，`ad_ldap`，`apache_access`，`cloudtrail`，`dns`， 和`s3`。
 
 ### Example request
 
@@ -458,7 +458,7 @@ post/_plugins/_security_analytics/detectors/_search
   "size"：30，
   "query"：{
     "nested"：{
-      "path"："detector"，，，，
+      "path"："detector"，
       "query"：{
         "bool"：{
           "must"：[[
@@ -492,16 +492,16 @@ post/_plugins/_security_analytics/detectors/_search
     "max_score" ：3.671739，
     "hits" ：[[
       {
-        "_index" ：".opensearch-sap-detectors-config"，，，，
-        "_id" ："x-dwFIYBT6_n8WeuQjo4"，，，，
+        "_index" ：".opensearch-sap-detectors-config"，
+        "_id" ："x-dwFIYBT6_n8WeuQjo4"，
         "_version" ：1，
         "_seq_no" ：76，
         "_primary_term" ：17，
         "_score" ：3.671739，
         "_source" ：{
-          "type" ："detector"，，，，
-          "name" ："DetectorTest1"，，，，
-          "detector_type" ："windows"，，，，
+          "type" ："detector"，
+          "name" ："DetectorTest1"，
+          "detector_type" ："windows"，
           "enabled" ： 真的，
           "enabled_time" ：1675380146454，
           "schedule" ：{
@@ -513,7 +513,7 @@ post/_plugins/_security_analytics/detectors/_search
           "inputs" ：[[
             {
               "detector_input" ：{
-                "description" ："Test and delete"，，，，
+                "description" ："Test and delete"，
                 "indices" ：[[
                   "windows1"
                 ]，，
@@ -528,9 +528,9 @@ post/_plugins/_security_analytics/detectors/_search
           ]，，
           "triggers" ：[[
             {
-              "id" ："w-dwFIYBT6_n8WeuQToW"，，，，
-              "name" ："trigger 1"，，，，
-              "severity" ："1"，，，，
+              "id" ："w-dwFIYBT6_n8WeuQToW"，
+              "name" ："trigger 1"，
+              "severity" ："1"，
               "types" ：[[
                 "windows"
               ]，，
@@ -545,21 +545,21 @@ post/_plugins/_security_analytics/detectors/_search
               ]，，
               "actions" ：[[
                 {
-                  "id" ：""，，，，
-                  "name" ："Triggered alert condition:  - Severity: 1 (Highest) - Threat detector: DetectorTest1"，，，，
-                  "destination_id" ：""，，，，
+                  "id" ：""，
+                  "name" ："Triggered alert condition:  - Severity: 1 (Highest) - Threat detector: DetectorTest1"，
+                  "destination_id" ：""，
                   "message_template" ：{
                     "source" ："""Triggered alert condition: 
 Severity: 1 (Highest)
 Threat detector: DetectorTest1
 Description: Test and delete
 Detector data sources:
-  windows1"""，，，，
+  windows1"""，
                     "lang" ："mustache"
                   }，，
                   "throttle_enabled" ： 错误的，
                   "subject_template" ：{
-                    "source" ："Triggered alert condition:  - Severity: 1 (Highest) - Threat detector: DetectorTest1"，，，，
+                    "source" ："Triggered alert condition:  - Severity: 1 (Highest) - Threat detector: DetectorTest1"，
                     "lang" ："mustache"
                   }，，
                   "throttle" ：{
@@ -577,11 +577,11 @@ Detector data sources:
           "bucket_monitor_id_rule_id" ：{
             "-1" ："xOdwFIYBT6_n8WeuQToa"
           }，，
-          "rule_topic_index" ：".opensearch-sap-windows-detectors-queries"，，，，
-          "alert_index" ：".opensearch-sap-windows-alerts"，，，，
-          "alert_history_index" ：".opensearch-sap-windows-alerts-history"，，，，
-          "alert_history_index_pattern" ："<.opensearch-sap-windows-alerts-history-{now/d}-1>"，，，，
-          "findings_index" ：".opensearch-sap-windows-findings"，，，，
+          "rule_topic_index" ：".opensearch-sap-windows-detectors-queries"，
+          "alert_index" ：".opensearch-sap-windows-alerts"，
+          "alert_history_index" ：".opensearch-sap-windows-alerts-history"，
+          "alert_history_index_pattern" ："<.opensearch-sap-windows-alerts-history-{now/d}-1>"，
+          "findings_index" ：".opensearch-sap-windows-findings"，
           "findings_index_pattern" ："<.opensearch-sap-windows-findings-{now/d}-1>"
         }
       }

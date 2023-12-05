@@ -14,7 +14,7 @@ nav_order: 45
 
 首先选择**安全分析** 在OpenSearch仪表板主菜单中。然后选择**相关性** 从屏幕左侧的“安全分析”菜单中。这**相关性** 显示页面，如下图所示。
 
-<img src ="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-graph.png" alt ="The correlation graph" 宽度="85%">
+<img src ="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-graph.png" alt ="The correlation graph" width="85%">
 
 ---
 ## 解释图
@@ -34,11 +34,11 @@ nav_order: 45
 
 您可以专注于图的特定区域，以通过选择图表上的发现来查看与特定发现相关的相关性。然后，该图仅显示所选发现以及与之相关的发现的星座，如下图所示。
 
-<img src ="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-drill-dn.png" alt ="Zooming in on a specific finding on the graph" 宽度="40%">
+<img src ="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-drill-dn.png" alt ="Zooming in on a specific finding on the graph" width="40%">
 
 缩小图表的焦点后，每个发现的信息卡出现在右侧-屏幕的手侧。选定的发现出现在卡的顶部，相关发现在其下方列出，按照相关性的相关性顺序以相关评分为代表，如下图所示。
 
-<img src ="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-cards.png" alt ="Zooming in on a specific finding on the graph" 宽度="30%">
+<img src ="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-cards.png" alt ="Zooming in on a specific finding on the graph" width="30%">
 
 您可以选择图表上的相关发现之一，以改变相关关系的观点。这将新选择的发现发送到信息卡的顶部，并将其他发现作为相对相关性显示。
 

@@ -15,14 +15,14 @@ redirect_from:
 
 ## 基本权限
 
-安全插件具有三个构建-在涵盖大多数警报用例的角色中：`alerting_read_access`，，，，`alerting_ack_alerts`， 和`alerting_full_access`。对于每个描述，请参阅[预定义的角色]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles)。
+安全插件具有三个构建-在涵盖大多数警报用例的角色中：`alerting_read_access`，`alerting_ack_alerts`， 和`alerting_full_access`。对于每个描述，请参阅[预定义的角色]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles)。
 
 如果这些角色无法满足您的需求，请混合并匹配个人警报[权限]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) 适合您的用例。每个动作对应于REST API中的操作。例如，`cluster:admin/opensearch/alerting/destination/delete` 许可使您可以删除目的地。
 
 
 ## 监视数据如何访问数据
 
-监视器运行的是创建或最后修改的用户的权限。例如，考虑用户`jdoe`，在零售商店连锁店工作。`jdoe` 有两个角色。这两个角色一起允许阅读三个索引：`store1-returns`，，，，`store2-returns`， 和`store3-returns`。
+监视器运行的是创建或最后修改的用户的权限。例如，考虑用户`jdoe`，在零售商店连锁店工作。`jdoe` 有两个角色。这两个角色一起允许阅读三个索引：`store1-returns`，`store2-returns`， 和`store3-returns`。
 
 `jdoe` 每当三个索引的收益次数超过每小时40时，就可以创建一个监视器，该显示器将电子邮件发送给管理层。
 
@@ -63,7 +63,7 @@ PUT _cluster/settings
 }
 ```
 
-现在，当用户查看OpenSearch仪表板中的警报（或进行REST API调用）中时，他们只会看到由共享 *至少一个 *后端角色的用户创建的显示器和目的地。例如，考虑三个都可以完全访问警报的用户：`jdoe`，，，，`jroe`， 和`psantos`。
+现在，当用户查看OpenSearch仪表板中的警报（或进行REST API调用）中时，他们只会看到由共享 *至少一个 *后端角色的用户创建的显示器和目的地。例如，考虑三个都可以完全访问警报的用户：`jdoe`，`jroe`， 和`psantos`。
 
 `jdoe` 和`jroe` 在同一团队中工作，都有`analyst` 后端角色。`psantos` 有`human-resources` 后端角色。
 
@@ -98,7 +98,7 @@ PUT _cluster/settings
 在创建监视器方案中，请遵循以下准则指定角色：
 
 用户类型| 角色是由用户指定的（Y/N）| 如何使用RBAC角色
-：--- | ：--- | ：---
+:--- | :--- | :---
 管理用户| 是的| 使用所有指定的后端角色与监视器关联。
 常规用户| 是的| 使用用户有权与监视器关联的后端角色列表中的所有指定的后端角色。
 常规用户| 不| 复制用户的后端角色，并将其关联到显示器。
@@ -106,14 +106,14 @@ PUT _cluster/settings
 在更新监视器方案中，请遵循以下指南以指定角色：
 
 用户类型| 角色是由用户指定的（Y/N）| 如何使用RBAC角色
-：--- | ：--- | ：---
+:--- | :--- | :---
 管理用户| 是的| 删除与监视器关联的所有后端角色，然后使用与监视器关联的所有指定的后端角色。
 常规用户| 是的| 删除用户可以访问但未指定的监视器关联的后端角色。然后从用户有权使用的后端角色列表中添加所有其他指定的后端角色。
 常规用户| 不| 不要更新监视器上的后端角色。
 
 - 对于管理员用户，一个空列表被认为与删除用户拥有的所有权限相同。如果是非-管理员用户通过一个空列表中的传递，这会引发异常，因为非-管理用户。
 - 如果用户试图关联他们没有权限使用的角色，则会引发例外。
-{： 。笔记 }
+{: .note }
 
 要创建RBAC角色，请按照安全插件API文档中的说明进行操作[创建角色]({{site.url}}{{site.baseurl}}/security/access-control/api#create-role)。
 ### 创建带有RBAC角色的监视器

@@ -12,7 +12,7 @@ parent: 神经搜索
 
 **先决条件**<br>
 在使用文本搜索之前，必须设置文本嵌入模型。有关更多信息，请参阅[在OpenSearch中使用ML模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) 和[连接到远程型号]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index/)。
-{： 。笔记}
+{: .note}
 
 ## 使用文本搜索
 
@@ -45,7 +45,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
   ]
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ## 步骤2：创建摄入索引
 
@@ -82,7 +82,7 @@ PUT /my-nlp-index
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 有关创建K的更多信息-NN索引及其支持的方法，请参阅[k-NN索引]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/)。
 
@@ -97,7 +97,7 @@ PUT /my-nlp-index/_doc/1
   "id": "s1"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ```json
 PUT /my-nlp-index/_doc/2
@@ -106,7 +106,7 @@ PUT /my-nlp-index/_doc/2
   "id": "s2"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 在将文档摄入索引之前，摄入管道运行`text_embedding` 文档上的处理器，生成文本嵌入`passage_text` 场地。索引文档包括`passage_text` 字段，其中包含原始文本，`passage_embedding` 字段，其中包含向量嵌入。
 
@@ -163,7 +163,7 @@ GET /my-nlp-index/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 响应包含匹配文档：
 
@@ -202,7 +202,7 @@ GET /my-nlp-index/_search
 
 A[`neural`]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/) 查询需要一个用于生成向量嵌入的模型ID。为了消除每个神经查询请求的传递模型ID，您可以在k上设置默认模型-NN索引或字段。
 
-首先，创建一个[搜索管道]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) 与[`neural_query_enricher`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-query-enricher/) 请求处理器。要为索引设置默认模型，请在`default_model_id` 范围。要为特定字段设置默认模型，请在“`neural_field_default_id` 地图。如果您提供两者`default_model_id` 和`neural_field_default_id`，，，，`neural_field_default_id` 优先：
+首先，创建一个[搜索管道]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) 与[`neural_query_enricher`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-query-enricher/) 请求处理器。要为索引设置默认模型，请在`default_model_id` 范围。要为特定字段设置默认模型，请在“`neural_field_default_id` 地图。如果您提供两者`default_model_id` 和`neural_field_default_id`，`neural_field_default_id` 优先：
 
 ```json
 PUT /_search/pipeline/default_model_pipeline 
@@ -220,7 +220,7 @@ PUT /_search/pipeline/default_model_pipeline
   ]
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 然后为您的索引设置默认模型：
 
@@ -230,7 +230,7 @@ PUT /my-nlp-index/_settings
   "index.search.default_pipeline" : "default_model_pipeline"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 现在，您可以在搜索时省略模型ID：
 
@@ -252,7 +252,7 @@ GET /my-nlp-index/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 响应包含两个文档：
 

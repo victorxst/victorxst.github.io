@@ -11,10 +11,10 @@ has_math: true
 
 标准k-NN搜索方法使用蛮族计算相似性-力量方法可以测量查询与许多点之间的最接近距离，从而产生确切的结果。这在许多应用程序中都很好。但是，在具有高维度的极大数据集的情况下，这会产生一个缩放问题，从而降低了搜索效率。近似k-NN搜索方法可以通过采用更有效地重组索引并降低可搜索向量的维度来克服这一问题。使用这种方法需要精确牺牲，但可以显着提高搜索处理速度。
 
-大约k-openSearch利用的nn搜索方法使用近似最近的邻居（ANN）算法[nmslib](https://github.com/nmslib/nmslib)，，，，[faiss](https://github.com/facebookresearch/faiss)， 和[露西恩](https://lucene.apache.org/) 电力库的图书馆-nn搜索。这些搜索方法采用ANN来改善大型数据集的搜索延迟。在三种搜索方法中-NN插件提供，此方法为大型数据集提供了最佳的搜索可扩展性。当数据集达到数十万个向量时，这种方法是首选方法。
+大约k-openSearch利用的nn搜索方法使用近似最近的邻居（ANN）算法[nmslib](https://github.com/nmslib/nmslib)，[faiss](https://github.com/facebookresearch/faiss)， 和[露西恩](https://lucene.apache.org/) 电力库的图书馆-nn搜索。这些搜索方法采用ANN来改善大型数据集的搜索延迟。在三种搜索方法中-NN插件提供，此方法为大型数据集提供了最佳的搜索可扩展性。当数据集达到数十万个向量时，这种方法是首选方法。
 
 有关插件当前支持的算法的详细信息，请参见[k-NN索引文档]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions)。
-{： 。笔记}
+{: .note}
 
 k-NN插件为每个KNN构建向量的本地库索引-索引期间矢量场/卢克内段对，可用于有效找到K-搜索过程中最近的邻居与查询矢量。要了解有关Lucene细分市场的更多信息，请参阅[Apache Lucene文档](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/codecs/lucene87/package-summary.html#package.description)。这些本机库索引在搜索过程中加载到本机内存中，并由缓存管理。要了解有关将本地库索引预加载到内存中的更多信息，请参阅[热身API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#warmup-operation)。此外，您还可以查看已在内存中加载了哪些本机库索引。要了解有关此的更多信息，请参阅[Stats API部分]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#stats)。
 
@@ -84,7 +84,7 @@ PUT my-knn-index-1
 这`knn_vector` 数据类型支持由尺寸映射参数设置的nmslib和Faiss引擎的浮子的向量，该浮点数最高为16,000。Lucene库的最大尺寸计数为1,024。
 
 在OpenSearch中，编解码器处理索引的存储和检索。k-NN插件使用自定义编解码器将矢量数据写入本机库索引，以便基础k-NN搜索库可以阅读。
-{： 。提示 }
+{: .tip }
 
 创建索引后，您可以向其添加一些数据：
 
@@ -249,7 +249,7 @@ POST _bulk
 
 一个空间对应于用于测量两个点之间距离以确定K的函数-最近的邻居。来自k-nn透视图，较低的分数等同于更接近，更好的结果。这与OpenSearch分数结果的相反，其中更高的分数等于更好的结果。要将距离转换为OpenSearch分数，我们采用1 /（1 +距离）。k-nn插件插件支撑的空间下方。并非每种方法都支持这些空间。一定要结帐[方法文档]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions) 为了确保您感兴趣的空间得到支持。
 
-<表>
+<table>
   <thead样式="text-align: center">
   <tr>
     <th> spaceType </th>
@@ -280,7 +280,7 @@ POST _bulk
     <td> <b> nmslib </b> and <b> faiss：</b> \ [score = {1 \ over 1 + d} \] <br> <b> <b> lucene：</b> \ [得分= {2- d \ over 2} \] </td>
   </tr>
   <tr>
-    <TD> Interproduct（不支持Lucene）</td>
+    <td> Interproduct（不支持Lucene）</td>
     <td> \ [D（\ Mathbf {X}，\ Mathbf {y}）=- {\ Mathbf {x}＆middot;\ Mathbf {y}} =- \ sum_ {i = 1}^n x_i y_i \] </td>
     <td> \ [\ text {if} d \ ge 0，\] \ [score = {1 \ over 1 + d} \] \ [\ text {if text {if} d <0，score =＆minus; d + 1 \] </td>
   </tr>
@@ -289,5 +289,5 @@ POST _bulk
 余弦的相似性公式不包括`1 -` 字首。但是，因为相似性搜索库等于
 得分较小，结果更接近，他们返回`1 - cosineSimilarity` 余弦相似空间---这就是为什么`1 -` 是
 包括在距离函数中。
-{： 。笔记 }
+{: .note }
 

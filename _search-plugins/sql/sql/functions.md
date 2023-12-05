@@ -54,7 +54,7 @@ WHERE address = MATCH_QUERY('Holmes')
 结果包含地址包含的文档"Holmes"：
 
 | 帐号| 地址
-：--- | ：---
+:--- | :---
 1| 880 Holmes Lane
 
 ## 多-匹配
@@ -144,7 +144,7 @@ WHERE query('address:Lane OR address:Street')
 结果包含包含的地址"Lane" 或者"Street"：
 
 | 帐号| 地址
-：--- | ：---
+:--- | :---
 1| 880 Holmes Lane
 6| 布里斯托尔街671号
 13| 麦迪逊街789号
@@ -167,7 +167,7 @@ matchphrasequery(query_expression, field_expression[, option=<option_value>]*)
 
 ## 得分查询
 
-要返回相关得分以及每个匹配文档，请使用`SCORE`，，，，`SCOREQUERY`， 或者`SCORE_QUERY` 功能。
+要返回相关得分以及每个匹配文档，请使用`SCORE`，`SCOREQUERY`， 或者`SCORE_QUERY` 功能。
 
 ### 句法
 
@@ -194,7 +194,7 @@ ORDER BY _score
 结果包含与相应分数的匹配：
 
 | 帐号| 地址| 分数
-：--- | ：--- | ：---
+:--- | :--- | :---
 1| 880 Holmes Lane| 0.5
 6| 布里斯托尔街671号| 100
 13| 麦迪逊街789号| 100
@@ -223,6 +223,6 @@ WHERE wildcard_query(address, '*Holmes*');
 结果包含与通配符表达式相匹配的文档：
 
 | 帐号| 地址
-：--- | ：---
+:--- | :---
 1| 880 Holmes Lane
 

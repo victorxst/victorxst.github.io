@@ -56,7 +56,7 @@ PUT _plugins/_security/api/roles/public_data
 ```
 
 这些查询可能会随意进行复杂，但我们建议保持它们简单，以最大程度地减少文档的性能影响-级别安全功能在集群上。
-{： 。警告 }
+{: .warning }
 
 ### 关于文本字段中Unicode特殊字符的注释
 
@@ -120,11 +120,11 @@ PUT _plugins/_security/api/roles/user_data
 该表列出了替换。
 
 学期| 取代
-：--- | ：---
+:--- | :---
 `${user.name}` | 用户名。
 `${user.roles}` | 逗号-分开，引用用户后端角色列表。
 `${user.securityRoles}` | 逗号-分开，引用用户安全角色列表。
-`${attr.<TYPE>.<NAME>}` | 名称的属性`<NAME>` 为用户定义。`<TYPE>` 是`internal`，，，，`jwt`，，，，`proxy` 或者`ldap`
+`${attr.<TYPE>.<NAME>}` | 名称的属性`<NAME>` 为用户定义。`<TYPE>` 是`internal`，`jwt`，`proxy` 或者`ldap`
 
 
 ## 属性-基于安全性
@@ -181,8 +181,8 @@ plugins.security.dls.mode: filter-level
 #### DLS评估模式
 
 | 评估模式| 范围| 描述| 用法|
-：--- | ：--- | ：--- | ：--- |
+:--- | :--- | :--- | :--- |
 露西恩-DLS级| `lucene-level` | 此设置使所有DLS查询都适用于Lucene级别。| 露西恩-级别DLS直接修改Lucene查询和数据结构。这是最有效的模式，但不允许在包括TLQ在内的DLS查询中某些高级构造。
-筛选-DLS级| `filter-level` | 此设置使所有DLS查询都应用于过滤器级别。| 在此模式下，OpenSearch通过修改OpenSearch收到的查询来应用DLS。这允许术语-DLS查询中的Level查找查询，但您只能使用`get`，，，，`search`，，，，`mget`， 和`msearch` 从保护索引中检索数据的操作。另外，交叉-群集搜索在此模式下受到限制。
+筛选-DLS级| `filter-level` | 此设置使所有DLS查询都应用于过滤器级别。| 在此模式下，OpenSearch通过修改OpenSearch收到的查询来应用DLS。这允许术语-DLS查询中的Level查找查询，但您只能使用`get`，`search`，`mget`， 和`msearch` 从保护索引中检索数据的操作。另外，交叉-群集搜索在此模式下受到限制。
 自适应| `adaptive-level` | 允许OpenSearch自动选择模式的默认设置。| Lucene执行了没有TLQ的DLS查询-级别模式，而在过滤器中执行包含TLQ的DLS查询- 级别模式。
 

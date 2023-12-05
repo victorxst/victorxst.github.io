@@ -72,7 +72,7 @@ authentication:
 
 ### 同行前锋
 
-可以配置对等转发器以启用跨多个数据预先节点的状态聚合。有关配置对等转发器的更多信息，请参见[同行前锋]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/peer-forwarder/)。它得到了`service_map_stateful`，，，，`otel_traces_raw`， 和`aggregate` 处理器。
+可以配置对等转发器以启用跨多个数据预先节点的状态聚合。有关配置对等转发器的更多信息，请参见[同行前锋]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/peer-forwarder/)。它得到了`service_map_stateful`，`otel_traces_raw`， 和`aggregate` 处理器。
 
 ### 关闭超时
 

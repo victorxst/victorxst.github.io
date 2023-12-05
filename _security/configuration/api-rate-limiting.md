@@ -28,12 +28,12 @@ auth_failure_listeners:
         max_blocked_clients: 100000
         max_tracked_clients: 100000
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 下表描述了此类配置的各个设置。
 
 | 环境| 描述|
-| ：--- | ：--- |
+| :--- | :--- |
 | `type` | 利率限制的类型。在这种情况下，`username`。|
 | `authentication_backend` | 内部后端。进入`internal`。|
 | `allowed_tries` | 在阻止登录尝试之前允许的登录尝试数。请注意，增加数量会增加用法。|
@@ -69,12 +69,12 @@ auth_failure_listeners:
         max_blocked_clients: 100000
         max_tracked_clients: 100000
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 下表描述了此类配置的各个设置。
 
 | 环境| 描述|
-| ：--- | ：--- |
+| :--- | :--- |
 | `type` | 利率限制的类型。在这种情况下，`ip`。|
 | `allowed_tries` | 在阻止登录尝试之前允许的登录尝试数。请注意，增加数量会增加用法。|
 | `time_window_seconds` | 时间窗口的价值`allowed_tries` 被执行。例如，如果`allowed_tries` 是`3` 和`time_window_seconds` 是`60`，IP地址有3次尝试在60中成功登录-登录尝试之前的第二个时间跨度被阻止。|

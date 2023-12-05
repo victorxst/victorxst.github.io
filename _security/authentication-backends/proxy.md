@@ -39,7 +39,7 @@ _meta：
 您可以配置以下设置：
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `enabled` | 启用或禁用代理支持。默认值为false。
 `internalProxies` | 包含所有受信任代理的IP地址的正则表达式。图案`.*` 信任所有内部代理。
 `remoteIpHeader` | 具有主机名链的HTTP标头字段的名称。默认为`x-forwarded-for`。
@@ -67,7 +67,7 @@ proxy_auth_domain：
 ```
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `user_header` | HTTP标头字段包含已认证的用户名。默认为`x-proxy-user`。
 `roles_header` | 包含逗号的HTTP标头字段-分离的身份验证的角色名称列表。该安全插件将在此标头字段中找到的角色作为后端角色。默认为`x-proxy-roles`。
 `roles_separator` | 角色分离器。默认为`,`。
@@ -94,7 +94,7 @@ proxy_auth_domain：
 ```
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `attr_header_prefix` | 代理用来提供用户属性的标头前缀。例如，如果代理提供`x-proxy-ext-namespace: my-namespace`， 使用`${attr.proxy.namespace}` 在文档中-级别的安全查询。
 
 
@@ -197,7 +197,7 @@ _meta：
 要将身份验证代理从OpenSearch仪表板添加到安全插件的用户和角色标头，请将其添加到HTTP标头中`opensearch_dashboards.yml`：
 
 ```yml
-opensearch.requestheadersallowlist：["securitytenant"，，，，"Authorization"，，，，"x-forwarded-for"，，，，"x-proxy-user"，，，，"x-proxy-roles"这是给出的
+opensearch.requestheadersallowlist：["securitytenant"，"Authorization"，"x-forwarded-for"，"x-proxy-user"，"x-proxy-roles"这是给出的
 ```
 
 您还必须启用身份验证类型`opensearch_dashboards.yml`：

@@ -17,7 +17,7 @@ redirect_from:
 
 ## 开始复制
 引入了1.1
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 启动从领导者群集到追随者群集的索引复制。将此请求发送到追随者集群。
 
@@ -39,7 +39,7 @@ PUT /_plugins/_replication/<follower-index>/_start
 指定以下选项：
 
 选项| 描述| 类型| 必需的
-：--- | ：--- |：--- |：--- |
+:--- | :--- |:--- |:--- |
 `leader_alias` |  十字架的名字-集群连接。您定义这个别名[建立十字架-集群连接]({{site.url}}{{site.baseurl}}/replication-plugin/get-started/#set-up-a-cross-cluster-connection)。| `string` | 是的
 `leader_index` |  您要复制的领导者集群的索引。| `string` | 是的
 `use_roles` |  索引之间的所有后续后端复制任务要使用的角色。指定`leader_cluster_role` 和`follower_cluster_role`。看[映射领导者和追随者集群角色]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles)。| `string` | 如果启用了安全插件
@@ -54,7 +54,7 @@ PUT /_plugins/_replication/<follower-index>/_start
 
 ## 停止复制
 引入了1.1
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 终止复制并将追随者索引转换为标准索引。将此请求发送到追随者集群。
 
@@ -75,7 +75,7 @@ POST /_plugins/_replication/<follower-index>/_stop
 
 ## 暂停复制
 引入了1.1
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 暂停领导索引的复制。将此请求发送到追随者集群。
 
@@ -98,7 +98,7 @@ POST /_plugins/_replication/<follower-index>/_pause
 
 ## 恢复复制
 引入了1.1
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 恢复领导索引的复制。将此请求发送到追随者集群。
 
@@ -119,9 +119,9 @@ POST /_plugins/_replication/<follower-index>/_resume
 
 ## 获取复制状态
 引入了1.1
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
-获取索引复制的状态。可能的状态是`SYNCING`，，，，`BOOTSTRAPING`，，，，`PAUSED`， 和`REPLICATION NOT IN PROGRESS`。使用同步详细信息来测量复制滞后。将此请求发送到追随者集群。
+获取索引复制的状态。可能的状态是`SYNCING`，`BOOTSTRAPING`，`PAUSED`， 和`REPLICATION NOT IN PROGRESS`。使用同步详细信息来测量复制滞后。将此请求发送到追随者集群。
 
 #### 要求
 
@@ -151,7 +151,7 @@ GET /_plugins/_replication/<follower-index>/_status
 
 ## 获取领导者群集统计
 引入了1.1
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 获取有关指定群集上复制领导者索引的信息。
 
@@ -198,7 +198,7 @@ GET /_plugins/_replication/leader_stats
 
 ## 获取追随者群集统计
 引入了1.1
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 获取有关指定群集上的追随者（同步）索引的信息。
 
@@ -256,7 +256,7 @@ GET /_plugins/_replication/follower_stats
 
 ## 获取自动-遵循统计数据
 引入了1.1
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 获取有关汽车的信息-关注活动和在指定集群上配置的任何复制规则。
 
@@ -293,7 +293,7 @@ GET /_plugins/_replication/autofollow_stats
 
 ## 更新设置
 引入了1.1
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 更新追随者索引上的设置。
 
@@ -319,14 +319,14 @@ PUT /_plugins/_replication/<follower-index>/_update
 
 ## 创建复制规则
 引入了1.1
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 自动开始复制与指定模式匹配的索引。如果领导者群集上的新索引与模式匹配，则OpenSearch会自动创建关注者索引并开始复制。您也可以使用此API更新现有的复制规则。
 
 将此请求发送到追随者集群。
 
 确保注意所有自动的名称-创建它们后，请遵循模式。当前，复制插件不包括API操作以检索现有模式列表。
-{： 。提示 }
+{: .tip }
 
 #### 要求
 
@@ -346,7 +346,7 @@ POST /_plugins/_replication/_autofollow
 指定以下选项：
 
 选项| 描述| 类型| 必需的
-：--- | ：--- |：--- |：--- |
+:--- | :--- |:--- |:--- |
 `leader_alias` |  十字架的名字-集群连接。您定义这个别名[建立十字架-集群连接]({{site.url}}{{site.baseurl}}/replication-plugin/get-started/#set-up-a-cross-cluster-connection)。| `string` | 是的
 `name` |  汽车的名字-遵循模式。| `string` | 是的
 `pattern` |  在指定的领导者群集中与索引相匹配的一系列索引模式。支持通配符角色。例如，`leader-*`。| `string` | 是的
@@ -362,7 +362,7 @@ POST /_plugins/_replication/_autofollow
 
 ## 删除复制规则
 引入了1.1
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 删除指定的复制规则。此操作防止任何新索引被复制，但不会停止该规则已经启动的现有复制。复制的索引仍然阅读-直到您停止复制为止。
 
@@ -381,7 +381,7 @@ DELETE /_plugins/_replication/_autofollow
 指定以下选项：
 
 选项| 描述| 类型| 必需的
-：--- | ：--- |：--- |：--- |
+:--- | :--- |:--- |:--- |
 `leader_alias` |  十字架的名字-集群连接。您定义这个别名[建立十字架-集群连接]({{site.url}}{{site.baseurl}}/replication-plugin/get-started/#set-up-a-cross-cluster-connection)。| `string` | 是的
 `name` |  图案的名称。| `string` | 是的
 

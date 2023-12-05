@@ -114,7 +114,7 @@ GET shakespeare/_search
 亮点功能可在实际字段内容上起作用。OpenSearch从存储的字段中检索这些内容（将映射设置为`true`）或来自`_source` 字段如果未存储字段。您可以从`_source` 通过设置字段`force_source` 参数为`true`。
 
 这`highlight` 参数即使使用同义词或用于搜索本身的同义词时，也会突出显示原始术语。
-{： 。笔记}
+{: .note}
 
 ## 获取偏移的方法
 
@@ -128,12 +128,12 @@ GET shakespeare/_search
 
 ## 荧光笔类型
 
-OpenSearch支持三个荧光笔实现：`plain`，，，，`unified`， 和`fvh` （快速矢量荧光笔）。
+OpenSearch支持三个荧光笔实现：`plain`，`unified`， 和`fvh` （快速矢量荧光笔）。
 
 下表列出了为每个荧光笔获得偏移的方法。
 
 荧光笔| 获取偏移的方法
-：--- | ：---
+:--- | :---
 [`unified`](#the-unified-highlighter) | 术语向量如果`term_vector` 被设定为`with_positions_offsets`，<br>发布`index_options` 被设定为`offsets`，<br>文本重新分析否则。
 [`fvh`](#the-fvh-highlighter) | 术语向量。
 [`plain`](#the-plain-highlighter) | 文本重新分析。
@@ -175,14 +175,14 @@ GET shakespeare/_search
 下表描述了您可以在全局或字段级别指定的突出显示选项。场地-级别设置覆盖全局设置。
 
 选项| 描述
-：--- | ：---
-类型| 指定使用的荧光笔。有效值是`unified`，，，，`fvh`， 和`plain`。默认为`unified`。
+:--- | :---
+类型| 指定使用的荧光笔。有效值是`unified`，`fvh`， 和`plain`。默认为`unified`。
 字段| 指定要搜索要突出显示的文本的字段。支持通配符表达式。如果您使用通配符，只有`text` 和`keyword` 田野被突出显示。例如，您可以设置`fields` 到`my_field*` 包括全部`text` 和`keyword` 以前缀开头的字段`my_field`。
 force_source| 指定应从`_source` 字段而不是来自存储的字段值。默认为`false`。
 require_field_match| 指定是否仅突出显示包含搜索查询匹配的字段。默认为`true`。要突出显示所有字段，请将此选项设置为`false`。
 pre_tag| 指定突出显示文本的HTML启动标签作为字符串数组。
 post_tags| 指定突出显示的文本的HTML终端标签作为字符串数组。
-tags_schema| 如果将此选项设置为`styled`，OpenSearch使用已建立的-在标签模式中。在这个模式中，`pre_tags` 是`<em class="hlt1">`，，，，`<em class="hlt2">`，，，，`<em class="hlt3">`，，，，`<em class="hlt4">`，，，，`<em class="hlt5">`，，，，`<em class="hlt6">`，，，，`<em class="hlt7">`，，，，`<em class="hlt8">`，，，，`<em class="hlt9">`， 和`<em class="hlt10">`和`post_tags` 是`</em>`。
+tags_schema| 如果将此选项设置为`styled`，OpenSearch使用已建立的-在标签模式中。在这个模式中，`pre_tags` 是`<em class="hlt1">`，`<em class="hlt2">`，`<em class="hlt3">`，`<em class="hlt4">`，`<em class="hlt5">`，`<em class="hlt6">`，`<em class="hlt7">`，`<em class="hlt8">`，`<em class="hlt9">`， 和`<em class="hlt10">`和`post_tags` 是`</em>`。
 boundary_chars| 所有边界字符组合在字符串中。<br>默认值为`".,!? \t\n"`。
 boundare_scanner| 仅适用于`unified` 和`fvh` 荧光笔。指定是否将突出显示的片段分为句子，单词或字符。有效值如下：<br>- `sentence`：在句子边界处拆分突出显示的片段，如[断路器](https://docs.oracle.com/javase/8/docs/api/java/text/BreakIterator.html)。您可以在`boundary_scanner_locale` 选项。<br>- `word`：拆分突出显示在单词边界处的片段，如[断路器](https://docs.oracle.com/javase/8/docs/api/java/text/BreakIterator.html)。您可以在`boundary_scanner_locale` 选项。<br>- `chars`：拆分突出显示的片段在列出的任何字符中`boundary_chars`。仅适用于`fvh` 荧光笔。
 boundard_scanner_locale| 提供[语言环境](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html) 为了`boundary_scanner`。有效值是语言标签（例如，`"en-US"`）。默认为[locale.root](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html#ROOT)。
@@ -200,7 +200,7 @@ phrase_limit| 所考虑的文档中匹配短语的数量。限制通过`fvh` 荧
 max_analyzer_offset| 指定要通过突出显示请求分析的最大字符数。其余文本将不会处理。如果要突出显示的文本超过此偏移量，则返回一个空的亮点。要为突出显示请求分析的最大字符数量由`index.highlight.max_analyzed_offset`。达到此限制后，返回错误。设置`max_analyzer_offset` 比值低于`index.highlight.max_analyzed_offset` 避免错误。
 
 统一的荧光笔的句子扫描仪将句子分割大于`fragment_size` 在第一个单词边界之后`fragment_size` 到达了。要返回整个句子而不分裂，请设置`fragment_size` 到0。
-{： 。笔记}
+{: .note}
 
 ## 更改突出显示标签
 

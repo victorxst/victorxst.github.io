@@ -9,7 +9,7 @@ has_children: false
 
 # 每个文档监视器
 引入2.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 每个文档监视器是一种警报监视器，可用于识别和警报OpenSearch索引中的特定文档。例如，您可以使用监视器来：
 
@@ -38,7 +38,7 @@ has_children: false
 The Alerting plugin creates a list of _Findings_ that contain metadata about which document matches each query. A _Finding_ is a record of a document identified by the per document monitor query as meeting the alert condition. Key components of a finding include the document ID, timestamp, alert condition details. Findings are stored in the Findings index, `.opensearch-警报-寻找*`。
 
 安全分析可以使用调查结果数据来跟踪和分析与警报过程分开的查询数据。看[与调查结果一起工作]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/) 了解更多。
-{： 。笔记}
+{: .note}
 
 警报API还提供了一个_个图表-Level Monitor_可以编程地完成与OpenSearch仪表板中的_per文档Monitor_相同的功能。看[文档-电平监视器]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#document-level-monitors) 了解更多。
 

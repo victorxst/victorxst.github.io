@@ -23,7 +23,7 @@ ODBC驱动程序与ODBC版本3.51兼容。
 支持以下操作系统：
 
 操作系统| 版本
-：--- | ：---
+:--- | :---
 视窗| Windows 10，Windows 11
 苹果系统| Catalina 10.15.4，Mojave 10.14.6，Big Sur 11.6.7，蒙特雷12.4
 
@@ -31,7 +31,7 @@ ODBC驱动程序与ODBC版本3.51兼容。
 ## 概念
 
 学期| 定义
-：--- | ：---
+:--- | :---
 **DSN** | DSN（数据源名称）用于将驱动程序信息存储在系统中。通过将信息存储在系统中，无需每次驱动程序连接时指定信息。
 **.tdc** 文件| TDC文件包含Tableau适用于与数据库供应商名称和驱动程序名称相匹配的任何连接的配置信息。这种配置使您可以罚款-调整ODBC数据连接的部分并打开/关闭数据源不支持的某些功能。
 
@@ -135,13 +135,13 @@ ODBC驱动程序使用ODBC连接字符串。
 您可以使用DSN或连接字符串配置以下驱动程序选项：
 
 所有选项名称都是案例-不敏感。
-{： 。笔记 }
+{: .note }
 
 
 #### 基本选项
 
 选项| 描述| 类型| 默认
-：--- | ：---
+:--- | :---
 `DSN` | 您用于配置连接的数据源名称。| `string` | -
 `Host / Server` | 目标群集的主机名或IP地址。| `string` | -
 `Port` | OpenSearch集群的REST接口正在侦听的端口号。| `string` | -
@@ -149,7 +149,7 @@ ODBC驱动程序使用ODBC连接字符串。
 #### 身份验证选项
 
 选项| 描述| 类型| 默认
-：--- | ：---
+:--- | :---
 `Auth` | 使用的身份验证机制。| `BASIC` （基本HTTP），`AWS_SIGV4` （AWS Auth），或`NONE` | `NONE`
 `User / UID` | [`Auth=BASIC`]连接的用户名。| `string` | -
 `Password / PWD` | [`Auth=BASIC`]连接的密码。| `string` | -
@@ -158,7 +158,7 @@ ODBC驱动程序使用ODBC连接字符串。
 #### 高级选项
 
 选项| 描述| 类型| 默认
-：--- | ：---
+:--- | :---
 `UseSSL` | 是否在SSL/TLS上建立连接。| `boolean (0 or 1)` | `false (0)`
 `HostnameVerification` | 指示是否应针对SSL/TLS连接执行证书主机名验证。| `boolean` （0或1）| `true (1)`
 `ResponseTimeout` | 在几秒钟内等待主机的响应的最大时间。| `integer` | `10`
@@ -166,12 +166,12 @@ ODBC驱动程序使用ODBC连接字符串。
 #### 记录选项
 
 选项| 描述| 类型| 默认
-：--- | ：---
-`LogLevel` | 驱动程序日志的严重性水平。| `LOG_OFF`，，，，`LOG_FATAL`，，，，`LOG_ERROR`，，，，`LOG_INFO`，，，，`LOG_DEBUG`，，，，`LOG_TRACE`， 或者`LOG_ALL` | `LOG_WARNING`
-`LogOutput` | 存储驱动程序日志的位置。| `string` | `WIN: C:\`，，，，`MAC: /tmp`
+:--- | :---
+`LogLevel` | 驱动程序日志的严重性水平。| `LOG_OFF`，`LOG_FATAL`，`LOG_ERROR`，`LOG_INFO`，`LOG_DEBUG`，`LOG_TRACE`， 或者`LOG_ALL` | `LOG_WARNING`
+`LogOutput` | 存储驱动程序日志的位置。| `string` | `WIN: C:\`，`MAC: /tmp`
 
 您需要管理特权来更改记录选项。
-{： 。笔记 }
+{: .note }
 
 ## 连接到Tableau
 

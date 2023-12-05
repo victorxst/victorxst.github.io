@@ -16,7 +16,7 @@ grand_parent: 搜索管道
 下表列出了所有可用的请求字段。
 
 场地| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `query` | 目的| 查询域中的查询-特定语言（DSL）。有关OpenSearch查询类型的列表，请参见[查询DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/)。必需的。
 `tag` | 细绳| 处理器的标识符。选修的。
 `description` | 细绳| 处理器的描述。选修的。
@@ -37,7 +37,7 @@ POST /my_index/_doc/1
   "visibility":"public"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ```json
 POST /my_index/_doc/2
@@ -46,7 +46,7 @@ POST /my_index/_doc/2
   "visibility": "private"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ### 创建搜索管道
 
@@ -70,7 +70,7 @@ PUT /_search/pipeline/my_pipeline
   ]
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ### 使用搜索管道
 
@@ -79,11 +79,11 @@ PUT /_search/pipeline/my_pipeline
 ```json
 GET /my_index/_search
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 响应包含两个文档：
 
-<详细信息打开降价="block">
+<details open markdown="block">
   <summary>
     回复
   </summary>
@@ -127,18 +127,18 @@ GET /my_index/_search
   }
 }
 ```
-</delect>
+</details>
 
 要使用管道搜索，请在`search_pipeline` 查询参数：
 
 ```json
 GET /my_index/_search?search_pipeline=my_pipeline
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 响应仅包含文档`public` 能见度：
 
-<详细信息打开降价="block">
+<details open markdown="block">
   <summary>
     回复
   </summary>

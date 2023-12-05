@@ -18,14 +18,14 @@ OpenSearch GO客户端可让您将GO应用程序与OpenSearch集群中的数据�
 ```go
 go mod init <mymodulename>
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 要将GO客户端添加到您的项目中，请像其他任何模块一样导入它：
 
 ```go
 go get github.com/opensearch-project/opensearch-go
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 连接到OpenSearch
 
@@ -41,7 +41,7 @@ client, err := opensearch.NewClient(opensearch.Config{
         Password:  "admin",
     })
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 如果您不使用安全插件，请使用地址创建客户端对象`http://localhost:9200`：
 
@@ -53,7 +53,7 @@ client, err := opensearch.NewClient(opensearch.Config{
         Addresses: []string{"http://localhost:9200"},
     })
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 连接到Amazon OpenSearch服务
 
@@ -115,7 +115,7 @@ func getCredentialProvider(accessKey, secretAccessKey, token string) aws.Credent
 	}
 }
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 连接到Amazon OpenSearch无服务器
 
@@ -177,7 +177,7 @@ func getCredentialProvider(accessKey, secretAccessKey, token string) aws.Credent
 	}
 }
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 Go客户端构造函数采用`opensearch.Config{}` 类型，可以使用选项（例如OpenSearch节点地址列表或用户名和密码组合）进行自定义。
 
@@ -195,7 +195,7 @@ client, err := opensearch.NewClient(opensearch.Config{
         Addresses: urls,
 })
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 默认情况下，GO客户端重试的请求最多三次。要自定义重试的数量，请设置`MaxRetries` 范围。此外，您可以更改通过设置请求的响应代码列表`RetryOnStatus` 范围。以下代码段使用自定义创建一个新的GO客户端`MaxRetries` 和`RetryOnStatus` 值：
 
@@ -209,7 +209,7 @@ client, err := opensearch.NewClient(opensearch.Config{
         RetryOnStatus: []int{502, 503, 504},
     })
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 创建索引
 
@@ -230,7 +230,7 @@ res := opensearchapi.IndicesCreateRequest{
     Body:  settings,
 }
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 索引文档
 
@@ -251,7 +251,7 @@ req := opensearchapi.IndexRequest{
 }
 insertResponse, err := req.Do(context.Background(), client)
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 执行批量操作
 
@@ -269,7 +269,7 @@ blk, err := client.Bulk(
 `),
 	)
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 搜索文档
 
@@ -293,7 +293,7 @@ search := opensearchapi.SearchRequest{
 
 searchResponse, err := search.Do(context.Background(), client)
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 删除文档
 
@@ -307,7 +307,7 @@ delete := opensearchapi.DeleteRequest{
 
 deleteResponse, err := delete.Do(context.Background(), client)
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 删除索引
 
@@ -320,7 +320,7 @@ deleteIndex := opensearchapi.IndicesDeleteRequest{
 
 deleteIndexResponse, err := deleteIndex.Do(context.Background(), client)
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 样本程序
 

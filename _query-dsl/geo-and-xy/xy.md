@@ -19,8 +19,8 @@ redirect_from:
 当您向XY查询提供XY形状时，使用以下空间关系与所提供的形状匹配XY字段。
 
 关系| 描述| 支持XY字段类型
-：--- | ：--- | ：--- 
-`INTERSECTS` | （默认值）匹配其XY点或XY形状与查询中提供的形状相交的文档。| `xy_point`，，，，`xy_shape`
+:--- | :--- | :--- 
+`INTERSECTS` | （默认值）匹配其XY点或XY形状与查询中提供的形状相交的文档。| `xy_point`，`xy_shape`
 `DISJOINT` | 匹配XY形状的文档与查询中提供的形状并不相交。| `xy_shape`
 `WITHIN` | 匹配其XY形状完全在查询中提供的形状之内的文档。| `xy_shape`
 `CONTAINS` | 匹配的文档的XY形状完全包含查询中提供的形状。| `xy_shape`
@@ -179,7 +179,7 @@ GET testindex/_search
 构建XY查询时，您还可以引用形状的名称-在另一个索引中索引。使用此方法，您可以在索引时间定义XY形状，并通过名称参考它，在此处提供以下参数`indexed_shape` 目的。
 
 范围| 描述
-：--- | ：---
+:--- | :---
 `index` | 包含PRE的索引的名称-索引形状。
 `id` | 包含PRE的文档ID-索引形状。
 `path` | 包含PRE的字段的字段名称-索引形状作为路径。
@@ -392,7 +392,7 @@ GET testindex1/_search
 ```
 
 xy点仅支持默认值`INTERSECTS` 空间关系，因此您无需提供`relation` 范围。
-{： 。笔记}
+{: .note}
 
 下图描述了示例。点1和2在圆圈内，点3在圆形之外。
 

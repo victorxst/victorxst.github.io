@@ -31,18 +31,18 @@ redirect_from:
 #### Dynamic mapping types
 
 类型| 描述
-：--- | ：---
+:--- | :---
 无效的| A`null` 字段无法索引或搜索。当将字段设置为null时，OpenSearch的行为就像该字段没有值。
 布尔| OpenSearch接受`true` 和`false` 作为布尔值。一个空字符串等于`false.`
 漂浮| 一个-精度32-位浮点数。
 双倍的| 双重-精度64-位浮点数。
 整数| 签名的32-位号。
-目的| 对象是标准的JSON对象，可以具有自己的字段和映射。例如，`movies` 对象可以具有其他属性，例如`title`，，，，`year`， 和`director`。
+目的| 对象是标准的JSON对象，可以具有自己的字段和映射。例如，`movies` 对象可以具有其他属性，例如`title`，`year`， 和`director`。
 大批| OpenSearch中的数组只能存储一种类型的值，例如仅整数或字符串的数组。空数组被对待，好像它们是没有值的字段。
 文本| 一个代表完整字符的字符串序列-文本值。
 关键词| 结构化字符的弦序列，例如电子邮件地址或邮政编码。
 日期检测字符串| 默认启用，如果新字符串字段匹配日期的格式，则将字符串处理为`date` 场地。例如，`date: "2012/03/11"` 作为日期处理。
-数字检测字符串| 如果禁用，OpenSearch可能会自动处理数字值作为字符串，那么它们应作为数字处理。启用后，OpenSearch可以将字符串处理到`long`，，，，`integer`，，，，`short`，，，，`byte`，，，，`double`，，，，`float`，，，，`half_float`，，，，`scaled_float`， 和`unsigned_long`。默认值为禁用。
+数字检测字符串| 如果禁用，OpenSearch可能会自动处理数字值作为字符串，那么它们应作为数字处理。启用后，OpenSearch可以将字符串处理到`long`，`integer`，`short`，`byte`，`double`，`float`，`half_float`，`scaled_float`， 和`unsigned_long`。默认值为禁用。
 
 ## Explicit mapping
 

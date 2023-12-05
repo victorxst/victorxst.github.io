@@ -31,15 +31,15 @@ GET shakespeare/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 结果中的所有文档分配了1.2的相关得分：
 
-<详细信息打开降价="block">
+<details open markdown="block">
   <summary>
     回复
   </summary>
-  {： 。文本-delta}
+  {: .text-delta }
 
 ```json
 {
@@ -202,14 +202,14 @@ GET shakespeare/_search
   }
 }
 ```
-</delect>
+</details>
 
 ## 参数
 
 下表列出了所有顶部-支持的级别参数`constant_score `查询。
 
 范围| 描述
-：--- | ：---
+:--- | :---
 `filter` | 文档必须匹配的过滤器查询必须在结果中返回。必需的。
 `boost` | 浮动-分配为所有返回文档的相关得分的点值。选修的。默认值为1.0
 

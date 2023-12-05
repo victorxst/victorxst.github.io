@@ -43,7 +43,7 @@ Active Directory和LDAP可用于身份验证和授权（`authc` 和`authz` 配�
    curl -XPUT 'https://localhost:9200/new-index/_doc/1' -H 'Content-Type: application/json' -d '{"title": "Spirited Away"}' -u 'psantos:password' -k
    ```
 
-   如果您尝试与`jroe`， 它失败。这`Developers` 组映射到`readall`，，，，`manage_snapshots`， 和`kibana_user` 角色，没有写入权限。
+   如果您尝试与`jroe`， 它失败。这`Developers` 组映射到`readall`，`manage_snapshots`， 和`kibana_user` 角色，没有写入权限。
 
 1. 搜索文档`jroe`：
 
@@ -142,7 +142,7 @@ config:
 ```
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `enable_ssl` | 是否在SSL（LDAP）上使用LDAP。
 `enable_start_tls` | 是否使用StartTL。不能与LDAP结合使用。
 `enable_ssl_client_auth` | 是否将客户端证书发送到LDAP服务器。
@@ -178,7 +178,7 @@ config:
 
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `pemtrustedcas_filepath` | 绝对路径到包含Active Directory/LDAP服务器的root CAS的PEM文件。
 `pemtrustedcas_content` | Active Directory/LDAP服务器的根CA内容。不能使用`pemtrustedcas_filepath` 设置。
 
@@ -212,7 +212,7 @@ config:
 ```
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `pemkey_filepath` | 包含证书的私钥的文件的绝对路径。
 `pemkey_content` | 证书的私钥内容。不能使用`pemkey_filepath` 设置。
 `pemkey_password` | 私钥的密码（如果有）。
@@ -241,7 +241,7 @@ ldap:
 ```
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `enabled_ssl_ciphers` | 数组，启用了TLS密码。仅支持Java格式。
 `enabled_ssl_protocols` | 数组，启用的TLS协议。仅支持Java格式。
 
@@ -307,7 +307,7 @@ username_attribute：uid
 ### Configuration summary
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `userbase` | 指定存储用户信息的目录中的子树。
 `usersearch` | 安全插件尝试身份验证用户时执行的实际LDAP查询。变量{0}用用户名代替。
 `username_attribute` | 安全插件使用目录条目的此属性来查找用户名。如果设置为null，则使用DN（默认值）。
@@ -359,7 +359,7 @@ authz:
 
 授权是从LDAP服务器检索身份验证用户的后端角色的过程。这通常是您用于身份验证的服务器，但您也可以使用其他服务器。唯一的要求是，您用来获取角色的用户实际上存在于LDAP服务器上。
 
-因为安全插件始终检查LDAP服务器中的用户是否存在，因此您还必须配置`userbase`，，，，`usersearch` 和`username_attribute` 在里面`authz` 部分。
+因为安全插件始终检查LDAP服务器中的用户是否存在，因此您还必须配置`userbase`，`usersearch` 和`username_attribute` 在里面`authz` 部分。
 
 授权与身份验证类似。安全插件发布了包含用户名的LDAP查询，该查询针对LDAP树的角色子树。
 
@@ -437,7 +437,7 @@ rolesearch_enabled: false
 请注意，此设置是在身份验证中进行的`authc` config.yml文件的部分。
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `custom_attr_allowlist`  | 字符串数组。指定应可用于可变替换的LDAP属性。
 `custom_attr_maxval_len`  | 整数。指定每个属性的最大允许长度。所有属性更长的属性都被丢弃。一个值`0` 完全禁用自定义属性。默认值为36。
 
@@ -495,7 +495,7 @@ nested_role_filter:
 ### 配置摘要
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `rolebase`  | 在存储角色/组信息的目录中指定子树。
 `rolesearch` | 安全插件在尝试确定用户角色时执行的实际LDAP查询。您可以在此处使用三个变量（见下文）。
 `userroleattribute`  | 用户条目中的属性用于使用`{2}` 可变替代。

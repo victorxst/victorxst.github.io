@@ -16,7 +16,7 @@ grand_parent: 搜索管道
 下表列出了所有可用的请求字段。
 
 场地| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `field` | 细绳| 重命名的字段。必需的。
 `target_field` | 细绳| 新的字段名称。必需的。
 `tag` | 细绳| 处理器的标识符。
@@ -38,7 +38,7 @@ POST /my_index/_doc/1
   "visibility":"public"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ### 创建搜索管道
 
@@ -57,7 +57,7 @@ PUT /_search/pipeline/my_pipeline
   ]
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ### 使用搜索管道
 
@@ -66,11 +66,11 @@ PUT /_search/pipeline/my_pipeline
 ```json
 GET /my_index/_search
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 响应包含字段`message`：
 
-<详细信息打开降价="block">
+<details open markdown="block">
   <summary>
     回复
   </summary>
@@ -105,18 +105,18 @@ GET /my_index/_search
   }
 }
 ```
-</delect>
+</details>
 
 要使用管道搜索，请在`search_pipeline` 查询参数：
 
 ```json
 GET /my_index/_search?search_pipeline=my_pipeline
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 这`message` 现场已重命名为`notification`：
 
-<详细信息打开降价="block">
+<details open markdown="block">
   <summary>
     回复
   </summary>
@@ -151,7 +151,7 @@ GET /my_index/_search?search_pipeline=my_pipeline
   }
 }
 ```
-</delect>
+</details>
 
 您也可以使用`fields` 在文档中搜索特定字段的选项：
 
@@ -161,11 +161,11 @@ POST /my_index/_search?pretty&search_pipeline=my_pipeline
     "fields":["visibility", "message"]
 }
 ``` 
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 在响应中，字段`message` 已重命名为`notification`：
 
-<详细信息打开降价="block">
+<details open markdown="block">
   <summary>
     回复
   </summary>

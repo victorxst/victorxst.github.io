@@ -20,7 +20,7 @@ nav_order: 35
 
 要指定您希望显示的日期范围，请先选择日历下拉列表。日期选择器窗口打开。
 
-<img src ="{{site.url}}{{site.baseurl}}/images/Security/find-date-pick.png" alt ="Date selector for findings graph" 宽度="55%">
+<img src ="{{site.url}}{{site.baseurl}}/images/Security/find-date-pick.png" alt ="Date selector for findings graph" width="55%">
 
 您可以使用**快速选择** 设置以指定确切的时间窗口。
 *选择**最后的** 或者**下一个** 在第一个下拉列表中，以设置当前设置后面或当前设置之前的时间窗口。
@@ -28,13 +28,13 @@ nav_order: 35
 *在第三个下拉列表中选择一个时间单元。可用的选项是秒，分钟，小时，天，几周，几个月和数年。
 选择**申请** 将日期的范围应用于图。如下图所示，有关图表的信息相应地变化。
 
-<img src ="{{site.url}}{{site.baseurl}}/images/Security/quickset.png" alt ="Quick select settings example" 宽度="40%">
+<img src ="{{site.url}}{{site.baseurl}}/images/Security/quickset.png" alt ="Quick select settings example" width="40%">
 
 您可以使用左和右箭头将时间窗口移动到当前日期范围之后或在当前日期范围之前。当您使用这些箭头时，启动日期和末端日期出现在日期范围字段中。然后，您可以选择每个设置一个绝对，相对或当前日期和时间。对于绝对和相对变化，请选择**更新** 应用更改。
 
-<img src ="{{site.url}}{{site.baseurl}}/images/Security/date-pick.png" alt ="Altering date range" 宽度="55%">
+<img src ="{{site.url}}{{site.baseurl}}/images/Security/date-pick.png" alt ="Altering date range" width="55%">
 
-作为替代方案，您可以在**常用** 部分（请参阅日历下拉列表的前面图像），以方便地设置时间窗口。选项包括日期范围，例如**今天**，，，，**昨天**，，，，**本星期**， 和**一周**。
+作为替代方案，您可以在**常用** 部分（请参阅日历下拉列表的前面图像），以方便地设置时间窗口。选项包括日期范围，例如**今天**，**昨天**，**本星期**， 和**一周**。
 
 当选择了一个常用的时间窗口之一时，您可以选择**显示日期** 在日期范围字段中以填充日期范围。在此之后，您可以选择“开始日期”或“结束日期”以指定绝对，相对或当前日期和时间设置。对于绝对和相对变化，请选择**更新** 应用更改。
 
@@ -67,12 +67,12 @@ nav_order: 35
 1. 打开**查找细节** 通过选择**查找ID** 在里面**发现** 列表。
 1. 在里面**文件** 部分，选择**查看周围的文件**。如果文档已经存在索引模式，则**发现** 面板打开并显示文档。如果不存在索引模式，**创建索引模式以查看文档** 窗口打开并提示您创建一个索引模式，如下图所示。
 
-    <img src ="{{site.url}}{{site.baseurl}}/images/Security/findings2.png" alt ="popup window prompting users to create an index pattern" 宽度="60%">
+    <img src ="{{site.url}}{{site.baseurl}}/images/Security/findings2.png" alt ="popup window prompting users to create an index pattern" width="60%">
 
 1. 在里面**创建索引模式以查看文档** 窗口，索引模式名称自动填充。从用于确定日志事件的时机的日志索引中输入适当的时间字段。选择**创建索引模式**。这**创建索引模式以查看文档** 确认窗口打开。
 1. 选择**查看周围的文件** 在确认窗口中。这**发现** 面板打开，如下图所示。
 
-    <img src ="{{site.url}}{{site.baseurl}}/images/Security/findings4.png" alt ="Discover panel with surrounding documents" 宽度="85%">
+    <img src ="{{site.url}}{{site.baseurl}}/images/Security/findings4.png" alt ="Discover panel with surrounding documents" width="85%">
     
 这**发现** 面板显示以突出显示的背景生成发现的文档。还显示了事件之前或之后出现的其他文档。
 

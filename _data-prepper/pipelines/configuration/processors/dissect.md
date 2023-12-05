@@ -35,7 +35,7 @@ dissect-pipeline:
 {"log": "07-25-2023 10:00:00 ERROR: error message"}
 ```
 
-这`dissect` 处理器将检索字段（`Date`，，，，`Time`，，，，`Log_Type`， 和`Message`） 来自`log` 消息，基于模式`%{Date} %{Time} %{Type}: %{Message}` 在管道中配置。
+这`dissect` 处理器将检索字段（`Date`，`Time`，`Log_Type`， 和`Message`） 来自`log` 消息，基于模式`%{Date} %{Time} %{Type}: %{Message}` 在管道中配置。
 
 运行管道后，您应该收到以下标准输出：
 
@@ -54,9 +54,9 @@ dissect-pipeline:
 您可以配置`dissect` 带有以下选项的处理器。
 
 | 选项| 必需的| 类型| 描述|
-| ：--- | ：--- | ：--- | ：--- |
+| :--- | :--- | :--- | :--- |
 | `map` | 是的| 地图| 定义`dissect` 特定键的模式。有关如何在`dissect` 模式，请参阅[字段符号](#field-notations)。|
-| `target_types` | 不| 地图| 指定提取字段的数据类型。有效的选项是`integer`，，，，`double`，，，，`string`， 和`boolean`。默认情况下，所有字段均为`string` 类型。|
+| `target_types` | 不| 地图| 指定提取字段的数据类型。有效的选项是`integer`，`double`，`string`， 和`boolean`。默认情况下，所有字段均为`string` 类型。|
 | `dissect_when` | 不| 细绳| 指定执行的条件`dissect` 使用a的操作[数据预先表达]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/)。如果指定，`dissect` 仅当表达式评估为true时，操作才会运行。|
 
 ### 字段符号

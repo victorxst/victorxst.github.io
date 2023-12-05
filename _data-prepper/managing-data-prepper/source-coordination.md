@@ -20,7 +20,7 @@ _ source coordination_是在数据源之间进行协调和分发工作的概念-
 Data Prepper采用源选择的每个工作分区，并在分布式商店中创建相应的项目，该项目Prepper使用用于源协调。这些项目中的每一个都有以下标准格式，可以通过分布式商店实施来扩展。
 
 | 价值| 类型| 描述|
-| ：--- | ：--- | ：--- |
+| :--- | :--- | :--- |
 | `sourceIdentifier` | 细绳| 数据Prepper管道在此分区上起作用的标识符。默认情况下，`sourceIdentifier` 由子前缀-管道名称，但是可以配置附加的前缀`partition_prefix` 在您的数据中-预先-config.yaml文件。|
 | `sourcePartitionKey` | 细绳| 与此项目相关的工作分区的标识符。例如，对于`s3` 具有扫描功能的来源，此标识符是S3桶的`objectKey` 组合。
 | `partitionOwner` | 细绳| 积极拥有并正在研究此分区的节点的标识符。此ID包含节点的主机名，但`null` 当该分区不拥有时。|
@@ -39,7 +39,7 @@ Data Prepper采用源选择的每个工作分区，并在分布式商店中创�
 2. 查询后`ASSIGNED` 分区，数据预先查询`CLOSED` 分区以确定是否有任何分区`reOpenAt` 时间戳已达到。
 3. 如果没有`ASSIGNED` 或者`CLOSED` 可用分区，然后数据预先查询`UNASSIGNED` 分区直到这些分区为止`ASSIGNED`。
 
-如果该流程发生并且该节点没有获取任何分区，则分区供应商功能`getNextPartition` 的方法`SourceCoordinator` 将创建新的分区。供应商功能完成后，数据预备再次查询分区的`ASSIGNED`，，，，`CLOSED`， 和`UNASSIGNED`。
+如果该流程发生并且该节点没有获取任何分区，则分区供应商功能`getNextPartition` 的方法`SourceCoordinator` 将创建新的分区。供应商功能完成后，数据预备再次查询分区的`ASSIGNED`，`CLOSED`， 和`UNASSIGNED`。
 
 ## 全球国家
 
@@ -50,7 +50,7 @@ Data Prepper采用源选择的每个工作分区，并在分布式商店中创�
 下表提供了可选的配置值`source_coordination`。
 
 | 价值| 类型| 描述|
-| ：--- | ：--- | ：--- |
+| :--- | :--- | :--- |
 | `partition_prefix` | 细绳| 一个前缀`sourceIdentifier` 用于区分共享相同分布式商店的数据预先群集。|
 | `store` | 目的| 包含用于使用商店的配置的对象，键是商店的名称，例如`in_memory` 或者`dynamodb`，该值是该商店类型上可用的任何配置。|
 
@@ -91,7 +91,7 @@ Data Prepper采用源选择的每个工作分区，并在分布式商店中创�
 
 
 | 价值| 必需的| 类型| 描述|
-| ：--- | ：--- | ：--- | ：--- | 
+| :--- | :--- | :--- | :--- | 
 | `table_name` | 是的| 细绳| 用于源协调的表名称。|
 | `region` | 是的| 细绳| DynamoDB表的区域。|
 | `sts_role_arn` | 不| 细绳|  这`sts` 包含表权限的角色。如果不提供时，请使用默认凭据。|
@@ -144,6 +144,6 @@ source_coordination:
 
 *`partitionNotFoundErrors`：表示由节点积极拥有的分区项目没有相应的存储项目。只有在手动删除表中的一个项目时才会发生这种情况。
 *`partitionNotOwnedErrors`：表示拥有一个分区的节点由于分区所有权超时到期而失去了所有权。除非来源能够检查点`saveState`，此错误导致重复的项目处理。
-*`partitionUpdateErrors`：当该分区项目更新到商店时收到的错误数量失败。有一个前缀`saveState`，，，，`close`， 或者`complete` 指示哪些更新操作失败。
+*`partitionUpdateErrors`：当该分区项目更新到商店时收到的错误数量失败。有一个前缀`saveState`，`close`， 或者`complete` 指示哪些更新操作失败。
 
 

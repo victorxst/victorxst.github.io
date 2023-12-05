@@ -41,7 +41,7 @@ PUT /_search/pipeline/my_pipeline
   ]
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ## 忽略处理器故障
 
@@ -96,7 +96,7 @@ PUT /_search/pipeline/my_pipeline
   ]
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ## 搜索管道版本
 
@@ -119,7 +119,7 @@ PUT _search/pipeline/my_pipeline
   ]
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 该版本在随后的所有响应中提供`get pipeline` 要求：
 
@@ -129,7 +129,7 @@ GET _search/pipeline/my_pipeline
 
 响应包含管道版本：
 
-<详细信息打开降价="block">
+<details open markdown="block">
   <summary>
     回复
   </summary>
@@ -153,5 +153,5 @@ GET _search/pipeline/my_pipeline
   }
 }
 ```
-</delect>
+</details>
 

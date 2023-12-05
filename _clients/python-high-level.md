@@ -20,7 +20,7 @@ OpenSearch High-级Python客户端（`opensearch-dsl-py`）为通用搜索实体
 ```bash
 pip install opensearch-dsl
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 安装客户端后，您可以像其他任何模块一样导入它：
 
@@ -28,7 +28,7 @@ pip install opensearch-dsl
 from opensearchpy import OpenSearch
 from opensearch_dsl import Search
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 连接到OpenSearch
 
@@ -52,7 +52,7 @@ client = OpenSearch(
     ca_certs = ca_certs_path
 )
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 如果您有自己的客户证书，请在`client_cert_path` 和`client_key_path` 参数：
 
@@ -80,7 +80,7 @@ client = OpenSearch(
     ca_certs = ca_certs_path
 )
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 如果您不使用安全插件，请使用禁用SSL创建客户端对象：
 
@@ -98,7 +98,7 @@ client = OpenSearch(
     ssl_show_warn = False
 )
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 创建索引
 
@@ -116,7 +116,7 @@ index_body = {
 
 response = client.indices.create(index_name, body=index_body)
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 索引文档
 
@@ -134,7 +134,7 @@ class Movie(Document):
     def save(self, ** kwargs):
         return super(Movie, self).save(** kwargs)
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 要索引文档，请创建一个新类的对象，然后调用其`save()` 方法：
 
@@ -144,7 +144,7 @@ Movie.init(using=client)
 doc = Movie(meta={'id': 1}, title='Moneyball', director='Bennett Miller', year='2011')
 response = doc.save(using=client)
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 执行批量操作
 
@@ -155,7 +155,7 @@ movies = '{ "index" : { "_index" : "my-dsl-index", "_id" : "2" } } \n { "title" 
 
 client.bulk(movies)
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 搜索文档
 
@@ -168,7 +168,7 @@ s = Search(using=client, index=index_name) \
 
 response = s.execute()
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 前面的查询等效于OpenSearch域中的以下查询-特定语言（DSL）：
 
@@ -202,7 +202,7 @@ response = client.delete(
     id = '1'
 )
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 删除索引
 
@@ -213,7 +213,7 @@ response = client.indices.delete(
     index = 'my-dsl-index'
 )
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 样本程序
 

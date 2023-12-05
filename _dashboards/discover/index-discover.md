@@ -47,7 +47,7 @@ has_children: true
 
 1. 在OpenSearch仪表板导航菜单上，选择**发现**。
 2. 选择要使用的数据。在这种情况下，选择`opensearch_dashboards_sample_data_flights` 从鞋面-左下拉菜单。
-3. 选择日历图标（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/calendar-oui.png" class ="inline-icon" alt ="calendar icon"/> {：/}）更改搜索的时间范围，然后选择**刷新**。
+3. 选择日历图标（{::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/calendar-oui.png" class ="inline-icon" alt ="calendar icon"/> {:/}）更改搜索的时间范围，然后选择**刷新**。
 
 您会看到与下图中类似的视图。
 
@@ -59,7 +59,7 @@ has_children: true
 
 要在文档表中添加或删除字段，请按照以下步骤：
 
-1. 查看下列出的数据字段**可用字段** 并选择加号图标（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/plus-icon.png" class ="inline-icon" alt ="plus icon"/> {：/}）将所需字段添加到文档表中。该字段将自动添加到两个**选定字段** 和文档表。对于此示例，选择字段`Carrier`，，，，`AvgTicketPrice`， 和`Dest`。
+1. 查看下列出的数据字段**可用字段** 并选择加号图标（{::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/plus-icon.png" class ="inline-icon" alt ="plus icon"/> {:/}）将所需字段添加到文档表中。该字段将自动添加到两个**选定字段** 和文档表。对于此示例，选择字段`Carrier`，`AvgTicketPrice`， 和`Dest`。
 2. 要安排或排序列，请选择**排序字段** >**选择要排序的字段** 然后按照您希望订购的顺序拖放字段。
 
 您会看到与下图中类似的视图。
@@ -68,7 +68,7 @@ has_children: true
 
 您可以在文档表中查看个人或多个字段。要在文档表中收集有关数据的信息，请按照以下步骤：
 
-1. 从数据表的左边-侧列，选择Inspect ICON（{:: NOMARKDOWN} <IMG SRC ="{{site.url}}{{site.baseurl}}/images/icons/inspect-icon.png" class ="inline-icon" alt ="inspect icon"/> {：/}）打开**文档详细信息** 窗户。选择最小化图标（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/minimize-icon.png" class ="inline-icon" alt ="minimize icon"/> {：/}）关闭**文档详细信息** 窗户。
+1. 从数据表的左边-侧列，选择Inspect ICON（{::nomarkdown} <IMG SRC ="{{site.url}}{{site.baseurl}}/images/icons/inspect-icon.png" class ="inline-icon" alt ="inspect icon"/> {:/}）打开**文档详细信息** 窗户。选择最小化图标（{::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/minimize-icon.png" class ="inline-icon" alt ="minimize icon"/> {:/}）关闭**文档详细信息** 窗户。
 2. 查看数据详细信息。您可以在**桌子** 和**JSON** 标签以您首选格式查看数据。
 3. 选择**查看周围的文件** 查看其他日志条目的数据，要么在当前文档之前或遵循您的当前文档或选择**查看单个文档** 查看特定的日志条目。
 
@@ -93,9 +93,9 @@ has_children: true
 要过滤您的数据，请执行以下步骤：
 
 1. 在DQL搜索栏下，选择**添加过滤器**。
-2. 从**场地**，，，，**操作员**， 和**价值** 下拉列表。例如，选择`Cancelled`，，，，`is`， 和`true`。
+2. 从**场地**，**操作员**， 和**价值** 下拉列表。例如，选择`Cancelled`，`is`， 和`true`。
 3. 选择**节省**。
-4. 要删除过滤器，请选择“交叉图标”（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/cross-icon.png" class ="inline-icon" alt ="cross icon"/> {：/}）旁边的过滤器名称。
+4. 要删除过滤器，请选择“交叉图标”（{::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/cross-icon.png" class ="inline-icon" alt ="cross icon"/> {:/}）旁边的过滤器名称。
 5. 添加更多过滤器以进一步探索数据。
 
 ## 保存搜索
@@ -110,17 +110,17 @@ has_children: true
 
 使用**发现** 应用程序，请执行以下步骤：
 
-1. 选择“检查”图标（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/inspect-icon.png" class ="inline-icon" alt ="inspect icon"/> {：/}）要可视化的字段旁边。
+1. 选择“检查”图标（{::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/inspect-icon.png" class ="inline-icon" alt ="inspect icon"/> {:/}）要可视化的字段旁边。
 
    您会看到类似于下图的视图。
    
-   <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/visualize-discover.png" alt ="Visualize data findings interface" 宽度="700"/>
+   <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/visualize-discover.png" alt ="Visualize data findings interface" width="700"/>
 
 2. 选择**可视化** 按钮。这**可视化** 打开应用程序并显示可视化。了解更多有关**可视化** 应用程序和数据可视化[构建数据可视化]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/)。
 
    您会看到类似于下图的视图。
 
-   <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/visualization-flight.png" alt ="Data visualization of flight sample data field destination" 宽度="700"/>
+   <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/visualization-flight.png" alt ="Data visualization of flight sample data field destination" width="700"/>
 
 ## 设置警报
 

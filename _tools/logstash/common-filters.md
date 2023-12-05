@@ -66,12 +66,12 @@ output {
 }
 ```
 
-您可以转换的其他数据类型是`float`，，，，`string`， 和`boolean` 值。如果您通过数组，`mutate` 过滤器转换数组中的所有元素。如果你通过`string` 喜欢"world" 铸造`integer` 类型，结果为0，LogStash继续处理事件。
+您可以转换的其他数据类型是`float`，`string`， 和`boolean` 值。如果您通过数组，`mutate` 过滤器转换数组中的所有元素。如果你通过`string` 喜欢"world" 铸造`integer` 类型，结果为0，LogStash继续处理事件。
 
 LogStash支持所有过滤器插件的一些常见选项：
 
 选项| 描述
-：--- | ：---
+:--- | :---
 `add_field` | 在活动中添加一个或多个字段。
 `remove_field` | 从现场删除一个或多个事件。
 `add_tag` | 在活动中添加一个或多个标签。您可以使用标签根据其包含的标签执行有条件处理。

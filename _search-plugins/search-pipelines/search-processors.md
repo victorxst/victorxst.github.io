@@ -22,7 +22,7 @@ grand_parent: 搜索
 下表列出了所有受支持的搜索请求处理器。
 
 处理器| 描述| 最早的可用版本
-：--- | ：--- | ：---
+:--- | :--- | :---
 [`filter_query`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/filter-query-processor/) | 添加了用于过滤请求的过滤查询。| 2.8
 [`neural_query_enricher`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/neural-query-enricher/) | 在索引或字段级别设置用于神经搜索的默认模型。| 2.11
 [`script`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/script-processor/) | 添加了一个在新索引的文档上运行的脚本。| 2.8
@@ -34,7 +34,7 @@ grand_parent: 搜索
 下表列出了所有支持的搜索响应处理器。
 
 处理器| 描述| 最早的可用版本
-：--- | ：--- | ：---
+:--- | :--- | :---
 [`personalize_search_ranking`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/personalize-search-ranking/) | 用途[亚马逊个性化](https://aws.amazon.com/personalize/) 要重读搜索结果（需要设置Amazon个性化服务）。| 2.9
 [`rename_field`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rename-field-processor/)| 重命名现有字段。| 2.8
 
@@ -45,7 +45,7 @@ grand_parent: 搜索
 下表列出了所有受支持的搜索请求处理器。
 
 处理器| 描述| 最早的可用版本
-：--- | ：--- | ：---
+:--- | :--- | :---
 [`normalization-processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) | 拦截查询阶段结果并归一化并结合文档分数，然后再将文档传递给获取阶段。| 2.10
 
 ## 查看可用的处理器类型
@@ -55,11 +55,11 @@ grand_parent: 搜索
 ```json
 GET /_nodes/search_pipelines
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 响应包含`search_pipelines` 列出可用请求和响应处理器的对象：
 
-<详细信息打开降价="block">
+<details open markdown="block">
   <summary>
     回复
   </summary>
@@ -111,8 +111,8 @@ GET /_nodes/search_pipelines
   }
 }
 ```
-</delect>
+</details>
 
 除了OpenSearch提供的处理器外，插件还可以提供其他处理器。
-{： 。笔记}
+{: .note}
 

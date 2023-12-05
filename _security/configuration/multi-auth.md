@@ -24,7 +24,7 @@ nav_order: 35
 指定多种身份验证类型为符号期间的选项-在中，添加`opensearch_security.auth.type` 设置为`opensearch_dashboards.yml` 文件并输入多种类型作为值。当将多种身份验证类型添加到设置中时，仪表板符号-在窗口中识别多种类型和调整以适应标志-在选项中。
 
 在设置仪表板以提供多个身份验证选项时，始终需要基本身份验证作为设置的值之一。
-{： 。笔记 }
+{: .note }
 
 当仅需要一种身份验证类型时，将单个值添加到设置中。
 
@@ -32,7 +32,7 @@ nav_order: 35
 opensearch_security.auth.type: "openid"
 ```
 
-对于多个身份验证选项，请将值添加到设置中，作为由逗号分隔的数组。提醒您，仪表板当前支持基本身份验证，OpenID Connect和SAML作为有效值集的组合。在设置中，这些值表示为`"basicauth"`，，，，`"openid"`， 和`"saml"`。
+对于多个身份验证选项，请将值添加到设置中，作为由逗号分隔的数组。提醒您，仪表板当前支持基本身份验证，OpenID Connect和SAML作为有效值集的组合。在设置中，这些值表示为`"basicauth"`，`"openid"`， 和`"saml"`。
 
 ```yml
 opensearch_security.auth.type: ["basicauth","openid"]
@@ -68,7 +68,7 @@ opensearch_security.auth.multiple_auth_enabled: true
 这些设置允许您自定义基本的用户名和密码符号-在按钮中。
 
 环境| 描述
-：--- | ：--- |：--- |：--- |
+:--- | :--- |:--- |:--- |
 `opensearch_security.ui.basicauth.login.brandimage` |  登录按钮徽标。支持的文件类型为SVG，PNG和GIF。
 `opensearch_security.ui.basicauth.login.showbrandimage` |  确定是否显示登录按钮的徽标。默认为`true`。
 
@@ -77,7 +77,7 @@ opensearch_security.auth.multiple_auth_enabled: true
 这些设置使您可以自定义标志-在与OpenID Connect身份验证相关的按钮中。对于使用OpenID Connect所需的基本设置-在选项中，请参阅[OpenSearch仪表板单个标志-在]({{site.url}}{{site.baseurl}}/security/authentication-backends/openid-connect/#opensearch-dashboards-single-sign-on)。
 
 环境| 描述
-：--- | ：--- |：--- |：--- |
+:--- | :--- |:--- |:--- |
 `opensearch_security.ui.openid.login.buttonname` |  显示登录按钮的名称。"Log in with single sign-on" 默认情况下。
 `opensearch_security.ui.openid.login.brandimage` |  登录按钮徽标。支持的文件类型为SVG，PNG和GIF。
 `opensearch_security.ui.openid.login.showbrandimage` |  确定是否显示登录按钮的徽标。默认为`false`。
@@ -87,7 +87,7 @@ opensearch_security.auth.multiple_auth_enabled: true
 这些设置使您可以自定义标志-在与SAML身份验证相关的按钮中。对于使用SAML作为标志所需的基本设置-在选项中，请参阅[OpenSearch仪表板配置]({{site.url}}{{site.baseurl}}/security/authentication-backends/saml/#opensearch-dashboards-configuration)。
 
 环境| 描述
-：--- | ：--- |：--- |：--- |
+:--- | :--- |:--- |:--- |
 `opensearch_security.ui.saml.login.buttonname` |  显示登录按钮的名称。"Log in with single sign-on" 默认情况下。
 `opensearch_security.ui.saml.login.brandimage` |  登录按钮徽标。支持的文件类型为SVG，PNG和GIF。
 `opensearch_security.ui.saml.login.showbrandimage` |  确定是否显示登录按钮的徽标。默认为`false`。

@@ -30,7 +30,7 @@ PUT students
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 接下来，索引两个与学生相对应的文档：
 
@@ -42,7 +42,7 @@ PUT students/_doc/1
   "min_required": 2
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ```json
 PUT students/_doc/2
@@ -52,9 +52,9 @@ PUT students/_doc/2
   "min_required": 2
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
-现在搜索至少参加以下两个课程的学生：`CS101`，，，，`CS102`，，，，`MATH101`：
+现在搜索至少参加以下两个课程的学生：`CS101`，`CS102`，`MATH101`：
 
 ```json
 GET students/_search
@@ -69,7 +69,7 @@ GET students/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 响应包含两个文档：
 
@@ -140,7 +140,7 @@ GET students/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ## 参数
 
@@ -159,12 +159,12 @@ GET _search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 这`<field>` 接受以下参数。除所有参数外`terms` 是可选的。
 
 范围| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `terms` | 弦数| 在指定的字段中搜索的条款数组`<field>`。仅当所需的术语数与文档的字段值与正确的间距和资本化完全匹配时，结果才能在结果中返回。
 `minimum_should_match_field` | 细绳| 名称[数字]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/) 指定为返回结果中返回文档所需的匹配项数的字段。
 `minimum_should_match_script` | 细绳| 返回为返回结果中返回文档所需的匹配条款数量的脚本

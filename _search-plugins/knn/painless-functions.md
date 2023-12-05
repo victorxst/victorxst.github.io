@@ -48,7 +48,7 @@ GET my-knn-index-2/_search
 下表描述了可用的无痛功能K-NN插件提供：
 
 功能名称| 功能签名| 描述
-：--- | ：---
+:--- | :---
 L2平方| `float l2Squared (float[] queryVector, doc['vector field'])` | 此函数计算给定查询向量和文档向量之间的L2距离（欧几里得距离）的平方。距离越短，文档越相关，因此此示例将L2Squared函数的返回值反转。如果文档向量与查询向量匹配，则结果为0，因此此示例还将1添加到距离上，以避免除以零错误。
 l1norm| `float l1Norm (float[] queryVector, doc['vector field'])` | 此函数计算给定查询向量和文档向量之间的L2距离（欧几里得距离）的平方。距离越短，文档越相关，因此此示例将L2Squared函数的返回值反转。如果文档向量与查询向量匹配，则结果为0，因此此示例还将1添加到距离上，以避免除以零错误。
 余弦| `float cosineSimilarity (float[] queryVector, doc['vector field'])` | 余弦相似性是查询矢量的内部产物，并且将文档向量归一化为两者的长度为1。如果查询向量的幅度在整个查询过程中没有变化，您可以通过查询向量的幅度来提高性能，以提高性能，而不是每次过滤文档每次计算幅度：<br />`float cosineSimilarity (float[] queryVector, doc['vector field'], float normQueryVector)` <br />通常，余弦相似性的范围是[-1，1]。但是，在信息检索的情况下，两个文档的余弦相似性范围为0到1，因为TF-IDF统计量不能为负。因此，K-NN插件添加1.0，以便始终产生正余弦相似性得分。

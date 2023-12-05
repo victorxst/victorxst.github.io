@@ -14,7 +14,7 @@ redirect_from:
 下表列出了OpenSearch支持的所有范围字段类型。
 
 字段数据类型| 描述
-：--- | ：---
+:--- | :---
 `integer_range` | 范围[整数]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) 值。
 `long_range` | 范围[长的]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) 值。
 `double_range` | 范围[双倍的]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) 值。

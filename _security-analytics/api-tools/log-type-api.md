@@ -25,7 +25,7 @@ POST /_plugins/_security_analytics/logtype
   "source": "Custom"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 
 ### 示例响应
@@ -61,7 +61,7 @@ POST /_plugins/_security_analytics/logtype/_search
     }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 
 ### 示例响应
@@ -184,7 +184,7 @@ PUT /_plugins/_security_analytics/logtype/m98uk4kBlb9cbROIpEj2
   "source": "Custom"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 
 ### 示例响应
@@ -219,7 +219,7 @@ DELETE /_plugins/_security_analytics/logtype/<log_type_id>
 ```json
 DELETE /_plugins/_security_analytics/logtype/m98uk4kBlb9cbROIpEj2
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 
 ### 示例响应
@@ -233,6 +233,6 @@ DELETE /_plugins/_security_analytics/logtype/m98uk4kBlb9cbROIpEj2
 ```
 
 只能删除自定义日志类型。试图删除标准搜索-定义的日志类型导致错误。
-{： 。笔记 }
+{: .note }
 
 

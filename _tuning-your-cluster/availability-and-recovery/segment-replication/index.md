@@ -53,7 +53,7 @@ PUT /my-index1
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 如果您正在使用远程-支持存储，添加`remote_store` 属性到索引请求主体。
 
@@ -73,7 +73,7 @@ PUT /_cluster/settings
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ### 为集群设置复制类型
 
@@ -82,7 +82,7 @@ PUT /_cluster/settings
 ```yaml
 cluster.indices.replication.strategy: 'SEGMENT'
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 
 
@@ -100,7 +100,7 @@ PUT /my-index1
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ## 考虑因素
 
@@ -126,7 +126,7 @@ PUT /my-index1
 - [副本的数量](#increasing-the-number-of-replicas)
 
 您的结果可能会根据群集拓扑，使用的硬件，碎片计数和合并设置而有所不同。
-{： 。笔记 }
+{: .note }
 
 ### 增加工作量大小
 
@@ -136,28 +136,28 @@ PUT /my-index1
 - 40个主要碎片，每个复制品1个（总计80片）
 - 每个节点4个主要碎片和4个复制碎片
 
-<表>
+<table>
     <th colspan ="2" > </th>
     <th colspan ="3" > 40 GB主碎片，80 GB总计</th>
     <th colspan ="3"> 240 GB主碎片，480 GB总计</th>
     <tr>
-        <td> </td>
-        <td> </td>
+        <td></td>
+        <td></td>
         <td>文档复制</td>
         <td>段复制</td>
-        <TD>百分比差</td>
+        <td>百分比差</td>
         <td>文档复制</td>
         <td>段复制</td>
-        <TD>百分比差</td>
+        <td>百分比差</td>
     </tr>
     <tr>
         <td>商店大小</td>
-        <td> </td>
-        <TD> 85.2781 </td>
-        <TD> 91.2268 </td>
+        <td></td>
+        <td> 85.2781 </td>
+        <td> 91.2268 </td>
         <td> n/a </td>
         <td> 515.726 </td>
-        <TD> 558.039 </td>
+        <td> 558.039 </td>
         <td> n/a </td>
     </tr>
     <tr>
@@ -177,20 +177,20 @@ PUT /my-index1
         <td> 18.54％</td>
         <td> 106,642 </td>
         <td> 170,573 </td>
-        <TD> 59.95％</td>
+        <td> 59.95％</td>
     </tr>
     <tr>
         <td class ="td-custom">最大</td>
         <td> 175,196 </td>
-        <TD> 190,757 </td>
-        <TD> 8.88％</td>
+        <td> 190,757 </td>
+        <td> 8.88％</td>
         <td> 108,583 </td>
         <td> 172,507 </td>
         <td> 58.87％</td>
     </tr>
     <tr>
         <td>错误率</td>
-        <td> </td>
+        <td></td>
         <td> 0.00％</td>
         <td> 0.00％</td>
         <td> 0.00％</td>
@@ -206,20 +206,20 @@ PUT /my-index1
 
 下表列出了基准测试结果`nyc_taxi` 40和100个主要碎片的数据集。
 
-{:: nomarkdown}
-<表>
+{::nomarkdown}
+<table>
     <th colspan ="2"> </th>
     <th colspan ="3"> 40个主碎片，1个复制</th>
     <th colspan ="3"> 100个主要碎片，1个副本</th>
     <tr>
-        <td> </td>
-        <td> </td>
+        <td></td>
+        <td></td>
         <td>文档复制</td>
         <td>段复制</td>
-        <TD>百分比差</td>
+        <td>百分比差</td>
         <td>文档复制</td>
         <td>段复制</td>
-        <TD>百分比差</td>
+        <td>百分比差</td>
     </tr>
     <tr>
         <td rowspan ="3">索引吞吐量（每秒请求数）</td>
@@ -243,15 +243,15 @@ PUT /my-index1
     <tr>
         <td class ="td-custom">最大</td>
         <td> 175,196 </td>
-        <TD> 190,757 </td>
-        <TD> 8.88％</td>
+        <td> 190,757 </td>
+        <td> 8.88％</td>
         <td> 166,173 </td>
         <td> 174,655 </td>
-        <TD> 4.86％</td>
+        <td> 4.86％</td>
     </tr>
     <tr>
         <td>错误率</td>
-        <td> </td>
+        <td></td>
         <td> 0.00％</td>
         <td> 0.00％</td>
         <td> 0.00％</td>
@@ -260,7 +260,7 @@ PUT /my-index1
         <td> 0.00％</td>
     </tr>
 </table>
-{：/}
+{:/}
 
 随着主要碎片数量的增加，段复制的好处比文档复制的益处减少了。尽管细分复制仍然有益于大量的主要碎片，但性能差异变得不那么明显，因为每个节点的主碎片更多，必须在整个群集上复制段文件。
 
@@ -268,26 +268,26 @@ PUT /my-index1
 
 下表列出了基准测试结果`stackoverflow` 1和9副本的数据集。
 
-{:: nomarkdown}
-<表>
+{::nomarkdown}
+<table>
     <th colspan ="2"  > </th>
     <th colspan ="3"  > 10个主要碎片，1个复制品</th>
     <th colspan ="3"> 10个主要碎片，9个复制品</th>
     <tr>
-        <td> </td>
-        <td> </td>
+        <td></td>
+        <td></td>
         <td>文档复制</td>
         <td>段复制</td>
-        <TD>百分比差</td>
+        <td>百分比差</td>
         <td>文档复制</td>
         <td>段复制</td>
-        <TD>百分比差</td>
+        <td>百分比差</td>
     </tr>
     <tr>
         <td rowspan ="2">索引吞吐量（每秒请求数）</td>
         <td>中值</td>
-        <TD> 72,598.10 </td>
-        <TD> 90,776.10 </td>
+        <td> 72,598.10 </td>
+        <td> 90,776.10 </td>
         <td> 25.04％</td>
         <td> 16,537.00 </td>
         <td> 14,429.80 </td>
@@ -295,11 +295,11 @@ PUT /my-index1
     </tr>
     <tr>
         <td class ="td-custom">最大</td>
-        <TD> 86,130.80 </td>
-        <TD> 96,471.00 </td>
+        <td> 86,130.80 </td>
+        <td> 96,471.00 </td>
         <td> 12.01％</td>
         <td> 21,472.40 </td>
-        <TD> 38,235.00 </td>
+        <td> 38,235.00 </td>
         <td> 78.07％</td>
     </tr>
     <tr>
@@ -307,18 +307,18 @@ PUT /my-index1
         <td> p50 </td>
         <td> 17 </td>
         <td> 18.857 </td>
-        <TD> 10.92％</td>
+        <td> 10.92％</td>
         <td> 69.857 </td>
         <td> 8.833 </td>
-        <TD>＆minus; 87.36％</td>
+        <td>＆minus; 87.36％</td>
     </tr>
     <tr>
         <td class ="td-custom"> p90 </td>
-        <TD> 76 </td>
-        <TD> 82.133 </td>
-        <TD> 8.07％</td>
-        <TD> 99 </td>
-        <TD> 86.4 </td>
+        <td> 76 </td>
+        <td> 82.133 </td>
+        <td> 8.07％</td>
+        <td> 99 </td>
+        <td> 86.4 </td>
         <td>＆minus; 12.73％</td>
     </tr>
     <tr>
@@ -342,7 +342,7 @@ PUT /my-index1
     <tr>
         <td rowspan ="4">内存使用（％）</td>
         <td> p50 </td>
-        <TD> 35 </td>
+        <td> 35 </td>
         <td> 23 </td>
         <td>＆minus; 34.29％</td>
         <td> 42 </td>
@@ -352,42 +352,42 @@ PUT /my-index1
     <tr>
         <td class ="td-custom"> p90 </td>
         <td> 59 </td>
-        <TD> 57 </td>
+        <td> 57 </td>
         <td>＆minus; 3.39％</td>
         <td> 59 </td>
-        <TD> 63 </td>
-        <TD> 6.78％</td>
+        <td> 63 </td>
+        <td> 6.78％</td>
     </tr>
     <tr>
         <td class ="td-custom"> p99 </td>
         <td> 69 </td>
         <td> 61 </td>
-        <TD>＆minus; 11.59％</td>
-        <TD> 66 </td>
-        <TD> 70 </td>
-        <TD> 6.06％</td>
+        <td>＆minus; 11.59％</td>
+        <td> 66 </td>
+        <td> 70 </td>
+        <td> 6.06％</td>
     </tr>
     <tr>
         <td class ="td-custom"> p100 </td>
-        <TD> 72 </td>
-        <TD> 62 </td>
+        <td> 72 </td>
+        <td> 62 </td>
         <td>＆minus; 13.89％</td>
         <td> 69 </td>
-        <TD> 72 </td>
-        <TD> 4.35％</td>
+        <td> 72 </td>
+        <td> 4.35％</td>
     </tr>
     <tr>
         <td>错误率</td>
-        <td> </td>
+        <td></td>
         <td> 0.00％</td>
         <td> 0.00％</td>
         <td> 0.00％</td>
         <td> 0.00％</td>
-        <TD> 2.30％</td>
-        <TD> 2.30％</td>
+        <td> 2.30％</td>
+        <td> 2.30％</td>
     </tr>
 </table>
-{：/}
+{:/}
 
 随着副本数量的增加，将shards保持最新的主碎片所需的时间（称为_replication lag_）也增加了。这是因为细分复制将段文件直接从主碎片复制到副本。
 

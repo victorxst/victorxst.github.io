@@ -102,7 +102,7 @@ GET _plugins/_notifications/configs
 要过滤通知配置类型此请求返回，您可以使用以下可选路径参数来完善查询。
 
 范围| 描述
-：--- | ：---
+:--- | :---
 config_id| 指定通道标识符。
 config_id_list| 指定逗号-频道ID的分开列表。
 from_index| 搜索的起始索引。
@@ -112,7 +112,7 @@ sort_field| 字段与结果进行排序。
 last_updated_time_ms| 频道最后更新频道的时间为毫秒的时间。
 create_time_ms| 创建频道的时间毫秒的Unix时间。
 IS_ENABLED| 指示是否启用了通道。
-config_type| 通道类型。有效的选项是`sns`，，，，`slack`，，，，`chime`，，，，`webhook`，，，，`smtp_account`，，，，`ses_account`，，，，`email_group`， 和`email`。
+config_type| 通道类型。有效的选项是`sns`，`slack`，`chime`，`webhook`，`smtp_account`，`ses_account`，`email_group`， 和`email`。
 姓名| 频道名称。
 描述| 频道描述。
 email.email_account_id| 发件人电子邮件地址频道使用。
@@ -158,12 +158,12 @@ POST /_plugins/_notifications/configs/
 创建通道API操作接受其请求主体中的以下字段：
 
 场地|数据类型|描述|必需的
-：--- | ：--- | ：--- | ：---
+:--- | :--- | :--- | :---
 config_id| 细绳| 配置的自定义ID。| 不
 config| 目的|包含所有相关信息，例如频道名称，配置类型和插件源。|是的
 姓名| 细绳|频道的名称。| 是的
 描述|细绳| 频道的描述。| 不
-config_type|细绳| 您的通知目的地。有效的选项是`sns`，，，，`slack`，，，，`chime`，，，，`webhook`，，，，`smtp_account`，，，，`ses_account`，，，，`email_group`， 和`email`。| 是的
+config_type|细绳| 您的通知目的地。有效的选项是`sns`，`slack`，`chime`，`webhook`，`smtp_account`，`ses_account`，`email_group`， 和`email`。| 是的
 IS_ENABLED| 布尔| 指示是否启用了用于发送和接收通知的通道。默认是正确的。| 不
 
 创建频道操作接受多个`config_types` 作为可能的通知目的地，因此请遵循您的首选格式`config_type`。

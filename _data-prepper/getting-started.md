@@ -11,7 +11,7 @@ redirect_from:
 Data Prepper是一个独立的组件，而不是OpenSearch插件，可将数据转换为供OpenSearch使用。它并没有捆绑-在-一个OpenSearch安装软件包。
 
 如果您是从开放的发行数据中迁移的，请参见[从开放式发行中迁移]({{site.url}}{{site.baseurl}}/data-prepper/migrate-open-distro/)。
-{： 。笔记}
+{: .note}
 
 ## 1.安装数据预先
 
@@ -22,7 +22,7 @@ Data Prepper是一个独立的组件，而不是OpenSearch插件，可将数据�
 ```
 docker pull opensearchproject/data-prepper:latest
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 如果您有需要您从源头构建的特殊要求，或者您想贡献，请参阅[开发人员指南](https://github.com/opensearch-project/data-prepper/blob/main/docs/developer_guide.md)。
 
@@ -78,7 +78,7 @@ simple-sample-pipeline:
   sink:
     - stdout:
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 4.运行数据预先
 
@@ -90,7 +90,7 @@ docker run --name data-prepper \
     opensearchproject/data-prepper:latest
     
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 上面的示例管道配置演示了一个简单的管道（用源）（`random`）将数据发送到接收器（`stdout`）。有关更高级管道配置的示例，请参见[管道]({{site.url}}{{site.baseurl}}/clients/data-prepper/pipelines/)。
 
@@ -123,14 +123,14 @@ b4ed2d7e-cf9c-4e9d-967c-b18e8af35c90
 ```
 docker run --name data-prepper -p 4900:4900 -v ${PWD}/pipelines.yaml:/usr/share/data-prepper/pipelines/pipelines.yaml -v ${PWD}/data-prepper-config.yaml:/usr/share/data-prepper/config/data-prepper-config.yaml opensearchproject/data-prepper:latest
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 对于更早的2.0的数据预先版本，请使用此命令：
 
 ```
 docker run --name data-prepper -p 4900:4900 -v ${PWD}/pipelines.yaml:/usr/share/data-prepper/pipelines.yaml -v ${PWD}/data-prepper-config.yaml:/usr/share/data-prepper/data-prepper-config.yaml opensearchproject/data-prepper:1.x
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 数据预先运行后，它将处理数据，直到关闭。完成后，使用以下命令将其关闭：
 

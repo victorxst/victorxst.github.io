@@ -29,7 +29,7 @@ grand_parent: 搜索管道
 下表列出了所有可用的请求字段。
 
 场地| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `source` | 内联脚本| 要运行的脚本。必需的。
 `lang` | 细绳| 脚本语言。选修的。仅有的`painless` 得到支持。
 `tag` | 细绳| 处理器的标识符。选修的。
@@ -54,5 +54,5 @@ PUT /_search/pipeline/explain_one_result
   ]
 } 
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 

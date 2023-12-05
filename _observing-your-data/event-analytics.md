@@ -37,7 +37,7 @@ source = opensearch_dashboards_sample_data_logs | fields host | stats count()
 ## 创建事件分析可视化并将其添加到仪表板
 
 此功能可在OpenSearch仪表板版本2.7和更高版本中获得。它可以使用2.7版或更高版本中创建的新可视化，该可视化使用PPL从Opensearch或Prometheus等联合数据源查询数据。
-{： 。笔记}
+{: .note}
 
 在仪表板上呈现您的可视化，而不是事件分析页面，使用户更容易浏览和解释数据。
 

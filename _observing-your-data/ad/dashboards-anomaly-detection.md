@@ -7,7 +7,7 @@ nav_order: 50
 
 # 异常检测仪表板和可视化
 引入2.9
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 OpenSearch提供了一种自动化手段，用于检测有害异常值并在启用异常检测时保护您的数据。当应用于指标时，OpenSearch使用算法来连续分析系统和应用，确定正常基准和表面异常。
 
@@ -46,7 +46,7 @@ OpenSearch提供了一种自动化手段，用于检测有害异常值并在启�
 1. 选择**仪表板** 从OpenSearch仪表板主菜单中。
 2. 来自**仪表板** 窗口，选择**创造** 然后选择**仪表板**。
 3. 选择**添加现有**，然后从中选择适当的可视化**添加面板** 列表。可视化添加到仪表板中。
-4. 从可视化面板中，选择省略号图标（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class ="inline-icon" alt ="ellipsis icon"/> {：/}）。
+4. 从可视化面板中，选择省略号图标（{::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class ="inline-icon" alt ="ellipsis icon"/> {:/}）。
 5. 来自**选项** 菜单，选择**异常检测** >**添加异常检测器**。
 6. 选择**创建新的检测器**。
 7. 输入信息**探测器细节** 和**模型功能**。最多允许五个型号功能。
@@ -59,7 +59,7 @@ OpenSearch提供了一种自动化手段，用于检测有害异常值并在启�
 
 使用单个接口添加，查看和编辑要与可视化相关联的异常检测器。继续前面的教程中的可视化和仪表板，请按照以下步骤将异常检测器与可视化相关联：
  
-1. 选择省略号图标（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class ="inline-icon" alt ="ellipsis icon"/> {：/}）从可视化面板中，然后选择**异常检测**。
+1. 选择省略号图标（{::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class ="inline-icon" alt ="ellipsis icon"/> {:/}）从可视化面板中，然后选择**异常检测**。
 2. 选择**关联检测器**。
 3. 来自**选择要关联的检测器** 下拉菜单，选择检测器。仅在下拉菜单中列出了合格的检测器。
 4. 查看有关检测器的基本信息。要查看全面的细节，请选择**查看探测器页面** 打开“异常检测插件”页面。

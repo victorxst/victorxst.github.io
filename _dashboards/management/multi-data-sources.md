@@ -27,7 +27,7 @@ redirect_from:
 3. 重新启动OpenSearch仪表板容器。
 4. 通过连接到OpenSearch仪表板并查看该配置设置是否正确配置了配置设置**仪表板管理** 导航菜单。**数据源** 出现在侧边栏中。您会看到类似于下图的视图。
 
-    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/multidatasources.png" alt ="Data sources in sidebar within Dashboards Management" 宽度="700">
+    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/multidatasources.png" alt ="Data sources in sidebar within Dashboards Management" width="700">
 
 ### 步骤2：创建一个新的数据源连接
 
@@ -63,7 +63,7 @@ redirect_from:
 
         - 什么时候**AWS SIGV4** 是所选的身份验证方法，您可以通过选择来更新凭据**更新存储的AWS凭据**。在流行音乐中-向上窗口，在第一个字段中输入新的访问密钥，并在第二字段中输入一个新的秘密密钥。选择**更新存储的AWS凭据** 在流行音乐中-向上窗口。新的凭据被保存。选择**测试连接** 在上部-屏幕的右角确认连接有效。
 
-5. 通过选择标题左侧的复选框删除数据源连接，然后选择**删除1连接**。支持为多个连接选择多个复选框。另外，选择垃圾桶图标（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class ="inline-icon" alt ="trash can icon"/> {：/}）。
+5. 通过选择标题左侧的复选框删除数据源连接，然后选择**删除1连接**。支持为多个连接选择多个复选框。另外，选择垃圾桶图标（{::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class ="inline-icon" alt ="trash can icon"/> {:/}）。
 
 示例数据源连接屏幕如下图所示。
 

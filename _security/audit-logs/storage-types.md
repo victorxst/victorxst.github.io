@@ -13,7 +13,7 @@ redirect_from:
 审核日志可以占用很多空间，因此安全插件为存储位置提供了几种选择。
 
 环境| 描述
-：--- | ：---
+:--- | :---
 调试| 输出到Stdout。可用于测试和调试。
 Internal_opensearch| 写入当前OpenSearch集群上的审核索引。
 external_opensearch| 将远程搜索集群上的审核索引写入。
@@ -26,7 +26,7 @@ log4j| 将事件写入log4j logger。您可以使用任何log4j[appender](https:
 plugins.security.audit.type: <debug|internal_opensearch|external_opensearch|webhook|log4j>
 ```
 
-`external_opensearch`，，，，`webhook`， 和`log4j` 所有都有其他配置选项。详细信息如下。
+`external_opensearch`，`webhook`， 和`log4j` 所有都有其他配置选项。详细信息如下。
 
 
 ## 外部opensearch
@@ -52,7 +52,7 @@ plugins.security.audit.config.http_endpoints: [192.168.178.1:9200,192.168.178.2:
 ### TLS设置
 
 姓名| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `plugins.security.audit.config.enable_ssl` | 布尔| 如果在接收群集上启用了SSL/TLS，请设置为true。默认值为false。
 `plugins.security.audit.config.verify_hostnames` |  布尔| 是否验证接收群集的SSL/TLS证书的主机名。默认是正确的。
 `plugins.security.audit.config.pemtrustedcas_filepath` | 细绳| 相对于外部openSearch集群的可信根证书`config` 目录。
@@ -80,18 +80,18 @@ plugins.security.audit.config.password: <password>
 使用以下键配置`webhook` 存储类型。
 
 姓名| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `plugins.security.audit.config.webhook.url` | 细绳| HTTP或HTTPS URL将日志发送到。
 `plugins.security.audit.config.webhook.ssl.verify` | 布尔| 如果为true，则将验证端点（如果有）提供的TLS证书。如果设置为false，则不会执行验证。如果您使用自我，可以禁用此检查-签名证书。
 `plugins.security.audit.config.webhook.ssl.pemtrustedcas_filepath` | 细绳| 验证了Webhook的TLS证书的信任证书的路径。
 `plugins.security.audit.config.webhook.ssl.pemtrustedcas_content` | 细绳| 与...一样`plugins.security.audit.config.webhook.ssl.pemtrustedcas_content`，但是您可以直接配置基本64编码的证书内容。
-`plugins.security.audit.config.webhook.format` | 细绳| 审核日志消息的格式记录，可以是一种`URL_PARAMETER_GET`，，，，`URL_PARAMETER_POST`，，，，`TEXT`，，，，`JSON`，，，，`SLACK`。看[格式](#formats)。
+`plugins.security.audit.config.webhook.format` | 细绳| 审核日志消息的格式记录，可以是一种`URL_PARAMETER_GET`，`URL_PARAMETER_POST`，`TEXT`，`JSON`，`SLACK`。看[格式](#formats)。
 
 
 ### 格式
 
 格式| 描述
-：--- | ：---
+:--- | :---
 `URL_PARAMETER_GET` | 使用http get将日志发送到Webhook URL。所有记录的信息都作为请求参数附加到URL。
 `URL_PARAMETER_POST` | 使用HTTP帖子将日志发送到Webhook URL。所有记录的信息都作为请求参数附加到URL。
 `TEXT` | 使用HTTP帖子将日志发送到Webhook URL。请求主体包含纯文本格式的审核日志消息。

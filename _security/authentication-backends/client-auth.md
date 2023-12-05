@@ -45,7 +45,7 @@ clientcert_auth_domain:
 
 现在，您可以将证书的通用名称（CN）分配给角色。在此步骤中，您必须知道证书的CN和要分配的角色。要获取OpenSearch中所有预定义角色的列表，请参阅我们的[预定角色清单]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#predefined-roles)。如果您想首先创建角色，请参考[如何创造角色]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#create-users)，然后将您的证书的CN映射到该角色。
 
-在确定要映射证书的CN的角色之后，您可以使用[OpenSearch仪表板]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#map-users-to-roles)，，，，[`roles_mapping.yml`]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#roles_mappingyml)， 或者[REST API]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role-mapping) 将证书的CN映射到角色。以下示例使用`REST API` 映射通用名称`CLIENT1` 扮演角色`readall`。
+在确定要映射证书的CN的角色之后，您可以使用[OpenSearch仪表板]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#map-users-to-roles)，[`roles_mapping.yml`]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#roles_mappingyml)， 或者[REST API]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role-mapping) 将证书的CN映射到角色。以下示例使用`REST API` 映射通用名称`CLIENT1` 扮演角色`readall`。
 
 **示例请求**
 
@@ -89,7 +89,7 @@ response = requests.get(url, cert = (cert_file_path, key_file_path), verify=root
 print(response.text)
 ```
 
-{％ 评论 ％}
+{% comment %}
 ## 配置节拍
 
 您还可以配置Beats，以便使用OpenSearch使用客户端证书进行身份验证。之后，它可以开始将输出发送到OpenSearch。
@@ -108,7 +108,7 @@ output.opensearch:
   ssl.certificate: "/full/path/to/client-cert.pem"
   ssl.key: "/full/path/to/to/client-cert-key.pem"
 ```
-{％endcomment％}
+{% endcomment %}
 
 ## 与Docker一起使用证书
 

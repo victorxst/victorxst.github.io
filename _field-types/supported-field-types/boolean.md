@@ -108,7 +108,7 @@ GET testindex/_search
 ```
 {% include copy-curl.html %}
 
-脚本返回的值`a` 作为`true`，，，，`key` 返回的价值`a` 作为`1`， 和`key_as_string` 返回的价值`a` 作为`"true"`：
+脚本返回的值`a` 作为`true`，`key` 返回的价值`a` 作为`1`， 和`key_as_string` 返回的价值`a` 作为`"true"`：
 
 ```json
 {

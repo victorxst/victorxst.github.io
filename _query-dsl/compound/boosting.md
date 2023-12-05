@@ -85,7 +85,7 @@ GET testindex/_search
 }
 ```
 
-现在使用以下`boosting` 查询以搜索包含单词的文档"pitcher" 但是降低了包含单词的文档"glass"，，，，"crystal"， 或者"water"：
+现在使用以下`boosting` 查询以搜索包含单词的文档"pitcher" 但是降低了包含单词的文档"glass"，"crystal"， 或者"water"：
 
 ```json
 GET testindex/_search
@@ -107,7 +107,7 @@ GET testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 两个文档仍然返回，但文档带有单词"glass" 相关得分比以前的情况低10倍：
 
@@ -154,7 +154,7 @@ GET testindex/_search
 下表列出了所有顶部-支持的级别参数`boosting` 查询。
 
 范围| 描述
-：--- | ：---
+:--- | :---
 `positive` | 必须在结果中返回文档必须匹配的查询。必需的。
 `negative` | 如果结果中的文档与此查询匹配，则通过乘以其原始相关性分数来降低其相关性评分（由`positive` 查询）`negative_boost` 范围。必需的。
 `negative_boost` | 浮动-为了减少与之匹配的文档的相关性，将原始相关得分乘以0到1.0之间的点因子。`negative` 询问。必需的。

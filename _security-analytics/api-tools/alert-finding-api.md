@@ -20,7 +20,7 @@ nav_order: 50
 请求警报时，您可以指定以下参数。
 
 范围| 描述
-：--- | ：---
+:--- | :---
 `detectorId` | 检测器的ID用于获取警报。可选时`detectorType` 指定。否则需要。
 `detectorType` | 检测器的类型用于获取警报。可选时`detectorId` 指定。否则需要。
 `severityLevel` | 用于通过警报严重程度过滤。选修的。
@@ -43,26 +43,26 @@ nav_order: 50
 ```json
 {
     "alerts"：[{{
-        "detector_id"："detector_12345"，，，，
-        "id"："alert_id_1"，，，，
+        "detector_id"："detector_12345"，
+        "id"："alert_id_1"，
         "version"：-3，
         "schema_version"：0，
-        "trigger_id"："trigger_id_1"，，，，
-        "trigger_name"："my_trigger"，，，，
+        "trigger_id"："trigger_id_1"，
+        "trigger_name"："my_trigger"，
         "finding_ids"：[["finding_id_1"]，，
         "related_doc_ids"：[["docId1"]，，
-        "state"："ACTIVE"，，，，
+        "state"："ACTIVE"，
         "error_message"： 无效的，
         "alert_history"：[]，，
         "severity"： 无效的，
         "action_execution_results"：[{{
-            "action_id"："action_id_1"，，，，
+            "action_id"："action_id_1"，
             "last_execution_time"：1665693544996，
             "throttled_count"：0
         }]，
-        "start_time"："2022-10-13T20:39:04.995023Z"，，，，
-        "last_notification_time"："2022-10-13T20:39:04.995028Z"，，，，
-        "end_time"："2022-10-13T20:39:04.995027Z"，，，，
+        "start_time"："2022-10-13T20:39:04.995023Z"，
+        "last_notification_time"："2022-10-13T20:39:04.995028Z"，
+        "end_time"："2022-10-13T20:39:04.995027Z"，
         "acknowledged_time"："2022-10-13T20:39:04.995028Z"
     }]，
     "total_alerts"：1，
@@ -75,7 +75,7 @@ nav_order: 50
 警报持续存在，直到您解决根本原因并具有以下状态：
 
 状态| 描述
-：--- | ：---
+:--- | :---
 `ACTIVE` | 该警报正在进行中，并未被确认。警报保持在此状态，直到您确认它们，删除与警报关联的触发器，或完全删除监视器。
 `ACKNOWLEDGED` | 有人已经确认警报，但没有修复根本原因。
 `COMPLETED` | 警报不再持续。在相应的触发器评估为false之后，警报输入此状态。
@@ -146,17 +146,17 @@ get/_plugins/_security_analytics/findings/_search？
     "total_findings"：2，
     "findings"：[[
        {
-            "detectorId"："12345"，，，，
-            "id"："2b9663f4-ae77-4df8-b84f-688a0195723b"，，，，
+            "detectorId"："12345"，
+            "id"："2b9663f4-ae77-4df8-b84f-688a0195723b"，
             "related_doc_ids"：[[
                 "5"
             ]，，
-            "index"："sbwhrzgdlg"，，，，
+            "index"："sbwhrzgdlg"，
             "queries"：[[
                 {
-                    "id"："f1bff160-587b-4500-b60c-ab22c7abc652"，，，，
-                    "name"："3"，，，，
-                    "query"："test_field:\"我们-西方-2 \""，，，，
+                    "id"："f1bff160-587b-4500-b60c-ab22c7abc652"，
+                    "name"："3"，
+                    "query"："test_field:\"我们-西方-2 \""，
                     "tags"：[[
                         
                     这是给出的
@@ -165,25 +165,25 @@ get/_plugins/_security_analytics/findings/_search？
             "timestamp"：166440108804，
             "document_list"：[[
                 {
-                    "index"："sbwhrzgdlg"，，，，
-                    "id"："5"，，，，
+                    "index"："sbwhrzgdlg"，
+                    "id"："5"，
                     "found"：真的，
                     "document"："{\n            \"信息\" : \"这是来自IAD区域的错误\",\n            \"test_strict_date_time \" : \"2022-09-28T21：38：02.888Z \",\n            \"test_field \" : \"我们-西方-2 \"\n        }"
                 }
             这是给出的
         }，，
         {
-            "detectorId"："12345"，，，，
-            "id"："f43a2701-0ef5-4931-8254-bdf510f73952"，，，，
+            "detectorId"："12345"，
+            "id"："f43a2701-0ef5-4931-8254-bdf510f73952"，
             "related_doc_ids"：[[
                 "1"
             ]，，
-            "index"："sbwhrzgdlg"，，，，
+            "index"："sbwhrzgdlg"，
             "queries"：[[
                 {
-                    "id"："f1bff160-587b-4500-b60c-ab22c7abc652"，，，，
-                    "name"："3"，，，，
-                    "query"："test_field:\"我们-西方-2 \""，，，，
+                    "id"："f1bff160-587b-4500-b60c-ab22c7abc652"，
+                    "name"："3"，
+                    "query"："test_field:\"我们-西方-2 \""，
                     "tags"：[[
                         
                     这是给出的
@@ -192,8 +192,8 @@ get/_plugins/_security_analytics/findings/_search？
             "timestamp"：166440108746，
             "document_list"：[[
                 {
-                    "index"："sbwhrzgdlg"，，，，
-                    "id"："1"，，，，
+                    "index"："sbwhrzgdlg"，
+                    "id"："1"，
                     "found"：真的，
                     "document"："{\n            \"信息\" : \"这是来自IAD区域的错误\",\n            \"test_strict_date_time \" : \"2022-09-28T21：38：02.888Z \",\n            \"test_field \" : \"我们-西方-2 \"\n        }"
                 }

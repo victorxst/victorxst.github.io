@@ -61,21 +61,21 @@ OpenSearch基准测试可用于为测试提供OpenSearch节点。如果您打算
   ```bash
   python3 --version
   ```
-  {％include copy.html％}
+  {% include copy.html %}
 
 - 检查一下`pip` 已安装和功能：
 
   ```bash
   pip --version
   ```
-  {％include copy.html％}
+  {% include copy.html %}
 
 - _optional_：检查您的安装版本是否`git` 是**git 1.9或更高版本** 使用以下命令。`git` OpenSearch基准安装并不需要，但是在要执行测试时，需要从存储库中获取基准工作负载资源。看到官方git[文档](https://git-scm.com/doc) 为了帮助安装git。
 
   ```bash
   git --version
   ```
-  {％include copy.html％}
+  {% include copy.html %}
 
 ### 完成安装
 
@@ -84,14 +84,14 @@ OpenSearch基准测试可用于为测试提供OpenSearch节点。如果您打算
 ```bash
 pip install opensearch-benchmark
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 安装完成后，您可以使用以下命令显示帮助信息：
 
 ```bash
 opensearch-benchmark -h
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 
 现在，OpenSearch基准已安装在主机上，您可以了解[配置OpenSearch基准测试]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/)。
@@ -115,14 +115,14 @@ opensearch-benchmark -h
 ```bash
 docker pull opensearchproject/opensearch-benchmark:latest
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 从Amazon弹性容器注册表（Amazon ECR）中提取图像：
 
 ```bash
 docker pull public.ecr.aws/opensearchproject/opensearch-benchmark:latest
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ### 与Docker一起运行基准
 
@@ -133,7 +133,7 @@ docker pull public.ecr.aws/opensearchproject/opensearch-benchmark:latest
 ```bash
 docker run opensearchproject/opensearch-benchmark -h
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 
 ### 在Docker容器中建立音量持久性
@@ -147,7 +147,7 @@ docker run opensearchproject/opensearch-benchmark -h
 ```bash
 docker run -v $HOME/benchmarks:/opensearch-benchmark/.benchmark opensearchproject/opensearch-benchmark execute_test --target-hosts https://198.51.100.25:9200 --pipeline benchmark-only --workload geonames --client-options basic_auth_user:admin,basic_auth_password:admin,verify_certs:false --test-mode
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 看[配置OpenSearch基准测试]({{site.url}}{{site.baseurl}}/benchmark/configuring-benchmark/) 要了解有关文件和子目录的更多信息`/opensearch-benchmark/.benchmark`。
 

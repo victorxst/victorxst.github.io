@@ -32,7 +32,7 @@ SQL插件支持在SQL和PPL语言上共享的以下常见功能。
 | `expm1`    | `expm1(number T) -> double`                                      | `SELECT expm1(0.5)`                            |
 | `floor`    | `floor(number T) -> long`                                        | `SELECT floor(0.5)`                            |
 | `ln`       | `ln(number T) -> double`                                         | `SELECT ln(10)`                                |
-| `log`      | `log(number T) -> double` 或者`log(number T, number T) -> double` | `SELECT log(10)`，，，，`SELECT log(2, 16)`          |
+| `log`      | `log(number T) -> double` 或者`log(number T, number T) -> double` | `SELECT log(10)`，`SELECT log(2, 16)`          |
 | `log2`     | `log2(number T) -> double`                                       | `SELECT log2(10)`                              |
 | `log10`    | `log10(number T) -> double`                                      | `SELECT log10(10)`                             |
 | `mod`      | `mod(number T, number T) -> T`                                   | `SELECT mod(2, 3)`                             |
@@ -41,9 +41,9 @@ SQL插件支持在SQL和PPL语言上共享的以下常见功能。
 | `pi`       | `pi() -> double`                                                 | `SELECT pi()`                                  |
 | `pow`      | `pow(number T, number T) -> double`                              | `SELECT pow(2, 3)`                             |
 | `power`    | `power(number T, number T) -> double`                            | `SELECT power(2, 3)`                           |
-| `rand`     | `rand() -> float` 或者`rand(number T) -> float`                   | `SELECT rand()`，，，，`SELECT rand(0.5)`            |
+| `rand`     | `rand() -> float` 或者`rand(number T) -> float`                   | `SELECT rand()`，`SELECT rand(0.5)`            |
 | `rint`     | `rint(number T) -> double`                                       | `SELECT rint(1.5)`                             |
-| `round`    | `round(number T) -> T` 或者`round(number T, integer) -> T`        | `SELECT round(1.5)`，，，，`SELECT round(1.175, 2)`  |
+| `round`    | `round(number T) -> T` 或者`round(number T, integer) -> T`        | `SELECT round(1.5)`，`SELECT round(1.175, 2)`  |
 | `sign`     | `sign(number T) -> integer`                                      | `SELECT sign(1.5)`                             |
 | `signum`   | `signum(number T) -> integer`                                    | `SELECT signum(0.5)`                           |
 | `sqrt`     | `sqrt(number T) -> double`                                       | `SELECT sqrt(0.5)`                             |
@@ -158,7 +158,7 @@ SQL插件支持在SQL和PPL语言上共享的以下常见功能。
 | `concat_ws` | `concat_ws(separator, string, string…) -> string`                                   | `SELECT concat_ws(" ", "Hello", "World!")`                     |
 | `left`      | `left(string, integer) -> string`                                                   | `SELECT left('hello', 2)`                                      |
 | `length`    | `length(string) -> integer`                                                         | `SELECT length('hello')`                                       |
-| `locate`    | `locate(string, string, integer) -> integer` 或者`locate(string, string) -> integer` | `SELECT locate('o', 'hello')`，，，，`locate('l', 'hello world', 5)` |
+| `locate`    | `locate(string, string, integer) -> integer` 或者`locate(string, string) -> integer` | `SELECT locate('o', 'hello')`，`locate('l', 'hello world', 5)` |
 | `replace`   | `replace(string, string, string) -> string`                                         | `SELECT replace('hello', 'l', 'x')`                            |
 | `right`     | `right(string, integer) -> string`                                                  | `SELECT right('hello', 2)`                                     |
 | `rtrim`     | `rtrim(string) -> string`                                                           | `SELECT rtrim('hello   ')`                                     |

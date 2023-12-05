@@ -24,7 +24,7 @@ GET _search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 要传递其他参数，您可以使用扩展的语法：
 
@@ -41,7 +41,7 @@ GET _search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ## 例子
 
@@ -53,7 +53,7 @@ PUT testindex/_doc/1
   "title": "The wind rises"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ```json
 PUT testindex/_doc/2
@@ -62,7 +62,7 @@ PUT testindex/_doc/2
   
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 下列`match_phrase` 查询搜索短语`wind rises`，一个单词`wind` 接下来是这个词`rises`：
 
@@ -76,7 +76,7 @@ GET testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 响应包含匹配文档：
 
@@ -116,7 +116,7 @@ GET testindex/_search
   }
 }
 ```
-</delect>
+</details>
 
 ## 分析仪
 
@@ -135,7 +135,7 @@ GET testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 这`english` 分析仪删除了停止词`the` 并执行茎，产生令牌`wind`。这两个文档都与此令牌匹配，并在结果中返回：
 
@@ -182,7 +182,7 @@ GET testindex/_search
   }
 }
 ```
-</delect>
+</details>
 
 ## 坡
 
@@ -239,7 +239,7 @@ GET _search
   }
 }
 ```
-</delect>
+</details>
 
 ## 空查询
 
@@ -262,12 +262,12 @@ GET _search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 这`<field>` 接受以下参数。除所有参数外`query` 是可选的。
 
 范围| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `query` | 细绳| 用于搜索的查询字符串。必需的。
 `analyzer` | 细绳| 这[分析仪]({{site.url}}{{site.baseurl}}/analyzers/index/) 用于引导查询字符串文本。默认是索引-指定的时间分析仪`default_field`。如果未针对`default_field`， 这`analyzer` 是索引的默认分析仪。
 `slop` | `0` （默认）或正整数| 控制查询中的单词可能会被误解的程度，并且仍然被认为是匹配的程度。来自[Lucene文档](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html#getSlop--)："The number of other words permitted between words in query phrase. For example, to switch the order of two words requires two moves (the first move places the words atop one another), so to permit reorderings of phrases, the slop must be at least two. A value of zero requires an exact match."

@@ -25,7 +25,7 @@ nav_order: 70
 您可以配置`substitute_string` 带有以下选项的处理器。
 
 选项| 必需的| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `entries` | 是的| 添加到事件的条目列表。|
 `source` | 是的| 要修改的钥匙。|
 `from` | 是的| 将要替换的正则弦字符串。特殊的正则角色，例如`[` and `]( must be escaped using `\\` when using double quotes and `\` when using single quotes. For more information, see [Class Pattern](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html) 在Java文档中。|
@@ -51,7 +51,7 @@ pipeline:
   sink:
     - stdout:
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 接下来，创建一个名为的日志文件`logs_json.log`。之后，更换`path` 您的文件源中的`pipeline.yaml` 用您的文件路径进行文件。有关更多详细信息，请参阅[配置数据预备]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper)。
 
@@ -78,7 +78,7 @@ pipeline:
 您可以配置`split_string` 带有以下选项的处理器。
 
 选项| 必需的| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
  `entries` | 是的| 添加到事件的条目列表。|
  `source` | 是的| 要分开的钥匙。|
  `delimiter` | 不| 分离器角色负责拆分。不能与`delimiter_regex`。至少`delimiter` 或者`delimiter_regex` 必须定义。|
@@ -103,7 +103,7 @@ pipeline:
   sink:
     - stdout:
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 接下来，创建一个名为的日志文件`logs_json.log`。之后，更换`path` 在您的文件源中`pipeline.yaml` 用您的文件路径进行文件。有关更多详细信息，请参阅[配置数据预备]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper)。
 
@@ -127,7 +127,7 @@ pipeline:
 您可以配置`uppercase_string` 带有以下选项的处理器。
 
 选项| 必需的| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
  `with_keys` | 是的| 转换为大写的密钥列表。|
 
 ### 用法
@@ -148,7 +148,7 @@ pipeline:
   sink:
     - stdout:
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 接下来，创建一个名为的日志文件`logs_json.log`。之后，更换`path` 在您的文件源中`pipeline.yaml` 使用正确的文件路径文件。有关更多详细信息，请参阅[配置数据预备]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper)。
 
@@ -172,7 +172,7 @@ pipeline:
 您可以配置`lowercase string` 带有以下选项的处理器。
 
 选项| 必需的| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
  `with_keys` | 是的| 转换为小写的键列表。|
 
 ### 用法
@@ -193,7 +193,7 @@ pipeline:
   sink:
     - stdout:
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 接下来，创建一个名为的日志文件`logs_json.log`。之后，更换`path` 在您的文件源中`pipeline.yaml` 使用正确的文件路径文件。有关更多详细信息，请参阅[配置数据预备]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper)。
 
@@ -218,7 +218,7 @@ pipeline:
 您可以配置`trim_string` 带有以下选项的处理器。
 
 选项| 必需的| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
  `with_keys` | 是的| 钥匙列出的钥匙列表，从中修剪了空格。|
 
 ### 用法
@@ -239,7 +239,7 @@ pipeline:
   sink:
     - stdout:
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 接下来，创建一个名为的日志文件`logs_json.log`。之后，更换`path` 在您的文件源中`pipeline.yaml` 使用正确的文件路径文件。有关更多详细信息，请参阅[配置数据预备]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper)。
 

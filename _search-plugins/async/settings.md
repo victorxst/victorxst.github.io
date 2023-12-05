@@ -23,7 +23,7 @@ PUT _cluster/settings
 ```
 
 环境| 默认| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `plugins.asynchronous_search.max_search_running_time` | 12小时| 搜索终止搜索的最大运行时间。
 `plugins.asynchronous_search.node_concurrent_running_searches` | 20| 每个协调器节点运行的并发搜索。
 `plugins.asynchronous_search.max_keep_alive` | 5天| 搜索结果的最长时间可以存储在集群中。

@@ -8,7 +8,7 @@ nav_order: 150
 # OpenSearch仪表板多-保存对象的租赁汇总视图
 
 这是OpenSearch 2.4中发布的实验功能，不建议在生产环境中使用。有关功能进度或要留下反馈的更新，请参阅[仪表板对象共享](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/2249) Github问题。为了更全面地看待拟议的Multi的未来发展-租赁，请参阅[仪表板对象共享](https://github.com/opensearch-project/security/issues/1869) 问题。
-{： 。警告}
+{: .warning}
 
 保存对象的汇总视图允许可以访问多个租户的用户在一个视图中查看与这些租户关联的所有保存对象，而无需在租户之间切换。这包括用户创建的租户和与用户共享的租户。聚合视图在保存的对象表中引入了租户下拉菜单和列，该表使用户可以通过租户过滤并使其可见其关联的保存对象进行过滤。
 
@@ -17,7 +17,7 @@ nav_order: 150
 要访问保存的对象，请展开顶部菜单，然后选择**管理>仪表板管理>保存对象**。保存的对象窗口打开。默认情况下，用户拥有权限的所有租户都与与租户关联的所有保存对象一起显示。
 
 作为实验功能，保存对象的聚合视图保留在功能标志后面，必须在`opensearch_dashboards.yml` 在提供该功能之前的文件。看[启用聚合视图](#enabling-aggregate-view-for-saved-objects) 了解更多信息。
-{： 。笔记 }
+{: .note }
 
 ### 功能优势
 
@@ -67,12 +67,12 @@ nav_order: 150
 
 1. 注意与租户列中对象相关的租户。
 1. 在上部-窗口的右角，打开用户菜单，然后选择**切换租户**。
-<br> <img src ="{{site.url}}{{site.baseurl}}/images/Security/switch_tenant.png" alt ="Switching tenants in the user menu" 宽度="425">
+<br> <img src ="{{site.url}}{{site.baseurl}}/images/Security/switch_tenant.png" alt ="Switching tenants in the user menu" width="425">
 1. 在里面**选择您的租户** 窗口，选择全局或私人选项或自定义租户选项之一，以指定正确的租户。选择**确认** 按钮。租户变得活跃，并显示在用户菜单中。
 1. 租户处于活动状态后，您可以使用“操作”列中的控件与与租户关联的保存对象一起使用。
 <img src="{{site.url}}{{site.baseurl}}/images/Security/actions.png" alt="Actions column controls" width="700">
 
 当租户不活跃时，您无法使用操作列控件与其关联对象一起使用。要与这些物体一起工作，请按照上述步骤使租户活跃起来。
-{： 。笔记 }
+{: .note }
 
 

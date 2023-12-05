@@ -34,7 +34,7 @@ PUT testindex/_doc/1
   "title": "The wind rises"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ```json
 PUT testindex/_doc/2
@@ -43,7 +43,7 @@ PUT testindex/_doc/2
   "description": "A 1939 American epic historical film"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 以下查询搜索包含的文档`description` 场地：
 
@@ -57,7 +57,7 @@ GET testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 响应包含匹配文档：
 
@@ -110,7 +110,7 @@ GET testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 响应包含匹配文档：
 

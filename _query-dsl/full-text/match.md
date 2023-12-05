@@ -22,7 +22,7 @@ GET _search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 要传递其他参数，您可以使用扩展的语法：
 
@@ -39,7 +39,7 @@ GET _search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ## 例子
 
@@ -51,7 +51,7 @@ PUT testindex/_doc/1
   "title": "Let the wind rise"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ```json
 PUT testindex/_doc/2
@@ -60,7 +60,7 @@ PUT testindex/_doc/2
   
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ```json
 PUT testindex/_doc/3
@@ -68,7 +68,7 @@ PUT testindex/_doc/3
   "title": "Rise is gone"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ## 操作员
 
@@ -87,7 +87,7 @@ GET testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 查询被构造为`wind AND rise` 并将文档1作为匹配文档返回：
 
@@ -147,7 +147,7 @@ GET testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 现在需要文档匹配这两个条款，因此仅返回文档1（这等同于`and` 操作员）：
 
@@ -186,7 +186,7 @@ GET testindex/_search
   }
 }
 ```
-</delect>
+</details>
 
 ## 分析仪
 
@@ -206,7 +206,7 @@ GET testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 这`english` 分析仪删除了停止词`the` 并执行茎，产生令牌`wind` 和`rise`。后者令牌匹配文档1，结果在结果中返回：
 
@@ -245,7 +245,7 @@ GET testindex/_search
   }
 }
 ```
-</delect>
+</details>
 
 ## 空查询
 
@@ -258,7 +258,7 @@ GET testindex/_analyze
   "text" : "and OR or"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 如预期的那样，查询不会产生任何令牌：
 
@@ -284,7 +284,7 @@ GET testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ## 模糊
 
@@ -311,7 +311,7 @@ GET testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 令牌`wnid` 火柴`wind` 查询返回文档1和2：
 
@@ -358,7 +358,7 @@ GET testindex/_search
   }
 }
 ```
-</delect>
+</details>
 
 ### 前缀长度
 
@@ -378,7 +378,7 @@ GET testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 前面的查询返回没有结果。如果您更改`prefix_length` 到1，由于令牌的第一个字母，文件1和2被返回`wnid` 没有拼写错误。
 
@@ -400,7 +400,7 @@ GET testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 现在查询返回没有结果。
 
@@ -423,7 +423,7 @@ GET /testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 产生的查询是`ba OR (batting AND average)`。
 
@@ -444,19 +444,19 @@ GET _search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 这`<field>` 接受以下参数。除所有参数外`query` 是可选的。
 
 范围| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `query` | 细绳| 用于搜索的查询字符串。必需的。
 `auto_generate_synonyms_phrase_query` | 布尔| 指定是否创建[匹配短语查询]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/) 自动用于多人-术语同义词。例如，如果指定`ba,batting average` 作为同义词和搜索`ba`，OpenSearch搜索`ba OR "batting average"` （如果此选项是`true`） 或者`ba OR (batting AND average)` （如果此选项是`false`）。默认为`true`。
 `analyzer` | 细绳| 这[分析仪]({{site.url}}{{site.baseurl}}/analyzers/index/) 用于引导查询字符串文本。默认是索引-指定的时间分析仪`default_field`。如果未针对`default_field`， 这`analyzer` 是索引的默认分析仪。
 `boost` | 漂浮的-观点| 通过给定的乘数增强子句。对于在复合查询中称量从句有用。[0，1）中的值降低了相关性，并且值大于1的相关性。默认为`1`。
 `enable_position_increments` | 布尔| 什么时候`true`，结果查询知道位置增量。当删除停止单词留下不必要的时，此设置很有用"gap" 在术语之间。默认为`true`。
 `fuzziness` | 细绳| 在确定一个术语是否匹配值时，将一个单词更改为另一个单词所需的字符编辑数量（插入，删除，替换）。例如，`wined` 和`wind` 是1.有效值是非-负整数或`AUTO`。默认，`AUTO`，根据每个学期的长度选择一个值，对于大多数用例，是一个不错的选择。
-`fuzzy_rewrite` | 细绳| 确定OpenSearch如何重写查询。有效值是`constant_score`，，，，`scoring_boolean`，，，，`constant_score_boolean`，，，，`top_terms_N`，，，，`top_terms_boost_N`， 和`top_terms_blended_freqs_N`。如果是`fuzziness` 参数不是`0`，查询使用`fuzzy_rewrite` 的方法`top_terms_blended_freqs_${max_expansions}` 默认情况下。默认为`constant_score`。
+`fuzzy_rewrite` | 细绳| 确定OpenSearch如何重写查询。有效值是`constant_score`，`scoring_boolean`，`constant_score_boolean`，`top_terms_N`，`top_terms_boost_N`， 和`top_terms_blended_freqs_N`。如果是`fuzziness` 参数不是`0`，查询使用`fuzzy_rewrite` 的方法`top_terms_blended_freqs_${max_expansions}` 默认情况下。默认为`constant_score`。
 `fuzzy_transpositions` | 布尔| 环境`fuzzy_transpositions` 到`true` （默认）在插入，删除和替代操作中添加相邻字符的互换`fuzziness` 选项。例如，`wind` 和`wnid` 是1`fuzzy_transpositions` 是真的（交换"n" 和"i"）和2如果是错误的（删除"n"， 插入"n"）。如果`fuzzy_transpositions` 是错误的，`rewind` 和`wnid` 距离有相同的距离（2）`wind`，尽管人类越来越多-以中心的看法`wnid` 是一个明显的错别字。对于大多数用例，默认值是一个不错的选择。
 `lenient` | 布尔| 环境`lenient` 到`true` 忽略查询和文档字段之间的数据类型不匹配。例如，一个查询字符串`"8.2"` 可以匹配类型字段`float`。默认为`false`。
 `max_expansions` | 正整数|  查询可以扩展的最大术语数量。模糊的查询“扩展为”在指定距离内的许多匹配术语`fuzziness`。然后OpenSearch尝试匹配这些术语。默认为`50`。

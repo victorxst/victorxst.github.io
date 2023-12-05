@@ -211,7 +211,7 @@ GET /testindex/_search?human=true
   }
 }
 ```
-</delect>
+</details>
 
 ## 响应字段
 
@@ -566,7 +566,7 @@ GET /opensearch_dashboards_sample_data_ecommerce/_search
   }
 }
 ```
-</delect>
+</details>
 
 #### 示例请求：非-全球聚合
 
@@ -728,7 +728,7 @@ GET /opensearch_dashboards_sample_data_ecommerce/_search
   }
 }
 ```
-</delect>
+</details>
 
 ### 响应字段
 
@@ -926,7 +926,7 @@ GET /opensearch_dashboards_sample_data_ecommerce/_search
   }
 }
 ```
-</delect>
+</details>
 
 ### 修改或添加的响应字段
 

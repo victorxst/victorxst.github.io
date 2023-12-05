@@ -25,7 +25,7 @@ PUT /_snapshot/snap_repo
         }
     }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 启用后，所有请求都使用[快照API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/) 所有快照将保持不变。启用设置后，我们建议不要禁用设置。这样做可能会影响数据耐用性。
 

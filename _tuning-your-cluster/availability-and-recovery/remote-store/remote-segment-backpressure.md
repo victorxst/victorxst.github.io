@@ -9,7 +9,7 @@ grand_parent: 可用性和恢复
 # 远程段背压
 
 引入2.10
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 远程部分背压是一个碎片-当远程段存储落后于主碎片上的本地承诺段时，会动态拒绝索引请求的级别拒绝机制。使用远程段背压，您可以防止远程存储和本地主商店之间的滞后。滞后可能是由缓慢或失败的远程存储交互，远程存储节流，长垃圾收集停顿或高CPU利用率引起的。
 
@@ -32,7 +32,7 @@ grand_parent: 可用性和恢复
 下表列出了用于激活背压的设置。有关阈值计算，请参见[阈值](#thresholds)。
 
 |环境|数据类型|描述|
-|：---|：---|：---|
+|:---	|:---	|:---	|
 |`remote_store.segment.pressure.enabled`|布尔| 如果`true`，启用远程段背压。默认为`false`。|
 |`remote_store.segment.pressure.consecutive_failures.limit`|整数|激活远程段背压的最小连续故障计数。默认为`5`。|
 |`remote_store.segment.pressure.bytes_lag.variance_factor`|漂浮| 与移动平均线一起使用的方差因子来计算激活远程段背压的动态字节滞后阈值。默认为`10`。|
@@ -41,7 +41,7 @@ grand_parent: 可用性和恢复
 下表列出了用于统计的设置。
 
 |环境|数据类型|描述|
-|：---|：---|：---|
+|:---	|:---	|:---	|
 | `remote_store.moving_average_window_size` | 整数| 移动平均窗口大小用于计算通过[远程商店统计API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-store-stats-api/)。默认为`20`。最低执行是`5`。|
 
 

@@ -76,7 +76,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 下表列出了所有响应字段。
 
 统计| 描述
-：--- | ：---
+:--- | :---
 `count` | 测量样品的数量。
 `mean` | 从样品中测量的场的平均值。
 `variance` | 测得的场值从其平均值中传播多远。差异越大，它从平均值中传播的越多。

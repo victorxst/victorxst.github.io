@@ -17,21 +17,21 @@ OpenSearch PHP客户端提供了一种与OpenSearch集群交互的更安全，�
 ```bash
 composer require opensearch-project/opensearch-php
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 要安装客户端的特定主要版本，请运行以下命令：
 
 ```bash
 composer require opensearch-project/opensearch-php:<version>
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 然后在您的代码中需要从作曲家的自动加载文件：
 
 ```php
 require __DIR__ . '/vendor/autoload.php';
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 连接到OpenSearch
 
@@ -44,7 +44,7 @@ $client = (new \OpenSearch\ClientBuilder())
     ->setSSLVerification(false) // For testing only. Use certificate for validation
     ->build();
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 连接到Amazon OpenSearch服务
 
@@ -67,7 +67,7 @@ $client = (new \OpenSearch\ClientBuilder())
     
     ->build();
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 连接到Amazon OpenSearch无服务器
 
@@ -90,7 +90,7 @@ $client = (new \OpenSearch\ClientBuilder())
     
     ->build();
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 
 ## 创建索引
@@ -112,7 +112,7 @@ $client->indices()->create([
     ]
 ]);
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 索引文档
 
@@ -129,7 +129,7 @@ $client->create([
     ]
 ]);
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 搜索文档
 
@@ -151,7 +151,7 @@ var_dump(
     ])
 );
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 删除文档
 
@@ -163,7 +163,7 @@ $client->delete([
     'id' => 1,
 ]);
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 删除索引
 
@@ -174,7 +174,7 @@ $client->indices()->delete([
     'index' => $indexName
 ]);
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 样本程序
 

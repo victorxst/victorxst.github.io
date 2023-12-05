@@ -23,14 +23,14 @@ nav_order: 30
 
 要编辑检测器，请先在列表的“检测器名称”列中选择指向检测器的链接。检测器的详细信息窗口打开并显示有关检测器配置的详细信息。
 
-<img src ="{{site.url}}{{site.baseurl}}/images/Security/detector-details.png" alt ="Detector details window for editig the detector" 宽度="50%">
+<img src ="{{site.url}}{{site.baseurl}}/images/Security/detector-details.png" alt ="Detector details window for editig the detector" width="50%">
 
 *在上部-窗口的左侧部分，详细信息窗口显示了检测器的名称及其状态，即活动或无活动。
 *在上部-窗口的右角，您可以选择**查看警报** 转到警报窗口或**查看发现** 转到“发现”窗口。您也可以选择**动作** 为检测器执行动作。请参阅[检测器操作]（{{stite.url}}} {{site.baseurl}}/Security-分析/用法/检测器/#探测器-动作）。
 *在窗口的下部，选择**编辑** 探测器详细信息或检测规则的按钮以进行相应更改。
 *最后，您可以选择**现场映射** 选项卡以编辑检测器的字段映射，或选择**警报触发器** 选项卡以对与检测器关联的警报进行编辑。
 
-<img src ="{{site.url}}{{site.baseurl}}/images/Security/detector-details2.png" alt ="Field mappings and Alert triggers tabs" 宽度="40%">
+<img src ="{{site.url}}{{site.baseurl}}/images/Security/detector-details2.png" alt ="Field mappings and Alert triggers tabs" width="40%">
 
 选择后**警报触发器** 选项卡，您还可以选择通过选择检测器添加其他警报**添加另一个警报条件** 在页面底部。
 {: .tip }

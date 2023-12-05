@@ -28,7 +28,7 @@ redirect_from:
    *`customize-config.yml`：配置SAML用于身份验证。
 
    您可以删除"customize" 如果您打算修改并将这些文件保留进行生产，则从文件名中。
-   {： 。提示 }
+   {: .tip }
 
 1. 在里面`docker-compose.yml` 文件，在`image` 节点1和2的字段，以及OpenSearch仪表板服务器。例如，如果您正在运行OpenSearch版本2.6，则`image` 字段将类似于以下示例：
    
@@ -114,7 +114,7 @@ authc:
 SAML身份提供商（IDP）提供了描述IDP功能和配置的SAML 2.0元数据文件。安全插件可以从URL或文件读取IDP元数据。您做出的选择取决于您的IDP和偏好。需要SAML 2.0元数据文件。
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `idp.metadata_file` | IDP的SAML 2.0元数据文件的路径。将元数据文件放在`config` OpenSearch目录。该路径必须相对于`config` 目录。如果需要`idp.metadata_url` 未设置。
 `idp.metadata_url` | IDP的SAML 2.0元数据URL。如果需要`idp.metadata_file` 未设置。
 
@@ -124,7 +124,7 @@ SAML身份提供商（IDP）提供了描述IDP功能和配置的SAML 2.0元数�
 实体ID是SAML实体的全球唯一名称，即IDP或服务提供商（SP）。IDP实体ID通常由您的IDP提供。SP实体ID是IDP中配置的应用程序或客户端的名称。我们建议添加一个用于OpenSearch仪表板的新应用程序，并使用OpenSearch仪表板安装的URL作为SP实体ID。
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `idp.entity_id` | IDP的实体ID。必需的。
 `sp.entity_id` | 服务提供商的实体ID。必需的。
 
@@ -149,7 +149,7 @@ http_authenticator:
 Web浏览器SSO配置文件通过HTTP GET或发布来交换信息。例如，登录到IDP后，它将HTTP帖子发送回包含SAML响应的OpenSearch仪表板。您必须配置发送HTTP请求的OpenSearch仪表板安装的基本URL。
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `kibana_url` | OpenSearch仪表板基础URL。必需的。
 
 
@@ -178,7 +178,7 @@ Web浏览器SSO配置文件通过HTTP GET或发布来交换信息。例如，登
 如果要从SAML响应中提取角色，则需要指定包含角色的元素名称。
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `subject_key` | SAML响应中存储主题的属性。选修的。如果未配置，`NameID` 使用属性。
 `roles_key` | 在存储角色的SAML响应中的属性。选修的。如果未配置，则不使用任何角色。
 
@@ -188,7 +188,7 @@ Web浏览器SSO配置文件通过HTTP GET或发布来交换信息。例如，登
 可以选择从安全插件到IDP的请求。使用以下设置配置请求签名。
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `sp.signature_private_key` | 用于签署请求或解码加密断言的私钥。选修的。不能使用`private_key_filepath` 设置。
 `sp.signature_private_key_password` | 私钥的密码（如果有）。
 `sp.signature_private_key_filepath` | 通往私钥的路径。该文件必须放在OpenSearch下`config` 目录和路径必须相对于同一目录指定。
@@ -199,7 +199,7 @@ Web浏览器SSO配置文件通过HTTP GET或发布来交换信息。例如，登
 安全插件支持以下签名算法。
 
 算法| 价值
-：--- | ：---
+:--- | :---
 DSA_SHA1| http://www.w3.org/2000/09/xmldsig#DSA-sha1;
 RSA_SHA1| http://www.w3.org/2000/09/xmldsig#RSA-sha1;
 RSA_SHA256| http://www.w3.org/2001/04/xmldsig-更多的#RSA-SHA256;
@@ -212,7 +212,7 @@ RSA_SHA512| http://www.w3.org/2001/04/xmldsig-更多的#RSA-SHA512;
 通常，IDP在其SAML 2.0元数据中提供有关其单独注销URL的信息。如果是这种情况，则安全插件使用它们在OpenSearch仪表板中呈现正确的注销链接。如果您的IDP不支持明确的注销，则可以强制RE-当用户再次访问OpenSearch仪表板时登录。
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `sp.forceAuthn` | 强迫-即使用户与IDP进行活动会话，登录也是如此。
 
 当前，安全插件仅支持`HTTP-Redirect` 注销绑定。确保在IDP中正确配置这一点。
@@ -223,7 +223,7 @@ RSA_SHA512| http://www.w3.org/2001/04/xmldsig-更多的#RSA-SHA512;
 SAML与其他协议不同，并不是要与每个请求交换用户凭据。安全插件将SAML响应交易为轻量级JWT，该JWT存储经过验证的用户属性。这个令牌由您选择的交换键签名。请注意，当您更改此键时，所有令牌都会立即签名。
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `exchange_key` | 签署令牌的钥匙。该算法是HMAC256，因此它至少应具有32个字符。
 
 
@@ -232,7 +232,7 @@ SAML与其他协议不同，并不是要与每个请求交换用户凭据。安�
 如果您是从URL加载IDP元数据，我们建议您使用SSL/TLS。如果使用使用受信任证书的OKTA或AUTH0（例如Okta或Auth0）的外部IDP，则通常不需要配置任何内容。如果您亲自托管IDP并使用自己的根CA，则可以按以下方式自定义TLS设置。这些设置仅用于通过HTTPS加载SAML元数据。
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `idp.enable_ssl` | 是否启用自定义TLS配置。默认值为false（使用JDK设置）。
 `idp.verify_hostnames` | 是否验证服务器TLS证书的主机名。
 
@@ -278,7 +278,7 @@ config:
 ```
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `idp.pemtrustedcas_filepath` | 通往包含IDP根CA的PEM文件的路径。文件必须放在OpenSearch下`config` 目录，您必须指定相对于同一目录的路径。
 `idp.pemtrustedcas_content` | IDP服务器的根CA内容。不能使用`pemtrustedcas_filepath` 设置。
 
@@ -288,7 +288,7 @@ config:
 安全插件在获取IDP元数据时可以使用TLS客户端身份验证。如果启用，安全插件将为每个元数据请求发送TLS客户端证书。使用以下键配置客户端身份验证。
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `idp.enable_ssl_client_auth` | 是否将客户端证书发送到IDP服务器。默认值为false。
 `idp.pemcert_filepath` | 通往包含客户端证书的PEM文件的路径。该文件必须放在OpenSearch下`config` 目录，并且必须相对于`config` 目录。
 `idp.pemcert_content` | 客户证书的内容。不能使用`pemcert_filepath` 设置。
@@ -302,7 +302,7 @@ config:
 您可以限制IDP连接的允许的密码和TLS协议。例如，您只能启用强大的密码，并将TLS版本限制在最近的版本中。
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `idp.enabled_ssl_ciphers` | 启用的TLS密码数组。仅支持Java格式。
 `idp.enabled_ssl_protocols` | 启用TLS协议的数组。仅支持Java格式。
 
@@ -353,7 +353,7 @@ server.xsrf.allowlist: ["/_opendistro/_security/saml/acs", "/_opendistro/_securi
 ```
 
 在仪表板标志中包括SAML与其他身份验证类型-在窗口中，请参阅[配置标志-在选项中]({{site.url}}{{site.baseurl}}/security/configuration/multi-auth/)。
-{： 。笔记 }
+{: .note }
 
 #### 会话管理以及其他cookie
 
@@ -367,7 +367,7 @@ opensearch_security.saml.extra_storage.additional_cookies: 3
 请注意，减少其他cookie的数量可能会导致一些在更改之前使用的cookie停止工作。我们建议建立固定数量的其他cookie，然后不更改配置。
 
 如果来自IDP的ID令牌特别大，OpenSearch可能会丢弃服务器日志身份验证错误，以表明HTTP标头太大。在这种情况下，您可以增加`http.max_header_size` 设置在`opensearch.yml` 文件。
-{： 。提示 }
+{: .tip }
 
 ### IDP-启动SSO
 

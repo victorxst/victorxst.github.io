@@ -22,14 +22,14 @@ OpenSearch JavaScript（JS）客户端提供了一种与OpenSearch集群交互�
 ```bash
 npm install @opensearch-project/opensearch
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 要安装客户端的特定主要版本，请运行以下命令：
 
 ```bash
 npm install @opensearch-project/opensearch@<version>
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 如果您希望手动添加客户端或只想检查源代码，请参见[OpenSearch-JS](https://github.com/opensearch-project/opensearch-js) 在github上。
 
@@ -38,7 +38,7 @@ npm install @opensearch-project/opensearch@<version>
 ```javascript
 const { Client } = require("@opensearch-project/opensearch");
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 连接到OpenSearch
 
@@ -69,7 +69,7 @@ var client = new Client({
   },
 });
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 使用Amazon OpenSearch服务进行身份验证 -  AWS SIGV4
 
@@ -106,7 +106,7 @@ const client = new Client({
   node: 'https://search-xxx.region.es.amazonaws.com', // OpenSearch domain URL
 });
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 AWS V2 SDK用于Amazon OpenSearch无服务器
 
@@ -141,7 +141,7 @@ const client = new Client({
   node: "https://xxx.region.aoss.amazonaws.com" // OpenSearch domain URL
 });
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 使用以下代码通过AWS V3 SDK进行身份验证：
 
@@ -171,7 +171,7 @@ const client = new Client({
   // node: "https://xxx.region.aoss.amazonaws.com" for OpenSearch Serverless
 });
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 AWS V3 SDK Amazon OpenSearch无服务器
 
@@ -200,7 +200,7 @@ const client = new Client({
   node: "https://xxx.region.aoss.amazonaws.com" // OpenSearch domain URL
 });
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 创建索引
 
@@ -223,7 +223,7 @@ var response = await client.indices.create({
   body: settings,
 });
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 索引文档
 
@@ -246,7 +246,7 @@ var response = await client.index({
   refresh: true,
 });
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 搜索文档
 
@@ -268,7 +268,7 @@ var response = await client.search({
   body: query,
 });
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 删除文档
 
@@ -280,7 +280,7 @@ var response = await client.delete({
   id: id,
 });
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 删除索引
 
@@ -291,7 +291,7 @@ var response = await client.indices.delete({
   index: index_name,
 });
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 样本程序
 
@@ -404,7 +404,7 @@ async function search() {
 
 search().catch(console.log);
 ```
-{％include copy.html％}
+{% include copy.html %}
 ## 断路器
 
 这`memoryCircuitBreaker` 选项可用于防止响应有效载荷太大而无法适应客户可用的堆内存的错误。

@@ -20,12 +20,12 @@ redirect_from:
 
 ## 创建一个频道
 
-在OpenSearch仪表板中，选择**通知**，，，，**频道**， 和**创建频道**。
+在OpenSearch仪表板中，选择**通知**，**频道**， 和**创建频道**。
 
 1. 在里面**名称和描述** 部分，为您的频道指定名称和可选描述。
-2. 在里面**配置** 部分，选择频道类型，然后输入每种类型的必要信息。有关配置使用Amazon SNS或电子邮件的频道的更多信息，请参阅以下各节。如果要使用Amazon Chime或Slack，则需要指定Webhook URL。有关使用Webhooks的更多信息，请参见文档[松弛](https://api.slack.com/messaging/webhooks)，，，，[微软团队](https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/what-are-webhooks-and-connectors)， 或者[亚马逊钟](https://docs.aws.amazon.com/chime/latest/ug/webhooks.html)。
+2. 在里面**配置** 部分，选择频道类型，然后输入每种类型的必要信息。有关配置使用Amazon SNS或电子邮件的频道的更多信息，请参阅以下各节。如果要使用Amazon Chime或Slack，则需要指定Webhook URL。有关使用Webhooks的更多信息，请参见文档[松弛](https://api.slack.com/messaging/webhooks)，[微软团队](https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/what-are-webhooks-and-connectors)， 或者[亚马逊钟](https://docs.aws.amazon.com/chime/latest/ug/webhooks.html)。
 
-如果要使用自定义Webhooks，则必须指定更多信息：参数和标题。例如，如果您的端点需要基本的身份验证，则可能需要添加带有授权键的标头，值为`Basic <Base64-encoded-credential-string>`。您可能还需要更改`Content-Type` 无论您需要什么。流行价值是`application/json`，，，，`application/xml`， 和`text/plain`。
+如果要使用自定义Webhooks，则必须指定更多信息：参数和标题。例如，如果您的端点需要基本的身份验证，则可能需要添加带有授权键的标头，值为`Basic <Base64-encoded-credential-string>`。您可能还需要更改`Content-Type` 无论您需要什么。流行价值是`application/json`，`application/xml`， 和`text/plain`。
 
 此信息以纯文本存储在OpenSearch集群中。我们将来会改进此设计，但是目前，其他OpenSearch用户可以看到编码的凭据（既没有加密也不被加密）。
 

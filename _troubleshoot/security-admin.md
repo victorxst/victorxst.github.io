@@ -50,7 +50,7 @@ Contacting opensearch cluster 'opensearch' and wait for YELLOW clusterstate ...
 Cannot retrieve cluster state due to: None of the configured nodes are available: [{#transport#-1}{mr2NlX3XQ3WvtVG0Dv5eHw}{localhost}{127.0.0.1:9300}]. This is not an error, will keep on trying ...
 ```
 
-*尝试运行`securityadmin.sh` 和`-icl` 和`-nhnv`。
+* 尝试运行`securityadmin.sh` 和`-icl` 和`-nhnv`。
 
   如果有效，请检查您的群集名称以及SSL证书中的主机名。如果这不起作用，请尝试运行`securityadmin.sh` 和`--diagnose` 并查看诊断跟踪日志文件。
 

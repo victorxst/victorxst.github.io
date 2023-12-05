@@ -17,7 +17,7 @@ has_children: true
 
 区域图描绘了随着时间的变化，它们通常用于显示趋势。区域图表更有效地识别日志数据中的模式，例如时间范围的销售数据以及在此期间的趋势。看[使用区域图]({{site.url}}{{site.baseurl}}/dashboards/visualize/area/) 要了解有关如何在仪表板中创建和使用它们的更多信息。
 
- <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/area-chart-1.png" 宽度="600" 高度="600" alt ="Example area chart in OpenSearch Dashboards">
+ <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/area-chart-1.png" width="600" 高度="600" alt ="Example area chart in OpenSearch Dashboards">
 
 ### 条形图
 

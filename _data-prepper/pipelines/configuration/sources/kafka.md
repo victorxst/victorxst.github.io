@@ -32,7 +32,7 @@ kafka-pipeline:
 使用以下配置选项与`kafka` 来源。
 
 选项| 必需的| 类型| 描述
-：--- | ：--- | ：--- | ：---
+:--- | :--- | :--- | :---
 `bootstrap_servers` | 是的，当不使用Amazon托管流媒体流媒体时，Apache Kafka（Amazon MSK）作为群集。| IP地址| 与Kafka群集的初始连接的主机或端口。您可以通过为每个经纪人使用IP地址或端口号来配置多个KAFKA经纪人。使用时[亚马逊MSK](https://aws.amazon.com/msk/) 作为您的KAFKA群集，使用配置中提供的MSK Amazon资源名称（ARN）从MSK获得了Bootstrap服务器信息。
 `topics` | 是的| Json Array| 数据预先数据的Kafka主题`kafka` 源用于读取消息。您最多可以配置10个主题。有关有关的更多信息`topics` 配置选项，请参阅[主题](#topics)。
 `schema` | 不| JSON对象| 模式注册表配置。有关更多信息，请参阅[模式](#schema)。
@@ -47,7 +47,7 @@ kafka-pipeline:
 使用以下选项`topics` 大批。
 
 选项| 必需的| 类型| 描述
-：--- | ：--- | ：--- | ：---
+:--- | :--- | :--- | :---
 `name` | 是的| 细绳| 每个Kafka主题的名称。
 `group_id` | 是的| 细绳| 设定卡夫卡的`group.id` 选项。
 `workers` | 不| 整数| 与每个主题相关的多线程消费者的数量。默认为`2`。最大值是`200`。
@@ -72,13 +72,13 @@ kafka-pipeline:
 需要以下选项`schema` 配置。
 
 选项| 类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `type` | 细绳| 根据您的注册表设置模式类型，要么是AWS胶模式注册表`aws_glue`，或汇合模式注册表，`confluent`。使用时`aws_glue` 注册表，设置任何[AWS](#aws) 配置选项。
 
 仅在使用一个时才需要以下配置选项`confluent` 注册表。
 
 选项| 类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `registry_url` | 细绳| 从一个`bytearray` 进入字符串。默认为`org.apache.kafka.common.serialization.StringDeserializer`。
 `version` | 细绳| 从一个符合记录键`bytearray` 进入字符串。默认为`org.apache.kafka.common.serialization.StringDeserializer`。
 `schema_registry_api_key` | 细绳| 模式注册表API密钥。
@@ -89,7 +89,7 @@ kafka-pipeline:
 需要以下选项`authentication` 目的。
 
 选项| 类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `sasl` | JSON对象| 简单的身份验证和安全层（SASL）身份验证配置。
 
 ### sasl
@@ -98,7 +98,7 @@ kafka-pipeline:
 
 
 选项| 类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `plaintext` | JSON对象| 这[纯文本](#sasl-plaintext) 身份验证配置。
 `aws_msk_iam` | 细绳| Amazon MSK AWS身份和访问管理（IAM）配置。如果设置为`role`， 这`sts_role_arm` 设置在`aws` 使用配置。默认为`default`。
 
@@ -109,7 +109,7 @@ kafka-pipeline:
 使用时需要以下选项[SASL明文](https://kafka.apache.org/10/javadoc/org/apache/kafka/common/security/auth/SecurityProtocol.html) 协议。
 
 选项| 类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `username` | 细绳| 明文Auth的用户名。
 `password` | 细绳| 明文Auth的密码。
 
@@ -118,7 +118,7 @@ kafka-pipeline:
 设置SSL加密时，请使用以下选项。
 
 选项| 必需的| 类型| 描述
-：--- | ：--- | ：--- | ：---
+:--- | :--- | :--- | :---
 `type` | 不| 细绳| 加密类型。使用`none` 禁用加密。默认为`ssl`。
 `Insecure` | 不| 布尔| 布尔标志用于关闭SSL证书验证。如果设置为`true`，证书授权（CA）证书验证已关闭，并发送了不安全的HTTP请求。默认为`false`。
 
@@ -128,7 +128,7 @@ kafka-pipeline:
 设置身份验证时，请使用以下选项`aws` 服务。
 
 选项| 必需的| 类型| 描述
-：--- | ：--- | ：--- | ：---
+:--- | :--- | :--- | :---
 `region` | 不| 细绳| 用于凭证的AWS区域。默认为[标准SDK行为以确定该区域](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/region-selection.html)。
 `sts_role_arn` | 不| 细绳| AWS安全令牌服务（AWS STS）角色要担任亚马逊简单队列服务（Amazon SQS）和Amazon Simple Storage Service（Amazon S3）的请求。默认为`null`，将使用[凭证的标准SDK行为](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html)。
 `msk` | 不| JSON对象| 这[MSK](#msk) 配置设置。
@@ -138,8 +138,8 @@ kafka-pipeline:
 使用以下选项`msk` 目的。
 
 选项| 必需的| 类型| 描述
-：--- | ：--- | ：--- | ：---
+:--- | :--- | :--- | :---
 `arn` | 是的| 细绳| 这[MSK ARN](https://docs.aws.amazon.com/msk/1.0/apireference/configurations-arn.html) 使用。
-`broker_connection_type` 不| 细绳| 要么与MSK经纪人一起使用的连接器类型`public`，，，，`single_vpc`， 或者`multip_vpc`。默认为`single_vpc`。
+`broker_connection_type` 不| 细绳| 要么与MSK经纪人一起使用的连接器类型`public`，`single_vpc`， 或者`multip_vpc`。默认为`single_vpc`。
 
 

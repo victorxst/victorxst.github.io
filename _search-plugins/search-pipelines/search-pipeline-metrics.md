@@ -14,7 +14,7 @@ grand_parent: 搜索
 ```json
 GET /_nodes/stats/search_pipeline
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 响应包含所有搜索管道的统计信息：
 

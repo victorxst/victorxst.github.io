@@ -16,7 +16,7 @@ has_math: true
   - 带有HNSW算法的Faiss引擎（K-NN插件版本2.9及以后）或IVF算法（k-NN插件版本2.10及以后）
 
 -  [邮政-过滤](#post-filtering)：因为它是在k之后执行的-nn搜索，这种方法的返回可能少于`k` 限制性过滤器的结果。您可以为此方法使用以下两个过滤策略：
-    - [布尔邮报-筛选](#boolean-filter-with-ann-search)：这种方法运行[大约最近的邻居（ANN）]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) 搜索然后将过滤器应用于结果。两个查询零件是独立执行的，然后根据查询操作员组合结果（`should`，，，，`must`在查询中提供的）。
+    - [布尔邮报-筛选](#boolean-filter-with-ann-search)：这种方法运行[大约最近的邻居（ANN）]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) 搜索然后将过滤器应用于结果。两个查询零件是独立执行的，然后根据查询操作员组合结果（`should`，`must`在查询中提供的）。
     - [这`post_filter` 范围](#post-filter-parameter)：这种方法运行[安]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/) 在完整数据集上搜索，然后将过滤器应用于K-NN结果。
 
 - [评分脚本过滤器](#scoring-script-filter)：这种方法涉及前-过滤文档集，然后运行精确的k-NN搜索过滤后的子集。它可能具有很高的延迟，并且在过滤后的子集很大时不会扩展。
@@ -24,8 +24,8 @@ has_math: true
 下表总结了前面的过滤用例。
 
 筛选| 应用过滤器时| 搜索类型| 支持的引擎和方法| 在哪里放置`filter` 条款
-：--- | ：--- | ：--- | ：---
-高效k-NN过滤| 在搜索期间（pre的混合体- 和张贴-过滤）| 近似| - `lucene` （（`hnsw`）<br>- `faiss` （（`hnsw`，，，，`ivf`）| 在K内-nn查询子句。
+:--- | :--- | :--- | :---
+高效k-NN过滤| 在搜索期间（pre的混合体- 和张贴-过滤）| 近似| - `lucene` （（`hnsw`）<br>- `faiss` （（`hnsw`，`ivf`）| 在K内-nn查询子句。
 布尔过滤器| 搜索后（发布-过滤）| 近似| - `lucene`<br>- `nmslib`<br>- `faiss` | 在K外面-nn查询子句。必须是叶子子句。
 这`post_filter` 范围| 搜索后（发布-过滤）| 近似| - `lucene`<br>- `nmslib`<br>- `faiss` | 在K外面-nn查询子句。
 评分脚本过滤器| 搜索之前（pre-过滤）| 精确的| N/A。| 在脚本评分查询子句中。
@@ -113,7 +113,7 @@ PUT /hotels-index
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 **步骤2：将数据添加到您的索引**
 
@@ -148,7 +148,7 @@ POST /_bulk
 { "index": { "_index": "hotels-index", "_id": "12" } }
 { "location": [5.0, 1.0], "parking" : "true", "rating" : 3 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 **步骤3：使用过滤器搜索数据**
 
@@ -192,7 +192,7 @@ POST /hotels-index/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 响应返回最接近搜索点并符合过滤器标准的三个酒店：
 
@@ -311,7 +311,7 @@ PUT /products-shirts
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 **步骤2：将数据添加到您的索引**
 
@@ -347,7 +347,7 @@ POST /_bulk?refresh
 { "item_vector": [5.0, 1.0, 4.0], "size" : "large", "rating" : 3 }
 
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 **步骤3：使用过滤器搜索数据**
 
@@ -390,7 +390,7 @@ POST /products-shirts/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 响应返回两个匹配文档：
 
@@ -510,7 +510,7 @@ POST /hotels-index/_search
   }
 } 
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ## 邮政-过滤
 
@@ -628,7 +628,7 @@ POST /hotels-index/_search
 
 ### 邮政-滤波器参数
 
-如果您使用`knn` 与过滤器或其他条款一起查询（例如，`bool`，，，，`must`，，，，`match`），您可能收到的少于`k` 结果。在此示例中`post_filter` 将结果数量从2减少到1：
+如果您使用`knn` 与过滤器或其他条款一起查询（例如，`bool`，`must`，`match`），您可能收到的少于`k` 结果。在此示例中`post_filter` 将结果数量从2减少到1：
 
 ```json
 GET my-knn-index-1/_search
@@ -702,5 +702,5 @@ POST /hotels-index/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 

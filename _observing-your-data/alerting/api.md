@@ -17,7 +17,7 @@ redirect_from:
   <summary>
     目录
   </summary>
-  {： 。文本-delta}
+  {: .text-delta }
 - TOC
 {:toc}
 </delect>
@@ -26,7 +26,7 @@ redirect_from:
 
 ## 创建一个查询-级别监视器
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 询问-电平监视器运行查询，并检查结果是否应触发警报。询问-级别监视器一次只能触发一个警报。有关查询的更多信息-水平监视器和水桶-关卡监视器，请参阅[创建监视器]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/)。
 
@@ -335,9 +335,9 @@ POST _plugins/_alerting/monitors
 ```json
 邮政_plugins/_ alerting/监视器
 {
-  "type"："monitor"，，，，
-  "name"："Demo bucket-level monitor"，，，，
-  "monitor_type"："bucket_level_monitor"，，，，
+  "type"："monitor"，
+  "name"："Demo bucket-level monitor"，
+  "monitor_type"："bucket_level_monitor"，
   "enabled"： 真的，
   "schedule"：{
     "period"：{
@@ -399,23 +399,23 @@ POST _plugins/_alerting/monitors
   "triggers"：[[
     {
       "bucket_level_trigger"：{
-        "name"："test-trigger"，，，，
-        "severity"："1"，，，，
+        "name"："test-trigger"，
+        "severity"："1"，
         "condition"：{
           "buckets_path"：{
-            "_count"："_count"，，，，
+            "_count"："_count"，
             "avg_products_base_price"："avg_products_base_price"
           }，，
-          "parent_bucket_path"："composite_agg"，，，，
+          "parent_bucket_path"："composite_agg"，
           "script"：{
-            "source"："params._count > 50 || params.avg_products_base_price < 35"，，，，
+            "source"："params._count > 50 || params.avg_products_base_price < 35"，
             "lang"："painless"
           }
         }，，
         "actions"：[[
           {
-            "name"："test-action"，，，，
-            "destination_id"："E4o5hnsB6KjPKmHtpfCA"，，，，
+            "name"："test-action"，
+            "destination_id"："E4o5hnsB6KjPKmHtpfCA"，
             "message_template"：{
               "source"： {％ 生的 ％}"""Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.   - Trigger: {{ctx.trigger.name}}   - Severity: {{ctx.trigger.severity}}   - Period start: {{ctx.periodStart}}   - Period end: {{ctx.periodEnd}}    - Deduped Alerts:   {{ctx.dedupedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.dedupedAlerts}}    - New Alerts:   {{ctx.newAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.newAlerts}}    - Completed Alerts:   {{ctx.completedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.completedAlerts}}"""{％endraw％}，
               "lang"："mustache"
@@ -429,14 +429,14 @@ POST _plugins/_alerting/monitors
               "action_execution_scope"：{
                 "per_alert"：{
                   "actionable_alerts"：[[
-                    "DEDUPED"，，，，
+                    "DEDUPED"，
                     "NEW"
                   这是给出的
                 }
               }
             }，，
             "subject_template"：{
-              "source"："The Subject"，，，，
+              "source"："The Subject"，
               "lang"："mustache"
             }
           }
@@ -450,17 +450,17 @@ POST _plugins/_alerting/monitors
 #### Example response
 ```json
 {
-  "_id" ："Dfxr63sBwex6DxEhHV5N"，，，，
+  "_id" ："Dfxr63sBwex6DxEhHV5N"，
   "_version" ：1，
   "_seq_no" ：3，
   "_primary_term" ：1，
   "monitor" ：{
-    "type" ："monitor"，，，，
+    "type" ："monitor"，
     "schema_version" ：4，
-    "name" ："Demo a bucket-level monitor"，，，，
-    "monitor_type" ："bucket_level_monitor"，，，，
+    "name" ："Demo a bucket-level monitor"，
+    "monitor_type" ："bucket_level_monitor"，
     "user" ：{
-      "name" ：""，，，，
+      "name" ：""，
       "backend_roles" ：[]，，
       "roles" ：[]，，
       "custom_attribute_names" ：[]，，
@@ -492,7 +492,7 @@ POST _plugins/_alerting/monitors
                         "to" ： {％ 生的 ％}"{{period_end}}"{％endraw％}，
                         "include_lower" ： 真的，
                         "include_upper" ： 真的，
-                        "format" ："epoch_millis"，，，，
+                        "format" ："epoch_millis"，
                         "boost" ：1.0
                       }
                     }
@@ -510,7 +510,7 @@ POST _plugins/_alerting/monitors
                     {
                       "user" ：{
                         "terms" ：{
-                          "field" ："user"，，，，
+                          "field" ："user"，
                           "missing_bucket" ： 错误的，
                           "order" ："asc"
                         }
@@ -534,33 +534,33 @@ POST _plugins/_alerting/monitors
     "triggers" ：[[
       {
         "bucket_level_trigger" ：{
-          "id" ："C_xr63sBwex6DxEhHV5B"，，，，
-          "name" ："test-trigger"，，，，
-          "severity" ："1"，，，，
+          "id" ："C_xr63sBwex6DxEhHV5B"，
+          "name" ："test-trigger"，
+          "severity" ："1"，
           "condition" ：{
             "buckets_path" ：{
-              "_count" ："_count"，，，，
+              "_count" ："_count"，
               "avg_products_base_price" ："avg_products_base_price"
             }，，
-            "parent_bucket_path" ："composite_agg"，，，，
+            "parent_bucket_path" ："composite_agg"，
             "script" ：{
-              "source" ："params._count > 50 || params.avg_products_base_price < 35"，，，，
+              "source" ："params._count > 50 || params.avg_products_base_price < 35"，
               "lang" ："painless"
             }，，
             "gap_policy" ："skip"
           }，，
           "actions" ：[[
             {
-              "id" ："DPxr63sBwex6DxEhHV5B"，，，，
-              "name" ："test-action"，，，，
-              "destination_id" ："E4o5hnsB6KjPKmHtpfCA"，，，，
+              "id" ："DPxr63sBwex6DxEhHV5B"，
+              "name" ："test-action"，
+              "destination_id" ："E4o5hnsB6KjPKmHtpfCA"，
               "message_template" ：{
                 "source" ： {％ 生的 ％}"Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.   - Trigger: {{ctx.trigger.name}}   - Severity: {{ctx.trigger.severity}}   - Period start: {{ctx.periodStart}}   - Period end: {{ctx.periodEnd}}    - Deduped Alerts:   {{ctx.dedupedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.dedupedAlerts}}    - New Alerts:   {{ctx.newAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.newAlerts}}    - Completed Alerts:   {{ctx.completedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.completedAlerts}}"{％endraw％}，
                 "lang" ："mustache"
               }，，
               "throttle_enabled" ： 错误的，
               "subject_template" ：{
-                "source" ："The Subject"，，，，
+                "source" ："The Subject"，
                 "lang" ："mustache"
               }，，
               "throttle" ：{
@@ -571,7 +571,7 @@ POST _plugins/_alerting/monitors
                 "action_execution_scope" ：{
                   "per_alert" ：{
                     "actionable_alerts" ：[[
-                      "DEDUPED"，，，，
+                      "DEDUPED"，
                       "NEW"
                     这是给出的
                   }
@@ -616,7 +616,7 @@ get/_plugins/_ alerting/findings/_search？findiD = gkqhj8wjit3bxjgfioxc
 为了在调查结果搜索中获得更具体的结果，您可以使用下表中定义的任何可选路径参数：
 
 路径参数| 描述| 用法
-：--- | ：--- ：：---
+:--- | :--- ：：---
 `findingId` | 查找条目的标识符。| 查找ID在初始查询响应中返回。
 `sortString` | 该字段指定了警报插件用于对发现进行排序的字符串。| 默认值是`id`。
 `sortOrder` | 对发现列表进行排序的命令，无论是上升还是下降。| 使用`sortOrder=asc` 指示上升或`sortOrder=desc` 用于降序排序订单。
@@ -632,7 +632,7 @@ At a minimum, you need to provide the following details: specify the queries or 
 下表显示了用于每个触发选项的语法：
 
 触发选项| 定义| 句法
-：--- | ：--- ：：---
+:--- | :--- ：：---
 标签| 为将多个查询与应用此标签匹配的文档创建警报。如果您按单个标签对多个查询进行分组，则可以将其设置为触发警报，如果此标签名称返回结果。| `query[tag=<tag-name>]`
 按名称查询| 创建符合或返回的文档的警报。| `query[name=<query-name>]`
 通过ID查询| 为已确定的查询返回的文档创建警报。| `query[id=<query-id>]`
@@ -644,9 +644,9 @@ At a minimum, you need to provide the following details: specify the queries or 
 ```json
 邮政_plugins/_ alerting/监视器
 {
-  "type"："monitor"，，，，
-  "monitor_type"："doc_level_monitor"，，，，
-  "name"："Example document-level monitor"，，，，
+  "type"："monitor"，
+  "monitor_type"："doc_level_monitor"，
+  "name"："Example document-level monitor"，
   "enabled"： 真的，
   "schedule"：{
     "period"：{
@@ -657,31 +657,31 @@ At a minimum, you need to provide the following details: specify the queries or 
   "inputs"：[[
     {
       "doc_level_input"：{
-        "description"："Example document-level monitor for audit logs"，，，，
+        "description"："Example document-level monitor for audit logs"，
         "indices"：[[
           "audit-logs"
         ]，，
         "queries"：[[
         {
-            "id"："nKQnFYABit3BxjGfiOXC"，，，，
-            "name"："sigma-123"，，，，
-            "query"："region:\"我们-西方-2 \""，，，，
+            "id"："nKQnFYABit3BxjGfiOXC"，
+            "name"："sigma-123"，
+            "query"："region:\"我们-西方-2 \""，
             "tags"：[[
                 "tag1"
             这是给出的
         }，，
         {
-            "id"："gKQnABEJit3BxjGfiOXC"，，，，
-            "name"："sigma-456"，，，，
-            "query"："region:\"我们-东方-1 \""，，，，
+            "id"："gKQnABEJit3BxjGfiOXC"，
+            "name"："sigma-456"，
+            "query"："region:\"我们-东方-1 \""，
             "tags"：[[
                 "tag2"
             这是给出的
         }，，
         {
-            "id"："h4J2ABEFNW3vxjGfiOXC"，，，，
-            "name"："sigma-789"，，，，
-            "query"："message:\"这是与IAD区域的单独错误\""，，，，
+            "id"："h4J2ABEFNW3vxjGfiOXC"，
+            "name"："sigma-789"，
+            "query"："message:\"这是与IAD区域的单独错误\""，
             "tags"：[[
                 "tag3"
             这是给出的
@@ -691,18 +691,18 @@ At a minimum, you need to provide the following details: specify the queries or 
     }
   ]，，
     "triggers"：[{{"document_level_trigger"：{
-      "name"："test-trigger"，，，，
-      "severity"："1"，，，，
+      "name"："test-trigger"，
+      "severity"："1"，
       "condition"：{
         "script"：{
-          "source"："(query[name=sigma-123] || query[tag=tag3]) && query[name=sigma-789]"，，，，
+          "source"："(query[name=sigma-123] || query[tag=tag3]) && query[name=sigma-789]"，
           "lang"："painless"
         }
       }，，
       "actions"：[[
         {
-            "name"："test-action"，，，，
-            "destination_id"："E4o5hnsB6KjPKmHtpfCA"，，，，
+            "name"："test-action"，
+            "destination_id"："E4o5hnsB6KjPKmHtpfCA"，
             "message_template"：{
                 "source"： {％ 生的 ％}"""Monitor  just entered alert status. Please investigate the issue. Related Finding Ids: {{ctx.alerts.0.finding_ids}}, Related Document Ids: {{ctx.alerts.0.related_doc_ids}}"""{％endraw％}，
                 "lang"："mustache"
@@ -715,7 +715,7 @@ At a minimum, you need to provide the following details: specify the queries or 
                 }
             }，，
             "subject_template"：{
-                "source"："The Subject"，，，，
+                "source"："The Subject"，
                 "lang"："mustache"
             }
          }
@@ -741,8 +741,8 @@ At a minimum, you need to provide the following details: specify the queries or 
 ```json
 放置_plugins/_ alerting/monitors/<Monital_id>
 {
-  "type"："monitor"，，，，
-  "name"："test-monitor"，，，，
+  "type"："monitor"，
+  "name"："test-monitor"，
   "enabled"： 真的，
   "enabled_time"：1551466220455，
   "schedule"：{
@@ -766,24 +766,24 @@ At a minimum, you need to provide the following details: specify the queries or 
     }
   }]，
   "triggers"：[{{
-    "id"："StaeOmkBC25HCRGmL_y-"，，，，
-    "name"："test-trigger"，，，，
-    "severity"："1"，，，，
+    "id"："StaeOmkBC25HCRGmL_y-"，
+    "name"："test-trigger"，
+    "severity"："1"，
     "condition"：{
       "script"：{
-        "source"："return true"，，，，
+        "source"："return true"，
         "lang"："painless"
       }
     }，，
     "actions"：[{{
-      "name"："test-action"，，，，
-      "destination_id"："RtaaOmkBC25HCRGm0fxi"，，，，
+      "name"："test-action"，
+      "destination_id"："RtaaOmkBC25HCRGm0fxi"，
       "subject_template"：{
-        "source"："My Message Subject"，，，，
+        "source"："My Message Subject"，
         "lang"："mustache"
       }，，
       "message_template"：{
-        "source"："This is my message body."，，，，
+        "source"："This is my message body."，
         "lang"："mustache"
       }
     ]]
@@ -793,8 +793,8 @@ At a minimum, you need to provide the following details: specify the queries or 
 
 put _plugins/_alerting/monitors/<morita_id>？if_seq_no = 3＆if_primary_term = 1
 {
-  "type"："monitor"，，，，
-  "name"："test-monitor"，，，，
+  "type"："monitor"，
+  "name"："test-monitor"，
   "enabled"： 真的，
   "enabled_time"：1551466220455，
   "schedule"：{
@@ -818,24 +818,24 @@ put _plugins/_alerting/monitors/<morita_id>？if_seq_no = 3＆if_primary_term = 
     }
   }]，
   "triggers"：[{{
-    "id"："StaeOmkBC25HCRGmL_y-"，，，，
-    "name"："test-trigger"，，，，
-    "severity"："1"，，，，
+    "id"："StaeOmkBC25HCRGmL_y-"，
+    "name"："test-trigger"，
+    "severity"："1"，
     "condition"：{
       "script"：{
-        "source"："return true"，，，，
+        "source"："return true"，
         "lang"："painless"
       }
     }，，
     "actions"：[{{
-      "name"："test-action"，，，，
-      "destination_id"："RtaaOmkBC25HCRGm0fxi"，，，，
+      "name"："test-action"，
+      "destination_id"："RtaaOmkBC25HCRGm0fxi"，
       "subject_template"：{
-        "source"："My Message Subject"，，，，
+        "source"："My Message Subject"，
         "lang"："mustache"
       }，，
       "message_template"：{
-        "source"："This is my message body."，，，，
+        "source"："This is my message body."，
         "lang"："mustache"
       }
     ]]
@@ -848,13 +848,13 @@ put _plugins/_alerting/monitors/<morita_id>？if_seq_no = 3＆if_primary_term = 
 
 ```json
 {
-  "_id"："Q9aXOmkBC25HCRGmzfw-"，，，，
+  "_id"："Q9aXOmkBC25HCRGmzfw-"，
   "_version"：4，
   "_seq_no"：4，
   "_primary_term"：1，
   "monitor"：{
-    "type"："monitor"，，，，
-    "name"："test-monitor"，，，，
+    "type"："monitor"，
+    "name"："test-monitor"，
     "enabled"： 真的，
     "enabled_time"：1551466220455，
     "schedule"：{
@@ -878,24 +878,24 @@ put _plugins/_alerting/monitors/<morita_id>？if_seq_no = 3＆if_primary_term = 
       }
     }]，
     "triggers"：[{{
-      "id"："StaeOmkBC25HCRGmL_y-"，，，，
-      "name"："test-trigger"，，，，
-      "severity"："1"，，，，
+      "id"："StaeOmkBC25HCRGmL_y-"，
+      "name"："test-trigger"，
+      "severity"："1"，
       "condition"：{
         "script"：{
-          "source"："return true"，，，，
+          "source"："return true"，
           "lang"："painless"
         }
       }，，
       "actions"：[{{
-        "name"："test-action"，，，，
-        "destination_id"："RtaaOmkBC25HCRGm0fxi"，，，，
+        "name"："test-action"，
+        "destination_id"："RtaaOmkBC25HCRGm0fxi"，
         "subject_template"：{
-          "source"："My Message Subject"，，，，
+          "source"："My Message Subject"，
           "lang"："mustache"
         }，，
         "message_template"：{
-          "source"："This is my message body."，，，，
+          "source"："This is my message body."，
           "lang"："mustache"
         }
       ]]
@@ -910,7 +910,7 @@ put _plugins/_alerting/monitors/<morita_id>？if_seq_no = 3＆if_primary_term = 
 
 ## 获取显示器
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 #### 要求
 
@@ -1006,16 +1006,16 @@ GET _plugins/_alerting/monitors/<monitor_id>
     "successful"：9，
     "failed"：0
   }，，
-  "cluster_name"："475300751431:alerting65-dont-delete"，，，，
+  "cluster_name"："475300751431:alerting65-dont-delete"，
   "plugins.scheduled_jobs.enabled"： 真的，
   "scheduled_job_index_exists"： 真的，
-  "scheduled_job_index_status"："green"，，，，
+  "scheduled_job_index_status"："green"，
   "nodes_on_schedule"：9，
   "nodes_not_on_schedule"：0，
   "nodes"：{
     "qWcbKbb-TVyyI-Q7VSeOqA"：{
-      "name"："qWcbKbb"，，，，
-      "schedule_status"："green"，，，，
+      "name"："qWcbKbb"，
+      "schedule_status"："green"，
       "roles"：[[
         "MASTER"
       ]，，
@@ -1026,10 +1026,10 @@ GET _plugins/_alerting/monitors/<monitor_id>
       "jobs_info"：{}
     }，，
     "Do-DX9ZcS06Y9w1XbSJo1A"：{
-      "name"："Do-DX9Z"，，，，
-      "schedule_status"："green"，，，，
+      "name"："Do-DX9Z"，
+      "schedule_status"："green"，
       "roles"：[[
-        "DATA"，，，，
+        "DATA"，
         "INGEST"
       ]，，
       "job_scheduling_metrics"：{
@@ -1039,8 +1039,8 @@ GET _plugins/_alerting/monitors/<monitor_id>
       "jobs_info"：{}
     }，，
     "n5phkBiYQfS5I0FDzcqjZQ"：{
-      "name"："n5phkBi"，，，，
-      "schedule_status"："green"，，，，
+      "name"："n5phkBi"，
+      "schedule_status"："green"，
       "roles"：[[
         "MASTER"
       ]，，
@@ -1051,10 +1051,10 @@ GET _plugins/_alerting/monitors/<monitor_id>
       "jobs_info"：{}
     }，，
     "Tazzo8cQSY-g3vOjgYYLzA"：{
-      "name"："Tazzo8c"，，，，
-      "schedule_status"："green"，，，，
+      "name"："Tazzo8c"，
+      "schedule_status"："green"，
       "roles"：[[
-        "DATA"，，，，
+        "DATA"，
         "INGEST"
       ]，，
       "job_scheduling_metrics"：{
@@ -1069,10 +1069,10 @@ GET _plugins/_alerting/monitors/<monitor_id>
       }
     }，，
     "Nyf7F8brTOSJuFPXw6CnpA"：{
-      "name"："Nyf7F8b"，，，，
-      "schedule_status"："green"，，，，
+      "name"："Nyf7F8b"，
+      "schedule_status"："green"，
       "roles"：[[
-        "DATA"，，，，
+        "DATA"，
         "INGEST"
       ]，，
       "job_scheduling_metrics"：{
@@ -1099,10 +1099,10 @@ GET _plugins/_alerting/monitors/<monitor_id>
       }
     }，，
     "oOdJDIBVT5qbbO3d8VLeEw"：{
-      "name"："oOdJDIB"，，，，
-      "schedule_status"："green"，，，，
+      "name"："oOdJDIB"，
+      "schedule_status"："green"，
       "roles"：[[
-        "DATA"，，，，
+        "DATA"，
         "INGEST"
       ]，，
       "job_scheduling_metrics"：{
@@ -1117,8 +1117,8 @@ GET _plugins/_alerting/monitors/<monitor_id>
       }
     }，，
     "NRDG6JYgR8m0GOZYQ9QGjQ"：{
-      "name"："NRDG6JY"，，，，
-      "schedule_status"："green"，，，，
+      "name"："NRDG6JY"，
+      "schedule_status"："green"，
       "roles"：[[
         "MASTER"
       ]，，
@@ -1129,10 +1129,10 @@ GET _plugins/_alerting/monitors/<monitor_id>
       "jobs_info"：{}
     }，，
     "URMrXRz3Tm-CB72hlsl93Q"：{
-      "name"："URMrXRz"，，，，
-      "schedule_status"："green"，，，，
+      "name"："URMrXRz"，
+      "schedule_status"："green"，
       "roles"：[[
-        "DATA"，，，，
+        "DATA"，
         "INGEST"
       ]，，
       "job_scheduling_metrics"：{
@@ -1146,10 +1146,10 @@ GET _plugins/_alerting/monitors/<monitor_id>
       }
     }，，
     "eXgt1k9oTRCLmx2HBGElUw"：{
-      "name"："eXgt1k9"，，，，
-      "schedule_status"："green"，，，，
+      "name"："eXgt1k9"，
+      "schedule_status"："green"，
       "roles"：[[
-        "DATA"，，，，
+        "DATA"，
         "INGEST"
       ]，，
       "job_scheduling_metrics"：{
@@ -1175,7 +1175,7 @@ GET _plugins/_alerting/monitors/<monitor_id>
 
 ## 删除监视器
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 #### 要求
 
@@ -1238,13 +1238,13 @@ DELETE _plugins/_alerting/monitors/<monitor_id>
     "total"：1，
     "max_score"：0.6931472，
     "hits"：[{{
-      "_index"：".opensearch-scheduled-jobs"，，，，
-      "_type"："_doc"，，，，
-      "_id"："eGQi7GcBRS7-AJEqfAnr"，，，，
+      "_index"：".opensearch-scheduled-jobs"，
+      "_type"："_doc"，
+      "_id"："eGQi7GcBRS7-AJEqfAnr"，
       "_score"：0.6931472，
       "_source"：{
-        "type"："monitor"，，，，
-        "name"："my-monitor-name"，，，，
+        "type"："monitor"，
+        "name"："my-monitor-name"，
         "enabled"： 真的，
         "enabled_time"：1545854942426，
         "schedule"：{
@@ -1269,7 +1269,7 @@ DELETE _plugins/_alerting/monitors/<monitor_id>
                         "to"： {％ 生的 ％}"{{period_end}}"{％endraw％}，
                         "include_lower"： 真的，
                         "include_upper"： 真的，
-                        "format"："epoch_millis"，，，，
+                        "format"："epoch_millis"，
                         "boost"：1
                       }
                     }
@@ -1283,12 +1283,12 @@ DELETE _plugins/_alerting/monitors/<monitor_id>
           }
         }]，
         "triggers"：[{{
-          "id"："Sooi7GcB53a0ewuj_6MH"，，，，
-          "name"："Over"，，，，
-          "severity"："1"，，，，
+          "id"："Sooi7GcB53a0ewuj_6MH"，
+          "name"："Over"，
+          "severity"："1"，
           "condition"：{
             "script"：{
-              "source"："_ctx.results[0].hits.total > 400000"，，，，
+              "source"："_ctx.results[0].hits.total > 400000"，
               "lang"："painless"
             }
           }，，
@@ -1306,7 +1306,7 @@ DELETE _plugins/_alerting/monitors/<monitor_id>
 
 ## 运行监视器
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 您可以添加可选`?dryrun=true` 参数到URL以显示运行的结果，而无需发送任何消息。
 
@@ -1349,7 +1349,7 @@ POST _plugins/_alerting/monitors/<monitor_id>/_execute
 下表列出了可用路径参数。所有路径参数都是可选的。
 
 | 范围| 数据类型| 描述
-| ：--- | ：--- | ：---
+| :--- | :--- | :---
 | `sortString` | 细绳| 确定如何对结果进行分类。默认为`monitor_name.keyword`。
 | `sortOrder` | 细绳| 确定结果的顺序。选项是`asc` 或者`desc`。默认为`asc`。
 | `missing` | 细绳| 选修的。
@@ -1372,27 +1372,27 @@ POST _plugins/_alerting/monitors/<monitor_id>/_execute
 {
   "alerts"：[[
     {
-      "id"："eQURa3gBKo1jAh6qUo49"，，，，
+      "id"："eQURa3gBKo1jAh6qUo49"，
       "version"：300，
-      "monitor_id"："awUMa3gBKo1jAh6qu47E"，，，，
+      "monitor_id"："awUMa3gBKo1jAh6qu47E"，
       "schema_version"：2，
       "monitor_version"：2，
-      "monitor_name"："Example_monitor_name"，，，，
+      "monitor_name"："Example_monitor_name"，
       "monitor_user"：{
-        "name"："admin"，，，，
+        "name"："admin"，
         "backend_roles"：[[
           "admin"
         ]，，
         "roles"：[[
-          "all_access"，，，，
+          "all_access"，
           "own_index"
         ]，，
         "custom_attribute_names"：[]，，
         "user_requested_tenant"： 无效的
       }，，
-      "trigger_id"："bQUQa3gBKo1jAh6qnY6G"，，，，
-      "trigger_name"："Example_trigger_name"，，，，
-      "state"："ACTIVE"，，，，
+      "trigger_id"："bQUQa3gBKo1jAh6qnY6G"，
+      "trigger_name"："Example_trigger_name"，
+      "state"："ACTIVE"，
       "error_message"： 无效的，
       "alert_history"：[[
         {
@@ -1404,10 +1404,10 @@ POST _plugins/_alerting/monitors/<monitor_id>/_execute
           "message"："Example error message"
         }
       ]，，
-      "severity"："1"，，，，
+      "severity"："1"，
       "action_execution_results"：[[
         {
-          "action_id"："bgUQa3gBKo1jAh6qnY6G"，，，，
+          "action_id"："bgUQa3gBKo1jAh6qnY6G"，
           "last_execution_time"：1617317979908，
           "throttled_count"：0
         }
@@ -1426,7 +1426,7 @@ POST _plugins/_alerting/monitors/<monitor_id>/_execute
 
 ## 确认警报
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 [收到警报后](#get-alerts)，您可以在一个呼叫中确认任何数量的主动警报。如果警报已经处于错误，已完成或已确认状态，则将出现在`failed` 大批。
 
@@ -1462,8 +1462,8 @@ POST _plugins/_alerting/monitors/<monitor-id>/_acknowledge/alerts
 ```json
 发布_plugins/_ alerting/destinations
 {
-  "name"："my-destination"，，，，
-  "type"："slack"，，，，
+  "name"："my-destination"，
+  "type"："slack"，
   "slack"：{
     "url"："http://www.example.com"
   }
@@ -1471,14 +1471,14 @@ POST _plugins/_alerting/monitors/<monitor-id>/_acknowledge/alerts
 
 发布_plugins/_ alerting/destinations
 {
-  "type"："custom_webhook"，，，，
-  "name"："my-custom-destination"，，，，
+  "type"："custom_webhook"，
+  "name"："my-custom-destination"，
   "custom_webhook"：{
-    "path"："incomingwebhooks/123456-123456-XXXXXX"，，，，
+    "path"："incomingwebhooks/123456-123456-XXXXXX"，
     "header_params"：{
       "Content-Type"："application/json"
     }，，
-    "scheme"："HTTPS"，，，，
+    "scheme"："HTTPS"，
     "port"：443，
     "query_params"：{
       "token"："R2x1UlN4ZHF8MXxxVFJpelJNVDgzdGNwXXXXXXXXX"
@@ -1489,17 +1489,17 @@ POST _plugins/_alerting/monitors/<monitor-id>/_acknowledge/alerts
 
 发布_plugins/_ alerting/destinations
 {
-  "type"："email"，，，，
-  "name"："my-email-destination"，，，，
+  "type"："email"，
+  "name"："my-email-destination"，
   "email"：{
-    "email_account_id"："YjY7mXMBx015759_IcfW"，，，，
+    "email_account_id"："YjY7mXMBx015759_IcfW"，
     "recipients"：[[
       {
-        "type"："email_group"，，，，
+        "type"："email_group"，
         "email_group_id"："YzY-mXMBx015759_dscs"
       }，，
       {
-        "type"："email"，，，，
+        "type"："email"，
         "email"："example@email.com"
       }
     这是给出的
@@ -1513,13 +1513,13 @@ POST _plugins/_alerting/monitors/<monitor-id>/_acknowledge/alerts
 
 ```json
 {
-  "_id"："nO-yFmkB8NzS6aXjJdiI"，，，，
+  "_id"："nO-yFmkB8NzS6aXjJdiI"，
   "_version" ：1，
   "_seq_no" ：3，
   "_primary_term" ：1，
   "destination"：{
-    "type"："slack"，，，，
-    "name"："my-destination"，，，，
+    "type"："slack"，
+    "name"："my-destination"，
     "last_update_time"：1550863967624，
     "slack"：{
       "url"："http://www.example.com"
@@ -1533,7 +1533,7 @@ POST _plugins/_alerting/monitors/<monitor-id>/_acknowledge/alerts
 
 ## 更新目的地
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 更新目的地时，您可以选择包括`seq_no` 和`primary_term` 作为URL参数。如果这些数字与现有目标不匹配或目的地不存在，则警报插件会引发错误。OpenSearch会自动增加版本号和序列编号（请参阅示例响应）。
 
@@ -1599,16 +1599,16 @@ PUT _plugins/_alerting/destinations/<destination-id>?if_seq_no=3&if_primary_term
 {
   "totalDestinations"：1，
   "destinations"：[{{
-      "id"："1a2a3a4a5a6a7a"，，，，
-      "type"："slack"，，，，
-      "name"："sample-destination"，，，，
+      "id"："1a2a3a4a5a6a7a"，
+      "type"："slack"，
+      "name"："sample-destination"，
       "user"：{
-        "name"："psantos"，，，，
+        "name"："psantos"，
         "backend_roles"：[[
           "human-resources"
         ]，，
         "roles"：[[
-          "alerting_full_access"，，，，
+          "alerting_full_access"，
           "hr-role"
         ]，，
         "custom_attribute_names"：[]
@@ -1630,7 +1630,7 @@ PUT _plugins/_alerting/destinations/<destination-id>?if_seq_no=3&if_primary_term
 
 ## 获取目的地
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 检索所有目的地。
 
@@ -1689,11 +1689,11 @@ GET _plugins/_alerting/destinations
 
 ```json
 {
-  "_index"：".opendistro-alerting-config"，，，，
-  "_type"："_doc"，，，，
-  "_id"："Zu-zFmkB8NzS6aXjLeBI"，，，，
+  "_index"：".opendistro-alerting-config"，
+  "_type"："_doc"，
+  "_id"："Zu-zFmkB8NzS6aXjLeBI"，
   "_version"：2，
-  "result"："deleted"，，，，
+  "result"："deleted"，
   "forced_refresh"： 真的，
   "_shards"：{
     "total"：2，
@@ -1708,7 +1708,7 @@ GET _plugins/_alerting/destinations
 
 ## 创建电子邮件帐户
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 #### 要求
 ```json
@@ -1742,7 +1742,7 @@ POST _plugins/_alerting/destinations/email_accounts
 
 ## 更新电子邮件帐户
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 更新电子邮件帐户时，您可以选择包括`seq_no` 和`primary_term` 作为URL参数。如果这些数字与现有的电子邮件帐户或电子邮件帐户不存在，则警报插件会引发错误。OpenSearch会自动增加版本号和序列编号（请参阅示例响应）。
 
@@ -1786,7 +1786,7 @@ PUT _plugins/_alerting/destinations/email_accounts/<email_account_id>?if_seq_no=
 
 ## 获取电子邮件帐户
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 #### 要求
 ```json
@@ -1819,7 +1819,7 @@ GET _plugins/_alerting/destinations/email_accounts/<email_account_id>
 
 ## 删除电子邮件帐户
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 #### 要求
 ```
@@ -1847,7 +1847,7 @@ DELETE _plugins/_alerting/destinations/email_accounts/<email_account_id>
 
 ## 搜索电子邮件帐户
 引入1.0
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 #### 要求
 
@@ -1922,7 +1922,7 @@ POST _plugins/_alerting/destinations/email_accounts/_search
 ```json
 发布_plugins/_ alerting/Destinations/email_groups
 {
-  "name"："example_email_group"，，，，
+  "name"："example_email_group"，
   "emails"：[{{
     "email"："example@email.com"
   ]]
@@ -1933,13 +1933,13 @@ POST _plugins/_alerting/destinations/email_accounts/_search
 
 ```json
 {
-  "_id" ："email_group_id"，，，，
+  "_id" ："email_group_id"，
   "_version" ：1，
   "_seq_no" ：9，
   "_primary_term" ：2，
   "email_group" ：{
     "schema_version" ：2，
-    "name" ："example_email_group"，，，，
+    "name" ："example_email_group"，
     "emails" ：[[
       {
         "email" ："example@email.com"
@@ -1960,7 +1960,7 @@ POST _plugins/_alerting/destinations/email_accounts/_search
 ```json
 put _plugins/_alerting/destinations/email_groups/<Email_group_id>
 {
-  "name"："example_email_group"，，，，
+  "name"："example_email_group"，
   "emails"：[{{
     "email"："example@email.com"
   ]]
@@ -1968,7 +1968,7 @@ put _plugins/_alerting/destinations/email_groups/<Email_group_id>
 
 put _plugins/_alerting/destinations/email_groups/<Email_group_id>？if_seq_no = 16＆if_primary_term = 2
 {
-  "name"："example_email_group"，，，，
+  "name"："example_email_group"，
   "emails"：[{{
     "email"："example@email.com"
   ]]
@@ -1978,13 +1978,13 @@ put _plugins/_alerting/destinations/email_groups/<Email_group_id>？if_seq_no = 
 
 ```json
 {
-  "_id" ："email_group_id"，，，，
+  "_id" ："email_group_id"，
   "_version" ：4，
   "_seq_no" ：17，
   "_primary_term" ：2，
   "email_group" ：{
     "schema_version" ：2，
-    "name" ："example_email_group"，，，，
+    "name" ："example_email_group"，
     "emails" ：[[
       {
         "email" ："example@email.com"
@@ -2002,7 +2002,7 @@ put _plugins/_alerting/destinations/email_groups/<Email_group_id>？if_seq_no = 
 ```json
 获取_plugins/_alerting/destinations/email_groups/<Email_group_id>
 {
-  "name"："example_email_group"，，，，
+  "name"："example_email_group"，
   "emails"：[{{
     "email"："example@email.com"
   ]]
@@ -2012,13 +2012,13 @@ put _plugins/_alerting/destinations/email_groups/<Email_group_id>？if_seq_no = 
 
 ```json
 {
-  "_id" ："email_group_id"，，，，
+  "_id" ："email_group_id"，
   "_version" ：4，
   "_seq_no" ：17，
   "_primary_term" ：2，
   "email_group" ：{
     "schema_version" ：2，
-    "name" ："example_email_group"，，，，
+    "name" ："example_email_group"，
     "emails" ：[[
       {
         "email" ："example@email.com"
@@ -2040,11 +2040,11 @@ delete _plugins/_alerting/destinations/email_groups/<Email_group_id>
 
 ```json
 {
-  "_index" ：".opendistro-alerting-config"，，，，
-  "_type" ："_doc"，，，，
-  "_id" ："email_group_id"，，，，
+  "_index" ：".opendistro-alerting-config"，
+  "_type" ："_doc"，
+  "_id" ："email_group_id"，
   "_version" ：1，
-  "result" ："deleted"，，，，
+  "result" ："deleted"，
   "forced_refresh" ： 真的，
   "_shards" ：{
     "total" ：2，
@@ -2098,15 +2098,15 @@ delete _plugins/_alerting/destinations/email_groups/<Email_group_id>
     "max_score" ： 无效的，
     "hits" ：[[
       {
-        "_index" ：".opendistro-alerting-config"，，，，
-        "_type" ："_doc"，，，，
-        "_id" ："email_group_id"，，，，
+        "_index" ：".opendistro-alerting-config"，
+        "_type" ："_doc"，
+        "_id" ："email_group_id"，
         "_seq_no" ：10，
         "_primary_term" ：2，
         "_score" ： 无效的，
         "_source" ：{
           "schema_version" ：2，
-          "name" ："example_email_group"，，，，
+          "name" ："example_email_group"，
           "emails" ：[[
             {
               "email" ："example@email.com"

@@ -37,9 +37,9 @@ redirect_from:
 {
    "transport_certificates_list"：[[
       {
-         "issuer_dn" ："CN=Test,OU=Server CA 1B,O=Test,C=US"，，，，
-         "subject_dn" ："CN=follower.test.com"，，，，# 要在领导者的nodes_dn配置下添加
-         "not_before" ："2021-11-12T00:00:00Z"，，，，
+         "issuer_dn" ："CN=Test,OU=Server CA 1B,O=Test,C=US"，
+         "subject_dn" ："CN=follower.test.com"，# 要在领导者的nodes_dn配置下添加
+         "not_before" ："2021-11-12T00:00:00Z"，
          "not_after" ："2022-12-11T23:59:59Z"
       }
    这是给出的
@@ -185,7 +185,7 @@ curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://loca
 ```
 
 如果禁用了安全插件，请省略`use_roles` 范围。但是，如果启用了它，则必须指定OpenSearch用来对请求进行身份验证的领导者和追随者集群角色。此示例使用`all_access` 为简单起见，但是我们建议在每个群集上创建复制用户，并且[相应地绘制它]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles)。
-{： 。提示 }
+{: .tip }
 
 此命令创建了相同的读取-只有索引命名`follower-01` 在不断更新的追随者群集上，随着更改的更改`leader-01` 领导者集群的索引。启动复制从头开始创建一个追随者索引-- 您无法将现有索引转换为追随者索引。
 
@@ -210,7 +210,7 @@ curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/fol
 }
 ```
 
-可能的状态是`SYNCING`，，，，`BOOTSTRAPPING`，，，，`PAUSED`， 和`REPLICATION NOT IN PROGRESS`。
+可能的状态是`SYNCING`，`BOOTSTRAPPING`，`PAUSED`， 和`REPLICATION NOT IN PROGRESS`。
 
 领导者和追随者检查点值以负数开始并反映碎片计数（-1碎片，-5对于五片，依此类推）。每次更改的值会增加，并说明追随者在领导者背后有多少更新。如果索引完全同步，则值相同。
 
@@ -234,7 +234,7 @@ curl -XGET -k -u 'admin:admin' 'https://localhost:9200/follower-01/_search?prett
     "_source": {
       "The Shining": "Stephen King"
     }
-  }]
+  ]
 }
 ```
 

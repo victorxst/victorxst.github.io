@@ -26,7 +26,7 @@ PUT _cluster/settings
 ```
 
 环境| 默认| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 plugins.anomaly_detection.enabled| 真的| 是否启用了异常检测插件。如果禁用，所有检测器都会立即停止运行。
 plugins.anomaly_detection.max_anomaly_detectors| 1,000| 最大非数量-高基数检测器（没有类别字段）用户可以创建。
 plugins.anomaly_detection.max_multi_entity_anomaly_detectors| 10| 群集中最大的高基数检测器数（带有类别字段）。

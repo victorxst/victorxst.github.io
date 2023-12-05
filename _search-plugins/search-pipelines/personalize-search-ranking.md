@@ -19,7 +19,7 @@ grand_parent: 搜索管道
 下表列出了所有可用的请求字段。
 
 场地| 数据类型| 描述
-：--- | ：--- | ：--- 
+:--- | :--- | :--- 
 `campaign_arn` | 细绳|  亚马逊个性化广告系列的亚马逊资源名称（ARN）用于个性化结果。必需的。
 `recipe` | 细绳| 亚马逊个性化食谱的名称要使用。当前，该字段的唯一支持值是`aws-personalized-ranking`。必需的。
 `weight` | 漂浮| 与OpenSearch和Amazon提供的排名一起使用的权重。有效值在[0.0，1.0]范围内。重量越接近1.0，与计算排名时相比，亚马逊个性化的权重越多。如果指定0.0，则使用OpenSearch排名。如果指定1.0，则使用Amazon个性化排名。必需的。
@@ -56,7 +56,7 @@ PUT /_search/pipeline/my-pipeline
   ]
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ### 使用搜索管道
 
@@ -79,7 +79,7 @@ GET /movies/_search?search_pipeline=my-pipeline
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 有关其他详细信息，请参阅[个性化搜索结果来自OpenSearch（self-管理）](https://docs.aws.amazon.com/personalize/latest/dg/personalize-opensearch.html)
 

@@ -20,7 +20,7 @@ public class Student
     public double Gpa { get; init; }
 }
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 映射
 
@@ -32,7 +32,7 @@ OpenSearch使用动态映射来推断索引的文档的字段类型。但是，�
 var createResponse = await osClient.Indices.CreateAsync("students",
     c => c.Map(m => m.AutoMap<Student>()));
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 如果您使用自动映射，则将ID和Gradyear映射为整数，GPA被映射为双重映射，而FirstName和LastSname则作为带有关键字子字段的文本映射为文本。如果您想搜索firstName和lastname，并且仅允许案例-敏感的完整匹配，您可以通过将这些字段映射为关键字来抑制分析。在查询DSL中，您可以使用以下查询来完成此操作：
 
@@ -61,7 +61,7 @@ var createResponse = await osClient.Indices.CreateAsync(index,
                 .Keyword(k => k.Name(f => f.FirstName))
                 .Keyword(k => k.Name(f => f.LastName)))));
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 设置
 
@@ -97,7 +97,7 @@ var createResponse = await osClient.Indices.CreateAsync(index,
                             .Keyword(k => k.Name(f => f.LastName))))
                             .Settings(s => s.NumberOfShards(1).NumberOfReplicas(2)));
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 使用批量API索引多个文档
 
@@ -118,7 +118,7 @@ var bulkAll = osClient.BulkAll(ReadData(), r => r
             .MaxDegreeOfParallelism(4)
             .Size(100));
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 与布尔查询一起搜索
 
@@ -136,7 +136,7 @@ var gradResponse = await osClient.SearchAsync<Student>(s => s
                         .Term(t => t.Field(fld => fld.GradYear).Value(2022)))))
                         .Sort(srt => srt.Ascending(f => f.LastName)));
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 响应包含文档属性，其中包含来自OpenSearch的匹配文档。这些数据是学生类型的必不可少的JSON对象的形式，因此您可以以强烈的打字方式访问其属性。所有序列化和避难所都由OpenSearch.Client处理。
 
@@ -155,7 +155,7 @@ var aggResponse = await osClient.SearchAsync<Student>(s => s
                                 .Average("average gpa", 
                                             avg => avg.Field(fld => fld.Gpa))));
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 用于创建索引和索引数据的示例程序
 
@@ -222,7 +222,7 @@ internal class Program
     }
 }
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 搜索样本程序
 

@@ -16,7 +16,7 @@ redirect_from:
 下表列出了所有复合查询类型。
 
 查询类型| 描述
-：--- | ：---
+:--- | :---
 [`bool`]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/) （布尔）| 将多个查询子句与布尔逻辑相结合。
 [`boosting`]({{site.url}}{{site.baseurl}}/query-dsl/compound/boosting/) | 更改文档的相关性评分而不将其从搜索结果中删除。返回匹配的文档`positive` 查询，但降低了文档在与之匹配的结果中的相关性`negative` 询问。
 [`constant_score`]({{site.url}}{{site.baseurl}}/query-dsl/compound/constant-score/) | 包装查询或过滤器，并为所有匹配的文档分配恒定分数。这个分数等于`boost` 价值。

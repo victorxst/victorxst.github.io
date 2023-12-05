@@ -15,9 +15,9 @@ nav_order: 47
 您可以配置`convert_entry_type` 带有以下选项的处理器。
 
 | 选项| 必需的| 描述|
-| ：--- | ：--- | ：--- |
+| :--- | :--- | :--- |
 | `key`| 是的| 值的键需要转换为其他类型。|
-| `type` | 不| 键的目标类型-价值对。可能的值是`integer`，，，，`double`，，，，`string`， 和`Boolean`。默认值是`integer`。|
+| `type` | 不| 键的目标类型-价值对。可能的值是`integer`，`double`，`string`， 和`Boolean`。默认值是`integer`。|
 
 ## 用法
 
@@ -33,7 +33,7 @@ type-conv-pipeline:
         key: "response_status"
         type: "integer"
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 接下来，创建一个名为的日志文件`logs_json.log` 并更换`path` 在您的文件源中`pipeline.yaml` 用该文件备件提交。有关更多信息，请参阅[配置数据预备]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper)。
 

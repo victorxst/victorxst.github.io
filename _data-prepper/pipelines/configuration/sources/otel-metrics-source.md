@@ -11,7 +11,7 @@ nav_order: 10
 `otel_metrics_source` 是收集度量数据的OpenTelemetry收集器来源。下表描述了您可以使用的选项来配置`otel_metrics_source` 来源。
 
 选项| 必需的| 类型| 描述
-：--- | ：--- | ：--- | ：---
+:--- | :--- | :--- | :---
 港口| 不| 整数| OpenTelemtry指标源运行的端口。默认值是`21891`。
 请求超时| 不| 整数| 请求超时，以毫秒为单位。默认值是`10000`。
 health_check_service| 不| 布尔| 在下面启用GRPC健康检查服务`grpc.health.v1/Health/Check`。默认值是`false`。

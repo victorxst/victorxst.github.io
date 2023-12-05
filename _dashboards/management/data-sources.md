@@ -27,7 +27,7 @@ OpenSearch数据源是OpenSearch可以连接到并摄入数据的应用程序。
 
 1. 在OpenSearch仪表板主菜单中，选择**仪表板管理** >**数据源** >**创建数据源连接**。UI如下图所示。
 
-    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/data-source-UI.png" alt ="Connecting a data source UI" 宽度="700"/>
+    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/data-source-UI.png" alt ="Connecting a data source UI" width="700"/>
 
 2. 通过将适当的信息输入到该数据源连接**连接详细信息** 和**身份验证方法** 字段。
    
@@ -45,7 +45,7 @@ OpenSearch数据源是OpenSearch可以连接到并摄入数据的应用程序。
 
 4. 要删除数据源连接，请选择数据源左侧的复选框**标题** 然后选择**删除1连接** 按钮。支持为多个连接选择多个复选框。下图显示了一个示例UI。
 
-    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/delete-data-source.png" alt ="Deleting a data source UI" 宽度="700"/>
+    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/delete-data-source.png" alt ="Deleting a data source UI" width="700"/>
 
 ### 修改数据源连接
 
@@ -57,7 +57,7 @@ OpenSearch数据源是OpenSearch可以连接到并摄入数据的应用程序。
 
 什么时候**AWS SIGV4** 是所选的身份验证方法，您可以通过选择来更新凭据**更新存储的AWS凭据**。在流行音乐中-向上窗口，在第一个字段中输入新的访问密钥，并在第二字段中输入一个新的秘密密钥。选择**更新存储的AWS凭据** 在流行音乐中-向上窗口。新的凭据被保存。选择**测试连接** 在上部-屏幕的右角确认连接有效。
 
-要删除数据源连接，请选择“删除图标”（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class ="inline-icon" alt ="delete icon"/> {：/}）。
+要删除数据源连接，请选择“删除图标”（{::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class ="inline-icon" alt ="delete icon"/> {:/}）。
 
 ## 创建索引模式
 

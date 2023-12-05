@@ -16,25 +16,25 @@ nav_order: 17
 
 1. 首先选择**安全分析** 在OpenSearch仪表板主菜单中。然后选择**相关规则** 从屏幕左侧的“安全分析”菜单中。这**相关规则** 显示页面，如下图所示。
    
-   <img src ="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/create-corr-rule.png" alt ="The correlation rules page" 宽度="85%">
+   <img src ="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/create-corr-rule.png" alt ="The correlation rules page" width="85%">
 
 1. 选择**创建相关规则**。这**创建相关规则** 窗口打开。
 1. 在里面**相关规则细节** 字段，输入该规则的名称，如下图所示。
   
-   <img src ="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-rule-config1.png" alt ="The correlation rule name" 宽度="50%">
+   <img src ="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-rule-config1.png" alt ="The correlation rule name" width="50%">
 
 1. 这**相关查询** 字段包含两个下拉列表。在里面**选择索引** 下拉列表，为数据源指定索引或索引模式。在里面**日志类型** 下拉列表，指定与索引关联的日志类型，如下图所示。
   
-   <img src ="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-rule-config2.png" alt ="The data source and log type for the query" 宽度="45%">
+   <img src ="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-rule-config2.png" alt ="The data source and log type for the query" width="45%">
   
 1. 在里面**场地** 下拉列表，指定日志字段。在里面**场值** 文本框，输入字段值，如下图所示。
   
-   <img src ="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-rule-config3.png" alt ="The field and field value for the query" 宽度="45%">
+   <img src ="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-rule-config3.png" alt ="The field and field value for the query" width="45%">
 
 1. 要在查询中添加更多字段，请选择**添加字段**。
 1. 配置第一个查询后，重复上一步以配置第二个查询。您可以选择**添加查询** 在窗口的底部，以添加有关该规则的更多查询，如下图所示。
   
-   <img src ="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-rule-config4.png" alt ="A second query for the correlation rule" 宽度="50%">
+   <img src ="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-rule-config4.png" alt ="A second query for the correlation rule" width="50%">
 
 1. 规则完成后，选择**创建相关规则** 在较低-窗户的右角。OpenSearch创建了一个新规则，屏幕返回到**相关规则** 窗口，新规则出现在相关规则表中。要编辑规则，请在**姓名** 柱子。这**编辑相关规则** 窗口打开。
 
@@ -55,7 +55,7 @@ PUT /_cluster/settings
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ---
 ## Next steps

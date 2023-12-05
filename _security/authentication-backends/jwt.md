@@ -88,7 +88,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI
 ## 配置JWT
 
 如果使用JWT作为唯一的身份验证方法，请通过设置用户缓存来禁用用户缓存`plugins.security.cache.ttl_minutes` 财产为`0`。有关此属性的更多信息，请参阅[opensearch.yml]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#opensearchyml)。
-{： 。重要的 }
+{: .important }
 
 设置身份验证域并选择`jwt` 作为HTTP身份验证类型。由于令牌已经包含所有必需的信息来验证请求，所以`challenge` 必须设置为`false` 和`authentication_backend` 到`noop`：
 
@@ -114,7 +114,7 @@ I    type: noop
 下表列出了配置参数。
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `signing_key` | 验证令牌时要使用的签名键。如果使用对称密钥算法，则是base64-编码共享的秘密。如果您使用不对称算法，则包含公共密钥。
 `jwt_header` | 将令牌传输的HTTP标头。这通常是`Authorization` 标题与`Bearer` 模式：`Authorization: Bearer <token>`。默认为`Authorization`。
 `jwt_url_parameter` | 如果代币不是在HTTP标头中传输的，而是在URL参数中传输，请在此处定义参数的名称。

@@ -18,7 +18,7 @@ nav_order: 72
 processor:
     - otel_metrics_raw_processor:
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 配置
 
@@ -60,7 +60,7 @@ processor:
         exponential_histogram_max_allowed_scale: 10
         flatten_attributes: false
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 每个数组元素都描述一个水桶。每个桶包含下边界，上边界及其值计数。这是一种更详细的Opentelemetry表示形式的特定形式，是`JSON` 由`otel_metrics` 处理器。请参阅以下内容`JSON` 文件，每个文件都添加到每个`JSON` 直方图`otel_metrics` 处理器：
 
@@ -137,7 +137,7 @@ processor:
 所有指数直方图，其比例比配置参数高于配置参数（默认情况下，`10`）丢弃并以错误级别记录。您可以检查数据Prepper创建的日志以查看`ERROR` 日志消息。
 
 绝对比例值用于比较，因此`-11` 这是平等对待的`11` 超过了配置的值`10` 可以被丢弃。
-{： 。笔记}
+{: .note}
 
 ## 指标
 

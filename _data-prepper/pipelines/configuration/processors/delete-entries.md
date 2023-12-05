@@ -15,7 +15,7 @@ nav_order: 51
 您可以配置`delete_entries` 带有以下选项的处理器。
 
 | 选项| 必需的| 描述|
-：--- | ：--- | ：---
+:--- | :--- | :---
 | `with_keys` | 是的| 要删除条目的一系列键。|
 
 ## 用法
@@ -32,7 +32,7 @@ pipeline:
         with_keys: ["message"]
   sink:
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 接下来，创建一个名为的日志文件`logs_json.log` 并更换`path` 在您的文件源中`pipeline.yaml` 用该文件备件提交。有关更多信息，请参阅[配置数据预备]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper)。
 

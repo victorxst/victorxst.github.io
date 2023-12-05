@@ -12,7 +12,7 @@ nav_order: 140
 由于OpenSearch仪表板有成千上万的并发搜索请求，因此流量繁忙可能会在OpenSearch集群中造成重大负载。
 
 OpenSearch群集在关闭搜索遥测时性能更好。
-{： 。提示 }
+{: .tip }
 
 ## 打开搜索遥测
 
@@ -21,7 +21,7 @@ OpenSearch群集在关闭搜索遥测时性能更好。
 你可以找到[OpenSearch Dashboards yaml文件](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml) 在OpenSearch中-GitHub上的项目存储库。
 
 打开遥测`opensearch_dashboards.yml` 文件覆盖默认搜索遥测设置`false` 在里面[数据插件配置文件](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/data/config.ts)。
-{： 。笔记 }
+{: .note }
 
 ### 打开或关闭搜索遥测
 

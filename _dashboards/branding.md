@@ -55,7 +55,7 @@ ApplicationTitle| 应用程序的标题。看#图像中的5。
   # applicationTitle: ""
 ```
 
-将要用作品牌元素的URL添加到适当的设置中。有效的图像类型是`SVG`，，，，`PNG`， 和`GIF`。
+将要用作品牌元素的URL添加到适当的设置中。有效的图像类型是`SVG`，`PNG`， 和`GIF`。
 
 还提供了深色模式仪表板的自定义，但是您首先必须提供有效的链接`defaultUrl`，然后链接到您首选的图像与`darkModeUrl`。如果您不提供`darkModeUrl` 链接，然后仪表板使用提供的`defaultUrl` 黑暗模式的元素。您无需自定义所有品牌元素，因此，如果您愿意，只需更改徽标或任何其他元素是完全有效的。如评论，留下不变的元素。
 
@@ -161,7 +161,7 @@ opensearch.requestheaderslowerlist：[授权，安全士兵]
 #server.ssl.key: /path/to/your/server/键
 
 opensearch_security.multitenancy.enabled：true
-opensearch_security.multitenancy.tenants.preferred：["Private"，，，，"Global"这是给出的
+opensearch_security.multitenancy.tenants.preferred：["Private"，"Global"这是给出的
 opensearch_security.readonly_mode.roles：[["kibana_read_only"这是给出的
 # 如果您正在运行OpenSearch，请使用此设置-仪表板没有HTTPS
 opensearch_security.cookie.secure：false

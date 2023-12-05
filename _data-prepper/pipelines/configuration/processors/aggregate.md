@@ -16,10 +16,10 @@ nav_order: 41
 下表描述了您可以使用的选项来配置`aggregate` 处理器。
 
 选项| 必需的| 类型| 描述
-：--- | ：--- | ：--- | ：---
+:--- | :--- | :--- | :---
 dissideification_keys| 是的| 列表| 一个无序的列表进行分组事件。与这些密钥相同的事件放入同一组中。如果事件不包含一个`identification_keys`，那么该密钥的价值被认为等于`null`。至少需要一个识别figation_key（例如，`["sourceIp", "destinationIp", "port"]`）。
 行动| 是的| 聚集| 每个组要执行的动作。中的一个[可用的汇总操作](#available-aggregate-actions) 必须提供，或者您可以创建自定义的汇总操作。`remove_duplicates` 和`put_all` 是可用的动作。有关更多信息，请参阅[创建新的汇总操作](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#creating-new-aggregate-actions)。
-group_duration| 不| 细绳| 组应自动结束之前应该存在的时间。支持ISO_8601符号字符串（"PT20.345S"，，，，"PT15M"等等）以及几秒钟的简单符号（`"60s"`）和毫秒（`"1500ms"`）。默认值是`180s`。
+group_duration| 不| 细绳| 组应自动结束之前应该存在的时间。支持ISO_8601符号字符串（"PT20.345S"，"PT15M"等等）以及几秒钟的简单符号（`"60s"`）和毫秒（`"1500ms"`）。默认值是`180s`。
 
 ## 可用的汇总操作
 
@@ -90,7 +90,7 @@ group_duration| 不| 细绳| 组应自动结束之前应该存在的时间。支
     *`raw`：与`count_key` 具有数值的字段，并且`start_time_key` 集合启动时间为值。
 
 
-例如，使用`identification_keys: ["sourceIp", "destination_ip", "request"]`，，，，`key: latency`， 和`buckets: [0.0, 0.25, 0.5]`， 这`histogram` 操作处理以下事件：
+例如，使用`identification_keys: ["sourceIp", "destination_ip", "request"]`，`key: latency`， 和`buckets: [0.0, 0.25, 0.5]`， 这`histogram` 操作处理以下事件：
 
 ```
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "request" : "/index.html", "latency": 0.2 }

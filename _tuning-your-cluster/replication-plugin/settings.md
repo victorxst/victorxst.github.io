@@ -28,7 +28,7 @@ PUT _cluster/settings
 这些设置管理远程回收消耗的资源。我们不建议更改这些设置；在大多数用例中，默认值应该很好。
 
 环境| 默认| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `plugins.replication.follower.index.recovery.chunk_size` | 10 MB| 在文件传输期间，追随者群集要求的块大小。将块大小指定为值和单位，例如10 MB，5 kb。看[支持单位]({{site.url}}{{site.baseurl}}/opensearch/units/)。
 `plugins.replication.follower.index.recovery.max_concurrent_file_chunks` | 4| 每个恢复可以并行发送的文件块请求数。
 `plugins.replication.follower.index.ops_batch_size` | 50000| 可以在复制同步阶段一次获取操作数量。

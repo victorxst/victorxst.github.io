@@ -155,7 +155,7 @@ GET /_tasks?nodes=opensearch-node1
 ```bash
 curl -XGET "localhost:9200/_tasks?actions=*search&detailed
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 #### 示例响应
 
@@ -269,7 +269,7 @@ POST _tasks/_cancel?nodes=opensearch-node1,opensearch-node2
 ```bash
 curl -i -H "X-Opaque-Id: 111111" "https://localhost:9200/_tasks" -u 'admin:admin' --insecure
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 这`_tasks` 操作返回以下结果。
 
@@ -328,5 +328,5 @@ content-length: 768
 ```bash
 curl -i -H "X-Opaque-Id: 123456" "https://localhost:9200/_tasks?nodes=opensearch-node1" -u 'admin:admin' --insecure
 ```
-{％include copy.html％}
+{% include copy.html %}
 

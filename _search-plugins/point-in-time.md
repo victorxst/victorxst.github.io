@@ -33,7 +33,7 @@ PIT搜索具有与常规搜索相同的功能，除了PIT搜索在较旧的数�
 Create Pit Operation返回一个PIT ID，您可以在冷冻数据集上运行多个查询。即使该索引继续摄入数据并修改或删除文档，坑也引用了自维修区创建以来未更改的数据。当查询包含一个坑ID时，您无需将索引传递给搜索，因为它将使用该坑。当您多次运行时，具有PIT ID的搜索将产生完全相同的结果。
 
 如果发生群集或节点故障，则所有PIT数据都会丢失。
-{： 。笔记}
+{: .note}
 
 ## 与坑和搜索的分页
 
@@ -148,7 +148,7 @@ GET /_search
 下表列出了所有[时间点API]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api) 功能。
 
 功能| API| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 [创建坑]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api#create-a-pit) | `POST /<target_indexes>/_search/point_in_time?keep_alive=1h` | 创建一个坑。
 [列表坑]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api#list-all-pits) | `GET /_search/point_in_time/_all` | 列出所有坑。
 [删除坑]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api#delete-pits) | `DELETE /_search/point_in_time`<br>`DELETE /_search/point_in_time/_all` | 删除一个坑或所有坑。

@@ -10,7 +10,7 @@ redirect_from:
 # 将更改应用于配置文件
 
 在**视窗**， 使用**SecurityAdmin.bat** 代替**SecurityAdmin.sh**。有关更多信息，请参阅[Windows用法](#windows-usage)。
-{： 。笔记}
+{: .note}
 
 安全插件存储其配置（包括用户，角色，权限和后端设置）[系统索引]({{site.url}}{{site.baseurl}}/security/configuration/system-indices) 在OpenSearch集群上。将这些设置存储在索引中使您可以更改设置，而无需重新启动群集，并消除了在每个节点上编辑配置文件的需求。这是通过运行`securityadmin.sh` 脚本。
 
@@ -79,7 +79,7 @@ plugins.security.authcz.admin_dn:
 ```
 
 您不能将节点证书用作管理证书。两者必须分开。另外，请勿在DN的各个部分之间添加空格。
-{： 。警告 }
+{: .warning }
 
 
 ## 基本用法
@@ -87,7 +87,7 @@ plugins.security.authcz.admin_dn:
 这`securityadmin.sh` 可以从任何可以访问OpenSearch集群HTTP端口的机器运行工具（默认端口为9200）。您可以更改安全插件配置，而无需通过SSH访问节点。
 
 `securityadmin.sh` 要求在OpenSearch集群上启用SSL/TLS传输。换句话说，请确保`plugins.security.ssl.http.enabled: true` 安顿好了`opensearch.yml` 继续前进。
-{： 。笔记}
+{: .note}
 
 每个节点还包括该工具`plugins/opensearch-security/tools/securityadmin.sh`。您可能需要在运行脚本之前使脚本可执行：
 
@@ -113,12 +113,12 @@ chmod +x plugins/opensearch-security/tools/securityadmin.sh
 - 这`-cd` 选项指定可以找到安全插件配置文件的位置。
 - 这`-icl` （（`--ignore-clustername`）选项告诉安全插件上传配置，无论群集名称如何。作为替代方案，您还可以用`-cn` （（`--clustername`） 选项。
 - 因为演示证书是自我的-签名，此命令禁用使用主机名验证`-nhnv` （（`--disable-host-name-verification`） 选项。
-- 这`-cacert`，，，，`-cert` 和`-key` 选项定义了您的根CA证书的位置，管理员证书和管理证书的私钥。如果私钥有密码，请使用`-keypass` 选项。
+- 这`-cacert`，`-cert` 和`-key` 选项定义了您的根CA证书的位置，管理员证书和管理证书的私钥。如果私钥有密码，请使用`-keypass` 选项。
 
 下表显示了PEM选项。
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `-cert` | 包含管理证书和所有中间证书的PEM文件的位置（如果有）。您可以使用绝对路径或相对路径。相对路径相对于执行目录解决`securityadmin.sh`。
 `-key` | PEM文件的位置包含管理证书的私钥。您可以使用绝对路径或相对路径。相对路径相对于执行目录解决`securityadmin.sh`。关键必须在PKC中#8格式。
 `-keypass` | 管理证书的私钥的密码（如果有）。
@@ -175,7 +175,7 @@ chmod +x plugins/opensearch-security/tools/securityadmin.sh
 使用以下选项控制密钥和信托店设置。
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `-ks` | 包含管理员证书和所有中间证书的密钥库的位置（如果有）。您可以使用绝对路径或相对路径。相对路径相对于执行目录解决`securityadmin.sh`。
 `-kspass` | 密钥库的密码。
 `-kst` | 钥匙店类型是JKS或PKCS#12/pfx。如果未指定，则安全插件将尝试确定文件扩展名的类型。
@@ -191,7 +191,7 @@ chmod +x plugins/opensearch-security/tools/securityadmin.sh
 如果您运行默认的OpenSearch安装，该安装在端口9200上lisk并使用`opensearch` 作为集群名称，您可以完全省略以下设置。否则，使用以下开关来指定OpenSearch设置。
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `-h` | OpenSearch HostName。默认为`localhost`。
 `-p` | OpenSearch端口。默认值为9200- 不是HTTP端口。
 `-cn` | 集群名称。默认为`opensearch`。
@@ -205,7 +205,7 @@ chmod +x plugins/opensearch-security/tools/securityadmin.sh
 使用以下选项控制证书验证。
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `-nhnv` | 请勿验证主机名。默认值为false。
 `-nrhn` | 请勿解决主机名。仅相关`-nhnv` 未设置。
 `-noopenssl` | 即使可用，也不要使用OpenSSL。如果可用，则默认为使用OpenSSL。
@@ -216,7 +216,7 @@ chmod +x plugins/opensearch-security/tools/securityadmin.sh
 以下开关定义要将哪些配置文件推入安全插件。您可以按单个文件或指定包含一个或多个配置文件的目录。
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `-cd` | 包含多个安全插件配置文件的目录。
 `-f` | 单个配置文件。不能与`-cd`。
 `-t` | 文件类型。
@@ -249,7 +249,7 @@ chmod +x plugins/opensearch-security/tools/securityadmin.sh
 您可能不需要更改密码设置。如果需要，请使用以下选项。
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `-ec` | 逗号-启用的TLS密码的分开列表。
 `-ep` | 逗号-启用TLS协议的分开列表。
 
@@ -287,7 +287,7 @@ chmod +x plugins/opensearch-security/tools/securityadmin.sh
 ```
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `-backup` | 从运行群集中检索当前的安全插件配置，然后将其转储到工作目录。
 `-migrate` | 迁移配置YAML文件从for Elasticsearch 0.x.x到OpenSearch 1.x.x.。
 
@@ -295,7 +295,7 @@ chmod +x plugins/opensearch-security/tools/securityadmin.sh
 ### 其他选项
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `-dci` | 删除安全插件配置索引和退出。如果由于损坏的安全插件索引，群集状态为红色，则此选项很有用。
 `-esa` | 启用碎片分配和退出。如果您在执行完整的群集重新启动并需要重新创建安全插件索引时禁用碎片分配，则此选项很有用。
 `-w` | 显示有关使用过的管理员证书的信息。

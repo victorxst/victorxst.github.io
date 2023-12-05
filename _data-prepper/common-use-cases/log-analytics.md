@@ -116,7 +116,7 @@ log-pipeline:
   Format json
 ```
 
-如果您的HTTP源具有SSL和基本身份验证，则需要添加`http_User`，，，，`http_Passwd`，，，，`tls.crt_file`， 和`tls.key_file` 到`fluent-bit.conf` 文件，如下示例所示。
+如果您的HTTP源具有SSL和基本身份验证，则需要添加`http_User`，`http_Passwd`，`tls.crt_file`， 和`tls.key_file` 到`fluent-bit.conf` 文件，如下示例所示。
 
 ### 示例：使用SSL和基本身份验证的流利位文件
 

@@ -25,7 +25,7 @@ PUT testindex1/_doc/1
   "description": "Top 10 sonnets of England's national poet and the Bard of Avon"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ```json
 PUT testindex1/_doc/2
@@ -34,7 +34,7 @@ PUT testindex1/_doc/2
   "body": "The poems written by various 16-th century poets"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 用一个`dis_max` 查询搜索包含单词的文档"Shakespeare poems"：
 
@@ -51,7 +51,7 @@ GET testindex1/_search
   }            
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 响应包含两个文档：
 
@@ -100,7 +100,7 @@ GET testindex1/_search
 下表列出了所有顶部-支持的级别参数`dis_max` 查询。
 
 范围| 描述
-：--- | ：---
+:--- | :---
 `queries` | 用于匹配文档的一个或多个查询子句的数组。文档必须匹配至少一个查询条款才能在结果中返回。如果文档匹配多个查询子句，则将相关性得分设置为所有匹配查询子句的最高相关性分数。必需的。
 `tie_breaker` | 浮动-点因子在0到1.0之间，用于给匹配多个查询子句的文档提供更大的权重。在这种情况下，使用以下算法计算文档的相关性评分：从所有匹配的查询子句中获取最高相关性得分，将所有其他匹配条款的分数乘以乘以`tie_breaker` 价值，并将相关得分添加在一起，使它们正常化。选修的。默认值为0（仅表示最高分数计数）。
 

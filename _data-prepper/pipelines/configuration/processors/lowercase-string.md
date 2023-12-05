@@ -12,7 +12,7 @@ nav_order: 60
 这`lowercase_string` 处理器将字符串转换为其小写对方，是[突变字符串](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) 处理器。下表描述了配置的选项`lowercase_string` 处理器将字符串转换为小写格式。
 
 选项| 必需的| 类型| 描述
-：--- | ：--- | ：--- | ：---
+:--- | :--- | :--- | :---
 使用_keys| 是的| 列表| 转换为小写的键列表。
 
 <！---## 配置

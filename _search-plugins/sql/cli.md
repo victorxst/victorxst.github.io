@@ -42,7 +42,7 @@ pip3 install opensearchsql
 ```
 
 SQL CLI仅与Python 3一起使用。
-{： 。笔记 }
+{: .note }
 
 2. 要启动CLI，请运行：
 ```console
@@ -81,7 +81,7 @@ SELECT * FROM accounts;
 默认情况下，您会看到最大输出为200行。要显示更多结果，请添加一个`LIMIT` 带有所需值的子句。
 
 要退出CLI工具，请选择**Ctrl+D。**。
-{： 。提示 }
+{: .tip }
 
 ## 将CLI与PPL一起使用
 

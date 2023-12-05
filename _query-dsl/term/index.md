@@ -19,7 +19,7 @@ nav_order: 20
 下表列出了所有术语-级查询类型。
 
 查询类型| 描述
-：--- | ：--- 
+:--- | :--- 
 [`term`]({{site.url}}{{site.baseurl}}/query-dsl/term/term/) | 搜索包含特定字段中确切术语的文档。
 [`terms`]({{site.url}}{{site.baseurl}}/query-dsl/term/terms/) | 搜索在特定字段中包含一个或多个术语的文档。
 [`terms_set`]({{site.url}}{{site.baseurl}}/query-dsl/term/terms-set/) | 搜索与特定字段中最少的条款数量匹配的文档。

@@ -34,7 +34,7 @@ const result = await client.helpers.bulk({
 
 console.log(result)
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 批量助手操作返回具有以下字段的对象：
 
@@ -86,7 +86,7 @@ client.helpers.bulk({
   }
 })
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 以下批量操作将文档索引到`example-index` 使用文档覆盖：
 
@@ -103,7 +103,7 @@ client.helpers.bulk({
   }
 })
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 #### 创造
 
@@ -121,7 +121,7 @@ client.helpers.bulk({
   }
 })
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 以下批量操作在`example-index` 使用文档覆盖：
 
@@ -138,7 +138,7 @@ client.helpers.bulk({
   }
 })
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 #### 更新
 
@@ -161,7 +161,7 @@ client.helpers.bulk({
   }
 })
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 以下批量操作更新了文档`arrayOfDocuments` 使用文档覆盖：
 
@@ -181,7 +181,7 @@ client.helpers.bulk({
   }
 })
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 #### 删除
 

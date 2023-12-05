@@ -18,7 +18,7 @@ redirect_from:
 
 ## 相关维度：`ShardID`，`IndexName`，`Operation`，`ShardRole`
 
-<表>
+<table>
  <thead样式="text-align: left">
     <tr>
       <th>公制</th>
@@ -29,7 +29,7 @@ redirect_from:
     <tr>
       <td> cpu_utilization
       </td>
-      <TD> CPU使用率。在过去五秒钟内，相关线使用的CPU时间（以毫秒为单位）除以5000毫秒。
+      <td> CPU使用率。在过去五秒钟内，相关线使用的CPU时间（以毫秒为单位）除以5000毫秒。
       </td>
     </tr>
     <tr>
@@ -59,7 +59,7 @@ redirect_from:
     <tr>
       <td> sched_waittime
       </td>
-      <TD>时间（秒）在每个上下文开关等待运行队列上花费。
+      <td>时间（秒）在每个上下文开关等待运行队列上花费。
       </td>
     </tr>
     <tr>
@@ -69,19 +69,19 @@ redirect_from:
       </td>
     </tr>
     <tr>
-      <TD> HEAP_OLLOCRATE
+      <td> HEAP_OLLOCRATE
       </td>
       <td>在过去5秒内分配的每秒分配的堆内存的近似值。
       </td>
     </tr>
     <tr>
-      <TD> io_readThroughtup
+      <td> io_readThroughtup
       </td>
       <td>在过去五秒钟内每秒读取的字节数。
       </td>
     </tr>
     <tr>
-      <TD> io_writeThrougt
+      <td> io_writeThrougt
       </td>
       <td>在过去五秒钟内每秒写的字节数。
       </td>
@@ -93,7 +93,7 @@ redirect_from:
       </td>
     </tr>
     <tr>
-      <TD> io_readsyscallrate
+      <td> io_readsyscallrate
       </td>
       <td>在过去五秒钟内每秒读取系统呼叫。
       </td>
@@ -105,31 +105,31 @@ redirect_from:
       </td>
     </tr>
     <tr>
-      <TD> io_totalsyscallrate
+      <td> io_totalsyscallrate
       </td>
       <td>在过去五秒钟内每秒读取和写入系统调用。
       </td>
     </tr>
     <tr>
-      <TD> thread_blocked_time
+      <td> thread_blocked_time
       </td>
       <td>平均时间为几秒钟的时间，即关联的线程已被阻止输入或重新输入监视器。
       </td>
     </tr>
     <tr>
-      <TD> thread_blocked_event
+      <td> thread_blocked_event
       </td>
       <td>关联线程已阻止输入或重新输入监视器的总数（即，线程已在`blocked` 状态）。
       </td>
     </tr>
     <tr>
-      <TD> thread_waited_time
+      <td> thread_waited_time
       </td>
       <td>相关线程已经等待输入或重新输入监视器的平均时间（即，线程已在`WAITING` 或者`TIMED_WAITING` 状态）”。
       </td>
     </tr>
     <tr>
-      <TD> thread_waited_event
+      <td> thread_waited_event
       </td>
       <td>关联线程已经等待输入或重新输入监视器的总次数（即，在<code>等待</code>或<code> timed_waiting </code </code>>状态）。
       </td>
@@ -151,7 +151,7 @@ redirect_from:
 
 ## 相关维度：`ShardID`，`IndexName` 
 
-<表>
+<table>
   <thead样式="text-align: left">
     <tr>
       <th>公制</th>
@@ -192,7 +192,7 @@ redirect_from:
     <tr>
       <td> cache_fielddata_size
       </td>
-      <TD>字节中的fieldData内存大小。
+      <td>字节中的fieldData内存大小。
       </td>
     </tr>
     <tr>
@@ -244,7 +244,7 @@ redirect_from:
       </td>
     </tr>
     <tr>
-      <TD> Merge_event
+      <td> Merge_event
       </td>
       <td>在过去五秒钟内执行的合并总数。
       </td>
@@ -256,15 +256,15 @@ redirect_from:
       </td>
     </tr>
     <tr>
-      <TD> Merge_currentevent
+      <td> Merge_currentevent
       </td>
       <td>当前的合并执行数。
       </td>
     </tr>
     <tr>
-      <TD>索引_Buffer
+      <td>索引_Buffer
       </td>
-      <TD>字节中的索引缓冲区内存大小。
+      <td>字节中的索引缓冲区内存大小。
       </td>
     </tr>
     <tr>
@@ -274,27 +274,27 @@ redirect_from:
       </td>
     </tr>
     <tr>
-      <TD> indexwriter_memory
+      <td> indexwriter_memory
       </td>
-      <TD>索引作者在字节中估计的内存使用情况。
+      <td>索引作者在字节中估计的内存使用情况。
       </td>
     </tr>
     <tr>
       <td> bitset_memory
       </td>
-      <TD>字节中的缓存位集的估计内存使用量。
+      <td>字节中的缓存位集的估计内存使用量。
       </td>
     </tr>
     <tr>
       <td>版本map_memory
       </td>
-      <TD>字节中版本映射的估计内存使用情况。
+      <td>字节中版本映射的估计内存使用情况。
       </td>
     </tr>
     <tr>
       <td> shard_size_in_bytes
       </td>
-      <TD>估计字节中碎片的磁盘使用情况。
+      <td>估计字节中碎片的磁盘使用情况。
       </td>
     </tr>
   </tbody>
@@ -302,7 +302,7 @@ redirect_from:
 
 ## 相关维度：`ShardID`，`IndexName`，`IndexingStage`  
   
-<表>
+<table>
   <thead样式="text-align: left">
    <tr>
     <th>公制</th>
@@ -329,7 +329,7 @@ redirect_from:
       </td>
     </tr>
     <tr>
-      <TD>索引
+      <td>索引
       </td>
       <td>在特定索引阶段（协调，主或副本），OpenSearch对索引碎片执行的拒绝总数。
       </td>
@@ -345,7 +345,7 @@ redirect_from:
     
 ## 相关维度：`Operation`，`Exception`，`Indices`，`HTTPRespCode`，`ShardID`，`IndexName`，`ShardRole`    
    
- <表>
+ <table>
   <thead样式="text-align: left">
     <tr>
      <th>公制</th>
@@ -354,9 +354,9 @@ redirect_from:
    </thead>
    <tbody>
     <tr>
-     <TD>延迟
+     <td>延迟
       </td>
-      <TD>请求的延迟（毫秒）。
+      <td>请求的延迟（毫秒）。
       </td>
     </tr>
    </tbody>
@@ -364,7 +364,7 @@ redirect_from:
 
 ## 相关维度：`MemType`   
    
- <表>
+ <table>
    <thead样式="text-align: left">
     <tr>
       <th>公制</th>
@@ -379,25 +379,25 @@ redirect_from:
       </td>
     </tr>
     <tr>
-      <TD> gc_collection_time
+      <td> gc_collection_time
       </td>
       <td>在过去五秒钟内发生的所有垃圾收集的大约累积时间（毫秒）。
       </td>
     </tr>
     <tr>
-      <TD> HEAP_COMMENT
+      <td> HEAP_COMMENT
       </td>
       <td>供JVM使用的内存（字节）。
       </td>
     </tr>
     <tr>
-      <TD> HEAP_INIT
+      <td> HEAP_INIT
       </td>
-      <TD> JVM最初从操作系统请求内存管理的内存（字节）。
+      <td> JVM最初从操作系统请求内存管理的内存（字节）。
       </td>
     </tr>
     <tr>
-      <TD> HAEP_MAX
+      <td> HAEP_MAX
       </td>
       <td>可用于内存管理的最大内存（字节）。
       </td>
@@ -413,7 +413,7 @@ redirect_from:
 
 ## 相关维度：`DiskName`   
    
- <表>
+ <table>
    <thead样式="text-align: left">
     <tr>
       <th>公制</th>
@@ -424,7 +424,7 @@ redirect_from:
     <tr>
       <td> disk_utilization
       </td>
-      <TD>磁盘利用率：过去五秒钟在OpenSearch过程中所花费的磁盘时间的百分比。
+      <td>磁盘利用率：过去五秒钟在OpenSearch过程中所花费的磁盘时间的百分比。
       </td>
     </tr>
     <tr>
@@ -436,7 +436,7 @@ redirect_from:
     <tr>
       <td> disk_servicerate
       </td>
-      <TD>服务率：MB在过去五秒钟内每秒读取或书写。该度量假定每个磁盘扇区存储512个字节。
+      <td>服务率：MB在过去五秒钟内每秒读取或书写。该度量假定每个磁盘扇区存储512个字节。
       </td>
     </tr>
   </tbody>
@@ -444,7 +444,7 @@ redirect_from:
 
 ## 相关维度：`DestAddr`   
    
- <表>
+ <table>
   <thead样式="text-align: left">
    <tr>
      <th>公制</th>
@@ -459,19 +459,19 @@ redirect_from:
      </td>
    </tr>
    <tr>
-     <TD> net_tcp_txq
+     <td> net_tcp_txq
      </td>
-     <TD>发送缓冲区中TCP数据包的平均数量。
+     <td>发送缓冲区中TCP数据包的平均数量。
      </td>
    </tr>
    <tr>
-     <TD> net_tcp_rxq
+     <td> net_tcp_rxq
      </td>
      <td>接收缓冲区中TCP数据包的平均数量。
      </td>
    </tr>
    <tr>
-     <TD> net_tcp_lost
+     <td> net_tcp_lost
      </td>
      <td>未恢复的重复超时的平均数量。恢复完成或`SND.UNA` 是先进的。`SND.UNA` 是已发送但尚未确认的数据字节的序列编号。
      </td>
@@ -493,7 +493,7 @@ redirect_from:
 
 ## 相关维度：`Direction`    
    
- <表>
+ <table>
    <thead样式="text-align: left">
    <tr>
      <th>公制</th>
@@ -508,13 +508,13 @@ redirect_from:
      </td>
     </tr>
     <tr>
-      <TD> net_packetdraprate4
+      <td> net_packetdraprate4
       </td>
       <td>每秒发出或收到的IPv4数据报的总数。
       </td>
     </tr>
     <tr>
-      <TD> net_packetrate6
+      <td> net_packetrate6
       </td>
       <td>每秒从接口传输或接收到的IPv6数据报的总数，包括错误或接收到的误差。
       </td>
@@ -537,7 +537,7 @@ redirect_from:
 
 ## 相关维度：`ThreadPoolType`   
    
- <表>
+ <table>
    <thead样式="text-align: left">
     <tr>
      <th>公制</th>
@@ -586,7 +586,7 @@ redirect_from:
 
 ## 相关维度：`ClusterManager_PendingTaskType`  
    
- <表>
+ <table>
   <thead样式="text-align: left">
    <tr>
     <th>公制</th>
@@ -605,7 +605,7 @@ redirect_from:
 
 ## 相关维度：`Operation`，`Exception`，`Indices`，`HTTPRespCode`   
    
-<表>
+<table>
   <thead样式="text-align: left">
    <tr>
      <th>公制</th>
@@ -630,7 +630,7 @@ redirect_from:
 
 ## 相关维度：`CBType` 
   
-<表>
+<table>
   <thead样式="text-align: left">
    <tr>
      <th>公制</th>
@@ -661,7 +661,7 @@ redirect_from:
 
 ## 相关维度：`ClusterManagerTaskInsertOrder`，`ClusterManagerTaskPriority`，`ClusterManagerTaskType`，`ClusterManagerTaskMetadata`
  
-<表>
+<table>
  <thead样式="text-align: left">
    <tr>
      <th>公制</th>
@@ -686,7 +686,7 @@ redirect_from:
      
 ## 相关维度：`CacheType` 
   
-<表>
+<table>
   <thead样式="text-align: left">
     <tr>
      <th>公制</th>
@@ -704,7 +704,7 @@ redirect_from:
 </table>
 
 ## 相关维度：`ControllerName` 
-<表>
+<table>
  <thead样式="text-align: left">
   <tr>
     <th>公制</th>
@@ -735,7 +735,7 @@ redirect_from:
 
 ## 相关维度：`NodeID` 
   
-<表>
+<table>
   <thead样式="text-align: left">
    <tr>
    <th>公制</th>
@@ -761,7 +761,7 @@ redirect_from:
 ## 相关维度：不/a
 以下指标与整个集群有关，不需要特定的维度。
 
-<表>
+<table>
   <thead样式="text-align: left">
    <tr>
      <th>公制</th>
@@ -770,19 +770,19 @@ redirect_from:
   </thead>
   <tbody>
    <tr>
-     <TD> eprection_term
+     <td> eprection_term
      </td>
      <td>每个集群经理选举中单调增加的数字。
      </td>
    </tr>
    <tr>
-     <TD> PublishClusterState_latency
+     <td> PublishClusterState_latency
      </td>
      <td>节点法定人数发布新群集状态的时间。该指标可用于当前集群管理器。
      </td>
    </tr>
    <tr>
-     <TD> PublishClusterState_failure
+     <td> PublishClusterState_failure
      </td>
      <td>新群集状态未能在群集管理器节点上发布的次数。
      </td>
@@ -804,7 +804,7 @@ redirect_from:
 
 ## 相关维度：`IndexName`，`NodeName`，`ShardType`，`ShardID`
   
-<表>
+<table>
    <thead样式="text-align: left">
    <tr>
      <th>公制</th>

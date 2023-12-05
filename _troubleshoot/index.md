@@ -63,7 +63,7 @@ cryptsetup luksFormat --key-file <key> <partition>
 
 有关命令的完整文档，请参阅[CryptSetup（8） -  Linux手册页面](https://man7.org/linux/man-pages/man8/cryptsetup.8.html)。
 
-{％ 评论 ％}
+{% comment %}
 ## 节拍
 
 如果尝试将Beats连接到OpenSearch时遇到兼容性问题，请确保您使用的是Apache 2.0 Beats的分布，而不是使用专有许可证的默认分发。
@@ -107,7 +107,7 @@ output {
   }
 }
 ```
-{％endcomment％}
+{% endcomment %}
 
 ## FLS，DLS或现场掩码处于活动状态时无法通过脚本更新
 

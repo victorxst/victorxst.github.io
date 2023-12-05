@@ -17,7 +17,7 @@ redirect_from:
   <summary>
     目录
   </summary>
-  {： 。文本-delta}
+  {: .text-delta }
 - TOC
 {:toc}
 </delect>
@@ -41,11 +41,11 @@ redirect_from:
 下表中的关键术语描述了复合监视器的基本概念。有关所有类型的监视器常见的其他术语，请参见[关键术语]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/index/#key-terms) 在警报部分。
 
 | 学期| 定义|
-| ：--- | ：--- |
+| :--- | :--- |
 | 复合监视器| 复合监视器是一种支持连续工作流中多个监视器的执行的监视器。它支持配置触发器来创建链式警报。|
 | 委托监视器| 委托监视器按照复合监视器的定义在其订单中依次执行。当满足委托监视器的触发条件时，它会生成审核警报。然后，此审核警报成为复合监视器触发器的条件。复合监视器支持每个查询，每个存储桶和每个文档监视器作为代表监视器。|
 | 工作流ID| 工作流ID为所有代表监视器的整个工作流提供了标识符。它是复合监视器的显示器ID的代名词。|
-| 连锁警报| 当委托监视器生成审计警报时，由复合监视器触发器生成链式警报。链式警报触发条件支持逻辑运算符的使用`AND`，，，，`OR`， 和`NOT` 因此，您可以将多个功能组合为单个表达式。|
+| 连锁警报| 当委托监视器生成审计警报时，由复合监视器触发器生成链式警报。链式警报触发条件支持逻辑运算符的使用`AND`，`OR`， 和`NOT` 因此，您可以将多个功能组合为单个表达式。|
 | 审核警报| 委托监视器在**审计** 状态。未通知用户每个单独的审核警报，也不需要确认他们。审核警报用于评估复合监视器中的链式警报触发条件。|
 | 执行| 在复合监视器的配置中定义的序列中的所有委托监视器的一次运行。|
 
@@ -77,10 +77,10 @@ POST _plugins/_alerting/workflows
 #### 请求字段
 
 | 场地| 类型| 描述|
-| ：--- | ：--- | ：--- |
+| :--- | :--- | :--- |
 | `schedule` | 目的| 确定执行频率运行的时间表。|
 | `schedule.period.interval` | 数字| 接受一个数值值以设置执行频率。|
-| `schedule.period.unit` | 目的| 间隔的度量时间单位：`SECONDS`，，，，`MINUTES`，，，，`HOURS`，，，，`DAYS`。|
+| `schedule.period.unit` | 目的| 间隔的度量时间单位：`SECONDS`，`MINUTES`，`HOURS`，`DAYS`。|
 | `inputs` | 目的| 接受输入以定义委托监视器，该监视器在执行顺序中指定了委托监视器及其顺序。|
 | `inputs.composite_input.sequence.delegates` | 目的| 单个监视器的设置，该设置是复合监视器的基础。|
 | `inputs.composite_input.sequence.delegates.order` | 数字| 指定监视器在执行中运行的顺序。|
@@ -207,7 +207,7 @@ POST _plugins/_alerting/workflows
    以下条件将触发复合监视器以在监视器时产生链式警报#1生成警报并监视#2或监视#3生成警报。
    
 无痛脚本中的监视器ID顺序不能定义监视器的执行顺序。监视执行序列在`inputs.composite_input.sequence.delegates.order` 在请求中字段。
-{： 。笔记 }
+{: .note }
 
 
 ### 获取复合监视器
@@ -222,7 +222,7 @@ GET _plugins/_alerting/workflows/<workflow_id>
 #### 路径参数
 
 | 场地| 类型| 描述|
-| ：--- | ：--- | ：--- |
+| :--- | :--- | :--- |
 | `workflow_id` | 细绳| 复合监视器的[工作流ID](#key-terms)。|
 
 
@@ -395,7 +395,7 @@ GET /_plugins/_alerting/workflows/alerts?workflowIds=<workflow_ids>&getAssociate
 #### 查询参数
 
 | 场地| 类型| 必需的| 描述|
-| ：--- | ：--- | ：--- | ：--- |
+| :--- | :--- | :--- | :--- |
 | `workflowIds` | 大批| 不| 使用此参数时，它将返回指定工作流创建的警报。|
 | `getAssociatedAlerts` | 布尔| 不| 什么时候`true`，响应返回审计警报，该警报使用用于创建链式警报的复合监视器。默认为`false`。|
 
@@ -529,7 +529,7 @@ GET /_plugins/_alerting/workflows/alerts?workflowIds=<workflow_ids>&getAssociate
 #### 请求字段
 
 | 场地| 类型| 描述|
-| ：--- | ：--- | ：--- |
+| :--- | :--- | :--- |
 | `alerts` | 大批| 复合监视器生成的链式警报列表。|
 | `associatedAlerts` | 大批| 代表监视器生成的审核警报列表。|
 
@@ -549,7 +549,7 @@ POST _plugins/_alerting/workflows/<workflow_id>/_acknowledge/alerts
 #### 请求字段
 
 | 场地| 类型| 描述|
-| ：--- | ：--- | ：--- |
+| :--- | :--- | :--- |
 | `alerts` | 大批| ID警报列表。结果包括系统确认的警报以及系统未识别的警报。|
 
 #### 示例响应
@@ -575,7 +575,7 @@ POST _plugins/_alerting/workflows/<workflow_id>/_acknowledge/alerts
 
 要在视觉编辑器中完成创建复合监视器，请按照以下步骤：
 
-1. 在里面**频率** 下拉列表，选择一个**间隔**，，，，**日常的**，，，，**每周**，，，，**每月**， 或者**自定义cron表达式**：
+1. 在里面**频率** 下拉列表，选择一个**间隔**，**日常的**，**每周**，**每月**， 或者**自定义cron表达式**：
   ***间隔**  - 允许您根据指定的分钟，小时数或天数重复运行时间表。
   ***日常的**  - 指定一天中的时间和时区。
   ***每周**  - 指定一周中的一天，一天的时间和时区。
@@ -586,20 +586,20 @@ POST _plugins/_alerting/workflows/<workflow_id>/_acknowledge/alerts
   
    选择**添加另一个显示器** 添加另一个下拉列表。至少需要两个代表监视器，总共允许最多10个。请记住，复合监测每个查询的支持，每个存储桶和每个文档监视器作为代表监视器。
    
-   在每个下拉列表旁边，您可以选择“视图监视器”图标（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/view-monitor-icon.png" class ="inline-icon" alt ="view monitor icon"/> {：/}）打开监视器的详细信息窗口并查看有关它的信息。
+   在每个下拉列表旁边，您可以选择“视图监视器”图标（{::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/view-monitor-icon.png" class ="inline-icon" alt ="view monitor icon"/> {:/}）打开监视器的详细信息窗口并查看有关它的信息。
    
 1. 为复合监视器定义触发器或触发器。在里面**触发器** 部分，选择**添加触发器**。添加触发名称，然后定义触发条件。
     * 使用**选择委托监视器** 标签打开流行音乐-上图中显示的向上窗口。
     
-    <img src ="{{site.url}}{{site.baseurl}}/images/alerting/trigger1.png" alt ="This pop-up window shows options for selecting a delegate monitor and trigger condition operator" 宽度="50%">
+    <img src ="{{site.url}}{{site.baseurl}}/images/alerting/trigger1.png" alt ="This pop-up window shows options for selecting a delegate monitor and trigger condition operator" width="50%">
     
-    * 使用**选择委托监视器** 下拉列表以从上一步中定义的那些选择委托监视器。对于第一个委托监视器，如果愿意，您可以选择不作为操作员选择。在现场填充监视器之后，您可以使用垃圾桶图标（{:: NOMARKDOWN} <img src ="{{site.url}}{{site.baseurl}}/images/alerting/trash-can-icon.png" class ="inline-icon" alt ="trash can icon"/> {：/}）在列表的右侧，以在需要时删除监视器。
-    *选择加号（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/alerting/plus-sign-icon.png" class ="inline-icon" alt ="plus sign"/> {：/}）在第一个监视器的右侧选择第二个委托监视器。选择第二个显示器后，选择一个操作员`AND`，，，，`OR`，，，，`AND NOT`， 或者`OR NOT` 在两个监视器之间应用条件。应用操作员后，您可以选择操作员打开POP-再次向上窗口并更改选择。
-    *选择警报的严重性级别。选项包括**1（最高）**，，，，**2（高）**，，，，**3（媒介）**，，，，**4（低）**， 和**5（最低）**。
+    * 使用**选择委托监视器** 下拉列表以从上一步中定义的那些选择委托监视器。对于第一个委托监视器，如果愿意，您可以选择不作为操作员选择。在现场填充监视器之后，您可以使用垃圾桶图标（{::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/alerting/trash-can-icon.png" class ="inline-icon" alt ="trash can icon"/> {:/}）在列表的右侧，以在需要时删除监视器。
+    *选择加号（{::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/alerting/plus-sign-icon.png" class ="inline-icon" alt ="plus sign"/> {:/}）在第一个监视器的右侧选择第二个委托监视器。选择第二个显示器后，选择一个操作员`AND`，`OR`，`AND NOT`， 或者`OR NOT` 在两个监视器之间应用条件。应用操作员后，您可以选择操作员打开POP-再次向上窗口并更改选择。
+    *选择警报的严重性级别。选项包括**1（最高）**，**2（高）**，**3（媒介）**，**4（低）**， 和**5（最低）**。
     * 在里面**通知** 部分，从下拉列表中选择一个通知频道。如果没有渠道，请选择**管理频道** 在下拉列表的右侧标记以设置通知频道。有关通知的更多信息，请参阅[通知]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) 文档。您也可以选择**添加通知** 为警报触发器指定其他通知。
       
       通知对于所有监视器类型都是可选的。
-      {： 。笔记 }
+      {: .note }
 
     *要定义额外的触发器，请选择**添加另一个触发器**。您最多可以有10个触发器。选择**删除扳机** 在屏幕的右侧以卸下扳机。
     
@@ -650,7 +650,7 @@ POST _plugins/_alerting/workflows/<workflow_id>/_acknowledge/alerts
 
 创建复合监视器后，它将显示在监视器列表中**监视器** 标签。这**类型** 列指示监视器的类型，包括复合监视器类型。这**与复合监视器的关联** 列提供了数量，其中有多少复合监视基本监视器用作委托监视器。在**监视名称** 列打开其详细信息窗口。
 
-对于复合监视器，**警报** 详细信息窗口的部分包括**动作** 列，其中包括视图详细信息图标（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/view-monitor-icon.png" class ="inline-icon" alt ="view monitor icon"/> {：/}）。下图显示了**动作** 列作为右侧的最后一列。
+对于复合监视器，**警报** 详细信息窗口的部分包括**动作** 列，其中包括视图详细信息图标（{::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/view-monitor-icon.png" class ="inline-icon" alt ="view monitor icon"/> {:/}）。下图显示了**动作** 列作为右侧的最后一列。
 
 <img src="{{site.url}}{{site.baseurl}}/images/alerting/comp-details-alerts.png" alt="Alerts section of the monitor details window" width="75%">
 

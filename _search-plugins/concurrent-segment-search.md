@@ -7,7 +7,7 @@ nav_order: 53
 # 并发段搜索
 
 这是一个实验特征，不建议在生产环境中使用。有关功能进度或要留下反馈的更新，请参阅关联[Github问题](https://github.com/opensearch-project/OpenSearch/issues/2587) 或者[项目委员会](https://github.com/orgs/opensearch-project/projects/117/views/1)。
-{： 。警告}
+{: .warning}
 
 在查询阶段使用并发段搜索并行搜索段。并发搜索改善搜索延迟的情况包括：
 
@@ -33,7 +33,7 @@ nav_order: 53
 ```yaml
 opensearch.experimental.feature.concurrent_segment_search.enabled: true
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ### 使用Docker容器启用
 
@@ -42,7 +42,7 @@ opensearch.experimental.feature.concurrent_segment_search.enabled: true
 ```bash
 OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.concurrent_segment_search.enabled=true"
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ### 使用TARBALL安装在节点上启用
 
@@ -55,14 +55,14 @@ OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.concurrent_segment_searc
 ```bash
 -Dopensearch.experimental.feature.concurrent_segment_search.enabled=true
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 然后运行OpenSearch：
 
 ```bash
 ./bin/opensearch
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 #### 选项2：使用环境变量启用
 
@@ -73,19 +73,19 @@ OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.concurrent_segment_searc
 ```bash
 OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.concurrent_segment_search.enabled=true" ./opensearch-{{site.opensearch_version}}/bin/opensearch
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 如果要在运行OpenSearch之前单独定义环境变量，请运行以下命令：
 
 ```bash
 export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.concurrent_segment_search.enabled=true"
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ```bash
 ./bin/opensearch
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 在索引或群集级别禁用并发搜索
 
@@ -99,7 +99,7 @@ PUT _cluster/settings
    }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 要禁用并发段搜索特定索引，请在端点中指定索引名称：
 
@@ -109,7 +109,7 @@ PUT <index-name>/_settings
     "index.search.concurrent_segment_search.enabled": false
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ## 切片机制
 
@@ -130,7 +130,7 @@ _max slice count_机制是一种替代切片机制，它使用静态配置的最
 ```yaml
 search.concurrent.max_slice_count: 2
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 这`search.concurrent.max_slice_count` 设置可以采用以下有效值：
 - `0`：使用默认的Lucene机制。

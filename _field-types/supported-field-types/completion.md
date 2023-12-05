@@ -309,7 +309,7 @@ GET chess_store/_search
 {% include copy-curl.html %}
 
 要使用所有默认模糊选项，请指定`"fuzzy": {}` 或者`"fuzzy": true`。
-{： 。提示}
+{: .tip}
 
 下表列出了模糊完成建议的参数。所有参数都是可选的。
 
@@ -318,7 +318,7 @@ GET chess_store/_search
 `fuzziness` | 模糊性可以设置为以下一个：<br> 1.指定最大允许的整数[Levenshtein距离](https://en.wikipedia.org/wiki/Levenshtein_distance) 对于此编辑。 <br> 2。`AUTO`：0-2个字符的字符串必须完全匹配，3-5个字符的字符串允许1个编辑，字符串超过5个字符允许2个编辑。<br>默认值为`AUTO`。
 `min_length` | 一个整数指定输入必须是开始返回建议的最小长度。如果搜索词比`min_length`，没有任何建议。默认值为3。
 `prefix_length` | 指定最小长度的整数必须是开始返回建议。如果前缀`prefix_length` 不匹配，但是搜索词仍在Levenshtein距离之内，没有返回建议。默认值为1。
-`transpositions` | 一个布尔值指定的是将换位（相邻字符的互换）视为一个编辑而不是两个。示例：建议的`input` 参数为`abcde` 和`fuzziness` 是1.如果`transpositions` 被设定为`true`，，，，`abdce` 会匹配，但是如果`transpositions` 被设定为`false`，，，，`abdce` 不匹配。默认为`true`。
+`transpositions` | 一个布尔值指定的是将换位（相邻字符的互换）视为一个编辑而不是两个。示例：建议的`input` 参数为`abcde` 和`fuzziness` 是1.如果`transpositions` 被设定为`true`，`abdce` 会匹配，但是如果`transpositions` 被设定为`false`，`abdce` 不匹配。默认为`true`。
 `unicode_aware` | 布尔值指定在测量编辑距离，换位和长度时是否使用Unicode代码点。如果`unicode_aware` 被设定为`true`，测量较慢。默认为`false`，在这种情况下，距离以字节为单位。
 
 ## 正则查询

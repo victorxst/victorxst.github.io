@@ -47,7 +47,7 @@ PUT movies
 - 在嵌套对象中，别名必须具有与原始场相同的嵌套级别。
 
 要更改别名引用的字段，请更新映射。请注意，任何先前存储的Percolator查询中的别名仍将引用原始字段。
-{： 。笔记 }
+{: .note }
 
 ## 原始领域
 
@@ -83,7 +83,7 @@ GET movies/_field_caps?fields=release_date
 - 并发-字段或目标`copy_to`。
 - 作为用于过滤结果的_source参数。
 - 在具有字段名称的API中，例如术语向量。
-- 在`terms`，，，，`more_like_this`， 和`geo_shape` 查询（检索文档时不支持别名）。
+- 在`terms`，`more_like_this`， 和`geo_shape` 查询（检索文档时不支持别名）。
 
 ## 通配符
 

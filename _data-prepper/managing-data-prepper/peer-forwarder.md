@@ -7,7 +7,7 @@ parent: 管理数据预先
 
 # 同行前锋
 
-Peer Fewracker是一项HTTP服务，可执行`event` 在数据预先淋巴结之间进行聚合。此HTTP服务使用哈希-汇总事件的环方法并确定在将其重新路由到该节点之前应在给定跟踪上处理的数据预先节点。目前，同行货运员得到`aggregate`，，，，`service_map_stateful`， 和`otel_traces_raw` [处理器]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/)。
+Peer Fewracker是一项HTTP服务，可执行`event` 在数据预先淋巴结之间进行聚合。此HTTP服务使用哈希-汇总事件的环方法并确定在将其重新路由到该节点之前应在给定跟踪上处理的数据预先节点。目前，同行货运员得到`aggregate`，`service_map_stateful`， 和`otel_traces_raw` [处理器]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/)。
 
 同行转发器根据支持的处理器提供的标识密钥将事件分组。为了`service_map_stateful` 和`otel_traces_raw`，标识密钥是`traceId` 默认情况下，无法配置。这`aggregate` 处理器是使用`identification_keys` 配置选项。从这里，您可以指定用于Peer Forwarder的键。看[聚合处理器页面](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys) 有关识别键的更多信息。
 
@@ -97,7 +97,7 @@ Data Prepper还必须在必要的权限下运行。以下AWS身份和访问管�
 | `server_thread_count` | 整数| 表示对等转发器服务器使用的线程数。默认值是`200`。|
 | `client_thread_count` | 整数| 表示对等转发器客户端使用的线程数。默认值是`200`。|
 | `maxConnectionCount`  | 整数| 代表对等转发器服务器的最大开放连接数量。默认值是`500`。|
-| `discovery_mode` | 细绳| 表示要使用的同伴发现模式。允许的值是`local_node`，，，，`static`，，，，`dns`， 和`aws_cloud_map`。默认为`local_node`，哪个在本地处理事件。|
+| `discovery_mode` | 细绳| 表示要使用的同伴发现模式。允许的值是`local_node`，`static`，`dns`， 和`aws_cloud_map`。默认为`local_node`，哪个在本地处理事件。|
 | `static_endpoints` | 列表| 包含所有数据预先实例的端点。如果需要`discovery_mode` 被设定为`static`。|
 |  `domain_name` | 细绳| 代表查询DNS的单个域名。通常通过创建多个[DNS记录](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/) 对于相同的域。如果需要`discovery_mode` 被设定为`dns`。|
 | `aws_cloud_map_namespace_name`  | 细绳| 使用AWS云映射服务发现时，表示AWS云映射名称空间。如果需要`discovery_mode` 被设定为`aws_cloud_map`。|
@@ -105,7 +105,7 @@ Data Prepper还必须在必要的权限下运行。以下AWS身份和访问管�
 | `aws_cloud_map_query_parameters`  | 地图| 钥匙-值对，用于根据附加到实例的自定义属性过滤结果。只有匹配所有指定密钥的实例-返回价值对。|
 | `buffer_size` | 整数| 表示缓冲区接受的最大未检查记录数（未检查的记录的数量等于写入缓冲区中的记录数，以及仍在处理的记录数量，尚未由检查点API检查）。默认为`512`。|
 | `batch_size` |  整数| 表示缓冲区在读取时返回的最大记录数量。默认为`48`。|
-|  `aws_region` |  细绳| 代表使用的AWS区域`ACM`，，，，`Amazon S3`， 或者`AWS Cloud Map` 并且在满足以下任何条件时需要：<br>- 这`use_acm_certificate_for_ssl` 设置设置为`true`。<br>- 任何一个`ssl_certificate_file` 或者`ssl_key_file` 指定Amazon简单存储服务（Amazon S3）URI（例如，S3：//mybucket/path/to/to/public.cert）。<br>- 这`discovery_mode` 被设定为`aws_cloud_map`。|
+|  `aws_region` |  细绳| 代表使用的AWS区域`ACM`，`Amazon S3`， 或者`AWS Cloud Map` 并且在满足以下任何条件时需要：<br>- 这`use_acm_certificate_for_ssl` 设置设置为`true`。<br>- 任何一个`ssl_certificate_file` 或者`ssl_key_file` 指定Amazon简单存储服务（Amazon S3）URI（例如，S3：//mybucket/path/to/to/public.cert）。<br>- 这`discovery_mode` 被设定为`aws_cloud_map`。|
 | `drain_timeout`  | 期间| 表示Peer Forwarder等待在关闭之前完成数据处理的时间。|
 
 ## SSL配置

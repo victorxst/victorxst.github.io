@@ -62,7 +62,7 @@ GET _cat/shards?v
 [创建用户和角色]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/)，将角色映射到用户，然后开始使用卷曲，邮递员或任何其他客户端发送签名请求。然后在遇到错误时逐渐向角色添加权限。即使解决一个权限错误，同一请求也可能会产生新的错误。该插件仅返回其遇到的第一个错误，因此请继续尝试直到请求成功。
 
 您通常可以使用默认操作组的组合来实现所需的安全姿势，而不是个人权限。看[默认操作组]({{site.url}}{{site.baseurl}}/security/access-control/default-action-groups/) 为了描述每个组授予的权限。
-{： 。提示 }
+{: .tip }
 
 
 ## 系统索引许可
@@ -86,7 +86,7 @@ alerting-role:
     - allowed_actions:
         - 'system:admin/system_index'
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 系统索引权限还可以与通配符一起使用，以包括部分系统索引名称的所有变体。这可能很有用，但应谨慎使用，以避免对系统索引进行无意的访问。指定角色的系统索引时，请牢记以下注意事项：
 
@@ -95,7 +95,7 @@ alerting-role:
 *虽然不建议---给定宽-达到此角色定义授予的访问权限---使用`*` 对于索引模式以及`system:admin/system_index` 作为允许的动作，可以授予所有系统索引的访问。
 
   进入通配符`*` 本身以下`allowed_actions` 不会自动授予对系统索引的访问。允许的行动`system:admin/system_index` 必须明确添加。
-  {： 。笔记 }
+  {: .note }
 
 以下示例显示了授予所有系统索引访问的角色：
 
@@ -127,7 +127,7 @@ green open .kibana_3 XmTePICFRoSNf5O5uLgwRw 1 1 220 0 468.3kb 232.1kb
 有许可的用户[`restapi:admin/roles`]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api) 能够以与在集群或索引许可中相同的方式向所有用户映射系统索引权限`roles.yml` 文件。但是，为了保留对此许可的控制，`plugins.security.system_indices.permissions.enabled` 设置允许您启用或禁用系统索引权限功能。默认情况下禁用此设置。要启用系统索引权限功能，请设置`plugins.security.system_indices.permissions.enabled` 到`true`。有关此设置的更多信息，请参阅[启用用户访问系统索引]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#enabling-user-access-to-system-indexes)。
 
 请记住，向普通用户启用此功能和映射系统索引权限使这些用户可以访问可能包含敏感信息和群集健康所必需的配置的索引。我们还建议您在映射用户到`restapi:admin/roles` 因为此权限不仅为用户提供了将系统索引权限分配给另一个用户的能力-分配对任何系统索引的访问。
-{： 。警告 }
+{: .warning }
 
 
 ## 集群权限
@@ -135,7 +135,7 @@ green open .kibana_3 XmTePICFRoSNf5O5uLgwRw 1 1 220 0 468.3kb 232.1kb
 这些权限是用于集群的，不能粒状应用。例如，您要么有权拍摄快照（`cluster:admin/snapshot/create`）否则你不。因此，群集权限不能授予用户特权来拍摄一组选择索引的快照，同时阻止用户拍摄他人的快照。
 
 叉-以下权限中对API文档的引用仅旨在提供对权限的理解。如本节开头所述，权限通常与API相关，但不会直接映射到它们。
-{： 。笔记 }
+{: .note }
 
 
 ### 摄入API许可
@@ -324,7 +324,7 @@ green open .kibana_3 XmTePICFRoSNf5O5uLgwRw 1 1 220 0 468.3kb 232.1kb
 看[API工具]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/index/)。
 
 | **允许** | **描述** |
-| ：--- | ：--- |
+| :--- | :--- |
 | 群集：admin/opensearch/securityAnalytics/警报/获取| 获得警报的权限|
 | 群集：admin/opensearch/securityAnalytics/arters/ack| 确认警报的权限|
 | 集群：admin/opensearch/securityAnalytics/detector/get| 获得探测器的许可|
@@ -464,7 +464,7 @@ green open .kibana_3 XmTePICFRoSNf5O5uLgwRw 1 1 220 0 468.3kb 232.1kb
 
 这些权限适用于REST API，以控制对端点的访问。授予对任何一个的访问权限，将允许用户获得安全插件的基本操作组件的权限。
 允许访问这些端点有可能触发集群中的操作变化。谨慎行事。
-{： 。警告 }
+{: .warning }
 
 - RESTAPI：管理/行动组
 - RESTAPI：管理/允许列表

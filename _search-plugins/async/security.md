@@ -85,9 +85,9 @@ PUT _plugins/_security/api/rolesmapping/async_full_access
 
 如果没有一个用户担任任何后端角色，则三个用户都将能够看到其他搜索。
 
-例如，考虑三个用户：`judy`，，，，`elon`， 和`jack`。
+例如，考虑三个用户：`judy`，`elon`， 和`jack`。
 
-`judy`，，，，`elon`， 和`jack` 没有设置的后端角色：
+`judy`，`elon`， 和`jack` 没有设置的后端角色：
 
 ```json
 PUT _plugins/_security/api/internalusers/judy

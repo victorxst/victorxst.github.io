@@ -12,7 +12,7 @@ redirect_from:
 
 ## 开始摄入日志
 
-OpenSearch Log摄入由三个组件组成---[数据预先]({{site.url}}{{site.baseurl}}/clients/data-prepper/index/)，，，，[OpenSearch]({{site.url}}{{site.baseurl}}/quickstart/)， 和[OpenSearch仪表板]({{site.url}}{{site.baseurl}}/dashboards/index/)。数据Prepper存储库包含几个[样本应用](https://github.com/opensearch-project/data-prepper/tree/main/examples) 您可以用来开始。
+OpenSearch Log摄入由三个组件组成---[数据预先]({{site.url}}{{site.baseurl}}/clients/data-prepper/index/)，[OpenSearch]({{site.url}}{{site.baseurl}}/quickstart/)， 和[OpenSearch仪表板]({{site.url}}{{site.baseurl}}/dashboards/index/)。数据Prepper存储库包含几个[样本应用](https://github.com/opensearch-project/data-prepper/tree/main/examples) 您可以用来开始。
 
 ### 基本数据流
 

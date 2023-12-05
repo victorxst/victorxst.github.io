@@ -113,7 +113,7 @@ openssl req -new -key node1-key.pem -out node1.csr
 ```
 
 对于所有主持人和客户证书，您应该指定主题替代名称（SAN）以确保符合[RFC 2818（TLS上的HTTP）](https://datatracker.ietf.org/doc/html/rfc2818)。SAN应与相应的CN匹配，以便两者都指相同的DNS记录。
-{： 。笔记 }
+{: .note }
 
 在生成签名证书之前，创建一个SAN扩展文件，该文件描述了主机的DNS记录：
 

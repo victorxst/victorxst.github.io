@@ -125,7 +125,7 @@ GET testindex1/_search
 ```
 
 前面的响应不包括文档的地理位置`"lat": 75.00, "lon": 28.00` 由于地理点的有限[精确](#precision)。
-{： 。笔记}
+{: .note}
 
 ## 精确
 
@@ -137,9 +137,9 @@ GET testindex1/_search
 
 - `top_left` 和`bottom_right`
 - `top_right` 和`bottom_left`
-- `top`，，，，`left`，，，，`bottom`， 和`right`
+- `top`，`left`，`bottom`， 和`right`
 
-以下示例显示了如何使用该框来指定边界框`top`，，，，`left`，，，，`bottom`， 和`right` 坐标：
+以下示例显示了如何使用该框来指定边界框`top`，`left`，`bottom`， 和`right` 坐标：
 
 ```json
 GET testindex1/_search
@@ -169,7 +169,7 @@ GET testindex1/_search
 地理-边界框查询接受以下字段。
 
 场地| 数据类型| 描述
-：--- | ：--- | ：--- 
+:--- | :--- | :--- 
 `_name` | 细绳| 过滤器的名称。选修的。
 `validation_method` | 细绳| 验证方法。有效值是`IGNORE_MALFORMED` （接受具有无效坐标的地理点），`COERCE` （尝试将坐标胁到有效值），并且`STRICT` （当坐标无效时返回错误）。默认为`STRICT`。
 `type` | 细绳| 指定如何执行过滤器。有效值是`indexed` （索引过滤器）和`memory` （在内存中执行过滤器）。默认为`memory`。

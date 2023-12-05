@@ -8,13 +8,13 @@ parent: 神经搜索
 
 # 多模式搜索
 引入2.11
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 使用多模式搜索搜索文本和图像数据。在神经搜索中，文本搜索是通过多模式嵌入模型来促进的。
 
 **先决条件**<br>
 在使用文本搜索之前，您必须设置多模式嵌入模型。有关更多信息，请参阅[在OpenSearch中使用ML模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) 和[连接到远程型号]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index/)。
-{： 。笔记}
+{: .note}
 
 ## 使用多模式搜索
 
@@ -49,7 +49,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
   ]
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ## 步骤2：创建摄入索引
 
@@ -86,7 +86,7 @@ PUT /my-nlp-index
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 有关创建K的更多信息-NN索引及其支持的方法，请参阅[k-NN索引]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/)。
 
@@ -101,7 +101,7 @@ PUT /nlp-index/_doc/1
  "image_binary": "iVBORw0KGgoAAAANSUI..."
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 在将文档摄入索引之前，摄入管道运行`text_image_embedding` 文档上的处理器，生成矢量嵌入`image_description` 和`image_binary` 字段。除了原始`image_description` 和`image_binary` 字段，索引文档包括`vector_embedding` 字段，其中包含组合的向量嵌入。
 
@@ -127,7 +127,7 @@ GET /my-nlp-index/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 为了消除每个神经查询请求的传递模型ID，您可以在k上设置默认模型-NN索引或字段。要了解更多，请参阅[在索引或字段上设置默认模型]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/##setting-a-default-model-on-an-index-or-field)。
 

@@ -27,14 +27,14 @@ OpenSearch支持以下常规标识符：
 4. 标识符带有星星`*` 展示。用于索引模式的通配符匹配。
 
 对于常规标识符，您可以使用该名称，而无需任何背tick或逃脱字符。
-在此示例中`source`，，，，`fields`，，，，`account_number`，，，，`firstname`， 和`lastname` 都是标识符。在这些中，`source` 字段是保留标识符。
+在此示例中`source`，`fields`，`account_number`，`firstname`， 和`lastname` 都是标识符。在这些中，`source` 字段是保留标识符。
 
 ```sql
 SELECT account_number, firstname, lastname FROM accounts;
 ```
 
 | 帐号| 名| 姓|
-：--- | ：--- |
+:--- | :--- |
 | 1| 琥珀色| 公爵
 | 6| 哈蒂| 纽带
 | 13| Nanette| 贝茨

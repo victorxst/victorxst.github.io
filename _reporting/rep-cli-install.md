@@ -33,7 +33,7 @@ npm install -g opensearch-reporting-cli-1.0.0.tgz
 ```
 
 为了为工件提供更好的安全性，我们建议您通过下载来验证签名[报告CLI签名文件](https://artifacts.opensearch.org/reporting-cli/opensearch-reporting-cli-1.0.0.tgz.sig)。
-{： 。重要的 }
+{: .important }
 
 要了解有关验证签名的更多信息，请参阅[如何验证可下载工件的签名](https://opensearch.org/verify-signatures.html)
 

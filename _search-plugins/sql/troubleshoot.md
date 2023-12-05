@@ -20,7 +20,7 @@ POST _plugins/_sql
 }
 ```
 
-如果查询没有您期望的行为，请使用`_explain` API查看翻译的查询，然后您可以对其进行故障排除。对于大多数操作，`_explain` 返回OpenSearch查询DSL。为了`UNION`，，，，`MINUS`， 和`JOIN`，它返回类似于SQL执行计划的内容。
+如果查询没有您期望的行为，请使用`_explain` API查看翻译的查询，然后您可以对其进行故障排除。对于大多数操作，`_explain` 返回OpenSearch查询DSL。为了`UNION`，`MINUS`， 和`JOIN`，它返回类似于SQL执行计划的内容。
 
 #### 示例请求
 

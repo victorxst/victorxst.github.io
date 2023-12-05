@@ -223,7 +223,7 @@ curl -XPUT -k -u 'admin:admin' -H 'Content-Type: application/json' 'https://loca
 ```
 
 两个群集必须具有用户，但是只有远程群集需要角色和映射。在这种情况下，协调集群处理身份验证（即"Does this request include valid user credentials?"），远程集群处理授权（即"Can this user access this data?"）。
-{： 。提示 }
+{: .tip }
 
 最后，重复搜索：
 

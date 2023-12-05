@@ -27,7 +27,7 @@ GET shakespeare/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ## 将评分函数应用于文档子集
 
@@ -48,7 +48,7 @@ GET shakespeare/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ## 支持的功能
 
@@ -58,7 +58,7 @@ GET shakespeare/_search
     - `weight`：将文档得分乘以预定义的增长因子。
     - `random_score`：提供一个随机分数，对于单个用户而言是一致但用户之间不同的分数。
     - `field_value_factor`：使用指定文档字段的值重新计算得分。
-    - 衰减功能（`gauss`，，，，`exp`， 和`linear`）：使用指定的衰减功能重新计算得分。
+    - 衰减功能（`gauss`，`exp`， 和`linear`）：使用指定的衰减功能重新计算得分。
 - 风俗：
     - `script_score`：使用脚本来得分文档。
 
@@ -76,7 +76,7 @@ GET shakespeare/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 不像`boost` 价值，`weight` 功能未归一化。
 
@@ -99,7 +99,7 @@ GET blogs/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ## 场值因子函数
 
@@ -114,7 +114,7 @@ GET blogs/_search
 - `modifier`：适用于现场值$$ v $$的修饰符之一。下表列出了所有受支持的修饰符。
     
     修饰符| 公式| 描述
-    ：--- | ：--- | ：---
+    :--- | :--- | :---
     `log`| $$ \ log v $$| 拿起基地-值的10对数。进行非对数-正数是一个非法操作，将导致错误。对于0（独家）和1（包含）的值，此功能返回非-负值将导致错误。我们建议使用`log1p` 或者`log2p` 代替`log`。
     `log1p`| $$ \ log（1 + v）$$| 拿起基地-10和1和值的对数。
     `log2p`| $$ \ log（2 + v）$$| 拿起基地-10和2的对数和值。
@@ -145,7 +145,7 @@ GET blogs/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 前面的查询使用以下公式计算相关得分：
 
@@ -158,7 +158,7 @@ $$ \ text {corce} = \ text {原始分数} \ cdot \ log（1 + 1.5 \ cdot \ text {
 计算出的分数不能为负。负分数将导致错误。文档分数为正面32-位浮动-点值。更高精度的分数转换为最近的32-位浮动-点号。
 {： 。重要的}
 
-例如，以下查询使用`script_score` 根据原始分数以及博客文章的视图和喜欢的数量来计算分数的功能。为了给出视图数量并喜欢的重量较小，该公式会吸引视图和喜欢的对数。即使视图和喜欢的数量是，使对数有效`0`，，，，`1` 被添加到他们的总和中：
+例如，以下查询使用`script_score` 根据原始分数以及博客文章的视图和喜欢的数量来计算分数的功能。为了给出视图数量并喜欢的重量较小，该公式会吸引视图和喜欢的对数。即使视图和喜欢的数量是，使对数有效`0`，`1` 被添加到他们的总和中：
 
 ```json
 GET blogs/_search
@@ -173,7 +173,7 @@ GET blogs/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 编译和缓存脚本以更快的性能。因此，最好重复使用相同的脚本并传递脚本所需的任何参数：
 
@@ -197,16 +197,16 @@ GET blogs/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ## 衰减功能
 
 对于许多应用程序，您需要根据接近度或新近度对结果进行排序。您可以使用衰减功能来执行此操作。衰减功能使用三个衰减曲线之一计算文档得分：高斯，指数或线性。
 
-衰减功能仅在[数字]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/)，，，，[日期]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/dates/)， 和[地理点]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geo-point/) 字段。
+衰减功能仅在[数字]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/)，[日期]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/dates/)， 和[地理点]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geo-point/) 字段。
 {： 。重要的}
 
-衰减功能根据`origin`，，，，`scale`，，，，`offset`， 和`decay`，如下图所示。
+衰减功能根据`origin`，`scale`，`offset`， 和`decay`，如下图所示。
 
 <img src="{{site.url}}{{site.baseurl}}/images/decay-functions.png" alt="Decay function curves" width="600">
 
@@ -226,7 +226,7 @@ PUT hotels
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 您为与附近酒店相对应的两个文档索引：
 
@@ -240,7 +240,7 @@ PUT hotels/_doc/1
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ```json
 PUT hotels/_doc/2
@@ -252,7 +252,7 @@ PUT hotels/_doc/2
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 这`origin` 定义计算距离的点（办公室位置）。这`offset` 指定距离文档的原点的距离为1。您可以在办公室200英尺以内的酒店以相同的最高分。这`scale` 定义图的衰减率，`decay` 定义分配给文档的分数`scale` +`offset` 距离原点的距离。一旦超出200英尺半径，您可能会决定如果您必须再走300英尺才能到达酒店（`scale` = 300英尺），您将分配原始分数的四分之一（`decay` = 0.25）。
 
@@ -279,11 +279,11 @@ GET hotels/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 响应都包含两个酒店。该办公室200英尺以内的酒店的得分为1，500英尺半径以外的酒店的得分为0.20，该酒店比`decay` 参数0.25：
 
-<详细信息打开降价="block">
+<details open markdown="block">
   <summary>
     回复
   </summary>
@@ -334,21 +334,21 @@ GET hotels/_search
   }
 }
 ```
-</delect>
+</details>
 
 ### 参数
 
-下表列出了由`gauss`，，，，`exp`， 和`linear` 功能。
+下表列出了由`gauss`，`exp`， 和`linear` 功能。
 
 范围| 描述
-：--- | ：---
+:--- | :---
 `origin` | 计算距离的点。必须作为数字字段的数字，日期字段的日期或地理点字段的地理点提供。地理点和数字字段所需。可选的日期字段（默认为`now`）。对于日期字段，支持日期数学（例如，`now-2d`）。
 `offset` | 定义与文档的分数为1的距离的距离。可选。默认值为0。
-`scale` | 远处的文件`scale` +`offset` 来自`origin` 分配得分`decay`。必需的。<br>对于数字字段，`scale` 可以是任何数字。<br>对于日期字段，`scale` 可以定义为一个数字[单位]({{site.url}}{{site.baseurl}}/api-reference/units/) （（`5h`，，，，`1d`）。如果未提供单位，`scale` 默认为毫秒。<br>对于地理点字段，`scale` 可以定义为一个数字[单位]({{site.url}}{{site.baseurl}}/api-reference/units/) （（`1mi`，，，，`5km`）。如果未提供单位，`scale` 默认为米。
+`scale` | 远处的文件`scale` +`offset` 来自`origin` 分配得分`decay`。必需的。<br>对于数字字段，`scale` 可以是任何数字。<br>对于日期字段，`scale` 可以定义为一个数字[单位]({{site.url}}{{site.baseurl}}/api-reference/units/) （（`5h`，`1d`）。如果未提供单位，`scale` 默认为毫秒。<br>对于地理点字段，`scale` 可以定义为一个数字[单位]({{site.url}}{{site.baseurl}}/api-reference/units/) （（`1mi`，`5km`）。如果未提供单位，`scale` 默认为米。
 `decay` | 定义文档的分数`scale` +`offset` 来自`origin`。选修的。默认值为0.5。
 
 对于文档中缺少的字段，衰减功能返回分数为1。
-{： 。笔记}
+{: .note}
 
 ### 示例：数字字段
 
@@ -374,11 +374,11 @@ GET blogs/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 结果中的前两个博客帖子的得分为1，因为一个是原点（20），另一个是16的距离，在偏移范围内（文档接收到的完整分数的范围为20 $$ \ pm $$ 5，是[15，25]）。第三篇博客文章的距离`scale` +`offset` 来自`origin` （20＆减去;（5 + 10）= 15），因此给出了默认值`decay` 得分（0.5）：
 
-<详细信息打开降价="block">
+<details open markdown="block">
   <summary>
     回复
   </summary>
@@ -453,7 +453,7 @@ GET blogs/_search
   }
 }
 ```
-</delect>
+</details>
 
 ### 示例：日期字段
 
@@ -480,11 +480,11 @@ GET blogs/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 在结果中，第一篇博客文章在04/24/2022的一天内发表，因此它的分数最高为1。第二篇博客文章发表于04/17/2022`offset` +`scale` （（`1d` +`6d`），因此得分等于`decay` （0.25）。第三篇博客文章发表在04/24/2022之后的7天以上，因此得分较低。上一篇博客文章的分数为0，因为它是几年前出版的：
 
-<详细信息打开降价="block">
+<details open markdown="block">
   <summary>
     回复
   </summary>
@@ -559,7 +559,7 @@ GET blogs/_search
   }
 }
 ```
-</delect>
+</details>
 
 ### 多-有价值的田地
 
@@ -602,7 +602,7 @@ GET testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 该文档的分数为1，因为距离原点的最大距离（1）在`offset` 来自`origin`：
 
@@ -676,7 +676,7 @@ $$ s = \ frac {\ text {scale}} {1- \ text {decay}} $$
 
 ### 组合来自多个功能的分数
 
-不同的功能可以使用不同的量表进行评分。例如，`random_score` 功能提供了0到1之间的分数，但是`field_value_factor` 分数没有特定的量表。此外，您可能需要以不同的方式称量不同功能给出的分数。要调整不同功能的分数，您可以指定`weight` 每个功能的参数。然后将每个功能给出的分数乘以`weight` 产生该功能的最终分数。这`weight` 必须在`functions` 为了将其区分与[重量功能](#the-weight-function)，，，，
+不同的功能可以使用不同的量表进行评分。例如，`random_score` 功能提供了0到1之间的分数，但是`field_value_factor` 分数没有特定的量表。此外，您可能需要以不同的方式称量不同功能给出的分数。要调整不同功能的分数，您可以指定`weight` 每个功能的参数。然后将每个功能给出的分数乘以`weight` 产生该功能的最终分数。这`weight` 必须在`functions` 为了将其区分与[重量功能](#the-weight-function)，
 
 每个功能给出的分数都使用`score_mode` 参数，该参数采用以下值之一：
 
@@ -759,11 +759,11 @@ GET blogs/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 结果包含三个匹配的博客文章：
 
-<详细信息打开降价="block">
+<details open markdown="block">
   <summary>
     回复
   </summary>

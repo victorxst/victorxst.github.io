@@ -28,7 +28,7 @@ openSearch.client是高的-级别.NET客户端。它提供了强烈键入的请�
   </ItemGroup>
 </Project>
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 例子
 
@@ -44,7 +44,7 @@ public class Student
     public double Gpa { get; init; }
 }
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 默认情况下，OpenSearch.Client使用Camel Case将属性名称转换为字段名称。
 {: .note}
@@ -56,7 +56,7 @@ public class Student
 ```cs
 var client  = new OpenSearchClient();
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 要通过带有已知地址的单个节点连接到OpenSearch cluster，请在创建openSearch.client的实例时指定此地址：
 
@@ -64,7 +64,7 @@ var client  = new OpenSearchClient();
 var nodeAddress = new Uri("http://myserver:9200");
 var client = new OpenSearchClient(nodeAddress);
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 您也可以通过多个节点连接到OpenSearch。使用节点池连接到OpenSearch集群，提供了诸如负载平衡和集群故障转移支持之类的优点。要使用多个节点连接到OpenSearch集群，请指定其地址并创建一个`ConnectionSettings` openSearch.client实例的对象：
 
@@ -80,7 +80,7 @@ var pool = new StaticConnectionPool(nodes);
 var settings = new ConnectionSettings(pool);
 var client = new OpenSearchClient(settings);
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 使用Connectionsettings
 
@@ -92,7 +92,7 @@ var node = new Uri("http://myserver:9200");
 var config = new ConnectionSettings(node).DefaultIndex("students");
 var client = new OpenSearchClient(config);
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 索引一个文档
 
@@ -101,7 +101,7 @@ var client = new OpenSearchClient(config);
 ```cs
 var student = new Student { Id = 100, FirstName = "Paulo", LastName = "Santos", Gpa = 3.93, GradYear = 2021 };
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 要索引一个文档，您可以使用Fluent Lambda语法或对象初始化器语法。
 
@@ -110,14 +110,14 @@ var student = new Student { Id = 100, FirstName = "Paulo", LastName = "Santos", 
 ```cs
 var response = client.Index(student, i => i.Index("students"));
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 将这个学生索引到`students` 使用对象初始化器语法的索引：
 
 ```cs
 var response = client.Index(new IndexRequest<Student>(student, "students"));
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 索引许多文件
 
@@ -132,7 +132,7 @@ var studentArray = new Student[]
 
 var manyResponse = client.IndexMany(studentArray, "students");
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 搜索文档
 
@@ -174,7 +174,7 @@ var searchResponse = client.Search<Student>(s => s
                                         .Field(fld => fld.LastName)
                                         .Query("Santos"))));
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 您可以通过在响应中访问文档来打印结果：
 
@@ -187,7 +187,7 @@ if (searchResponse.IsValid)
     }
 }
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 响应包含一个文档，与正确的学生相对应：
 
@@ -236,7 +236,7 @@ if (searchResponseLow.IsValid)
     }
 }
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 样本程序
 
@@ -354,5 +354,5 @@ internal class Program
     }
 }
 ```
-{％include copy.html％}
+{% include copy.html %}
 

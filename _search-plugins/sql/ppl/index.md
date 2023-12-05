@@ -25,7 +25,7 @@ redirect_from:
 ```sql
 search source=<index-name> | <command_1> | <command_2> | ... | <command_n>
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 看[句法]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/syntax/) 对于特定的PPL语法示例。
 

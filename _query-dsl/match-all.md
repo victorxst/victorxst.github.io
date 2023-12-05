@@ -16,7 +16,7 @@ GET _search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 这`match_all` 查询有一个`match_none` 对应物，很少有用：
 

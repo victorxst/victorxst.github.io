@@ -27,14 +27,14 @@ GET /shakespeare/_search
 }
 ```
 
-在此示例中，查询具有三个可选子句，它们与`OR`，因此文档必须匹配`prince`，，，，`king`， 或者`star`。
+在此示例中，查询具有三个可选子句，它们与`OR`，因此文档必须匹配`prince`，`king`， 或者`star`。
 
 ## 有效值
 
 您可以指定`minimum_should_match` 参数是以下值之一。
 
 值类型| 例子| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 非-负整数| `2` | 文档必须匹配此数量的可选子句。
 负整数| `-1` | 文档必须匹配可选子句的总数减去此数字。
 非-负百分比| `70%` | 文档必须匹配可选子句总数的这一百分比。匹配的子句数量被舍入到最近的整数。
@@ -43,7 +43,7 @@ GET /shakespeare/_search
 多种组合| `3<-1 5<50%` | 一个以上的组合被空间隔开。每个条件都适用于可选子句的数量，该子句大于`<` 符号。在此示例中，如果有三个或更少的可选子句，则该文档必须匹配所有条款。如果有四个或五个可选子句，则该文档必须匹配除其中一个。如果有6个或更多可选子句，则该文档必须匹配50％。
 
 让`n` 作为文档必须匹配的可选子句的数量。什么时候`n` 计算为一个百分比，如果`n` 小于1，然后使用1。如果`n` 大于可选子句的数量，使用可选子句的数量。
-{： 。笔记}
+{: .note}
 
 
 ## 在布尔查询中使用参数
@@ -58,7 +58,7 @@ PUT testindex/_doc/1
   "text": "one OpenSearch"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ```json
 PUT testindex/_doc/2
@@ -66,7 +66,7 @@ PUT testindex/_doc/2
   "text": "one two OpenSearch"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ```json
 PUT testindex/_doc/3
@@ -74,7 +74,7 @@ PUT testindex/_doc/3
   "text": "one two three OpenSearch"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ```json
 PUT testindex/_doc/4
@@ -82,7 +82,7 @@ PUT testindex/_doc/4
   "text": "one two three four OpenSearch"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ```json
 PUT testindex/_doc/5
@@ -90,7 +90,7 @@ PUT testindex/_doc/5
   "text": "OpenSearch"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 以下查询包含四个可选子句：
 
@@ -133,7 +133,7 @@ GET testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 因为`minimum_should_match` 指定为`80%`，匹配的可选子句的数量计算为4＆middot;0.8 = 3.2，然后舍入至3。因此，结果包含至少匹配三个子句的文档：
 
@@ -216,7 +216,7 @@ GET testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 非-匹配文档可以拥有的可选条款的计算为4＆middot;0.2 = 0.8，并舍入至0。因此，结果仅包含一个与所有可选子句匹配的文档：
 
@@ -294,7 +294,7 @@ GET testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 此查询返回索引中的所有五个文档：
 
@@ -393,7 +393,7 @@ GET testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 结果仅包含四个匹配至少一个可选子句的文档：
 

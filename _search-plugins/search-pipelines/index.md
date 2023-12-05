@@ -23,7 +23,7 @@ has_toc: false
 ![搜索处理器图]({{site.url}}{{site.baseurl}}/images/search-pipelines.png)
 
 管道的请求和响应处理都在协调器节点上执行，因此没有碎片-水平处理。
-{： 。笔记}
+{: .note}
 
 ## 处理器
 
@@ -60,7 +60,7 @@ PUT /_search/pipeline/my_pipeline
   ]
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 有关创建和更新搜索管道的更多信息，请参见[创建搜索管道]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/creating-search-pipeline/)。
 
@@ -69,7 +69,7 @@ PUT /_search/pipeline/my_pipeline
 ```json
 GET /my_index/_search?search_pipeline=my_pipeline
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 另外，您可以使用请求的临时管道或为索引设置默认管道。要了解更多，请参阅[使用搜索管道]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/using-search-pipeline/)。
 

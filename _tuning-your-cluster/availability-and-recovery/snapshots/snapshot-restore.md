@@ -20,7 +20,7 @@ OpenSearch快照是增量的，这意味着它们仅存储自上次成功快照�
 换句话说，每小时的快照一周（总共168张快照）可能没有比在一周结束时拍摄单个快照更多的磁盘空间。另外，您拍摄快照的频率越多，完成的时间就越少。一些OpenSearch用户每30分钟一次拍摄快照。
 
 如果您需要删除快照，请确保使用OpenSearch API，而不是导航到存储位置和清除文件。群集的增量快照通常共享许多相同的数据；当您使用API时，OpenSearch仅删除没有其他快照正在使用的数据。
-{： 。提示 }
+{: .tip }
 
 ---
 
@@ -28,7 +28,7 @@ OpenSearch快照是增量的，这意味着它们仅存储自上次成功快照�
   <summary>
     目录
   </summary>
-  {： 。文本-delta}
+  {: .text-delta }
 - TOC
 {:toc}
 </delect>
@@ -60,7 +60,7 @@ OpenSearch快照是增量的，这意味着它们仅存储自上次成功快照�
    ```JSON
    put /_snapshot /my-FS-存储库
    {
-     "type"："fs"，，，，
+     "type"："fs"，
      "settings"：{
        "location"："/mnt/snapshots"
      }
@@ -161,27 +161,27 @@ You will most likely not need to specify any parameters except for `地点`. For
    s3.client.default.identity_token_file: aws-web-identity-token-file
    ```
 
-   IAM角色至少需要上述设置之一。其他设置将从环境变量中获取（如果可用）：`AWS_ROLE_ARN`，，，，`AWS_WEB_IDENTITY_TOKEN_FILE`，，，，`AWS_ROLE_SESSION_NAME`。
+   IAM角色至少需要上述设置之一。其他设置将从环境变量中获取（如果可用）：`AWS_ROLE_ARN`，`AWS_WEB_IDENTITY_TOKEN_FILE`，`AWS_ROLE_SESSION_NAME`。
 
 1. 如果您更改`opensearch.yml`，您必须重新启动集群中的每个节点。否则，您只需要重新加载安全集群设置：
 
    ```
    POST /_nodes/reload_secure_settings
    ```
-  {％包含副本-curl.html％}
+  {% include copy-curl.html %}
 
 1. 如果您还没有一个，则创建一个S3存储桶。要拍摄快照，您需要使用权限才能访问水库。以下IAM政策就是这些权限的一个例子：
 
    ```JSON
    {
-"Version"："2012-10-17"，，，，
+"Version"："2012-10-17"，
 "Statement"：[{{
 "Action"：[[
 "s3:*"
 ]，，
-"Effect"："Allow"，，，，
+"Effect"："Allow"，
 "Resource"：[[
-"arn:aws:s3:::your-bucket"，，，，
+"arn:aws:s3:::your-bucket"，
 "arn:aws:s3:::your-bucket/*"
 这是给出的
 ]]
@@ -193,9 +193,9 @@ You will most likely not need to specify any parameters except for `地点`. For
    ```JSON
    put /_snapshot /my-S3-存储库
    {
-     "type"："s3"，，，，
+     "type"："s3"，
      "settings"：{
-       "bucket"："my-s3-bucket"，，，，
+       "bucket"："my-s3-bucket"，
        "base_path"："my/snapshot/directory"
      }
    }
@@ -216,7 +216,7 @@ You will most likely not need to specify any parameters except for `桶` and `ba
 ```json
 PUT /_snapshot/my-repository/1
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 您还可以添加一个请求主体以包括或排除某些索引或指定其他设置：
 
@@ -229,10 +229,10 @@ PUT /_snapshot/my-repository/2
   "partial": false
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 请求字段| 描述
-：--- | ：---
+:--- | :---
 `indices` | 您要在快照中包含的索引。您可以使用`,` 要创建索引列表，`*` 指定索引模式，并`-` 排除某些索引。不要在项目之间放置空间。默认为所有索引。
 `ignore_unavailable` | 如果是`indices` 列表不存在，是否忽略它而不是失败快照。默认为`false`。
 `include_global_state` | 是否将群集状态包括在快照中。默认为`true`。
@@ -258,19 +258,19 @@ GET /_snapshot/my-repository/2
   }]
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 请注意，快照仍在进行中。如果您想等待快照在继续之前完成，请添加`wait_for_completion` 您的请求的参数。快照可能需要一段时间才能完成，因此请考虑此选项是否适合您的用例：
 
 ```
 PUT _snapshot/my-repository/3?wait_for_completion=true
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 快照具有以下状态：
 
 状态| 描述
-：--- | ：---
+:--- | :---
 成功| 快照成功地存储了所有碎片。
 进行中| 快照当前正在运行。
 部分的| 至少一个碎片未能成功存储。仅当您设置时才会发生`partial` 到`true` 拍摄快照时。
@@ -282,7 +282,7 @@ PUT _snapshot/my-repository/3?wait_for_completion=true
 ```
 GET /_snapshot/_status
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 
 ## 还原快照
@@ -292,21 +292,21 @@ GET /_snapshot/_status
 ```
 GET /_snapshot/_all
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 查看存储库中的所有快照：
 
 ```
 GET /_snapshot/my-repository/_all
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 然后还原快照：
 
 ```
 POST /_snapshot/my-repository/2/_restore
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 就像拍摄快照一样，您可以添加一个请求主体以包括或排除某些索引或指定其他一些设置：
 
@@ -328,10 +328,10 @@ POST /_snapshot/my-repository/2/_restore
   ]
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 请求参数| 描述
-：--- | ：---
+:--- | :---
 `indices` | 您要还原的索引。您可以使用`,` 要创建索引列表，`*` 指定索引模式，并`-` 排除某些索引。不要在项目之间放置空间。默认为所有索引。
 `ignore_unavailable` | 如果是`indices` 列表不存在，是否忽略它而不是使还原操作失败。默认值为false。
 `include_global_state` | 是否还原群集状态。默认值为false。
@@ -340,7 +340,7 @@ POST /_snapshot/my-repository/2/_restore
 `rename_pattern` | 如果要在还原索引重命名时，请使用此选项指定与要还原的所有索引匹配的正则表达式。使用捕获组（`()`）重复使用索引名称的部分。
 `rename_replacement` | 如果要在还原索引重命名索引，请使用此选项指定替换模式。使用`$0` 要包含整个匹配索引名称，`$1` 包括第一个捕获组的内容，依此类推。
 `index_settings` | 如果你想改变[索引设置]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/) 在还原操作期间应用，在此处指定它们。你不能改变`index.number_of_shards`。
-`ignore_index_settings` | 而不是明确指定新设置`index_settings`，您可以忽略快照中的某些索引设置，并使用还原过程中应用的群集默认设置。你不能忽略`index.number_of_shards`，，，，`index.number_of_replicas`， 或者`index.auto_expand_replicas`。
+`ignore_index_settings` | 而不是明确指定新设置`index_settings`，您可以忽略快照中的某些索引设置，并使用还原过程中应用的群集默认设置。你不能忽略`index.number_of_shards`，`index.number_of_replicas`， 或者`index.auto_expand_replicas`。
 `storage_type` | `local` 表示所有快照元数据和索引数据将下载到本地存储。<br /> <br>`remote_snapshot` 表示快照元数据将下载到集群中，但远程存储库将仍然是索引数据的权威存储。数据将根据需要下载和缓存以进行服务查询。群集中的至少一个节点必须配置[搜索角色]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/) 为了使用该类型恢复快照`remote_snapshot`。<br /> <br>默认为`local`。
 
 ### 冲突和兼容性
@@ -373,17 +373,17 @@ POST /_snapshot/my-repository/3/_restore
   "include_global_state": false
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 这`.opendistro_security` 索引包含敏感数据，因此我们建议您在快照时将其排除。如果您确实需要从快照还原索引，则必须在请求中包含管理证书：
 
 ```bash
 curl -k --cert ./kirk.pem --key ./kirk-key.pem -XPOST 'https://localhost:9200/_snapshot/my-repository/3/_restore?pretty'
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 我们强烈建议不要恢复`.opendistro_security` 使用管理证书，因为这样做可以改变整个集群的安全姿势。看[谨慎]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) 有关建议的过程来备份和还原安全插件配置。
-{： 。警告}
+{: .warning}
 
 ## 索引编解码器注意事项
 

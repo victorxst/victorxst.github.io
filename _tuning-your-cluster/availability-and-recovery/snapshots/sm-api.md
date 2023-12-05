@@ -24,7 +24,7 @@ redirect_from:
 
 ## 创建或更新策略
 引入2.1
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 创建或更新SM策略。
 
@@ -176,7 +176,7 @@ POST _plugins/_sm/policies/daily-policy
 您可以指定以下参数来创建/更新SM策略。
 
 范围| 类型| 描述
-：--- | ：--- |：--- |：--- |
+:--- | :--- |:--- |:--- |
 `description` | 细绳| SM政策的描述。选修的。
 `enabled` | 布尔| 应该在创建时启用此SM策略吗？选修的。
 `snapshot_config` | 目的| 快照创建的配置选项。必需的。
@@ -209,7 +209,7 @@ POST _plugins/_sm/policies/daily-policy
 
 ## 获取政策
 引入2.1
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 获得SM政策。
 
@@ -299,7 +299,7 @@ GET _plugins/_sm/policies/daily-policy
 
 ## 解释
 引入2.1
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 为指定的所有策略提供启用/禁用状态和元数据。多个策略名称与`,`。您还可以用通配符模式指定所需的政策。
 
@@ -375,7 +375,7 @@ GET _plugins/_sm/policies/daily*/_explain
 
 ## 开始政策
 引入2.1
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 通过设置其策略`enabled` 标记为`true`。
 
@@ -401,7 +401,7 @@ POST  _plugins/_sm/policies/daily-policy/_start
 
 ## 停止政策
 引入2.1
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 设置`enabled` 标记为`false` 用于SM政策。在您之前，该政策不会运行[开始](#start-a-policy) 它。
 
@@ -427,7 +427,7 @@ POST  _plugins/_sm/policies/daily-policy/_stop
 
 ## 删除政策
 引入2.1
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 删除指定的SM策略。
 

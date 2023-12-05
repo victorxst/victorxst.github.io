@@ -37,7 +37,7 @@ plugins.security.compliance.salt: abcdefghijklmnopqrstuvqxyz1234567890
 ```
 
 财产| 描述
-：--- | ：---
+:--- | :---
 `plugins.security.compliance.salt` | 生成哈希值时要使用的盐。必须至少32个字符。仅允许ASCII字符。选修的。
 
 设置盐是可选的，但我们强烈建议它。

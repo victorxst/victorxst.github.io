@@ -19,7 +19,7 @@ OpenSearch中的SQL桥接传统关系数据库概念与OpenSearch文档的灵活
 这是核心SQL概念映射到OpenSearch的方式：
 
 SQL| OpenSearch
-：--- | ：---
+:--- | :---
 桌子| 指数
 排| 文档
 柱子| 场地
@@ -36,7 +36,7 @@ POST _plugins/_sql
   "query": "SELECT * FROM my-index LIMIT 50"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 您可以使用逗号查询多个索引-分开列表：
 
@@ -46,7 +46,7 @@ POST _plugins/_sql
   "query": "SELECT * FROM my-index1,myindex2,myindex3 LIMIT 50"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 您可以指定具有通配符表达式的索引模式：
 
@@ -56,14 +56,14 @@ POST _plugins/_sql
   "query": "SELECT * FROM my-index* LIMIT 50"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 要在命令行中运行前面的查询，请使用[卷曲](https://curl.haxx.se/) 命令：
 
 ```bash
 curl -XPOST https://localhost:9200/_plugins/_sql -u 'admin:admin' -k -H 'Content-Type: application/json' -d '{"query": "SELECT * FROM my-index* LIMIT 50"}'
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 您可以指定[响应格式]({{site.url}}{{site.baseurl}}/search-plugins/sql/response-formats/) 作为JDBC，标准OpenSearch JSON，CSV或RAW。默认情况下，查询以JDBC格式返回数据。以下查询将格式设置为JSON：
 
@@ -73,7 +73,7 @@ POST _plugins/_sql?format=json
   "query": "SELECT * FROM my-index LIMIT 50"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 有关请求参数，设置，支持操作和工具的更多信息，请参阅下面的相关主题[SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/index/)。
 

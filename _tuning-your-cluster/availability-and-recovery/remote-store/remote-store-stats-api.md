@@ -9,11 +9,11 @@ grand_parent: 可用性和恢复
 # 远程商店统计API
 
 引入2.8
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 使用远程存储统计API监视碎片-级遥控器-支持的存储性能。
 
-从此API返回的指标仅与存储在远程上的索引有关-支持节点。对于在节点或群集级别的索引上的汇总输出，请使用[索引统计]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats/)，，，，[节点统计]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/)， 或者[集群统计]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-stats/) API。
+从此API返回的指标仅与存储在远程上的索引有关-支持节点。对于在节点或群集级别的索引上的汇总输出，请使用[索引统计]({{site.url}}{{site.baseurl}}/api-reference/index-apis/stats/)，[节点统计]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/)， 或者[集群统计]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-stats/) API。
 
 ## 路径和HTTP方法
 
@@ -27,7 +27,7 @@ GET _remotestore/stats/<index_name>/<shard_id>
 下表列出了可用路径参数。所有路径参数都是可选的。
 
 范围| 类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `index_name` | 细绳| 索引名称或索引模式。
 `shard_id` | 细绳| 碎片ID。
 
@@ -40,15 +40,15 @@ GET _remotestore/stats/<index_name>/<shard_id>
 ```json
 GET _remotestore/stats/<index_name>
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例响应
 
-<详细信息打开降价="block">
+<details open markdown="block">
   <summary>
     回复
   </summary>
-  {： 。文本-delta}
+  {: .text-delta }
 
 ```json
 {
@@ -255,7 +255,7 @@ GET _remotestore/stats/<index_name>
     }
 }
 ```
-</delect>
+</details>
 
 ### 响应字段
 
@@ -270,7 +270,7 @@ GET _remotestore/stats/<index_name>
 这`routing` 对象包含以下字段。
 
 |场地|描述|
-|：---|：---|
+|:---	|:---	|
 | `primary` | 表示碎片副本是否是主要碎片。|
 | `node` | 分配碎片的节点的名称。|
 
@@ -279,7 +279,7 @@ GET _remotestore/stats/<index_name>
 这`segment.upload` 对象包含以下字段。
 
 |场地|描述|
-|：---|：---|
+|:---	|:---	|
 | `local_refresh_timestamp_in_millis` | 最后一个成功的本地刷新时间戳，以毫秒为单位。|
 | `remote_refresh_timestamp_in_millis` | 最后一个成功的远程刷新时间戳，以毫秒为单位。|
 | `refresh_time_lag_in_millis` | 远程刷新在本地刷新后面的时间，以毫秒为单位。|
@@ -297,7 +297,7 @@ GET _remotestore/stats/<index_name>
 这`segment.download` 对象包含以下字段。
 
 |场地|描述|
-|：---|：---|
+|:---	|:---	|
 | `last_sync_timestamp`| 时间戳记，以毫秒为单位，因为最后一个成功的段文件从远程下载-支持存储。|
 | `total_download_size.started_bytes` | 从远程积极下载的细分文件的字节总数-支持存储。|
 | `total_download_size.succeeded_bytes` | 从远程下载的细分文件的字节总数-支持存储。|
@@ -311,7 +311,7 @@ GET _remotestore/stats/<index_name>
 这`translog.upload` 对象包含以下字段。
 
 |场地|描述|
-|：---|：---|
+|:---	|:---	|
 | `last_successful_upload_timestamp`| 时间戳记，以毫秒为单位，因为最后一个转换文件成功上传到远程-支持存储。|
 | `total_uploads.started` | 尝试翻译的总数上传同步到遥控-支持存储。|
 | `total_uploads.failed` | 失败的Translog上传同步到遥控器的总数-支持存储。|
@@ -327,7 +327,7 @@ GET _remotestore/stats/<index_name>
 这`translog.download` 对象包含以下字段。
 
 |场地|描述|
-|：---|：---|
+|:---	|:---	|
 | `last_successful_download_timestamp` | 时间戳记，以毫秒为单位，因为最后一个转换文件成功上传到远程-支持存储。|
 | `total_downloads.succeeded` | 从远程下载同步的成功转换总数-支持存储。|
 | `total_download_size.succeeded_bytes` | Translog文件的字节总数成功地从远程上传-支持存储。|
@@ -345,15 +345,15 @@ GET _remotestore/stats/<index_name>
 ```json
 GET _remotestore/stats/<index_name>/<shard_id>
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 #### 示例响应
 
-<详细信息打开降价="block">
+<details open markdown="block">
   <summary>
     回复
   </summary>
-  {： 。文本-delta}
+  {: .text-delta }
 
 ```json
 {
@@ -466,7 +466,7 @@ GET _remotestore/stats/<index_name>/<shard_id>
     }
 }
 ```
-</delect>
+</details>
 
 ### 本地碎片的远程商店统计数据
 
@@ -476,5 +476,5 @@ GET _remotestore/stats/<index_name>/<shard_id>
 ```json
 GET _remotestore/stats/<index_name>?local=true
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 

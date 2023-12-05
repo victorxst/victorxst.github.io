@@ -19,7 +19,7 @@ nav_order: 45
 以下字段用于获取字段映射。
 
 场地| 类型| 描述
-：--- | ：--- |：--- 
+:--- | :--- |：--- 
 `index_name` | 细绳| 用于日志摄入的索引的名称。
 `rule_topic` | 细绳| 索引的日志类型。
 
@@ -29,7 +29,7 @@ nav_order: 45
 get/_plugins/_security_analytics/映射/查看
 
 {
-   "index_name"："windows"，，，，
+   "index_name"："windows"，
    "rule_topic"："windows"
 }
 ```
@@ -40,36 +40,36 @@ get/_plugins/_security_analytics/映射/查看
 {
     "properties"：{
         "windows-event_data-CommandLine"：{
-            "path"："CommandLine"，，，，
+            "path"："CommandLine"，
             "type"："alias"
         }，，
         "event_uid"：{
-            "path"："EventID"，，，，
+            "path"："EventID"，
             "type"："alias"
         }
     }，，
     "unmapped_index_fields"：[[
-        "windows-event_data-CommandLine"，，，，
-        "unmapped_HiveName"，，，，
-        "src_ip"，，，，
-        "sha1"，，，，
-        "processPath"，，，，
-        "CallerProcessName"，，，，
-        "CallTrace"，，，，
-        "AuthenticationPackageName"，，，，
-        "AuditSourceName"，，，，
-        "AuditPolicyChanges"，，，，
-        "AttributeValue"，，，，
-        "AttributeLDAPDisplayName"，，，，
-        "ApplicationPath"，，，，
-        "Application"，，，，
-        "AllowedToDelegateTo"，，，，
-        "Address"，，，，
-        "Action"，，，，
-        "AccountType"，，，，
-        "AccountName"，，，，
-        "Accesses"，，，，
-        "AccessMask"，，，，
+        "windows-event_data-CommandLine"，
+        "unmapped_HiveName"，
+        "src_ip"，
+        "sha1"，
+        "processPath"，
+        "CallerProcessName"，
+        "CallTrace"，
+        "AuthenticationPackageName"，
+        "AuditSourceName"，
+        "AuditPolicyChanges"，
+        "AttributeValue"，
+        "AttributeLDAPDisplayName"，
+        "ApplicationPath"，
+        "Application"，
+        "AllowedToDelegateTo"，
+        "Address"，
+        "Action"，
+        "AccountType"，
+        "AccountName"，
+        "Accesses"，
+        "AccessMask"，
         "AccessList"
     这是给出的
 }
@@ -123,11 +123,11 @@ POST /_plugins/_security_analytics/mappings
         "mappings"：{
             "properties"：{
                 "windows-event_data-CommandLine"：{
-                    "type"："alias"，，，，
+                    "type"："alias"，
                     "path"："CommandLine"
                 }，，
                 "event_uid"：{
-                    "type"："alias"，，，，
+                    "type"："alias"，
                     "path"："EventID"
                 }
             }

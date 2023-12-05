@@ -22,14 +22,14 @@ redirect_from:
    ```JSON
    {
      "enabled"： 真的，
-     "url"："<wms-map-server-url>"，，，，
+     "url"："<wms-map-server-url>"，
      "options"：{
-       "format"："image/png"，，，，
+       "format"："image/png"，
        "transparent"： 真的
      }
    }
    ```
 
 网络地图服务可能有许可费或限制，您有责任遵守任何此类费用或限制。
-{： 。笔记 }
+{: .note }
 

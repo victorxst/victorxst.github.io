@@ -18,7 +18,7 @@ OpenSearch Rust客户端可让您将Rust应用程序与OpenSearch集群中的数
 [dependencies]
 opensearch = "1.0.0"
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 此外，您可能需要添加以下内容`serde` 有助于将类型序列化的依赖项和json的应对响应：
 
@@ -26,14 +26,14 @@ opensearch = "1.0.0"
 serde = "~1"
 serde_json = "~1"
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 生锈客户使用更高的-等级[`reqwest`](https://crates.io/crates/reqwest) HTTP客户库http请求，ReqWest使用[`tokio`](https://crates.io/crates/tokio) 支持异步请求的平台。如果您打算使用异步功能，则需要添加`tokio` 对货物的依赖。
 
 ```rust
 tokio = { version = "*", features = ["full"] }
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 看到[样本程序](#sample-program) 完整货物文件的部分。
 
@@ -42,7 +42,7 @@ tokio = { version = "*", features = ["full"] }
 ```rust
 use opensearch::OpenSearch;
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 连接到OpenSearch
 
@@ -51,7 +51,7 @@ use opensearch::OpenSearch;
 ```rust
 let client = OpenSearch::default();
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 要连接到以不同地址运行的OpenSearch主机，请使用指定地址创建客户端：
 
@@ -59,7 +59,7 @@ let client = OpenSearch::default();
 let transport = Transport::single_node("http://localhost:9200")?;
 let client = OpenSearch::new(transport);
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 另外，您可以自定义URL并通过创建一个连接池`TransportBuilder` 结构并将其传递给`OpenSearch::new` 创建客户端的新实例：
 
@@ -69,7 +69,7 @@ let conn_pool = SingleNodeConnectionPool::new(url);
 let transport = TransportBuilder::new(conn_pool).disable_proxy().build()?;
 let client = OpenSearch::new(transport);
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 连接到Amazon OpenSearch服务
 
@@ -87,7 +87,7 @@ let transport = TransportBuilder::new(conn_pool)
     .build()?;
 let client = OpenSearch::new(transport);
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 连接到Amazon OpenSearch无服务器
 
@@ -105,7 +105,7 @@ let transport = TransportBuilder::new(conn_pool)
     .build()?;
 let client = OpenSearch::new(transport);
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 
 ## 创建索引
@@ -126,7 +126,7 @@ let response = client
     .send()
     .await?;
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 索引文档
 
@@ -144,7 +144,7 @@ let response = client
     .send()
     .await?;
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 执行批量操作
 
@@ -177,7 +177,7 @@ let response = client
     .send()
     .await?;
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 搜索文档
 
@@ -199,7 +199,7 @@ response = client
     .send()
     .await?;
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 然后，您可以阅读响应主体，并在JSON上迭代`hits` 数组阅读所有`_source` 文件：
 
@@ -210,7 +210,7 @@ for hit in response_body["hits"]["hits"].as_array().unwrap() {
     println!("{}", serde_json::to_string_pretty(&hit["_source"]).unwrap());
 }
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 删除文档
 
@@ -222,7 +222,7 @@ let response = client
     .send()
     .await?;
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 删除索引
 
@@ -235,7 +235,7 @@ let response = client
     .send()
     .await?;
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 样本程序
 
@@ -255,7 +255,7 @@ tokio = { version = "*", features = ["full"] }
 serde = "~1"
 serde_json = "~1"
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 以下示例程序创建了一个客户端，添加了一个非索引-默认映射，插入文档，执行批量操作，搜索文档，删除文档，然后删除索引：
 

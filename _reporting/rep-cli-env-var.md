@@ -23,7 +23,7 @@ export NAME=VALUE
 引号（“）没有任何特殊处理。
 
 来自命令行参数的值比环境文件具有更高的优先级。例如，如果您在 * .env *文件中添加文件名为 * test *，并且还添加`--filename report` 命令选项，生成的报告的名称将为 *报告 *。
-{： 。笔记 }
+{: .note }
 
 #### 示例：请求使用环境变量设置的PNG报告
 
@@ -60,7 +60,7 @@ opensearch-reporting-cli --url https://localhost:5601/app/dashboards#/view/7adfa
 opensearch-reporting-cli --url https://localhost:5601/app/dashboards#/view/7adfa750-4c81-11e8-b3d7-01146121b73d --transport ses --from <sender_email_id> --to <recipient_email_id>
 ```
 
-以下命令使用所有其他选项使用默认值。您也可以设置`OPENSEARCH_FROM`，，，，`OPENSEARCH_TO`， 和`OPENSEARCH_TRANSPORT` 在您的.env文件中使用以下命令：
+以下命令使用所有其他选项使用默认值。您也可以设置`OPENSEARCH_FROM`，`OPENSEARCH_TO`， 和`OPENSEARCH_TRANSPORT` 在您的.env文件中使用以下命令：
 
 ```
 opensearch-reporting-cli --url https://localhost:5601/app/dashboards#/view/7adfa750-4c81-11e8-b3d7-01146121b73d
@@ -70,7 +70,7 @@ opensearch-reporting-cli --url https://localhost:5601/app/dashboards#/view/7adfa
 
 #### 示例：将报告发送到使用SMTP的电子邮件地址
 
-要通过SMTP运输将报告发送到电子邮件地址，您需要设置选项`OPENSEARCH_SMTP_HOST`，，，，`OPENSEARCH_SMTP_PORT`，，，，`OPENSEARCH_SMTP_USER`，，，，`OPENSEARCH_SMTP_PASSWORD`， 和`OPENSEARCH_SMTP_SECURE` 在您的.env文件中。
+要通过SMTP运输将报告发送到电子邮件地址，您需要设置选项`OPENSEARCH_SMTP_HOST`，`OPENSEARCH_SMTP_PORT`，`OPENSEARCH_SMTP_USER`，`OPENSEARCH_SMTP_PASSWORD`， 和`OPENSEARCH_SMTP_SECURE` 在您的.env文件中。
 
 一旦在.ENV文件中设置了传输选项后，您可以使用以下命令发送电子邮件：
 

@@ -42,7 +42,7 @@ services:
 通过指定可搜索的快照索引`remote_snapshot` 使用的存储类型使用[还原快照API]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/#restore-snapshots)。
 
 请求字段| 描述
-：--- | ：---
+:--- | :---
 `storage_type` | `local` 表示所有快照元数据和索引数据将下载到本地存储。<br /> <br>`remote_snapshot` 表示快照元数据将下载到集群中，但远程存储库将仍然是索引数据的权威存储。数据将根据需要下载和缓存以进行服务查询。群集中的至少一个节点必须配置`search` 节点角色以使用该快照来使用`remote_snapshot` 类型。<br /> <br>默认为`local`。
 
 ## 清单索引

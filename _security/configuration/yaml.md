@@ -114,9 +114,9 @@ plugins.security.audit.type：internal_opensearch
 plugins.security.enable_snapshot_restore_privilege：true
 plugins.security.check_snapshot_restore_write_privileges：true
 plugins.security.cache.ttl_minutes：60
-plugins.security.restapi.Roles_Enabled：["all_access"，，，，"security_rest_api_access"这是给出的
+plugins.security.restapi.Roles_Enabled：["all_access"，"security_rest_api_access"这是给出的
 plugins.security.system_indices.enabled：true
-plugins.security.system_indices.indices：[".opendistro-alerting-config"，，，，".opendistro-alerting-alert*"，，，，".opendistro-anomaly-results*"，，，，".opendistro-anomaly-detector*"，，，，".opendistro-anomaly-checkpoints"，，，，".opendistro-anomaly-detection-state"，，，，".opendistro-reports-*"，，，，".opendistro-notifications-*"，，，，".opendistro-notebooks"，，，，".opendistro-asynchronous-search-response*"这是给出的
+plugins.security.system_indices.indices：[".opendistro-alerting-config"，".opendistro-alerting-alert*"，".opendistro-anomaly-results*"，".opendistro-anomaly-detector*"，".opendistro-anomaly-checkpoints"，".opendistro-anomaly-detection-state"，".opendistro-reports-*"，".opendistro-notifications-*"，".opendistro-notebooks"，".opendistro-asynchronous-search-response*"这是给出的
 node.max_local_storage_nodes：3
 ```
 
@@ -173,7 +173,7 @@ plugins.security.restapi.password_validation_error_message："Password must be m
 分数-基于密码的强度需要两个设置来配置该功能。下表描述了两个设置。
 
 | 环境| 描述|
-| ：--- | ：--- |
+| :--- | :--- |
 | `plugins.security.restapi.password_min_length` | 设置密码长度的最小字符数。默认值为`8`。这也是最低限度。|
 | `plugins.security.restapi.password_score_based_validation_strength` | 设置一个阈值，以确定密码是强还是弱。有四个代表阈值增加的复杂性。<br>`fair`--非常"guessable" 密码：提供防止在线攻击的保护。<br>`good`--一个有点猜测的密码：提供防止在线攻击的保护。<br>`strong`--安全"unguessable" 密码：提供适度的保护免受离线，缓慢的保护-哈希方案。<br>`very_strong`--一个非常无关紧要的密码：提供强烈的保护免受离线，慢速的保护-哈希场景。|
 
@@ -190,7 +190,7 @@ plugins.security.restapi.password_score_based_validation_strength：esumy_strong
 
 ```json
 {
-  "status"："error"，，，，
+  "status"："error"，
   "reason"："Weak password"
 }
 ```

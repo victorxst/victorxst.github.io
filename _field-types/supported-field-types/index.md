@@ -14,7 +14,7 @@ redirect_from:
 创建映射时，您可以为字段指定数据类型。下表列出了OpenSearch支持的所有数据字段类型。
 
 类别| 现场类型和描述
-：--- | ：---
+:--- | :---
 别名| [`alias`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/alias/)：现有字段的附加名称。
 二进制| [`binary`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/binary/)：Base64编码中的二进制值。
 [数字]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/) | 数字值（`byte`，`double`，`float`，`half_float`，`integer`，`long`，[`unsigned_long`]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/unsigned-long/)，`scaled_float`，`short`）。

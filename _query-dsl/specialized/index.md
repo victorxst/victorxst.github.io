@@ -10,7 +10,7 @@ has_toc: false
 
 OpenSearch支持以下专业查询：
 
-- `distance_feature`：根据原点与文档的动态计算距离计算文档分数`date`，，，，`date_nanos`， 或者`geo_point` 字段。此查询可以跳过非-竞争激烈。
+- `distance_feature`：根据原点与文档的动态计算距离计算文档分数`date`，`date_nanos`， 或者`geo_point` 字段。此查询可以跳过非-竞争激烈。
 
 - `more_like_this`：查找类似于提供的文档，文档或收集文档的文档。
 

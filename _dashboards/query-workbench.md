@@ -59,14 +59,14 @@ PUT accounts/_bulk?refresh
     订购
       平衡desc;
     ```
-    {％include copy.html％}
+    {% include copy.html %}
     
 3. 查看结果。
     - 查看结果**结果** 窗格，以表格格式显示查询输出。您可以根据需要过滤和下载结果。
 
    下图显示了先前的SQL查询的查询编辑器窗格和结果窗格：
 
-    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/query-workbench-query-step2.png" alt ="Query Workbench SQL query input and results output panes" 宽度="800">
+    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/query-workbench-query-step2.png" alt ="Query Workbench SQL query input and results output panes" width="800">
 
 4. 清除查询编辑器。
     - 选择**清除** 按钮清除查询编辑器并运行新的查询。
@@ -76,7 +76,7 @@ PUT accounts/_bulk?refresh
 
     下图显示了在步骤2中运行的SQL查询的说明。
 
-    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/query-explain.png" alt ="Query Workbench SQL query explanation pane" 宽度="500">
+    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/query-explain.png" alt ="Query Workbench SQL query explanation pane" width="500">
 
 ## 在查询工作台中运行PPL查询
 
@@ -95,7 +95,7 @@ PUT accounts/_bulk?refresh
     | where age > 18
     | fields firstname, lastname
     ```
-    {％include copy.html％}
+    {% include copy.html %}
     
 3. 查看结果。
     - 查看结果**结果** 窗格，以表格格式显示查询输出。
@@ -112,7 +112,7 @@ PUT accounts/_bulk?refresh
 
     下图显示了在步骤2中运行的PPL查询的说明。
 
-    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/query-PPL-explain.png" alt ="Query Workbench PPL query explanation pane" 宽度="500">
+    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/query-PPL-explain.png" alt ="Query Workbench PPL query explanation pane" width="500">
 
 查询工作台不支持通过SQL或PPL更新操作。读取数据访问-仅有的。
 {： 。重要的

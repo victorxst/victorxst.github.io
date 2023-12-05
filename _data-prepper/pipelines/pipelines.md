@@ -46,7 +46,7 @@ simple-sample-pipeline:
 - 接收器定义数据的去向。在这种情况下，水槽是Stdout。
 
 从数据Prepper 2.0开始，您可以在多个配置yaml文件上定义管道，其中每个文件包含一个或多个管道的配置。这为您提供了更多组织和链条复杂管道配置的自由。要正确加载管道配置，请将您的配置yaml文件放在`pipelines` 您应用程序主目录下的文件夹（例如`/usr/share/data-prepper`）。
-{： 。笔记 }
+{: .note }
 
 ## 结尾-到-结束致谢
 
@@ -137,7 +137,7 @@ log-pipeline:
 ```
 
 此示例使用弱安全性。我们强烈建议您确保在生产环境中打开外部端口的所有插件。
-{： 。笔记}
+{: .note}
 
 ### 跟踪分析管道
 
@@ -199,7 +199,7 @@ service-map-pipeline:
 ```
 
 要保持相似的摄入吞吐量和潜伏期，请扩展`buffer_size` 和`batch_size` 按照客户端请求有效载荷中估计的最大批量大小。
-{： 。提示}
+{: .tip}
 
 ### 指标管道
 
@@ -308,7 +308,7 @@ docker run --name data-prepper \
 
 ## 配置对等转发器
 
-Data Prepper提供了HTTP服务，可在数据预先节点之间转发事件以进行聚合。这是在集群部署中操作数据预先操作所必需的。目前，支持同伴转发`aggregate`，，，，`service_map_stateful`， 和`otel_trace_raw` 处理器。同行转发器根据处理器提供的标识密钥将事件组成。为了`service_map_stateful` 和`otel_trace_raw` 它是`traceId` 默认情况下，无法配置。为了`aggregate` 处理器，可以使用`identification_keys` 选项。
+Data Prepper提供了HTTP服务，可在数据预先节点之间转发事件以进行聚合。这是在集群部署中操作数据预先操作所必需的。目前，支持同伴转发`aggregate`，`service_map_stateful`， 和`otel_trace_raw` 处理器。同行转发器根据处理器提供的标识密钥将事件组成。为了`service_map_stateful` 和`otel_trace_raw` 它是`traceId` 默认情况下，无法配置。为了`aggregate` 处理器，可以使用`identification_keys` 选项。
 
 PEER Forwarder通过以下三个选项之一支持同行发现：静态列表，DNS记录查找或AWS云映射。可以使用同行发现使用`discovery_mode` 选项。Peer Fewracker还支持SSL进行验证和加密，以及在同伴转发服务中相互认证的MTL。
 

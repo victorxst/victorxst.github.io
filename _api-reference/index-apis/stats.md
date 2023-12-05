@@ -759,7 +759,7 @@ GET /testindex/_stats
   }
 }
 ```
-</delect>
+</details>
 
 #### 示例请求：逗号-分开索引列表
 

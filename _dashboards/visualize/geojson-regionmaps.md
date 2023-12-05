@@ -43,11 +43,11 @@ Geojson格式允许您编码地理数据结构。要了解有关Geojson规范的
 1. 在右面板中，选择**导入向量图**。
 1. 在**上传地图**，选择或拖放JSON文件，然后输入**地图名称前缀** （例如，`usa-counties`）。您的地图将具有您定义的前缀，然后是`-map` 后缀（例如，`usa-counties-map`），如下图所示：
 
-   <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/import-geojson-file.png" alt ="Importing a GeoJSON file" 宽度="300"/>
+   <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/import-geojson-file.png" alt ="Importing a GeoJSON file" width="300"/>
 
 1. 选择**导入文件** 按钮，然后选择**刷新** 流行中的按钮-向上窗口确认成功上传，如下图所示。
   
-  <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/upload-success.png" alt ="Message confirming successful file upload" 宽度="300"/>
+  <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/upload-success.png" alt ="Message confirming successful file upload" width="300"/>
 
 ### 步骤2：在OpenSearch仪表板中查看自定义区域图
 
@@ -59,7 +59,7 @@ Geojson格式允许您编码地理数据结构。要了解有关Geojson规范的
 1. 选择**更新** 按钮。
 1. 在仪表板中查看您的区域图。例如，下图显示了洛杉矶和圣地亚哥县地区：
 
-  <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/county-region-map.png" alt ="Custom GeoJSON region map" 宽度="600"/>
+  <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/county-region-map.png" alt ="Custom GeoJSON region map" width="600"/>
 
 #### 示例Geojson文件
 

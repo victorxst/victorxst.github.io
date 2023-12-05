@@ -15,7 +15,7 @@ redirect_from:
 
 ## 统计
 引入了1.2
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 返回节点-水平和碎片-索引请求拒绝的级别统计数据。
 

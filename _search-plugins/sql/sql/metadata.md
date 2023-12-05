@@ -32,7 +32,7 @@ SHOW TABLES LIKE %
 ```
 
 | table_cat| table_schem| table_name| table_type| 评论| type_cat| type_schem| type_name| self_referencing_col_name| ref_generation
-：--- | ：---
+:--- | :---
 Docker-簇| 无效的| 帐户| 基础表| 无效的| 无效的| 无效的| 无效的| 无效的| 无效的
 Docker-簇| 无效的| 员工_nest| 基础表| 无效的| 无效的| 无效的| 无效的| 无效的| 无效的
 
@@ -46,7 +46,7 @@ SHOW TABLES LIKE acc%
 ```
 
 | table_cat| table_schem| table_name| table_type| 评论| type_cat| type_schem| type_name| self_referencing_col_name| ref_generation
-：--- | ：---
+:--- | :---
 Docker-簇| 无效的| 帐户| 基础表| 无效的| 无效的| 无效的| 无效的| 无效的| 无效的
 
 
@@ -59,7 +59,7 @@ DESCRIBE TABLES LIKE accounts
 ```
 
 | table_cat| table_schem| table_name| column_name| 数据类型| type_name| column_size| buffer_length| DECIMAL_DIGITS| num_prec_radix| 无效| 评论| column_def| sql_data_type| SQL_DATETIME_SUB| char_octet_length| ordinal_position| is_nullable| scope_catalog| scope_schema| scope_table| source_data_type| is_autoincrement| is_generatedColumn
-：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：--- | ：---
+:--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---
 Docker-簇| 无效的| 帐户| 帐号| 无效的| 长的| 无效的| 无效的| 无效的| 10| 2| 无效的| 无效的| 无效的| 无效的| 无效的| 1|  | 无效的| 无效的| 无效的| 无效的| 不|
 Docker-簇| 无效的| 帐户| 名| 无效的| 文本| 无效的| 无效的| 无效的| 10| 2| 无效的| 无效的| 无效的| 无效的| 无效的| 2|  | 无效的| 无效的| 无效的| 无效的| 不| 
 Docker-簇| 无效的| 帐户| 地址| 无效的| 文本| 无效的| 无效的| 无效的| 10| 2| 无效的| 无效的| 无效的| 无效的| 无效的| 3|  | 无效的| 无效的| 无效的| 无效的| 不| 

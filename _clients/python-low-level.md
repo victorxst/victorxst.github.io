@@ -19,14 +19,14 @@ opensearch low-级Python客户端（`opensearch-py`）为OpenSearch REST API提�
 ```bash
 pip install opensearch-py
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 安装客户端后，您可以像其他任何模块一样导入它：
 
 ```python
 from opensearchpy import OpenSearch
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 连接到OpenSearch
 
@@ -50,7 +50,7 @@ client = OpenSearch(
     ca_certs = ca_certs_path
 )
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 如果您有自己的客户证书，请在`client_cert_path` 和`client_key_path` 参数：
 
@@ -78,7 +78,7 @@ client = OpenSearch(
     ca_certs = ca_certs_path
 )
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 如果您不使用安全插件，请使用禁用SSL创建客户端对象：
 
@@ -96,7 +96,7 @@ client = OpenSearch(
     ssl_show_warn = False
 )
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 连接到Amazon OpenSearch服务
 
@@ -121,7 +121,7 @@ client = OpenSearch(
     pool_maxsize = 20
 )
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 连接到Amazon OpenSearch无服务器
 
@@ -146,7 +146,7 @@ client = OpenSearch(
     pool_maxsize = 20
 )
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 
 ## 创建索引
@@ -165,7 +165,7 @@ index_body = {
 
 response = client.indices.create(index_name, body=index_body)
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 索引文档
 
@@ -185,7 +185,7 @@ response = client.index(
     refresh = True
 )
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 执行批量操作
 
@@ -196,7 +196,7 @@ movies = '{ "index" : { "_index" : "my-dsl-index", "_id" : "2" } } \n { "title" 
 
 client.bulk(movies)
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 搜索文档
 
@@ -219,7 +219,7 @@ response = client.search(
     index = 'python-test-index'
 )
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 删除文档
 
@@ -231,7 +231,7 @@ response = client.delete(
     id = '1'
 )
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 删除索引
 
@@ -242,7 +242,7 @@ response = client.indices.delete(
     index = 'python-test-index'
 )
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 样本程序
 

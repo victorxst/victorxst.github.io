@@ -47,7 +47,7 @@ server_thread_count| 不| 整数| 对等转发器服务器使用的线程数。�
 client_thread_count| 不| 整数| 对等转发器客户端使用的线程数。默认值为200。
 max_connection_count| 不| 整数| PEER Expryer Server的最大开放连接数量。默认值为500。
 max_pending_requests| 不| 整数| 在计划中的工作队列中，允许的任务的最大数量。默认值为1024。
-Discovery_Mode| 不| 细绳| 使用的同行发现模式。有效的选项是`local_node`，，，，`static`，，，，`dns`， 或者`aws_cloud_map`。默认为`local_node`，哪个在本地处理事件。
+Discovery_Mode| 不| 细绳| 使用的同行发现模式。有效的选项是`local_node`，`static`，`dns`， 或者`aws_cloud_map`。默认为`local_node`，哪个在本地处理事件。
 static_endpoints| 有条件的| 列表| 包含所有数据预先实例的端点的列表。如果需要`discovery_mode` 设置为静态。
 domain_name| 有条件的| 细绳| 一个单个域名以查询DNS。通常，通过为同一域创建多个DNS记录来使用。如果需要`discovery_mode` 设置为DNS。
 aws_cloud_map_namespace_name| 有条件的| 细绳| 使用AWS云地图服务发现时，云地图名称空间。如果需要`discovery_mode` 被设定为`aws_cloud_map`。

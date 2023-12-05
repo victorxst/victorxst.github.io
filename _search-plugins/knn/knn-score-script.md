@@ -40,7 +40,7 @@ PUT my-knn-index-1
 ```
 
 如果您 *仅 *想使用分数脚本，则可以省略`"index.knn": true`。这种方法的好处是更快的索引速度和较低的内存使用量，但是您失去了执行标准k的能力-nn查询索引。
-{： 。提示}
+{: .tip}
 
 创建索引后，您可以向其添加一些数据：
 
@@ -281,7 +281,7 @@ GET my-long-index/_search
 
 一个空间对应于用于测量两个点之间距离以确定K的函数-最近的邻居。来自k-nn透视图，较低的分数等同于更接近，更好的结果。这与OpenSearch分数结果的相反，其中更高的分数等于更好的结果。下表说明了OpenSearch如何将空间转换为得分：
 
-<表>
+<table>
   <thead样式="text-align: center">
   <tr>
     <th> spaceType </th>
@@ -312,7 +312,7 @@ GET my-long-index/_search
     <td> \ [得分= 2- D \] </td>
   </tr>
   <tr>
-    <TD> Interproduct（不支持Lucene）</td>
+    <td> Interproduct（不支持Lucene）</td>
     <td> \ [D（\ Mathbf {X}，\ Mathbf {y}）=- {\ Mathbf {x}＆middot;\ Mathbf {y}} =- \ sum_ {i = 1}^n x_i y_i \] </td>
     <td> \ [\ text {if} d \ ge 0，\] \ [score = {1 \ over 1 + d} \] \ [\ text {if text {if} d <0，score =＆minus; d + 1 \] </td>
   </tr>

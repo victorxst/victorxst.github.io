@@ -26,7 +26,7 @@ opensearch-source-pipeline:
  ...
 ```
 
-使用`opensearch` 所有配置设置，包括`indices`，，，，`scheduling`，，，，`search_options`， 和`connection`，将以下示例添加到您的`pipeline.yaml` 文件：
+使用`opensearch` 所有配置设置，包括`indices`，`scheduling`，`search_options`， 和`connection`，将以下示例添加到您的`pipeline.yaml` 文件：
 
 ```yaml
 opensearch-source-pipeline:
@@ -151,7 +151,7 @@ opensearch-migration-pipeline:
 ### 默认搜索行为
 
 默认情况下，`opensearch` 来源将查找群集版本和分发以确定
-哪个`search_context_type` 使用。用于支持的版本和发行版[时间点](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#point-in-time-with-search_after)，，，，`point_in_time` 将会被使用。
+哪个`search_context_type` 使用。用于支持的版本和发行版[时间点](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#point-in-time-with-search_after)，`point_in_time` 将会被使用。
 如果`point_in_time` 不受集群的支持，然后[滚动](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#scroll-search) 将会被使用。对于Amazon OpenSearch无服务器集合，[search_after](https://opensearch.org/docs/latest/search-plugins/searching-data/paginate/#the-search_after-parameter) 将使用，因为都不`point_in_time` 也不`scroll` 由收藏支持。
 
 ### 联系
@@ -245,7 +245,7 @@ source:
 这`opensearch` 源插件可以从一个[Amazon OpenSearch无服务器](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless.html) 收藏。
 
 您无法从使用虚拟私有云（VPC）访问的集合中读取。必须从公共网络访问该集合。
-{： 。警告}
+{: .warning}
 
 #### 创建管道角色
 
@@ -282,7 +282,7 @@ source:
                "index/collection-name/*"
             ]，，
             "Permission"：[[
-               "aoss:ReadDocument"，，，，
+               "aoss:ReadDocument"，
                "aoss:DescribeIndex"
             ]，，
             "ResourceType"："index"
@@ -297,7 +297,7 @@ source:
   ```
 
 Make sure to replace the Amazon Resource Name (ARN) in the `主要的` 元素具有您在上一步中创建的管道角色的ARN。
-{： 。提示}
+{: .tip}
 
 有关如何创建收藏的说明，请参阅[创建收藏](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-create) 在Amazon OpenSearch服务文档中。
 

@@ -95,7 +95,7 @@ SQL插件具有两个查询处理引擎，`V1` 和`V2`。大多数功能都得�
 * 这`V2` 引擎没有跟踪查询执行时间，因此未报告查询缓慢。
 * 这`V2` 查询引擎不仅在OpenSearch Engine中运行查询，还支持发布-处理复杂查询。因此，`explain` 输出不再是OpenSearch域-特定语言（DSL），但还包括来自的查询计划信息`V2` 查询引擎。
 建议更改
-* 这`V2` 查询引擎不支持聚合查询，例如`histogram`，，，，`date_histogram`，，，，`percentiles`，，，，`topHits`，，，，`stats`，，，，`extended_stats`，，，，`terms`， 或者`range`。
+* 这`V2` 查询引擎不支持聚合查询，例如`histogram`，`date_histogram`，`percentiles`，`topHits`，`stats`，`extended_stats`，`terms`， 或者`range`。
 *加入和sub-不支持查询。保持最新的加入和sub的开发-查询，跟踪[Github问题#1441](https://github.com/opensearch-project/sql/issues/1441) 和[Github问题#892](https://github.com/opensearch-project/sql/issues/892)。
 * partiql语法`nested` 不支持查询。此外，对象和原始类型的数组返回数组的第一个索引，而`V1` 他们将整个数组作为JSON对象返回。
 

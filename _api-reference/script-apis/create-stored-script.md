@@ -77,7 +77,7 @@ PUT _scripts/my-first-script
   }
 }
 ````
-{％include copy.html％}
+{% include copy.html %}
 
 上面的示例使用OpenSearch仪表板中的Dev工具控制台的语法。您也可以使用卷曲请求。
 {: .note }
@@ -93,7 +93,7 @@ curl -XPUT "http://opensearch:9200/_scripts/my-first-script" -H 'Content-Type: a
   }
 }'
 ````
-{％include copy.html％}
+{% include copy.html %}
 
 
 以下请求创建了无痛的脚本`my-first-script`，总和每本书的评分并在输出中显示总和：

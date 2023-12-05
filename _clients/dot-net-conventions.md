@@ -30,7 +30,7 @@ parent: .NET客户端
 var uri = new Uri("http://example.org/opensearch");
 var node = new Node(uri);
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 首次创建时，一个节点是符合人资格的，它的`HoldsData` 属性设置为true。
 这`AbsolutePath` 上面创建的节点的属性是`"/opensearch/"`：附加了尾随的前向斜线，以便可以轻松地组合路径。如果未指定，默认`Port` 是80。
@@ -77,7 +77,7 @@ var node = new Node(uri);
 ```cs
 var settings = new ConnectionSettings(connectionPool).MaximumRetries(5);
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 您也可以设置一个`RequestTimeout` 这指定了单个请求和一个超时`MaxRetryTimeout` 这指定了所有重试尝试的时间限制。在下面的示例中，`RequestTimeout` 设置为4秒，并且`MaxRetryTimeout` 设置为12秒，因此查询的最大尝试数为3。
 
@@ -86,7 +86,7 @@ var settings = new ConnectionSettings(connectionPool)
             .RequestTimeout(TimeSpan.FromSeconds(4))
             .MaxRetryTimeout(TimeSpan.FromSeconds(12));
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## 故障转移
 

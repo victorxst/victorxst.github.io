@@ -24,12 +24,12 @@ nav_order: 15
    
 1. 在里面**检测** 部分，为数据源选择日志类型。有关支持的日志类型列表，请参见[{stite.url}}} {{site.baseurl}}/Security/Security（{site.url}}}-分析/秒-分析-config/log-类型/）。要创建自己的日志类型，请参见[创建自定义日志类型]（{{site.url}}} {{site.baseurl}}/security-分析/秒-分析-config/custom-日志-类型/）。
     
-    当您选择时`network`，，，，`cloudtrail`， 或者`s3` 作为日志类型，系统会自动创建检测器仪表板。仪表板为检测器提供可视化，并可以提供安全性-对日志源数据的相关洞察力。有关可视化的更多信息，请参见[构建数据可视化]（{{site.url}}} {{site.baseurl}}}/dashboards/vutionize/viz-指数/）。
+    当您选择时`network`，`cloudtrail`， 或者`s3` 作为日志类型，系统会自动创建检测器仪表板。仪表板为检测器提供可视化，并可以提供安全性-对日志源数据的相关洞察力。有关可视化的更多信息，请参见[构建数据可视化]（{{site.url}}} {{site.baseurl}}}/dashboards/vutionize/viz-指数/）。
     
      
 1. 扩张**检测规则** 显示所选日志类型的可用检测规则列表。最初，默认情况下选择所有规则。以下示例显示了与**视窗** 日志类型。
 
-    <img src ="{{site.url}}{{site.baseurl}}/images/Security/detector-rules.png" alt ="Selecting threat detector log type to auto-populate rules" 宽度="100%">
+    <img src ="{{site.url}}{{site.baseurl}}/images/Security/detector-rules.png" alt ="Selecting threat detector log type to auto-populate rules" width="100%">
 
     您可以在查看规则时执行以下操作：
     
@@ -38,13 +38,13 @@ nav_order: 15
     * 使用**搜索** 栏以搜索特定规则。
     
     要快速选择一个或多个已知的规则并驳回其他规则，请首先通过关闭所有规则**规则名称** 切换，然后搜索您的目标规则名称，然后通过打开其切换来单独选择每个目标。
-    {： 。提示 }
+    {: .tip }
 
 1. 查看现场映射。字段映射允许系统将事件数据从日志准确地传递到检测器，然后使用数据触发警报。有关现场映射的更多信息，请参阅**关于现场映射** 稍后在此主题中。
     
 1. 在里面**探测器时间表** 部分，为运行检测器的频率创建时间表。指定时间单位和一个相应的数字来设置间隔。下图显示检测器每3分钟运行一次。
     
-    <img src ="{{site.url}}{{site.baseurl}}/images/Security/detector-schedule.png" alt ="Detector schedule settings to determine how often the detector runs" 宽度="40%">
+    <img src ="{{site.url}}{{site.baseurl}}/images/Security/detector-schedule.png" alt ="Detector schedule settings to determine how often the detector runs" width="40%">
     
 1. 选择**下一个**。这**设置警报** 出现页面并显示警报触发器的设置。
 
@@ -55,7 +55,7 @@ nav_order: 15
 创建检测器的第二步涉及设置警报。警报被配置为创建触发器，该触发器与一组检测规则标准匹配时，请发送有关可能的安全事件的通知。您可以在任何组合中选择规则名称，规则严重性和标签来定义触发器。定义触发器后，警报设置使您可以选择要通知的频道，并提供了为通知提供消息的选项。
 
 在检测器开始生成发现之前，至少需要一个警报条件。
-{： 。笔记 }
+{: .note }
 
 您还可以从**发现** 窗户。查看如何从**发现** 窗口，请参阅[调查结果列表]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/#the-findings-list)。添加其他警报的最终选项是编辑检测器并导航到**警报触发器** 选项卡，您可以在其中编辑现有警报并添加新警报。有关详细信息，请参阅[编辑检测器]({{site.url}}{{site.baseurl}}/security-analytics/usage/detectors/#editing-a-detector)。
 
@@ -64,18 +64,18 @@ nav_order: 15
 1. 在里面**触发名称** 框，可选输入触发器的名称或编辑默认名称。
 1. 要定义警报的规则匹配，请选择安全规则，严重性级别和标签。
     
-    <img src ="{{site.url}}{{site.baseurl}}/images/Security/alert_rules.png" alt ="Defining an alert" 宽度="70%">
+    <img src ="{{site.url}}{{site.baseurl}}/images/Security/alert_rules.png" alt ="Defining an alert" width="70%">
 
     *选择一个将触发警报的规则或多个规则。将光标放在**规则名称** 框并输入一个名称以搜索它。要删除规则名称，请选择**X** 在名字旁边。要删除所有规则名称，请选择**X** 在下拉列表的下箭头旁边。
 
-    <img src ="{{site.url}}{{site.baseurl}}/images/Security/rule_name_delete.png" alt ="Deletes all selected rules" 宽度="45%">
+    <img src ="{{site.url}}{{site.baseurl}}/images/Security/rule_name_delete.png" alt ="Deletes all selected rules" width="45%">
 
     *选择一个或多个规则严重性水平作为警报条件。
     *从标签列表中选择以将作为警报的条件包含。
 
 1. 要定义警报的通知，请分配警报严重性，选择通知通道，然后自定义为警报生成的消息。
 
-    <img src ="{{site.url}}{{site.baseurl}}/images/Security/alert_notify.png" alt ="Notification settings for the alert" 宽度="45%">
+    <img src ="{{site.url}}{{site.baseurl}}/images/Security/alert_notify.png" alt ="Notification settings for the alert" width="45%">
 
     *为警报分配一定程度的严重性，以使接收者表明其紧迫性。
     *从**选择通知的频道** 下拉列表。示例包括Slack，Chime或电子邮件。要创建一个新频道，请选择**管理频道** 链接到该领域的右侧。这**频道** 有关通知的页面在新选项卡中打开，您可以在其中编辑和创建新频道。有关通知的更多信息，请参阅[通知]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) 文档。
@@ -121,7 +121,7 @@ nav_order: 15
 
 选择数据源和日志类型后，系统将尝试在日志和规则字段之间自动映射字段。切换到**映射字段** 选项卡以显示这些映射的列表。当字段名称彼此相似时，系统可以成功匹配两者，如下图所示。
 
-<img src ="{{site.url}}{{site.baseurl}}/images/Security/automatic-mappings.png" alt ="Field mapping example for automatic mappings" 宽度="85%">
+<img src ="{{site.url}}{{site.baseurl}}/images/Security/automatic-mappings.png" alt ="Field mapping example for automatic mappings" width="85%">
 
 尽管这些自动匹配通常是可靠的，但最好查看映射**映射字段** 表并验证它们是否正确且按预期匹配。如果发现似乎不准确的映射，则可以使用下拉列表来搜索并选择正确的字段名称。有关匹配字段名称的更多信息，请参见以下部分。
 
@@ -129,7 +129,7 @@ nav_order: 15
 
 未自动映射的字段名称出现在**可用字段** 桌子。在此表中，您可以手动将检测规则字段映射到数据源字段，如下图所示。
 
-<img src ="{{site.url}}{{site.baseurl}}/images/Security/pending-mappings.png" alt ="Field mapping example for available mappings" 宽度="85%">
+<img src ="{{site.url}}{{site.baseurl}}/images/Security/pending-mappings.png" alt ="Field mapping example for available mappings" width="85%">
 
 在映射字段时，请考虑以下内容：
 * 这**检测规则字段** 列列出了基于与所选日志类型关联的所有预包装规则的字段名称。

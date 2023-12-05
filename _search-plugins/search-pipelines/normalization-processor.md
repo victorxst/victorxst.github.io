@@ -28,9 +28,9 @@ OpenSearch支持两种搜索类型：`query_then_fetch` 和`dfs_query_then_fetch
 下表列出了所有可用的请求字段。
 
 场地| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `normalization.technique` | 细绳| 标准分数的技术。有效值是[`min_max`](https://en.wikipedia.org/wiki/Feature_scaling#Rescaling_(min-max_normalization)） 和[`l2`](https://en.wikipedia.org/wiki/Cosine_similarity#L2-normalized_Euclidean_distance)。选修的。默认为`min_max`。
-`combination.technique` | 细绳| 组合分数的技术。有效值是[`arithmetic_mean`](https://en.wikipedia.org/wiki/Arithmetic_mean)，，，，[`geometric_mean`](https://en.wikipedia.org/wiki/Geometric_mean)， 和[`harmonic_mean`](https://en.wikipedia.org/wiki/Harmonic_mean)。选修的。默认为`arithmetic_mean`。
+`combination.technique` | 细绳| 组合分数的技术。有效值是[`arithmetic_mean`](https://en.wikipedia.org/wiki/Arithmetic_mean)，[`geometric_mean`](https://en.wikipedia.org/wiki/Geometric_mean)， 和[`harmonic_mean`](https://en.wikipedia.org/wiki/Harmonic_mean)。选修的。默认为`arithmetic_mean`。
 `combination.parameters.weights` | 浮动阵列-点值| 指定每个查询要使用的权重。有效值在[0.0，1.0]范围内，表示十进制百分比。重量越接近1.0，对查询的重量就越多。在`weights` 数组必须等于查询数。数组中的值的总和必须等于1.0。选修的。如果未提供，则所有查询都具有相等的重量。
 `tag` | 细绳| 处理器的标识符。选修的。
 `description` | 细绳| 处理器的描述。选修的。
@@ -68,7 +68,7 @@ PUT /_search/pipeline/nlp-search-pipeline
   ]
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ### 使用搜索管道
 
@@ -106,7 +106,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 有关更多信息，请参阅[混合查询]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/)。
 

@@ -51,7 +51,7 @@ openid_auth_domain:
 下表显示了配置参数。
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `openid_connect_url` | 安全插件可以找到OpenID连接元数据/配置设置的IDP的URL。此URL在IDP之间有所不同。使用OpenID Connect作为后端时需要。
 `jwt_header` | 存储令牌的HTTP标头。通常是`Authorization` 标题与`Bearer` 模式：`Authorization: Bearer <token>`。选修的。默认为`Authorization`。
 `jwt_url_parameter` | 如果代币未在HTTP标头中传输，而是作为URL参数，请在此处定义参数的名称。选修的。
@@ -173,7 +173,7 @@ config:
 ```
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `enable_ssl` | 是否使用TLS。默认值为false。
 `verify_hostnames` | 是否验证IDP TLS证书的主机名。默认是正确的。
 
@@ -202,7 +202,7 @@ config:
 
 
 | 姓名| 描述|
-| ：--- | ：--- |
+| :--- | :--- |
 | `pemtrustedcas_filepath` | 绝对路径到包含IDP根CA的PEM文件。|
 | `pemtrustedcas_content` | IDP的根CA内容。如果不能使用`pemtrustedcas_filepath` 设置。|
 
@@ -238,7 +238,7 @@ config:
 ```
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `enable_ssl_client_auth` | 是否将客户端证书发送到IDP服务器。默认值为false。
 `pemcert_filepath` | 绝对通往客户端证书的路径。
 `pemcert_content` | 客户证书的内容。不能使用`pemcert_filepath` 设置。
@@ -252,7 +252,7 @@ config:
 您可以使用以下键限制允许的密码和TLS协议。
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `enabled_ssl_ciphers` | 大批。启用了TLS密码套件。仅支持Java格式。
 `enabled_ssl_protocols` | 大批。启用了TLS协议。仅支持Java格式。
 
@@ -262,7 +262,7 @@ config:
 帮助防止否认-的-服务（DOS）攻击，安全插件仅允许在一定时间内允许最大数量的新密钥ID。如果新密钥ID的数量超过此阈值，则安全插件将返回HTTP状态代码503（服务不可用），并拒绝查询IDP。默认情况下，安全插件在10秒内不允许超过10个未知的密钥ID。下表显示了如何修改这些设置。
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `refresh_rate_limit_count` | 时间范围内未知密钥ID的最大数量。默认值为10。
 `refresh_rate_limit_time_window_ms` | 以毫秒为单位检查最大未知密钥ID的时间范围。默认值为10000（10秒）。
 
@@ -293,7 +293,7 @@ OpenID Connect提供商通常以 *元数据URL *以JSON格式发布其配置。�
 ### 配置设置
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `opensearch_security.openid.connect_url` | IDP发布OpenID元数据的URL。必需的。
 `opensearch_security.openid.client_id` | IDP中配置的OpenID连接客户端的ID。必需的。
 `opensearch_security.openid.client_secret` | IDP中配置的OpenID Connect客户端的客户端秘密。必需的。
@@ -334,7 +334,7 @@ opensearch.requestHeadersAllowlist: ["Authorization", "security_tenant"]
 ```
 
 在仪表板标志中与其他身份验证类型一起包含OpenID连接-在窗口中，请参阅[配置标志-在选项中]({{site.url}}{{site.baseurl}}/security/configuration/multi-auth/)。
-{： 。笔记 }
+{: .note }
 
 ### 其他参数
 
@@ -346,7 +346,7 @@ opensearch.requestHeadersAllowlist: ["Authorization", "security_tenant"]
 opensearch_security.openid.additional_parameters.foo: "bar"
 opensearch_security.openid.additional_parameters.acr_values: "1"
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 
 
@@ -362,7 +362,7 @@ opensearch_security.openid.extra_storage.additional_cookies: 3
 请注意，减少其他cookie的数量可能会导致一些在更改之前使用的cookie停止工作。我们建议建立固定数量的其他cookie，然后不更改配置。
 
 如果来自IDP的ID令牌特别大，OpenSearch可能会丢弃服务器日志身份验证错误，以表明HTTP标头太大。在这种情况下，您可以增加`http.max_header_size` 设置在`opensearch.yml` 文件。
-{： 。提示 }
+{: .tip }
 
 
 ### OpenSearch安全配置

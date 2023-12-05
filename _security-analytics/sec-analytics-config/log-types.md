@@ -41,7 +41,7 @@ nav_order: 16
 以下列表描述了在**日志类型** 页面和您可以采取的操作：
 
 *选择日志类型**姓名** 打开日志类型的详细信息页面。这**细节** 默认情况下显示选项卡。此选项卡包括日志类型的ID。您也可以选择**检测规则** 选项卡以显示与日志类型关联的所有检测规则。
-* 在里面**动作** 列，您可以选择垃圾桶图标（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/alerting/trash-can-icon.png" class ="inline-icon" alt ="trash can icon"/> {：/}）要删除自定义日志类型（您无法删除标准openSearch-定义的日志类型）。请按照提示确认并安全删除自定义日志类型。
+* 在里面**动作** 列，您可以选择垃圾桶图标（{::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/alerting/trash-can-icon.png" class ="inline-icon" alt ="trash can icon"/> {:/}）要删除自定义日志类型（您无法删除标准openSearch-定义的日志类型）。请按照提示确认并安全删除自定义日志类型。
 * 选择**创建日志类型** 在上部-屏幕的右角开始创建自定义日志类型。这**创建日志类型** 页面打开。继续执行以下部分创建自定义日志类型的步骤。
 * 使用**类别** 和**来源** 下拉阶段，您可以分别按日志类型类别或源进行排序。
 

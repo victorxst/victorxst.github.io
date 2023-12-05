@@ -23,7 +23,7 @@ GET _search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 结果是 *诸如 *风 *和 *随风 *之类的电影都接近搜索结果的顶部，而诸如 *Twister *之类的电影大概是"wind" 在他们的情节摘要中，靠近底部。
 
@@ -40,12 +40,12 @@ GET _search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 如果您不提供`fields` 范围，`multi_match` 查询搜索在`index.query. Default_field` 设置，默认为`*`。默认行为是提取有资格的映射中的所有字段[学期-级查询]({{site.url}}{{site.baseurl}}/query-dsl/term/index/)，过滤元数据字段，然后组合所有提取的字段以构建查询。
 
 查询中的最大从句数量在`indices.query.bool.max_clause_count` 设置，默认为1,024。
-{： 。笔记}
+{: .note}
 
 ## 多-匹配查询类型
 
@@ -71,7 +71,7 @@ PUT /articles/_doc/1
   "description": "Northern lights, or aurora borealis, explained"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ```json
 PUT /articles/_doc/2
@@ -80,7 +80,7 @@ PUT /articles/_doc/2
   "description": "Using fluorescent lights for therapy"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 您可以搜索包含的文章`northern lights` 在标题或描述中：
 
@@ -97,7 +97,7 @@ GET articles/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 前面的查询被执行为以下[`dis_max`]({{site.url}}{{site.baseurl}}/query-dsl/compound/disjunction-max/) 用一个`match` 每个字段的查询：
 
@@ -184,7 +184,7 @@ PUT /articles
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 考虑以下两个文档`articles` 指数：
 
@@ -194,7 +194,7 @@ PUT /articles/_doc/1
   "title": "Buttered toasts"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ```json
 PUT /articles/_doc/2
@@ -202,9 +202,9 @@ PUT /articles/_doc/2
   "title": "Buttering a toast"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
-这`standard` 分析仪分析标题`Buttered toast` 进入 [`buttered`，，，，`toasts`]和标题`Buttering a toast` 进入 [`buttering`，，，，`a`，，，，`toast`]。另一方面，`english` 分析仪会产生相同的令牌列表[`butter`，，，，`toast`]对于两个标题，由于茎。
+这`standard` 分析仪分析标题`Buttered toast` 进入 [`buttered`，`toasts`]和标题`Buttering a toast` 进入 [`buttering`，`a`，`toast`]。另一方面，`english` 分析仪会产生相同的令牌列表[`butter`，`toast`]对于两个标题，由于茎。
 
 您可以使用`most_fields` 查询以返回尽可能多的文档：
 
@@ -223,7 +223,7 @@ GET /articles/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 前面的查询被执行为以下布尔查询：
 
@@ -298,7 +298,7 @@ PUT customers/_doc/1
   "last_name": "Doe"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ```json
 PUT customers/_doc/2 
@@ -307,7 +307,7 @@ PUT customers/_doc/2
   "last_name": "Doe"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 如果您正在寻找`John Doe` 在里面`customers` 索引，您可以构建以下查询：
 
@@ -324,7 +324,7 @@ GET customers/_validate/query?explain
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 意图`and` 此查询中的操作员是找到匹配的文档`John` 和`Doe`。但是，查询不会返回任何结果。您可以通过运行Validate API来了解如何执行查询：
 
@@ -341,7 +341,7 @@ GET customers/_validate/query?explain
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 从响应中，您可以看到查询正在尝试匹配两者`John` 和`Doe` 要么`first_name` 或者`last_name` 场地：
 
@@ -393,7 +393,7 @@ GET /customers/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 响应包含唯一的文档`John` 和`Doe` 存在：
 
@@ -443,7 +443,7 @@ GET /customers/_validate/query?explain
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 从响应中，您可以看到查询至少在一个字段中搜索所有术语：
 
@@ -468,10 +468,10 @@ GET /customers/_validate/query?explain
 因此，混合所有字段的术语频率通过校正差异来解决不同项频率的问题。
 
 这`cross_fields` 查询通常仅在带有一个短字符串字段上有用`boost` 在1.的情况下，在其他情况下，分数不会产生有意义的术语统计融合，这是因为增强，项频率和长度归一化的方式会导致分数。
-{： 。笔记}
+{: .note}
 
 这`fuzziness` 不支持参数`cross_fields` 查询。
-{： 。笔记}
+{: .note}
 
 ### 分析
 
@@ -529,7 +529,7 @@ PUT customers
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 </delect>
 
@@ -542,7 +542,7 @@ PUT /customers/_doc/1
   "last": "Doe"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 您可以使用`cross_fields` 查询以跨字段搜索`John Doe`：
 
@@ -561,7 +561,7 @@ GET /customers/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 要查看查询的执行方式，您可以运行Validate API：
 
@@ -580,7 +580,7 @@ GET /customers/_validate/query?explain
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 回应表明`last_name` 和`first_name` 将字段分组在一起，并将其视为一个字段。同样，`last_name.edge` 和`first_name.edge` 字段被分组在一起，并将其视为一个字段：
 
@@ -636,7 +636,7 @@ GET /customers/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 要为所有字段创建一个组，请在查询中指定一个分析仪：
 
@@ -653,7 +653,7 @@ GET customers/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 在上一个查询上运行validate API显示了查询的执行方式：
 
@@ -693,7 +693,7 @@ GET articles/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 前面的查询被执行为以下[`dis_max`]({{site.url}}{{site.baseurl}}/query-dsl/compound/disjunction-max/) 用一个`match_phrase` 每个字段的查询：
 
@@ -749,7 +749,7 @@ GET articles/_search
   }
 }
 ```
-</delect>
+</details>
 
 您可以使用`slop` 参数允许查询短语中的单词之间的其他单词。例如，以下查询接受文本作为匹配，如果最多两个单词之间`flourescent` 和`therapy`：
 
@@ -766,7 +766,7 @@ GET articles/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 响应包含文件2：
 
@@ -806,12 +806,12 @@ GET articles/_search
   }
 }
 ```
-</delect>
+</details>
 
 为了`slop` 值小于2，没有返回文档。
 
 这`fuzziness` 不支持参数`phrase` 查询。
-{： 。笔记}
+{: .note}
 
 ## 短语前缀
 
@@ -831,7 +831,7 @@ GET articles/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 前面的查询被执行为以下[`dis_max`]({{site.url}}{{site.baseurl}}/query-dsl/compound/disjunction-max/) 用一个`match_phrase_prefix` 每个字段的查询：
 
@@ -852,7 +852,7 @@ GET articles/_search
 您可以使用`slop` 参数允许查询短语中的单词之间的其他单词。
 
 这`fuzziness` 不支持参数`phrase_prefix` 查询。
-{： 。笔记}
+{: .note}
 
 ## 布尔前缀
 
@@ -872,7 +872,7 @@ GET articles/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 前面的查询被执行为以下[`dis_max`]({{site.url}}{{site.baseurl}}/query-dsl/compound/disjunction-max/) 用一个`match_bool_prefix` 每个字段的查询：
 
@@ -890,22 +890,22 @@ GET articles/_search
 }
 ```
 
-这`fuzziness`，，，，`prefix_length`，，，，`max_expansions`，，，，`fuzzy_rewrite`， 和`fuzzy_transpositions` 支持用于构建项的术语查询的术语的参数，但它们对从最后一项构建的前缀查询没有影响。
-{： 。笔记}
+这`fuzziness`，`prefix_length`，`max_expansions`，`fuzzy_rewrite`， 和`fuzzy_transpositions` 支持用于构建项的术语查询的术语的参数，但它们对从最后一项构建的前缀查询没有影响。
+{: .note}
 
 ## 参数
 
 查询接受以下参数。除所有参数外`query` 是可选的。
 
 范围| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `query` | 细绳| 用于搜索的查询字符串。必需的。
 `auto_generate_synonyms_phrase_query` | 布尔| 指定是否创建[匹配短语查询]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match-phrase/) 自动用于多人-术语同义词。例如，如果指定`ba,batting average` 作为同义词和搜索`ba`，OpenSearch搜索`ba OR "batting average"` （如果此选项是`true`） 或者`ba OR (batting AND average)` （如果此选项是`false`）。默认为`true`。
 `analyzer` | 细绳| 这[分析仪]({{site.url}}{{site.baseurl}}/analyzers/index/) 用于引导查询字符串文本。默认是索引-指定的时间分析仪`default_field`。如果未针对`default_field`， 这`analyzer` 是索引的默认分析仪。
 `boost` | 漂浮的-观点| 通过给定的乘数增强子句。对于在复合查询中称量从句有用。[0，1）中的值降低了相关性，并且值大于1的相关性。默认为`1`。
 `fields` | 弦数| 搜索字段列表。如果您不提供`fields` 范围，`multi_match` 查询搜索在`index.query. Default_field` 设置，默认为`*`。
-`fuzziness` | 细绳| 在确定一个术语是否匹配值时，将一个单词更改为另一个单词所需的字符编辑数量（插入，删除，替换）。例如，`wined` 和`wind` 是1.有效值是非-负整数或`AUTO`。默认，`AUTO`，根据每个学期的长度选择一个值，对于大多数用例，是一个不错的选择。不支持`phrase`，，，，`phrase_prefix`， 和`cross_fields` 查询。
-`fuzzy_rewrite` | 细绳| 确定OpenSearch如何重写查询。有效值是`constant_score`，，，，`scoring_boolean`，，，，`constant_score_boolean`，，，，`top_terms_N`，，，，`top_terms_boost_N`， 和`top_terms_blended_freqs_N`。如果是`fuzziness` 参数不是`0`，查询使用`fuzzy_rewrite` 的方法`top_terms_blended_freqs_${max_expansions}` 默认情况下。默认为`constant_score`。
+`fuzziness` | 细绳| 在确定一个术语是否匹配值时，将一个单词更改为另一个单词所需的字符编辑数量（插入，删除，替换）。例如，`wined` 和`wind` 是1.有效值是非-负整数或`AUTO`。默认，`AUTO`，根据每个学期的长度选择一个值，对于大多数用例，是一个不错的选择。不支持`phrase`，`phrase_prefix`， 和`cross_fields` 查询。
+`fuzzy_rewrite` | 细绳| 确定OpenSearch如何重写查询。有效值是`constant_score`，`scoring_boolean`，`constant_score_boolean`，`top_terms_N`，`top_terms_boost_N`， 和`top_terms_blended_freqs_N`。如果是`fuzziness` 参数不是`0`，查询使用`fuzzy_rewrite` 的方法`top_terms_blended_freqs_${max_expansions}` 默认情况下。默认为`constant_score`。
 `fuzzy_transpositions` | 布尔| 环境`fuzzy_transpositions` 到`true` （默认）在插入，删除和替代操作中添加相邻字符的互换`fuzziness` 选项。例如，`wind` 和`wnid` 是1`fuzzy_transpositions` 是真的（交换"n" 和"i"）和2如果是错误的（删除"n"， 插入"n"）。如果`fuzzy_transpositions` 是错误的，`rewind` 和`wnid` 距离有相同的距离（2）`wind`，尽管人类越来越多-以中心的看法`wnid` 是一个明显的错别字。对于大多数用例，默认值是一个不错的选择。
 `lenient` | 布尔| 环境`lenient` 到`true` 忽略查询和文档字段之间的数据类型不匹配。例如，一个查询字符串`"8.2"` 可以匹配类型字段`float`。默认为`false`。
 `max_expansions` | 正整数|  查询可以扩展的最大术语数量。模糊的查询“扩展为”在指定距离内的许多匹配术语`fuzziness`。然后OpenSearch尝试匹配这些术语。默认为`50`。
@@ -917,17 +917,17 @@ GET articles/_search
 `类型` | String | The multi-match query type. Valid values are `best_fields`, `mosp_fields`, `cross_fields`, `短语`, `phrase_prefix`, `bool_prefix`. Default is `best_fields`.
 `ZERO_TERMS_QUERY` | String | In some cases, the analyzer removes all terms from a query string. For example, the `停止` analyzer removes all terms from the string `但是这个`. In those cases, `ZERO_TERMS_QUERY` specifies whether to match no documents (`没有任何`) or all documents (`全部`). Valid values are `没有任何` and `全部`. Default is `没有任何`。
 
-这`fuzziness` 不支持参数`phrase`，，，，`phrase_prefix`， 和`cross_fields` 查询。
-{： 。笔记}
+这`fuzziness` 不支持参数`phrase`，`phrase_prefix`， 和`cross_fields` 查询。
+{: .note}
 
 这`slop` 参数仅支持`phrase` 和`phrase_prefix` 查询。
-{： 。笔记}
+{: .note}
 
 ### 这`tie_breaker` 范围
 
 每个学期-级别混合查询将文档分数计算为小组中任何字段返回的最佳分数。所有混合查询的分数都会添加在一起以产生最终分数。您可以通过使用`tie_breaker` 范围。这`tie_breaker` 参数接受以下值：
 
-- 0.0（默认`best_fields`，，，，`cross_fields`，，，，`phrase`， 和`phrase_prefix` 查询）：以组中任何字段返回的单一最佳分数。
+- 0.0（默认`best_fields`，`cross_fields`，`phrase`， 和`phrase_prefix` 查询）：以组中任何字段返回的单一最佳分数。
 - 1.0（默认`most_fields` 和`bool_prefix` 查询）：添加组中所有字段的分数。
 - 浮动-（0，1）范围中的点值：取得最佳的最佳分数-匹配字段并添加（`tie_breaker` *`_score`）对于所有其他匹配字段
 

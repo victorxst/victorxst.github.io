@@ -54,7 +54,7 @@ OpenSearch为客户提供以下编程语言和平台的客户：
 如果您测试旧的客户端并确认其有效，请[提交公关](https://github.com/opensearch-project/documentation-website/pulls) 并将其添加到此表中。
 
 
-{％ 评论 ％}
+{% comment %}
 ## Python 3测试代码
 
 该代码索引一个文档，相当于`PUT /python-test-index1/_doc/1`。
@@ -112,5 +112,5 @@ async function run () {
 
 run().catch(console.log)
 ```
-{％endcomment％}
+{% endcomment %}
 

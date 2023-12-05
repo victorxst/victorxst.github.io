@@ -47,12 +47,12 @@ parent: 监视器
 ```
 
 使用`ctx.results` 消息中的变量，使用`{% raw %}{{ctx.results.0}}{% endraw %}` 而不是`{% raw %}{{ctx.results[0]}}{% endraw %}`。这种差异是由于胡须如何处理括号符号。
-{： 。笔记 }
+{: .note }
 
 #### 动作变量
 
 多变的| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `ctx.trigger.actions.id` | 细绳| 动作ID。
 `ctx.trigger.actions.name` | 细绳| 动作名称。
 `ctx.trigger.actions.message_template.source` | 细绳| 发送警报的消息。

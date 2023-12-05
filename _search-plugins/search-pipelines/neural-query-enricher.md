@@ -16,7 +16,7 @@ grand_parent: 搜索管道
 下表列出了所有可用的请求字段。
 
 场地| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `default_model_id` | 细绳| 索引的默认模型的模型ID。选修的。您必须至少指定一个`default_model_id` 或者`neural_field_default_id`。如果两者都提供，`neural_field_default_id` 优先。
 `neural_field_default_id` | 目的| 密钥地图-代表文档字段名称及其关联的默认模型ID的值对。选修的。您必须至少指定一个`default_model_id` 或者`neural_field_default_id`。如果两者都提供，`neural_field_default_id` 优先。
 `tag` | 细绳| 处理器的标识符。选修的。
@@ -44,5 +44,5 @@ PUT /_search/pipeline/default_model_pipeline
   ]
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 

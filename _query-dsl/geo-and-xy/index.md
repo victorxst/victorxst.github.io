@@ -18,7 +18,7 @@ redirect_from:
 [xy查询]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-and-xy/xy) 搜索在笛卡尔坐标系中包含几何形状的文档。这些几何形状可以在[`xy_point`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-point) 田野，支持点，以及[`xy_shape`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-shape) 支持点，线，圆和多边形的字段。
 
 xy查询返回包含的文档：
-- XY形状和XY点具有与所提供形状的四个空间关系之一：`INTERSECTS`，，，，`DISJOINT`，，，，`WITHIN`， 或者`CONTAINS`。
+- XY形状和XY点具有与所提供形状的四个空间关系之一：`INTERSECTS`，`DISJOINT`，`WITHIN`， 或者`CONTAINS`。
 - 与提供形状相交的XY点。
 
 ## 地理查询
@@ -31,6 +31,6 @@ OpenSearch提供以下地理查询类型：
 - **GeoDistance查询** 返回文档，带有指定距离的地理点距离的地理点。
 - **Geopoygon查询** 带有多边形内的地理点的返回文档。
 - **Geoshape查询** 包含的返回文档：
-    - 与所提供形状具有四个空间关系之一的地理和地理点：`INTERSECTS`，，，，`DISJOINT`，，，，`WITHIN`， 或者`CONTAINS`。
+    - 与所提供形状具有四个空间关系之一的地理和地理点：`INTERSECTS`，`DISJOINT`，`WITHIN`， 或者`CONTAINS`。
     - 与提供形状相交的地理点
 

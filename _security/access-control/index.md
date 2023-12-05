@@ -18,7 +18,7 @@ redirect_from:
 ## 概念
 
 学期| 描述
-：--- | ：---
+:--- | :---
 允许| 单个行动，例如创建索引（例如`indices:admin/create`）。有关完整列表，请参阅[权限]({{site.url}}{{site.baseurl}}/security/access-control/permissions/)。
 行动小组| 一组权限。例如，预定义`SEARCH` 行动小组授权角色使用`_search` 和`_msearch` 蜜蜂。
 角色| 安全角色定义了权限或操作组的范围：集群，索引，文档或字段。例如，一个命名的角色`delivery_analyst` 可能没有集群权限，`READ` 所有匹配的索引的行动组`delivery-data-*` 模式，访问这些索引中的所有文档类型，以及访问所有字段以外的所有字段`delivery_driver_name`。

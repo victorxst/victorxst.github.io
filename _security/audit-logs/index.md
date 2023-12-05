@@ -17,7 +17,7 @@ redirect_from:
   <summary>
     目录
   </summary>
-  {： 。文本-delta}
+  {: .text-delta }
 - TOC
 {:toc}
 </delect>
@@ -48,7 +48,7 @@ redirect_from:
 审核记录记录以两种方式记录事件：http请求（休息）和传输层。下表提供了跟踪事件的描述，以及它们是否在其余部分或运输层登录。
 
 事件| 登录休息| 登录运输| 描述
-：--- | ：--- | ：--- | ：---
+:--- | :--- | :--- | :---
 `FAILED_LOGIN` | 是的| 是的| 无法验证请求的凭据，这很可能是因为用户不存在或密码不正确。
 `AUTHENTICATED` | 是的| 是的| 用户成功身份验证。
 `MISSING_PRIVILEGES` | 不| 是的| 用户没有提出请求的要求的权限。
@@ -133,7 +133,7 @@ plugins.security.audit.config.resolve_indices: false
 ```
 
 此功能仅在`plugins.security.audit.config.log_request_body` 也设置为`false`。
-{： 。笔记 }
+{: .note }
 
 
 #### 配置批量请求处理

@@ -15,7 +15,7 @@ nav_order: 10
 
 在本教程中，您将学习创建索引模式。
 
-{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class ="inline-icon" alt ="alert icon" 大小="m"/> {：/}**笔记**<br>
+{::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class ="inline-icon" alt ="alert icon" 大小="m"/> {:/}**笔记**<br>
 要创建或修改索引模式，您必须具有创建，管理和删除权限。联系您的管理员以寻求支持。有关更多信息，请参阅[并发-租赁配置]({{site.url}}{{site.baseurl}}/security/multi-tenancy/multi-tenancy-config/#give-roles-access-to-tenants)。
 {: .note}
 
@@ -52,7 +52,7 @@ nav_order: 10
 
 2. 选择**创建索引模式。** 下图显示了一个示例。
 
-    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/index-pattern-step2.png" alt ="Index pattern step 2 UI " 宽度="700"/>
+    <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/index-pattern-step2.png" alt ="Index pattern step 2 UI " width="700"/>
 
 创建索引模式后，您可以查看匹配索引的映射。在表中，您可以看到字段列表以及它们的数据类型和属性。下图显示了一个示例。
 

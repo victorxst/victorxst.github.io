@@ -7,7 +7,7 @@ nav_order: 65
 
 # 分布式跟踪
 这是一个实验特征，不建议在生产环境中使用。有关功能进度或要留下反馈的更新，请参阅关联[Github问题](https://github.com/opensearch-project/OpenSearch/issues/6750)。
-{： 。警告}
+{: .warning}
 
 分布式跟踪用于监视和调试分布式系统。您可以通过系统跟踪请求流，并确定性能瓶颈和错误。_trace_是一个完整的结尾-到-当请求流过分布式系统时，请求的结束路径。它代表特定操作的旅程，因为它遍历了分布式体系结构中的各种组件和服务。在分布式跟踪中，单个跟踪包含一系列称为_spans_的标记时间间隔。跨度具有开始和结束时间，可能包括其他元数据（如日志或标签），以帮助对发生的事情进行分类。
 
@@ -56,7 +56,7 @@ cd \path\to\opensearch
 ```bash
 opensearch.experimental.feature.telemetry.enabled=true
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 4. 保存更改并关闭文件。
 
@@ -67,14 +67,14 @@ opensearch.experimental.feature.telemetry.enabled=true
 ```bash
 -Dopensearch.experimental.feature.telemetry.enabled=true
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 运行OpenSearch：
 
 ```bash
 ./bin/opensearch
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 #### 选项3：从环境变量启用
 
@@ -85,7 +85,7 @@ opensearch.experimental.feature.telemetry.enabled=true
 ```bash
 OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled=true" ./opensearch-2.9.0/bin/opensearch
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 要分别定义环境变量，在运行OpenSearch之前，运行以下命令：
 
@@ -93,7 +93,7 @@ OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled=true" 
 export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled=true"
  ./bin/opensearch
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ### 使用Docker容器启用
 
@@ -102,7 +102,7 @@ export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled
 ```bash
 OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.telemetry.enabled=true"
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ### 启用开发开发
 

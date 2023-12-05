@@ -7,7 +7,7 @@ nav_order: 50
 
 # 警告仪表板和可视化
 引入2.9
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 在单个，合并的视图中创建，管理和采取行动，并迅速识别和解决问题。使用**仪表板** 接口：
 
@@ -53,7 +53,7 @@ nav_order: 50
 1. 选择**仪表板** 从OpenSearch仪表板主菜单中。
 2. 来自**仪表板** 窗口，选择**创造** 然后选择**仪表板**。
 3. 选择**添加现有**，然后从中选择适当的警报可视化**添加面板** 列表。可视化添加到仪表板中。
-4. 从可视化面板中，选择省略号图标（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class ="inline-icon" alt ="ellipsis icon"/> {：/}）。
+4. 从可视化面板中，选择省略号图标（{::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class ="inline-icon" alt ="ellipsis icon"/> {:/}）。
 5. 来自**选项** 菜单，选择**添加警报显示器**。
 6. 输入信息**监视详细信息** 和**触发器**。
 7. 选择**创建监视器**。监视器被添加到可视化中。
@@ -68,7 +68,7 @@ nav_order: 50
 
 继续在上一节中创建的警报可视化和仪表板，通过遵循以下步骤将现有监视器与可视化相关联：
 
-1. 从可视化面板中，选择省略号图标（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class ="inline-icon" alt ="ellipsis icon"/> {：/}）。
+1. 从可视化面板中，选择省略号图标（{::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class ="inline-icon" alt ="ellipsis icon"/> {:/}）。
 2. 选择**相关监视器**。
 3. 来自**选择监视器** 下拉菜单，选择监视器。仅在下拉菜单中列出了合格的显示器。
 4. 查看监视器的基本信息。要查看全面的细节，请选择**查看监视器页面** 打开警报插件页面。
@@ -78,13 +78,13 @@ nav_order: 50
 
 创建或关联的警报监视器后，请验证监视器正在生成警报并通过以下各个步骤探索警报详细信息：
 
-1. 打开警报仪表板。使用三角图标（{:: nomarkdown} <img src =可视化表示警报。"{{site.url}}{{site.baseurl}}/images/dashboards/triangle-icon.png" class ="inline-icon" alt ="triangle icon"/> {：/}）。
-2. 悬停在三角图标上（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/triangle-icon.png" class ="inline-icon" alt ="triangle icon"/> {：/}）查看高-级别数据，例如警报数量。要调查警报详细信息，请选择“三角图”图标（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/triangle-icon.png" class ="inline-icon" alt ="triangle icon"/> {：/}）打开带有更详细的监视器信息的飞行。另外，选择省略号图标（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class ="inline-icon" alt ="ellipsis icon"/> {：/}）在可视化面板中，然后选择**查看事件**。
-3. 选择省略号图标（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class ="inline-icon" alt ="ellipsis icon"/> {：/}），然后**警报** >**相关监视器**。
+1. 打开警报仪表板。使用三角图标（{::nomarkdown} <img src =可视化表示警报。"{{site.url}}{{site.baseurl}}/images/dashboards/triangle-icon.png" class ="inline-icon" alt ="triangle icon"/> {:/}）。
+2. 悬停在三角图标上（{::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/triangle-icon.png" class ="inline-icon" alt ="triangle icon"/> {:/}）查看高-级别数据，例如警报数量。要调查警报详细信息，请选择“三角图”图标（{::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/triangle-icon.png" class ="inline-icon" alt ="triangle icon"/> {:/}）打开带有更详细的监视器信息的飞行。另外，选择省略号图标（{::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class ="inline-icon" alt ="ellipsis icon"/> {:/}）在可视化面板中，然后选择**查看事件**。
+3. 选择省略号图标（{::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class ="inline-icon" alt ="ellipsis icon"/> {:/}），然后**警报** >**相关监视器**。
 4. 从列表中选择一个警报监视器。可视化面板中显示了诸如历史记录，警报和相关可视化的信息。
 5. UNINK或编辑监视器。
-   1.通过选择链接图标（{:: NOMARKDOWN} <img src =，将监视器与可视化链接到可视化。"{{site.url}}{{site.baseurl}}/images/dashboards/link-icon.png" class ="inline-icon" alt ="link icon"/> {：/}）**动作**。这只会将监视器与可视化链接起来。它不会删除监视器。
-   2.通过选择“编辑图标”（{:: nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/edit-icon.png" class ="inline-icon" alt ="edit icon"/> {：/}）。
+   1.通过选择链接图标（{::nomarkdown} <img src =，将监视器与可视化链接到可视化。"{{site.url}}{{site.baseurl}}/images/dashboards/link-icon.png" class ="inline-icon" alt ="link icon"/> {:/}）**动作**。这只会将监视器与可视化链接起来。它不会删除监视器。
+   2.通过选择“编辑图标”（{::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/dashboards/edit-icon.png" class ="inline-icon" alt ="edit icon"/> {:/}）。
 
 ## 下一步
 

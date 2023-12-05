@@ -15,7 +15,7 @@ redirect_from:
 A`query_string` 查询基于[查询字符串语法](#query-string-syntax)。它提供了创建功能强大而简洁的查询，这些查询可以包含通配符并搜索多个字段。
 
 搜索`query_string` 查询不返回嵌套文档。要搜索嵌套字段，请使用[`nested` 询问]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/)。
-{： 。笔记}
+{: .note}
 
 查询字符串查询具有严格的语法，并在无效的语法中返回错误。因此，对于搜索框应用程序，它不能很好地工作。对于不太严格的替代方案，请考虑使用[`simple_query_string` 询问]({{site.url}}{{site.baseurl}}/query-dsl/full-text/simple-query-string/)。如果您不需要查询语法支持，请使用[`match` 询问]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match/)。
 {： 。重要的}
@@ -37,7 +37,7 @@ A`query_string` 查询基于[查询字符串语法](#query-string-syntax)。它�
       }
     }
     ```
-    {％包含副本-curl.html％}
+    {% include copy-curl.html %}
 
 1. 在OpenSearch仪表板的Discover应用程序中，如果关闭DQL，如下图所示。
   ![在OpenSearch仪表板中使用查询字符串语法Discover]({{site.url}}{{site.baseurl}}/images/discover-lucene-syntax.png)
@@ -70,7 +70,7 @@ PUT /testindex
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ```json
 PUT /testindex/_doc/1
@@ -78,7 +78,7 @@ PUT /testindex/_doc/1
   "title": "The wind rises"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ```json
 PUT /testindex/_doc/2
@@ -87,7 +87,7 @@ PUT /testindex/_doc/2
   "description": "A 1939 American epic historical film"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ```json
 PUT /testindex/_doc/3
@@ -95,7 +95,7 @@ PUT /testindex/_doc/3
   "title": "Windy city"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ```json
 PUT /testindex/_doc/4
@@ -103,16 +103,16 @@ PUT /testindex/_doc/4
   "article title": "Wind turbines"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ## 保留字符
 
 以下是查询字符串查询的保留字符的列表：
 
-`+`，，，，`-`，，，，`=`，，，，`&&`，，，，`||`，，，，`>`，，，，`<`，，，，`!`，，，，`(`，，，，`)`，，，，`{`，，，，`}`，，，，`[`，，，，`]`，，，，`^`，，，，`"`，，，，`~`，，，，`*`，，，，`?`，，，，`:`，，，，`\`，，，，`/`
+`+`，`-`，`=`，`&&`，`||`，`>`，`<`，`!`，`(`，`)`，`{`，`}`，`[`，`]`，`^`，`"`，`~`，`*`，`?`，`:`，`\`，`/`
 
 逃避保留角色带有后斜切（`\`）。发送JSON请求时，请使用双重倾斜（`\\`）要逃脱保留的字符（因为后斜切字符本身是保留的，您必须与另一个后斜线逃脱后斜线）。
-{： 。提示}
+{: .tip}
 
 例如，搜索表达式`2*3`，指定查询字符串：`2\\*3`：
 
@@ -126,7 +126,7 @@ GET /testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 这`>` 和`<` 迹象无法逃脱。它们被解释为范围查询。
 {： 。重要的}
@@ -140,7 +140,7 @@ GET /testindex/_search
 在结肠前指定字段名称。下表包含带字段名称的示例查询。
 
 查询`query_string` 询问| 查询发现| 文档匹配的标准| 匹配的文档`testindex` 指数
-：--- | ：--- | ：--- | ：---
+:--- | :--- | :--- | :---
 `title: wind` | `title: wind` | 这`title` 字段包含这个词`wind`。| 1，2
 `title: (wind OR windy)` | `title: (wind OR windy)` | 这`title` 字段包含这个词`wind` 或单词`windy`。| 1、2、3
 `title: \"wind rises\"` | `title: "wind rises"` | 这`title` 字段包含短语`wind rises`。逃脱引号带有后背。| 1
@@ -166,10 +166,10 @@ GET /testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 通配符查询可以使用大量内存，从而降低性能。一个单词开头的通配符（例如，`*cal`）是最昂贵的，因为此类通配符上的匹配文档需要检查索引中的所有术语。禁用领先的通配符，设置`allow_leading_wildcard` 到`false`。
-{： 。警告}
+{: .warning}
 
 为了效率，纯通配符，例如`*` 被重写为`exists` 查询。因此，`description: *` 通配符将匹配包含空值的文档`description` 字段，但将不匹配文档`description` 字段要么缺少或有一个`null` 价值。
 
@@ -207,7 +207,7 @@ GET /testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 当OpenSearch匹配文档时，文档中的单词越接近查询中指定的单词顺序（编辑距离越少），文档的相关性分数就越高。
 
@@ -220,7 +220,7 @@ GET /testindex/_search
 下表提供了范围的语法示例。
 
 数据类型| 询问| 请求参数
-：--- | ：--- | ：---
+:--- | :--- | :---
 数字| 帐号从1到15的文件，包括。| `account_number: [1 TO 15]` 或<br>`account_number: (>=1 AND <=15)` 或<br>`account_number: (+>=1 +<=15)`
 | 帐号为15岁以上的文件。| `account_number: [15 TO *]` 或<br>`account_number: >=15` （请注意之后没有空间`>=` 符号）
 细绳| 姓氏从包含在内的贝茨到杜克大学的文档。| `lastname: [Bates TO Duke}` 或<br>`lastname: (>=Bates AND <Duke)`
@@ -228,7 +228,7 @@ GET /testindex/_search
 日期| 发布日期的文档在03/21/2023和09/25/2023（包括）。| `release_date: [03/21/2023 TO 09/25/2023]`
 
 作为在查询字符串中指定范围的替代方案，您可以使用[范围查询]({{site.url}}{{site.baseurl}}/query-dsl/term/range/)，提供更可靠的语法。
-{： 。提示}
+{: .tip}
 
 ## 提升
 
@@ -237,7 +237,7 @@ GET /testindex/_search
 下表提供了提升示例。
 
 类型| 描述| 请求参数
-：--- | ：--- | ：---
+:--- | :--- | :---
 单词提升| 查找所有包含该词的地址`street` 并提高包含这个词的人`Madison`。| `address: Madison^2 street`
 短语提升| 查找包含短语标题的文档`wind rises`，由2增强。| `title: \"wind rises\"^2` 
 | 找到包含单词的标题的文档`wind rises`并增加包含短语的文档`wind rises` 由2。| `title: (wind rises)^2`
@@ -262,7 +262,7 @@ GET /testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 查询返回两个匹配文档：
 
@@ -315,7 +315,7 @@ GET testindex/_search
 
 ### 常规布尔运营商
 
-另外，您可以使用以下布尔运营商：`AND`，，，，`&&`，，，，`OR`，，，，`||`，，，，`NOT`，，，，`!`。但是，这些操作员不遵循优先规则，因此您必须使用括号来指定使用多个布尔运算符时指定优先级。例如，查询字符串`title: (gone +wind -turbines)` 可以使用布尔运算符如下重写：
+另外，您可以使用以下布尔运营商：`AND`，`&&`，`OR`，`||`，`NOT`，`!`。但是，这些操作员不遵循优先规则，因此您必须使用括号来指定使用多个布尔运算符时指定优先级。例如，查询字符串`title: (gone +wind -turbines)` 可以使用布尔运算符如下重写：
 
 `title: ((gone AND wind) OR wind) AND NOT turbines`
 
@@ -331,7 +331,7 @@ GET testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 查询返回与使用的查询相同的结果`+` 和`-` 操作员。但是，请注意，匹配文档的相关性得分与先前结果中的相关性分数不同：
 
@@ -354,7 +354,7 @@ GET testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ## 分组
 
@@ -412,7 +412,7 @@ GET testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 前面的查询等同于以下查询，该查询不提供`fields` 范围：
 
@@ -442,7 +442,7 @@ GET /testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 前面的查询等同于以下查询，该查询不提供`fields` 参数（请注意`*` 被逃脱了`\\`）：
 
@@ -472,7 +472,7 @@ GET testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 为了提升一个领域的所有子场，请在通配符之后指定增强操作员：
 
@@ -493,8 +493,8 @@ GET /testindex/_search
 搜索多个字段时，您可以传递其他可选`type` 参数到`query_string` 询问。
 
 范围| 数据类型| 描述
-：--- | ：--- | ：---
-`type` | 细绳| 确定OpenSearch如何执行查询并得分结果。有效值是`best_fields`，，，，`bool_prefix`，，，，`most_fields`，，，，`cross_fields`，，，，`phrase`， 和`phrase_prefix`。默认为`best_fields`。有关有效值的描述，请参见[多-匹配查询类型]({{site.url}}{{site.baseurl}}/query-dsl/full-text/multi-match/#multi-match-query-types)。
+:--- | :--- | :---
+`type` | 细绳| 确定OpenSearch如何执行查询并得分结果。有效值是`best_fields`，`bool_prefix`，`most_fields`，`cross_fields`，`phrase`， 和`phrase_prefix`。默认为`best_fields`。有关有效值的描述，请参见[多-匹配查询类型]({{site.url}}{{site.baseurl}}/query-dsl/full-text/multi-match/#multi-match-query-types)。
 
 ## 同义词`query_string` 询问
 
@@ -518,7 +518,7 @@ GET /testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 对于此查询，OpenSearch创建以下布尔查询：`(ml OR (machine AND learning)) models`。
 
@@ -540,7 +540,7 @@ GET /testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 对于此查询，OpenSearch创建以下布尔查询：`(description:historical description:epic description:film)~2`。
 
@@ -565,11 +565,11 @@ GET /testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 对于此查询，OpenSearch创建以下布尔查询：`((title:historical title:epic title:heroic) | (description:historical description:epic description:heroic))`。
 
-如果添加显式操作员（`AND` 或者`OR`）在查询术语中，每个术语被视为一个单独的子句，`minimum_should_match` 可以应用参数。例如，在以下查询中，`historical`，，，，`epic`， 和`heroic` 被认为是单独的子句：
+如果添加显式操作员（`AND` 或者`OR`）在查询术语中，每个术语被视为一个单独的子句，`minimum_should_match` 可以应用参数。例如，在以下查询中，`historical`，`epic`， 和`heroic` 被认为是单独的子句：
 
 ```json
 GET /testindex/_search
@@ -586,7 +586,7 @@ GET /testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 对于此查询，OpenSearch创建以下布尔查询：`((title:historical | description:historical) (description:epic | title:epic) (description:heroic | title:heroic))~2`。查询与三个子句中的至少两个匹配。每个条款代表`dis_max` 在两个上查询`title` 和`description` 每个学期的字段。
 
@@ -608,7 +608,7 @@ GET /testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 对于此查询，OpenSearch创建以下布尔查询：`((title:historical | description:historical) (description:epic | title:epic) (description:heroic | title:heroic))~2`。
 
@@ -619,7 +619,7 @@ GET /testindex/_search
 下表列出了参数`query_string` 查询支持。除所有参数外`query` 是可选的。
 
 范围| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `query` | 细绳| 可能包含表达式的文本[查询字符串语法](#query-string-syntax) 用于搜索。必需的。
 `allow_leading_wildcard` | 布尔| 指定是否`*` 和`?` 允许作为搜索词的第一个字符。默认为`true`。
 `analyze_wildcard` | 布尔| 指定OpenSearch是否应该尝试分析通配符术语。默认为`false`。
@@ -639,7 +639,7 @@ GET /testindex/_search
 `phrase_slop` | 整数| 匹配单词之间允许的最大单词数。如果`phrase_slop` IS 2，在短语中匹配的单词之间最多允许两个单词。换词单词的斜率为2。默认值为`0` （必须匹配的确切短语匹配，必须彼此相邻）。
 `quote_analyzer` | 细绳| 该分析仪曾经在查询字符串中引用了引用的文本。覆盖`analyzer` 引用文本的参数。默认为`search_quote_analyzer` 为`default_field`。
 `quote_field_suffix` | 细绳| 此选项支持使用与非非非分析方法搜索精确匹配（用引号包围）-确切的匹配使用。例如，如果`quote_field_suffix` 是`.exact` 然后您搜索`\"lightly\"` 在里面`title` 字段，openSearch搜索单词`lightly` 在里面`title.exact` 场地。第二个字段可能使用其他类型（例如，`keyword` 而不是`text`）或其他分析仪。
-`rewrite` | 细绳| 确定OpenSearch如何重写和分数多数-术语查询。有效值是`constant_score`，，，，`scoring_boolean`，，，，`constant_score_boolean`，，，，`top_terms_N`，，，，`top_terms_boost_N`， 和`top_terms_blended_freqs_N`。默认为`constant_score`。
+`rewrite` | 细绳| 确定OpenSearch如何重写和分数多数-术语查询。有效值是`constant_score`，`scoring_boolean`，`constant_score_boolean`，`top_terms_N`，`top_terms_boost_N`， 和`top_terms_blended_freqs_N`。默认为`constant_score`。
 `time_zone` | 细绳| 指定从`UTC`。如果查询字符串包含日期范围，则需要指示时区偏移号。例如，设置`time_zone": "-08:00"` 对于具有日期范围的查询，例如`"query": "wind rises release_date[2012-01-01 TO 2014-01-01]"`）。用于指定偏移小时数的默认时区格式为`UTC`。
 
 查询字符串查询可以内部转换为[前缀查询]({{site.url}}{{site.baseurl}}/query-dsl/term/prefix/)。如果[`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) 被设定为`false`，前缀查询未执行。如果`index_prefixes` 已启用，`search.allow_expensive_queries` 设置将被忽略，并构建和执行优化的查询。

@@ -41,17 +41,17 @@ PUT movies
 下表列出了文本字段类型接受的参数。所有参数都是可选的。
 
 范围| 描述
-：--- | ：---
+:--- | :---
 `analyzer` | 用于此字段的分析仪。默认情况下，它将在索引时和搜索时间使用。要在搜索时间覆盖它，请设置`search_analyzer` 范围。默认为`standard` 分析仪，使用语法-基于令牌化，并基于[Unicode文本细分](https://unicode.org/reports/tr29/) 算法。
 `boost` | 浮动-指定该字段对相关性分数的重量的点值。值高于1.0的值增加了该领域的相关性。0.0至1.0之间的值降低了该场的相关性。默认值为1.0。
 `eager_global_ordinals` | 指定是否应在刷新上热切地加载全球序列。如果该字段通常用于聚合，则应将此参数设置为`true`。默认为`false`。
 `fielddata` | 布尔值指定是否访问该字段的代币进行分析，汇总和脚本。默认为`false`。
-`fielddata_frequency_filter` | 一个指定仅加载到存储器的JSON对象`min` 和`max` 值（作为绝对数字或百分比提供）。频率是每个段计算的。参数：`min`，，，，`max`，，，，`min_segment_size`。默认值是加载所有分析的令牌。
+`fielddata_frequency_filter` | 一个指定仅加载到存储器的JSON对象`min` 和`max` 值（作为绝对数字或百分比提供）。频率是每个段计算的。参数：`min`，`max`，`min_segment_size`。默认值是加载所有分析的令牌。
 `fields` | 要以多种方式索引相同的字符串（例如，作为关键字和文本），提供字段参数。您可以指定用于搜索的字段的一个版本，而用于分类和聚合的另一个版本。
 `index` | 布尔值指定是否应搜索该字段。默认为`true`。
 `index_options` | 指定要存储在索引中的信息进行搜索和突出显示。有效值：`docs` （仅DOC编号），`freqs` （文档编号和术语频率），`positions` （文档编号，任期频率和期限位置），`offsets` （文档编号，术语频率，术语位置以及启动和最终字符偏移）。默认为`positions`。
 `index_phrases` | 指定索引2的布尔值-克分别。2-克是该字段字符串中两个连续单词的组合。导致更快的精确短语查询，没有斜率，而是较大的索引。当未删除停止词时，效果最好。默认为`false`。
-`index_prefixes` | 一个分别指定索引项前缀的JSON对象。前缀中的字符数在`min_chars` 和`max_chars`， 包括的。导致更快的前缀搜索，但索引较大。可选参数：`min_chars`，，，，`max_chars`。默认`min_chars` 是2，`max_chars` 是5。
+`index_prefixes` | 一个分别指定索引项前缀的JSON对象。前缀中的字符数在`min_chars` 和`max_chars`， 包括的。导致更快的前缀搜索，但索引较大。可选参数：`min_chars`，`max_chars`。默认`min_chars` 是2，`max_chars` 是5。
 `meta` | 接受该领域的元数据。
 `norms` | 布尔值指定在计算相关性分数时是否应使用字段长度。默认为`false`。
 `position_increment_gap` | 分析文本字段时，将分配它们的位置。如果一个字段包含一系列字符串，并且这些位置是连续的，则将导致在不同的阵列元素上可能匹配。为了防止这种情况，在连续的阵列元素之间插入人造间隙。您可以通过指定整数来更改此差距`position_increment_gap`。注意：如果`slop` 大于`position_element_gap`，可能会发生在不同的数组元素上匹配。默认值为100。
@@ -69,7 +69,7 @@ PUT movies
 这`term_vector` 字段包含一个接受以下参数的JSON对象：
 
 范围| 存储的值
-：--- | ：---
+:--- | :---
 `no` | 没有任何。这是默认值。
 `yes` | 字段中的术语。
 `with_offsets` | 条款和性格偏移。

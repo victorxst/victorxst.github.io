@@ -31,7 +31,7 @@ GET shakespeare/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 响应包含所有文件`HAMLET` 是演讲者。
 
@@ -54,7 +54,7 @@ GET shakespeare/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ## 参数
 
@@ -73,21 +73,21 @@ GET _search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 这`<field>` 接受以下参数。除所有参数外`value` 是可选的。
 
 范围| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `value` | 细绳| 在指定的字段中搜索的术语`<field>`。
-`fuzziness` | `AUTO`，，，，`0`，或一个积极的整数| 当确定一个术语是否匹配值时，需要将一个单词更改为另一个单词的字符编辑数量（插入，删除，替代）。例如，`wined` 和`wind` 是1.默认`AUTO`，根据每个学期的长度选择一个值，对于大多数用例，是一个不错的选择。
+`fuzziness` | `AUTO`，`0`，或一个积极的整数| 当确定一个术语是否匹配值时，需要将一个单词更改为另一个单词的字符编辑数量（插入，删除，替代）。例如，`wined` 和`wind` 是1.默认`AUTO`，根据每个学期的长度选择一个值，对于大多数用例，是一个不错的选择。
 `max_expansions` | 正整数|  查询可以扩展的最大术语数量。模糊的查询“扩展为”在指定距离内的许多匹配术语`fuzziness`。然后OpenSearch尝试匹配这些术语。默认为`50`。
 `prefix_length` | 非-负整数| 在模糊性中未考虑的领先角色的数量。默认为`0`。
-`rewrite` | 细绳| 确定OpenSearch如何重写和分数多数-术语查询。有效值是`constant_score`，，，，`scoring_boolean`，，，，`constant_score_boolean`，，，，`top_terms_N`，，，，`top_terms_boost_N`， 和`top_terms_blended_freqs_N`。默认为`constant_score`。
+`rewrite` | 细绳| 确定OpenSearch如何重写和分数多数-术语查询。有效值是`constant_score`，`scoring_boolean`，`constant_score_boolean`，`top_terms_N`，`top_terms_boost_N`， 和`top_terms_blended_freqs_N`。默认为`constant_score`。
 `transpositions` | 布尔| 指定是否允许两个相邻字符的换位（`ab` 到`ba`）作为编辑。默认为`true`。
 
 指定很大的价值`max_expansions` 会导致性能差，尤其是`prefix_length` 被设定为`0`，由于开启搜索试图匹配的单词的变化很大。
-{： 。警告}
+{: .warning}
 
 如果[`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) 被设定为`false`，不运行模糊查询。
 {： 。重要的

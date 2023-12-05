@@ -19,7 +19,7 @@ has_children: false
 
 作为管理员，您可以使用OpenSearch仪表板或安全性REST API来根据所需访问的特定API为用户分配特定的权限。有关支持API的列表，请参阅[API工具]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/index/)。
 
-OpenSearch Security已建立了三个-在涵盖大多数安全分析用例的角色中：`security_analytics_full_access`，，，，`security_analytics_read_access`， 和`security_analytics_ack_alerts`。有关这些角色和其他角色的描述，请参阅[预定义的角色]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles)。
+OpenSearch Security已建立了三个-在涵盖大多数安全分析用例的角色中：`security_analytics_full_access`，`security_analytics_read_access`， 和`security_analytics_ack_alerts`。有关这些角色和其他角色的描述，请参阅[预定义的角色]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles)。
 
 如果这些角色无法满足您的需求，请混合并匹配个体安全分析[权限]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#security-analytics-permissions) 适合您的用例。每个动作对应于REST API中的操作。例如，`cluster:admin/opensearch/securityanalytics/detector/delete` 许可使您可以删除检测器。
 
@@ -28,15 +28,15 @@ OpenSearch Security已建立了三个-在涵盖大多数安全分析用例的角
 
 您可以使用后端角色来配置罚款-基于角色的粒状访问单个探测器。例如，可以将后端角色分配给在组织的不同部门工作的用户，以便他们只能查看其工作部门拥有的那些检测器。
 
-首先，确保您的用户具有适当的[后端角色]（{{site.url}}} {{site.baseurl}}/security/access-控制/索引/）。后端角色通常来自[ldap Server]（{{site.url}}} {{site.baseurl}}/security/configuration/ldap/）或[saml provider]（{site.url}}} {{site。baseurl}}/security/configuration/saml/）。但是，如果您使用内部用户数据库，则可以使用REST API进行[手动添加它们]（{{site.url}} {site.baseurl}}/security/security/access-控制/API#创造-用户）。
+首先，确保您的用户具有适当的[后端角色]({{site.url}}{{site.baseurl}}/security/access-control/index/)。后端角色通常来自[ldap Server]({{site.url}}{{site.baseurl}}/security/configuration/ldap/)或[saml provider]({{site.url}}{{site.baseurl}}/security/configuration/saml/)。但是，如果您使用内部用户数据库，则可以使用REST API进行[手动添加它们]({{site.url}}{{site.baseurl}}/security/access-control/api#create-user)。
 
 接下来，启用以下设置：
 
 ```json
-put /_ cluster /设置
+PUT /_cluster/settings
 {
-  "transient"：{
-    "plugins.security_analytics.filter_by_backend_roles"："true"
+  "transient": {
+    "plugins.security_analytics.filter_by_backend_roles": "true"
   }
 }
 ```
@@ -48,13 +48,13 @@ put /_ cluster /设置
 以下示例分配用户`alice` 这`analyst` 后端角色：
 
 ```json
-put/_plugins/_security/api/internalusers/alice
+PUT /_plugins/_security/api/internalusers/alice
 {
-  "password"："alice"，，，，
-  "backend_roles"：[[
+  "password": "alice",
+  "backend_roles": [
     "analyst"
-  ]，，
-  "attributes"：{}
+  ],
+  "attributes": {}
 }
 ```
 {% include copy-curl.html %}
@@ -62,13 +62,13 @@ put/_plugins/_security/api/internalusers/alice
 下一个示例分配用户`bob` 这`human-resources` 后端角色：
 
 ```json
-put/_plugins/_ security/api/internestusers/bob
+PUT /_plugins/_security/api/internalusers/bob
 {
-  "password"："bob"，，，，
-  "backend_roles"：[[
+  "password": "bob",
+  "backend_roles": [
     "human-resources"
-  ]，，
-  "attributes"：{}
+  ],
+  "attributes": {}
 }
 ```
 {% include copy-curl.html %}
@@ -76,14 +76,14 @@ put/_plugins/_ security/api/internestusers/bob
 最后，最后一个示例分配了`alice` 和`bob` 使他们完全访问安全分析的角色：
 
 ```json
-put/_plugins/_security/api/rolesmapping/security_analytics_full_access
+PUT /_plugins/_security/api/rolesmapping/security_analytics_full_access
 {
-  "backend_roles"：[]，，
-  "hosts"：[]，，
-  "users"：[[
-    "alice"，，，，
+  "backend_roles": [],
+  "hosts": [],
+  "users": [
+    "alice",
     "bob"
-  这是给出的
+  ]
 }
 ```
 {% include copy-curl.html %}

@@ -18,7 +18,7 @@ redirect_from:
 针对所有事件类别记录以下属性，而与该层无关。
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `audit_format_version` | 审核日志消息格式版本。
 `audit_category` | 审核日志类别。FAILED_LOGIN，MISSS_PRIVILEGES，BAD_HEADERS，SSL_EXCEPTION，OPENSEARCH_SECURITY_INDEX_ATTEMPT，认证或授予_privileges。
 `audit_node_id ` | 生成事件的节点的ID。
@@ -33,7 +33,7 @@ redirect_from:
 ## REST FAILED_LOGIN属性
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `audit_request_effective_user` | 未能验证的用户名。
 `audit_rest_request_path` | 其余端点URI。
 `audit_rest_request_params` | HTTP请求参数（如果有）。
@@ -45,7 +45,7 @@ redirect_from:
 ## REST身份验证的属性
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `audit_request_effective_user` | 未能验证的用户名。
 `audit_request_initiating_user` | 启动请求的用户。仅当它与有效用户不同时才记录。
 `audit_rest_request_path` | 其余端点URI。
@@ -57,14 +57,14 @@ redirect_from:
 ## REST SSL_EXCEPTION属性
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `audit_request_exception_stacktrace` | SSL异常的堆栈轨迹。
 
 
 ## REST BAD_HEADERS属性
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `audit_rest_request_path` | 其余端点URI。
 `audit_rest_request_params` | HTTP请求参数（如果有）。
 `audit_rest_request_headers` | HTTP标头（如果有）。
@@ -74,7 +74,7 @@ redirect_from:
 ## 传输失败_login属性
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `audit_trace_task_id` | 请求的ID。
 `audit_transport_headers` | 请求的标题（如果有）。
 `audit_request_effective_user` | 未能验证的用户名。
@@ -89,7 +89,7 @@ redirect_from:
 ## 运输验证的属性
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `audit_trace_task_id` | 请求的ID。
 `audit_transport_headers` | 请求的标题（如果有）。
 `audit_request_effective_user` | 未能验证的用户名。
@@ -104,7 +104,7 @@ redirect_from:
 ## 传输丢失_privileges属性
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `audit_trace_task_id` | 请求的ID。
 `audit_trace_task_parent_id` | 此请求的父ID（如果有）。
 `audit_transport_headers` | 请求的标题（如果有）。
@@ -121,7 +121,7 @@ redirect_from:
 ## 运输授予的_privileges属性
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `audit_trace_task_id` | 请求的ID。
 `audit_trace_task_parent_id` | 此请求的父ID（如果有）。
 `audit_transport_headers` | 请求的标题（如果有）。
@@ -138,14 +138,14 @@ redirect_from:
 ## 传输ssl_exception属性
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `audit_request_exception_stacktrace` | SSL异常的堆栈轨迹。
 
 
 ## 传输bad_headers属性
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `audit_trace_task_id` | 请求的ID。
 `audit_trace_task_parent_id` | 此请求的父ID（如果有）。
 `audit_transport_headers` | 请求的标题（如果有）。
@@ -161,7 +161,7 @@ redirect_from:
 ## 运输opensearch_security_index_attempt属性
 
 姓名| 描述
-：--- | ：---
+:--- | :---
 `audit_trace_task_id` | 请求的ID。
 `audit_transport_headers` | 请求的标题（如果有）。
 `audit_request_effective_user` | 未能验证的用户名。

@@ -19,7 +19,7 @@ nav_order: 46
 警报图可以通过其状态或严重性显示警报。使用**通过...分组** 下拉列表以指定警报状态或警报严重性。
 
 要指定您希望显示图形的日期范围，请首先选择日历下拉箭头。日期选择器窗口打开。
-<br> <img src ="{{site.url}}{{site.baseurl}}/images/Security/find-date-pick.png" alt ="Date selector for findings graph" 宽度="55%">
+<br> <img src ="{{site.url}}{{site.baseurl}}/images/Security/find-date-pick.png" alt ="Date selector for findings graph" width="55%">
 
 您可以使用**快速选择** 设置以指定确切的时间窗口。
 *选择**最后的** 或者**下一个** 在第一个下拉列表中，以设置当前设置后面或当前设置之前的时间窗口。
@@ -27,13 +27,13 @@ nav_order: 46
 *在第三个下拉列表中选择一个时间单元。可用的选项是秒，分钟，小时，天，几周，几个月和数年。
 选择**申请** 按钮将日期范围应用于图。有关图的信息相应地变化。
 
-<img src ="{{site.url}}{{site.baseurl}}/images/Security/quickset.png" alt ="Quick select settings example" 宽度="40%">
+<img src ="{{site.url}}{{site.baseurl}}/images/Security/quickset.png" alt ="Quick select settings example" width="40%">
 
 您可以使用左和右箭头将时间窗口移动到当前日期范围之后或在当前日期范围之前。当您使用这些箭头时，开始日期和结束日期出现在日期范围字段中。然后，您可以选择每个设置一个绝对，相对或当前日期和时间。对于绝对和相对变化，请选择**更新** 按钮应用更改。
 
-<img src ="{{site.url}}{{site.baseurl}}/images/Security/date-pick.png" alt ="Altering date range" 宽度="55%">
+<img src ="{{site.url}}{{site.baseurl}}/images/Security/date-pick.png" alt ="Altering date range" width="55%">
 
-作为替代方案，您可以在**常用** 部分（请参阅日历下拉列表的前面图像），以方便地设置时间窗口。选项包括日期范围，例如**今天**，，，，**昨天**，，，，**本星期**， 和**一周**。
+作为替代方案，您可以在**常用** 部分（请参阅日历下拉列表的前面图像），以方便地设置时间窗口。选项包括日期范围，例如**今天**，**昨天**，**本星期**， 和**一周**。
 
 当选择了一个常用的时间窗口之一时，您可以选择**显示日期** 在日期范围字段中标记以填充日期范围。在此之后，您可以选择按绝对，相对或当前日期和时间设置指定的开始日期或结束日期。对于绝对和相对变化，请选择**更新** 按钮应用更改。
 

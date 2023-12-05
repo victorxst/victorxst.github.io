@@ -111,7 +111,7 @@ POST _search
 
 
 一个`unsigned_long` 字段不能用作索引排序字段（在`sort.field` 索引设置）。
-{： 。警告}
+{: .warning}
 
 ## 聚合
 

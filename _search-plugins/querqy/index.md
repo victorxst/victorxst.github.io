@@ -12,7 +12,7 @@ nav_order: 210
 Querqy是一个用于查询重写的社区插件，有助于解决相关性问题，从而使搜索引擎在匹配和评分方面更加精确。
 
 当前仅在OpenSearch 2.3中支持Querqy。
-{： 。警告 }
+{: .warning }
 
 ## querqy插件安装
 

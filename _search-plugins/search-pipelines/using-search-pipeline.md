@@ -22,7 +22,7 @@ grand_parent: 搜索
 ```json
 GET /my_index/_search?search_pipeline=my_pipeline
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 对于使用搜索管道的完整示例`filter_query` 处理器，请参阅[`filter_query` 处理器示例]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/filter-query-processor#example)。
 
@@ -63,7 +63,7 @@ POST /my-index/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 使用此语法，管道不会持续存在，仅用于指定其指定的查询。
 
@@ -81,18 +81,18 @@ PUT /my_index/_settings
   "index.search.default_pipeline" : "my_pipeline"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 设置默认管道后`my_index`，您可以尝试对所有文档进行相同的搜索：
 
 ```json
 GET /my_index/_search
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 响应仅包含公共文件，表明该管道默认情况下应用了：
 
-<详细信息打开降价="block">
+<details open markdown="block">
   <summary>
     回复
   </summary>
@@ -128,7 +128,7 @@ GET /my_index/_search
   }
 }
 ```
-</delect>
+</details>
 
 ### 禁用请求的默认管道
 
@@ -137,7 +137,7 @@ GET /my_index/_search
 ```json
 GET /my_index/_search?search_pipeline=_none
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ### 删除默认管道
 
@@ -149,7 +149,7 @@ PUT /my_index/_settings
   "index.search.default_pipeline" : null
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ```json
 PUT /my_index/_settings 
@@ -157,5 +157,5 @@ PUT /my_index/_settings
   "index.search.default_pipeline" : "_none"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 

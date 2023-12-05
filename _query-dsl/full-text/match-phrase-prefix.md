@@ -26,7 +26,7 @@ GET _search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 要传递其他参数，您可以使用扩展的语法：
 
@@ -43,7 +43,7 @@ GET _search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ## 例子
 
@@ -55,7 +55,7 @@ PUT testindex/_doc/1
   "title": "The wind rises"
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 ```json
 PUT testindex/_doc/2
@@ -64,7 +64,7 @@ PUT testindex/_doc/2
   
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 下列`match_phrase_prefix` 查询搜索整个单词`wind`，然后是一个始于`ri`：
 
@@ -78,7 +78,7 @@ GET testindex/_search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 响应包含匹配文档：
 
@@ -117,7 +117,7 @@ GET testindex/_search
   }
 }
 ```
-</delect>
+</details>
 
 ## 参数
 
@@ -136,12 +136,12 @@ GET _search
   }
 }
 ```
-{％包含副本-curl.html％}
+{% include copy-curl.html %}
 
 这`<field>` 接受以下参数。除所有参数外`query` 是可选的。
 
 范围| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 `query` | 细绳| 用于搜索的查询字符串。必需的。
 `analyzer` | 细绳| 这[分析仪]({{site.url}}{{site.baseurl}}/analyzers/index/) 用于引导查询。
 `max_expansions` | 正整数|  查询可以扩展的最大术语数量。模糊的查询“扩展为”在指定距离内的许多匹配术语`fuzziness`。然后OpenSearch尝试匹配这些术语。默认为`50`。

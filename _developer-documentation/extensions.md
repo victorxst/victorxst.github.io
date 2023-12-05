@@ -7,7 +7,7 @@ nav_order: 10
 # 扩展
 
 扩展是一个实验特征。因此，我们不建议在生产环境中使用扩展。有关扩展进度的更新，或者如果您想离开反馈可以帮助改进功能，请参阅[Github上的问题](https://github.com/opensearch-project/OpenSearch/issues/2447)。
-{： 。警告}
+{: .warning}
 
 在引入扩展之前，插件是扩展OpenSearch功能的唯一方法。但是，插件存在很大的缺点：它们需要频繁的更新才能与OpenSearch Core保持最新状态，它们构成安全风险，因为它们在与OpenSearch相同的过程中运行，并且更新或安装它们需要完整的群集重新启动。此外，如果失败，插件可能会致命地影响集群。
 

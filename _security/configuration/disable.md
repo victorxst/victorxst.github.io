@@ -23,7 +23,7 @@ plugins.security.disabled: true
 要在Docker图像上执行这些步骤，请参见[使用插件]({{site.url}}{{site.baseurl}}/opensearch/install/docker#working-with-plugins)。
 
 禁用或删除该插件会曝光安全插件的配置索引。如果该索引包含敏感信息，请确保通过其他一些方式保护它。如果您不再需要索引，请删除。
-{： 。警告 }
+{: .warning }
 
 
 ## 删除OpenSearch仪表板插件

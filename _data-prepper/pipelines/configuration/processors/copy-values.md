@@ -15,7 +15,7 @@ nav_order: 48
 您可以配置`copy_values` 带有以下选项的处理器。
 
 | 选项| 必需的| 描述|
-：--- | ：--- | ：---
+:--- | :--- | :---
 | `entries` | 是的| 活动中要复制的条目列表。|
 | `from_key` | 是的| 要复制的条目的关键。|
 | `to_key` | 是的| 要添加的新条目的关键。|
@@ -38,7 +38,7 @@ pipeline:
           overwrite_if_to_key_exists: true
   sink:
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 接下来，创建一个名为的日志文件`logs_json.log` 并更换`path` 在您的文件源中`pipeline.yaml` 用该文件备件提交。有关更多信息，请参阅[配置数据预备]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper)。
 

@@ -22,7 +22,7 @@ redirect_from:
 
 ## 创建一个坑
 引入2.4
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 创建一个坑。这`keep_alive` 需要查询参数；它指定了要保持坑的时间。
 
@@ -35,17 +35,17 @@ POST /<target_indexes>/_search/point_in_time?keep_alive=1h&routing=&expand_wildc
 ### 路径参数
 
 范围| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 target_indexes| 细绳| 坑的目标索引的名称。可能包含一个逗号-分开列表或通配符索引模式。
 
 ### 查询参数
 
 范围| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 活着| 时间|  保持坑的时间。每当您使用搜索API访问坑时，坑寿命都会延长到等于`keep_alive` 范围。必需的。
 偏爱| 细绳| 节点或用于执行搜索的碎片。选修的。默认值是随机的。
 路由| 细绳| 指定将搜索请求路由到特定的碎片。选修的。默认是文档的`_id`。
-Expand_WildCard| 细绳| 可以匹配通配符模式的索引类型。支持逗号-分离的值。有效值如下：<br>- `all`：匹配任何索引或数据流，包括隐藏的索引流。<br>- `open`：匹配打开，非-隐藏索引或非-隐藏的数据流。<br>- `closed`：比赛关闭，非-隐藏索引或非-隐藏的数据流。<br>- `hidden`：匹配隐藏索引或数据流。必须与`open`，，，，`closed` 或两者`open` 和`closed`。<br>- `none`：不接受通配符模式。<br>可选。默认为`open`。
+Expand_WildCard| 细绳| 可以匹配通配符模式的索引类型。支持逗号-分离的值。有效值如下：<br>- `all`：匹配任何索引或数据流，包括隐藏的索引流。<br>- `open`：匹配打开，非-隐藏索引或非-隐藏的数据流。<br>- `closed`：比赛关闭，非-隐藏索引或非-隐藏的数据流。<br>- `hidden`：匹配隐藏索引或数据流。必须与`open`，`closed` 或两者`open` 和`closed`。<br>- `none`：不接受通配符模式。<br>可选。默认为`open`。
 laster_partial_pit_creation| 布尔| 指定是否要创建部分失败。选修的。默认为`true`。
 
 #### 示例请求
@@ -72,7 +72,7 @@ POST /my-index-1/_search/point_in_time?keep_alive=100m
 ### 响应字段
 
 场地| 数据类型| 描述
-：--- | ：--- | ：---  
+:--- | :--- | :---  
 pit_id| [BASE64编码二进制]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) | 坑ID。
 creation_time| 长的| 自时代以来，矿坑的创建时间是在毫秒内创建的。
 
@@ -103,11 +103,11 @@ GET /_search
 ```
 
 这`keep_alive` 搜索请求中的参数是可选的。它指定了延长时间以保持坑的时间的数量。
-{： 。笔记}
+{: .note}
 
 ## 列出所有坑
 引入2.4
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 返回OpenSearch集群中的所有坑。
 
@@ -143,20 +143,20 @@ GET /_search/point_in_time/_all
 ### 响应字段
 
 场地| 数据类型| 描述
-：--- | ：--- | ：---  
+:--- | :--- | :---  
 坑| JSON对象的数组| 所有坑的列表。
 
 每个坑对象都包含以下字段。
 
 场地| 数据类型| 描述
-：--- | ：--- | ：---  
+:--- | :--- | :---  
 pit_id| [BASE64编码二进制]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) | 坑ID。
 creation_time| 长的| 自时代以来，矿坑的创建时间是在毫秒内创建的。
 活着| 长的|  将坑保持在毫秒内的时间。
 
 ## 删除坑
 引入2.4
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 删除一个，几个或所有坑。当坑被自动删除时`keep_alive` 时间段。但是，要处理资源，您可以使用DELETE PIT API删除坑。删除PIT API支持通过ID或一次删除所有坑来删除坑列表。
 
@@ -177,7 +177,7 @@ DELETE /_search/point_in_time/_all
 ### 请求字段
 
 场地| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 pit_id| [BASE64编码二进制]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) 或一系列二进制| 要删除的坑的坑ID。必需的。
 
 #### 示例请求：通过ID删除坑
@@ -215,13 +215,13 @@ DELETE /_search/point_in_time
 ### 响应字段
 
 场地| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 成功的| 布尔| 删除操作是否成功。
 pit_id| [BASE64编码二进制]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary)  | 要删除的坑的坑ID。
 
 ## 坑段
 引入2.4
-{：.label .label-紫色的 }
+{: .label .label-purple }
 
 类似于[猫节API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-segments)，坑段API可提供低-通过描述其Lucene段的磁盘利用磁盘利用的水平信息。PIT段API支持列出特定坑的段信息ID或所有凹坑的信息。
 
@@ -236,7 +236,7 @@ GET /_cat/pit_segments/_all
 ### 请求字段
 
 场地| 数据类型| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 pit_id| [BASE64编码二进制]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) 或一系列二进制| 将要列出的坑的坑ID。必需的。
 
 #### 示例请求：ID的坑段
@@ -266,7 +266,7 @@ index1 2     r      10.212.74.139 _0               0          2            0 3.6
 您可以为坑指定以下设置。
 
 环境| 描述| 默认
-：--- | ：--- | ：---
+:--- | :--- | :---
 point_in_time.max_keep_alive| 集群-指定最大值的级别设置`keep_alive` 范围。| 24H
 search.max_open_pit_context| 节点-指定节点的最大开放端上下文数量的级别设置。| 30
 

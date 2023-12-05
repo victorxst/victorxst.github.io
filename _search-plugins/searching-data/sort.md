@@ -334,7 +334,7 @@ GET shakespeare/_search
 
 ## 排序模式
 
-排序模式适用于按数组或多值字段进行排序。它指定为对文档进行排序的数组值。对于包含数字数组的数字字段，您可以按`avg`，，，，`sum`， 或者`median` 模式。要按最小值或最大值进行排序，请使用`min` 或者`max` 用于数字和字符串数据类型的模式。
+排序模式适用于按数组或多值字段进行排序。它指定为对文档进行排序的数组值。对于包含数字数组的数字字段，您可以按`avg`，`sum`， 或者`median` 模式。要按最小值或最大值进行排序，请使用`min` 或者`max` 用于数字和字符串数据类型的模式。
 
 默认模式为`min` 用于上升顺序和`max` 用于降序排序订单。
 
@@ -751,14 +751,14 @@ GET students/_search
 您可以通过`_geo_distance`。支持以下参数。
 
 范围| 描述
-：--- | ：---
+:--- | :---
 dange_type| 指定计算距离的方法。有效值是`arc` 和`plane`。这`plane` 方法更快，但对于长距离或靠近电线杆的准确性较差。默认为`arc`。
-模式| 指定如何使用多个地理点处理字段。默认情况下，当排序顺序上升的最短距离和最长的距离时，文档的排序是最短的。有效值是`min`，，，，`max`，，，，`median`， 和`avg`。
+模式| 指定如何使用多个地理点处理字段。默认情况下，当排序顺序上升的最短距离和最长的距离时，文档的排序是最短的。有效值是`min`，`max`，`median`， 和`avg`。
 单元| 指定用于计算排序值的单元。默认为米（`m`）。
 ignore_unmapped| 指定如何处理未映射的字段。放`ignore_unmapped` 到`true` 忽略未映射的字段。默认为`false` （在遇到未绘制的字段时产生错误）。
 
 这`_geo_distance` 参数不支持`missing_values`。距离总是被认为是`infinity` 当文档不包含用于计算距离的字段时。
-{： 。笔记}
+{: .note}
 
 例如，索引两个具有地理点的文档：
 
@@ -850,7 +850,7 @@ GET testindex1/_search
 ```
 
 您可以提供以Geopoint字段类型支持的任何格式的坐标。有关所有格式的描述，请参阅[地理点字段类型文档]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point)。
-{： 。笔记}
+{: .note}
 
 将多个地理点传递给`_geo_distance`，使用一个数组：
 
@@ -879,5 +879,5 @@ GET testindex1/_search
 
 ## 性能考虑
 
-排序的字段值将加载到内存中进行分类。因此，对于最少的开销，我们建议映射[数字类型]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric) 对于最小的可接受类型，例如`short`，，，，`integer`， 和`float`。[字符串类型]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/string) 不应对分类的字段进行分析或令牌化
+排序的字段值将加载到内存中进行分类。因此，对于最少的开销，我们建议映射[数字类型]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric) 对于最小的可接受类型，例如`short`，`integer`， 和`float`。[字符串类型]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/string) 不应对分类的字段进行分析或令牌化
 

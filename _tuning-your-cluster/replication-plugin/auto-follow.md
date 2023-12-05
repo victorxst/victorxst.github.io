@@ -41,7 +41,7 @@ curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://loc
 ```
 
 如果禁用了安全插件，则可以忽略`use_roles` 范围。但是，如果启用了它，则需要指定OpenSearch用来身份验证请求的领导者和追随者集群角色。此示例使用`all_access` 为简单起见，但是我们建议在每个群集上创建复制用户，并且[相应地绘制它]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles)。
-{： 。提示 }
+{: .tip }
 
 要测试该规则，请在领导者集群上创建匹配索引：
 

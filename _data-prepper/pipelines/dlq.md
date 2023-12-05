@@ -43,7 +43,7 @@ dlq-v${version}-${pipelineName}-${pluginId}-${timestampIso8601}-${uniqueId}
 DLQ支持以下配置选项。
 
 选项| 必需的| 类型| 描述
-：--- | ：--- | ：--- | ：---
+:--- | :--- | :--- | :---
 桶| 是的| 细绳| DLQ输出失败记录的存储桶的名称。
 key_path_prefix| 不| 细绳| 这`key_prefix` 在S3桶中使用。默认为`""`。支持时间值模式变量，例如`/%{yyyy}/%{MM}/%{dd}`，包括在[Java DateTimeFormatter](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html)。例如，使用`/%{yyyy}/%{MM}/%{dd}` 模式，您可以设置`key_prefix` 作为`/2023/01/24`。
 地区| 不| 细绳| S3桶的AWS区域。默认为`us-east-1`。

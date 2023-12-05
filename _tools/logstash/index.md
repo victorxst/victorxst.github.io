@@ -43,9 +43,9 @@ output {
 
 在哪里：
 
-*`input` 同时接收来自多个来源的日志之类的事件。LogStash支持用于TCP/UDP，文件，Syslog，Microsoft Windows EventLogs，STDIN，HTTP等的许多输入插件。您还可以使用称为BEATS的输入工具的开源收集来收集事件。输入插件将事件发送到过滤器。
-*`filter` 以一种或另一种方式解析和丰富事件。LogStash有大量的过滤器插件，可修改事件并将其传递给输出。例如，`grok` 过滤器将非结构化事件解析到字段和一个`mutate` 过滤器更改字段。过滤器依次执行。
-*`output` 将过滤事件运送到一个或多个目的地。LogStash支持诸如OpenSearch，TCP/UDP，电子邮件，文件，Stdout，HTTP，Nagios等目的地的各种输出插件。
+* `input` 同时接收来自多个来源的日志之类的事件。LogStash支持用于TCP/UDP，文件，Syslog，Microsoft Windows EventLogs，STDIN，HTTP等的许多输入插件。您还可以使用称为BEATS的输入工具的开源收集来收集事件。输入插件将事件发送到过滤器。
+* `filter` 以一种或另一种方式解析和丰富事件。LogStash有大量的过滤器插件，可修改事件并将其传递给输出。例如，`grok` 过滤器将非结构化事件解析到字段和一个`mutate` 过滤器更改字段。过滤器依次执行。
+* `output` 将过滤事件运送到一个或多个目的地。LogStash支持诸如OpenSearch，TCP/UDP，电子邮件，文件，Stdout，HTTP，Nagios等目的地的各种输出插件。
 
 输入和输出阶段都支持编解码器进入或退出管道时处理事件。
 一些流行的编解码器是`json` 和`multiline`。这`json` 编解码器处理JSON格式的数据和`multiline` 编解码器将多个线路事件合并为一行。
@@ -141,8 +141,8 @@ You can define a pipeline that listens for events on `斯丁` and outputs events
 
     ```YML
     {
-     "message" =>"hello world"，，，，
-     "host" =>"a483e711a548.ant.amazon.com"，，，，
+     "message" =>"hello world"，
+     "host" =>"a483e711a548.ant.amazon.com"，
      "@timestamp" => 2021-05-30T05：15：56.816Z，
      "@version" =>"1"
     }
@@ -216,9 +216,9 @@ If you already have a Logstash process running, you’ll get an error. To fix th
     $ cat Uptuct.txt
 
     {
-      "@version"："1"，，，，
-      "@timestamp"："2021-05-30T05:52:52.421Z"，，，，
-      "host"："a483e711a548.ant.amazon.com"，，，，
+      "@version"："1"，
+      "@timestamp"："2021-05-30T05:52:52.421Z"，
+      "host"："a483e711a548.ant.amazon.com"，
       "amount"：10，
       "quantity"：2
     }
@@ -277,22 +277,22 @@ To define a pipeline that handles HTTP requests:
 
     ```JSON
     {
-      "host"："127.0.0.1"，，，，
-      "quantity"："3"，，，，
+      "host"："127.0.0.1"，
+      "quantity"："3"，
       "amount"：10，
-      "@timestamp"："2021-05-30T06:05:48.135Z"，，，，
+      "@timestamp"："2021-05-30T06:05:48.135Z"，
       "headers"：{
-        "http_version"："HTTP/1.1"，，，，
-        "request_method"："PUT"，，，，
-        "http_user_agent"："PostmanRuntime/7.26.8"，，，，
-        "connection"："keep-alive"，，，，
-        "postman_token"："c6cd29cf-1b37-4420-8db3-9faec66b9e7e"，，，，
-        "http_host"："127.0.0.1:8080"，，，，
-        "cache_control"："no-cache"，，，，
-        "request_path"："/"，，，，
-        "content_type"："application/json"，，，，
-        "http_accept"："*/*"，，，，
-        "content_length"："41"，，，，
+        "http_version"："HTTP/1.1"，
+        "request_method"："PUT"，
+        "http_user_agent"："PostmanRuntime/7.26.8"，
+        "connection"："keep-alive"，
+        "postman_token"："c6cd29cf-1b37-4420-8db3-9faec66b9e7e"，
+        "http_host"："127.0.0.1:8080"，
+        "cache_control"："no-cache"，
+        "request_path"："/"，
+        "content_type"："application/json"，
+        "http_accept"："*/*"，
+        "content_length"："41"，
         "accept_encoding"："gzip, deflate, br"
       }，，
     "@version"："1"
@@ -355,17 +355,17 @@ The `斯丁` plugin doesn’t supporting automatic reloading.
 
     ```YML
     {
-       "message" =>"216.243.171.38 - - [20/Sep/2017:19:11:52 +0200] \"get/products/view/123 http/1.1 \" 200 12798 \"https：//codingexplained.com/products \" \"mozilla/5.0（兼容; yandexbot/3.0; +http：//yandex.com/bots）\""，，，，
-       "@version" =>"1"，，，，
-          "host" =>"a483e711a548.ant.amazon.com"，，，，
-          "path" =>"/Users/kumarjao/Desktop/odfe1/logstash-7.12.1/events-data/input_file.log"，，，，
+       "message" =>"216.243.171.38 - - [20/Sep/2017:19:11:52 +0200] \"get/products/view/123 http/1.1 \" 200 12798 \"https：//codingexplained.com/products \" \"mozilla/5.0（兼容; yandexbot/3.0; +http：//yandex.com/bots）\""，
+       "@version" =>"1"，
+          "host" =>"a483e711a548.ant.amazon.com"，
+          "path" =>"/Users/kumarjao/Desktop/odfe1/logstash-7.12.1/events-data/input_file.log"，
        "@timestamp" => 2021-06-13T18：03：30.423Z
     }
     {
-       "message" =>"91.59.108.75 - - [20/Sep/2017:20:11:43 +0200] \"get/js/main.js http/1.1 \" 200 588 \"https：//codingexplained.com/products/view/863 \" \"Mozilla/5.0（Windows NT 6.1; WOW64; RV：45.0）壁虎/20100101 Firefox/45.0 \""，，，，
-      "@version" =>"1"，，，，
-          "host" =>"a483e711a548.ant.amazon.com"，，，，
-          "path" =>"/Users/kumarjao/Desktop/odfe1/logstash-7.12.1/events-data/input_file.log"，，，，
+       "message" =>"91.59.108.75 - - [20/Sep/2017:20:11:43 +0200] \"get/js/main.js http/1.1 \" 200 588 \"https：//codingexplained.com/products/view/863 \" \"Mozilla/5.0（Windows NT 6.1; WOW64; RV：45.0）壁虎/20100101 Firefox/45.0 \""，
+      "@version" =>"1"，
+          "host" =>"a483e711a548.ant.amazon.com"，
+          "path" =>"/Users/kumarjao/Desktop/odfe1/logstash-7.12.1/events-data/input_file.log"，
     "@timestamp" => 2021-06-13T18：03：30.424Z
     }
     ```

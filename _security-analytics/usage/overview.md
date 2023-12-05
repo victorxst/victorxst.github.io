@@ -23,7 +23,7 @@ nav_order: 25
 
 您也可以选择**入门** 链接以扩展使用安全分析窗口的启动，其中包括设置步骤以及控制按钮的摘要，使您可以跳到任何步骤。
 
-<img src ="{{site.url}}{{site.baseurl}}/images/Security/overview.png" alt ="The overview page with getting started quick launch window" 宽度="85%">
+<img src ="{{site.url}}{{site.baseurl}}/images/Security/overview.png" alt ="The overview page with getting started quick launch window" width="85%">
 
 *在设置的步骤1中，选择**创建检测器** 定义检测器。
 *在步骤2中，选择**查看发现** 转到发现页面。有关此页面的详细信息，请参见[{{site.url}} {{site.baseurl}}/securit-分析/用法/发现/）。
@@ -42,7 +42,7 @@ nav_order: 25
 
 最近的警报表显示了按时间，触发名称和警报严重性的最新警报。选择**查看警报** 转到“警报”页面。
 
-<img src ="{{site.url}}{{site.baseurl}}/images/Security/recent-alerts.png" alt ="A table showing the most recent alerts." 宽度="50%">
+<img src ="{{site.url}}{{site.baseurl}}/images/Security/recent-alerts.png" alt ="A table showing the most recent alerts." width="50%">
 
 ---
 ## 最新发现
@@ -56,7 +56,7 @@ nav_order: 25
 
 本节提供了检测规则的图形表示，该规则最常触发发现以及它们与其他人的比较（占整体的百分比）。图表表示的规则名称在右侧列出。您可以将悬停在图表上的每种颜色上，以查看有关其代表的检测规则的详细信息。
 
-<img src ="{{site.url}}{{site.baseurl}}/images/Security/rule_graph.png" alt ="The detection rule graph on the Overview page" 宽度="50%">
+<img src ="{{site.url}}{{site.baseurl}}/images/Security/rule_graph.png" alt ="The detection rule graph on the Overview page" width="50%">
 
 ---
 ## 探测器

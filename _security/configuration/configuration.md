@@ -47,12 +47,12 @@ http:
 下表中描述了此配置中使用的设置。
 
 | 环境| 描述|
-| ：--- | ：--- |
+| :--- | :--- |
 | `anonymous_auth_enabled` | 启用或禁用匿名身份验证。什么时候`true`，HTTP身份验证器尝试在HTTP请求中查找用户凭据。如果找到凭据，则对用户进行身份验证。如果找不到，则用户被认证为"anonymous" 用户。然后，该用户具有用户名"anonymous" 还有一个命名的角色"anonymous_backendrole"。当您启用匿名身份验证时，所有定义[HTTP身份验证者](#authentication) 是非-具有挑战性的。也看[挑战设置]({{site.url}}{{site.baseurl}}/security/authentication-backends/basic-authc/#the-challenge-setting)。|
 | `xff` | 用于配置代理-基于身份验证。有关此后端的更多信息，请参阅[代理人-基于身份验证]({{site.url}}{{site.baseurl}}/security/authentication-backends/proxy/)。|
 
 如果禁用匿名身份验证，则安全插件将不会初始化，如果您没有提供至少一个`authc`。
-{： 。重要的 }
+{: .important }
 
 
 ## 验证
@@ -78,7 +78,7 @@ authc:
 下表中包含在配置的这一部分中通常找到的设置。
 
 | 环境| 描述|
-| ：--- | ：--- |
+| :--- | :--- |
 | `http_enabled` | 在其余层上启用或禁用身份验证。默认为`true` （启用）。|
 | `transport_enabled` | 在运输层上启用或禁用身份验证。默认为`true` （启用）。|
 | `order` | 确定在组合配置多个后端时，确定身份验证域与身份验证请求查询的顺序。一旦身份验证成功，任何剩余的域就无需查询。它的价值是整数。|
@@ -96,12 +96,12 @@ http_authenticator:
 这`type` 设置`http_authenticator` 接受以下值。有关每个身份验证选项的更多信息，请参阅“身份验证后端的链接”[下一步](#next-steps)。
 
 | 价值| 描述|
-| ：--- | ：--- |
+| :--- | :--- |
 | `basic` | HTTP基本身份验证。有关使用基本身份验证的更多信息，请参见HTTP基本身份验证文档。|
 | `jwt` | JSON Web令牌（JWT）身份验证。有关其他配置信息，请参见JSON Web令牌文档。|
 | `openid` | OpenID连接身份验证。有关其他配置信息，请参见OpenID Connect文档。|
 | `saml` | SAML身份验证。有关其他配置信息，请参见SAML文档。|
-| `proxy`，，，，`extended-proxy` | 代理人-基于身份验证。这`extended-proxy` 键入Authenticator允许您传递其他用户属性以供文档使用-级别的安全性。请参阅代理-基于其他配置信息的基于身份验证文档。|
+| `proxy`，`extended-proxy` | 代理人-基于身份验证。这`extended-proxy` 键入Authenticator允许您传递其他用户属性以供文档使用-级别的安全性。请参阅代理-基于其他配置信息的基于身份验证文档。|
 | `clientcert` | 通过客户端TLS证书进行身份验证。该证书必须由您的节点信托店的根证书机构之一（CAS）信任。有关其他配置信息，请参见客户端证书身份验证文档。|
 
 设置HTTP身份验证器后，您必须指定要对用户进行身份验证的后端系统：
@@ -116,7 +116,7 @@ authentication_backend:
 下表显示了`type` 设置下`authentication_backend`。
 
 | 价值| 描述|
-| ：--- | ：--- |
+| :--- | :--- |
 | `noop` | 没有对任何后端系统进行进一步的身份验证。使用`noop` 如果HTTP身份验证者已经完全对用户进行了认证，例如JWT或客户端证书身份验证。|
 | `internal` | 使用用户和定义的角色`internal_users.yml` 用于身份验证。|
 | `ldap` | 针对LDAP服务器进行身份验证用户。此设置需要[其他LDAP-特定的配置设置]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/)。|
@@ -142,7 +142,7 @@ authz:
 下表显示了`type` 设置下`authorization_backend`。
 
 | 价值| 描述|
-| ：--- | ：--- |
+| :--- | :--- |
 | `noop` | 完全跳过授权配置步骤。|
 | `ldap` | 从LDAP服务器中获取其他角色。此设置需要[其他LDAP-特定的配置设置]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/)。|
 
@@ -169,7 +169,7 @@ authz:
 ### kerberos
 
 Kerberos身份验证不适用于OpenSearch仪表板。要跟踪OpenSearch在添加OpenSearch仪表板中对Kerberos的支持方面的进度，请参见[问题#907](https://github.com/opensearch-project/security-dashboards-plugin/issues/907) 在仪表板的安全插件存储库中。
-{： 。警告 }
+{: .warning }
 
 由于Kerberos的性质，您必须定义一些设置`opensearch.yml` 还有一些`config.yml`。
 
@@ -187,7 +187,7 @@ plugins.security.kerberos.acceptor_keytab_filepath: 'eskeytab.tab'
 - `plugins.security.kerberos.acceptor_principal: 'HTTP/localhost'` 定义安全插件用于针对Kerberos发出请求的主体。此值必须在Keytab文件中存在。
 
 由于安全限制，必须将keytab文件放入`config` 或子目录，以及`opensearch.yml` 必须是相对的，而不是绝对的。
-{： 。笔记 }
+{: .note }
 
 
 #### 动态配置

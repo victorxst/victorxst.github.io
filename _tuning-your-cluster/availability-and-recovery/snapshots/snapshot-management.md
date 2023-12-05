@@ -39,11 +39,11 @@ SM配置包括快照的索引和存储库，并支持您可以定义的所有参
 SM策略不支持并发快照操作，因为太多此类操作可能会降低集群。快照操作（创建或删除）是异步执行的。在先前的异步操作完成之前，SM不会启动新操作。
 
 我们不建议在一个集群中创建几个具有相同时间表和重叠索引的SM策略，因为它会在相同的索引上同时进行快照创建并阻碍性能。
-{： 。警告 }
+{: .warning }
 
 
 我们不建议在不同集群中为具有相同时间表的多个SM策略设置相同的存储库，因为这可能会导致此存储库中的负担突然激增。
-{： 。警告 }
+{: .warning }
 
 ## 故障管理
 
@@ -56,7 +56,7 @@ SM策略不支持并发快照操作，因为太多此类操作可能会降低集
 下表列出了每个快照管理API所需的权限。
 
 功能| API| 允许
-：--- | ：--- | ：---
+:--- | :--- | :---
 获取政策| 获取_plugins/_sm/策略<br>获取_plugins/_sm/policies/`policy_name` | 群集：admin/opensearch/snapshot_management/polity/get <br> cluster：admin/opensearch/snapshot_management/polition/polity/seach
 创建/更新策略| 发布_plugins/_sm/策略/`policy_name`<br> put _plugins/_sm/policies/`policy_name`？if_seq_no = 1＆if_primary_term = 1| 群集：admin/opensearch/snapshot_management/polity/write
 删除政策| 删除_plugins/_sm/policies/`policy_name` | 群集：admin/opensearch/snapshot_management/polity/delete
@@ -70,7 +70,7 @@ SM策略不支持并发快照操作，因为太多此类操作可能会降低集
 下表列出了所有[快照管理API]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api) 功能。
 
 功能| API| 描述
-：--- | ：--- | ：---
+:--- | :--- | :---
 [创建策略]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#create-or-update-a-policy) | 发布_plugins/_sm/策略/`policy_name` | 创建SM策略。
 [更新策略]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#create-or-update-a-policy) | 放置_plugins/_sm/策略/`policy_name`？if_seq_no =`sequence_number`＆if_primary_term =`primary_term` | 修改`policy_name` 政策。
 [获取所有政策]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#get-policies) | 获取_plugins/_sm/策略| 返回所有SM政策。

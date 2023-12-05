@@ -23,7 +23,7 @@ nav_order: 11
 ```bash
 pip install opensearch-py-ml
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 然后像其他任何模块一样将客户端导入到OpenSearch中：
 
@@ -31,7 +31,7 @@ pip install opensearch-py-ml
 from opensearchpy import OpenSearch
 import opensearch_py_ml as oml
 ```
-{％include copy.html％}
+{% include copy.html %}
 
 ## API参考
 

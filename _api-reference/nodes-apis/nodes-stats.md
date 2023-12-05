@@ -681,7 +681,7 @@ GET _nodes/stats/
   }
 }
 ```
-</delect>
+</details>
 
 ## 响应字段
 

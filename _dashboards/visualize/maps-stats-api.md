@@ -32,7 +32,7 @@ has_children: false
     ```bash
     curl -X GET http://localhost:5601/api/maps-dashboards/stats
     ```
-    {％include copy.html％}
+    {% include copy.html %}
 
 #### 示例响应
 
