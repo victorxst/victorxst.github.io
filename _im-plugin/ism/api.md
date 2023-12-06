@@ -20,7 +20,8 @@ nav_order: 20
 
 
 ## 创建策略
-引入 1.0 {：.label .label-purple }
+引入 1.0
+{: .label .label-purple }
 
 创建策略。
 
@@ -138,7 +139,8 @@ PUT _plugins/_ism/policies/policy_1
 ---
 
 ## 添加策略
-引入 1.0 {：.label .label-purple }
+引入 1.0
+{: .label .label-purple }
 
 将策略添加到索引。如果索引已有一个策略，则此操作不会更改策略。
 
@@ -168,7 +170,8 @@ POST _plugins/_ism/add/index_1
 
 
 ## 更新策略
-引入 1.0 {：.label .label-purple }
+引入 1.0
+{: .label .label-purple }
 
 更新策略。 `seq_no` 使用和 `primary_term` 参数更新现有策略。如果这些数字与现有策略不匹配或策略不存在，则 ISM 将引发错误。
 
@@ -288,7 +291,8 @@ PUT _plugins/_ism/policies/policy_1?if_seq_no=7&if_primary_term=1
 ---
 
 ## 获取策略
-引入 1.0 {：.label .label-purple }
+引入 1.0
+{: .label .label-purple }
 
 通过 `policy_id` 获取策略。
 
@@ -359,7 +363,8 @@ GET _plugins/_ism/policies/policy_1
 ---
 
 ## 从索引中删除策略
-引入 1.0 {：.label .label-purple }
+引入 1.0
+{: .label .label-purple }
 
 从索引中删除任何 ISM 策略。
 
@@ -383,7 +388,8 @@ POST _plugins/_ism/remove/index_1
 ---
 
 ## 更新托管索引策略
-引入 1.0 {：.label .label-purple }
+引入 1.0
+{: .label .label-purple }
 
 将托管索引策略更新为新策略（或策略的新版本）。你可以使用索引模式一次更新多个索引。更新多个索引时，你可能希望包含状态筛选器以仅影响某些托管索引。更改策略会筛选出所有现有的托管索引，并仅将更改应用于处于指定状态的索引。你还可以显式指定托管索引在更改策略生效后转换到的状态。
 
@@ -420,7 +426,8 @@ POST _plugins/_ism/change_policy/index_1
 ---
 
 ## 重试失败的索引
-引入 1.0 {：.label .label-purple }
+引入 1.0
+{: .label .label-purple }
 
 重试索引的失败操作。要使重试调用成功，ISM 必须管理索引，并且索引必须处于失败状态。你可以使用索引模式（ `*`）重试多个失败的索引。
 
@@ -447,7 +454,8 @@ POST _plugins/_ism/retry/index_1
 ---
 
 ## 解释索引
-引入 1.0 {：.label .label-purple }
+引入 1.0
+{: .label .label-purple }
 
 获取索引的当前状态。你可以使用索引模式来获取多个索引的状态。
 
@@ -507,7 +515,8 @@ GET _plugins/_ism/explain/index_1?show_policy=true
 ---
 
 ## 删除策略
-引入 1.0 {：.label .label-purple }
+引入 1.0
+{: .label .label-purple }
 
 按 `policy_id` 删除策略。
 
@@ -538,7 +547,8 @@ DELETE _plugins/_ism/policies/policy_1
 ```
 
 ## 防错验证
-引入 2.4 {：.label .label-purple }
+引入 2.4
+{: .label .label-purple }
 
 ISM 允许你自动运行操作。但是，由于各种原因，运行操作可能会失败。可以使用错误防护验证来测试操作，以排除失败。
 

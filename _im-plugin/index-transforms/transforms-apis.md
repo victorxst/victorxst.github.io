@@ -15,7 +15,8 @@ has_toc: true
 {:toc}
 
 ## 创建转换作业
-引入 1.0 {：.label .label-purple }
+引入 1.0
+{: .label .label-purple }
 
 创建转换作业。
 
@@ -159,7 +160,8 @@ PUT _plugins/_transform/sample
 ```
 
 ## 更新转换作业
-引入 1.0 {：.label .label-purple }
+引入 1.0
+{: .label .label-purple }
 
 更新转换作业（如果 `transform_id` 已存在）。对于此请求，必须指定要更新的转换的序列号和主要术语。若要获取这些内容，请使用[获取转换作业的详细信息](#get-a-transform-jobs-details) API 调用。
 
@@ -286,7 +288,8 @@ PUT _plugins/_transform/sample?if_seq_no=13&if_primary_term=1
 ```
 
 ## 获取转换作业的详细信息
-引入 1.0 {：.label .label-purple }
+引入 1.0
+{: .label .label-purple }
 
 返回转换作业的详细信息。
 
@@ -567,7 +570,8 @@ GET _plugins/_transform?size=2&from=8
 ```
 
 ## 启动转换作业
-引入 1.0 {：.label .label-purple }
+引入 1.0
+{: .label .label-purple }
 
 使用 API 创建的转换作业会自动启用，但如果需要启用作业，可以使用启动 API 操作。
 
@@ -594,7 +598,8 @@ POST _plugins/_transform/sample/_start
 ```
 
 ## 停止转换作业
-引入 1.0 {：.label .label-purple }
+引入 1.0
+{: .label .label-purple }
 
 停止转换作业。
 
@@ -621,7 +626,8 @@ POST _plugins/_transform/sample/_stop
 ```
 
 ## 获取转换作业的状态
-引入 1.0 {：.label .label-purple }
+引入 1.0
+{: .label .label-purple }
 
 返回转换作业的状态和元数据。
 
@@ -669,7 +675,8 @@ GET _plugins/_transform/sample/_explain
 ```
 
 ## 预览转换作业的结果
-引入 1.0 {：.label .label-purple }
+引入 1.0
+{: .label .label-purple }
 
 返回转换后的索引外观的预览。
 
@@ -755,7 +762,8 @@ POST _plugins/_transform/_preview
 ```
 
 ## 删除转换作业
-引入 1.0 {：.label .label-purple }
+引入 1.0
+{: .label .label-purple }
 
 删除转换作业。此操作不会删除源索引或目标索引。
 

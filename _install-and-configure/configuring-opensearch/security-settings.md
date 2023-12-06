@@ -40,7 +40,7 @@ Security 插件支持以下常见设置：
 
 -  `plugins.security.restapi.roles_enabled`（静态）：为列出的角色启用对 REST 管理 API 的基于角色的访问。角色之间用逗号分隔。默认值为空列表（不允许任何角色访问 REST 管理 API）。请参见[API 的访问控制]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api)。
 
--  `plugins.security.restapi.endpoints_disabled.<role>.<endpoint>`（静态）：禁用角色的特定终结点及其 HTTP 方法。此设置的值组成一个 HTTP 方法数组。例如： `plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"]`.默认情况下，允许使用所有终结点和方法。现有端点包括 `ACTIONGROUPS`、、、、 `ROLES` `ROLESMAPPING`、 `SYSTEMINFO` `LICENSE` `CACHE` `CONFIG` `INTERNALUSERS` `PERMISSIONSINFO`、和。请参见[API 的访问控制]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api)。
+-  `plugins.security.restapi.endpoints_disabled.<role>.<endpoint>`（静态）：禁用角色的特定终结点及其 HTTP 方法。此设置的值组成一个 HTTP 方法数组。例如： `plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"]`.默认情况下，允许使用所有终结点和方法。现有端点包括 `ACTIONGROUPS`、 `ROLES` `ROLESMAPPING`、 `SYSTEMINFO` `LICENSE` `CACHE` `CONFIG` `INTERNALUSERS` `PERMISSIONSINFO`、和。请参见[API 的访问控制]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api)。
 
 -  `plugins.security.restapi.password_validation_regex`（静态）：指定用于设置登录密码条件的正则表达式。有关详细信息，请参阅[密码设置]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings)。
 
@@ -182,7 +182,7 @@ Security 插件支持以下常见设置：
 
 -  `plugins.security.audit.config.log4j.logger_name`（静态）：Log4j 记录器的自定义名称。
 
--  `plugins.security.audit.config.log4j.level`（静态）：为 Log4j 记录器提供默认日志级别。有效值为 `OFF`、、、、 `WARN` `INFO`、 `ALL` `FATAL` `ERROR` `DEBUG` `TRACE` 和。缺省值为 `INFO`。
+-  `plugins.security.audit.config.log4j.level`（静态）：为 Log4j 记录器提供默认日志级别。有效值为 `OFF`、 `WARN` `INFO`、 `ALL` `FATAL` `ERROR` `DEBUG` `TRACE` 和。缺省值为 `INFO`。
 
 -  `opendistro_security.audit.config.disabled_rest_categories`（动态）：记录器要忽略的 REST 类别列表。有效值为 `AUTHENTICATED` 和 `GRANTED_PRIVILEGES`。
 

@@ -19,7 +19,8 @@ nav_order: 9
 ---
 
 ## 创建或更新索引汇总作业
-引入 1.0 {：.label .label-purple }
+引入 1.0
+{: .label .label-purple }
 
 创建或更新索引汇总作业。你必须提供 `seq_no` 和 `primary_term` 参数。
 
@@ -185,7 +186,8 @@ PUT _plugins/_rollup/jobs/<rollup_id>?if_seq_no=1&if_primary_term=1 // Update
 
 
 ## 获取索引汇总作业
-引入 1.0 {：.label .label-purple }
+引入 1.0
+{: .label .label-purple }
 
 返回有关 `rollup_id` 基于.
 
@@ -211,7 +213,8 @@ GET _plugins/_rollup/jobs/<rollup_id>
 ---
 
 ## 删除索引汇总作业
-引入 1.0 {：.label .label-purple }
+引入 1.0
+{: .label .label-purple }
 
 删除基于 `rollup_id`.
 
@@ -231,7 +234,8 @@ DELETE _plugins/_rollup/jobs/<rollup_id>
 
 
 ## 启动或停止索引汇总作业
-引入 1.0 {：.label .label-purple }
+引入 1.0
+{: .label .label-purple }
 
 启动或停止索引汇总作业。
 
@@ -253,7 +257,8 @@ POST _plugins/_rollup/jobs/<rollup_id>/_stop
 ---
 
 ## 解释索引汇总作业
-引入 1.0 {：.label .label-purple }
+引入 1.0
+{: .label .label-purple }
 
 返回有关索引汇总作业及其当前进度的详细元数据信息。
 

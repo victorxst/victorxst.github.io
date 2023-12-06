@@ -42,7 +42,7 @@ OpenSearch 控制面板提供你创建的任务及其相关信息（例如关联
 
 1. 在数据表中，选择要转换的字段，然后展开列标题中的下拉菜单以选择要使用的分组或聚合。
 
-    目前，转换作业支持直方图、date_histogram 和术语分组。有关分组的详细信息，请参阅[存储桶聚合]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg/)。在聚合方面，你可以从 `sum`、、、、 `min` `max` `value_count` `avg` 和 `percentiles` `scripted_metric` 中进行选择。有关聚合的详细信息，请参阅[指标聚合]({{site.url}}{{site.baseurl}}/opensearch/metric-agg/)。
+    目前，转换作业支持直方图、date_histogram 和术语分组。有关分组的详细信息，请参阅[存储桶聚合]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg/)。在聚合方面，你可以从 `sum`、 `min` `max` `value_count` `avg` 和 `percentiles` `scripted_metric` 中进行选择。有关聚合的详细信息，请参阅[指标聚合]({{site.url}}{{site.baseurl}}/opensearch/metric-agg/)。
 
 1. 对要转换的任何其他字段重复步骤 1。
 1. 选择要转换的字段并验证转换后，选择**下一个**。
