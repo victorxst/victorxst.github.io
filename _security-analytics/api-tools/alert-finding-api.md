@@ -42,31 +42,31 @@ nav_order: 50
 
 ```json
 {
-    "alerts"：[{{
-        "detector_id"："detector_12345"，
-        "id"："alert_id_1"，
-        "version"：-3，
-        "schema_version"：0，
-        "trigger_id"："trigger_id_1"，
-        "trigger_name"："my_trigger"，
-        "finding_ids"：[["finding_id_1"]，，
-        "related_doc_ids"：[["docId1"]，，
-        "state"："ACTIVE"，
-        "error_message"： 无效的，
-        "alert_history"：[]，，
-        "severity"： 无效的，
-        "action_execution_results"：[{{
-            "action_id"："action_id_1"，
-            "last_execution_time"：1665693544996，
-            "throttled_count"：0
-        }]，
-        "start_time"："2022-10-13T20:39:04.995023Z"，
-        "last_notification_time"："2022-10-13T20:39:04.995028Z"，
-        "end_time"："2022-10-13T20:39:04.995027Z"，
-        "acknowledged_time"："2022-10-13T20:39:04.995028Z"
-    }]，
-    "total_alerts"：1，
-    "detectorType"："windows"
+    "alerts": [{
+        "detector_id": "detector_12345",
+        "id": "alert_id_1",
+        "version": -3,
+        "schema_version": 0,
+        "trigger_id": "trigger_id_1",
+        "trigger_name": "my_trigger",
+        "finding_ids": ["finding_id_1"],
+        "related_doc_ids": ["docId1"],
+        "state": "ACTIVE",
+        "error_message": null,
+        "alert_history": [],
+        "severity": null,
+        "action_execution_results": [{
+            "action_id": "action_id_1",
+            "last_execution_time": 1665693544996,
+            "throttled_count": 0
+        }],
+        "start_time": "2022-10-13T20:39:04.995023Z",
+        "last_notification_time": "2022-10-13T20:39:04.995028Z",
+        "end_time": "2022-10-13T20:39:04.995027Z",
+        "acknowledged_time": "2022-10-13T20:39:04.995028Z"
+    }],
+    "total_alerts": 1,
+    "detectorType": "windows"
 }
 ```
 
@@ -141,65 +141,65 @@ POST /_plugins/_security_analytics/<detector_id>/_acknowledge/alerts
 ### Example request
 
 ```json
-get/_plugins/_security_analytics/findings/_search？
+GET /_plugins/_security_analytics/findings/_search?*detectorType*=
 {
-    "total_findings"：2，
-    "findings"：[[
+    "total_findings":2,
+    "findings":[
        {
-            "detectorId"："12345"，
-            "id"："2b9663f4-ae77-4df8-b84f-688a0195723b"，
-            "related_doc_ids"：[[
+            "detectorId":"12345",
+            "id":"2b9663f4-ae77-4df8-b84f-688a0195723b",
+            "related_doc_ids":[
                 "5"
-            ]，，
-            "index"："sbwhrzgdlg"，
-            "queries"：[[
+            ],
+            "index":"sbwhrzgdlg",
+            "queries":[
                 {
-                    "id"："f1bff160-587b-4500-b60c-ab22c7abc652"，
-                    "name"："3"，
-                    "query"："test_field:\"我们-西方-2 \""，
-                    "tags"：[[
+                    "id":"f1bff160-587b-4500-b60c-ab22c7abc652",
+                    "name":"3",
+                    "query":"test_field:\"us-west-2\"",
+                    "tags":[
                         
-                    这是给出的
+                    ]
                 }
-            ]，，
-            "timestamp"：166440108804，
-            "document_list"：[[
+            ],
+            "timestamp":1664401088804,
+            "document_list":[
                 {
-                    "index"："sbwhrzgdlg"，
-                    "id"："5"，
-                    "found"：真的，
-                    "document"："{\n            \"信息\" : \"这是来自IAD区域的错误\",\n            \"test_strict_date_time \" : \"2022-09-28T21：38：02.888Z \",\n            \"test_field \" : \"我们-西方-2 \"\n        }"
+                    "index":"sbwhrzgdlg",
+                    "id":"5",
+                    "found":true,
+                    "document":"{\n            \"message\" : \"This is an error from IAD region\",\n            \"test_strict_date_time\" : \"2022-09-28T21:38:02.888Z\",\n            \"test_field\" : \"us-west-2\"\n        }"
                 }
-            这是给出的
-        }，，
+            ]
+        },
         {
-            "detectorId"："12345"，
-            "id"："f43a2701-0ef5-4931-8254-bdf510f73952"，
-            "related_doc_ids"：[[
+            "detectorId":"12345",
+            "id":"f43a2701-0ef5-4931-8254-bdf510f73952",
+            "related_doc_ids":[
                 "1"
-            ]，，
-            "index"："sbwhrzgdlg"，
-            "queries"：[[
+            ],
+            "index":"sbwhrzgdlg",
+            "queries":[
                 {
-                    "id"："f1bff160-587b-4500-b60c-ab22c7abc652"，
-                    "name"："3"，
-                    "query"："test_field:\"我们-西方-2 \""，
-                    "tags"：[[
+                    "id":"f1bff160-587b-4500-b60c-ab22c7abc652",
+                    "name":"3",
+                    "query":"test_field:\"us-west-2\"",
+                    "tags":[
                         
-                    这是给出的
+                    ]
                 }
-            ]，，
-            "timestamp"：166440108746，
-            "document_list"：[[
+            ],
+            "timestamp":1664401088746,
+            "document_list":[
                 {
-                    "index"："sbwhrzgdlg"，
-                    "id"："1"，
-                    "found"：真的，
-                    "document"："{\n            \"信息\" : \"这是来自IAD区域的错误\",\n            \"test_strict_date_time \" : \"2022-09-28T21：38：02.888Z \",\n            \"test_field \" : \"我们-西方-2 \"\n        }"
+                    "index":"sbwhrzgdlg",
+                    "id":"1",
+                    "found":true,
+                    "document":"{\n            \"message\" : \"This is an error from IAD region\",\n            \"test_strict_date_time\" : \"2022-09-28T21:38:02.888Z\",\n            \"test_field\" : \"us-west-2\"\n        }"
                 }
-            这是给出的
+            ]
         }
-    这是给出的
+    ]
 }
 ```
 
