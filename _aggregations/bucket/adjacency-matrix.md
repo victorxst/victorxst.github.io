@@ -49,37 +49,37 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 
 #### 示例响应
 
- ```JSON
+  ```json
  {
    ...
-   "aggregations" ：{
-     "interactions" ：{
-       "buckets" ：[[
+   "aggregations" : {
+     "interactions" : {
+       "buckets" : [
          {
-           "key" ："grpA"，
-           "doc_count" ：1553
-         }，，
+           "key" : "grpA",
+           "doc_count" : 1553
+         },
          {
-           "key" ："grpA&grpB"，
-           "doc_count" ：590
-         }，，
+           "key" : "grpA&grpB",
+           "doc_count" : 590
+         },
          {
-           "key" ："grpA&grpC"，
-           "doc_count" ：329
-         }，，
+           "key" : "grpA&grpC",
+           "doc_count" : 329
+         },
          {
-           "key" ："grpB"，
-           "doc_count" ：1370
-         }，，
+           "key" : "grpB",
+           "doc_count" : 1370
+         },
          {
-           "key" ："grpB&grpC"，
-           "doc_count" ：299
-         }，，
+           "key" : "grpB&grpC",
+           "doc_count" : 299
+         },
          {
-           "key" ："grpC"，
-           "doc_count" ：1218
+           "key" : "grpC",
+           "doc_count" : 1218
          }
-       这是给出的
+       ]
      }
    }
  }

@@ -74,7 +74,7 @@ GET /my_index/_search
   <summary>
     回复
   </summary>
-  {： 。文本-三角洲}
+  {: .text-delta}
 ```json
 {
   "took" : 1,
@@ -120,7 +120,7 @@ GET /my_index/_search?search_pipeline=my_pipeline
   <summary>
     回复
   </summary>
-  {： 。文本-三角洲}
+  {: .text-delta}
 ```json
 {
   "took" : 2,
@@ -169,7 +169,7 @@ POST /my_index/_search?pretty&search_pipeline=my_pipeline
   <summary>
     回复
   </summary>
-  {： 。文本-三角洲}
+  {: .text-delta}
 ```json
 {
   "took" : 4,

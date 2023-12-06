@@ -113,7 +113,7 @@ GET /customers/_search
   <summary>
     回复
   </summary>
-  {： 。文本-三角洲}
+  {: .text-delta}
 
 ```json
 {
@@ -217,7 +217,7 @@ GET /customers/_search
   <summary>
     回复
   </summary>
-  {： 。文本-三角洲}
+  {: .text-delta}
 
 ```json
 {

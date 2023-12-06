@@ -96,7 +96,7 @@ GET /my_index/_search
   <summary>
     回复
   </summary>
-  {： 。文本-三角洲}
+  {: .text-delta}
 
 ```json
 {

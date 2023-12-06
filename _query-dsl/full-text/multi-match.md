@@ -484,7 +484,7 @@ GET /customers/_validate/query?explain
   <summary>
     回复
   </summary>
-  {： 。文本-三角洲}
+  {: .text-delta}
 
 ```json
 PUT customers
@@ -717,7 +717,7 @@ GET articles/_search
   <summary>
     回复
   </summary>
-  {： 。文本-三角洲}
+  {: .text-delta}
 
 ```json
 {
@@ -774,7 +774,7 @@ GET articles/_search
   <summary>
     回复
   </summary>
-  {： 。文本-三角洲}
+  {: .text-delta}
 
 ```json
 {

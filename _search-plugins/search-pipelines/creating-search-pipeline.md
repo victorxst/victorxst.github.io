@@ -133,7 +133,7 @@ GET _search/pipeline/my_pipeline
   <summary>
     回复
   </summary>
-  {： 。文本-三角洲}
+  {: .text-delta}
 
 ```json
 {

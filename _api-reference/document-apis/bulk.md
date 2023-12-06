@@ -93,40 +93,40 @@ Optional document\n
 
   如果存在此操作，则会删除文档。如果文档不存在，OpenSearch不会返回错误，而是返回`not_found` 在下面`result`。删除操作不需要下一行上的文档。
 
-  ```JSON
-  {"delete"：{"_index"："movies"，"_id"："tt2229499" }}}
+  ```json
+  { "delete": { "_index": "movies", "_id": "tt2229499" } }
   ```
 
 - Index
 
   Index actions create a document if it doesn't yet exist and replace the document if it already exists. The next line must include a JSON document.
 
-  ```JSON
-  {"index"：{"_index"："movies"，"_id"："tt1979320" }}}
-  {"title"："Rush"，"year"：2013}
+  ```json
+  { "index": { "_index": "movies", "_id": "tt1979320" } }
+  { "title": "Rush", "year": 2013}
   ```
 
 - Update
 
   This action updates existing documents and returns an error if the document doesn't exist. The next line must include a full or partial JSON document, depending on how much of the document you want to update.
 
-  ```JSON
-  {"update"：{"_index"："movies"，"_id"："tt0816711" }}}
-  {"doc" ：{"title"："World War Z" }}}
+  ```json
+  { "update": { "_index": "movies", "_id": "tt0816711" } }
+  { "doc" : { "title": "World War Z" } }
   ```
 
   It can also include a script or upsert for more complex document updates.
 
   - Script
-  ```JSON
-  {"update"：{"_index"："movies"，"_id"："tt0816711" }}}
-  {"script" ：{"source"："ctx._source.title = \"世界大战Z \"" }}}
+  ```json
+  { "update": { "_index": "movies", "_id": "tt0816711" } }
+  { "script" : { "source": "ctx._source.title = \"World War Z\"" } }
   ```
 
   - Upsert
-  ```JSON
-  {"update"：{"_index"："movies"，"_id"："tt0816711" }}}
-  {"doc" ：{"title"："World War Z" }，，"doc_as_upsert"： 真的 }
+  ```json
+  { "update": { "_index": "movies", "_id": "tt0816711" } }
+  { "doc" : { "title": "World War Z" }, "doc_as_upsert": true }
   ```
 
 ## 回复

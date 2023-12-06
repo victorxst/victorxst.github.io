@@ -63,7 +63,7 @@ GET /_nodes/search_pipelines
   <summary>
     回复
   </summary>
-  {： 。文本-三角洲}
+  {: .text-delta}
 
 ```json
 {

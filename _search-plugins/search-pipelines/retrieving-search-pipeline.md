@@ -23,7 +23,7 @@ GET /_search/pipeline
   <summary>
     回复
   </summary>
-  {： 。文本-三角洲}
+  {: .text-delta}
 
 ```json
 {
