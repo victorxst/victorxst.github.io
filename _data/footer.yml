@@ -1,12 +1,12 @@
 columns:
   -
-    title: 'Get Involved'
+    title: '参与其中'
     links:
       -
-        title: Code of Conduct
+        title: 行为守则
         url: '/codeofconduct.html'
       -
-        title: 'Forums'
+        title: '论坛'
         url: 'https://discuss.opendistrocommunity.dev/'
       -
         title: 'Github'
@@ -15,10 +15,10 @@ columns:
         # title: 'Partners'
         # url: '/partners/'
       -
-        title: 'Community Projects'
+        title: '社区项目'
         url: '/community_projects'
   -
-    title: 'Resources'
+    title: '资源'
     links:
       #-
       #  title: 'Documentation'
@@ -27,16 +27,16 @@ columns:
         title: FAQ
         url: '/faq/'
       -
-        title: Testimonials
+        title: 感言
         url: '/testimonials.html'
       - 
-        title: 'Trademark and Brand Policy'
+        title: '商标和品牌政策'
         url: '/trademark-brand-policy.html'
       -
-        title: OpenSearch Disambiguation
+        title: OpenSearch消歧义
         url: '/disambiguation.html'
   -
-    title: 'Connect'
+    title: '连接'
     links:
       # -
       #  title: 'Twitter'
@@ -45,5 +45,5 @@ columns:
       #  title: 'Facebook'
       #  url: 'http://www.facebook.com/opensearch'
       -
-        title: 'Connect'
+        title: '连接'
         url: 'https://opensearch.org/connect.html'

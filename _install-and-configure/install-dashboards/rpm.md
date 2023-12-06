@@ -15,7 +15,7 @@ OpenSearch 控制面板是 OpenSearch 中数据的默认可视化工具。它还
 
 ## 从软件包安装 OpenSearch 控制面板
 
-1. 直接从[OpenSearch 下载页面](https://opensearch.org/downloads.html){：target='\_blank'} 下载所需版本的 RPM 包。RPM 包可以同时下载，也可以**arm64 的**下载**64 倍**。
+1. 直接从[OpenSearch 下载页面](https://opensearch.org/downloads.html){:target='\_blank'} 下载所需版本的 RPM 包。RPM 包可以同时下载，也可以**arm64 的**下载**64 倍**。
 1. 导入 GPG 公钥。此密钥验证你的 OpenSearch 实例是否已签名。
     ```bash
     sudo rpm --import https://artifacts.opensearch.org/publickeys/opensearch.pgp

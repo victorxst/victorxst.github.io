@@ -9,7 +9,7 @@ redirect_from:
 
 # 使用 tarball 运行 OpenSearch 控制面板
 
-1. 从[OpenSearch 下载页面](https://opensearch.org/downloads.html){：target='\_blank'} 下载压缩包。
+1. 从[OpenSearch 下载页面](https://opensearch.org/downloads.html){:target='\_blank'} 下载压缩包。
 
 1. 将 TAR 文件解压缩到某个目录，然后切换到该目录：
 

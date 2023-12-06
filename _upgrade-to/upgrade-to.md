@@ -22,7 +22,7 @@ Elasticsearch OSS 支持两种升级方式：滚动升级和集群重启。
 
   群集重启升级在次要版本（例如，6.5 到 6.8）和下一个主要版本（例如，6.x 到 7.10.2）之间工作。群集重新启动升级的执行速度更快，需要的中间升级更少，但需要停机。
 
-要将 Elasticsearch （7.11+）的分叉后版本迁移到 OpenSearch，你可以使用 Logstash。你需要在 Logstash 中使用 Elasticsearch 输入插件从 Elasticsearch 集群中提取数据，并将[Logstash 输出 OpenSearch 插件](https://github.com/opensearch-project/logstash-output-opensearch#configuration-for-logstash-output-opensearch-plugin)数据写入 OpenSearch 2.x 集群。我们建议使用 Logstash 版本 7.13.4 或更早版本，因为较新版本在与 OpenSearch 建立连接时可能会遇到兼容性问题，因为 Elasticsearch 在分叉后引入了更改。我们强烈建议用户使用自己的数据测试此解决方案，以确保有效性。{：.note}
+要将 Elasticsearch （7.11+）的分叉后版本迁移到 OpenSearch，你可以使用 Logstash。你需要在 Logstash 中使用 Elasticsearch 输入插件从 Elasticsearch 集群中提取数据，并将[Logstash 输出 OpenSearch 插件](https://github.com/opensearch-project/logstash-output-opensearch#configuration-for-logstash-output-opensearch-plugin)数据写入 OpenSearch 2.x 集群。我们建议使用 Logstash 版本 7.13.4 或更早版本，因为较新版本在与 OpenSearch 建立连接时可能会遇到兼容性问题，因为 Elasticsearch 在分叉后引入了更改。我们强烈建议用户使用自己的数据测试此解决方案，以确保有效性。{: .note}
 
 ## 迁移路径
 

@@ -617,19 +617,19 @@ POST _plugins/_alerting/workflows/<workflow_id>/_acknowledge/alerts
   
   在里面**定义工作流程** 字段，输入一个定义委托监视器及其在工作流中的顺序的序列。下面的示例显示了工作流中包含的代表监视器以及其顺序中的顺序：
 
-  ```JSON
+  ```json
   {
-      "sequence"：{
-          "delegates"：[[
+      "sequence": {
+          "delegates": [
               {
-                  "order"：1，
-                  "monitor_id"："0TgBZokB2ZtsLaRvXz70"
-              }，，
+                  "order": 1,
+                  "monitor_id": "0TgBZokB2ZtsLaRvXz70"
+              },
               {
-                  "order"：2，
-                  "monitor_id"："8jgBZokB2ZtsLaRv6z4N"
+                  "order": 2,
+                  "monitor_id": "8jgBZokB2ZtsLaRv6z4N"
               }
-          这是给出的
+          ]
       }
   }
   ```

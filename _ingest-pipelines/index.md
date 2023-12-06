@@ -14,7 +14,7 @@ An _引入管道_是在将文档引入索引时应用于文档的序列_处理�
 
 处理器是可自定义的任务，它们在请求正文中显示时按顺序运行。此顺序很重要，因为每个处理器都依赖于前一个处理器的输出。应用处理器后，修改后的文档将显示在索引中。
 
-引入管道只能使用[引入 API 操作]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/)进行管理。{：.note}
+引入管道只能使用[引入 API 操作]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/)进行管理。{: .note}
 
 ## 先决条件
 

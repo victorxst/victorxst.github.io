@@ -24,11 +24,11 @@ redirect_from:
 
 tarball 是一个独立的目录，其中包含运行 OpenSearch 所需的一切，包括集成的 Java 开发工具包（JDK）。此安装方法与大多数 Linux 发行版兼容，包括 CentOS 7、Amazon Linux 2 和 Ubuntu 18.04. 如果你有自己的 Java 安装并在终端中设置了环境变量 `JAVA_HOME`，则 macOS 也可以工作。
 
-本指南假定你能够熟练地使用 Linux 命令行界面（CLI）工作。你应该了解如何输入命令、在目录之间导航和编辑文本文件。一些示例命令引用 `vi` 文本编辑器，但你可以使用任何可用的文本编辑器。{：.note}
+本指南假定你能够熟练地使用 Linux 命令行界面（CLI）工作。你应该了解如何输入命令、在目录之间导航和编辑文本文件。一些示例命令引用 `vi` 文本编辑器，但你可以使用任何可用的文本编辑器。{: .note}
 
 ## 第 1 步：下载并解压缩 OpenSearch
 
-1. 从[OpenSearch 下载页面](https://opensearch.org/downloads.html){：target='\_blank'} 或使用命令行（例如使用 `wget`）下载相应的 tar.gz 归档文件。
+1. 从[OpenSearch 下载页面](https://opensearch.org/downloads.html){:target='\_blank'} 或使用命令行（例如使用 `wget`）下载相应的 tar.gz 归档文件。
    ```bash
    # x64
    wget https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}-linux-x64.tar.gz
@@ -47,7 +47,7 @@ tarball 是一个独立的目录，其中包含运行 OpenSearch 所需的一切
 
 ## 第 2 步：配置重要的系统设置
 
-在启动 OpenSearch 之前，你应该查看一些[重要的系统设置]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/){：target='\_blank'}。
+在启动 OpenSearch 之前，你应该查看一些[重要的系统设置]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/){:target='\_blank'}。
 1. 禁用主机上的内存分页和交换性能以提高性能。
    ```bash
    sudo swapoff -a
@@ -232,9 +232,9 @@ tarball 是一个独立的目录，其中包含运行 OpenSearch 所需的一切
 - 配置你自己的 TLS 证书 - 不需要第三方证书颁发机构（CA）。
 - 使用自定义密码创建管理员用户。
 
-如果运行了安全演示脚本，则需要手动重新配置已修改的设置。在继续操作之前，[安全配置]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)请参阅有关指导。{：.note}
+如果运行了安全演示脚本，则需要手动重新配置已修改的设置。在继续操作之前，[安全配置]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)请参阅有关指导。{: .note}
 
-在修改任何配置文件之前，最好先保存备份副本，然后再进行更改。备份文件可用于还原由错误配置引起的任何问题。{：.tip}
+在修改任何配置文件之前，最好先保存备份副本，然后再进行更改。备份文件可用于还原由错误配置引起的任何问题。{: .tip}
 
 1. 打开 `opensearch.yml`。
    ```bash
@@ -467,7 +467,7 @@ OpenSearch 现在使用自定义 TLS 证书和用于基本身份验证的安全�
 
 在之前的测试中，你将请求定向到 `localhost`。现在，TLS 证书已应用，并且新证书引用了主机的实际 DNS 记录，因此请求 `localhost` 将无法通过 CN 检查，并且证书将被视为无效。相反，应将请求发送到你在生成证书时指定的地址。
 
-在发送请求之前，应向客户端添加对根证书的信任。如果不添加信任，则必须使用该 `-k` 选项，以便 cURL 忽略 CN 和根证书验证。{：.tip}
+在发送请求之前，应向客户端添加对根证书的信任。如果不添加信任，则必须使用该 `-k` 选项，以便 cURL 忽略 CN 和根证书验证。{: .tip}
 
 ```bash
 $ curl https://your.host.address:9200 -u admin:yournewpassword -k

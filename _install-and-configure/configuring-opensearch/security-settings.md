@@ -84,7 +84,7 @@ Security 插件支持以下常见设置：
 
 -  `plugins.security.enable_snapshot_restore_privilege`（静态）：设置为 `false` 时，此设置将禁用常规用户的快照还原。在这种情况下，仅接受由管理员 TLS 证书签名的快照还原请求。设置为 `true`（默认）时，如果普通用户具有 `cluster:admin/snapshot/restore`、 `indices:admin/create` 和 `indices:data/write/index` 权限，则可以还原快照。
 
-  只有当快照不包含全局状态且不还原索引时，才能还原 `.opendistro_security` 快照。{：.note}
+  只有当快照不包含全局状态且不还原索引时，才能还原 `.opendistro_security` 快照。{: .note}
 
 -  `plugins.security.check_snapshot_restore_write_privileges`（静态）：设置为 `false` 时，将省略其他索引检查。当设置为默认值 `true` 时，将评估 `indices:admin/create` 和 `"indices:data/write/index` 的恢复快照尝试。
 

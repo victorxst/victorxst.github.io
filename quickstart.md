@@ -11,7 +11,8 @@ redirect_from:
 
 通过使用[Docker](https://www.docker.com/)部署容器，开始使用 OpenSearch 和 OpenSearch 控制面板。在继续操作之前，你需要在本地计算机上安装并[get Docker](https://docs.docker.com/get-docker/)[Docker Compose 的](https://github.com/docker/compose)安装。
 
-本指南中使用的 Docker Compose 命令使用连字符书写（例如， `docker-compose`）。如果你在计算机上安装了 Docker Desktop，它会自动安装 Docker Compose 的捆绑版本，则应删除连字符。例如，更改为 `docker-compose` `docker compose`.{：.note}
+本指南中使用的 Docker Compose 命令使用连字符书写（例如， `docker-compose`）。如果你在计算机上安装了 Docker Desktop，它会自动安装 Docker Compose 的捆绑版本，则应删除连字符。例如，更改为 `docker-compose` `docker compose`.
+{: .note}
 
 ## 启动集群
 
@@ -81,7 +82,7 @@ redirect_from:
 
 使用 OpenSearch 项目提供的数据集创建索引并定义字段映射。相同的虚构电子商务数据也用于 OpenSearch 控制面板中的示例可视化。要了解更多信息，请参阅[开始使用 OpenSearch 控制面板]({{site.url}}{{site.baseurl}}/dashboards/index/)。
 
-1. 下载[电子商务-field_mappings.json](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce-field_mappings.json).此文件为将使用的示例数据定义。[mapping]({{site.url}}{{site.baseurl}}/opensearch/mappings/)
+1. 下载[ecommerce-field_mappings.json](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce-field_mappings.json).此文件为将使用的示例数据定义。[mapping]({{site.url}}{{site.baseurl}}/opensearch/mappings/)
     ```bash
     # Using cURL:
     curl -O https://raw.githubusercontent.com/opensearch-project/documentation-website/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce-field_mappings.json
@@ -89,7 +90,7 @@ redirect_from:
     # Using wget:
     wget https://raw.githubusercontent.com/opensearch-project/documentation-website/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce-field_mappings.json
     ```
-1. 下载[电子商务.json](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce.json).此文件包含格式化的索引数据，以便批量 API 可以引入这些数据。要了解更多信息，请参阅[index data]({{site.url}}{{site.baseurl}}/opensearch/index-data/)和[Bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/)。
+1. 下载[ecommerce.json](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce.json).此文件包含格式化的索引数据，以便批量 API 可以引入这些数据。要了解更多信息，请参阅[index data]({{site.url}}{{site.baseurl}}/opensearch/index-data/)和[Bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/)。
     ```bash
     # Using cURL:
     curl -O https://raw.githubusercontent.com/opensearch-project/documentation-website/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce.json
@@ -146,15 +147,15 @@ redirect_from:
 sudo usermod -aG docker $USER
 ```
 
-### 错误消息：“-bash：docker-compose：找不到命令”
+### 错误消息：“-bash: docker-compose: command not found”
 
 如果安装了 Docker Desktop，则计算机上已安装 Docker Compose。尝试 `docker compose`（不带连字符）而不是 `docker-compose`.请参见[使用 Docker Compose](https://docs.docker.com/get-started/08_using_compose/)。
 
-### 错误消息：“docker：'compose' 不是 docker 命令。
+### 错误消息：“docker: 'compose' is not a docker command.”
 
 如果安装了 Docker Engine，则必须单独安装 Docker Compose，并且将使用该命令 `docker-compose`（带连字符）。请参见[Docker Compose 的](https://github.com/docker/compose)。
 
-### 错误消息：“最大虚拟内存区域 vm.max_map_count [65530] 太低”
+### 错误消息：“max virtual memory areas vm.max_map_count [65530] is too low”
 
 如果主机的 `vm.max_map_count` OpenSearch 过低，OpenSearch 将无法启动。如果在服务日志中看到以下错误，请查看，[重要的系统设置]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/)并进行适当的设置 `vm.max_map_count`。
 ```bash

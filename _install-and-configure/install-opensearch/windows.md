@@ -28,7 +28,7 @@ Windows OpenSearch 存档是一个独立的目录，其中包含运行 OpenSearc
 
 执行以下步骤以在 Windows 上安装 OpenSearch。
 
-1. 下载 [ `opensearch-{{site.opensearch_version}}-windows-x64.zip`]（https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch--windows-x64{{site.opensearch_version}}.zip） {：target='\_blank'} 存档。
+1. 下载 [ `opensearch-{{site.opensearch_version}}-windows-x64.zip`]（https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch--windows-x64{{site.opensearch_version}}.zip） {:target='\_blank'} 存档。
 1. 要提取存档内容，请右键单击以选择**全部提取**。
 
 ## 步骤 2：（可选）测试 OpenSearch
@@ -191,7 +191,7 @@ Windows OpenSearch 存档是一个独立的目录，其中包含运行 OpenSearc
       hostname opensearch-sql                       {{site.opensearch_version}}
       ```
 
-要停止 OpenSearch，请按 `Ctrl+C` 命令提示符或 Powershell，或者直接关闭命令提示符或 Powershell 窗口。{：.tip}
+要停止 OpenSearch，请按 `Ctrl+C` 命令提示符或 Powershell，或者直接关闭命令提示符或 Powershell 窗口。{: .tip}
 
 ## 步骤 3：在你的环境中设置 OpenSearch
 
@@ -203,9 +203,9 @@ Windows OpenSearch 存档是一个独立的目录，其中包含运行 OpenSearc
 - 设置初始和最大 JVM 堆大小。
 - 定义一个指向捆绑的 JDK 的环境变量。
 
-如果运行了安全演示脚本，则需要手动重新配置已修改的设置。在继续操作之前，[安全配置]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)请参阅有关指导。{：.note}
+如果运行了安全演示脚本，则需要手动重新配置已修改的设置。在继续操作之前，[安全配置]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)请参阅有关指导。{: .note}
 
-在修改任何配置文件之前，最好先保存备份副本，然后再进行更改。备份文件可用于还原由错误配置引起的任何问题。{：.tip}
+在修改任何配置文件之前，最好先保存备份副本，然后再进行更改。备份文件可用于还原由错误配置引起的任何问题。{: .tip}
 
 1.  `opensearch-{{site.opensearch_version}}\config` 打开文件夹。
 1.  `opensearch.yml` 使用文本编辑器打开文件。

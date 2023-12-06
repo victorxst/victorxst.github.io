@@ -13,7 +13,7 @@ OpenSearch 项目会定期发布更新，其中包括新功能、增强功能和
 
 我们认识到，用户对升级 OpenSearch 以享受最新功能感到兴奋，我们将继续扩展这些升级和迁移文档，以涵盖其他主题，例如升级 OpenSearch 控制面板和保留自定义配置，例如插件。要查看接下来会发生什么或对未来内容提出请求，请在 GitHub 上[OpenSearch 项目](https://github.com/opensearch-project)发表评论[升级和迁移文档元问题](https://github.com/opensearch-project/documentation-website/issues/2830)。
 
-如果你希望添加特定流程或想要做出贡献，[创建问题](https://github.com/opensearch-project/documentation-website/issues)请在 GitHub 上。请参阅以[贡献者指南](https://github.com/opensearch-project/documentation-website/blob/main/CONTRIBUTING.md)了解如何提供帮助。{：.tip}
+如果你希望添加特定流程或想要做出贡献，[创建问题](https://github.com/opensearch-project/documentation-website/issues)请在 GitHub 上。请参阅以[贡献者指南](https://github.com/opensearch-project/documentation-website/blob/main/CONTRIBUTING.md)了解如何提供帮助。{: .tip}
 
 ## 工作流注意事项
 
@@ -33,7 +33,7 @@ OpenSearch 项目会定期发布更新，其中包括新功能、增强功能和
 - [备份配置文件](#backing-up-configuration-files).
 - [创建快照](#creating-a-snapshot).
 
-在开始升级过程之前停止任何不必要的索引，以消除在执行升级时对群集的不必要的资源需求。{：.tip}
+在开始升级过程之前停止任何不必要的索引，以消除在执行升级时对群集的不必要的资源需求。{: .tip}
 
 ### 查看中断性变更
 
@@ -103,7 +103,7 @@ OpenSearch 管理员可能出于多种原因选择执行集群重启升级，例
 
 OpenSearch 节点与在同一*主要*版本版本中运行任何其他*次要*版本的其他 OpenSearch 节点兼容。例如，1.1.0 与 1.3.7 兼容，因为它们属于同一*主要*版本（1.x）。此外，OpenSearch 节点和索引向后兼容之前的主要版本。这意味着，例如，由运行任何 1.x 版本的 OpenSearch 节点创建的索引可以从快照还原到运行任何 2.x 版本的 OpenSearch 集群。
 
-OpenSearch 1.x 节点与运行 Elasticsearch 7.x 的节点兼容，但混合版本环境的寿命不应超出集群升级活动。{：.tip}
+OpenSearch 1.x 节点与运行 Elasticsearch 7.x 的节点兼容，但混合版本环境的寿命不应超出集群升级活动。{: .tip}
 
 索引兼容性由创建索引的[Apache Lucene](https://lucene.apache.org/)版本决定。如果索引是由运行版本 1.0.0 的 OpenSearch 集群创建的，则该索引可由运行到最新 1.x 或 2.x 版本的任何其他 OpenSearch 集群使用。请参阅表格，[索引兼容性参考](#index-compatibility-reference)了解在 OpenSearch 1.0.0 及更高版本以及[Elasticsearch 的](https://www.elastic.co/) 6.8 及更高版本中运行的 Lucene 版本。
 

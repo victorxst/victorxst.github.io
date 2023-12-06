@@ -43,7 +43,7 @@ function updateTextArea() {
 
     // calculate the number of characters remaining
     counter = 350 - commentTextArea.value.length;
-    numCharsLabel.innerText = counter + " characters left";
+    numCharsLabel.innerText = counter + " 剩余字符";
 }
 
 function sendFeedback() {

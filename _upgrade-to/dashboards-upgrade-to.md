@@ -20,7 +20,7 @@ Kibana OSS 将其可视化和仪表板存储在 Elasticsearch OSS 集群上的�
 
    通常，名称中带有的设置映射到（例如，和），名称中带有 `elasticsearch` 的设置映射到 `opensearchDashboards` `opensearch`（例如， `elasticsearch.shardTimeout` `kibana.defaultAppId` 和 `opensearch.shardTimeout` `opensearchDashboards.defaultAppId`）。 `kibana` 大多数其他设置使用相同的名称。
 
-   有关 OpenSearch 控制面板设置的完整列表，请参阅[opensearch_dashboards.yml](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml){：target='\_blank'}。
+   有关 OpenSearch 控制面板设置的完整列表，请参阅[opensearch_dashboards.yml](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml){:target='\_blank'}。
 
 1. 如果你的 OpenSearch 集群使用安全插件，请保留并修改中的默认设置 `opensearch_dashboards.yml`，特别是 `opensearch.username` 和 `opensearch.password`。
 

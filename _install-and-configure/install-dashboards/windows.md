@@ -13,7 +13,7 @@ redirect_from:
 
 确保你已安装 zip 实用程序。{：.note }
 
-1. 下载 [ `opensearch-dashboards-{{site.opensearch_version}}-windows-x64.zip`]（https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/{{site.opensearch_version}}/opensearch-dashboards--windows-x64{{site.opensearch_version}}.zip） {：target='\_blank'} 存档。
+1. 下载 [ `opensearch-dashboards-{{site.opensearch_version}}-windows-x64.zip`]（https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/{{site.opensearch_version}}/opensearch-dashboards--windows-x64{{site.opensearch_version}}.zip） {:target='\_blank'} 存档。
 
 1. 要提取存档内容，请右键单击以选择**全部提取**。
    
@@ -49,4 +49,4 @@ redirect_from:
          .\bin\opensearch-dashboards.bat
          ```
 
-要停止 OpenSearch 控制面板，请在命令提示符或 Powershell 中按， `Ctrl+C` 或者直接关闭命令提示符或 Powershell 窗口。{：.tip}
+要停止 OpenSearch 控制面板，请在命令提示符或 Powershell 中按， `Ctrl+C` 或者直接关闭命令提示符或 Powershell 窗口。{: .tip}
