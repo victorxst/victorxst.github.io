@@ -1047,7 +1047,7 @@ Updates a detector with any changes, including the description or adding or remo
 To update a detector, you need to first stop both real-time detection and historical analysis.
 
 You can't update a category field.
-{: .note }
+{:.note}
 
 #### Request
 
@@ -2077,7 +2077,7 @@ To search and aggregate states for all entity-level historical tasks:
 
 The `parent_task_id` is the same as the task ID that you can get with the profile detector API:
 `GET _plugins/_anomaly_detection/detectors/<detector_ID>/_profile/ad_task`.
-{: .note }
+{:.note}
 
 
 #### Request

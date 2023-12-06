@@ -106,7 +106,7 @@ var createResponse = await osClient.Indices.CreateAsync(index,
 在以下示例中，`BulkAll` 配置有索引名称，返回次数的数量以及返回时间。此外，并行性设置的最大程度控制包含数据的并行HTTP请求的数量。最后，大小参数信号在一个HTTP请求中发送了多少个文档。
 
 我们建议将大小设置为生产中的100–1000个文档。
-{: .tip}
+{:.tip}
 
 `BulkAll` 获取数据流并返回可观察到的可观察到背景操作的可观察到的。
 
@@ -145,7 +145,7 @@ var gradResponse = await osClient.SearchAsync<Student>(s => s
 OpenSearch.Client包括完整的OpenSearch查询功能，包括聚合。除了将搜索结果分组到水桶中（例如，按GPA范围对学生进行分组），您还可以计算诸如总和或平均值之类的指标。以下查询计算了索引中所有学生的平均GPA。
 
 将大小设置为0表示OpenSearch只能返回聚合，而不是实际文档。
-{: .tip}
+{:.tip}
 
 ```cs
 var aggResponse = await osClient.SearchAsync<Student>(s => s

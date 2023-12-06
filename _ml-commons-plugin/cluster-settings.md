@@ -25,7 +25,7 @@ node.roles: [ ml ]
 如果`true`，ML Commons任务和模型仅在ML节点上运行ML任务。如果`false`，任务和模型首先在ML节点上运行。如果不存在ML节点，则在数据节点上运行任务和模型。
 
 我们建议设置`plugins.ml_commons.only_run_on_ml_node` 到`true` 在生产集群上。
-{: .tip}
+{:.tip}
 
 
 ### 环境

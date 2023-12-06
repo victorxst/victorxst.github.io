@@ -14,7 +14,7 @@ redirect_from:
 IP字段类型包含IPv4或IPv6格式中的IP地址。
 
 为了表示IP地址范围，有一个IP[范围字段类型]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/range/)。
-{: .note}
+{:.note}
 
 ## 例子
 

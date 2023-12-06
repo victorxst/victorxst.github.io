@@ -334,7 +334,7 @@ opensearch.requestHeadersAllowlist: ["Authorization", "security_tenant"]
 ```
 
 在仪表板标志中与其他身份验证类型一起包含OpenID连接-在窗口中，请参阅[配置标志-在选项中]({{site.url}}{{site.baseurl}}/security/configuration/multi-auth/)。
-{: .note }
+{:.note}
 
 ### 其他参数
 

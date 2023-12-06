@@ -60,7 +60,7 @@ GET /testindex/_search?human=true
 ```
 
 配置文件API响应是冗长的，因此，如果您正在通过`curl` 命令，包括`?pretty` 查询参数以使响应易于理解。
-{: .tip}
+{:.tip}
 
 #### 示例响应
 
@@ -269,7 +269,7 @@ GET /testindex/_search?human=true
 `children` | 如果收集器具有子收集器（儿童），则此字段包含有关子策略器的信息。
 
 收集器时间是独立计算，组合和归一化的，因此它们独立于查询时间。
-{: .note}
+{:.note}
 
 #### 收集者的原因
 

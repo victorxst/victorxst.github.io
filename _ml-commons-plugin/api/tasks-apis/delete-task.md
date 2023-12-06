@@ -11,7 +11,7 @@ nav_order: 20
 根据`task_id`。
 
 运行删除请求时，ML Commons不会检查任务状态。在任务完成之前，可以删除当前正在运行的任务的风险。要检查任务的状态，请运行`GET /_plugins/_ml/tasks/<task_id>` 在任务删除之前。
-{: .note}
+{:.note}
 
 ### 路径和HTTP方法
 

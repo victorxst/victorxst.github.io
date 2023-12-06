@@ -14,7 +14,7 @@ nav_order: 8
 要了解快照创作，请参阅[创建快照]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-snapshot)。
 
 如果使用安全插件，则必须`monitor_snapshot`，`create_snapshot`， 或者`manage cluster` 特权。
-{: .note}
+{:.note}
 
 ## 路径参数
 

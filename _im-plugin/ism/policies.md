@@ -450,7 +450,7 @@ ISM 根据不断_不_检查操作**策略的每次执行****设置间隔**条件
 
 [索引汇总]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/index/)允许你通过将旧数据汇总到汇总索引中来定期降低数据粒度。
 
-汇总作业可以是连续的，也可以是非连续的。使用 ISM 策略创建的汇总作业只能是非连续的。{：.note }
+汇总作业可以是连续的，也可以是非连续的。使用 ISM 策略创建的汇总作业只能是非连续的。{:.note}
 
 #### Path 和 HTTP 方法
 
@@ -913,7 +913,7 @@ GET /_cat/aliases?pretty
 ```
 {% include copy-curl.html %}
 
-注意： `index` 别名操作策略不允许使用和 `remove_index` 参数。 `add` 只允许和 `remove` alias 操作参数。{：.warning}
+注意： `index` 别名操作策略不允许使用和 `remove_index` 参数。 `add` 只允许和 `remove` alias 操作参数。{: .warning}
 
 ## 示例策略
 

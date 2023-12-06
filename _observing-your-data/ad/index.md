@@ -48,7 +48,7 @@ redirect_from:
    - 如果要存储异常检测结果，请选择**启用自定义结果索引** 并指定存储结果的自定义索引。异常检测插件添加了`opensearch-ad-plugin-result-` 输入的索引名称的前缀。例如，如果您输入`abc` 结果索引名称，最终索引名称为`opensearch-ad-plugin-result-abc`。
 
    您可以使用破折号”-”签名将命名空间分开以管理自定义结果索引权限。例如，如果您使用`opensearch-ad-plugin-result-financial-us-group1` 结果索引，您可以根据模式创建权限角色`opensearch-ad-plugin-result-financial-us-*` 代表"financial" 部门在颗粒处"us" 区域。
-   {: .note }
+   {:.note}
 
       - 如果您指定的自定义索引尚不存在，则当您创建检测器并启动真实时，异常检测插件会创建此索引-时间或历史分析。
       - 如果自定义索引已经存在，则插件检查自定义索引的索引映射是否与异常结果文件匹配。您需要确保自定义索引具有有效映射，如下所示：[异常-结果](https://github.com/opensearch-project/anomaly-detection/blob/main/src/main/resources/mappings/anomaly-results.json)。
@@ -74,7 +74,7 @@ redirect_from:
 例如，如果您选择`min()`，该检测器的重点是基于功能的最低值查找异常。如果您选择`average()`，检测器根据功能的平均值找到异常。
 
 并发-特征模型将其所有功能的异常相关联。这[维度的诅咒](https://en.wikipedia.org/wiki/Curse_of_dimensionality) 使多数的可能性较小-特征模型与单个相比识别较小的异常-功能模型。添加更多功能可能会对[精确和回忆](https://en.wikipedia.org/wiki/Precision_and_recall) 模型。数据中较高比例的噪声可能会进一步扩大这种负面影响。选择最佳功能集通常是迭代过程。默认情况下，检测器的最大功能数为5。您可以使用`plugins.anomaly_detection.max_anomaly_features` 环境。
-{: .note }
+{:.note}
 
 要配置基于聚合方法的异常检测模型，请按照以下步骤：
 
@@ -89,7 +89,7 @@ redirect_from:
 1. 在编辑器中输入您的JSON聚合查询。
 
 有关可接受的JSON查询语法，请参阅[OpenSearch查询DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/)
-{: .note }
+{:.note}
 
 #### （可选的）高基数的设置类别字段
 
@@ -108,7 +108,7 @@ redirect_from:
 要获取检测器的实体模型大小，请使用[配置文件检测器API]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api/#profile-detector)。您可以使用`plugins.anomaly_detection.model_max_size_percent` 环境。
 
 该公式提供了一个很好的起点，但请确保使用代表性工作量进行测试。
-{: .note }
+{:.note}
 
 例如，对于具有三个数据节点的群集，每个群集具有8 GB的JVM堆大小，最大内存百分比为10％（默认）和检测器的实体模型大小为1MB：所支持的独特实体的总数为（8.096 * 10^9 * 0.1 / 1 MB） * 3 = 2429。
 
@@ -148,7 +148,7 @@ redirect_from:
 ![异常检测结果]({{site.url}}{{site.baseurl}}/images/review_ad.png)
 
 如果您看到任何验证错误，请编辑设置以修复错误，然后返回此页面。
-{: .note }
+{:.note}
 
 ## 步骤5：观察结果
 
@@ -160,7 +160,7 @@ redirect_from:
 如果您看到探测器正在等待"initialization" 在超过一天的时间内，使用检测器间隔来汇总现有数据，以检查任何丢失的数据点。如果您从汇总数据中找到很多缺少的数据点，请考虑增加检测器间隔。
 
 选择并在异常线图上进行拖动以放大并查看异常的更详细的视图。
-{: .note }
+{:.note}
 
 通过以下可视化分析异常：
 

@@ -31,7 +31,7 @@ ML CONSONS插件具有两个保留角色：
 - `restricted`：所有者，管理用户或共享模型组的后端角色之一的任何用户都可以访问此模型组中的任何模型。创建一个`restricted` 模型组，所有者必须将一个或多个所有者的后端角色附加到模型上。
 
 管理员可以在集群中访问所有模型组，而不管其访问模式如何。
-{: .note}
+{:.note}
 
 ## 模型访问控制先决条件
 
@@ -42,14 +42,14 @@ ML CONSONS插件具有两个保留角色：
 3. [启用模型访问控制](#enabling-model-access-control) 在你的集群上。
 
 如果未满足任何先决条件，则集群中的所有模型均为`public` 任何有访问群集的用户都可以访问。
-{: .note}
+{:.note}
 
 ## 将后端角色分配给用户
 
 创建适当的后端角色并将这些角色分配给用户。后端角色通常来自[LDAP服务器]({{site.url}}{{site.baseurl}}/security/configuration/ldap/) 或者[SAML提供商]({{site.url}}{{site.baseurl}}/security/configuration/saml/)，但是如果使用内部用户数据库，则可以将REST API使用[手动添加它们]({{site.url}}{{site.baseurl}}/security/access-control/api#create-user)。
 
 只有管理员用户才能为用户分配后端角色。
-{: .note}
+{:.note}
 
 分配后端角色时，请考虑两个用户的以下示例：`alice` 和`bob`。
 

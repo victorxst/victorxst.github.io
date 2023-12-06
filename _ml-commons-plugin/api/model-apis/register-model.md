@@ -18,7 +18,7 @@ nav_order: 10
 创建模型组后，提供其`model_group_id` 向模型组注册新的型号版本。在这种情况下，模型名称不需要唯一。
 
 如果您正在使用[预验证的模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models#supported-pretrained-models) 由OpenSearch提供，我们建议您首先注册一个模型组，其中唯一名称为这些型号。然后注册验证的模型作为该模型组的版本。这样可以确保每个模型组都有一个全球唯一的模型组名称。
-{: .tip}
+{:.tip}
 
 有关此API的用户访问的信息，请参见[模型访问控制注意事项]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations)。
 

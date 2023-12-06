@@ -12,7 +12,7 @@ redirect_from:
 你可以根据需要为 OpenSearch 安装单独的插件。有关可用插件的信息，请参阅[可用的插件](#available-plugins)。
 
 
-要使插件与 OpenSearch 正常工作，所有插件都必须能够访问集群中的数据，包括有关集群操作的元数据。因此，为了保护集群的数据并保持其完整性，请先确保你了解插件的功能，然后再将其安装在 OpenSearch 集群上。其次，在选择自定义插件时，请确保插件的来源是可靠的。{：.warning}
+要使插件与 OpenSearch 正常工作，所有插件都必须能够访问集群中的数据，包括有关集群操作的元数据。因此，为了保护集群的数据并保持其完整性，请先确保你了解插件的功能，然后再将其安装在 OpenSearch 集群上。其次，在选择自定义插件时，请确保插件的来源是可靠的。{: .warning}
 
 ## 管理插件
 
@@ -24,7 +24,7 @@ OpenSearch 使用用于管理插件的 `opensearch-plugin` 命令行工具。此
 
 通过传递 `-h` 或 `--help` 打印帮助文本。根据你的主机配置，你可能还需要使用 `sudo` 权限运行该命令。
 
-如果你在 Docker 容器中运行 OpenSearch，则必须通过修改 Docker 映像来安装、删除和配置插件。有关信息，请参阅[使用插件]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker#working-with-plugins) {: .note}
+如果你在 Docker 容器中运行 OpenSearch，则必须通过修改 Docker 映像来安装、删除和配置插件。有关信息，请参阅[使用插件]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker#working-with-plugins) {:.note}
 
 ## 列表
 
@@ -200,7 +200,7 @@ Continue with installation? [y/N]y
 -> Installed opensearch-anomaly-detection with folder name opensearch-anomaly-detection
 ```
 
-安装插件后重新启动 OpenSearch 节点。{: .note}
+安装插件后重新启动 OpenSearch 节点。{:.note}
 
 ## 删除
 
@@ -217,7 +217,7 @@ $ sudo $ ./opensearch-plugin remove opensearch-anomaly-detection
 -> removing [opensearch-anomaly-detection]...
 ```
 
-删除插件后重新启动 OpenSearch 节点。{: .note}
+删除插件后重新启动 OpenSearch 节点。{:.note}
 
 ## 批处理模式
 
@@ -230,7 +230,7 @@ bin/opensearch-plugin install --batch <plugin-name>
 
 ## 可用的插件
 
-主要、次要和补丁插件版本必须与 OpenSearch 主要版本、次要版本和补丁版本匹配才能兼容。例如，插件版本 2.3.0.x 仅适用于 OpenSearch 2.3.0. {：.warning}
+主要、次要和补丁插件版本必须与 OpenSearch 主要版本、次要版本和补丁版本匹配才能兼容。例如，插件版本 2.3.0.x 仅适用于 OpenSearch 2.3.0. {: .warning}
 
 ### 捆绑插件
 

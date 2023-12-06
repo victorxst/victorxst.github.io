@@ -12,7 +12,7 @@ redirect_from:
 TLS配置在`opensearch.yml`。证书用于确保运输-层流量（节点-到-群集中的节点通信）和休息-层流量（客户群和群集中的节点之间的通信）。TLS对于其余层是可选的，对于运输层是必不可少的。
 
 您可以在所有选项上找到一个示例配置模板[github](https://github.com/opensearch-project/security/blob/main/config/opensearch.yml.example)。
-{: .note }
+{:.note}
 
 
 ## X.509 PEM证书和PKCS \#8个钥匙

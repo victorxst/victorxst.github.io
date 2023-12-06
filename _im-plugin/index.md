@@ -49,7 +49,7 @@ Action and metadata\n
 Optional document\n
 ```
 
-文档是可选的，因为 `delete` 操作不需要文档。其他操作（ `index`、 `create` 和 `update`）都需要文档。如果明确希望在文档已存在时操作失败，请使用操作 `create` 而不是 `index` 操作。{: .note}
+文档是可选的，因为 `delete` 操作不需要文档。其他操作（ `index`、 `create` 和 `update`）都需要文档。如果明确希望在文档已存在时操作失败，请使用操作 `create` 而不是 `index` 操作。{:.note}
 
 若要使用该 `curl` 命令为批量数据编制索引，请导航到保存文件的文件夹，然后运行以下命令：
 

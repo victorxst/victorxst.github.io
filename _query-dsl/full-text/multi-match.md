@@ -45,7 +45,7 @@ GET _search
 如果您不提供`fields` 范围，`multi_match` 查询搜索在`index.query. Default_field` 设置，默认为`*`。默认行为是提取有资格的映射中的所有字段[学期-级查询]({{site.url}}{{site.baseurl}}/query-dsl/term/index/)，过滤元数据字段，然后组合所有提取的字段以构建查询。
 
 查询中的最大从句数量在`indices.query.bool.max_clause_count` 设置，默认为1,024。
-{: .note}
+{:.note}
 
 ## 多-匹配查询类型
 
@@ -468,10 +468,10 @@ GET /customers/_validate/query?explain
 因此，混合所有字段的术语频率通过校正差异来解决不同项频率的问题。
 
 这`cross_fields` 查询通常仅在带有一个短字符串字段上有用`boost` 在1.的情况下，在其他情况下，分数不会产生有意义的术语统计融合，这是因为增强，项频率和长度归一化的方式会导致分数。
-{: .note}
+{:.note}
 
 这`fuzziness` 不支持参数`cross_fields` 查询。
-{: .note}
+{:.note}
 
 ### 分析
 
@@ -811,7 +811,7 @@ GET articles/_search
 为了`slop` 值小于2，没有返回文档。
 
 这`fuzziness` 不支持参数`phrase` 查询。
-{: .note}
+{:.note}
 
 ## 短语前缀
 
@@ -852,7 +852,7 @@ GET articles/_search
 您可以使用`slop` 参数允许查询短语中的单词之间的其他单词。
 
 这`fuzziness` 不支持参数`phrase_prefix` 查询。
-{: .note}
+{:.note}
 
 ## 布尔前缀
 
@@ -891,7 +891,7 @@ GET articles/_search
 ```
 
 这`fuzziness`，`prefix_length`，`max_expansions`，`fuzzy_rewrite`， 和`fuzzy_transpositions` 支持用于构建项的术语查询的术语的参数，但它们对从最后一项构建的前缀查询没有影响。
-{: .note}
+{:.note}
 
 ## 参数
 
@@ -918,10 +918,10 @@ GET articles/_search
 `ZERO_TERMS_QUERY` | String | In some cases, the analyzer removes all terms from a query string. For example, the `停止` analyzer removes all terms from the string `但是这个`. In those cases, `ZERO_TERMS_QUERY` specifies whether to match no documents (`没有任何`) or all documents (`全部`). Valid values are `没有任何` and `全部`. Default is `没有任何`。
 
 这`fuzziness` 不支持参数`phrase`，`phrase_prefix`， 和`cross_fields` 查询。
-{: .note}
+{:.note}
 
 这`slop` 参数仅支持`phrase` 和`phrase_prefix` 查询。
-{: .note}
+{:.note}
 
 ### 这`tie_breaker` 范围
 

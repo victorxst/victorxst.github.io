@@ -26,7 +26,7 @@ redirect_from:
 [`scaled_float`](#scaled-float-field-type) | 浮动-点值乘以双重尺度因子并将其存储为长值。
 
 整数，长，浮动和双场类型都有相应的[范围字段类型]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/range/)。
-{: .note}
+{:.note}
 
 如果您的数字字段包含标识符（例如ID），则可以将此字段映射为[关键词]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/) 优化更快的期限-级查询。如果您需要在此字段上使用范围查询，则除关键字字段类型外，还可以将此字段映射为数字字段类型。
 {: .tip }
@@ -64,7 +64,7 @@ PUT testindex/_doc/1
 缩放的浮点场类型是浮动-点值乘以比例因子并将其存储为长值。它采用数字字段类型所采用的所有可选参数，以及附加的scaling_factor参数。创建缩放的浮子时需要比例因子。
 
 缩放的浮子对于节省磁盘空间很有用。较大的Scaleing_Factor值可提高准确性，但开销更高。
-{: .note}
+{:.note}
 
 ## 缩放的浮动示例
 

@@ -109,5 +109,5 @@ PUT _cluster/settings
 {% include copy-curl.html %}
 
 要跟踪昂贵的查询，请启用[慢记录]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/logs/#slow-logs)。
-{: .tip}
+{:.tip}
 

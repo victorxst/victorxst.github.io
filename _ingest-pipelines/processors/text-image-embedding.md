@@ -13,7 +13,7 @@ The `text_image_embedding` processor is used to generate combined vector embeddi
 
 **PREREQUISITE**<br>
 Before using the `text_image_embedding` processor, you must set up a machine learning (ML) model. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
-{: .note}
+{:.note}
 
 The following is the syntax for the `text_image_embedding` processor: 
 
@@ -74,12 +74,12 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
 {% include copy-curl.html %}
 
 You can set up multiple processors in one pipeline to generate embeddings for multiple fields.
-{: .note}
+{:.note}
 
 **Step 2 (Optional): Test the pipeline.**
 
 It is recommended that you test your pipeline before you ingest documents.
-{: .tip}
+{:.tip}
 
 To test the pipeline, run the following query:
 

@@ -13,7 +13,7 @@ nav_order: 10
 
 
 如果使用安全插件，则必须`manage index` 特权。
-{: .note}
+{:.note}
 
 ## 路径参数
 

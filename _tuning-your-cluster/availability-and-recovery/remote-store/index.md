@@ -28,7 +28,7 @@ redirect_from:
 与配置的远程群集的通信发生在存储库插件接口中。存储库插件的所有现有实现，例如Azure Blob存储，Google Cloud Storage和Amazon Simple Storage Service（Amazon S3），都与远程兼容-支持存储。
 
 确保在集群中的所有节点上以相同的方式对远程存储设置进行配置。如果没有，则引导程序将失败，其属性与当选的集群管理器节点不同。
-{: .note}
+{:.note}
 
 启用遥控器-给定群集的后盾存储，将远程存储库详细信息作为节点属性提供`opensearch.yml`，如以下示例所示：
 
@@ -98,7 +98,7 @@ curl -X POST "https://localhost:9200/_remotestore/_restore?restore_all_shards=tr
 ```
 
 如果启用了安全插件，则用户必须具有`cluster:admin/remotestore/restore` 允许。看[访问控制](/security-plugin/access-control/index/) 有关配置用户权限的信息。
-{: .note}
+{:.note}
 
 ## 潜在用例
 

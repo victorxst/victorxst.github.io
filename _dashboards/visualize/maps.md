@@ -34,7 +34,7 @@ redirect_from:
 <img src="{{site.url}}{{site.baseurl}}/images/maps/maps-default.png" alt="Default map" width="900">
 
 隐藏**层** 面板，选择面板鞋面中的崩溃（箭头）图标-右上角。
-{: .tip}
+{:.tip}
 
 ## 图层设置
 
@@ -80,7 +80,7 @@ OpenSearch支持Web Map Service（WMS）或Tile Map Service（TMS）自定义地
 添加文档层使您可以可视化数据。您可以每个文档层添加一个索引模式。要查看多个索引模式，请创建多个层。
 
 文档层可以显示GeoPoint和GeoShape文档字段。
-{: .note}
+{:.note}
 
 以下示例假设您有`opensearch_dashboards_sample_data_flights` 已安装数据集。如果您没有安装此数据集，请执行以下步骤：
 
@@ -124,7 +124,7 @@ OpenSearch支持Web Map Service（WMS）或Tile Map Service（TMS）自定义地
 1. 选择**更新** 按钮。
 
 对于大型数据集，您可能需要避免为完整地图加载数据。要仅加载特定地理区域的数据，请选择**仅在地图范围内请求数据**。
-{: .tip}
+{:.tip}
 
 ### 绘制形状以过滤数据
 

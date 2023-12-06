@@ -74,7 +74,7 @@ PUT _ingest/pipeline/log_line
 **Step 2 (Optional): Test the pipeline.**
 
 {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class="inline-icon" alt="alert icon"/>{:/} **NOTE**<br>It is recommended that you test your pipeline before you ingest documents.
-{: .note}
+{:.note}
 
 To test the pipeline, run the following query:
 

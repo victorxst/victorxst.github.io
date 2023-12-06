@@ -80,7 +80,7 @@ PUT _scripts/my-first-script
 {% include copy.html %}
 
 上面的示例使用OpenSearch仪表板中的Dev工具控制台的语法。您也可以使用卷曲请求。
-{: .note }
+{:.note}
 
 以下curl请求等效于以前的仪表板控制台示例：
 
@@ -128,7 +128,7 @@ PUT _scripts/my-first-script
 ````
 
 要确定是否成功创建了脚本，请使用[获取存储的脚本]({{site.url}}{{site.baseurl}}/api-reference/script-apis/get-stored-script/) API，将脚本名称传递给`script` 路径参数。
-{: .note}
+{:.note}
 
 ### 响应字段
 

@@ -19,7 +19,7 @@ OpenSearch可以单一操作-节点或多-节点群集。一般而言，配置�
 设计集群有很多方法。下图显示了一个基本体系结构，其中包括四个-节点群集具有一个专用的群集管理器节点，一个专用的协调节点和两个符合群集管理器的数据节点，并且还用于摄入数据。
 
   主节点最近更改了命名法；现在称为群集管理器节点。
-   {: .note }
+   {:.note}
 
 ![多-节点群集体系结构图]({{site.url}}{{site.baseurl}}/images/cluster.png)
 
@@ -158,7 +158,7 @@ sudo systemctl start opensearch.service
 ```
 
 从tar存档安装openSearch不会自动创建一个使用`systemd`。看[运行OpenSearch作为SystemD的服务]({{site.url}}{{site.baseurl}}/opensearch/install/tar/#run-opensearch-as-a-service-with-systemd) 有关如何创建和启动服务的说明，如果您收到错误`Failed to start opensearch.service: Unit not found.`
-{: .tip}
+{:.tip}
 
 然后转到日志文件以查看集群的形成：
 
@@ -256,7 +256,7 @@ PUT _cluster/settings
 这`routing.allocation.awareness.balance` 设置默认情况下是错误的。当它设置为`true`，该索引的碎片总数必须是任何意识属性的最高计数的倍数。例如，考虑具有两个意识属性的配置＆mdash; sones and机架ID。假设有两个区域和三个机架ID。区域数量或机架ID数的最高计数为三个。因此，碎片的数量必须是三个的倍数。如果不是这样，OpenSearch会引发验证异常。
 
 `routing.allocation.awareness.balance` 只有在`cluster.routing.allocation.awareness.attributes` 和`cluster.routing.allocation.awareness.force.zone.values` 设置。
-{: .note}
+{:.note}
 
 `routing.allocation.awareness.balance` 适用于所有创建或更新索引的操作。例如，假设您在一个区域中运行一个带有三个节点和三个区域的群集-意识设置。如果您尝试使用一个副本创建索引或将索引的设置更新为一个副本，则尝试在验证异常的情况下尝试失败，因为碎片数必须是三个中的倍数。同样，如果您尝试使用一个碎片而没有副本创建一个索引模板，则由于相同的原因，尝试将失败。但是，在所有这些操作中，如果将碎片的数量设置为一个，将复制品数设置为两个，则碎片总数为三个，尝试将成功。
 

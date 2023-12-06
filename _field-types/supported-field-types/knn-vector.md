@@ -89,7 +89,7 @@ PUT test-index
 默认情况下，k-nn矢量是`float` 向量，每个维度为4个字节。如果要节省存储空间，则可以使用`byte` 与`lucene` 引擎。在一个`byte` 向量，每个维度是签名的8-在[-128，127]范围。
  
 字节向量仅支持`lucene` 引擎。他们不支持`nmslib` 和`faiss` 引擎。
-{: .note}}
+{:.note}}
 
 在[k-NN基准测试](https://github.com/opensearch-project/k-NN/tree/main/benchmarks/perf-tool)， 指某东西的用途`byte` 而不是`float` 向量导致存储和内存使用情况显着减少，并改善了索引吞吐量和减少查询延迟。此外，召回精度没有受到很大的影响（请注意，召回可能取决于各种因素，例如[量化技术](#quantization-techniques) 和数据分布）。
 

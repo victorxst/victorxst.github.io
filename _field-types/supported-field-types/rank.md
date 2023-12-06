@@ -19,7 +19,7 @@ redirect_from:
 [`rank_features`](#rank-features) | 提高或降低文档的相关性得分。当功能列表稀疏时使用。
 
 可以查询等级功能和等级功能字段[等级特征查询](#rank-feature-query) 仅有的。他们不支持汇总或分类。
-{: .note}
+{:.note}
 
 ## 排名功能
 
@@ -279,5 +279,5 @@ GET testindex1/_search
 ```
 
 等级特征和等级特征字段使用前九个重要位来精确，导致相对误差约为0.4％。值以2 <sup> -8 </sup> = 0.00390625的相对精度存储。
-{: .note}
+{:.note}
 

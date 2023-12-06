@@ -48,7 +48,7 @@ POST _bulk
 {% include copy-curl.html %}
 
 如果类型字段`unsigned_long` 有`store` 参数设置为`true` （也就是说，该字段是一个存储的字段），将其存储并返回为字符串。`unsigned_long` 值不支持小数部分，因此，如果提供，小数部分将被截断。
-{: .note}}
+{:.note}}
 
 ## 查询
 

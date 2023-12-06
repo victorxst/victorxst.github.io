@@ -13,7 +13,7 @@ has_children: false
 猫节复制操作返回有关活动的信息，最后完成[段复制]({{site.url}}{{site.baseurl}}/opensearch/segment-replication/index) 每个复制碎片上的活动，包括相关碎片-水平指标。这些指标提供了有关复制品落后的主要碎片的信息。
 
 仅在启用段复制的索引上调用CAT段复制API。
-{: .note}
+{:.note}
 
 ## 路径和HTTP方法
 

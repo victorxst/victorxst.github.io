@@ -16,7 +16,7 @@ redirect_from:
 
 动态索引设置是可以随时更新的设置。你可以通过集群设置 API 配置动态 OpenSearch 设置。有关详细信息，请参见[使用 API 更新群集设置](#updating-cluster-settings-using-the-api)。
 
-尽可能使用群集设置 API; `opensearch.yml` 是每个节点的本地设置，而 API 将设置应用于集群中的所有节点。{: .tip}
+尽可能使用群集设置 API; `opensearch.yml` 是每个节点的本地设置，而 API 将设置应用于集群中的所有节点。{:.tip}
 
 ## 静态设置
 

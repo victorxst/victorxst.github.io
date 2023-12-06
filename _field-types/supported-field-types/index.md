@@ -77,7 +77,7 @@ PUT books
 使一个字段可搜索`null` 值，您可以指定其`null_value` 索引映射中的参数。然后，全部`null` 传递给该字段的值将被指定的`null_value`。
 
 这`null_value` 参数必须与字段相同。例如，如果您的字段是字符串，则`null_value` 对于此字段，也必须是字符串。
-{: .note}
+{:.note}
 
 ### 例子
 
@@ -187,5 +187,5 @@ GET testindex/_search
 ```
 
 这`_source` 字段仍然包含明确的`null` 值是因为它不受`null_value`。
-{: .note}
+{:.note}
 

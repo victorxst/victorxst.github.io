@@ -22,7 +22,7 @@ has_children: false
 ```
 
 如果OpenSearch Configuration文件中指定了OpenSearch仪表板端点地址，则可能包含一个端口号。特定的URL格式取决于OpenSearch部署的类型及其托管的网络环境的类型。
-{: .note}
+{:.note}
 
 您可以通过两种方式查询端点：
   
@@ -133,5 +133,5 @@ has_children: false
 | `layers_total.tms` | 整数| 地图中TMS的总数。|
 
 保存的对象ID可帮助您导航到特定地图，因为ID是地图URL的最后部分。例如，在OpenSearch游乐场，地址`[Flights] Flights Status on Maps Destination Location` 地图是`https://playground.opensearch.org/app/maps-dashboards/88a24e6c-0216-4f76-8bc7-c8db6c8705da`， 在哪里`88a24e6c-0216-4f76-8bc7-c8db6c8705da` 是此地图的保存对象ID。
-{: .tip}
+{:.tip}
 

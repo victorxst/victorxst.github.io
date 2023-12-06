@@ -11,7 +11,7 @@ redirect_from:
 
 你可以使用 Ansible playbook 安装和配置生产就绪型 OpenSearch 集群以及 OpenSearch 控制面板。
 
-Ansible playbook 仅支持将 OpenSearch 和 OpenSearch 控制面板部署到 CentOS7 主机。{：.note }
+Ansible playbook 仅支持将 OpenSearch 和 OpenSearch 控制面板部署到 CentOS7 主机。{:.note}
 
 ## 先决条件
 
@@ -46,7 +46,7 @@ Ansible playbook 仅支持将 OpenSearch 和 OpenSearch 控制面板部署到 Ce
    ```
    {% include copy.html %}
 
-确保你具有对目标节点的 root 用户的直接 SSH 访问权限。{：.note }
+确保你具有对目标节点的 root 用户的直接 SSH 访问权限。{:.note}
 
 ## 使用 Ansible playbook 运行 OpenSearch 和 OpenSearch 控制面板
 

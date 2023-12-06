@@ -18,7 +18,7 @@ nav_order: 5
 您在仪表板中有几个聚合选项，选择会影响您的分析。聚合的用例从实时分析数据到使用仪表板创建可视化仪表板的用例不等。如果您需要OpenSearch中的聚合概述，请参见[聚合]({{site.url}}{{site.baseurl}}/opensearch/aggregations/) 在启动本教程之前。
 
 确保你有[安装了最新版本的仪表板](https://opensearch.org/docs/latest/install-and-configure/install-dashboards/index/) 并在继续本教程之前添加了示例数据。_本教程使用仪表板版本2.4.1_。
-{: .note}
+{:.note}
 
 ## 设置区域图表
 

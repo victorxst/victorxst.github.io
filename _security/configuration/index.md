@@ -25,7 +25,7 @@ redirect_from:
 如果您不想使用插件，请参阅[禁用安全性]({{site.url}}{{site.baseurl}}/security/configuration/disable)。
 
 安全插件具有几个默认用户，角色，操作组，权限和设置，用于使用Kibana的OpenSearch仪表板。我们将在以后的版本中更改这些名称。
-{: .note }
+{:.note}
 
 完整列表`opensearch.yml` 安全插件设置，安全插件设置，请参阅[安全设定]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/)。
 {： 。笔记

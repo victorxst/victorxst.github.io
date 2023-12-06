@@ -83,7 +83,7 @@ PUT /sample-index1/_clone/cloned-index1
 
 You can use four levels of callouts:
 
-*  `{: .note}` blue
+*  `{:.note}` blue
 *  `{: .tip }` green
 *  `{: .important}` yellow
 *  `{: .warning}` red
@@ -94,7 +94,7 @@ Place a callout directly under the paragraph to which you want to apply the call
 
 ```
 In case of a cluster or node failure, all PIT data is lost.
-{: .note}
+{:.note}
 ```
 
 For a callout with multiple paragraphs or lists, use `>`:
@@ -105,7 +105,7 @@ For a callout with multiple paragraphs or lists, use `>`:
 >   To use a custom vector map with GeoJSON, install these two required plugins:
 >   * OpenSearch Dashboards Maps [`dashboards-maps`](https://github.com/opensearch-project/dashboards-maps_) front-end plugin
 >   * OpenSearch [`geospatial`](https://github.com/opensearch-project/geospatial_) backend plugin
-{: .note}
+{:.note}
 
 ```
 

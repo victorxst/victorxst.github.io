@@ -168,7 +168,7 @@ service-map-pipeline:
         index_type: trace-analytics-service-map
 ```
 
-要保持相似的摄入吞吐量和潜伏期，请扩展`buffer_size` 和`batch_size` 按照客户端请求有效载荷中估计的最大批量大小。{: .tip}
+要保持相似的摄入吞吐量和潜伏期，请扩展`buffer_size` 和`batch_size` 按照客户端请求有效载荷中估计的最大批量大小。{:.tip}
 
 #### 例子：`otel trace`
 
@@ -309,7 +309,7 @@ service-map-pipeline:
 ```
 
 您需要修改OpenSearch集群的前面配置，以使配置匹配您的环境。请注意，它有两个`opensearch` 需要修改的水槽。
-{: .note}
+{:.note}
 
 您必须进行以下更改：
 *`hosts`  - 设置为您的主机。

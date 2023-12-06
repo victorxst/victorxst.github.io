@@ -207,7 +207,7 @@ POST _plugins/_alerting/workflows
    以下条件将触发复合监视器以在监视器时产生链式警报#1生成警报并监视#2或监视#3生成警报。
    
 无痛脚本中的监视器ID顺序不能定义监视器的执行顺序。监视执行序列在`inputs.composite_input.sequence.delegates.order` 在请求中字段。
-{: .note }
+{:.note}
 
 
 ### 获取复合监视器
@@ -599,7 +599,7 @@ POST _plugins/_alerting/workflows/<workflow_id>/_acknowledge/alerts
     * 在里面**通知** 部分，从下拉列表中选择一个通知频道。如果没有渠道，请选择**管理频道** 在下拉列表的右侧标记以设置通知频道。有关通知的更多信息，请参阅[通知]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) 文档。您也可以选择**添加通知** 为警报触发器指定其他通知。
       
       通知对于所有监视器类型都是可选的。
-      {: .note }
+      {:.note}
 
     *要定义额外的触发器，请选择**添加另一个触发器**。您最多可以有10个触发器。选择**删除扳机** 在屏幕的右侧以卸下扳机。
     

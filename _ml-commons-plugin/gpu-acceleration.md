@@ -96,7 +96,7 @@ source ~/.bash_profile
 运行脚本后，退出当前终端并打开一个新终端以启动OpenSearch。
 
 GPU加速度仅在Ubuntu 20.04和Amazon Linux2上进行了测试。但是，您可以使用其他Linux操作系统。
-{: .note}
+{:.note}
 
 #### Ubuntu 20.04
 
@@ -392,7 +392,7 @@ Next, create a shell script file called `prepare_torch_neuron.sh`. You can copy 
 After you've run the scripts, exit your current terminal and open a new terminal to start OpenSearch.
 
 GPU acceleration has only been tested on Ubuntu 20.04 and Amazon Linux 2. However, you can use other Linux operating systems.
-{: .note}
+{:.note}
 
 #### Ubuntu 20.04
 

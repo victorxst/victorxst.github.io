@@ -17,7 +17,7 @@ OpenSearch 控制面板提供了一个命令行工具，用于 `opensearch-plugi
 
 ## 插件兼容性
 
-主要、次要和补丁插件版本必须与 OpenSearch 主要版本、次要版本和补丁版本匹配才能兼容。例如，插件版本 2.3.0.x 仅适用于 OpenSearch 2.3.0. {：.warning}
+主要、次要和补丁插件版本必须与 OpenSearch 主要版本、次要版本和补丁版本匹配才能兼容。例如，插件版本 2.3.0.x 仅适用于 OpenSearch 2.3.0. {: .warning}
 
 ## 先决条件
 

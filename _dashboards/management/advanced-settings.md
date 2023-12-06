@@ -16,7 +16,7 @@ nav_order: 40
 访问**高级设置**， 去**仪表板管理** 并选择**高级设置**。该页面分为几个部分，每个部分包含一组相关设置。您可以通过编辑其字段来修改这些设置。进行更改后，选择**节省** 应用它们。
 
 {::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class ="inline-icon" alt ="alert icon"/> {:/}**笔记**<br>某些设置要求您修改[这`opensearch_dashboards.yml` 文件](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml) 并重新启动OpenSearch仪表板。
-{: .note}
+{:.note}
 
 ## 所需的权限
 

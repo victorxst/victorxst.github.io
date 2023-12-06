@@ -728,7 +728,7 @@ POST _plugins/_alerting/monitors
 ### Limitations
 
 如果您运行文档-级别查询在索引重新索引时，API响应将不会返回重新索引结果。要获取更新，请等到重新索引过程完成，然后重新汇总查询。
-{: .tip}
+{:.tip}
 
 ## Update monitor
 引入1.0

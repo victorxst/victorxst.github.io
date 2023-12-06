@@ -27,7 +27,7 @@ nav_order: 60
 ![默认通知设置]({{site.url}}{{site.baseurl}}/images/admin-ui-index/notifications.png)
 
 如果您没有权限查看通知设置，则无法查看默认设置。
-{: .note}
+{:.note}
 
 ## 配置单个操作的通知设置
 
@@ -44,7 +44,7 @@ nav_order: 60
 1. 选择所有ReIndex选项后，展开**高级设置**。在下面**通知**，列出了默认通知。
     
     如果您没有权限查看通知设置，则将无法查看默认设置。
-    {: .note}
+    {:.note}
 
 1. 要接收其他通知，请选择**发送其他通知**，如下图所示。
 
@@ -55,7 +55,7 @@ nav_order: 60
 1. 从**通知渠道** 下拉列表。如果要配置新的通知频道，请选择**管理频道**。
     
     要配置新的通知渠道，请确认`dashboards-notification` 插件在OpenSearch仪表板中启用。
-    {: .note}
+    {:.note}
     
 1. 选择**reindex** 按钮。
 

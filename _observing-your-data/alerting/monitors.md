@@ -23,7 +23,7 @@ redirect_from:
 1. **复合监视器**：在单个工作流程中运行多个显示器，并根据多个触发条件生成单个警报。看[复合监视器]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/composite-monitors/) 有关创建和使用此监视器类型的信息。
 
 您可以创建的最大监视器数为1,000。您可以通过更新来更改集群的默认警报数量`plugins.alerting.monitor.max_monitors` 使用[集群设置API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/settings/)。
-{: .tip}
+{:.tip}
 
 ## 监视变量
 

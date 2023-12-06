@@ -12,7 +12,7 @@ nav_order: 25
 这`otel_logs_source` 来源是遵循opentelemetry的源[OPENTELEMETRY协议规范](https://github.com/open-telemetry/oteps/blob/master/text/0035-opentelemetry-protocol.md) 并以`ExportLogsServiceRequest` 记录。
 
 此来源支持`OTLP/gRPC` 协议。
-{: .note}
+{:.note}
 
 ## 配置
 

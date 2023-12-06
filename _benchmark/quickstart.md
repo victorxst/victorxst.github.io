@@ -24,7 +24,7 @@ nav_order: 2
 - 使用**柏油**。有关如何使用TAR安装OpenSearch的说明，请参阅[安装OpenSearch> TARBALL]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/tar#step-1-download-and-unpack-opensearch)。
 
 OpenSearch基准测试尚未通过窗口的OpenSearch的分布进行测试。
-{: .note}
+{:.note}
 
 安装后，您可以验证OpenSearch正在运行`localhost:9200`。如果您正在使用启用安全插件运行群集，则OpenSearch将期望使用用户名SSL连接"admin" 和密码"admin"。但是，由于Localhost地址不是唯一的公共地址，因此任何证书机构都不会向其签发SSL证书，因此需要使用该证书检查`-k` 选项。
 
@@ -57,7 +57,7 @@ curl -k -u admin:admin https://localhost:9200			# the "-k" option skips SSL cert
 ## 安装OpenSearch基准测试
 
 要使用Docker安装OpenSearch基准测试，请参见[安装OpenSearch基准测试>与Docker安装]({{site.url}}{{site.baseurl}}/benchmark/user-guide/installing-benchmark/#installing-with-docker)。
-{: .tip}
+{:.tip}
 
 要从PYPI安装OpenSearch基准测试，请输入以下内容`pip` 命令：
 
@@ -117,7 +117,7 @@ Find out more about Benchmark at https://opensearch.org/docs
 使用基准运行[`execute-test`]({{site.url}}{{site.baseurl}}/benchmark/commands/execute-test/) 带有以下命令标志的命令：
 
 附加`execute_test` 命令标志，请参阅[执行-测试]({{site.url}}{{site.baseurl}}/benchmark/commands/execute-test/) 参考。一些常用的选项是`--workload-params`，`--exclude-tasks`， 和`--include-tasks`。
-{: .tip}
+{:.tip}
 
 *`--pipeline=benchmark-only` ：通知OSB用户想要提供自己的OpenSearch集群。
 - `workload=percolator`：OpenSearch基准测试使用的工作量名称。

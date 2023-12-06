@@ -233,7 +233,7 @@ POST _plugins/_ppl/_explain
 要恢复分页的回应，请使用`fetch_size` 范围。的价值`fetch_size` 应大于0。默认值为1,000。值为0的值将返回到非-分页的响应。
 
 这`fetch_size` 参数仅支持`jdbc` 响应格式。
-{: .note }
+{:.note}
 
 ### 例子
 
@@ -330,7 +330,7 @@ POST /_plugins/_sql
 ```
 
 这`datarows` 可以比`fetch_size` 记录数量在嵌套字段时被扁平。
-{: .note }
+{:.note}
 
 结果的最后一页只有`datarows` 和不`cursor`。这`cursor` 上面的上下文在最后一页上自动清除。
 

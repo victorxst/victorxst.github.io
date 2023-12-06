@@ -13,7 +13,7 @@ nav_order: 30
 这`elasticsearch` 水槽已更改为`opensearch`。因此，更改现有管道以使用`opensearch` 插件而不是`elasticsearch`。
 
 数据预先插件的标题为`opensearch`，它与开放的发行版和Elasticsearch 7.x保持兼容。
-{: .note}
+{:.note}
 
 ## 更新Docker映像
 

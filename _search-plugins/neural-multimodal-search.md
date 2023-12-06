@@ -14,7 +14,7 @@ parent: 神经搜索
 
 **先决条件**<br>
 在使用文本搜索之前，您必须设置多模式嵌入模型。有关更多信息，请参阅[在OpenSearch中使用ML模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) 和[连接到远程型号]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index/)。
-{: .note}
+{:.note}
 
 ## 使用多模式搜索
 

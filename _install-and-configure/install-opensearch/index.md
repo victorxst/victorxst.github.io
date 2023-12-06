@@ -97,7 +97,7 @@ vm.max_map_count=262144
 
   允许你在端口 9600 上访问性能分析器。
 
-请勿在多个位置声明相同的 JVM 选项，因为这可能会导致意外行为或 OpenSearch 服务无法启动。如果使用环境变量（如 `OPENSEARCH_JAVA_OPTS=-Xms3g -Xmx3g`）声明 JVM 选项，那么应注释掉中对该 JVM 选项 `config/jvm.options` 的任何引用。相反，如果在中 `config/jvm.options` 定义 JVM 选项，则不应使用环境变量定义这些 JVM 选项。{: .note}
+请勿在多个位置声明相同的 JVM 选项，因为这可能会导致意外行为或 OpenSearch 服务无法启动。如果使用环境变量（如 `OPENSEARCH_JAVA_OPTS=-Xms3g -Xmx3g`）声明 JVM 选项，那么应注释掉中对该 JVM 选项 `config/jvm.options` 的任何引用。相反，如果在中 `config/jvm.options` 定义 JVM 选项，则不应使用环境变量定义这些 JVM 选项。{:.note}
 
 ## 重要的系统属性
 

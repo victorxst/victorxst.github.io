@@ -126,7 +126,7 @@ PUT /my-index1
 - [副本的数量](#increasing-the-number-of-replicas)
 
 您的结果可能会根据群集拓扑，使用的硬件，碎片计数和合并设置而有所不同。
-{: .note }
+{:.note}
 
 ### 增加工作量大小
 

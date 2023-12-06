@@ -47,7 +47,7 @@ parent: 监视器
 ```
 
 使用`ctx.results` 消息中的变量，使用`{% raw %}{{ctx.results.0}}{% endraw %}` 而不是`{% raw %}{{ctx.results[0]}}{% endraw %}`。这种差异是由于胡须如何处理括号符号。
-{: .note }
+{:.note}
 
 #### 动作变量
 

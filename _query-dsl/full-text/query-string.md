@@ -15,7 +15,7 @@ redirect_from:
 A`query_string` 查询基于[查询字符串语法](#query-string-syntax)。它提供了创建功能强大而简洁的查询，这些查询可以包含通配符并搜索多个字段。
 
 搜索`query_string` 查询不返回嵌套文档。要搜索嵌套字段，请使用[`nested` 询问]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/nested/)。
-{: .note}
+{:.note}
 
 查询字符串查询具有严格的语法，并在无效的语法中返回错误。因此，对于搜索框应用程序，它不能很好地工作。对于不太严格的替代方案，请考虑使用[`simple_query_string` 询问]({{site.url}}{{site.baseurl}}/query-dsl/full-text/simple-query-string/)。如果您不需要查询语法支持，请使用[`match` 询问]({{site.url}}{{site.baseurl}}/query-dsl/full-text/match/)。
 {: .important}
@@ -112,7 +112,7 @@ PUT /testindex/_doc/4
 `+`，`-`，`=`，`&&`，`||`，`>`，`<`，`!`，`(`，`)`，`{`，`}`，`[`，`]`，`^`，`"`，`~`，`*`，`?`，`:`，`\`，`/`
 
 逃避保留角色带有后斜切（`\`）。发送JSON请求时，请使用双重倾斜（`\\`）要逃脱保留的字符（因为后斜切字符本身是保留的，您必须与另一个后斜线逃脱后斜线）。
-{: .tip}
+{:.tip}
 
 例如，搜索表达式`2*3`，指定查询字符串：`2\\*3`：
 
@@ -228,7 +228,7 @@ GET /testindex/_search
 日期| 发布日期的文档在03/21/2023和09/25/2023（包括）。| `release_date: [03/21/2023 TO 09/25/2023]`
 
 作为在查询字符串中指定范围的替代方案，您可以使用[范围查询]({{site.url}}{{site.baseurl}}/query-dsl/term/range/)，提供更可靠的语法。
-{: .tip}
+{:.tip}
 
 ## 提升
 

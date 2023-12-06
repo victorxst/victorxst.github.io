@@ -193,6 +193,6 @@ status: experimental
     <img src ="{{site.url}}{{site.baseurl}}/images/Security/custom-rule.png" alt ="The custom rule now appears in the list of rules." width="70%">
 
 您无法修改Sigma规则本身。原始的Sigma规则始终保留在系统中。在修改后，其重复将其重复成为添加到规则列表中的自定义规则。
-{: .note }
+{:.note}
 
 

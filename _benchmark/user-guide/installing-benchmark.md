@@ -38,7 +38,7 @@ OpenSearch基准测试可用于为测试提供OpenSearch节点。如果您打算
 | 所以| 36,062,278| 8.9 GB| 33.1 GB|
 
 您的OpenSearch基准主机应使用固体-国家驱动器（SSD）用于存储-磁盘硬盘驱动器。旋转-磁盘硬盘驱动器可以引入性能瓶颈，这可能会使基准结果不可靠且不一致。
-{: .tip}
+{:.tip}
 
 ## 在Linux和MacOS上安装
 
@@ -54,7 +54,7 @@ OpenSearch基准测试可用于为测试提供OpenSearch节点。如果您打算
 在开始安装OpenSearch基准测试之前，请检查以下软件依赖项。
 
 使用[Pyenv](https://github.com/pyenv/pyenv) 在主机上管理多个版本的Python。如果您的"system" Python的版本早于版本3.8。
-{: .tip}
+{:.tip}
 
 - 检查是否安装了Python 3.8或以后：
 
@@ -154,7 +154,7 @@ docker run -v $HOME/benchmarks:/opensearch-benchmark/.benchmark opensearchprojec
 ## 用测试配置OpenSearch集群
 
 OpenSearch基准测试与JDK版本17、16、15、14、13、12、11和8兼容。
-{: .note}
+{:.note}
 
 如果您使用PYPI安装了OpenSearch，则还可以通过指定一个`distribution-version` 在里面`execute-test` 命令。
 

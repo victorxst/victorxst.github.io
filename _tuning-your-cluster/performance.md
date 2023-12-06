@@ -27,7 +27,7 @@ has_children: false
 对于纯索引工作负载，请考虑增加`flush_threshold_size` 例如，约有25％的Java堆尺寸以提高索引性能。
 
 增加`index.translog.flush_threshold_size` 还可以增加翻译完成所需的时间。如果碎片失败，则恢复需要更多时间，因为翻译较大。
-{: .note}
+{:.note}
 
 在增加之前`index.translog.flush_threshold_size`，致电以下API操作以获取当前的冲洗操作统计信息：
 
@@ -60,7 +60,7 @@ curl -XPUT "os-endpoint/index-name/_settings?pretty" -d "{"index":{"translog.flu
 在此示例中，齐平阈值大小设置为1024 MB，这是具有超过32 GB内存的实例的理想选择。
 
 为群集选择适当的阈值大小。
-{: .note}
+{:.note}
 
 再次运行STATS API操作，以查看冲洗活动是否更改：
 
@@ -70,7 +70,7 @@ curl -XGET "os-endpoint/index-name/_stats/flush?pretty"
 {% include copy.html %}
 
 这是增加的最佳实践`index.translog.flush_threshold_size` 仅针对当前索引。确认结果后，将更改应用于索引模板。
-{: .note}
+{:.note}
 
 ## 索引刷新间隔
 

@@ -62,7 +62,7 @@ GET _count
 {% include copy-curl.html %}
 
 或者，您可以使用[猫索引]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/) 和[猫数]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-count/) API查看每个索引或数据流的文档数量。
-{: .note }
+{:.note}
 
 
 ## 路径和HTTP方法

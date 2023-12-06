@@ -44,5 +44,5 @@ DELETE _snapshot/my-opensearch-repo/my-first-snapshot
 ```
 
 要验证快照已删除，请使用[获取快照]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot) API，将快照名称传递给`snapshot` 路径参数。
-{: .note}
+{:.note}
 

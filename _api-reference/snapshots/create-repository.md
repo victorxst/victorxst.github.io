@@ -83,7 +83,7 @@ PUT /_snapshot/my-fs-repository
 `storage_class` | 指定[S3存储类](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html) 对于快照文件。默认为`standard`。不要使用`glacier` 和`deep_archive` 存储类。选修的。
 
 为了`base_path` 参数，请勿输入`s3://` 输入S3桶详细信息时的前缀。仅需要存储桶的名称。
-{: .note}
+{:.note}
 
 #### 示例请求
 
@@ -112,5 +112,5 @@ PUT /_snapshot/my-opensearch-repo
 ```
 
 要验证存储库已注册，请使用[获取快照存储库]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-repository) API，将存储库名称作为`repository` 路径参数。
-{: .note}
+{:.note}
 

@@ -273,7 +273,7 @@ GET chess_store/_search
 ```
 
 要利用源过滤，请在`_search` 端点。这`_suggest` 端点不支持源过滤。
-{: .note}
+{:.note}
 
 ## 完成查询参数
 
@@ -309,7 +309,7 @@ GET chess_store/_search
 {% include copy-curl.html %}
 
 要使用所有默认模糊选项，请指定`"fuzzy": {}` 或者`"fuzzy": true`。
-{: .tip}
+{:.tip}
 
 下表列出了模糊完成建议的参数。所有参数都是可选的。
 

@@ -19,7 +19,7 @@ OpenSearch中的日期可以表示为以下一个：
 - 自时代以来与秒相对应的整数值（该值必须是非-消极的）。
 
 为了表示日期范围，有一个日期[范围字段类型]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/range/)。
-{: .note }
+{:.note}
 
 ## 例子
 
@@ -69,7 +69,7 @@ OpenSearch已建立-以日期格式，但您也可以创建自己的自定义格
 大多数日期格式都有`strict_` 对准。当格式以`strict_`，该日期必须具有格式中指定的正确数字数字。例如，如果将格式设置为`strict_year_month_day` （（"yyyy-MM-dd"），每个月和一天都必须是两个-数字数字。所以，"2020-06-09" 有效，而"2020-6-9" 是无效的。
 
 Epoch于1970年1月1日定义为00:00:00 UTC。
-{: .note }
+{:.note}
 
 Y：年<br>
 Y：[星期-基于一年](https://en.wikipedia.org/wiki/ISO_8601#Week_dates)<br>
@@ -83,7 +83,7 @@ M：分钟<br>
 S：第二<br>
 S：一秒钟的部分<br>
 Z：时区偏移（例如，+0400；-0400;-04:00）<br>
-{: .note }
+{:.note}
 
 ### 数字日期格式
 
@@ -231,7 +231,7 @@ GET testindex/_search
 
 如果在字段映射中指定多个日期格式，则OpenSearch使用第一种格式将毫秒转换为字符串，将其转换为毫秒。<br>
 如果字段的字段映射不包含格式，则OpenSearch使用`strict_date_optional_time` 格式将时期值转换为字符串。
-{: .note}
+{:.note}
 
 日期数学支持以下数学运算符。
 
@@ -250,7 +250,7 @@ GET testindex/_search
 `h` 或者`H`：小时<br>
 `m`：分钟<br>
 `s`：秒
-{: .note }
+{:.note}
 
 ### 示例表达式
 

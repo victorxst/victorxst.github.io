@@ -23,7 +23,7 @@ Helm 图表包含下表中描述的资源。
 
 有关缺省配置、配置安全性的步骤和可配置参数的信息，请参见。[README](https://github.com/opensearch-project/helm-charts/tree/main/charts)
 
-此处的说明假设你有一个预安装了 Helm 的 Kubernetes 集群。[Kubernetes 文档](https://kubernetes.io/docs/setup/)有关配置 Kubernetes 集群的步骤和[Helm 文档](https://helm.sh/docs/intro/install/)安装 Helm 的步骤，请参阅。{：.note }
+此处的说明假设你有一个预安装了 Helm 的 Kubernetes 集群。[Kubernetes 文档](https://kubernetes.io/docs/setup/)有关配置 Kubernetes 集群的步骤和[Helm 文档](https://helm.sh/docs/intro/install/)安装 Helm 的步骤，请参阅。{:.note}
 
 ## 先决条件
 

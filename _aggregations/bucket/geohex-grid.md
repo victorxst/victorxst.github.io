@@ -70,7 +70,7 @@ PUT national_parks/_doc/3
 {% include copy-curl.html %}
 
 您可以以多种格式索引地理点。有关所有支持格式的列表，请参见[地理点文档]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats)。
-{: .note}
+{:.note}
 
 ## 低的-精度请求
 
@@ -92,7 +92,7 @@ GET national_parks/_search
 {% include copy-curl.html %}
 
 您可以使用`GET` 或者`POST` HTTP方法用于GeoHex网格聚合查询。
-{: .note}
+{:.note}
 
 响应组文件2和3在一起，因为它们足够近以在一个网格单元格中放置：
 

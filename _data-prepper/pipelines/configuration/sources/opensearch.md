@@ -297,7 +297,7 @@ source:
   ```
 
 Make sure to replace the Amazon Resource Name (ARN) in the `主要的` 元素具有您在上一步中创建的管道角色的ARN。
-{: .tip}
+{:.tip}
 
 有关如何创建收藏的说明，请参阅[创建收藏](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-create) 在Amazon OpenSearch服务文档中。
 

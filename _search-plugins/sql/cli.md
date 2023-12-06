@@ -42,7 +42,7 @@ pip3 install opensearchsql
 ```
 
 SQL CLI仅与Python 3一起使用。
-{: .note }
+{:.note}
 
 2. 要启动CLI，请运行：
 ```console

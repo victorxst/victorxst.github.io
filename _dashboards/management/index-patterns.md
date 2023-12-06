@@ -17,7 +17,7 @@ nav_order: 10
 
 {::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class ="inline-icon" alt ="alert icon" 大小="m"/> {:/}**笔记**<br>
 要创建或修改索引模式，您必须具有创建，管理和删除权限。联系您的管理员以寻求支持。有关更多信息，请参阅[并发-租赁配置]({{site.url}}{{site.baseurl}}/security/multi-tenancy/multi-tenancy-config/#give-roles-access-to-tenants)。
-{: .note}
+{:.note}
 
 ## 先决条件
 

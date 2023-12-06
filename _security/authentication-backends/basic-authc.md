@@ -39,7 +39,7 @@ authc:
 什么时候`challenge` 被设定为`false` 和`Authorization` 尚未在请求中指定标头，安全插件未发送`WWW-Authenticate` 回复对客户的响应，身份验证失败。当您有多个具有挑战性时，通常会使用此配置`http_authenticator` 您配置的身份验证域中包含的设置。例如，当您计划一起使用基本身份验证和SAML时，可能就是这种情况。有关此配置的示例和更完整的说明，请参见[运行多个身份验证域]({{site.url}}{{site.baseurl}}/security/authentication-backends/saml/#running-multiple-authentication-domains) 在SAML文档中。
 
 定义多个HTTP身份验证器时，请确保订购非-首先具有挑战性的身份验证者---例如`proxy` 和`clientcert`---并命令挑战HTTP身份验证者。例如，在非配置中-挑战性的HTTP基本身份验证后端与具有挑战性的SAML后端配对，您可以指定`order: 0` 在HTTP基本中`authc` 域和`order: 1` 在SAML域中。
-{: .note }
+{:.note}
 
 
 ## 内部用户数据库

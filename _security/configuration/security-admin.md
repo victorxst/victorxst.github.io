@@ -10,7 +10,7 @@ redirect_from:
 # 将更改应用于配置文件
 
 在**视窗**， 使用**SecurityAdmin.bat** 代替**SecurityAdmin.sh**。有关更多信息，请参阅[Windows用法](#windows-usage)。
-{: .note}
+{:.note}
 
 安全插件存储其配置（包括用户，角色，权限和后端设置）[系统索引]({{site.url}}{{site.baseurl}}/security/configuration/system-indices) 在OpenSearch集群上。将这些设置存储在索引中使您可以更改设置，而无需重新启动群集，并消除了在每个节点上编辑配置文件的需求。这是通过运行`securityadmin.sh` 脚本。
 
@@ -87,7 +87,7 @@ plugins.security.authcz.admin_dn:
 这`securityadmin.sh` 可以从任何可以访问OpenSearch集群HTTP端口的机器运行工具（默认端口为9200）。您可以更改安全插件配置，而无需通过SSH访问节点。
 
 `securityadmin.sh` 要求在OpenSearch集群上启用SSL/TLS传输。换句话说，请确保`plugins.security.ssl.http.enabled: true` 安顿好了`opensearch.yml` 继续前进。
-{: .note}
+{:.note}
 
 每个节点还包括该工具`plugins/opensearch-security/tools/securityadmin.sh`。您可能需要在运行脚本之前使脚本可执行：
 

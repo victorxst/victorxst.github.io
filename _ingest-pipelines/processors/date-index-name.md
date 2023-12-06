@@ -69,7 +69,7 @@ PUT /_ingest/pipeline/date-index-name1
 **Step 2 (Optional): Test the pipeline.**
 
 It is recommended that you test your pipeline before you ingest documents.
-{: .tip}
+{:.tip}
 
 To test the pipeline, run the following query:
 

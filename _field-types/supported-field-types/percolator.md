@@ -75,7 +75,7 @@ PUT testindex1/_doc/1
 {% include copy-curl.html %}
 
 查询中引用的字段必须已经存在于映射中。
-{: .note}
+{:.note}
 
 运行渗透查询以搜索匹配文档：
 

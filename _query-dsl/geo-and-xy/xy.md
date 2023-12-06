@@ -392,7 +392,7 @@ GET testindex1/_search
 ```
 
 xy点仅支持默认值`INTERSECTS` 空间关系，因此您无需提供`relation` 范围。
-{: .note}
+{:.note}
 
 下图描述了示例。点1和2在圆圈内，点3在圆形之外。
 

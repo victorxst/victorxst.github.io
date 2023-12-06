@@ -36,7 +36,7 @@ OpenSearch为客户提供以下编程语言和平台的客户：
   *[OpenSearch Rust客户端]({{site.url}}{{site.baseurl}}/clients/rust/)
 
 所有客户端都与任何版本的OpenSearch兼容。
-{: .note}
+{:.note}
 
 
 ## 旧客户

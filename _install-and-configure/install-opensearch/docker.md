@@ -15,23 +15,23 @@ redirect_from:
 Docker 容器是可移植的，可以在任何支持 Docker 的兼容主机（例如 Linux、MacOS 或 Windows）上运行。Docker 容器的可移植性提供了优于其他安装方法（如[RPM]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/rpm/)手动[Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/tar/)安装）的灵活性，这两种安装方法都需要在下载和解压缩后进行额外配置。
 
 本指南假定你能够熟练地使用 Linux 命令行界面（CLI）工作。你应该了解如何输入命令、在目录之间导航和编辑文本文件。如需帮助[Docker](https://www.docker.com/)或[Docker Compose 的](https://github.com/docker/compose)，请参阅其网站上的官方文档。
-{: .note}
+{:.note}
 
 ## 安装 Docker 和 Docker Compose
 
 有关为你的环境安装和配置 Docker 的指南，请访问[Get Docker](https://docs.docker.com/get-docker/)。如果使用 CLI 安装 Docker 引擎，则默认情况下，Docker 不会对可用的主机资源有任何限制。根据你的环境，你可能希望在 Docker 中配置资源限制。有关信息，请参阅[具有内存、CPU 和 GPU 的运行时选项](https://docs.docker.com/config/containers/resource_constraints/)。
 
 Docker Desktop 用户应通过打开 Docker Desktop 并选择**设置**→**资源**将主机内存利用率设置为至少 4 GB。
-{: .tip}
+{:.tip}
 
 Docker Compose 是一个实用程序，允许用户使用单个命令启动多个容器。调用文件时，将文件传递给 Docker Compose。Docker Compose 会读取这些设置并启动请求的容器。Docker Compose 随 Docker Desktop 一起自动安装，但在命令行环境中操作的用户必须手动安装 Docker Compose。你可以在官方[Docker Compose GitHub 页面](https://github.com/docker/compose)上找到有关安装 Docker Compose 的信息。
 
 如果你需要手动安装 Docker Compose，并且你的主机支持 Python，则可以使用[pip](https://pypi.org/project/pip/)自动安装[Docker Compose 包](https://pypi.org/project/docker-compose/)。
-{: .tip}
+{:.tip}
 
 ## 重要的主机设置
 
-在启动 OpenSearch 之前，你应该查看一些[重要的系统设置]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings)可能影响服务性能的 {:target='\_blank'}。
+在启动 OpenSearch 之前，你应该查看一些[重要的系统设置]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings){:target='\_blank'}可能影响服务性能的。
 
 1. 禁用主机上的内存分页和交换性能以提高性能。
    ```bash
@@ -81,7 +81,7 @@ docker pull public.ecr.aws/opensearchproject/opensearch-dashboards:2
 {% include copy.html %}
 
 要下载除最新可用版本之外的特定版本的 OpenSearch 或 OpenSearch 控制面板，请修改引用该标签的映像标签（在命令行或 Docker Compose 文件中）。例如， `opensearchproject/opensearch:{{site.opensearch_version}}` 将拉取 OpenSearch 版本{{site.opensearch_version}}。要拉取最新版本，请使用 `opensearchproject/opensearch:latest`.有关可用版本，请参阅官方映像存储库。
-{: .tip}
+{:.tip}
 
 在继续之前，你应通过在单个容器中部署 OpenSearch 来验证 Docker 是否正常工作。
 
@@ -129,7 +129,7 @@ docker pull public.ecr.aws/opensearchproject/opensearch-dashboards:2
     {% include copy.html %}
 
 请记住，这 `docker container ls` 不会列出已停止的容器。如果要查看已停止的容器，请使用 `docker container ls -a`.你可以使用以下命令 `docker container rm <containerId_1> <containerId_2> <containerId_3> [...]` 手动删除不需要的容器（传递要停止的所有容器 ID，用空格分隔），或者如果要删除所有已停止的容器，则可以使用较短的命令 `docker container prune`。
-{: .tip}
+{:.tip}
 
 ## 使用 Docker Compose 部署 OpenSearch 集群
 
@@ -223,7 +223,7 @@ networks:
 {% include copy.html %}
 
 如果在撰写文件中使用环境变量覆盖 `opensearch_dashboards.yml` 设置，请使用全部大写字母，并将句点替换为下划线（例如，for `opensearch.hosts`、use `OPENSEARCH_HOSTS`）。此行为与覆盖设置不一致，在覆盖 `opensearch.yml` 设置中，转换只是对赋值运算符的更改（例如， `discovery.type: single-node` in `opensearch.yml` 定义为 `discovery.type=single-node` in `docker-compose.yml`）。
-{: .note}
+{:.note}
 
 从主机的主目录（包含 `docker-compose.yml`）创建并以分离模式启动容器：
 ```bash
@@ -247,7 +247,7 @@ docker-compose logs <serviceName>
 通过从浏览器连接到http://localhost:5601 来验证对 OpenSearch 控制面板的访问。默认用户名和密码为 `admin`。在自定义部署的安全配置之前，建议不要在可从公共 Internet 访问的主机上使用此配置。
 
 请记住，无法 `localhost` 远程访问。如果要将这些容器部署到远程主机，则需要建立网络连接，并替换为 `localhost` 与主机对应的 IP 或 DNS 记录。
-{: .note}
+{:.note}
 
 停止集群中正在运行的容器：
 ```bash
@@ -256,7 +256,7 @@ docker-compose down
 {% include copy.html %}
 
  `docker-compose down` 将停止正在运行的容器，但不会删除主机上存在的 Docker 卷。如果你不关心这些卷的内容，请使用 `-v` 删除所有卷的选项， `docker-compose down -v` 例如.
- {: .tip}
+ {:.tip}
 
 ## 配置 OpenSearch
 

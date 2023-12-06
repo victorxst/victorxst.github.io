@@ -11,7 +11,7 @@ redirect_from:
 Data Prepper是一个独立的组件，而不是OpenSearch插件，可将数据转换为供OpenSearch使用。它并没有捆绑-在-一个OpenSearch安装软件包。
 
 如果您是从开放的发行数据中迁移的，请参见[从开放式发行中迁移]({{site.url}}{{site.baseurl}}/data-prepper/migrate-open-distro/)。
-{: .note}
+{:.note}
 
 ## 1.安装数据预先
 

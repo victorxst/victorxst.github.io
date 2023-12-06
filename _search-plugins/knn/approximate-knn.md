@@ -14,7 +14,7 @@ has_math: true
 大约k-openSearch利用的nn搜索方法使用近似最近的邻居（ANN）算法[nmslib](https://github.com/nmslib/nmslib)，[faiss](https://github.com/facebookresearch/faiss)， 和[露西恩](https://lucene.apache.org/) 电力库的图书馆-nn搜索。这些搜索方法采用ANN来改善大型数据集的搜索延迟。在三种搜索方法中-NN插件提供，此方法为大型数据集提供了最佳的搜索可扩展性。当数据集达到数十万个向量时，这种方法是首选方法。
 
 有关插件当前支持的算法的详细信息，请参见[k-NN索引文档]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions)。
-{: .note}
+{:.note}
 
 k-NN插件为每个KNN构建向量的本地库索引-索引期间矢量场/卢克内段对，可用于有效找到K-搜索过程中最近的邻居与查询矢量。要了解有关Lucene细分市场的更多信息，请参阅[Apache Lucene文档](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/codecs/lucene87/package-summary.html#package.description)。这些本机库索引在搜索过程中加载到本机内存中，并由缓存管理。要了解有关将本地库索引预加载到内存中的更多信息，请参阅[热身API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#warmup-operation)。此外，您还可以查看已在内存中加载了哪些本机库索引。要了解有关此的更多信息，请参阅[Stats API部分]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#stats)。
 
@@ -289,5 +289,5 @@ POST _bulk
 余弦的相似性公式不包括`1 -` 字首。但是，因为相似性搜索库等于
 得分较小，结果更接近，他们返回`1 - cosineSimilarity` 余弦相似空间---这就是为什么`1 -` 是
 包括在距离函数中。
-{: .note }
+{:.note}
 

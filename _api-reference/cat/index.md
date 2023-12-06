@@ -83,5 +83,5 @@ GET _cat/<operation_name>?h=<header_name_1>,<header_name_2>&v
 通常，对于任何操作，您都可以使用`help` 参数，然后使用`h` 参数将输出仅限于您关心的标头。
 
 如果使用安全插件，请确保拥有适当的权限。
-{: .note }
+{:.note}
 

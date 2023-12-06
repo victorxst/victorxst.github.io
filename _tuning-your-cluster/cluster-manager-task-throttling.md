@@ -22,7 +22,7 @@ has_children: false
 您可以通过在`cluster_manager.throttling.thresholds` 对象并更新[OpenSearch集群设置]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings)。设置是动态的，因此您可以在不重新启动群集的情况下更改此功能的行为。
 
 默认情况下，所有任务类型都禁用节流。
-{: .note}
+{:.note}
 
 该请求具有以下格式：
 
@@ -101,7 +101,7 @@ PUT _cluster/settings
 ```
 
 将阈值设置为`-1` 为任务类型禁用节流。
-{: .note}
+{:.note}
 
 
 

@@ -152,7 +152,7 @@ GET products/_search
 {% include copy-curl.html %}
 
 关键字`now` 指当前日期和时间。
-{: .tip}
+{:.tip}
 
 ### 圆形相对日期
 
@@ -187,7 +187,7 @@ GET /products/_search
 这`gte` 前面查询中的参数转换为`2022-04-17T10:00:00 UTC`，这是UTC等效的`2022-04-17T06:00:00-04:00`。
 
 这`time_zone` 参数不影响`now` 价值是因为`now` 始终对应于UTC中的当前系统时间。
-{: .note}
+{:.note}
 
 ## 参数
 

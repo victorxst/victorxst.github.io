@@ -20,7 +20,7 @@ redirect_from:
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/new-look.png" alt="Light and dark mode UI on Discover and Dashboard tools' home page" width="700">
 
 {::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class ="inline-icon" alt ="alert icon"/> {:/}**笔记**<br>在开始之前，请确保已安装了OpenSearch和OpenSearch仪表板。有关安装和配置的信息，请参阅[安装和配置OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) 和[安装和配置OpenSearch仪表板]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)。
-{: .note}
+{:.note}
 # 添加样本数据
 
 示例数据集配备了可视化，仪表板和其他工具，可以在添加自己的数据之前帮助您探索仪表板。要添加示例数据，请执行以下步骤：

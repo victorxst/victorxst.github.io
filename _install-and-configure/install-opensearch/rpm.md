@@ -25,7 +25,7 @@ nav_order: 51
 
 RPM 发行版提供了在 Red Hat 或基于 Red Hat 的 Linux 发行版中运行 OpenSearch 所需的一切。有关支持的操作系统的列表，请参见[操作系统兼容性]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#operating-system-compatibility)。
 
-本指南假定你能够熟练地使用 Linux 命令行界面（CLI）工作。你应该了解如何输入命令、在目录之间导航和编辑文本文件。一些示例命令引用 `vi` 文本编辑器，但你可以使用任何可用的文本编辑器。{: .note}
+本指南假定你能够熟练地使用 Linux 命令行界面（CLI）工作。你应该了解如何输入命令、在目录之间导航和编辑文本文件。一些示例命令引用 `vi` 文本编辑器，但你可以使用任何可用的文本编辑器。{:.note}
 
 ## 步骤 1：下载并安装 OpenSearch
 
@@ -136,7 +136,7 @@ YUM 是基于 Red Hat 的操作系统的主要软件包管理工具，允许你�
 
 使用 RPM 软件包安装 OpenSearch 时，会自动应用一些演示安全设置。这包括自签名 TLS 证书以及多个用户和角色。如果要自行配置这些配置，请参见[在你的环境中设置 OpenSearch](#step-3-set-up-opensearch-in-your-environment)。
 
-默认配置中的 OpenSearch 节点（具有演示证书和具有默认密码的用户）不适合生产环境。如果你计划在生产环境中使用该节点，那么至少应将演示 TLS 证书替换为你自己的 TLS 证书和[更新内部用户和密码列表]({{site.url}}{{site.baseurl}}/security/configuration/yaml)。有关其他指导，请参阅以确保[安全配置]({{site.url}}{{site.baseurl}}/security/configuration/index/)根据安全要求配置节点。{：.warning}
+默认配置中的 OpenSearch 节点（具有演示证书和具有默认密码的用户）不适合生产环境。如果你计划在生产环境中使用该节点，那么至少应将演示 TLS 证书替换为你自己的 TLS 证书和[更新内部用户和密码列表]({{site.url}}{{site.baseurl}}/security/configuration/yaml)。有关其他指导，请参阅以确保[安全配置]({{site.url}}{{site.baseurl}}/security/configuration/index/)根据安全要求配置节点。{: .warning}
 
 1. 向服务器发送请求以验证 OpenSearch 是否正在运行。请注意该 `--insecure` 标志的使用，这是必需的，因为 TLS 证书是自签名的。
    - 向端口 9200 发送请求：
@@ -203,9 +203,9 @@ YUM 是基于 Red Hat 的操作系统的主要软件包管理工具，允许你�
 - 配置你自己的 TLS 证书 - 不需要第三方证书颁发机构（CA）。
 - 使用自定义密码创建管理员用户。
 
-如果运行了安全演示脚本，则需要手动重新配置已修改的设置。在继续操作之前，[安全配置]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)请参阅有关指导。{: .note}
+如果运行了安全演示脚本，则需要手动重新配置已修改的设置。在继续操作之前，[安全配置]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)请参阅有关指导。{:.note}
 
-在修改任何配置文件之前，最好先保存备份副本，然后再进行更改。备份文件可用于缓解由错误配置引起的任何问题。{: .tip}
+在修改任何配置文件之前，最好先保存备份副本，然后再进行更改。备份文件可用于缓解由错误配置引起的任何问题。{:.tip}
 
 1. 打开 `opensearch.yml`。
    ```bash
@@ -439,7 +439,7 @@ OpenSearch 现在使用自定义 TLS 证书和用于基本身份验证的安全�
 
 在上一次测试中，你将请求定向到 `localhost`。现在，TLS 证书已应用，并且新证书引用了主机的实际 DNS 记录，因此请求 `localhost` 将无法通过 CN 检查，并且证书将被视为无效。相反，应将请求发送到你在生成证书时指定的地址。
 
-在发送请求之前，应向客户端添加对根证书的信任。如果不添加信任，则必须使用该 `-k` 选项，以便 cURL 忽略 CN 和根证书验证。{: .tip}
+在发送请求之前，应向客户端添加对根证书的信任。如果不添加信任，则必须使用该 `-k` 选项，以便 cURL 忽略 CN 和根证书验证。{:.tip}
 
 ```bash
 $ curl https://your.host.address:9200 -u admin:yournewpassword -k
