@@ -573,13 +573,15 @@ GET my_server_logs_rollup/_search
 
 在 ISM rollup 中，该 `target_index` 字段可能包含在每次汇总索引时编译的模板。例如，如果将 `target_index` 字段指定为 `{% raw %}rollup_ndx-{{ctx.source_index}}{% endraw %}` <span style="white-space: nowrap">，</span>则源索引将汇总到目标索引 `log-000001` `rollup_ndx-log-000001` 中。这允许你将数据汇总到多个基于时间的索引中，并为每个源索引创建一个汇总作业。
 
- `source_index` {% raw %}{% endraw %} `{{ctx.source_index}}` 中的参数不能包含通配符。{:.note}
+ `source_index` {% raw %}{% endraw %} `{{ctx.source_index}}` 中的参数不能包含通配符。
+{:.note}
 
 ## 搜索多个汇总索引
 
 将数据汇总到多个目标索引中时，可以对所有汇总索引运行一次搜索。要搜索具有相同汇总的多个目标索引，请将索引名称指定为逗号分隔列表或通配符模式。例如，使用 `target_index` as <span style="white-space: nowrap"></span> `{% raw %}rollup_ndx-{{ctx.source_index}}{% endraw %}` 和以 开头 `rollup_ndx-log*` 的 `log` 源索引指定模式。或者，要搜索汇总的 log-000001 和 log-000002 索引，请指定列表 `rollup_ndx-log-000001,rollup_ndx-log-000002`。
 
-不能使用同一查询搜索汇总索引和非汇总索引的混合。{:.note}
+不能使用同一查询搜索汇总索引和非汇总索引的混合。
+{:.note}
 
 ## 例
 

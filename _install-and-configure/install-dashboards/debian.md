@@ -11,7 +11,8 @@ nav_order: 33
 
 在安装 OpenSearch 控制面板之前，你必须配置 OpenSearch 集群。有关步骤，请参阅 OpenSearch [Debian]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/debian/)安装指南。{：.important}
 
-本指南假定你能够熟练地使用 Linux 命令行界面（CLI）工作。你应该了解如何输入命令、在目录之间导航和编辑文本文件。一些示例命令引用 `vi` 文本编辑器，但你可以使用任何可用的文本编辑器。{:.note}
+本指南假定你能够熟练地使用 Linux 命令行界面（CLI）工作。你应该了解如何输入命令、在目录之间导航和编辑文本文件。一些示例命令引用 `vi` 文本编辑器，但你可以使用任何可用的文本编辑器。
+{:.note}
 
 ## 从软件包安装 OpenSearch 控制面板
 

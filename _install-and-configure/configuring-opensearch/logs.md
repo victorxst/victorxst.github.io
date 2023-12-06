@@ -195,7 +195,8 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-启用任务资源使用者可能会对搜索延迟产生影响。{:.tip}
+启用任务资源使用者可能会对搜索延迟产生影响。
+{:.tip}
 
 启用后，日志将写入 `logs/opensearch_task_detailslog.json` 和 `logs/opensearch_task_detailslog.log`。
 

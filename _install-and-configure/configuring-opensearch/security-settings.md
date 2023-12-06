@@ -62,17 +62,20 @@ Security 插件支持以下常见设置：
 
 -  `plugins.security.allow_default_init_securityindex`（静态）： `true` 设置为时，如果索引不存在，OpenSearch Security 将使用目录中的文件 `/config` 自动初始化配置索引。
 
-  这将使用已知的默认密码。仅在专用网络/环境中使用。{: .warning}
+  这将使用已知的默认密码。仅在专用网络/环境中使用。
+{: .warning}
 
 -  `plugins.security.allow_unsafe_democertificates`（静态）：设置为 `true` 时，OpenSearch 将使用演示证书启动。这些证书仅用于演示目的。
 
-  这些证书是众所周知的，因此对生产不安全。仅在专用网络/环境中使用。{: .warning}
+  这些证书是众所周知的，因此对生产不安全。仅在专用网络/环境中使用。
+{: .warning}
 
 -  `plugins.security.system_indices.permission.enabled`（静态）：开启系统索引权限功能。设置为 `true` 时，将启用该功能，并且有权修改角色的用户可以创建包含授予系统索引访问权限的权限的角色。设置为 `false` 时，权限将被禁用，只有拥有管理员证书的管理员才能对系统索引进行更改。默认情况下，权限设置为 `false` 在新集群中。
 
 ## 专家级设置
 
-专家级设置只能由完全了解该功能的管理员进行配置和部署。对功能的误解可能会导致安全风险，导致安全插件无法正常运行，或导致数据丢失。{: .warning}
+专家级设置只能由完全了解该功能的管理员进行配置和部署。对功能的误解可能会导致安全风险，导致安全插件无法正常运行，或导致数据丢失。
+{: .warning}
 
 安全插件支持以下专家级设置：
 
@@ -84,7 +87,8 @@ Security 插件支持以下常见设置：
 
 -  `plugins.security.enable_snapshot_restore_privilege`（静态）：设置为 `false` 时，此设置将禁用常规用户的快照还原。在这种情况下，仅接受由管理员 TLS 证书签名的快照还原请求。设置为 `true`（默认）时，如果普通用户具有 `cluster:admin/snapshot/restore`、 `indices:admin/create` 和 `indices:data/write/index` 权限，则可以还原快照。
 
-  只有当快照不包含全局状态且不还原索引时，才能还原 `.opendistro_security` 快照。{:.note}
+  只有当快照不包含全局状态且不还原索引时，才能还原 `.opendistro_security` 快照。
+{:.note}
 
 -  `plugins.security.check_snapshot_restore_write_privileges`（静态）：设置为 `false` 时，将省略其他索引检查。当设置为默认值 `true` 时，将评估 `indices:admin/create` 和 `"indices:data/write/index` 的恢复快照尝试。
 

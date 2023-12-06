@@ -168,7 +168,8 @@ service-map-pipeline:
         index_type: trace-analytics-service-map
 ```
 
-要保持相似的摄入吞吐量和潜伏期，请扩展`buffer_size` 和`batch_size` 按照客户端请求有效载荷中估计的最大批量大小。{:.tip}
+要保持相似的摄入吞吐量和潜伏期，请扩展`buffer_size` 和`batch_size` 按照客户端请求有效载荷中估计的最大批量大小。
+{:.tip}
 
 #### 例子：`otel trace`
 

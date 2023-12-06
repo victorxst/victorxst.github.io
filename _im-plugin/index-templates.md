@@ -191,7 +191,8 @@ DELETE _index_template/daily_logs
 
 你可以组合组件模板来组合索引模板。
 
-直接在请求中指定的设置和映射将覆盖索引模板及其组件模板中[创建索引]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/)指定的任何设置或映射。{:.note}
+直接在请求中指定的设置和映射将覆盖索引模板及其组件模板中[创建索引]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/)指定的任何设置或映射。
+{:.note}
 
 ### 创建组件模板
 

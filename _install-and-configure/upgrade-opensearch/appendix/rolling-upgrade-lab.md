@@ -54,7 +54,8 @@ docker container stop $(docker container ls -aqf name=os-); \
 ```
 {% include copy.html %}
 
-该命令删除与正则表达式 `os-*` 匹配的容器名称、与和 `repo-0*` 匹配 `data-0*` 的数据卷以及名为 `opensearch-dev-net` 的 Docker 网络。如果主机上运行了其他 Docker 资源，则应查看并修改该命令，以避免无意中删除其他资源。此命令不会还原主机配置更改，例如内存交换行为。{: .warning}
+该命令删除与正则表达式 `os-*` 匹配的容器名称、与和 `repo-0*` 匹配 `data-0*` 的数据卷以及名为 `opensearch-dev-net` 的 Docker 网络。如果主机上运行了其他 Docker 资源，则应查看并修改该命令，以避免无意中删除其他资源。此命令不会还原主机配置更改，例如内存交换行为。
+{: .warning}
 
 选择主机后，可以开始实验：
 
@@ -148,7 +149,8 @@ docker container stop $(docker container ls -aqf name=os-); \
    }
    ```
 
-**提示**：使用 `-s` with `curl` 选项隐藏进度表和错误消息。{:.tip}
+**提示**：使用 `-s` with `curl` 选项隐藏进度表和错误消息。
+{:.tip}
 
 ## 添加数据和配置 OpenSearch 安全性
 
@@ -438,7 +440,8 @@ docker container stop $(docker container ls -aqf name=os-); \
 
 现在，群集已配置完毕，并且已备份重要文件和设置，可以开始版本升级了。
 
-本节中包含的某些步骤（如禁用分片复制和刷新事务日志）不会影响群集的性能。这些步骤作为最佳实践包含在内，在客户端在整个升级过程中继续与 OpenSearch 集互（例如通过查询现有数据或索引文档）的情况下，可以显著提高集群性能。{:.note}
+本节中包含的某些步骤（如禁用分片复制和刷新事务日志）不会影响群集的性能。这些步骤作为最佳实践包含在内，在客户端在整个升级过程中继续与 OpenSearch 集互（例如通过查询现有数据或索引文档）的情况下，可以显著提高集群性能。
+{:.note}
 
 1. 禁用分片复制以停止集群中 Lucene 索引段的移动：
    ```bash

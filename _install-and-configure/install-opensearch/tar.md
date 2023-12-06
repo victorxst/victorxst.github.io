@@ -24,7 +24,8 @@ redirect_from:
 
 tarball 是一个独立的目录，其中包含运行 OpenSearch 所需的一切，包括集成的 Java 开发工具包（JDK）。此安装方法与大多数 Linux 发行版兼容，包括 CentOS 7、Amazon Linux 2 和 Ubuntu 18.04. 如果你有自己的 Java 安装并在终端中设置了环境变量 `JAVA_HOME`，则 macOS 也可以工作。
 
-本指南假定你能够熟练地使用 Linux 命令行界面（CLI）工作。你应该了解如何输入命令、在目录之间导航和编辑文本文件。一些示例命令引用 `vi` 文本编辑器，但你可以使用任何可用的文本编辑器。{:.note}
+本指南假定你能够熟练地使用 Linux 命令行界面（CLI）工作。你应该了解如何输入命令、在目录之间导航和编辑文本文件。一些示例命令引用 `vi` 文本编辑器，但你可以使用任何可用的文本编辑器。
+{:.note}
 
 ## 第 1 步：下载并解压缩 OpenSearch
 
@@ -82,7 +83,8 @@ tarball 是一个独立的目录，其中包含运行 OpenSearch 所需的一切
 
 如果你只想验证服务是否配置正确，并且打算自己配置安全设置，则可能需要禁用安全插件并在不加密或身份验证的情况下启动服务。
 
-演示安全脚本配置的 OpenSearch 节点不适用于生产环境。如果你计划在运行 `opensearch-tar-install.sh` 后在生产环境中使用该节点，则至少应将演示 TLS 证书替换为你自己的 TLS 证书和[更新内部用户和密码列表]({{site.url}}{{site.baseurl}}/security/configuration/yaml)。有关其他指导，请参阅以确保[安全配置]({{site.url}}{{site.baseurl}}/security/configuration/index/)根据安全要求配置节点。{: .warning}
+演示安全脚本配置的 OpenSearch 节点不适用于生产环境。如果你计划在运行 `opensearch-tar-install.sh` 后在生产环境中使用该节点，则至少应将演示 TLS 证书替换为你自己的 TLS 证书和[更新内部用户和密码列表]({{site.url}}{{site.baseurl}}/security/configuration/yaml)。有关其他指导，请参阅以确保[安全配置]({{site.url}}{{site.baseurl}}/security/configuration/index/)根据安全要求配置节点。
+{: .warning}
 
 ### 选项 1：在启用安全性的情况下测试你的 OpenSearch 设置
 
@@ -232,9 +234,11 @@ tarball 是一个独立的目录，其中包含运行 OpenSearch 所需的一切
 - 配置你自己的 TLS 证书 - 不需要第三方证书颁发机构（CA）。
 - 使用自定义密码创建管理员用户。
 
-如果运行了安全演示脚本，则需要手动重新配置已修改的设置。在继续操作之前，[安全配置]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)请参阅有关指导。{:.note}
+如果运行了安全演示脚本，则需要手动重新配置已修改的设置。在继续操作之前，[安全配置]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)请参阅有关指导。
+{:.note}
 
-在修改任何配置文件之前，最好先保存备份副本，然后再进行更改。备份文件可用于还原由错误配置引起的任何问题。{:.tip}
+在修改任何配置文件之前，最好先保存备份副本，然后再进行更改。备份文件可用于还原由错误配置引起的任何问题。
+{:.tip}
 
 1. 打开 `opensearch.yml`。
    ```bash
@@ -467,7 +471,8 @@ OpenSearch 现在使用自定义 TLS 证书和用于基本身份验证的安全�
 
 在之前的测试中，你将请求定向到 `localhost`。现在，TLS 证书已应用，并且新证书引用了主机的实际 DNS 记录，因此请求 `localhost` 将无法通过 CN 检查，并且证书将被视为无效。相反，应将请求发送到你在生成证书时指定的地址。
 
-在发送请求之前，应向客户端添加对根证书的信任。如果不添加信任，则必须使用该 `-k` 选项，以便 cURL 忽略 CN 和根证书验证。{:.tip}
+在发送请求之前，应向客户端添加对根证书的信任。如果不添加信任，则必须使用该 `-k` 选项，以便 cURL 忽略 CN 和根证书验证。
+{:.tip}
 
 ```bash
 $ curl https://your.host.address:9200 -u admin:yournewpassword -k
@@ -494,7 +499,8 @@ $ curl https://your.host.address:9200 -u admin:yournewpassword -k
 
 本部分将指导你为 OpenSearch 创建服务并将其注册到 `systemd`。定义服务后，你可以使用命令启用、启动和停止 OpenSearch 服务 `systemctl`。本节中的命令反映了 OpenSearch 已安装到 `/opt/opensearch` 的环境，应根据你的安装路径进行更改。
 
-以下配置仅适用于在非生产环境中进行测试。建议不要在生产环境中使用以下配置。如果要在主机上将 OpenSearch 作为 systemd 托管服务运行，则应将 OpenSearch 与分配一起[RPM]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/rpm)安装。tarball 安装不定义特定的安装路径、用户、角色或权限。如果未能正确保护主机环境，可能会导致意外行为。{: .warning}
+以下配置仅适用于在非生产环境中进行测试。建议不要在生产环境中使用以下配置。如果要在主机上将 OpenSearch 作为 systemd 托管服务运行，则应将 OpenSearch 与分配一起[RPM]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/rpm)安装。tarball 安装不定义特定的安装路径、用户、角色或权限。如果未能正确保护主机环境，可能会导致意外行为。
+{: .warning}
 
 1. 为 OpenSearch 服务创建用户。
    ```bash

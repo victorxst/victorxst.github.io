@@ -12,7 +12,8 @@ redirect_from:
 你可以根据需要为 OpenSearch 安装单独的插件。有关可用插件的信息，请参阅[可用的插件](#available-plugins)。
 
 
-要使插件与 OpenSearch 正常工作，所有插件都必须能够访问集群中的数据，包括有关集群操作的元数据。因此，为了保护集群的数据并保持其完整性，请先确保你了解插件的功能，然后再将其安装在 OpenSearch 集群上。其次，在选择自定义插件时，请确保插件的来源是可靠的。{: .warning}
+要使插件与 OpenSearch 正常工作，所有插件都必须能够访问集群中的数据，包括有关集群操作的元数据。因此，为了保护集群的数据并保持其完整性，请先确保你了解插件的功能，然后再将其安装在 OpenSearch 集群上。其次，在选择自定义插件时，请确保插件的来源是可靠的。
+{: .warning}
 
 ## 管理插件
 
@@ -200,7 +201,8 @@ Continue with installation? [y/N]y
 -> Installed opensearch-anomaly-detection with folder name opensearch-anomaly-detection
 ```
 
-安装插件后重新启动 OpenSearch 节点。{:.note}
+安装插件后重新启动 OpenSearch 节点。
+{:.note}
 
 ## 删除
 
@@ -217,7 +219,8 @@ $ sudo $ ./opensearch-plugin remove opensearch-anomaly-detection
 -> removing [opensearch-anomaly-detection]...
 ```
 
-删除插件后重新启动 OpenSearch 节点。{:.note}
+删除插件后重新启动 OpenSearch 节点。
+{:.note}
 
 ## 批处理模式
 

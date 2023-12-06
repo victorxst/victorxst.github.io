@@ -23,11 +23,13 @@ OpenSearch 支持四种可用于压缩存储字段的编解码器。每个编解
 *  `zstd`（OpenSearch 2.9 及更高版本）-- 与编解码器相比 `default`， `best_compression` 此编解码器提供与编解码器相当的显著压缩，具有合理的 CPU 使用率以及改进的索引和搜索性能。
 *  `zstd_no_dict`（OpenSearch 2.9 及更高版本）-- 此编解码器类似于 `zstd` 字典压缩功能，但不包括字典压缩功能。与以稍大的索引大小为代价 `zstd` 相比，它提供了更快的索引和搜索操作。
 
-从 OpenSearch 2.10 开始， `zstd` 和 `zstd_no_dict` 压缩编解码器不能用于[k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/)或[安全分析]({{site.url}}{{site.baseurl}}/security-analytics/index/)索引。{: .warning}
+从 OpenSearch 2.10 开始， `zstd` 和 `zstd_no_dict` 压缩编解码器不能用于[k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/)或[安全分析]({{site.url}}{{site.baseurl}}/security-analytics/index/)索引。
+{: .warning}
 
  `zstd` 对于和 `zstd_no_dict` 编解码器，你可以选择在 `index.codec.compression_level` 设置中指定压缩级别。此设置采用 [1，6] 范围内的整数。压缩级别越高，压缩率越高（存储大小越小），但速度越快（压缩和解压缩速度越慢，索引和搜索延迟越大）。
 
-创建索引段时，它使用当前索引编解码器进行压缩。如果更新索引编解码器，则更新后创建的任何段都将使用新的压缩算法。有关具体操作注意事项，请参见[索引操作的索引编解码器注意事项](#index-codec-considerations-for-index-operations)。{:.note}
+创建索引段时，它使用当前索引编解码器进行压缩。如果更新索引编解码器，则更新后创建的任何段都将使用新的压缩算法。有关具体操作注意事项，请参见[索引操作的索引编解码器注意事项](#index-codec-considerations-for-index-operations)。
+{:.note}
 
 ## 选择编解码器
 

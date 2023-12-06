@@ -16,7 +16,8 @@ redirect_from:
 
 1. 创建适合你的环境的 [ `docker-compose.yml`]（https://docs.docker.com/compose/compose-file/）文件。OpenSearch 上提供了包含 OpenSearch [Docker 安装页面]({{site.url}}{{site.baseurl}}/opensearch/install/docker#sample-docker-composeyml)控制面板的示例文件。
 
-   就像 `opensearch.yml` 一样，你可以将自定义 `opensearch_dashboards.yml` 项传递给 Docker Compose 文件中的容器。{:.tip}
+   就像 `opensearch.yml` 一样，你可以将自定义 `opensearch_dashboards.yml` 项传递给 Docker Compose 文件中的容器。
+{:.tip}
 
 1. 运行 `docker-compose up`。
 

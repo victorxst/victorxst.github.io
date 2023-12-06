@@ -42,7 +42,8 @@ Windows OpenSearch 存档是一个独立的目录，其中包含运行 OpenSearc
 
 如果你只想验证服务是否配置正确，并且打算自己配置安全设置，则可能需要禁用安全插件并在不加密或身份验证的情况下启动服务。
 
-默认配置中的 OpenSearch 节点（具有演示证书和具有默认密码的用户）不适合生产环境。如果你计划在生产环境中使用该节点，那么至少应将演示 TLS 证书替换为你自己的 TLS 证书和[更新内部用户和密码列表]({{site.url}}{{site.baseurl}}/security/configuration/yaml)。有关其他指导，请参阅以确保[安全配置]({{site.url}}{{site.baseurl}}/security/configuration/index/)根据安全要求配置节点。{: .warning}
+默认配置中的 OpenSearch 节点（具有演示证书和具有默认密码的用户）不适合生产环境。如果你计划在生产环境中使用该节点，那么至少应将演示 TLS 证书替换为你自己的 TLS 证书和[更新内部用户和密码列表]({{site.url}}{{site.baseurl}}/security/configuration/yaml)。有关其他指导，请参阅以确保[安全配置]({{site.url}}{{site.baseurl}}/security/configuration/index/)根据安全要求配置节点。
+{: .warning}
 
 ### 选项 1：在启用安全性的情况下测试你的 OpenSearch 设置
 
@@ -191,7 +192,8 @@ Windows OpenSearch 存档是一个独立的目录，其中包含运行 OpenSearc
       hostname opensearch-sql                       {{site.opensearch_version}}
       ```
 
-要停止 OpenSearch，请按 `Ctrl+C` 命令提示符或 Powershell，或者直接关闭命令提示符或 Powershell 窗口。{:.tip}
+要停止 OpenSearch，请按 `Ctrl+C` 命令提示符或 Powershell，或者直接关闭命令提示符或 Powershell 窗口。
+{:.tip}
 
 ## 步骤 3：在你的环境中设置 OpenSearch
 
@@ -203,9 +205,11 @@ Windows OpenSearch 存档是一个独立的目录，其中包含运行 OpenSearc
 - 设置初始和最大 JVM 堆大小。
 - 定义一个指向捆绑的 JDK 的环境变量。
 
-如果运行了安全演示脚本，则需要手动重新配置已修改的设置。在继续操作之前，[安全配置]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)请参阅有关指导。{:.note}
+如果运行了安全演示脚本，则需要手动重新配置已修改的设置。在继续操作之前，[安全配置]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)请参阅有关指导。
+{:.note}
 
-在修改任何配置文件之前，最好先保存备份副本，然后再进行更改。备份文件可用于还原由错误配置引起的任何问题。{:.tip}
+在修改任何配置文件之前，最好先保存备份副本，然后再进行更改。备份文件可用于还原由错误配置引起的任何问题。
+{:.tip}
 
 1.  `opensearch-{{site.opensearch_version}}\config` 打开文件夹。
 1.  `opensearch.yml` 使用文本编辑器打开文件。
