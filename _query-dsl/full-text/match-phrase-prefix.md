@@ -82,7 +82,7 @@ GET testindex/_search
 
 响应包含匹配文档：
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     回复
   </summary>

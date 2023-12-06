@@ -81,7 +81,7 @@ GET /testindex/_stats
 
 默认情况下，返回的统计信息在`primaries` 和`total` 聚合。这`primaries` 聚合包含主要碎片的统计数据。这`total` 聚合包含主要和复制碎片的统计数据。以下是一个示例索引统计API响应：
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     回复
   </summary>

@@ -13,14 +13,14 @@ redirect_from:
 
 ---
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     目录
   </summary>
   {: .text-delta }
 - TOC
 {:toc}
-</delect>
+</details>
 
 ---
 

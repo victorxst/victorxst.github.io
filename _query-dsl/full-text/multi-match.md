@@ -480,7 +480,7 @@ GET /customers/_validate/query?explain
 例如，考虑一个索引`first_name` 和`last_name` 用默认值分析字段`standard`
  分析仪及其`.edge` 用边缘n分析子场-克分析仪：
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     回复
   </summary>
@@ -713,7 +713,7 @@ GET articles/_search
 
 因为默认一个`phrase` 查询仅在以相同顺序出现的术语出现时匹配文本，结果仅返回文档1：
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     回复
   </summary>
@@ -770,7 +770,7 @@ GET articles/_search
 
 响应包含文件2：
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     回复
   </summary>

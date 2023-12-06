@@ -24,14 +24,14 @@ OpenSearch快照是增量的，这意味着它们仅存储自上次成功快照�
 
 ---
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     目录
   </summary>
   {: .text-delta }
 - TOC
 {:toc}
-</delect>
+</details>
 
 ---
 
@@ -57,12 +57,12 @@ OpenSearch快照是增量的，这意味着它们仅存储自上次成功快照�
 
 1. 然后使用REST API注册存储库：
 
-   ```JSON
-   put /_snapshot /my-FS-存储库
+   ```json
+   PUT /_snapshot/my-fs-repository
    {
-     "type"："fs"，
-     "settings"：{
-       "location"："/mnt/snapshots"
+     "type": "fs",
+     "settings": {
+       "location": "/mnt/snapshots"
      }
    }
    ```
@@ -75,28 +75,28 @@ You will most likely not need to specify any parameters except for `地点`. For
 1. To use an Amazon S3 bucket as a snapshot repository, install the `存储库-S3` plugin on all nodes:
 
    ```bash
-   sudo ./bin/opensearch-插件安装存储库-S3
+   sudo ./bin/opensearch-plugin install repository-s3
    ```
 
    如果您正在使用Docker安装，请参阅[使用插件]({{site.url}}{{site.baseurl}}/opensearch/install/docker#working-with-plugins)。你的`Dockerfile` 应该看起来像这样：
 
    ```
-   来自OpenSearchProject/openSearch：{{site.opensearch_version}}}
+   来自OpenSearchProject/openSearch：{{site.opensearch_version}}
 
-   ENV AWS_ACCESS_KEY_ID <访问-键>
-   env aws_secret_access_key <秘密-键>
-
-   # 选修的
-   env aws_session_token <可选-会议-令牌>
-
-   运行/usr/share/opensearch/bin/opensearch-插件安装--批处理库-S3
-   运行/usr/share/opensearch/bin/opensearch-钥匙店创建
-
-   运行echo $ aws_access_key_id| /usr/share/opensearch/bin/opensearch-钥匙店添加--stdin s3.client.default.access_key
-   运行echo $ aws_secret_access_key| /usr/share/opensearch/bin/opensearch-钥匙店添加--stdin s3.client.default.secret_key
+   ENV AWS_ACCESS_KEY_ID <access-key>
+   ENV AWS_SECRET_ACCESS_KEY <secret-key>
 
    # 选修的
-   运行echo $ aws_session_token| /usr/share/opensearch/bin/opensearch-钥匙店添加--stdin s3.client.default.session_token
+   ENV AWS_SESSION_TOKEN <optional-session-token>
+
+   RUN /usr/share/opensearch/bin/opensearch-plugin install --batch repository-s3
+   RUN /usr/share/opensearch/bin/opensearch-keystore create
+
+   RUN echo $AWS_ACCESS_KEY_ID | /usr/share/opensearch/bin/opensearch-keystore add --stdin s3.client.default.access_key
+   RUN echo $AWS_SECRET_ACCESS_KEY | /usr/share/opensearch/bin/opensearch-keystore add --stdin s3.client.default.secret_key
+
+   # 选修的
+   RUN echo $AWS_SESSION_TOKEN | /usr/share/opensearch/bin/opensearch-keystore add --stdin s3.client.default.session_token
    ```
 
    After the Docker cluster starts, skip to step 7.
@@ -104,21 +104,21 @@ You will most likely not need to specify any parameters except for `地点`. For
 1. Add your AWS access and secret keys to the OpenSearch keystore:
 
    ```bash
-   sudo ./bin/opensearch-钥匙店添加s3.client.default.access_key
-   sudo ./bin/opensearch-钥匙店添加s3.client.default.secret_key
+   sudo ./bin/opensearch-keystore add s3.client.default.access_key
+   sudo ./bin/opensearch-keystore add s3.client.default.secret_key
    ```
 
 1. (Optional) If you're using temporary credentials, add your session token:
 
    ```bash
-   sudo ./bin/opensearch-钥匙店添加s3.client.default.session_token
+   sudo ./bin/opensearch-keystore add s3.client.default.session_token
    ```
 
 1. (Optional) If you connect to the internet through a proxy, add those credentials:
 
    ```bash
-   sudo ./bin/opensearch-钥匙店添加s3.client.default.proxy.username
-   sudo ./bin/opensearch-钥匙店添加s3.client.default.proxy.password
+   sudo ./bin/opensearch-keystore add s3.client.default.proxy.username
+   sudo ./bin/opensearch-keystore add s3.client.default.proxy.password
    ```
 
 1. (Optional) Add other settings to `opensearch.yml`:
@@ -172,31 +172,31 @@ You will most likely not need to specify any parameters except for `地点`. For
 
 1. 如果您还没有一个，则创建一个S3存储桶。要拍摄快照，您需要使用权限才能访问水库。以下IAM政策就是这些权限的一个例子：
 
-   ```JSON
+   ```json
    {
-"Version"："2012-10-17"，
-"Statement"：[{{
-"Action"：[[
-"s3:*"
-]，，
-"Effect"："Allow"，
-"Resource"：[[
-"arn:aws:s3:::your-bucket"，
-"arn:aws:s3:::your-bucket/*"
-这是给出的
-]]
+	   "Version": "2012-10-17",
+	   "Statement": [{
+		   "Action": [
+			   "s3:*"
+		   ],
+		   "Effect": "Allow",
+		   "Resource": [
+			   "arn:aws:s3:::your-bucket",
+			   "arn:aws:s3:::your-bucket/*"
+		   ]
+	   }]
    }
    ```
 
 1. Register the repository using the REST API:
 
-   ```JSON
-   put /_snapshot /my-S3-存储库
+   ```json
+   PUT /_snapshot/my-s3-repository
    {
-     "type"："s3"，
-     "settings"：{
-       "bucket"："my-s3-bucket"，
-       "base_path"："my/snapshot/directory"
+     "type": "s3",
+     "settings": {
+       "bucket": "my-s3-bucket",
+       "base_path": "my/snapshot/directory"
      }
    }
    ```

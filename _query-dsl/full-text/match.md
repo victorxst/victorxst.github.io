@@ -91,7 +91,7 @@ GET testindex/_search
 
 查询被构造为`wind AND rise` 并将文档1作为匹配文档返回：
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     回复
   </summary>
@@ -151,7 +151,7 @@ GET testindex/_search
 
 现在需要文档匹配这两个条款，因此仅返回文档1（这等同于`and` 操作员）：
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     回复
   </summary>
@@ -210,7 +210,7 @@ GET testindex/_search
 
 这`english` 分析仪删除了停止词`the` 并执行茎，产生令牌`wind` 和`rise`。后者令牌匹配文档1，结果在结果中返回：
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     回复
   </summary>
@@ -315,7 +315,7 @@ GET testindex/_search
 
 令牌`wnid` 火柴`wind` 查询返回文档1和2：
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     回复
   </summary>

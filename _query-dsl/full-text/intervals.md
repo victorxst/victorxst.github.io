@@ -73,7 +73,7 @@ GET /testindex/_search
 
 查询返回两个文档：
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     回复
   </summary>
@@ -262,7 +262,7 @@ POST /testindex/_search
 
 响应仅包含文档2：
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     回复
   </summary>
@@ -332,7 +332,7 @@ POST /testindex/_search
 
 响应包含文件2：
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     回复
   </summary>

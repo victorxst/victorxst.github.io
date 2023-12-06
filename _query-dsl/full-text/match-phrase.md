@@ -80,7 +80,7 @@ GET testindex/_search
 
 响应包含匹配文档：
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     回复
   </summary>
@@ -139,7 +139,7 @@ GET testindex/_search
 
 这`english` 分析仪删除了停止词`the` 并执行茎，产生令牌`wind`。这两个文档都与此令牌匹配，并在结果中返回：
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     回复
   </summary>
@@ -204,7 +204,7 @@ GET _search
 
 查询仍然返回匹配文档：
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     回复
   </summary>

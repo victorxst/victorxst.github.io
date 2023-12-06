@@ -109,7 +109,7 @@ GET /customers/_search
 
 但是，结果不仅包括预期文件，而且包括所有四个文件：
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     回复
   </summary>
@@ -213,7 +213,7 @@ GET /customers/_search
 
 上述查询返回文档2：
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     回复
   </summary>

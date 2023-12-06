@@ -94,7 +94,7 @@ GET testindex/_search
 
 响应包含两个文档：
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     回复
   </summary>

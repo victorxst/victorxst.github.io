@@ -110,7 +110,7 @@ GET _nodes/stats/
 
 选择箭头以查看示例响应。
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     回复
   </summary>

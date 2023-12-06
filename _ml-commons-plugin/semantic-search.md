@@ -147,7 +147,7 @@ OpenSearch还会发送模型组ID：
 
 您将使用此ID将所选模型注册到模型组。
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     测试它
   </summary>
@@ -259,7 +259,7 @@ GET /_plugins/_ml/tasks/aFeif4oB5Vm0Tdw8yoN7
 
 您需要模型ID才能将此模型用于以下几个步骤。
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     测试它
   </summary>
@@ -376,7 +376,7 @@ GET /_plugins/_ml/tasks/ale6f4oB5Vm0Tdw8NINO
 }
 ```
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     测试它
   </summary>
@@ -454,7 +454,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
 ```
 {% include copy-curl.html %}
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     测试它
   </summary>
@@ -526,7 +526,7 @@ PUT /my-nlp-index
 
 设置K-nn索引允许您以后执行矢量搜索`passage_embedding` 场地。
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     测试它
   </summary>
@@ -655,7 +655,7 @@ GET /my-nlp-index/_search
 
 文档3未返回，因为它不包含指定的关键字。包含单词的文档`rodeo` 和`cowboy` 得分较低，因为不考虑语义含义：
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     结果
   </summary>
@@ -747,7 +747,7 @@ GET /my-nlp-index/_search
 
 这次，响应不仅包含所有五个文档，而且文档顺序也得到了改善，因为神经搜索认为语义含义：
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     结果
   </summary>
@@ -895,7 +895,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 
 openSearch返回文档不仅与语义含义相匹配`wild west`，但是现在包含与野生西部主题有关的单词的文件也相对于其他单词的评分较高：
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     结果
   </summary>

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: 轮廓
-NAV_ORDER：55
+nav_order: 55
 ---
 
 # 轮廓
@@ -66,7 +66,7 @@ GET /testindex/_search?human=true
 
 响应包含分析信息：
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     回复
   </summary>
@@ -317,7 +317,7 @@ GET /opensearch_dashboards_sample_data_ecommerce/_search
 
 响应包含分析信息：
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     回复
   </summary>
@@ -589,7 +589,7 @@ GET /opensearch_dashboards_sample_data_ecommerce/_search
 
 响应包含分析信息：
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     回复
   </summary>
@@ -769,7 +769,7 @@ GET /opensearch_dashboards_sample_data_ecommerce/_search
 
 以下是与三个片段切片的并发搜索的示例响应：
 
-<详细信息关闭的markdown ="block">
+<details closed markdown="block">
   <summary>
     回复
   </summary>
