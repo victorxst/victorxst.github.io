@@ -13,7 +13,7 @@ redirect_from:
   - /query-dsl/
 ---
 
-{%- comment -%}这`/docs/opensearch/query-dsl/` 重定向专门支持OpenSearch仪表板1.0.0中的UI链接。{％- 终点-％}
+{%- comment -%}这`/docs/opensearch/query-dsl/` 重定向专门支持OpenSearch仪表板1.0.0中的UI链接。{%- endcomment -%}
 
 # 查询DSL
 
@@ -109,5 +109,5 @@ PUT _cluster/settings
 {% include copy-curl.html %}
 
 要跟踪昂贵的查询，请启用[慢记录]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/logs/#slow-logs)。
-{： 。提示
+{: .tip}
 
