@@ -537,51 +537,51 @@ GET _plugins/_rollup/jobs/<rollup_id>/_explain
 
 #### Request fields
 
-Request fields are required when creating an ISM policy. You can reference the [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/#create-or-update-an-index-rollup-job) page for request field options.
+创建ISM策略时需要请求字段。您可以引用[index rolups api]({{site.url}}) {{site.baseurl}}/im im-插件/索引-卷/卷-api/#创造-或者-更新-一个-指数-卷起-作业）页面用于请求字段选项。
 
 #### Adding a rollup policy in Dashboards
 
-To add a rollup policy in Dashboards, follow the steps below.
+要在仪表板中添加汇总策略，请按照以下步骤操作。
 
-- Select the menu button on the top-left of the Dashboards user interface.
-- In the Dashboards menu, select `Index Management`.
-- On the next screen select `Rollup jobs`.
-- Select the `Create rollup` button.
-- Follow the steps in the `Create rollup job` wizard.
-- Add a name for the policy in the `Name` box.
-- You can reference the [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/#create-or-update-an-index-rollup-job) page to configure the rollup policy.
-- Finally, select the `Create` button on the bottom-right of the Dashboards user interface.
+- 选择顶部的菜单按钮-仪表板用户界面的左侧。
+- 在仪表板菜单中，选择`Index Management`。
+- 在下一个屏幕上选择`Rollup jobs`。
+- 选择`Create rollup` 按钮。
+- 按照步骤`Create rollup job` 向导。
+- 在`Name` 盒子。
+- 您可以引用[index rolups api]({{site.url}}) {{site.baseurl}}/im im-插件/索引-卷/卷-api/#创造-或者-更新-一个-指数-卷起-作业）页面以配置汇总策略。
+- 最后，选择`Create` 底部的按钮-仪表板用户界面的右侧。
 
 ---
 
-## Transitions
+## 过渡
 
-Transitions define the conditions that need to be met for a state to change. After all actions in the current state are completed, the policy starts checking the conditions for transitions.
+过渡定义了一个国家需要满足的条件。在当前状态中的所有操作完成后，策略开始检查过渡条件。
 
-ISM evaluates transitions in the order in which they are defined. For example, if you define transitions: [A,B,C,D], ISM iterates through this list of transitions until it finds a transition that evaluates to `true`, it then stops and sets the next state to the one defined in that transition. On its next execution, ISM dismisses the rest of the transitions and starts in that new state.
+ISM按定义的顺序评估过渡。例如，如果定义过渡：[a，b，c，d]，则通过此过渡列表进行迭代，直到找到评估到的过渡`true`，然后停止并将下一个状态设置为该过渡中定义的状态。ISM在下次执行中驳回了其余的过渡，并以新状态开始。
 
-If you don't specify any conditions in a transition and leave it empty, then it's assumed to be the equivalent of always true. This means that the policy transitions the index to this state the moment it checks.
+如果您没有在过渡中指定任何条件并将其留为空，则假定它相当于始终为true。这意味着政策在检查时刻将索引转换为此状态。
 
-This table lists the parameters you can define for transitions.
+该表列出了您可以为过渡定义的参数。
 
-Parameter | Description | Type | Required
+范围| 描述| 类型| 必需的
 :--- | :--- |:--- |:--- |
-`state_name` |  The name of the state to transition to if the conditions are met. | `string` | Yes
-`conditions` |  List the conditions for the transition. | `list` | Yes
+`state_name` |  如果满足条件，则过渡到状态的名称。| `string` | 是的
+`conditions` |  列出过渡的条件。| `list` | 是的
 
-The `conditions` object has the following parameters:
+这`conditions` 对象具有以下参数：
 
-Parameter | Description | Type | Required
+范围| 描述| 类型| 必需的
 :--- | :--- |:--- |:--- |
-`min_index_age` | The minimum age of the index required to transition. | `string` | No
-`min_rollover_age` | The minimum age required after a rollover has occurred to transition to the next state. | `string` | No
-`min_doc_count` | The minimum document count of the index required to transition. | `number` | No
-`min_size` | The minimum size of the total primary shard storage (not counting replicas) required to transition. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, so your index is transitioned to the next state. | `string` | No
-`cron` | The `cron` job that triggers the transition if no other transition happens first. | `object` | No
-`cron.cron.expression` | The `cron` expression that triggers the transition. | `string` | Yes
-`cron.cron.timezone` | The timezone that triggers the transition. | `string` | Yes
+`min_index_age` | 过渡所需的指数的最低年龄。| `string` | 不
+`min_rollover_age` | 过渡到下一个州所需的最低年龄。| `string` | 不
+`min_doc_count` | 过渡所需的索引的最低文件计数。| `number` | 不
+`min_size` | 过渡所需的总主碎片存储（不计数复制品）的最小尺寸。例如，如果您设置`min_size` 到100 GIB，您的索引有5个主碎片和5个复制碎片，每个Gib均为20 Gib，所有主要碎片的总尺寸为100 GIB，因此您的索引已过渡到下一个状态。| `string` | 不
+`cron` | 这`cron` 如果没有其他过渡首先发生，则会触发过渡。| `object` | 不
+`cron.cron.expression` | 这`cron` 触发过渡的表达。| `string` | 是的
+`cron.cron.timezone` | 触发过渡的时区。| `string` | 是的
 
-The following example transitions the index to a `cold` state after a period of 30 days:
+以下示例将索引过渡到`cold` 经过30天后的状态：
 
 ```json
 "transitions": [
