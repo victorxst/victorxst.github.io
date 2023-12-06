@@ -132,7 +132,7 @@ POST /_plugins/_ml/connectors/_create
 {% include copy-curl.html %}
 
 这`request_body` 模板必须是`${parameters.input}`。
-{： 。重要的}
+{: .important}
 
 ### 预处理功能
 

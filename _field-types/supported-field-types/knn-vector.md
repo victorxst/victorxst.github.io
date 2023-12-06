@@ -94,7 +94,7 @@ PUT test-index
 在[k-NN基准测试](https://github.com/opensearch-project/k-NN/tree/main/benchmarks/perf-tool)， 指某东西的用途`byte` 而不是`float` 向量导致存储和内存使用情况显着减少，并改善了索引吞吐量和减少查询延迟。此外，召回精度没有受到很大的影响（请注意，召回可能取决于各种因素，例如[量化技术](#quantization-techniques) 和数据分布）。
 
 使用时`byte` 向量，与使用相比，召回召回中有一定的精度丧失`float` 向量。字节向量在大的-比例应用程序和用例，优先减少记忆足迹，以换取最小的召回损失。
-{： 。重要的}
+{: .important}
  
 在k中引入-NN插件2.9版，可选`data_type` 参数定义向量的数据类型。此参数的默认值为`float`。
 
@@ -134,17 +134,17 @@ PUT test-index
 Then ingest documents as usual. Make sure each dimension in the vector is in the supported [-128, 127] range:
 
 ```json
-放测试-索引/_doc/1
+PUT test-index/_doc/1
 {
-  "my_vector1"：[[-126、28、127]
+  "my_vector1": [-126, 28, 127]
 }
 ```
 {% include copy-curl.html %}
 
 ```json
-放测试-索引/_doc/2
+PUT test-index/_doc/2
 {
-  "my_vector1"：[100，-128，0]
+  "my_vector1": [100, -128, 0]
 }
 ```
 {% include copy-curl.html %}
@@ -152,14 +152,14 @@ Then ingest documents as usual. Make sure each dimension in the vector is in the
 When querying, be sure to use a `byte` vector:
 
 ```json
-进行测试-索引/_Search
+GET test-index/_search
 {
-  "size"：2，
-  "query"：{
-    "knn"：{
-      "my_vector1"：{
-        "vector"：[[26，-120，99]，
-        "k"：2
+  "size": 2,
+  "query": {
+    "knn": {
+      "my_vector1": {
+        "vector": [26, -120, 99],
+        "k": 2
       }
     }
   }

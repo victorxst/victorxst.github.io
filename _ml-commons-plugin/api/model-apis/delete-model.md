@@ -11,7 +11,7 @@ nav_order: 50
 删除基于`model_id`。
 
 当您在模型组中删除最后一个模型版本时，该模型组将自动从索引中删除。
-{： 。重要的}
+{: .important}
 
 有关此API的用户访问的信息，请参见[模型访问控制注意事项]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations)。
 

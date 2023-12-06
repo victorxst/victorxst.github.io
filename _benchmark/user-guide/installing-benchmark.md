@@ -16,7 +16,7 @@ redirect_from: /benchmark/installing-benchmark/
 OpenSearch基准测试可用于为测试提供OpenSearch节点。如果您打算使用OpenSearch基准测试来在环境中提供节点，请直接在群集中的每个主机上安装OpenSearch基准测试。此外，您必须在群集中配置每个主机进行opensearch。看[安装OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) 有关重要主机设置的指导。
 
 请记住，当您在Docker容器中运行OpenSearch Benchmark时，OpenSearch Benchmark不能用于提供OpenSearch节点。如果要使用OpenSearch基准测试来提供节点，或者要使用OpenSearch基准守护程序分发基准工作负载，则必须使用Python和pip直接在每个主机上安装OpenSearch基准。
-{： 。重要的}
+{: .important}
 
 选择主机时，您还应该考虑要运行哪些工作负载。要查看默认基准工作负载列表，请访问[OpenSearch-基准-工作负载](https://github.com/opensearch-project/opensearch-benchmark-workloads) github上的存储库。通常，请确保OpenSearch基准主机具有足够的免费存储空间来存储压缩数据，并且一旦安装了OpenSearch基准，就可以完全解压缩数据语料库。
 
@@ -43,7 +43,7 @@ OpenSearch基准测试可用于为测试提供OpenSearch节点。如果您打算
 ## 在Linux和MacOS上安装
 
 如果要在Docker容器中运行OpenSearch Benchmark，请参阅[使用Docker安装](#installing-with-docker)。OpenSearch基准Docker映像包含所有必需的软件，因此无需其他步骤。
-{： 。重要的}
+{: .important}
 
 要直接在Unix主机（例如Linux或MacOS）上安装OpenSearch基准测试，请确保您有**Python 3.8或更高版本** 安装。
 

@@ -330,63 +330,63 @@ POST _plugins/_alerting/monitors
 
 ## Bucket-level monitors
 
-桶-级别监视器将结果分类为按字段分开的桶。然后，监视器通过每个存储桶的结果运行您的脚本，并评估是否触发警报。有关存储桶的更多信息-级别和查询-级别监视器，请参阅[创建显示器]（{{site.url}}} {{site.baseurl}}/Monitoring-插件/警报/监视器/）。
+桶-级别监视器将结果分类为按字段分开的桶。然后，监视器通过每个存储桶的结果运行您的脚本，并评估是否触发警报。有关存储桶的更多信息-级别和查询-级别监视器，请参阅[创建显示器]({{site.url}}) {{site.baseurl}}/Monitoring-插件/警报/监视器/）。
 
 ```json
-邮政_plugins/_ alerting/监视器
+POST _plugins/_alerting/monitors
 {
-  "type"："monitor"，
-  "name"："Demo bucket-level monitor"，
-  "monitor_type"："bucket_level_monitor"，
-  "enabled"： 真的，
-  "schedule"：{
-    "period"：{
-      "interval"：1，
-      "unit"："MINUTES"
+  "type": "monitor",
+  "name": "Demo bucket-level monitor",
+  "monitor_type": "bucket_level_monitor",
+  "enabled": true,
+  "schedule": {
+    "period": {
+      "interval": 1,
+      "unit": "MINUTES"
     }
-  }，，
-  "inputs"：[[
+  },
+  "inputs": [
     {
-      "search"：{
-        "indices"：[[
+      "search": {
+        "indices": [
           "movies"
-        ]，，
-        "query"：{
-          "size"：0，
-          "query"：{
-            "bool"：{
-              "filter"：[[
+        ],
+        "query": {
+          "size": 0,
+          "query": {
+            "bool": {
+              "filter": [
                 {
-                  "range"：{
-                    "order_date"：{
-                      "from"： {％ 生的 ％}"{{period_end}}||-1h"{％endraw％}，
-                      "to"： {％ 生的 ％}"{{period_end}}"{％endraw％}，
-                      "include_lower"： 真的，
-                      "include_upper"： 真的，
-                      "format"："epoch_millis"
+                  "range": {
+                    "order_date": {
+                      "from": {% raw %}"{{period_end}}||-1h"{% endraw %},
+                      "to": {% raw %}"{{period_end}}"{% endraw %},
+                      "include_lower": true,
+                      "include_upper": true,
+                      "format": "epoch_millis"
                     }
                   }
                 }
-              这是给出的
+              ]
             }
-          }，，
-          "aggregations"：{
-            "composite_agg"：{
-              "composite"：{
-                "sources"：[[
+          },
+          "aggregations": {
+            "composite_agg": {
+              "composite": {
+                "sources": [
                   {
-                    "user"：{
-                      "terms"：{
-                        "field"："user"
+                    "user": {
+                      "terms": {
+                        "field": "user"
                       }
                     }
                   }
-                这是给出的
-              }，，
-              "aggregations"：{
-                "avg_products_base_price"：{
-                  "avg"：{
-                    "field"："products.base_price"
+                ]
+              },
+              "aggregations": {
+                "avg_products_base_price": {
+                  "avg": {
+                    "field": "products.base_price"
                   }
                 }
               }
@@ -395,133 +395,133 @@ POST _plugins/_alerting/monitors
         }
       }
     }
-  ]，，
-  "triggers"：[[
+  ],
+  "triggers": [
     {
-      "bucket_level_trigger"：{
-        "name"："test-trigger"，
-        "severity"："1"，
-        "condition"：{
-          "buckets_path"：{
-            "_count"："_count"，
-            "avg_products_base_price"："avg_products_base_price"
-          }，，
-          "parent_bucket_path"："composite_agg"，
-          "script"：{
-            "source"："params._count > 50 || params.avg_products_base_price < 35"，
-            "lang"："painless"
+      "bucket_level_trigger": {
+        "name": "test-trigger",
+        "severity": "1",
+        "condition": {
+          "buckets_path": {
+            "_count": "_count",
+            "avg_products_base_price": "avg_products_base_price"
+          },
+          "parent_bucket_path": "composite_agg",
+          "script": {
+            "source": "params._count > 50 || params.avg_products_base_price < 35",
+            "lang": "painless"
           }
-        }，，
-        "actions"：[[
+        },
+        "actions": [
           {
-            "name"："test-action"，
-            "destination_id"："E4o5hnsB6KjPKmHtpfCA"，
-            "message_template"：{
-              "source"： {％ 生的 ％}"""Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.   - Trigger: {{ctx.trigger.name}}   - Severity: {{ctx.trigger.severity}}   - Period start: {{ctx.periodStart}}   - Period end: {{ctx.periodEnd}}    - Deduped Alerts:   {{ctx.dedupedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.dedupedAlerts}}    - New Alerts:   {{ctx.newAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.newAlerts}}    - Completed Alerts:   {{ctx.completedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.completedAlerts}}"""{％endraw％}，
-              "lang"："mustache"
-            }，，
-            "throttle_enabled"： 错误的，
-            "throttle"：{
-              "value"：10，
-              "unit"："MINUTES"
-            }，，
-            "action_execution_policy"：{
-              "action_execution_scope"：{
-                "per_alert"：{
-                  "actionable_alerts"：[[
-                    "DEDUPED"，
+            "name": "test-action",
+            "destination_id": "E4o5hnsB6KjPKmHtpfCA",
+            "message_template": {
+              "source": {% raw %}"""Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.   - Trigger: {{ctx.trigger.name}}   - Severity: {{ctx.trigger.severity}}   - Period start: {{ctx.periodStart}}   - Period end: {{ctx.periodEnd}}    - Deduped Alerts:   {{ctx.dedupedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.dedupedAlerts}}    - New Alerts:   {{ctx.newAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.newAlerts}}    - Completed Alerts:   {{ctx.completedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.completedAlerts}}"""{% endraw %},
+              "lang": "mustache"
+            },
+            "throttle_enabled": false,
+            "throttle": {
+              "value": 10,
+              "unit": "MINUTES"
+            },
+            "action_execution_policy": {
+              "action_execution_scope": {
+                "per_alert": {
+                  "actionable_alerts": [
+                    "DEDUPED",
                     "NEW"
-                  这是给出的
+                  ]
                 }
               }
-            }，，
-            "subject_template"：{
-              "source"："The Subject"，
-              "lang"："mustache"
+            },
+            "subject_template": {
+              "source": "The Subject",
+              "lang": "mustache"
             }
           }
-        这是给出的
+        ]
       }
     }
-  这是给出的
+  ]
 }
 ```
 
 #### Example response
 ```json
 {
-  "_id" ："Dfxr63sBwex6DxEhHV5N"，
-  "_version" ：1，
-  "_seq_no" ：3，
-  "_primary_term" ：1，
-  "monitor" ：{
-    "type" ："monitor"，
-    "schema_version" ：4，
-    "name" ："Demo a bucket-level monitor"，
-    "monitor_type" ："bucket_level_monitor"，
-    "user" ：{
-      "name" ：""，
-      "backend_roles" ：[]，，
-      "roles" ：[]，，
-      "custom_attribute_names" ：[]，，
-      "user_requested_tenant" ： 无效的
-    }，，
-    "enabled" ： 真的，
-    "enabled_time" ：1631742270785，
-    "schedule" ：{
-      "period" ：{
-        "interval" ：1，
-        "unit" ："MINUTES"
+  "_id" : "Dfxr63sBwex6DxEhHV5N",
+  "_version" : 1,
+  "_seq_no" : 3,
+  "_primary_term" : 1,
+  "monitor" : {
+    "type" : "monitor",
+    "schema_version" : 4,
+    "name" : "Demo a bucket-level monitor",
+    "monitor_type" : "bucket_level_monitor",
+    "user" : {
+      "name" : "",
+      "backend_roles" : [ ],
+      "roles" : [ ],
+      "custom_attribute_names" : [ ],
+      "user_requested_tenant" : null
+    },
+    "enabled" : true,
+    "enabled_time" : 1631742270785,
+    "schedule" : {
+      "period" : {
+        "interval" : 1,
+        "unit" : "MINUTES"
       }
-    }，，
-    "inputs" ：[[
+    },
+    "inputs" : [
       {
-        "search" ：{
-          "indices" ：[[
+        "search" : {
+          "indices" : [
             "opensearch_dashboards_sample_data_flights"
-          ]，，
-          "query" ：{
-            "size" ：0，
-            "query" ：{
-              "bool" ：{
-                "filter" ：[[
+          ],
+          "query" : {
+            "size" : 0,
+            "query" : {
+              "bool" : {
+                "filter" : [
                   {
-                    "range" ：{
-                      "order_date" ：{
-                        "from" ： {％ 生的 ％}"{{period_end}}||-1h"{％endraw％}，
-                        "to" ： {％ 生的 ％}"{{period_end}}"{％endraw％}，
-                        "include_lower" ： 真的，
-                        "include_upper" ： 真的，
-                        "format" ："epoch_millis"，
-                        "boost" ：1.0
+                    "range" : {
+                      "order_date" : {
+                        "from" : {% raw %}"{{period_end}}||-1h"{% endraw %},
+                        "to" : {% raw %}"{{period_end}}"{% endraw %},
+                        "include_lower" : true,
+                        "include_upper" : true,
+                        "format" : "epoch_millis",
+                        "boost" : 1.0
                       }
                     }
                   }
-                ]，，
-                "adjust_pure_negative" ： 真的，
-                "boost" ：1.0
+                ],
+                "adjust_pure_negative" : true,
+                "boost" : 1.0
               }
-            }，，
-            "aggregations" ：{
-              "composite_agg" ：{
-                "composite" ：{
-                  "size" ：10，
-                  "sources" ：[[
+            },
+            "aggregations" : {
+              "composite_agg" : {
+                "composite" : {
+                  "size" : 10,
+                  "sources" : [
                     {
-                      "user" ：{
-                        "terms" ：{
-                          "field" ："user"，
-                          "missing_bucket" ： 错误的，
-                          "order" ："asc"
+                      "user" : {
+                        "terms" : {
+                          "field" : "user",
+                          "missing_bucket" : false,
+                          "order" : "asc"
                         }
                       }
                     }
-                  这是给出的
-                }，，
-                "aggregations" ：{
-                  "avg_products_base_price" ：{
-                    "avg" ：{
-                      "field" ："products.base_price"
+                  ]
+                },
+                "aggregations" : {
+                  "avg_products_base_price" : {
+                    "avg" : {
+                      "field" : "products.base_price"
                     }
                   }
                 }
@@ -530,59 +530,59 @@ POST _plugins/_alerting/monitors
           }
         }
       }
-    ]，，
-    "triggers" ：[[
+    ],
+    "triggers" : [
       {
-        "bucket_level_trigger" ：{
-          "id" ："C_xr63sBwex6DxEhHV5B"，
-          "name" ："test-trigger"，
-          "severity" ："1"，
-          "condition" ：{
-            "buckets_path" ：{
-              "_count" ："_count"，
-              "avg_products_base_price" ："avg_products_base_price"
-            }，，
-            "parent_bucket_path" ："composite_agg"，
-            "script" ：{
-              "source" ："params._count > 50 || params.avg_products_base_price < 35"，
-              "lang" ："painless"
-            }，，
-            "gap_policy" ："skip"
-          }，，
-          "actions" ：[[
+        "bucket_level_trigger" : {
+          "id" : "C_xr63sBwex6DxEhHV5B",
+          "name" : "test-trigger",
+          "severity" : "1",
+          "condition" : {
+            "buckets_path" : {
+              "_count" : "_count",
+              "avg_products_base_price" : "avg_products_base_price"
+            },
+            "parent_bucket_path" : "composite_agg",
+            "script" : {
+              "source" : "params._count > 50 || params.avg_products_base_price < 35",
+              "lang" : "painless"
+            },
+            "gap_policy" : "skip"
+          },
+          "actions" : [
             {
-              "id" ："DPxr63sBwex6DxEhHV5B"，
-              "name" ："test-action"，
-              "destination_id" ："E4o5hnsB6KjPKmHtpfCA"，
-              "message_template" ：{
-                "source" ： {％ 生的 ％}"Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.   - Trigger: {{ctx.trigger.name}}   - Severity: {{ctx.trigger.severity}}   - Period start: {{ctx.periodStart}}   - Period end: {{ctx.periodEnd}}    - Deduped Alerts:   {{ctx.dedupedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.dedupedAlerts}}    - New Alerts:   {{ctx.newAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.newAlerts}}    - Completed Alerts:   {{ctx.completedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.completedAlerts}}"{％endraw％}，
-                "lang" ："mustache"
-              }，，
-              "throttle_enabled" ： 错误的，
-              "subject_template" ：{
-                "source" ："The Subject"，
-                "lang" ："mustache"
-              }，，
-              "throttle" ：{
-                "value" ：10，
-                "unit" ："MINUTES"
-              }，，
-              "action_execution_policy" ：{
-                "action_execution_scope" ：{
-                  "per_alert" ：{
-                    "actionable_alerts" ：[[
-                      "DEDUPED"，
+              "id" : "DPxr63sBwex6DxEhHV5B",
+              "name" : "test-action",
+              "destination_id" : "E4o5hnsB6KjPKmHtpfCA",
+              "message_template" : {
+                "source" : {% raw %}"Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.   - Trigger: {{ctx.trigger.name}}   - Severity: {{ctx.trigger.severity}}   - Period start: {{ctx.periodStart}}   - Period end: {{ctx.periodEnd}}    - Deduped Alerts:   {{ctx.dedupedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.dedupedAlerts}}    - New Alerts:   {{ctx.newAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.newAlerts}}    - Completed Alerts:   {{ctx.completedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.completedAlerts}}"{% endraw %},
+                "lang" : "mustache"
+              },
+              "throttle_enabled" : false,
+              "subject_template" : {
+                "source" : "The Subject",
+                "lang" : "mustache"
+              },
+              "throttle" : {
+                "value" : 10,
+                "unit" : "MINUTES"
+              },
+              "action_execution_policy" : {
+                "action_execution_scope" : {
+                  "per_alert" : {
+                    "actionable_alerts" : [
+                      "DEDUPED",
                       "NEW"
-                    这是给出的
+                    ]
                   }
                 }
               }
             }
-          这是给出的
+          ]
         }
       }
-    ]，，
-    "last_update_time" ：1631742270785
+    ],
+    "last_update_time" : 1631742270785
   }
 }
 ```
@@ -616,7 +616,7 @@ get/_plugins/_ alerting/findings/_search？findiD = gkqhj8wjit3bxjgfioxc
 为了在调查结果搜索中获得更具体的结果，您可以使用下表中定义的任何可选路径参数：
 
 路径参数| 描述| 用法
-:--- | :--- ：：---
+:--- | :--- : :---
 `findingId` | 查找条目的标识符。| 查找ID在初始查询响应中返回。
 `sortString` | 该字段指定了警报插件用于对发现进行排序的字符串。| 默认值是`id`。
 `sortOrder` | 对发现列表进行排序的命令，无论是上升还是下降。| 使用`sortOrder=asc` 指示上升或`sortOrder=desc` 用于降序排序订单。
@@ -632,7 +632,7 @@ At a minimum, you need to provide the following details: specify the queries or 
 下表显示了用于每个触发选项的语法：
 
 触发选项| 定义| 句法
-:--- | :--- ：：---
+:--- | :--- : :---
 标签| 为将多个查询与应用此标签匹配的文档创建警报。如果您按单个标签对多个查询进行分组，则可以将其设置为触发警报，如果此标签名称返回结果。| `query[tag=<tag-name>]`
 按名称查询| 创建符合或返回的文档的警报。| `query[name=<query-name>]`
 通过ID查询| 为已确定的查询返回的文档创建警报。| `query[id=<query-id>]`
@@ -642,85 +642,85 @@ At a minimum, you need to provide the following details: specify the queries or 
 以下示例显示了如何创建文档-等级监视器：
 
 ```json
-邮政_plugins/_ alerting/监视器
+POST _plugins/_alerting/monitors
 {
-  "type"："monitor"，
-  "monitor_type"："doc_level_monitor"，
-  "name"："Example document-level monitor"，
-  "enabled"： 真的，
-  "schedule"：{
-    "period"：{
-      "interval"：1，
-      "unit"："MINUTES"
+  "type": "monitor",
+  "monitor_type": "doc_level_monitor",
+  "name": "Example document-level monitor",
+  "enabled": true,
+  "schedule": {
+    "period": {
+      "interval": 1,
+      "unit": "MINUTES"
     }
-  }，，
-  "inputs"：[[
+  },
+  "inputs": [
     {
-      "doc_level_input"：{
-        "description"："Example document-level monitor for audit logs"，
-        "indices"：[[
+      "doc_level_input": {
+        "description": "Example document-level monitor for audit logs",
+        "indices": [
           "audit-logs"
-        ]，，
-        "queries"：[[
+        ],
+        "queries": [
         {
-            "id"："nKQnFYABit3BxjGfiOXC"，
-            "name"："sigma-123"，
-            "query"："region:\"我们-西方-2 \""，
-            "tags"：[[
+            "id": "nKQnFYABit3BxjGfiOXC",
+            "name": "sigma-123",
+            "query": "region:\"us-west-2\"",
+            "tags": [
                 "tag1"
-            这是给出的
-        }，，
+            ]
+        },
         {
-            "id"："gKQnABEJit3BxjGfiOXC"，
-            "name"："sigma-456"，
-            "query"："region:\"我们-东方-1 \""，
-            "tags"：[[
+            "id": "gKQnABEJit3BxjGfiOXC",
+            "name": "sigma-456",
+            "query": "region:\"us-east-1\"",
+            "tags": [
                 "tag2"
-            这是给出的
-        }，，
+            ]
+        },
         {
-            "id"："h4J2ABEFNW3vxjGfiOXC"，
-            "name"："sigma-789"，
-            "query"："message:\"这是与IAD区域的单独错误\""，
-            "tags"：[[
+            "id": "h4J2ABEFNW3vxjGfiOXC",
+            "name": "sigma-789",
+            "query": "message:\"This is a SEPARATE error from IAD region\"",
+            "tags": [
                 "tag3"
-            这是给出的
+            ]
         }
-    这是给出的
+    ]
       }
     }
-  ]，，
-    "triggers"：[{{"document_level_trigger"：{
-      "name"："test-trigger"，
-      "severity"："1"，
-      "condition"：{
-        "script"：{
-          "source"："(query[name=sigma-123] || query[tag=tag3]) && query[name=sigma-789]"，
-          "lang"："painless"
+  ],
+    "triggers": [ { "document_level_trigger": {
+      "name": "test-trigger",
+      "severity": "1",
+      "condition": {
+        "script": {
+          "source": "(query[name=sigma-123] || query[tag=tag3]) && query[name=sigma-789]",
+          "lang": "painless"
         }
-      }，，
-      "actions"：[[
+      },
+      "actions": [
         {
-            "name"："test-action"，
-            "destination_id"："E4o5hnsB6KjPKmHtpfCA"，
-            "message_template"：{
-                "source"： {％ 生的 ％}"""Monitor  just entered alert status. Please investigate the issue. Related Finding Ids: {{ctx.alerts.0.finding_ids}}, Related Document Ids: {{ctx.alerts.0.related_doc_ids}}"""{％endraw％}，
-                "lang"："mustache"
-            }，，
-            "action_execution_policy"：{
-                "action_execution_scope"：{
-                    "per_alert"：{
-                        "actionable_alerts"：[]
+            "name": "test-action",
+            "destination_id": "E4o5hnsB6KjPKmHtpfCA",
+            "message_template": {
+                "source": {% raw %}"""Monitor  just entered alert status. Please investigate the issue. Related Finding Ids: {{ctx.alerts.0.finding_ids}}, Related Document Ids: {{ctx.alerts.0.related_doc_ids}}"""{% endraw %},
+                "lang": "mustache"
+            },
+            "action_execution_policy": {
+                "action_execution_scope": {
+                    "per_alert": {
+                        "actionable_alerts": []
                     }
                 }
-            }，，
-            "subject_template"：{
-                "source"："The Subject"，
-                "lang"："mustache"
+            },
+            "subject_template": {
+                "source": "The Subject",
+                "lang": "mustache"
             }
          }
-      这是给出的
-  }}]]
+      ]
+  }}]
 }
 
 ```
@@ -739,108 +739,108 @@ At a minimum, you need to provide the following details: specify the queries or 
 #### Request
 
 ```json
-放置_plugins/_ alerting/monitors/<Monital_id>
+PUT _plugins/_alerting/monitors/<monitor_id>
 {
-  "type"："monitor"，
-  "name"："test-monitor"，
-  "enabled"： 真的，
-  "enabled_time"：1551466220455，
-  "schedule"：{
-    "period"：{
-      "interval"：1，
-      "unit"："MINUTES"
+  "type": "monitor",
+  "name": "test-monitor",
+  "enabled": true,
+  "enabled_time": 1551466220455,
+  "schedule": {
+    "period": {
+      "interval": 1,
+      "unit": "MINUTES"
     }
-  }，，
-  "inputs"：[{{
-    "search"：{
-      "indices"：[[
+  },
+  "inputs": [{
+    "search": {
+      "indices": [
         "*"
-      ]，，
-      "query"：{
-        "query"：{
-          "match_all"：{
-            "boost"：1
+      ],
+      "query": {
+        "query": {
+          "match_all": {
+            "boost": 1
           }
         }
       }
     }
-  }]，
-  "triggers"：[{{
-    "id"："StaeOmkBC25HCRGmL_y-"，
-    "name"："test-trigger"，
-    "severity"："1"，
-    "condition"：{
-      "script"：{
-        "source"："return true"，
-        "lang"："painless"
+  }],
+  "triggers": [{
+    "id": "StaeOmkBC25HCRGmL_y-",
+    "name": "test-trigger",
+    "severity": "1",
+    "condition": {
+      "script": {
+        "source": "return true",
+        "lang": "painless"
       }
-    }，，
-    "actions"：[{{
-      "name"："test-action"，
-      "destination_id"："RtaaOmkBC25HCRGm0fxi"，
-      "subject_template"：{
-        "source"："My Message Subject"，
-        "lang"："mustache"
-      }，，
-      "message_template"：{
-        "source"："This is my message body."，
-        "lang"："mustache"
+    },
+    "actions": [{
+      "name": "test-action",
+      "destination_id": "RtaaOmkBC25HCRGm0fxi",
+      "subject_template": {
+        "source": "My Message Subject",
+        "lang": "mustache"
+      },
+      "message_template": {
+        "source": "This is my message body.",
+        "lang": "mustache"
       }
-    ]]
-  }]，
-  "last_update_time"：1551466639295
+    }]
+  }],
+  "last_update_time": 1551466639295
 }
 
-put _plugins/_alerting/monitors/<morita_id>？if_seq_no = 3＆if_primary_term = 1
+PUT _plugins/_alerting/monitors/<monitor_id>?if_seq_no=3&if_primary_term=1
 {
-  "type"："monitor"，
-  "name"："test-monitor"，
-  "enabled"： 真的，
-  "enabled_time"：1551466220455，
-  "schedule"：{
-    "period"：{
-      "interval"：1，
-      "unit"："MINUTES"
+  "type": "monitor",
+  "name": "test-monitor",
+  "enabled": true,
+  "enabled_time": 1551466220455,
+  "schedule": {
+    "period": {
+      "interval": 1,
+      "unit": "MINUTES"
     }
-  }，，
-  "inputs"：[{{
-    "search"：{
-      "indices"：[[
+  },
+  "inputs": [{
+    "search": {
+      "indices": [
         "*"
-      ]，，
-      "query"：{
-        "query"：{
-          "match_all"：{
-            "boost"：1
+      ],
+      "query": {
+        "query": {
+          "match_all": {
+            "boost": 1
           }
         }
       }
     }
-  }]，
-  "triggers"：[{{
-    "id"："StaeOmkBC25HCRGmL_y-"，
-    "name"："test-trigger"，
-    "severity"："1"，
-    "condition"：{
-      "script"：{
-        "source"："return true"，
-        "lang"："painless"
+  }],
+  "triggers": [{
+    "id": "StaeOmkBC25HCRGmL_y-",
+    "name": "test-trigger",
+    "severity": "1",
+    "condition": {
+      "script": {
+        "source": "return true",
+        "lang": "painless"
       }
-    }，，
-    "actions"：[{{
-      "name"："test-action"，
-      "destination_id"："RtaaOmkBC25HCRGm0fxi"，
-      "subject_template"：{
-        "source"："My Message Subject"，
-        "lang"："mustache"
-      }，，
-      "message_template"：{
-        "source"："This is my message body."，
-        "lang"："mustache"
+    },
+    "actions": [{
+      "name": "test-action",
+      "destination_id": "RtaaOmkBC25HCRGm0fxi",
+      "subject_template": {
+        "source": "My Message Subject",
+        "lang": "mustache"
+      },
+      "message_template": {
+        "source": "This is my message body.",
+        "lang": "mustache"
       }
-    ]]
-  }]，
-  "last_update_time"：1551466639295
+    }]
+  }],
+  "last_update_time": 1551466639295
 }
 ```
 
@@ -848,59 +848,59 @@ put _plugins/_alerting/monitors/<morita_id>？if_seq_no = 3＆if_primary_term = 
 
 ```json
 {
-  "_id"："Q9aXOmkBC25HCRGmzfw-"，
-  "_version"：4，
-  "_seq_no"：4，
-  "_primary_term"：1，
-  "monitor"：{
-    "type"："monitor"，
-    "name"："test-monitor"，
-    "enabled"： 真的，
-    "enabled_time"：1551466220455，
-    "schedule"：{
-      "period"：{
-        "interval"：1，
-        "unit"："MINUTES"
+  "_id": "Q9aXOmkBC25HCRGmzfw-",
+  "_version": 4,
+  "_seq_no": 4,
+  "_primary_term": 1,
+  "monitor": {
+    "type": "monitor",
+    "name": "test-monitor",
+    "enabled": true,
+    "enabled_time": 1551466220455,
+    "schedule": {
+      "period": {
+        "interval": 1,
+        "unit": "MINUTES"
       }
-    }，，
-    "inputs"：[{{
-      "search"：{
-        "indices"：[[
+    },
+    "inputs": [{
+      "search": {
+        "indices": [
           "*"
-        ]，，
-        "query"：{
-          "query"：{
-            "match_all"：{
-              "boost"：1
+        ],
+        "query": {
+          "query": {
+            "match_all": {
+              "boost": 1
             }
           }
         }
       }
-    }]，
-    "triggers"：[{{
-      "id"："StaeOmkBC25HCRGmL_y-"，
-      "name"："test-trigger"，
-      "severity"："1"，
-      "condition"：{
-        "script"：{
-          "source"："return true"，
-          "lang"："painless"
+    }],
+    "triggers": [{
+      "id": "StaeOmkBC25HCRGmL_y-",
+      "name": "test-trigger",
+      "severity": "1",
+      "condition": {
+        "script": {
+          "source": "return true",
+          "lang": "painless"
         }
-      }，，
-      "actions"：[{{
-        "name"："test-action"，
-        "destination_id"："RtaaOmkBC25HCRGm0fxi"，
-        "subject_template"：{
-          "source"："My Message Subject"，
-          "lang"："mustache"
-        }，，
-        "message_template"：{
-          "source"："This is my message body."，
-          "lang"："mustache"
+      },
+      "actions": [{
+        "name": "test-action",
+        "destination_id": "RtaaOmkBC25HCRGm0fxi",
+        "subject_template": {
+          "source": "My Message Subject",
+          "lang": "mustache"
+        },
+        "message_template": {
+          "source": "This is my message body.",
+          "lang": "mustache"
         }
-      ]]
-    }]，
-    "last_update_time"：1551466761596
+      }]
+    }],
+    "last_update_time": 1551466761596
   }
 }
 ```
@@ -991,178 +991,178 @@ GET _plugins/_alerting/monitors/<monitor_id>
 #### Request
 
 ```json
-获取_plugins/_ alerting/stats
-获取_plugins/_ alerting/stats/<metric>
-获取_plugins/_ alerting/<node-ID>/统计
-获取_plugins/_ alerting/<node-id>/stats/<terric>
+GET _plugins/_alerting/stats
+GET _plugins/_alerting/stats/<metric>
+GET _plugins/_alerting/<node-id>/stats
+GET _plugins/_alerting/<node-id>/stats/<metric>
 ```
 
 #### Example response
 
 ```json
 {
-  "_nodes"：{
-    "total"：9，
-    "successful"：9，
-    "failed"：0
-  }，，
-  "cluster_name"："475300751431:alerting65-dont-delete"，
-  "plugins.scheduled_jobs.enabled"： 真的，
-  "scheduled_job_index_exists"： 真的，
-  "scheduled_job_index_status"："green"，
-  "nodes_on_schedule"：9，
-  "nodes_not_on_schedule"：0，
-  "nodes"：{
-    "qWcbKbb-TVyyI-Q7VSeOqA"：{
-      "name"："qWcbKbb"，
-      "schedule_status"："green"，
-      "roles"：[[
+  "_nodes": {
+    "total": 9,
+    "successful": 9,
+    "failed": 0
+  },
+  "cluster_name": "475300751431:alerting65-dont-delete",
+  "plugins.scheduled_jobs.enabled": true,
+  "scheduled_job_index_exists": true,
+  "scheduled_job_index_status": "green",
+  "nodes_on_schedule": 9,
+  "nodes_not_on_schedule": 0,
+  "nodes": {
+    "qWcbKbb-TVyyI-Q7VSeOqA": {
+      "name": "qWcbKbb",
+      "schedule_status": "green",
+      "roles": [
         "MASTER"
-      ]，，
-      "job_scheduling_metrics"：{
-        "last_full_sweep_time_millis"：207017，
-        "full_sweep_on_time"： 真的
-      }，，
-      "jobs_info"：{}
-    }，，
-    "Do-DX9ZcS06Y9w1XbSJo1A"：{
-      "name"："Do-DX9Z"，
-      "schedule_status"："green"，
-      "roles"：[[
-        "DATA"，
+      ],
+      "job_scheduling_metrics": {
+        "last_full_sweep_time_millis": 207017,
+        "full_sweep_on_time": true
+      },
+      "jobs_info": {}
+    },
+    "Do-DX9ZcS06Y9w1XbSJo1A": {
+      "name": "Do-DX9Z",
+      "schedule_status": "green",
+      "roles": [
+        "DATA",
         "INGEST"
-      ]，，
-      "job_scheduling_metrics"：{
-        "last_full_sweep_time_millis"：230516，
-        "full_sweep_on_time"： 真的
-      }，，
-      "jobs_info"：{}
-    }，，
-    "n5phkBiYQfS5I0FDzcqjZQ"：{
-      "name"："n5phkBi"，
-      "schedule_status"："green"，
-      "roles"：[[
+      ],
+      "job_scheduling_metrics": {
+        "last_full_sweep_time_millis": 230516,
+        "full_sweep_on_time": true
+      },
+      "jobs_info": {}
+    },
+    "n5phkBiYQfS5I0FDzcqjZQ": {
+      "name": "n5phkBi",
+      "schedule_status": "green",
+      "roles": [
         "MASTER"
-      ]，，
-      "job_scheduling_metrics"：{
-        "last_full_sweep_time_millis"：228406，
-        "full_sweep_on_time"： 真的
-      }，，
-      "jobs_info"：{}
-    }，，
-    "Tazzo8cQSY-g3vOjgYYLzA"：{
-      "name"："Tazzo8c"，
-      "schedule_status"："green"，
-      "roles"：[[
-        "DATA"，
+      ],
+      "job_scheduling_metrics": {
+        "last_full_sweep_time_millis": 228406,
+        "full_sweep_on_time": true
+      },
+      "jobs_info": {}
+    },
+    "Tazzo8cQSY-g3vOjgYYLzA": {
+      "name": "Tazzo8c",
+      "schedule_status": "green",
+      "roles": [
+        "DATA",
         "INGEST"
-      ]，，
-      "job_scheduling_metrics"：{
-        "last_full_sweep_time_millis"：211722，
-        "full_sweep_on_time"： 真的
-      }，，
-      "jobs_info"：{
-        "i-wsFmkB8NzS6aXjQSk0"：{
-          "last_execution_time"：1550864912882，
-          "running_on_time"： 真的
+      ],
+      "job_scheduling_metrics": {
+        "last_full_sweep_time_millis": 211722,
+        "full_sweep_on_time": true
+      },
+      "jobs_info": {
+        "i-wsFmkB8NzS6aXjQSk0": {
+          "last_execution_time": 1550864912882,
+          "running_on_time": true
         }
       }
-    }，，
-    "Nyf7F8brTOSJuFPXw6CnpA"：{
-      "name"："Nyf7F8b"，
-      "schedule_status"："green"，
-      "roles"：[[
-        "DATA"，
+    },
+    "Nyf7F8brTOSJuFPXw6CnpA": {
+      "name": "Nyf7F8b",
+      "schedule_status": "green",
+      "roles": [
+        "DATA",
         "INGEST"
-      ]，，
-      "job_scheduling_metrics"：{
-        "last_full_sweep_time_millis"：223300，
-        "full_sweep_on_time"： 真的
-      }，，
-      "jobs_info"：{
-        "NbpoFmkBeSe-hD59AKgE"：{
-          "last_execution_time"：1550864928354，
-          "running_on_time"： 真的
-        }，，
-        "-LlLFmkBeSe-hD59Ydtb"：{
-          "last_execution_time"：1550864732727，
-          "running_on_time"： 真的
-        }，，
-        "pBFxFmkBNXkgNmTBaFj1"：{
-          "last_execution_time"：1550863325024，
-          "running_on_time"： 真的
-        }，，
-        "hfasEmkBNXkgNmTBrvIW"：{
-          "last_execution_time"：1550862000001，
-          "running_on_time"： 真的
+      ],
+      "job_scheduling_metrics": {
+        "last_full_sweep_time_millis": 223300,
+        "full_sweep_on_time": true
+      },
+      "jobs_info": {
+        "NbpoFmkBeSe-hD59AKgE": {
+          "last_execution_time": 1550864928354,
+          "running_on_time": true
+        },
+        "-LlLFmkBeSe-hD59Ydtb": {
+          "last_execution_time": 1550864732727,
+          "running_on_time": true
+        },
+        "pBFxFmkBNXkgNmTBaFj1": {
+          "last_execution_time": 1550863325024,
+          "running_on_time": true
+        },
+        "hfasEmkBNXkgNmTBrvIW": {
+          "last_execution_time": 1550862000001,
+          "running_on_time": true
         }
       }
-    }，，
-    "oOdJDIBVT5qbbO3d8VLeEw"：{
-      "name"："oOdJDIB"，
-      "schedule_status"："green"，
-      "roles"：[[
-        "DATA"，
+    },
+    "oOdJDIBVT5qbbO3d8VLeEw": {
+      "name": "oOdJDIB",
+      "schedule_status": "green",
+      "roles": [
+        "DATA",
         "INGEST"
-      ]，，
-      "job_scheduling_metrics"：{
-        "last_full_sweep_time_millis"：227570，
-        "full_sweep_on_time"： 真的
-      }，，
-      "jobs_info"：{
-        "4hKRFmkBNXkgNmTBKjYX"：{
-          "last_execution_time"：1550864806101，
-          "running_on_time"： 真的
+      ],
+      "job_scheduling_metrics": {
+        "last_full_sweep_time_millis": 227570,
+        "full_sweep_on_time": true
+      },
+      "jobs_info": {
+        "4hKRFmkBNXkgNmTBKjYX": {
+          "last_execution_time": 1550864806101,
+          "running_on_time": true
         }
       }
-    }，，
-    "NRDG6JYgR8m0GOZYQ9QGjQ"：{
-      "name"："NRDG6JY"，
-      "schedule_status"："green"，
-      "roles"：[[
+    },
+    "NRDG6JYgR8m0GOZYQ9QGjQ": {
+      "name": "NRDG6JY",
+      "schedule_status": "green",
+      "roles": [
         "MASTER"
-      ]，，
-      "job_scheduling_metrics"：{
-        "last_full_sweep_time_millis"：227652，
-        "full_sweep_on_time"： 真的
-      }，，
-      "jobs_info"：{}
-    }，，
-    "URMrXRz3Tm-CB72hlsl93Q"：{
-      "name"："URMrXRz"，
-      "schedule_status"："green"，
-      "roles"：[[
-        "DATA"，
+      ],
+      "job_scheduling_metrics": {
+        "last_full_sweep_time_millis": 227652,
+        "full_sweep_on_time": true
+      },
+      "jobs_info": {}
+    },
+    "URMrXRz3Tm-CB72hlsl93Q": {
+      "name": "URMrXRz",
+      "schedule_status": "green",
+      "roles": [
+        "DATA",
         "INGEST"
-      ]，，
-      "job_scheduling_metrics"：{
-        "last_full_sweep_time_millis"：231048，
-        "full_sweep_on_time"： 真的
-      }，，
-      "jobs_info"：{
-        "m7uKFmkBeSe-hD59jplP"：{
-          "running_on_time"： 真的
+      ],
+      "job_scheduling_metrics": {
+        "last_full_sweep_time_millis": 231048,
+        "full_sweep_on_time": true
+      },
+      "jobs_info": {
+        "m7uKFmkBeSe-hD59jplP": {
+          "running_on_time": true
         }
       }
-    }，，
-    "eXgt1k9oTRCLmx2HBGElUw"：{
-      "name"："eXgt1k9"，
-      "schedule_status"："green"，
-      "roles"：[[
-        "DATA"，
+    },
+    "eXgt1k9oTRCLmx2HBGElUw": {
+      "name": "eXgt1k9",
+      "schedule_status": "green",
+      "roles": [
+        "DATA",
         "INGEST"
-      ]，，
-      "job_scheduling_metrics"：{
-        "last_full_sweep_time_millis"：229234，
-        "full_sweep_on_time"： 真的
-      }，，
-      "jobs_info"：{
-        "wWkFFmkBc2NG-PeLntxk"：{
-          "running_on_time"： 真的
-        }，，
-        "3usNFmkB8NzS6aXjO1Gs"：{
-          "last_execution_time"：1550863959848，
-          "running_on_time"： 真的
+      ],
+      "job_scheduling_metrics": {
+        "last_full_sweep_time_millis": 229234,
+        "full_sweep_on_time": true
+      },
+      "jobs_info": {
+        "wWkFFmkBc2NG-PeLntxk": {
+          "running_on_time": true
+        },
+        "3usNFmkB8NzS6aXjO1Gs": {
+          "last_execution_time": 1550863959848,
+          "running_on_time": true
         }
       }
     }
@@ -1212,11 +1212,11 @@ DELETE _plugins/_alerting/monitors/<monitor_id>
 #### Request
 
 ```json
-获取_plugins/_ alerting/monitors/_search
+GET _plugins/_alerting/monitors/_search
 {
-  "query"：{
-    "match" ：{
-      "monitor.name"："my-monitor-name"
+  "query": {
+    "match" : {
+      "monitor.name": "my-monitor-name"
     }
   }
 }
@@ -1226,77 +1226,77 @@ DELETE _plugins/_alerting/monitors/<monitor_id>
 
 ```json
 {
-  "took"：17，
-  "timed_out"： 错误的，
-  "_shards"：{
-    "total"：5，
-    "successful"：5，
-    "skipped"：0，
-    "failed"：0
-  }，，
-  "hits"：{
-    "total"：1，
-    "max_score"：0.6931472，
-    "hits"：[{{
-      "_index"：".opensearch-scheduled-jobs"，
-      "_type"："_doc"，
-      "_id"："eGQi7GcBRS7-AJEqfAnr"，
-      "_score"：0.6931472，
-      "_source"：{
-        "type"："monitor"，
-        "name"："my-monitor-name"，
-        "enabled"： 真的，
-        "enabled_time"：1545854942426，
-        "schedule"：{
-          "period"：{
-            "interval"：1，
-            "unit"："MINUTES"
+  "took": 17,
+  "timed_out": false,
+  "_shards": {
+    "total": 5,
+    "successful": 5,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": 1,
+    "max_score": 0.6931472,
+    "hits": [{
+      "_index": ".opensearch-scheduled-jobs",
+      "_type": "_doc",
+      "_id": "eGQi7GcBRS7-AJEqfAnr",
+      "_score": 0.6931472,
+      "_source": {
+        "type": "monitor",
+        "name": "my-monitor-name",
+        "enabled": true,
+        "enabled_time": 1545854942426,
+        "schedule": {
+          "period": {
+            "interval": 1,
+            "unit": "MINUTES"
           }
-        }，，
-        "inputs"：[{{
-          "search"：{
-            "indices"：[[
+        },
+        "inputs": [{
+          "search": {
+            "indices": [
               "*"
-            ]，，
-            "query"：{
-              "size"：0，
-              "query"：{
-                "bool"：{
-                  "filter"：[{{
-                    "range"：{
-                      "@timestamp"：{
-                        "from"： {％ 生的 ％}"{{period_end}}||-1h"{％endraw％}，
-                        "to"： {％ 生的 ％}"{{period_end}}"{％endraw％}，
-                        "include_lower"： 真的，
-                        "include_upper"： 真的，
-                        "format"："epoch_millis"，
-                        "boost"：1
+            ],
+            "query": {
+              "size": 0,
+              "query": {
+                "bool": {
+                  "filter": [{
+                    "range": {
+                      "@timestamp": {
+                        "from": {% raw %}"{{period_end}}||-1h"{% endraw %},
+                        "to": {% raw %}"{{period_end}}"{% endraw %},
+                        "include_lower": true,
+                        "include_upper": true,
+                        "format": "epoch_millis",
+                        "boost": 1
                       }
                     }
-                  }]，
-                  "adjust_pure_negative"： 真的，
-                  "boost"：1
+                  }],
+                  "adjust_pure_negative": true,
+                  "boost": 1
                 }
-              }，，
-              "aggregations"：{}
+              },
+              "aggregations": {}
             }
           }
-        }]，
-        "triggers"：[{{
-          "id"："Sooi7GcB53a0ewuj_6MH"，
-          "name"："Over"，
-          "severity"："1"，
-          "condition"：{
-            "script"：{
-              "source"："_ctx.results[0].hits.total > 400000"，
-              "lang"："painless"
+        }],
+        "triggers": [{
+          "id": "Sooi7GcB53a0ewuj_6MH",
+          "name": "Over",
+          "severity": "1",
+          "condition": {
+            "script": {
+              "source": "_ctx.results[0].hits.total > 400000",
+              "lang": "painless"
             }
-          }，，
-          "actions"：[]
-        }]，
-        "last_update_time"：1545854975758
+          },
+          "actions": []
+        }],
+        "last_update_time": 1545854975758
       }
-    ]]
+    }]
   }
 }
 ```
@@ -1370,55 +1370,55 @@ POST _plugins/_alerting/monitors/<monitor_id>/_execute
 
 ```json
 {
-  "alerts"：[[
+  "alerts": [
     {
-      "id"："eQURa3gBKo1jAh6qUo49"，
-      "version"：300，
-      "monitor_id"："awUMa3gBKo1jAh6qu47E"，
-      "schema_version"：2，
-      "monitor_version"：2，
-      "monitor_name"："Example_monitor_name"，
-      "monitor_user"：{
-        "name"："admin"，
-        "backend_roles"：[[
+      "id": "eQURa3gBKo1jAh6qUo49",
+      "version": 300,
+      "monitor_id": "awUMa3gBKo1jAh6qu47E",
+      "schema_version": 2,
+      "monitor_version": 2,
+      "monitor_name": "Example_monitor_name",
+      "monitor_user": {
+        "name": "admin",
+        "backend_roles": [
           "admin"
-        ]，，
-        "roles"：[[
-          "all_access"，
+        ],
+        "roles": [
+          "all_access",
           "own_index"
-        ]，，
-        "custom_attribute_names"：[]，，
-        "user_requested_tenant"： 无效的
-      }，，
-      "trigger_id"："bQUQa3gBKo1jAh6qnY6G"，
-      "trigger_name"："Example_trigger_name"，
-      "state"："ACTIVE"，
-      "error_message"： 无效的，
-      "alert_history"：[[
+        ],
+        "custom_attribute_names": [],
+        "user_requested_tenant": null
+      },
+      "trigger_id": "bQUQa3gBKo1jAh6qnY6G",
+      "trigger_name": "Example_trigger_name",
+      "state": "ACTIVE",
+      "error_message": null,
+      "alert_history": [
         {
-          "timestamp"：1617314504873，
-          "message"："Example error message"
-        }，，
+          "timestamp": 1617314504873,
+          "message": "Example error message"
+        },
         {
-          "timestamp"：1617312543925，
-          "message"："Example error message"
+          "timestamp": 1617312543925,
+          "message": "Example error message"
         }
-      ]，，
-      "severity"："1"，
-      "action_execution_results"：[[
+      ],
+      "severity": "1",
+      "action_execution_results": [
         {
-          "action_id"："bgUQa3gBKo1jAh6qnY6G"，
-          "last_execution_time"：1617317979908，
-          "throttled_count"：0
+          "action_id": "bgUQa3gBKo1jAh6qnY6G",
+          "last_execution_time": 1617317979908,
+          "throttled_count": 0
         }
-      ]，，
-      "start_time"：1616704000492，
-      "last_notification_time"：1617317979908，
-      "end_time"： 无效的，
-      "acknowledged_time"： 无效的
+      ],
+      "start_time": 1616704000492,
+      "last_notification_time": 1617317979908,
+      "end_time": null,
+      "acknowledged_time": null
     }
-  ]，，
-  "totalAlerts"：1
+  ],
+  "totalAlerts": 1
 }
 ```
 
@@ -1460,49 +1460,49 @@ POST _plugins/_alerting/monitors/<monitor-id>/_acknowledge/alerts
 #### Requests
 
 ```json
-发布_plugins/_ alerting/destinations
+POST _plugins/_alerting/destinations
 {
-  "name"："my-destination"，
-  "type"："slack"，
-  "slack"：{
-    "url"："http://www.example.com"
+  "name": "my-destination",
+  "type": "slack",
+  "slack": {
+    "url": "http://www.example.com"
   }
 }
 
-发布_plugins/_ alerting/destinations
+POST _plugins/_alerting/destinations
 {
-  "type"："custom_webhook"，
-  "name"："my-custom-destination"，
-  "custom_webhook"：{
-    "path"："incomingwebhooks/123456-123456-XXXXXX"，
-    "header_params"：{
-      "Content-Type"："application/json"
-    }，，
-    "scheme"："HTTPS"，
-    "port"：443，
-    "query_params"：{
-      "token"："R2x1UlN4ZHF8MXxxVFJpelJNVDgzdGNwXXXXXXXXX"
-    }，，
-    "host"："hooks.chime.aws"
+  "type": "custom_webhook",
+  "name": "my-custom-destination",
+  "custom_webhook": {
+    "path": "incomingwebhooks/123456-123456-XXXXXX",
+    "header_params": {
+      "Content-Type": "application/json"
+    },
+    "scheme": "HTTPS",
+    "port": 443,
+    "query_params": {
+      "token": "R2x1UlN4ZHF8MXxxVFJpelJNVDgzdGNwXXXXXXXXX"
+    },
+    "host": "hooks.chime.aws"
   }
 }
 
-发布_plugins/_ alerting/destinations
+POST _plugins/_alerting/destinations
 {
-  "type"："email"，
-  "name"："my-email-destination"，
-  "email"：{
-    "email_account_id"："YjY7mXMBx015759_IcfW"，
-    "recipients"：[[
+  "type": "email",
+  "name": "my-email-destination",
+  "email": {
+    "email_account_id": "YjY7mXMBx015759_IcfW",
+    "recipients": [
       {
-        "type"："email_group"，
-        "email_group_id"："YzY-mXMBx015759_dscs"
-      }，，
+        "type": "email_group",
+        "email_group_id": "YzY-mXMBx015759_dscs"
+      },
       {
-        "type"："email"，
-        "email"："example@email.com"
+        "type": "email",
+        "email": "example@email.com"
       }
-    这是给出的
+    ]
   }
 }
 
@@ -1513,16 +1513,16 @@ POST _plugins/_alerting/monitors/<monitor-id>/_acknowledge/alerts
 
 ```json
 {
-  "_id"："nO-yFmkB8NzS6aXjJdiI"，
-  "_version" ：1，
-  "_seq_no" ：3，
-  "_primary_term" ：1，
-  "destination"：{
-    "type"："slack"，
-    "name"："my-destination"，
-    "last_update_time"：1550863967624，
-    "slack"：{
-      "url"："http://www.example.com"
+  "_id": "nO-yFmkB8NzS6aXjJdiI",
+  "_version" : 1,
+  "_seq_no" : 3,
+  "_primary_term" : 1,
+  "destination": {
+    "type": "slack",
+    "name": "my-destination",
+    "last_update_time": 1550863967624,
+    "slack": {
+      "url": "http://www.example.com"
     }
   }
 }
@@ -1590,38 +1590,38 @@ PUT _plugins/_alerting/destinations/<destination-id>?if_seq_no=3&if_primary_term
 #### Requests
 
 ```json
-获取_plugins/_ alerting/destinations/<目的地-id>
+GET _plugins/_alerting/destinations/<destination-id>
 ```
 
 #### Example response
 
 ```json
 {
-  "totalDestinations"：1，
-  "destinations"：[{{
-      "id"："1a2a3a4a5a6a7a"，
-      "type"："slack"，
-      "name"："sample-destination"，
-      "user"：{
-        "name"："psantos"，
-        "backend_roles"：[[
+  "totalDestinations": 1,
+  "destinations": [{
+      "id": "1a2a3a4a5a6a7a",
+      "type": "slack",
+      "name": "sample-destination",
+      "user": {
+        "name": "psantos",
+        "backend_roles": [
           "human-resources"
-        ]，，
-        "roles"：[[
-          "alerting_full_access"，
+        ],
+        "roles": [
+          "alerting_full_access",
           "hr-role"
-        ]，，
-        "custom_attribute_names"：[]
-      }，，
-      "schema_version"：3，
-      "seq_no"：0，
-      "primary_term"：6，
-      "last_update_time"：1603943261722，
-      "slack"：{
-        "url"："https://example.com"
+        ],
+        "custom_attribute_names": []
+      },
+      "schema_version": 3,
+      "seq_no": 0,
+      "primary_term": 6,
+      "last_update_time": 1603943261722,
+      "slack": {
+        "url": "https://example.com"
       }
     }
-  这是给出的
+  ]
 }
 ```
 
@@ -1682,26 +1682,26 @@ GET _plugins/_alerting/destinations
 #### Request
 
 ```
-删除_plugins/_ alerting/destinations/<目的地-id>
+DELETE _plugins/_alerting/destinations/<destination-id>
 ```
 
 #### Example response
 
 ```json
 {
-  "_index"：".opendistro-alerting-config"，
-  "_type"："_doc"，
-  "_id"："Zu-zFmkB8NzS6aXjLeBI"，
-  "_version"：2，
-  "result"："deleted"，
-  "forced_refresh"： 真的，
-  "_shards"：{
-    "total"：2，
-    "successful"：2，
-    "failed"：0
-  }，，
-  "_seq_no"：8，
-  "_primary_term"：1
+  "_index": ".opendistro-alerting-config",
+  "_type": "_doc",
+  "_id": "Zu-zFmkB8NzS6aXjLeBI",
+  "_version": 2,
+  "result": "deleted",
+  "forced_refresh": true,
+  "_shards": {
+    "total": 2,
+    "successful": 2,
+    "failed": 0
+  },
+  "_seq_no": 8,
+  "_primary_term": 1
 }
 ```
 ---
@@ -1920,12 +1920,12 @@ POST _plugins/_alerting/destinations/email_accounts/_search
 #### Request
 
 ```json
-发布_plugins/_ alerting/Destinations/email_groups
+POST _plugins/_alerting/destinations/email_groups
 {
-  "name"："example_email_group"，
-  "emails"：[{{
-    "email"："example@email.com"
-  ]]
+  "name": "example_email_group",
+  "emails": [{
+    "email": "example@email.com"
+  }]
 }
 ```
 
@@ -1933,18 +1933,18 @@ POST _plugins/_alerting/destinations/email_accounts/_search
 
 ```json
 {
-  "_id" ："email_group_id"，
-  "_version" ：1，
-  "_seq_no" ：9，
-  "_primary_term" ：2，
-  "email_group" ：{
-    "schema_version" ：2，
-    "name" ："example_email_group"，
-    "emails" ：[[
+  "_id" : "email_group_id",
+  "_version" : 1,
+  "_seq_no" : 9,
+  "_primary_term" : 2,
+  "email_group" : {
+    "schema_version" : 2,
+    "name" : "example_email_group",
+    "emails" : [
       {
-        "email" ："example@email.com"
+        "email" : "example@email.com"
       }
-    这是给出的
+    ]
   }
 }
 ```
@@ -1958,38 +1958,38 @@ POST _plugins/_alerting/destinations/email_accounts/_search
 #### Request
 
 ```json
-put _plugins/_alerting/destinations/email_groups/<Email_group_id>
+PUT _plugins/_alerting/destinations/email_groups/<email_group_id>
 {
-  "name"："example_email_group"，
-  "emails"：[{{
-    "email"："example@email.com"
-  ]]
+  "name": "example_email_group",
+  "emails": [{
+    "email": "example@email.com"
+  }]
 }
 
-put _plugins/_alerting/destinations/email_groups/<Email_group_id>？if_seq_no = 16＆if_primary_term = 2
+PUT _plugins/_alerting/destinations/email_groups/<email_group_id>?if_seq_no=16&if_primary_term=2
 {
-  "name"："example_email_group"，
-  "emails"：[{{
-    "email"："example@email.com"
-  ]]
+  "name": "example_email_group",
+  "emails": [{
+    "email": "example@email.com"
+  }]
 }
 ```
 #### Example response
 
 ```json
 {
-  "_id" ："email_group_id"，
-  "_version" ：4，
-  "_seq_no" ：17，
-  "_primary_term" ：2，
-  "email_group" ：{
-    "schema_version" ：2，
-    "name" ："example_email_group"，
-    "emails" ：[[
+  "_id" : "email_group_id",
+  "_version" : 4,
+  "_seq_no" : 17,
+  "_primary_term" : 2,
+  "email_group" : {
+    "schema_version" : 2,
+    "name" : "example_email_group",
+    "emails" : [
       {
-        "email" ："example@email.com"
+        "email" : "example@email.com"
       }
-    这是给出的
+    ]
   }
 }
 ```
@@ -2000,30 +2000,30 @@ put _plugins/_alerting/destinations/email_groups/<Email_group_id>？if_seq_no = 
 
 #### Request
 ```json
-获取_plugins/_alerting/destinations/email_groups/<Email_group_id>
+GET _plugins/_alerting/destinations/email_groups/<email_group_id>
 {
-  "name"："example_email_group"，
-  "emails"：[{{
-    "email"："example@email.com"
-  ]]
+  "name": "example_email_group",
+  "emails": [{
+    "email": "example@email.com"
+  }]
 }
 ```
 #### Example response
 
 ```json
 {
-  "_id" ："email_group_id"，
-  "_version" ：4，
-  "_seq_no" ：17，
-  "_primary_term" ：2，
-  "email_group" ：{
-    "schema_version" ：2，
-    "name" ："example_email_group"，
-    "emails" ：[[
+  "_id" : "email_group_id",
+  "_version" : 4,
+  "_seq_no" : 17,
+  "_primary_term" : 2,
+  "email_group" : {
+    "schema_version" : 2,
+    "name" : "example_email_group",
+    "emails" : [
       {
-        "email" ："example@email.com"
+        "email" : "example@email.com"
       }
-    这是给出的
+    ]
   }
 }
 ```
@@ -2040,19 +2040,19 @@ delete _plugins/_alerting/destinations/email_groups/<Email_group_id>
 
 ```json
 {
-  "_index" ：".opendistro-alerting-config"，
-  "_type" ："_doc"，
-  "_id" ："email_group_id"，
-  "_version" ：1，
-  "result" ："deleted"，
-  "forced_refresh" ： 真的，
-  "_shards" ：{
-    "total" ：2，
-    "successful" ：2，
-    "failed" ：0
-  }，，
-  "_seq_no" ：11，
-  "_primary_term" ：2
+  "_index" : ".opendistro-alerting-config",
+  "_type" : "_doc",
+  "_id" : "email_group_id",
+  "_version" : 1,
+  "result" : "deleted",
+  "forced_refresh" : true,
+  "_shards" : {
+    "total" : 2,
+    "successful" : 2,
+    "failed" : 0
+  },
+  "_seq_no" : 11,
+  "_primary_term" : 2
 }
 ```
 
@@ -2063,15 +2063,15 @@ delete _plugins/_alerting/destinations/email_groups/<Email_group_id>
 #### Request
 
 ```json
-发布_plugins/_alerting/Destinations/email_groups/_search
+POST _plugins/_alerting/destinations/email_groups/_search
 {
-  "from"：0，
-  "size"：20，
-  "sort"：{"email_group.name.keyword"："desc" }，，
-  "query"：{
-    "bool"：{
-      "must"：{
-        "match_all"：{}
+  "from": 0,
+  "size": 20,
+  "sort": { "email_group.name.keyword": "desc" },
+  "query": {
+    "bool": {
+      "must": {
+        "match_all": {}
       }
     }
   }
@@ -2082,43 +2082,43 @@ delete _plugins/_alerting/destinations/email_groups/<Email_group_id>
 
 ```json
 {
-  "took" ：7，
-  "timed_out" ： 错误的，
-  "_shards" ：{
-    "total" ：1，
-    "successful" ：1，
-    "skipped" ：0，
-    "failed" ：0
-  }，，
-  "hits" ：{
-    "total" ：{
-      "value" ：5，
-      "relation" ："eq"
-    }，，
-    "max_score" ： 无效的，
-    "hits" ：[[
+  "took" : 7,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 5,
+      "relation" : "eq"
+    },
+    "max_score" : null,
+    "hits" : [
       {
-        "_index" ：".opendistro-alerting-config"，
-        "_type" ："_doc"，
-        "_id" ："email_group_id"，
-        "_seq_no" ：10，
-        "_primary_term" ：2，
-        "_score" ： 无效的，
-        "_source" ：{
-          "schema_version" ：2，
-          "name" ："example_email_group"，
-          "emails" ：[[
+        "_index" : ".opendistro-alerting-config",
+        "_type" : "_doc",
+        "_id" : "email_group_id",
+        "_seq_no" : 10,
+        "_primary_term" : 2,
+        "_score" : null,
+        "_source" : {
+          "schema_version" : 2,
+          "name" : "example_email_group",
+          "emails" : [
             {
-              "email" ："example@email.com"
+              "email" : "example@email.com"
             }
-          这是给出的
-        }，，
-        "sort" ：[[
+          ]
+        },
+        "sort" : [
           "example_email_group"
-        这是给出的
-      }，，
+        ]
+      },
       ...
-    这是给出的
+    ]
   }
 }
 ```

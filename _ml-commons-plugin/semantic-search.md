@@ -115,7 +115,7 @@ PUT _cluster/settings
 或者，您可以选择使用其中一种[OpenSearch提供的验证语言模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) 或您自己的自定义模型。有关选择模型的信息，请参阅[进一步阅读](#further-reading)。有关如何设置自定义模型的说明，请参见[在OpenSearch中使用ML模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/)。
 
 注意模型的维度，因为设置k时需要它-NN索引。
-{： 。重要的}
+{: .important}
 
 ### 步骤1（b）：注册模型组
 

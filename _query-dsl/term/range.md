@@ -219,5 +219,5 @@ GET _search
 `time_zone` | 细绳| 用于转换的时区[`date`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/) 在查询中的UTC值。有效值是ISO 8601[UTC偏移](https://en.wikipedia.org/wiki/List_of_UTC_offsets) 和[IANA时区ID](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)。有关更多信息，请参阅[时区](#time-zone)。
 
 如果[`search.allow_expensive_queries`]({{site.url}}{{site.baseurl}}/query-dsl/index/#expensive-queries) 被设定为`false`，范围查询[`text`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text/) 和[`keyword`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/) 字段不运行。
-{： 。重要的}
+{: .important}
 

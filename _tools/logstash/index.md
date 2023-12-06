@@ -212,15 +212,15 @@ If you already have a Logstash process running, you’ll get an error. To fix th
 
 4. 检查JSON对象的字段是否添加到`output.txt` 文件：
 
-    ```JSON
-    $ cat Uptuct.txt
+    ```json
+    $ cat output.txt
 
     {
-      "@version"："1"，
-      "@timestamp"："2021-05-30T05:52:52.421Z"，
-      "host"："a483e711a548.ant.amazon.com"，
-      "amount"：10，
-      "quantity"：2
+      "@version": "1",
+      "@timestamp": "2021-05-30T05:52:52.421Z",
+      "host": "a483e711a548.ant.amazon.com",
+      "amount": 10,
+      "quantity": 2
     }
     ```
 
@@ -230,17 +230,17 @@ To define a pipeline that handles HTTP requests:
 
 1. Use the `http` plugin to send events to Logstash through HTTP:
 
-    ```YML
-    输入 {
+    ```yml
+    input {
       http {
-        主机=>"127.0.0.1"
-        端口=> 8080
+        host => "127.0.0.1"
+        port => 8080
       }
     }
 
-    输出 {
-      文件 {
-        路径=>"output.txt"
+    output {
+      file {
+        path => "output.txt"
       }
     }
     ```
@@ -255,12 +255,12 @@ To define a pipeline that handles HTTP requests:
 
 3. Use Postman to send an HTTP request. Set `内容-类型` to an HTTP header with a value of `应用程序/JSON`:
 
-    ```JSON
-    放127.0.0.1：8080
+    ```json
+    PUT 127.0.0.1:8080
 
     {
-      "amount"：10，
-      "quantity"：2
+      "amount": 10,
+      "quantity": 2
     }
     ```
 
@@ -275,27 +275,27 @@ To define a pipeline that handles HTTP requests:
 
     The `标题` field contains the HTTP headers that Logstash receives:
 
-    ```JSON
+    ```json
     {
-      "host"："127.0.0.1"，
-      "quantity"："3"，
-      "amount"：10，
-      "@timestamp"："2021-05-30T06:05:48.135Z"，
-      "headers"：{
-        "http_version"："HTTP/1.1"，
-        "request_method"："PUT"，
-        "http_user_agent"："PostmanRuntime/7.26.8"，
-        "connection"："keep-alive"，
-        "postman_token"："c6cd29cf-1b37-4420-8db3-9faec66b9e7e"，
-        "http_host"："127.0.0.1:8080"，
-        "cache_control"："no-cache"，
-        "request_path"："/"，
-        "content_type"："application/json"，
-        "http_accept"："*/*"，
-        "content_length"："41"，
-        "accept_encoding"："gzip, deflate, br"
-      }，，
-    "@version"："1"
+      "host": "127.0.0.1",
+      "quantity": "3",
+      "amount": 10,
+      "@timestamp": "2021-05-30T06:05:48.135Z",
+      "headers": {
+        "http_version": "HTTP/1.1",
+        "request_method": "PUT",
+        "http_user_agent": "PostmanRuntime/7.26.8",
+        "connection": "keep-alive",
+        "postman_token": "c6cd29cf-1b37-4420-8db3-9faec66b9e7e",
+        "http_host": "127.0.0.1:8080",
+        "cache_control": "no-cache",
+        "request_path": "/",
+        "content_type": "application/json",
+        "http_accept": "*/*",
+        "content_length": "41",
+        "accept_encoding": "gzip, deflate, br"
+      },
+    "@version": "1"
     }
     ```
 

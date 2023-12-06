@@ -156,7 +156,7 @@ $$ \ text {corce} = \ text {原始分数} \ cdot \ log（1 + 1.5 \ cdot \ text {
 使用`script_score` 功能，您可以编写一个定制脚本以进行评分文档，可选地将字段值合并到文档中。原始相关得分可在`_score` 多变的。
 
 计算出的分数不能为负。负分数将导致错误。文档分数为正面32-位浮动-点值。更高精度的分数转换为最近的32-位浮动-点号。
-{： 。重要的}
+{: .important}
 
 例如，以下查询使用`script_score` 根据原始分数以及博客文章的视图和喜欢的数量来计算分数的功能。为了给出视图数量并喜欢的重量较小，该公式会吸引视图和喜欢的对数。即使视图和喜欢的数量是，使对数有效`0`，`1` 被添加到他们的总和中：
 
@@ -204,7 +204,7 @@ GET blogs/_search
 对于许多应用程序，您需要根据接近度或新近度对结果进行排序。您可以使用衰减功能来执行此操作。衰减功能使用三个衰减曲线之一计算文档得分：高斯，指数或线性。
 
 衰减功能仅在[数字]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/numeric/)，[日期]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/dates/)， 和[地理点]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/geo-point/) 字段。
-{： 。重要的}
+{: .important}
 
 衰减功能根据`origin`，`scale`，`offset`， 和`decay`，如下图所示。
 

@@ -49,7 +49,7 @@ DELETE _scripts/my-script
 
 ## 响应字段
 
-<http方法> <Endpoint>请求返回以下响应字段：
+<HTTP METHOD> <endpoint>请求返回以下响应字段：
 
 | 场地| 数据类型| 描述| 
 :--- | :--- | :---

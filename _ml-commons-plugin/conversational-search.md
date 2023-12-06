@@ -247,43 +247,43 @@ RAG需要LLM才能运行。我们建议使用[连接器]({{site.url}}{{site.base
 
 1. 使用连接器API创建HTTP连接器：
 
-    ```JSON
-    post/_plugins/_ml/connectors/_ create
+    ```json
+    POST /_plugins/_ml/connectors/_create
     {
-        "name"："OpenAI Chat Connector"，
-        "description"："The connector to public OpenAI model service for GPT 3.5"，
-        "version"：2，
-        "protocol"："http"，
-        "parameters"：{
-            "endpoint"："api.openai.com"，
-            "model"："gpt-3.5-turbo"，
-      "temperature"：0
-        }，，
-        "credential"：{
-            "openAI_key"："<your OpenAI key>"
-        }，，
-        "actions"：[[
+        "name": "OpenAI Chat Connector",
+        "description": "The connector to public OpenAI model service for GPT 3.5",
+        "version": 2,
+        "protocol": "http",
+        "parameters": {
+            "endpoint": "api.openai.com",
+            "model": "gpt-3.5-turbo",
+      "temperature": 0
+        },
+        "credential": {
+            "openAI_key": "<your OpenAI key>"
+        },
+        "actions": [
             {
-                "action_type"："predict"，
-                "method"："POST"，
-                "url"："https://${parameters.endpoint}/v1/chat/completions"，
-                "headers"：{
-                    "Authorization"："Bearer ${credential.openAI_key}"
-                }，，
-                "request_body"："{ \"模型\": \"$ {parameters.model} \", \"消息\": ${parameters.messages}, \"温度\": ${parameters.temperature} }"
+                "action_type": "predict",
+                "method": "POST",
+                "url": "https://${parameters.endpoint}/v1/chat/completions",
+                "headers": {
+                    "Authorization": "Bearer ${credential.openAI_key}"
+                },
+                "request_body": "{ \"model\": \"${parameters.model}\", \"messages\": ${parameters.messages}, \"temperature\": ${parameters.temperature} }"
             }
-        这是给出的
+        ]
     }
     ```
     {% include copy-curl.html %}
 
 1. Create a new model group for the connected model. You'll use the `model_group_id` returned by the Register API to register the model:
 
-    ```JSON
-    post/_plugins/_ml/model_groups/_register
+    ```json
+    POST /_plugins/_ml/model_groups/_register
     {
-      "name"："public_model_group"，
-      "description"："This is a public model group"
+      "name": "public_model_group", 
+      "description": "This is a public model group"
     }
     ```
     {% include copy-curl.html %}
@@ -304,15 +304,15 @@ RAG需要LLM才能运行。我们建议使用[连接器]({{site.url}}{{site.base
 
 1. 在注册模型后，使用`task_id` 在注册响应中返回以获取`model_id`。您将使用`model_id` 将模型部署到OpenSearch：
 
-    ```JSON
-    get/_plugins/_ml/task/<task_id>
+    ```json
+    GET /_plugins/_ml/tasks/<task_id>
     ```
     {% include copy-curl.html %}
 
 1. Using the `model_id` from step 4, deploy the model:
 
-    ```JSON
-    POST/_PLUGINS/_ML/型号/<型号_id>/_部署
+    ```json
+    POST /_plugins/_ml/models/<model_id>/_deploy
     ```
     {% include copy-curl.html %}
 

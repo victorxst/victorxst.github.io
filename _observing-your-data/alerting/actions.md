@@ -21,8 +21,8 @@ parent: 监视器
 
     如果您的通知频道是一种自定义的网络漫画，期望特定数据格式，请在消息正文中直接包含JSON（或XML）：
 
-    ```JSON
-    {％ 生的 ％}{"text"："Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue. - Trigger: {{ctx.trigger.name}} - Severity: {{ctx.trigger.severity}} - Period start: {{ctx.periodStart}} - Period end: {{ctx.periodEnd}}" } {％endraw％}
+    ```json
+    {% raw %}{ "text": "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue. - Trigger: {{ctx.trigger.name}} - Severity: {{ctx.trigger.severity}} - Period start: {{ctx.periodStart}} - Period end: {{ctx.periodEnd}}" }{% endraw %}
     ```
 
     In the preceding example, the message content must conform to the `内容-类型` 标题在[自定义Webhook]({{site.url}}{{site.baseurl}}/notifications-plugin/index/)。

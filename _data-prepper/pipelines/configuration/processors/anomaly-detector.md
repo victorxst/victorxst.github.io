@@ -38,8 +38,8 @@ nav_order: 45
 RCF是一种无监督的ML算法，用于检测数据集中的异常数据点。Data Prepper使用RCF通过将配置密钥的值传递给RCF来检测数据中的异常情况。例如，当发送延迟值为11.5的事件时，生成以下异常事件：
 
 
- ```JSON
-  {"latency"：11.5，"deviation_from_expected"：[10.469302736820003]，"grade"：1.0}
+ ```json
+  { "latency": 11.5, "deviation_from_expected":[10.469302736820003],"grade":1.0}
 ```
 
 In this example, `deviation_from_expected` is a list of deviations for each of the keys from their corresponding expected values, and `grade` is the anomaly grade that indicates the anomaly severity.
@@ -60,15 +60,15 @@ You can configure `random_cut_forest` mode with the following options.
 To get started, create the following `pipeline.yaml` file. You can use the following pipeline configuration to look for anomalies in the `latency` field in events that are passed to the processor. Then you can use the following YAML configuration file `random_cut_forest` mode to detect anomalies:
 
 ```yaml
-广告-管道：
-  来源：
+ad-pipeline:
+  source:
     ...
-  ...
-  处理器：
-    - Anomaly_detector：
-        钥匙：[["latency"这是给出的
-        模式：
-            Random_cut_forest：
+  ....  
+  processor:
+    - anomaly_detector:
+        keys: ["latency"]
+        mode: 
+            random_cut_forest:
 ```
 
 When you run the anomaly detector processor, the processor extracts the value for the `latency` key, and then passes the value through the RCF ML algorithm. You can configure any key that comprises integers or real numbers as values. In the following example, you can configure `bytes` or `latency` as the key for an anomaly detector. 

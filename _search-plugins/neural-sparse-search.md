@@ -114,7 +114,7 @@ PUT /my-nlp-index
 {% include copy-curl.html %}
 
 一旦`<token, weight>` 对从源头排除在外，无法恢复它们。在应用此优化之前，请确保您不需要`<token, weight>` 配对用于您的申请。
-{： 。重要的}
+{: .important}
 
 ## 步骤3：将文档摄入索引
 

@@ -273,27 +273,27 @@ source:
 - 民众[网络访问](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-network.html) 到OpenSearch Endpoint和OpenSearch仪表板。
 - 下列[数据访问策略](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html)，它可以将所需的权限授予管道角色，如以下配置所示：
 
-  ```JSON
+  ```json
   [
    {
-      "Rules"：[[
+      "Rules":[
          {
-            "Resource"：[[
+            "Resource":[
                "index/collection-name/*"
-            ]，，
-            "Permission"：[[
-               "aoss:ReadDocument"，
+            ],
+            "Permission":[
+               "aoss:ReadDocument",
                "aoss:DescribeIndex"
-            ]，，
-            "ResourceType"："index"
+            ],
+            "ResourceType":"index"
          }
-      ]，，
-      "Principal"：[[
+      ],
+      "Principal":[
          "arn:aws:iam::<AccountId>:role/PipelineRole"
-      ]，，
-      "Description"："Pipeline role access"
+      ],
+      "Description":"Pipeline role access"
    }
-  这是给出的
+  ]
   ```
 
 Make sure to replace the Amazon Resource Name (ARN) in the `主要的` 元素具有您在上一步中创建的管道角色的ARN。

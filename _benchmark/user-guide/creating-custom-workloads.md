@@ -111,38 +111,38 @@ Extracting documents for index [movies]...                    2000/2000 docs [10
 
 1. 建个`<index>-documents.json` 包含包含工作量文档文件的文档的行，并容纳要摄入并查询到集群中的所有数据。以下示例显示了`movies-documents.json` 包含有关著名电影的文档的文件：
 
-   ```JSON
-  # 电影的前几行-Documents.json
-  {"title"："Back to the Future"，"director"："Robert Zemeckis"，"revenue"："$212,259,762 USD"，"rating"："8.5 out of 10"，"image_url"："https://imdb.com/images/32"}
-  {"title"："Avengers: Endgame"，"director"："Anthony and Joe Russo"，"revenue"："$2,800,000,000 USD"，"rating"："8.4 out   of 10"，"image_url"："https://imdb.com/images/2"}
-  {"title"："The Grand Budapest Hotel"，"director"："Wes Anderson"，"revenue"："$173,000,000 USD"，"rating"："8.1 out of 10"，"image_url"："https://imdb.com/images/65"}
-  {"title"："The Godfather: Part II"，"director"："Francis Ford Coppola"，"revenue"："$48,000,000 USD"，"rating"："9 out of 10"，"image_url"："https://imdb.com/images/7"}
+   ```json
+  # First few rows of movies-documents.json
+  {"title": "Back to the Future", "director": "Robert Zemeckis", "revenue": "$212,259,762 USD", "rating": "8.5 out of 10",  "image_url": "https://imdb.com/images/32"}
+  {"title": "Avengers: Endgame", "director": "Anthony and Joe Russo", "revenue": "$2,800,000,000 USD", "rating": "8.4 out   of 10", "image_url": "https://imdb.com/images/2"}
+  {"title": "The Grand Budapest Hotel", "director": "Wes Anderson", "revenue": "$173,000,000 USD", "rating": "8.1 out of 10", "image_url": "https://imdb.com/images/65"}
+  {"title": "The Godfather: Part II", "director": "Francis Ford Coppola", "revenue": "$48,000,000 USD", "rating": "9 out of 10", "image_url": "https://imdb.com/images/7"}
    ```
 
 2. In the same directory, build a `index.json` file. The workload uses this file as a reference for data mappings and index settings for the documents contained in `<index>-Documents.json`. The following example creates mappings and settings specific to the `电影-Documents.json` data from the previous step:
 
-    ```JSON
+    ```json
     {
-    "settings"：{
-        "index.number_of_replicas"：0
-    }，，
-    "mappings"：{
-        "dynamic"："strict"，
-        "properties"：{
-        "title"：{
-            "type"："text"
-        }，，
-        "director"：{
-            "type"："text"
-        }，，
-        "revenue"：{
-            "type"："text"
-        }，，
-        "rating"：{
-            "type"："text"
-        }，，
-        "image_url"：{
-            "type"："text"
+    "settings": {
+        "index.number_of_replicas": 0
+    },
+    "mappings": {
+        "dynamic": "strict",
+        "properties": {
+        "title": {
+            "type": "text"
+        },
+        "director": {
+            "type": "text"
+        },
+        "revenue": {
+            "type": "text"
+        },
+        "rating": {
+            "type": "text"
+        },
+        "image_url": {
+            "type": "text"
         }
         }
     }
@@ -165,77 +165,77 @@ Extracting documents for index [movies]...                    2000/2000 docs [10
 - 从中摄入数据语料库`workload.json` 进入集群。
 - 查询结果。
 
-    ```JSON
+    ```json
     {
-    "version"：2，
-    "description"："Tutorial benchmark for OpenSearch Benchmark"，
-    "indices"：[[
+    "version": 2,
+    "description": "Tutorial benchmark for OpenSearch Benchmark",
+    "indices": [
         {
-        "name"："movies"，
-        "body"："index.json"
+        "name": "movies",
+        "body": "index.json"
         }
-    ]，，
-    "corpora"：[[
+    ],
+    "corpora": [
         {
-        "name"："movies"，
-        "documents"：[[
+        "name": "movies",
+        "documents": [
             {
-            "source-file"："movies-documents.json"，
-            "document-count"：11658903，# 从命令行获取文档计数
-            "uncompressed-bytes"：1544799789# 从命令行获取未压缩字节
+            "source-file": "movies-documents.json",
+            "document-count": 11658903, # Fetch document count from command line
+            "uncompressed-bytes": 1544799789 # Fetch uncompressed bytes from command line
             }
-        这是给出的
+        ]
         }
-    ]，，
-    "schedule"：[[
+    ],
+    "schedule": [
         {
-        "operation"：{
-            "operation-type"："delete-index"
+        "operation": {
+            "operation-type": "delete-index"
         }
-        }，，
+        },
         {
-        "operation"：{
-            "operation-type"："create-index"
+        "operation": {
+            "operation-type": "create-index"
         }
-        }，，
+        },
         {
-        "operation"：{
-            "operation-type"："cluster-health"，
-            "request-params"：{
-            "wait_for_status"："green"
-            }，，
-            "retry-until-success"： 真的
+        "operation": {
+            "operation-type": "cluster-health",
+            "request-params": {
+            "wait_for_status": "green"
+            },
+            "retry-until-success": true
         }
-        }，，
+        },
         {
-        "operation"：{
-            "operation-type"："bulk"，
-            "bulk-size"：5000
-        }，，
-        "warmup-time-period"：120，
-        "clients"：8
-        }，，
+        "operation": {
+            "operation-type": "bulk",
+            "bulk-size": 5000
+        },
+        "warmup-time-period": 120,
+        "clients": 8
+        },
         {
-        "operation"：{
-            "operation-type"："force-merge"
+        "operation": {
+            "operation-type": "force-merge"
         }
-        }，，
+        },
         {
-        "operation"：{
-            "name"："query-match-all"，
-            "operation-type"："search"，
-            "body"：{
-            "query"：{
-                "match_all"：{}
+        "operation": {
+            "name": "query-match-all",
+            "operation-type": "search",
+            "body": {
+            "query": {
+                "match_all": {}
             }
             }
-        }，，
-        "clients"：8，
-        "warmup-iterations"：1000，
-        "iterations"：1000，
-        "target-throughput"：100
+        },
+        "clients": 8,
+        "warmup-iterations": 1000,
+        "iterations": 1000,
+        "target-throughput": 100
         }
-    这是给出的
+    ]
     }
     ```
 
@@ -372,14 +372,14 @@ opensearch-benchmark execute_test \
 2. 将所有操作添加到名称的文件中`operations.json`。
 3. 在`workloads.json` 通过添加以下语法，替换`parts` 如以下示例所示，具有每个文件的相对路径：
 
-    ```JSON
-    "operations"：[[
-        {％raw％} {{benchmark.collect（parts = parts ="operations/*.json"）}} {％endraw％}
-    这是给出的
-    # 参考测试程序文件
-    "test_procedures"：[[
-        {％raw％} {{benchmark.collect（parts = parts ="test_procedures/*.json"）}} {％endraw％}
-    这是给出的
+    ```json
+    "operations": [
+        {% raw %}{{ benchmark.collect(parts="operations/*.json") }}{% endraw %}
+    ]
+    # Reference test procedure files in workload.json
+    "test_procedures": [
+        {% raw %}{{ benchmark.collect(parts="test_procedures/*.json") }}{% endraw %}
+    ]
     ```
 
 ## 下一步

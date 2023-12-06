@@ -105,7 +105,7 @@ POST /_plugins/_ml/models/_register
 你可以找到`url` 和`model_content_hash_value` 在每个模型的模型配置链接中。有关更多信息，请参阅[支持的预验证模型部分](#supported-pretrained-models)。设置`function_name` 到`SPARSE_ENCODING` 或者`SPARSE_TOKENIZE`。
 
 请注意`function_name` 请求中的参数对应于`model_task_type` 模型配置中的参数。使用预告片的模型时，请确保从中更改参数的名称`model_task_type` 到`function_name` 在模型上传请求中。
-{： 。重要的}
+{: .important}
 
 OpenSearch返回寄存器操作的任务ID：
 

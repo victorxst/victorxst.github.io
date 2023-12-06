@@ -137,7 +137,7 @@ Lucene HNSW实施忽略`ef_search`  并将其动态设置为"k" 在搜索请求�
 ```
 
 这`hnsw` 方法支持`pq` OpenSearch版本2.10及以后的编码器。这`code_size` a的参数`pq` 用`hnsw` 方法必须是**8**。
-{： 。重要的}
+{: .important}
 
 编码器名称| 需要培训| 描述
 :--- | :--- | :---

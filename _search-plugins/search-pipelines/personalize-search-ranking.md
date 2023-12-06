@@ -12,7 +12,7 @@ grand_parent: 搜索管道
 这`personalize_search_ranking` 搜索响应处理器拦截搜索响应并使用[亚马逊个性化](https://aws.amazon.com/personalize/) 根据他们的亚马逊个性化排名，请重新搜索结果。该排名基于用户过去的行为和搜索项和用户的元数据。
 
 使用`personalize_search_ranking` 处理器，您必须首先安装Amazon个性化搜索排名（`opensearch-search-processor`） 插入。有关详细说明，请参阅[安装和配置Amazon个性化搜索排名插件](https://docs.aws.amazon.com/personalize/latest/dg/opensearch-install.html)。
-{： 。重要的}
+{: .important}
 
 ## 请求字段
 

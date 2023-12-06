@@ -11,7 +11,7 @@ nav_order: 10
 要注册模型组，请发送`POST` 请求`_register` 端点。您可以在`public`，`private`， 或者`restricted` 访问模式。
 
 集群中的每个模型组名称必须在全球范围内唯一。
-{： 。重要的}
+{: .important}
 
 有关更多信息，请参阅[模型访问控制]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/)。
 

@@ -13,7 +13,7 @@ redirect_from:
   - /query-dsl/
 ---
 
-{％- 评论-％}这`/docs/opensearch/query-dsl/` 重定向专门支持OpenSearch仪表板1.0.0中的UI链接。{％- 终点-％}
+{%- comment -%}这`/docs/opensearch/query-dsl/` 重定向专门支持OpenSearch仪表板1.0.0中的UI链接。{％- 终点-％}
 
 # 查询DSL
 

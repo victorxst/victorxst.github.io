@@ -240,29 +240,29 @@ OpenSearch无服务器集合接收器具有以下限制：
 - 民众[网络访问](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-network.html) 到OpenSearch Endpoint和OpenSearch仪表板。
 - 下列[数据访问策略](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html)，授予管道角色所需的权限：
 
-  ```JSON
+  ```json
   [
    {
-      "Rules"：[[
+      "Rules":[
          {
-            "Resource"：[[
+            "Resource":[
                "index/collection-name/*"
-            ]，，
-            "Permission"：[[
-               "aoss:CreateIndex"，
-               "aoss:UpdateIndex"，
-               "aoss:DescribeIndex"，
+            ],
+            "Permission":[
+               "aoss:CreateIndex",
+               "aoss:UpdateIndex",
+               "aoss:DescribeIndex",
                "aoss:WriteDocument"
-            ]，，
-            "ResourceType"："index"
+            ],
+            "ResourceType":"index"
          }
-      ]，，
-      "Principal"：[[
+      ],
+      "Principal":[
          "arn:aws:iam::<AccountId>:role/PipelineRole"
-      ]，，
-      "Description"："Pipeline role access"
+      ],
+      "Description":"Pipeline role access"
    }
-  这是给出的
+  ]
   ```
 
   ***Important***: Make sure to replace the ARN in the `主要的` 元素具有您在上一步中创建的管道角色的ARN。

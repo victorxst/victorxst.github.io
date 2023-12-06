@@ -71,11 +71,11 @@ output {
 
 4. 启动OpenSearch仪表板并选择**开发工具**：
 
-    ```JSON
-    获取_cat/indices？v
+    ```json
+    GET _cat/indices?v
 
-    健康| 地位| 指数| UUID| pri| 代表| 文档| 文档| store.size| pri.store.size
-    绿色的| 打开| logstash-日志-2021.07.01| IUH648LYSNMQRKGF70PPLA| 1| 1| 1| 0| 10.3kb| 5.1kb
+    health | status | index | uuid | pri | rep | docs.count | docs.deleted | store.size | pri.store.size
+    green | open | logstash-logs-2021.07.01 | iuh648LYSnmQrkGf70pplA | 1 | 1 | 1 | 0 | 10.3kb | 5.1kb
     ```
 
 ## 在输出插件中添加不同的身份验证机制

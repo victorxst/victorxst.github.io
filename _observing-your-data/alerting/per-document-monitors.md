@@ -43,7 +43,7 @@ The Alerting plugin creates a list of _Findings_ that contain metadata about whi
 警报API还提供了一个_个图表-Level Monitor_可以编程地完成与OpenSearch仪表板中的_per文档Monitor_相同的功能。看[文档-电平监视器]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#document-level-monitors) 了解更多。
 
 为了防止大量发现-摄入群集，不建议为每个发现配置警报通知，除非规则定义得当。
-{： 。重要的}
+{: .important}
 
 为每个文档发现条目提供以下元数据：
 

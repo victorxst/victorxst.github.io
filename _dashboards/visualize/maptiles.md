@@ -8,7 +8,7 @@ redirect_from:
   - /dashboards/maptiles/
 ---
 
-{％- 评论-％}这`/docs/opensearch-dashboards/maptiles/` 重定向专门支持OpenSearch仪表板1.0.0中的UI链接。{％- 终点-％}
+{%- comment -%}这`/docs/opensearch-dashboards/maptiles/` 重定向专门支持OpenSearch仪表板1.0.0中的UI链接。{％- 终点-％}
 
 # 配置网络地图服务（WMS）
 
@@ -19,13 +19,13 @@ redirect_from:
 3. 定位`visualization:tileMap:WMSdefaults`。
 4. 改变`enabled` 到`true` 并添加有效的WMS服务器的URL，如以下示例所示：
 
-   ```JSON
+   ```json
    {
-     "enabled"： 真的，
-     "url"："<wms-map-server-url>"，
-     "options"：{
-       "format"："image/png"，
-       "transparent"： 真的
+     "enabled": true,
+     "url": "<wms-map-server-url>",
+     "options": {
+       "format": "image/png",
+       "transparent": true
      }
    }
    ```
