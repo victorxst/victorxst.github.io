@@ -38,7 +38,8 @@ PUT /_cluster/settings
 ```
 {% include copy-curl.html %}
 
-识别模块的最简单方法不是从日志中识别，日志缩写路径（例如， `o.o.i.r`），而是从[OpenSearch 源代码](https://github.com/opensearch-project/opensearch/tree/master/server/src/main/java/org/opensearch).{:.tip}
+识别模块的最简单方法不是从日志中识别，日志缩写路径（例如， `o.o.i.r`），而是从[OpenSearch 源代码](https://github.com/opensearch-project/opensearch/tree/master/server/src/main/java/org/opensearch).
+{: .tip }
 
 在此示例更改之后，OpenSearch 会在重新索引操作期间发出更详细的日志：
 

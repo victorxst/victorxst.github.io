@@ -5,7 +5,7 @@ parent: 安装 OpenSearch
 nav_order: 65
 ---
 
-# 窗户
+# Windows
 
 以下部分介绍如何从 zip 存档在 Windows 上安装 OpenSearch。
 

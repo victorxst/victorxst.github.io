@@ -59,7 +59,7 @@ Security Analytics 插件支持以下设置：
 
 通知插件支持以下设置。此列表中的所有设置都是动态的：
 
--  `opensearch.notifications.core.allowed_config_types`（列表）：通知插件允许的配置类型。 `GET/_plugins/_notifications/features` 使用 API 检索此设置的值。配置类型包括 `slack`、、、、、 `sns` `smtp_account` `ses_account` `email` `webhook` `email_group`、 `chime` `microsoft_teams` 和。
+-  `opensearch.notifications.core.allowed_config_types`（列表）：通知插件允许的配置类型。 `GET/_plugins/_notifications/features` 使用 API 检索此设置的值。配置类型包括 `slack`、 `sns` `smtp_account` `ses_account` `email` `webhook` `email_group`、 `chime` `microsoft_teams` 和。
 
 -  `opensearch.notifications.core.email.minimum_header_length`（整数）：最小电子邮件标题长度。用于电子邮件总长度验证。缺省值为 `160`。
 

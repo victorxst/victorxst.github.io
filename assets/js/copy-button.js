@@ -11,9 +11,9 @@ function addButtons(labels, curl) {
 
         var buttonWrap = document.createElement('div');
         buttonWrap.className = 'copy-button-wrap';
-        buttonWrap.appendChild(createButton(text, 'Copy', 'Copy snippet to clipboard', false));
+        buttonWrap.appendChild(createButton(text, '复制', 'Copy snippet to clipboard', false));
         if (curl) {           
-            buttonWrap.appendChild(createButton(text, 'Copy as cURL', 'Copy snippet as cURL', true));
+            buttonWrap.appendChild(createButton(text, '复制为 cURL', 'Copy snippet as cURL', true));
         }
         
         snippet.style.marginBottom = 0;

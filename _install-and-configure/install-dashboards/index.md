@@ -24,10 +24,10 @@ OpenSearch 控制面板提供了一个完全集成的解决方案，用于直观
 
 OpenSearch 控制面板支持以下 Web 浏览器：
 
-- 铬
+- Chrome
 - 火狐浏览器
-- Safari 浏览器
-- 边缘（Chromium）
+- Safari
+- Edge (Chromium)
 
 其他基于 Chromium 的浏览器也可能有效。支持 Internet Explorer 和 Microsoft Edge 旧版**不**。
 
