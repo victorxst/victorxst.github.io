@@ -559,7 +559,7 @@ p.label {
 
 .toc-list {
   &:before {
-    content: "On this page";
+    content: "在本页";
     @extend %toc-font;
   }
   border: 1px solid $border-color;

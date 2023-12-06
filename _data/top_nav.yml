@@ -4,34 +4,34 @@ items:
     fragment: opensearchcon
     children:
       -
-        label: Register for OpenSearchCon!
+        label: 注册参加 OpenSearchCon！
         url: https://opensearchcon2023.splashthat.com
       -
-        label: Sessions
+        label: 会议
         url: /events/opensearchcon/sessions/index.html
       -
         label: Speakers
         url: /events/opensearchcon/speakers/index.html
       -
-        label: Exhibitors
+        label: 参展商
         url: /events/opensearchcon/exhibitors/index.html
       -
-        label: Workshops
+        label: 工作室
         url: /events/opensearchcon/workshops/index.html
       -
-        label: Unconference
+        label: 不参加会议
         url: /events/opensearchcon/unconference/index.html
       -
-        label: CFP is closed
+        label: CFP 已关闭
         url: /opensearchcon2023-cfp.html
   -
-    label: Download
+    label: 下载
     fragments:
       - downloads
       - versions
     url: /downloads.html
   -
-    label: About
+    label: 关于
     fragments:
       - about
       - releases
@@ -41,13 +41,13 @@ items:
        label: OpenSearch
        url: /about.html
       -
-       label: Releases
+       label: 发布
        url: /releases.html
       -
        label: FAQ
        url: /faq
   -
-    label: Community
+    label: 社区
     fragments:
       - events
       - community_projects
@@ -56,38 +56,38 @@ items:
       - slack
     children:
       -
-        label: Blog
+        label: 博客
         url: /blog
       -
-        label: Forum
+        label: 论坛
         url: https://forum.opensearch.org/
       -
         label: Slack
         url: /slack.html
       -
-        label: Events
+        label: 活动
         url: /events
       -
-        label: Partners
+        label: 伙伴
         url: /partners
       -
-        label: Projects
+        label: 项目
         url: /community_projects
   -
-    label: Documentation
+    label: 文档
     fragment: docs
     url: /docs/
   -
-    label: Platform
+    label: 平台
     fragment: platform
     children:
       -
-        label: Vector Database
+        label: 矢量数据库
         url: /platform/search/vector-database.html
       -
-        label: Live Demo
+        label: 现场演示
         url: https://playground.opensearch.org/
       -
-        label: Performance Benchmarks
+        label: 性能基准
         url: /benchmarks
   
