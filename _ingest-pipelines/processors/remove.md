@@ -1,20 +1,20 @@
 ---
 layout: default
-title: Remove
-parent: Ingest processors
+title: 消除
+parent: 摄入的处理器
 nav_order: 230
 redirect_from:
    - /api-reference/ingest-apis/processors/remove/
 ---
 
-# Remove
-**Introduced 1.0**
+# 消除
+**引入1.0**
 {: .label .label-purple }
 
-The `remove` processor is used to remove a field from a document. 
+这`remove` 处理器用于从文档中删除字段。
 
-## Example
-The following is the syntax for the `remove` processor: 
+## 例子
+以下是`remove` 处理器：
 
 ```json
 {
@@ -25,26 +25,26 @@ The following is the syntax for the `remove` processor:
 ```
 {% include copy-curl.html %}
 
-#### Configuration parameters
+#### 配置参数
 
-The following table lists the required and optional parameters for the `remove` processor.
+下表列出了所需的和可选参数`remove` 处理器。
 
-| Name  | Required  | Description  |
+| 姓名| 必需的| 描述|
 |---|---|---|
-`field`  | Required  | The name of the field to which the data should be appended. Supports template snippets. |
-`description`  | Optional  | A brief description of the processor.  |
-`if` | Optional | A condition for running this processor. |
-`ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
-`on_failure` | Optional | A list of processors to run if the processor fails. |
-`tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
+`field`  | 必需的| 应附加数据的字段名称。支持模板片段。|
+`description`  | 选修的| 处理器的简要说明。|
+`if` | 选修的| 运行此处理器的条件。|
+`ignore_failure` | 选修的| 如果设置为`true`，失败被忽略。默认为`false`。|
+`on_failure` | 选修的| 如果处理器失败，则可以运行的处理器列表。|
+`tag` | 选修的| 处理器的标识符标签。可用于调试以区分同一类型的处理器。|
 
-## Using the processor
+## 使用处理器
 
-Follow these steps to use the processor in a pipeline.
+按照以下步骤在管道中使用处理器。
 
-**Step 1: Create a pipeline.** 
+**步骤1：创建管道。** 
 
-The following query creates a pipeline, named `remove_ip`, that removes the `ip_address` field from a document: 
+以下查询创建了一个命名的管道`remove_ip`，这消除了`ip_address` 文档中的字段：
 
 ```json
 PUT /_ingest/pipeline/remove_ip
@@ -61,12 +61,12 @@ PUT /_ingest/pipeline/remove_ip
 ```
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline.**
+**步骤2（可选）：测试管道。**
 
-It is recommended that you test your pipeline before you ingest documents.
-{:.tip}
+建议您在摄入文档之前测试管道。
+{: .tip}
 
-To test the pipeline, run the following query:
+要测试管道，请运行以下查询：
 
 ```json
 POST _ingest/pipeline/remove_ip/_simulate
@@ -85,9 +85,9 @@ POST _ingest/pipeline/remove_ip/_simulate
 ```
 {% include copy-curl.html %}
 
-#### Response
+#### 回复
 
-The following example response confirms that the pipeline is working as expected:
+以下示例响应确认管道按预期工作：
 
 ```json
 {
@@ -108,9 +108,9 @@ The following example response confirms that the pipeline is working as expected
 }
 ```
 
-**Step 3: Ingest a document.**
+**步骤3：摄取文档。**
 
-The following query ingests a document into an index named `testindex1`:
+以下查询将文档摄入到名为的索引中`testindex1`：
 
 ```json
 PPUT testindex1/_doc/1?pipeline=remove_ip
@@ -121,11 +121,12 @@ PPUT testindex1/_doc/1?pipeline=remove_ip
 ```
 {% include copy-curl.html %}
 
-**Step 4 (Optional): Retrieve the document.**
+**步骤4（可选）：检索文档。**
 
-To retrieve the document, run the following query:
+要检索文档，请运行以下查询：
 
 ```json
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
+

@@ -1,23 +1,23 @@
 ---
 layout: default
-title: Append
-parent: Ingest processors
+title: 附加
+parent: 摄入的处理器
 nav_order: 10
 redirect_from:
    - /api-reference/ingest-apis/processors/append/
 ---
  
-# Append
-**Introduced 1.0**
+# 附加
+**引入1.0**
 {: .label .label-purple }
 
-The `append` processor is used to add values to a field:
-- If the field is an array, the `append` processor appends the specified values to that array.
-- If the field is a scalar field, the `append` processor converts it to an array and appends the specified values to that array.
-- If the field does not exist, the `append` processor creates an array with the specified values.
+这`append` 处理器用于将值添加到字段：
+- 如果字段是数组，则`append` 处理器将指定的值附加到该数组。
+- 如果字段是标量字段，则`append` 处理器将其转换为数组，并将指定的值附加到该数组。
+- 如果该字段不存在，则`append` 处理器创建一个带有指定值的数组。
 
-### Example
-The following is the syntax for the `append` processor: 
+### 例子
+以下是`append` 处理器：
 
 ```json
 {
@@ -29,27 +29,27 @@ The following is the syntax for the `append` processor:
 ```
 {% include copy-curl.html %}
 
-## Configuration parameters
+## 配置参数
 
-The following table lists the required and optional parameters for the `append` processor.
+下表列出了所需的和可选参数`append` 处理器。
 
-Parameter | Required | Description |
+范围| 必需的| 描述|
 |-----------|-----------|-----------|
-`field`  | Required  | The name of the field to which the data should be appended. Supports template snippets.|
-`value`  | Required  | The value to be appended. This can be a static value or a dynamic value derived from existing fields. Supports template snippets. | 
-`description`  | Optional  | A brief description of the processor.  |
-`if` | Optional | A condition for running this processor. |
-`ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. |
-`on_failure` | Optional | A list of processors to run if the processor fails. |
-`tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
+`field`  | 必需的| 应附加数据的字段名称。支持模板片段。|
+`value`  | 必需的| 要附加的值。这可以是静态值或从现有字段得出的动态值。支持模板片段。| 
+`description`  | 选修的| 处理器的简要说明。|
+`if` | 选修的| 运行此处理器的条件。|
+`ignore_failure` | 选修的| 如果设置为`true`，失败被忽略。默认为`false`。|
+`on_failure` | 选修的| 如果处理器失败，则可以运行的处理器列表。|
+`tag` | 选修的| 处理器的标识符标签。可用于调试以区分同一类型的处理器。|
 
-## Using the processor
+## 使用处理器
 
-Follow these steps to use the processor in a pipeline.
+按照以下步骤在管道中使用处理器。
 
-**Step 1: Create a pipeline.** 
+**步骤1：创建管道。** 
 
-The following query creates a pipeline, named `user-behavior`, that has one append processor. It appends the `page_view` of each new document ingested into OpenSearch to an array field named `event_types`:
+以下查询创建了一个命名的管道`user-behavior`，它具有一个附加处理器。它附加了`page_view` 每个新文档的摄入到一个名称的数组字段中`event_types`：
 
 ```json
 PUT _ingest/pipeline/user-behavior
@@ -67,12 +67,12 @@ PUT _ingest/pipeline/user-behavior
 ```
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline.**
+**步骤2（可选）：测试管道。**
 
-It is recommended that you test your pipeline before you ingest documents.
-{:.tip}
+建议您在摄入文档之前测试管道。
+{: .tip}
 
-To test the pipeline, run the following query:
+要测试管道，请运行以下查询：
 
 ```json
 POST _ingest/pipeline/user-behavior/_simulate
@@ -87,9 +87,9 @@ POST _ingest/pipeline/user-behavior/_simulate
 ```
 {% include copy-curl.html %}
 
-#### Response
+#### 回复
 
-The following response confirms that the pipeline is working as expected:
+以下响应证实了管道正常工作：
 
 ```json
 {
@@ -112,9 +112,9 @@ The following response confirms that the pipeline is working as expected:
 }
 ```
 
-**Step 3: Ingest a document.**
+**步骤3：摄取文档。**
 
-The following query ingests a document into an index named `testindex1`:
+以下查询将文档摄入到名为的索引中`testindex1`：
 
 ```json
 PUT testindex1/_doc/1?pipeline=user-behavior
@@ -123,16 +123,16 @@ PUT testindex1/_doc/1?pipeline=user-behavior
 ```
 {% include copy-curl.html %}
 
-**Step 4 (Optional): Retrieve the document.**
+**步骤4（可选）：检索文档。**
 
-To retrieve the document, run the following query:
+要检索文档，请运行以下查询：
 
 ```json
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-Because the document does not contain an `event_types` field, an array field is created and the event is appended to the array:
+因为该文档不包含`event_types` 字段，创建一个数组字段，并将事件附加到数组：
 
 ```json
 {
@@ -149,3 +149,4 @@ Because the document does not contain an `event_types` field, an array field is 
   }
 }
 ```
+

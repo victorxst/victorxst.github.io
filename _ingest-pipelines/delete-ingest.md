@@ -8,7 +8,8 @@ redirect_from:
 ---
 
 # 删除管道
-**引入 1.0** {：.label .label-purple }
+**引入 1.0**
+{: .label .label-purple }
 
 使用以下请求删除管道。
 

@@ -1,21 +1,21 @@
 ---
 layout: default
-title: Text embedding
-parent: Ingest processors
+title: 文本嵌入
+parent: 摄入的处理器
 nav_order: 260
 redirect_from:
    - /api-reference/ingest-apis/processors/text-embedding/
 ---
 
-# Text embedding
+# 文本嵌入
 
-The `text_embedding` processor is used to generate vector embeddings from text fields for [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/). 
+这`text_embedding` 处理器用于从文本字段生成向量嵌入[神经搜索]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/)。
 
-**PREREQUISITE**<br>
-Before using the `text_embedding` processor, you must set up a machine learning (ML) model. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
+**先决条件**<br>
+使用之前`text_embedding` 处理器，您必须设置机器学习（ML）模型。有关更多信息，请参阅[在OpenSearch中使用自定义模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) 和[语义搜索]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/)。
 {: .note}
 
-The following is the syntax for the `text_embedding` processor: 
+以下是`text_embedding` 处理器：
 
 ```json
 {
@@ -29,26 +29,26 @@ The following is the syntax for the `text_embedding` processor:
 ```
 {% include copy-curl.html %}
 
-#### Configuration parameters
+#### 配置参数
 
-The following table lists the required and optional parameters for the `text_embedding` processor.
+下表列出了所需的和可选参数`text_embedding` 处理器。
 
-| Name  | Data type | Required  | Description  |
+| 姓名| 数据类型| 必需的| 描述|
 |:---|:---|:---|:---|
-`model_id` | String | Required | The ID of the model that will be used to generate the embeddings. The model must be deployed in OpenSearch before it can be used in neural search. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
-`field_map` | Object | Required | Contains key-value pairs that specify the mapping of a text field to a vector field.
-`field_map.<input_field>` | String | Required | The name of the field from which to obtain text for generating text embeddings.
-`field_map.<vector_field>`  | String | Required | The name of the vector field in which to store the generated text embeddings.
-`description`  | String | Optional  | A brief description of the processor.  |
-`tag` | String | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
+`model_id` | 细绳| 必需的| 将用于生成嵌入的模型的ID。该模型必须在Opensearch中部署，然后才能用于神经搜索。有关更多信息，请参阅[在OpenSearch中使用自定义模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) 和[语义搜索]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/)。
+`field_map` | 目的| 必需的| 包含密钥-值对将文本字段映射到向量字段的映射。
+`field_map.<input_field>` | 细绳| 必需的| 获取用于生成文本嵌入文本的字段的名称。
+`field_map.<vector_field>`  | 细绳| 必需的| 存储生成的文本嵌入的矢量字段的名称。
+`description`  | 细绳| 选修的| 处理器的简要说明。|
+`tag` | 细绳| 选修的| 处理器的标识符标签。可用于调试以区分同一类型的处理器。|
 
-## Using the processor
+## 使用处理器
 
-Follow these steps to use the processor in a pipeline. You must provide a model ID when creating the processor. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/). 
+按照以下步骤在管道中使用处理器。创建处理器时必须提供模型ID。有关更多信息，请参阅[在OpenSearch中使用自定义模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/)。
 
-**Step 1: Create a pipeline.** 
+**步骤1：创建管道。** 
 
-The following example request creates an ingest pipeline where the text from `passage_text` will be converted into text embeddings and the embeddings will be stored in `passage_embedding`:
+以下示例请求创建了一个摄入的管道，其中文本来自`passage_text` 将转换为文本嵌入，嵌入将存储在`passage_embedding`：
 
 ```json
 PUT /_ingest/pipeline/nlp-ingest-pipeline
@@ -68,12 +68,12 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
 ```
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline.**
+**步骤2（可选）：测试管道。**
 
-It is recommended that you test your pipeline before you ingest documents.
-{:.tip}
+建议您在摄入文档之前测试管道。
+{: .tip}
 
-To test the pipeline, run the following query:
+要测试管道，请运行以下查询：
 
 ```json
 POST _ingest/pipeline/nlp-ingest-pipeline/_simulate
@@ -91,9 +91,9 @@ POST _ingest/pipeline/nlp-ingest-pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-#### Response
+#### 回复
 
-The response confirms that in addition to the `passage_text` field, the processor has generated text embeddings in the `passage_embedding` field:
+回答证实，除了`passage_text` 字段，处理器已经在该文本中生成了文本嵌入`passage_embedding` 场地：
 
 ```json
 {
@@ -121,9 +121,10 @@ The response confirms that in addition to the `passage_text` field, the processo
 }
 ```
 
-## Next steps
+## 下一步
 
-- To learn how to use the `neural` query for text search, see [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/).
-- To learn more about neural text search, see [Text search]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/).
-- To learn more about using models in OpenSearch, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/).
-- For a semantic search tutorial, see [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
+- 学习如何使用`neural` 查询文本搜索，请参阅[神经查询]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/)。
+- 要了解有关神经文本搜索的更多信息，请参阅[文字搜索]({{site.url}}{{site.baseurl}}/search-plugins/neural-text-search/)。
+- 要了解有关在OpenSearch中使用模型的更多信息，请参见[在OpenSearch中使用自定义模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/)。
+- 有关语义搜索教程，请参阅[语义搜索]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/)
+

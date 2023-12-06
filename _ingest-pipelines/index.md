@@ -8,7 +8,8 @@ redirect_from:
 ---
 
 # 引入管道
-**引入 1.0** {：.label .label-purple }
+**引入 1.0**
+{: .label .label-purple }
 
 An _引入管道_是在将文档引入索引时应用于文档的序列_处理器_。管道中的每个[processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/index-processors/)管道都执行特定任务，例如筛选、转换或扩充数据。
 

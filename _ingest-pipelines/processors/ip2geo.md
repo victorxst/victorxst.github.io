@@ -1,59 +1,59 @@
 ---
 layout: default
 title: IP2Geo
-parent: Ingest processors
+parent: 摄入的处理器
 nav_order: 130
 redirect_from:
    - /api-reference/ingest-apis/processors/ip2geo/
 ---
 
-# IP2Geo
-**Introduced 2.10**
+# IP2GEO
+**引入2.10**
 {: .label .label-purple }
 
-The `ip2geo` processor adds information about the geographical location of an IPv4 or IPv6 address. The `ip2geo` processor uses IP geolocation (GeoIP) data from an external endpoint and therefore requires an additional component, `datasource`, that defines from where to download GeoIP data and how frequently to update the data.
+这`ip2geo` 处理器添加了有关IPv4或IPv6地址的地理位置的信息。这`ip2geo` 处理器使用来自外部端点的IP Geolocation（GEOIP）数据，因此需要附加组件，`datasource`，从哪里定义下载GeoIP数据以及更新数据的频率。
 
-{::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/info-icon.png" class="inline-icon" alt="info icon"/>{:/} **NOTE**<br>The `ip2geo` processor maintains the GeoIP data mapping in system indexes. The GeoIP mapping is retrieved from these indexes during data ingestion to perform the IP-to-geolocation conversion on the incoming data. For optimal performance, it is preferable to have a node with both ingest and data roles, as this configuration avoids internode calls reducing latency. Also, as the `ip2geo` processor searches GeoIP mapping data from the indexes, search performance is impacted.
+{::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/info-icon.png" class ="inline-icon" alt ="info icon"/> {:/}**笔记**<br>`ip2geo` 处理器在系统索引中维护GEOIP数据映射。在数据摄入期间，从这些索引中检索了地理映射以执行IP-到-传入数据上的地理位置转换。为了获得最佳性能，最好具有具有摄入和数据角色的节点，因为此配置避免了internode调用减少延迟。另外，作为`ip2geo` 处理器搜索从索引中的GeoIP映射数据，搜索性能受到影响。
 {: .note}
 
-## Getting started
+## 入门
 
-To get started with the `ip2geo` processor, the `opensearch-geospatial` plugin must be installed. See [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) to learn more.
+开始`ip2geo` 处理器，`opensearch-geospatial` 必须安装插件。看[安装插件]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/) 了解更多。
 
-## Cluster settings
+## 集群设置
 
-The IP2Geo data source and `ip2geo` processor node settings are listed in the following table. All settings in this table are dynamic. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+IP2GEO数据源和`ip2geo` 处理器节点设置在下表中列出。该表中的所有设置都是动态的。要了解有关静态和动态设置的更多信息，请参阅[配置OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/)。
 
-| Key | Description | Default |
+| 钥匙| 描述| 默认|
 |--------------------|-------------|---------|
-| `plugins.geospatial.ip2geo.datasource.endpoint` | Default endpoint for creating the data source API. | Default is `https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json`. |
-| `plugins.geospatial.ip2geo.datasource.update_interval_in_days` | Default update interval for creating the data source API. | Default is 3. |
-| `plugins.geospatial.ip2geo.datasource.batch_size` | Maximum number of documents to ingest in a bulk request during the IP2Geo data source creation process. | Default is 10,000. |
-| `plugins.geospatial.ip2geo.processor.cache_size` | Maximum number of results that can be cached. Only one cache is used for all IP2Geo processors in each node. | Default is 1,000. |
-| `plugins.geospatial.ip2geo.timeout` | The amount of time to wait for a response from the endpoint and the cluster. | Defaults to 30 seconds. |
+| `plugins.geospatial.ip2geo.datasource.endpoint` | 创建数据源API的默认端点。| 默认为`https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json`。|
+| `plugins.geospatial.ip2geo.datasource.update_interval_in_days` | 默认更新间隔用于创建数据源API。| 默认值为3。|
+| `plugins.geospatial.ip2geo.datasource.batch_size` | 在IP2GEO数据源创建过程中，最大的文档数量在批量请求中摄入。| 默认值为10,000。|
+| `plugins.geospatial.ip2geo.processor.cache_size` | 可以缓存的最大结果数。每个节点中的所有IP2GEO处理器都仅使用一个缓存。| 默认值为1,000。|
+| `plugins.geospatial.ip2geo.timeout` | 等待端点和群集响应的时间。| 默认为30秒。|
 
-## Creating the IP2Geo data source
+## 创建IP2GEO数据源
 
-Before creating the pipeline that uses the `ip2geo` processor, create the IP2Geo data source. The data source defines the endpoint value that will download GeoIP data and specifies the update interval.
+在创建使用的管道之前`ip2geo` 处理器，创建IP2GEO数据源。数据源定义了将下载GeoIP数据并指定更新间隔的端点值。
 
-OpenSearch provides the following endpoints for GeoLite2 City, GeoLite2 Country, and GeoLite2 ASN databases from [MaxMind](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data), which is shared under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) license:
+OpenSearch为Geolite2 City，Geolite2 Country和Geolite2 ASN数据库提供以下端点[maxmind](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data)，在[cc by-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 执照：
 
-* GeoLite2 City: https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json
-* GeoLite2 Country: https://geoip.maps.opensearch.org/v1/geolite2-country/manifest.json
-* GeoLite2 ASN: https://geoip.maps.opensearch.org/v1/geolite2-asn/manifest.json
+* geolite2城市：https：//geoip.maps.opensearch.org/v1/geolite2-城市/清单
+* geolite2国家：https：//geoip.maps.opensearch.org/v1/geolite2-国家/清单
+* geolite2 asn：https：//geoip.maps.opensearch.org/v1/geolite2-asn/subest.json
 
-If an OpenSearch cluster cannot update a data source from the endpoints within 30 days, the cluster does not add GeoIP data to the documents and instead adds `"error":"ip2geo_data_expired"`.
+如果OpenSearch Cluster无法在30天内从端点上更新数据源，则该集群不会将GeoIP数据添加到文档中，而是添加`"error":"ip2geo_data_expired"`。
 
-#### Data source options
+#### 数据源选项
 
-The following table lists the data source options for the `ip2geo` processor.   
+下表列出了的数据源选项`ip2geo` 处理器。
 
-| Name | Required | Default | Description |
+| 姓名| 必需的| 默认| 描述|
 |------|----------|---------|-------------|
-| `endpoint` | Optional | https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json | The endpoint that downloads the GeoIP data. |
-| `update_interval_in_days` | Optional | 3 | How frequently, in days, the GeoIP data is updated. The minimum value is 1. |
+| `endpoint` | 选修的| https://geoip.maps.opensearch.org/v1/geolite2-城市/清单| 下载GeoIP数据的端点。|
+| `update_interval_in_days` | 选修的| 3| 在几天内，GeoIP数据被更新的频率进行了更新。最小值为1。|
 
-To create an IP2Geo data source, run the following query:
+要创建IP2GEO数据源，请运行以下查询：
 
 ```json
 PUT /_plugins/geospatial/ip2geo/datasource/my-datasource
@@ -64,18 +64,18 @@ PUT /_plugins/geospatial/ip2geo/datasource/my-datasource
 ```
 {% include copy-curl.html %}
 
-A `true` response means that the request was successful and that the server was able to process the request. A `false` response indicates that you should check the request to make sure it is valid, check the URL to make sure it is correct, or try again.
+A`true` 响应意味着请求成功，并且服务器能够处理请求。A`false` 响应表明您应该检查请求以确保其有效，请检查URL以确保其正确或重试。
 
-#### Sending a GET request
+#### 发送get请求
 
-To get information about one or more IP2Geo data sources, send a GET request:  
+要获取有关一个或多个IP2GEO数据源的信息，请发送GET请求：
 
 ```json
 GET /_plugins/geospatial/ip2geo/datasource/my-datasource
 ```
 {% include copy-curl.html %}
 
-You'll receive the following response:
+您将收到以下答复：
 
 ```json
 {
@@ -113,11 +113,11 @@ You'll receive the following response:
 }
 ```
 
-#### Updating an IP2Geo data source
+#### 更新IP2GEO数据源
 
-See the Creating the IP2Geo data source section for a list of endpoints and request field descriptions. 
+有关端点列表和请求字段说明，请参见创建IP2GEO数据源部分。
 
-To update the date source, run the following query:
+要更新日期源，请运行以下查询：
 
 ```json
 PUT /_plugins/geospatial/ip2geo/datasource/my-datasource/_settings
@@ -128,20 +128,20 @@ PUT /_plugins/geospatial/ip2geo/datasource/my-datasource/_settings
 ```
 {% include copy-curl.html %}
 
-#### Deleting the IP2Geo data source
+#### 删除IP2GEO数据源
 
-To delete the IP2Geo data source, you must first delete all processors associated with the data source. Otherwise, the request fails. 
+要删除IP2GEO数据源，您必须首先删除与数据源关联的所有处理器。否则，请求失败。
 
-To delete the data source, run the following query:
+要删除数据源，请运行以下查询：
 
 ```json
 DELETE /_plugins/geospatial/ip2geo/datasource/my-datasource
 ```
 {% include copy-curl.html %}
 
-## Creating the pipeline
+## 创建管道
 
-Once the data source is created, you can create the pipeline. The following is the syntax for the `ip2geo` processor:
+创建数据源后，您可以创建管道。以下是`ip2geo` 处理器：
 
 ```json 
 {
@@ -153,25 +153,25 @@ Once the data source is created, you can create the pipeline. The following is t
 ```
 {% include copy-curl.html %}
 
-#### Configuration parameters
+#### 配置参数
 
-The following table lists the required and optional parameters for the `ip2geo` processor.
+下表列出了所需的和可选参数`ip2geo` 处理器。
 
-| Name | Required | Default | Description |
+| 姓名| 必需的| 默认| 描述|
 |------|----------|---------|-------------|
-| `datasource` | Required | - | The data source name to use to retrieve geographical information. |
-| `field` | Required | - | The field that contains the IP address for geographical lookup. |
-| `ignore_missing` | Optional | false | If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`. |
-| `properties` | Optional |  All fields in `datasource` | The field that controls which properties are added to `target_field` from `datasource`. |
-| `target_field` | Optional | ip2geo | The field that contains the geographical information retrieved from the data source. |
+| `datasource` | 必需的| - | 用于检索地理信息的数据源名称。|
+| `field` | 必需的| - | 包含地理查找的IP地址的字段。|
+| `ignore_missing` | 选修的| 错误的| 如果设置为`true`，如果字段不存在或为`null`。默认为`false`。|
+| `properties` | 选修的|  所有字段中`datasource` | 控制哪些属性添加到`target_field` 从`datasource`。|
+| `target_field` | 选修的| IP2GEO| 包含从数据源检索到的地理信息的字段。|
 
-## Using the processor
+## 使用处理器
 
-Follow these steps to use the processor in a pipeline.
+按照以下步骤在管道中使用处理器。
 
-**Step 1: Create a pipeline.**
+**步骤1：创建管道。**
 
-The following query creates a pipeline, named `my-pipeline`, that converts the IP address to geographical information:
+以下查询创建了一个命名的管道`my-pipeline`，将IP地址转换为地理信息：
 
 ```json
 PUT /_ingest/pipeline/my-pipeline
@@ -189,12 +189,12 @@ PUT /_ingest/pipeline/my-pipeline
 ```
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline.**
+**步骤2（可选）：测试管道。**
 
-{::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/info-icon.png" class="inline-icon" alt="info icon"/>{:/} **NOTE**<br>It is recommended that you test your pipeline before you ingest documents.
+{::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/info-icon.png" class ="inline-icon" alt ="info icon"/> {:/}**笔记**<br>建议您在摄入文档之前测试管道。
 {: .note}
 
-To test the pipeline, run the following query:
+要测试管道，请运行以下查询：
 
 ```json
 POST _ingest/pipeline/my-pipeline/_simulate
@@ -211,9 +211,9 @@ POST _ingest/pipeline/my-pipeline/_simulate
 }
 ```
 
-#### Response
+#### 回复
 
-The following response confirms that the pipeline is working as expected:
+以下响应证实了管道正常工作：
 
 ```json
 {
@@ -240,9 +240,9 @@ The following response confirms that the pipeline is working as expected:
 ```
 {% include copy-curl.html %}
 
-**Step 3: Ingest a document.**
+**步骤3：摄取文档。**
 
-The following query ingests a document into an index named `my-index`:
+以下查询将文档摄入到名为的索引中`my-index`：
 
 ```json
 PUT /my-index/_doc/my-id?pipeline=ip2geo
@@ -252,11 +252,12 @@ PUT /my-index/_doc/my-id?pipeline=ip2geo
 ```
 {% include copy-curl.html %}
 
-**Step 4 (Optional): Retrieve the document.** 
+**步骤4（可选）：检索文档。** 
 
-To retrieve the document, run the following query:
+要检索文档，请运行以下查询：
 
 ```json
 GET /my-index/_doc/my-id
 ```
 {% include copy-curl.html %}
+

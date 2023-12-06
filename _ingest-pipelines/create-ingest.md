@@ -8,7 +8,8 @@ redirect_from:
 ---
 
 # 创建流水线
-**引入 1.0** {：.label .label-purple }
+**引入 1.0**
+{: .label .label-purple }
 
 使用创建管道 API 操作在 OpenSearch 中创建或更新管道。请注意，管道要求你至少定义一个指定如何更改文档的处理器。
 

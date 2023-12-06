@@ -8,7 +8,8 @@ redirect_from:
 ---
 
 # 模拟管道
-**引入 1.0** {：.label .label-purple }
+**引入 1.0**
+{: .label .label-purple }
 
 使用模拟引入管道 API 操作来运行或测试管道。
 

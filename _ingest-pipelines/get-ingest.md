@@ -8,7 +8,8 @@ redirect_from:
 ---
 
 # 获取管道
-**引入 1.0** {：.label .label-purple }
+**引入 1.0**
+{: .label .label-purple }
 
 使用获取引入管道 API 操作检索有关管道的所有信息。
 

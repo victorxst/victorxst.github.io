@@ -7,7 +7,8 @@ redirect_from:
 ---
 
 # 处理管道故障
-**引入 1.0** {：.label .label-purple }
+**引入 1.0**
+{: .label .label-purple }
 
 每个引入管道都由一系列处理器组成，这些处理器按顺序应用于文档。如果处理器发生故障，则整个管道将发生故障。有两个选项可用于处理故障：
 
@@ -60,7 +61,8 @@ PUT _ingest/pipeline/my-pipeline/
 ```
 {% include copy-curl.html %}
 
-如果处理器发生故障，OpenSearch 会记录故障并继续运行搜索管道中的所有剩余处理器。要检查是否有任何故障，可以使用[引入管道指标]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/pipeline-failures/#ingest-pipeline-metrics).{：提示}
+如果处理器发生故障，OpenSearch 会记录故障并继续运行搜索管道中的所有剩余处理器。要检查是否有任何故障，可以使用[引入管道指标]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/pipeline-failures/#ingest-pipeline-metrics).
+{: tip}
 
 ## 引入管道指标
 

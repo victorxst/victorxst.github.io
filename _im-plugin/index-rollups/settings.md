@@ -5,18 +5,18 @@ parent: 索引汇总
 nav_order: 30
 ---
 
-# Index rollup settings
+# 索引汇总设置
 
-We don't recommend changing these settings; the defaults should work well for most use cases.
+我们不建议更改这些设置;默认值应该适用于大多数用例。
 
-All settings are available using the OpenSearch `_cluster/settings` operation. None require a restart, and all can be marked `persistent` or `transient`. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+所有设置均可通过 OpenSearch `_cluster/settings` 操作使用。没有一个需要重新启动，所有都可以标记为 `persistent` 或 `transient`。要了解有关静态和动态设置的详细信息，请参阅[配置 OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/)。
 
-Setting | Default | Description
+设置 | 默认 | 描述
 :--- | :--- | :---
-`plugins.rollup.search.backoff_millis` | 1000 milliseconds | The backoff time between retries for failed rollup jobs.
-`plugins.rollup.search.backoff_count` | 5 | How many retries the plugin should attempt for failed rollup jobs.
-`plugins.rollup.search.search_all_jobs` | false | Whether OpenSearch should return all jobs that match all specified search terms. If disabled, OpenSearch returns just one, as opposed to all, of the jobs that matches the search terms.
-`plugins.rollup.dashboards.enabled` | true | Whether rollups are enabled in OpenSearch Dashboards.
-`plugins.rollup.enabled` | true | Whether the rollup plugin is enabled.
-`plugins.ingest.backoff_millis` | 1000 milliseconds | The backoff time between data ingestions for rollup jobs.
-`plugins.ingest.backoff_count` | 5 | How many retries the plugin should attempt for failed ingestions.
+ `plugins.rollup.search.backoff_millis` |1000 毫秒 | 失败的汇总作业重试之间的回退时间。
+ `plugins.rollup.search.backoff_count` |5 | 对于失败的汇总作业，插件应尝试的重试次数。
+ `plugins.rollup.search.search_all_jobs` | 假 |OpenSearch 是否应返回与所有指定搜索词匹配的所有作业。如果禁用，OpenSearch 将仅返回一个（而不是所有）与搜索词匹配的作业。
+ `plugins.rollup.dashboards.enabled` | 真 | 是否在 OpenSearch 控制面板中启用汇总。
+ `plugins.rollup.enabled` | 真 | 是否启用了 rollup 插件。
+ `plugins.ingest.backoff_millis` |1000 毫秒 | 汇总作业的数据引入之间的回退时间。
+ `plugins.ingest.backoff_count` |5 | 插件应尝试对失败的摄取进行多少次重试。

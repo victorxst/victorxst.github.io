@@ -6,28 +6,28 @@ grand_parent: 索引状态管理
 nav_order: 5
 ---
 
-# ISM error prevention resolutions
+# ISM 防错解决方案
 
-Resolutions of errors for each validation rule action are listed in the following sections.
+以下各节列出了每个验证规则操作的错误解决方法。
 
 ---
 
-#### Table of contents
-1. TOC
+#### 目录
+1. 目录
 {:toc}
 
 
 ---
 
-## The index is not the write index
+## 索引不是写入索引
 
-To confirm that the index is a write index, run the following request:
+若要确认索引是否为写入索引，请运行以下请求：
 
 ```bash
 GET <index>/_alias?pretty
 ```
 
-If the response does not contain `"is_write_index"` : true, the index is not a write index. The following example confirms that the index is a write index:
+如果响应不包含 `"is_write_index"`：true，则索引不是写入索引。以下示例确认索引是写入索引：
 
 ```json
 {
@@ -41,7 +41,7 @@ If the response does not contain `"is_write_index"` : true, the index is not a w
 }
 ```
 
-To set the index as a write index, run the following request:
+若要将索引设置为写入索引，请运行以下请求：
 
 ```bash
 PUT <index>
@@ -54,9 +54,9 @@ PUT <index>
 }
 ```
 
-## The index does not have an alias
+## 索引没有别名
 
-If the index does not have an alias, you can add one by running the following request:
+如果索引没有别名，可以通过运行以下请求来添加一个别名：
 
 ```bash
 POST _aliases
@@ -72,15 +72,15 @@ POST _aliases
 }
 ```
 
-## Skipping rollover action is true
+## 跳过滚动更新操作为 true
 
-In the event that skipping a rollover action occurs, run the following request:
+如果发生跳过滚动更新操作，请运行以下请求：
 
 ```bash
  GET <target_index>/_settings?pretty
 ```
 
-If you receive the response in the first example, you can reset it by running the request in the second example:
+如果在第一个示例中收到响应，则可以通过运行第二个示例中的请求来重置它：
 
 ```json
 {
@@ -99,13 +99,13 @@ PUT <target_index>/_settings
 }
 ```
 
-## This index has already been rolled over successfully
+## 该指数已成功转存
 
-Remove the [rollover policy from the index]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#remove-policy-from-index) to prevent this error from reoccurring.
+删除以防止[索引的展期政策]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#remove-policy-from-index)此错误再次发生。
 
-## The rollover policy misses rollover_alias index setting
+## 滚动更新策略未 rollover_alias 索引设置
 
-Add a `rollover_alias` index setting to the rollover policy to resolve this issue. Run the following request:
+ `rollover_alias` 将索引设置添加到滚动更新策略以解决此问题。运行以下请求：
 
 ```bash
 PUT _index_template/ism_rollover
@@ -119,19 +119,19 @@ PUT _index_template/ism_rollover
 }
 ```
 
-## Data too large and exceeding the threshold
+## 数据过大且超出阈值
 
-Check the [JVM information]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-info/) and increase the heap memory.
+检查并[JVM 信息]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-info/)增加堆内存。
 
-## Maximum shards exceeded
+## 超出最大分片数
 
-The shard limit per node, or per index, causes this issue to occur. Check whether there is a `total_shards_per_node` limit by running the following request:
+每个节点或每个索引的分片限制会导致此问题发生。通过运行以下请求来检查是否存在 `total_shards_per_node` 限制：
 
 ```bash
 GET /_cluster/settings
 ```
 
-If the response contains `total_shards_per_node`, increase its value temporarily by running the following request:
+如果响应包含 `total_shards_per_node`，则通过运行以下请求暂时增加其值：
 
 ```bash
 PUT _cluster/settings
@@ -142,13 +142,13 @@ PUT _cluster/settings
 }
 ```
 
-To check whether there is a shard limit for an index, run the following request:
+要检查索引是否存在分片限制，请运行以下请求：
 
 ```bash
 GET <index>/_settings/index.routing-
 ```
 
-If the response contains the setting in the first example, increase its value or set it to `-1` for unlimited shards, as shown in the second example:
+如果响应包含第一个示例中的设置，请增加其值或将其 `-1` 设置为无限分片，如第二个示例所示：
 
 ```json
 "index" : {
@@ -165,21 +165,21 @@ PUT <index>/_settings
 {"index.routing.allocation.total_shards_per_node":-1}
 ```
 
-## The index is a write index for some data stream
+## 索引是某些数据流的写入索引
 
-If you still want to delete the index, check your [data stream]({{site.url}}{{site.baseurl}}/opensearch/data-streams/) settings and change the write index.
+如果仍要删除索引，请检查你的[数据流]({{site.url}}{{site.baseurl}}/opensearch/data-streams/)设置并更改写入索引。
 
-## The index is blocked
+## 索引被阻止
 
-Generally, the index is blocked because disk usage has exceeded the flood-stage watermark and the index has a `read-only-allow-delete` block. To resolve this issue, you can:
+通常，索引被阻止是因为磁盘使用率已超过淹没阶段水位线，并且索引具有 `read-only-allow-delete` 阻止。要解决此问题，你可以：
 
-1. Remove the `-index.blocks.read_only_allow_delete-` parameter.
-1. Temporarily increase the disk watermarks.
-1. Temporarily disable the disk allocation threshold.
+1. 删除该 `-index.blocks.read_only_allow_delete-` 参数。
+1. 暂时增加磁盘水印。
+1. 暂时禁用磁盘分配阈值。
 
-To prevent the issue from reoccurring, it is better to reduce the usage of the disk by increasing disk space, adding new nodes, or removing data or indexes that are no longer needed. 
+为了防止问题再次发生，最好通过增加磁盘空间、添加新节点或删除不再需要的数据或索引来减少磁盘的使用量。
 
-Remove `-index.blocks.read_only_allow_delete-` by running the following request:
+通过运行以下请求进行删除 `-index.blocks.read_only_allow_delete-`：
 
 ```bash
 PUT <index>/_settings
@@ -188,7 +188,7 @@ PUT <index>/_settings
 }
 ```
 
-Increase the low disk watermarks by running the following request:
+通过运行以下请求来增加低磁盘水印：
 
 ```bash
 PUT _cluster/settings
@@ -209,7 +209,7 @@ PUT _cluster/settings
 }
 ```
 
-Disable the disk allocation threshold by running the following request:
+通过运行以下请求来禁用磁盘分配阈值：
 
 ```bash
 PUT _cluster/settings
