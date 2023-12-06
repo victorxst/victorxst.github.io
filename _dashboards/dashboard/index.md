@@ -12,7 +12,7 @@ has_children: false
 在本教程中，您将学习使用使用该仪表板的基础知识**仪表板** 应用程序和OpenSearch示例数据。示例数据集具有现有的示例可视化，您可以使用这些可视化或为仪表板创建新的可视化。在本教程中，您将同时做。完成本教程后，您将学习在OpenSearch仪表板中创建带有多个面板的新仪表板的基础。
 
 这个开放式搜索游乐场[仪表板示例](https://playground.opensearch.org/app/dashboards#/view/722b74f0-b882-11e8-a6d9-e546fe2bba5f?_g=(filters:!()，RefReshInterval ：（暂停：！F，值：900000），时间：（从：现在：现在-7d，to：now））＆_ a =（描述：'Analyaze％20 -mock％20户外％20个订单％20 and％20 and％20revenue'，过滤器：！（），fullScreenMode：！f，options ：（ hidepaneltitles：！，查询：（语言：Kuery，查询：''），TimeRestore：！t，标题：'％5Becommerce％5D％20 Revenue％20Dashboard'，viewMode：view Mode：view））向您展示OpenSearch搜索仪表板的可能性。
-{:.note}
+{: .note}
 
 ## 熟悉UI
 
@@ -37,7 +37,7 @@ has_children: false
 - _panel_是一个术语，用于参考仪表板上显示的可视化。_ panel_和_visualization术语可以在此和其他仪表板文档中互换使用。
 
 以下教程假设您要么使用openSearch仪表板的现有安装，要么使用[OpenSearch Playground](https://playground.opensearch.org/app/home#/)。根据您使用哪一个，可能无法使用某些功能。例如，示例数据集可能不包含在您现有的安装中，并且在OpenSearch Playground中保存仪表板不是一个选项。
-{:.note}
+{: .note}
 
 ## 创建仪表板并添加现有的可视化
 
@@ -96,7 +96,7 @@ has_children: false
 - 选择**编辑** 在工具栏的右上角。
 
 如果你看到**创建新的** 在工具栏的右上角，您已经处于编辑模式。
-{:.note}
+{: .note}
 
 展示传奇可以为读者提供更多信息，同时隐藏传奇可以使面板看起来更清洁。如果要显示或隐藏面板传奇：
 
@@ -107,7 +107,7 @@ has_children: false
 - 从可视化的传奇中，选择一个类别，然后从飞行中选择颜色。区域图随您的更改更新。
 
 此颜色更改仅用于当前面板和仪表板，并且不会影响保存的可视化。
-{:.note}
+{: .note}
 
 如果您想在可视化中更改面板传奇的颜色：
 
@@ -117,7 +117,7 @@ has_children: false
 4. 选择**保存并返回**。
 
 这种颜色变化会影响保存的可视化和链接到可视化的任何仪表板。
-{:.note}
+{: .note}
 
 如果要显示，隐藏或自定义面板标题：
 
@@ -127,7 +127,7 @@ has_children: false
 4. 选择**节省**。
 
 更改面板标题仅影响特定仪表板上的特定面板，并且不会影响任何其他包含相同可视化或任何其他仪表板的面板。
-{:.note}
+{: .note}
 
 ## 布置面板
 

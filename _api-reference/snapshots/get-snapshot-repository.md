@@ -14,7 +14,7 @@ nav_order: 2
 要了解有关存储库的更多信息，请参阅[注册存储库]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#register-repository)。
 
 您还可以在快照创建期间和之后获取有关快照的详细信息。看[获取快照状态]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-status/)。
-{:.note}
+{: .note}
 
 ## 路径参数
 

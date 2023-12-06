@@ -64,7 +64,7 @@ PUT national_parks/_doc/3
 {% include copy-curl.html %}
 
 您可以以多种格式索引地理点。有关所有支持格式的列表，请参见[地理点文档]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats)。
-{:.note}
+{: .note}
 
 ## 低的-精度请求
 
@@ -86,7 +86,7 @@ GET national_parks/_search
 {% include copy-curl.html %}
 
 您可以使用`GET` 或者`POST` HTTP方法用于Geotile网格聚合查询。
-{:.note}
+{: .note}
 
 响应组将所有文档一起在一起，因为它们足够近以在一个网格单元格中存放：
 
@@ -535,7 +535,7 @@ GET national_parks/_search
 </details>
 
 当前，OpenSearch通过API支持GeoShape聚合，但在OpenSearch仪表板可视化中不支持GEOSHAPE聚合。如果您想查看为可视化实施的GeoShape聚合，请访问相关的[Github问题](https://github.com/opensearch-project/dashboards-maps/issues/250)。
-{:.note}
+{: .note}
 
 ## 支持的参数
 

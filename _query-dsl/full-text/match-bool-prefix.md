@@ -227,5 +227,5 @@ GET _search
 `prefix_length` | 非-负整数| 在模糊性中未考虑的领先角色的数量。默认为`0`。
 
 这`fuzziness`，`fuzzy_transpositions`，`fuzzy_rewrite`，`max_expansions`， 和`prefix_length` 参数可以应用于除最后一项以外的所有术语构建的术语次数。它们对最后一届构建的前缀查询没有任何影响。
-{： 。笔记
+{: .note}
 

@@ -19,7 +19,7 @@ has_toc: false
 你可能希望在一定时间后执行索引滚动更新，或者在非高峰时段对索引运行操作 `force_merge`，以提高高峰时段的搜索性能。
 
 要使用 ISM 插件，需要将你的用户角色映射到 `all_access` 授予你对群集的完全访问权限的角色。要了解更多信息，请参阅[用户和角色]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/)。
-{:.note}
+{: .note}
 
 ## ISM 入门
 
@@ -92,7 +92,7 @@ PUT _index_template/<template_name>
 ```
 
 该 `opendistro.index_state_management.policy_id` 设置已弃用。你可以继续使用 ISM 模板字段自动管理新创建的索引。
-{:.note}
+{: .note}
 
 ### 步骤 2：将策略附加到索引
 

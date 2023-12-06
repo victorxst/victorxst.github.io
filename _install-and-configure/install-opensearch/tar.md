@@ -25,7 +25,7 @@ redirect_from:
 tarball 是一个独立的目录，其中包含运行 OpenSearch 所需的一切，包括集成的 Java 开发工具包（JDK）。此安装方法与大多数 Linux 发行版兼容，包括 CentOS 7、Amazon Linux 2 和 Ubuntu 18.04. 如果你有自己的 Java 安装并在终端中设置了环境变量 `JAVA_HOME`，则 macOS 也可以工作。
 
 本指南假定你能够熟练地使用 Linux 命令行界面（CLI）工作。你应该了解如何输入命令、在目录之间导航和编辑文本文件。一些示例命令引用 `vi` 文本编辑器，但你可以使用任何可用的文本编辑器。
-{:.note}
+{: .note}
 
 ## 第 1 步：下载并解压缩 OpenSearch
 
@@ -235,7 +235,7 @@ tarball 是一个独立的目录，其中包含运行 OpenSearch 所需的一切
 - 使用自定义密码创建管理员用户。
 
 如果运行了安全演示脚本，则需要手动重新配置已修改的设置。在继续操作之前，[安全配置]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)请参阅有关指导。
-{:.note}
+{: .note}
 
 在修改任何配置文件之前，最好先保存备份副本，然后再进行更改。备份文件可用于还原由错误配置引起的任何问题。
 {:.tip}

@@ -25,7 +25,8 @@ OpenSearch 使用用于管理插件的 `opensearch-plugin` 命令行工具。此
 
 通过传递 `-h` 或 `--help` 打印帮助文本。根据你的主机配置，你可能还需要使用 `sudo` 权限运行该命令。
 
-如果你在 Docker 容器中运行 OpenSearch，则必须通过修改 Docker 映像来安装、删除和配置插件。有关信息，请参阅[使用插件]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker#working-with-plugins) {:.note}
+如果你在 Docker 容器中运行 OpenSearch，则必须通过修改 Docker 映像来安装、删除和配置插件。有关信息，请参阅[使用插件]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker#working-with-plugins) 
+{: .note}
 
 ## 列表
 
@@ -202,7 +203,7 @@ Continue with installation? [y/N]y
 ```
 
 安装插件后重新启动 OpenSearch 节点。
-{:.note}
+{: .note}
 
 ## 删除
 
@@ -220,7 +221,7 @@ $ sudo $ ./opensearch-plugin remove opensearch-anomaly-detection
 ```
 
 删除插件后重新启动 OpenSearch 节点。
-{:.note}
+{: .note}
 
 ## 批处理模式
 

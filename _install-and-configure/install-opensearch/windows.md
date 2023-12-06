@@ -206,7 +206,7 @@ Windows OpenSearch 存档是一个独立的目录，其中包含运行 OpenSearc
 - 定义一个指向捆绑的 JDK 的环境变量。
 
 如果运行了安全演示脚本，则需要手动重新配置已修改的设置。在继续操作之前，[安全配置]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)请参阅有关指导。
-{:.note}
+{: .note}
 
 在修改任何配置文件之前，最好先保存备份副本，然后再进行更改。备份文件可用于还原由错误配置引起的任何问题。
 {:.tip}

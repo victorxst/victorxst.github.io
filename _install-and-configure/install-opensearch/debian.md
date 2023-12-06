@@ -26,7 +26,7 @@ nav_order: 55
 Debian 发行版提供了在基于 Debian 的 Linux 发行版（如 Ubuntu）中运行 OpenSearch 所需的一切。
 
 本指南假定你能够熟练地使用 Linux 命令行界面（CLI）工作。你应该了解如何输入命令、在目录之间导航和编辑文本文件。一些示例命令引用 `vi` 文本编辑器，但你可以使用任何可用的文本编辑器。
-{:.note}
+{: .note}
 
 ## 步骤 1：下载并安装 OpenSearch
 
@@ -237,7 +237,7 @@ APT 是基于 Debian 的操作系统的主要软件包管理工具，允许你�
 - 使用自定义密码创建管理员用户。
 
 如果运行了安全演示脚本，则需要手动重新配置已修改的设置。在继续操作之前，[安全配置]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)请参阅有关指导。
-{:.note}
+{: .note}
 
 在修改任何配置文件之前，最好先保存备份副本，然后再进行更改。备份文件可用于缓解由错误配置引起的任何问题。
 {:.tip}

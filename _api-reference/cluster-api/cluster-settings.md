@@ -56,7 +56,7 @@ PUT _cluster/settings
 GET操作没有请求主体选项。所有群集设置字段参数都是可选的。
 
 并非所有群集设置都可以使用群集设置API更新。您将收到错误消息`"setting [cluster.some.setting], not dynamically updateable"` 尝试通过API配置这些设置时。
-{:.note}
+{: .note}
 
 有关所有集群设置的列表，请参见[配置OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/)。
 

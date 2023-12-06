@@ -17,7 +17,7 @@ nav_order: 9
 *有关数据流的信息，请参阅[数据流]({{site.url}}{{site.baseurl}}/opensearch/data-streams)。
 
 如果打开的索引与要还原的同名索引已经存在于集群中，则必须关闭，删除或重命名索引。看[示例请求](#example-request) 有关重命名索引的信息。看[关闭索引]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index) 有关关闭索引的信息。
-{:.note}
+{: .note}
 
 ## 路径参数
 
@@ -101,7 +101,7 @@ POST /_snapshot/my-opensearch-repo/my-first-snapshot/_restore
 | 碎片| 目的| 创建的碎片总数以及成功和失败的碎片数量。|
 
 如果快照中的打开索引已经存在于集群中，并且您不会删除，关闭或重命名它们，则API返回以下错误：
-{:.note}
+{: .note}
 
 ````json
 {

@@ -95,7 +95,7 @@ alerting-role:
 *虽然不建议---给定宽-达到此角色定义授予的访问权限---使用`*` 对于索引模式以及`system:admin/system_index` 作为允许的动作，可以授予所有系统索引的访问。
 
   进入通配符`*` 本身以下`allowed_actions` 不会自动授予对系统索引的访问。允许的行动`system:admin/system_index` 必须明确添加。
-  {:.note}
+  {: .note}
 
 以下示例显示了授予所有系统索引访问的角色：
 
@@ -135,7 +135,7 @@ green open .kibana_3 XmTePICFRoSNf5O5uLgwRw 1 1 220 0 468.3kb 232.1kb
 这些权限是用于集群的，不能粒状应用。例如，您要么有权拍摄快照（`cluster:admin/snapshot/create`）否则你不。因此，群集权限不能授予用户特权来拍摄一组选择索引的快照，同时阻止用户拍摄他人的快照。
 
 叉-以下权限中对API文档的引用仅旨在提供对权限的理解。如本节开头所述，权限通常与API相关，但不会直接映射到它们。
-{:.note}
+{: .note}
 
 
 ### 摄入API许可

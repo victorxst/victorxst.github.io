@@ -154,7 +154,7 @@ docker run -v $HOME/benchmarks:/opensearch-benchmark/.benchmark opensearchprojec
 ## 用测试配置OpenSearch集群
 
 OpenSearch基准测试与JDK版本17、16、15、14、13、12、11和8兼容。
-{:.note}
+{: .note}
 
 如果您使用PYPI安装了OpenSearch，则还可以通过指定一个`distribution-version` 在里面`execute-test` 命令。
 

@@ -14,7 +14,7 @@ grand_parent: 支持的字段类型
 查询`date_nanos` 字段转换为字段值的范围查询`long` 表示。然后使用字段上的格式设置将存储的字段和聚合结果转换为字符串。
 
 这`date_nanos` 字段支持一切[格式]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date#formats) 和[参数]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date#parameters) 那`date` 支持。您可以使用多种格式分开`||`。
-{:.note}
+{: .note}
 
 为了`date_nanos` 字段，您可以使用`strict_date_optional_time_nanos` 格式以保留纳秒分辨率。如果您在将字段映射为`date_nanos`，默认格式为`strict_date_optional_time||epoch_millis` 这使您可以通过任何一个`strict_date_optional_time` 或者`epoch_millis` 格式。这`strict_date_optional_time` 格式支持纳秒分辨率中的日期，但`epoch_millis` 格式仅支持毫秒分辨率的日期。
 

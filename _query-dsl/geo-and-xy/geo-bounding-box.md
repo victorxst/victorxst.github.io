@@ -125,7 +125,7 @@ GET testindex1/_search
 ```
 
 前面的响应不包括文档的地理位置`"lat": 75.00, "lon": 28.00` 由于地理点的有限[精确](#precision)。
-{:.note}
+{: .note}
 
 ## 精确
 

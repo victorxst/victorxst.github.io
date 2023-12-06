@@ -26,5 +26,5 @@ redirect_from:
 [`xy_shape`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-shape/) | 一个形状，例如多边形或xy点的集合，-维笛卡尔坐标系。
 
 当前，OpenSearch支持索引和搜索笛卡尔字段类型，而不是笛卡尔字段类型的汇总。如果您想查看实现的聚合，请打开一个[Github问题](https://github.com/opensearch-project/geospatial)。
-{:.note}
+{: .note}
 

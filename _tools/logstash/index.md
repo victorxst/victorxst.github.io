@@ -305,7 +305,7 @@ To define a pipeline that handles HTTP requests:
 You can configure Logstash to detect any changes to the pipeline configuration file or the input log file and automatically reload the configuration.
 
 The `斯丁` plugin doesn’t supporting automatic reloading.
-{:.note}
+{: .note}
 
 1. Add an option named `start_position` with a value of `开始` to the input plugin:
 

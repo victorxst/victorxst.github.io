@@ -121,7 +121,7 @@ node.max_local_storage_nodes：3
 ```
 
 完整列表`opensearch.yml` 安全插件设置，请参见[安全设置]（{{stite.url}}} {{site.baseurl}}/install-和-配置/配置-OpenSearch/Security-设置/）。
-{:.note}
+{: .note}
 
 ### Refining your configuration
 

@@ -19,7 +19,7 @@ parent: 神经搜索
 
 **先决条件**<br>
 在使用稀疏搜索之前，请确保设置[验证的稀疏嵌入模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sparse-encoding-models) 或您自己的稀疏嵌入模型。有关更多信息，请参阅[在OpenSearch中使用ML模型]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) 和[连接到远程型号]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/index/)。
-{:.note}
+{: .note}
 
 ## 使用稀疏搜索
 

@@ -51,7 +51,8 @@ OpenSearch 项目会定期发布更新，其中包括新功能、增强功能和
 
 转到[可用的插件]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#available-plugins)查看参考表，其中突出显示了捆绑的 OpenSearch 插件的版本兼容性。
 
-主要、次要和补丁插件版本必须与 OpenSearch 主要版本、次要版本和补丁版本匹配才能兼容。例如，插件版本 2.3.0.x 仅适用于 OpenSearch 2.3.0. {：.important}
+主要、次要和补丁插件版本必须与 OpenSearch 主要版本、次要版本和补丁版本匹配才能兼容。例如，插件版本 2.3.0.x 仅适用于 OpenSearch 2.3.0.
+{: .important}
 
 ### 备份配置文件
 

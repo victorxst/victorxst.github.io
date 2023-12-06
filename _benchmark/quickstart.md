@@ -24,7 +24,7 @@ nav_order: 2
 - 使用**柏油**。有关如何使用TAR安装OpenSearch的说明，请参阅[安装OpenSearch> TARBALL]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/tar#step-1-download-and-unpack-opensearch)。
 
 OpenSearch基准测试尚未通过窗口的OpenSearch的分布进行测试。
-{:.note}
+{: .note}
 
 安装后，您可以验证OpenSearch正在运行`localhost:9200`。如果您正在使用启用安全插件运行群集，则OpenSearch将期望使用用户名SSL连接"admin" 和密码"admin"。但是，由于Localhost地址不是唯一的公共地址，因此任何证书机构都不会向其签发SSL证书，因此需要使用该证书检查`-k` 选项。
 

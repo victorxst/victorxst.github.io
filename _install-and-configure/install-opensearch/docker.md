@@ -15,7 +15,7 @@ redirect_from:
 Docker 容器是可移植的，可以在任何支持 Docker 的兼容主机（例如 Linux、MacOS 或 Windows）上运行。Docker 容器的可移植性提供了优于其他安装方法（如[RPM]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/rpm/)手动[Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/tar/)安装）的灵活性，这两种安装方法都需要在下载和解压缩后进行额外配置。
 
 本指南假定你能够熟练地使用 Linux 命令行界面（CLI）工作。你应该了解如何输入命令、在目录之间导航和编辑文本文件。如需帮助[Docker](https://www.docker.com/)或[Docker Compose 的](https://github.com/docker/compose)，请参阅其网站上的官方文档。
-{:.note}
+{: .note}
 
 ## 安装 Docker 和 Docker Compose
 
@@ -223,7 +223,7 @@ networks:
 {% include copy.html %}
 
 如果在撰写文件中使用环境变量覆盖 `opensearch_dashboards.yml` 设置，请使用全部大写字母，并将句点替换为下划线（例如，for `opensearch.hosts`、use `OPENSEARCH_HOSTS`）。此行为与覆盖设置不一致，在覆盖 `opensearch.yml` 设置中，转换只是对赋值运算符的更改（例如， `discovery.type: single-node` in `opensearch.yml` 定义为 `discovery.type=single-node` in `docker-compose.yml`）。
-{:.note}
+{: .note}
 
 从主机的主目录（包含 `docker-compose.yml`）创建并以分离模式启动容器：
 ```bash
@@ -247,7 +247,7 @@ docker-compose logs <serviceName>
 通过从浏览器连接到http://localhost:5601 来验证对 OpenSearch 控制面板的访问。默认用户名和密码为 `admin`。在自定义部署的安全配置之前，建议不要在可从公共 Internet 访问的主机上使用此配置。
 
 请记住，无法 `localhost` 远程访问。如果要将这些容器部署到远程主机，则需要建立网络连接，并替换为 `localhost` 与主机对应的 IP 或 DNS 记录。
-{:.note}
+{: .note}
 
 停止集群中正在运行的容器：
 ```bash

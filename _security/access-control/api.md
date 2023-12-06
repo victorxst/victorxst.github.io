@@ -1661,7 +1661,7 @@ DELETE _plugins/_security/api/cache
 `compliance.internal_config` | 布尔| 日志更新内部安全性更改。默认为`true`。
 
 更改`_readonly` 属性导致409误差，如下响应中所示。
-{:.note}
+{: .note}
 
 ```json
 {
@@ -1738,7 +1738,7 @@ curl -X PATCH -k -i --cert <admin_cert file name> --key <admin_cert_key file nam
 {% include copy.html %}
 
 OpenSearch仪表板开发工具当前不支持补丁方法。您可以使用[卷曲](https://curl.se/)，[邮差](https://www.postman.com/)，或使用此方法更新配置的另一个替代过程。要遵循GitHub问题以支持仪表板中的补丁方法，请参见[问题#2343](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/2343)。
-{:.note}
+{: .note}
 
 #### 示例响应
 

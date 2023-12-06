@@ -12,7 +12,7 @@ redirect_from:
 通过使用[Docker](https://www.docker.com/)部署容器，开始使用 OpenSearch 和 OpenSearch 控制面板。在继续操作之前，你需要在本地计算机上安装并[get Docker](https://docs.docker.com/get-docker/)[Docker Compose 的](https://github.com/docker/compose)安装。
 
 本指南中使用的 Docker Compose 命令使用连字符书写（例如， `docker-compose`）。如果你在计算机上安装了 Docker Desktop，它会自动安装 Docker Compose 的捆绑版本，则应删除连字符。例如，更改为 `docker-compose` `docker compose`.
-{:.note}
+{: .note}
 
 ## 启动集群
 

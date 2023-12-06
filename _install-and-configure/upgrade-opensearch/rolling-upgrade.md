@@ -15,7 +15,8 @@ nav_order: 10
 
 在对 OpenSearch 集群进行任何更改之前，请查看[升级 OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/index/)有关备份配置文件以及创建集群状态和索引快照的建议。
 
-**重要：** OpenSearch 节点无法降级。如果你需要恢复升级，则需要执行 OpenSearch 的全新安装并从快照还原集群。在开始升级过程之前，拍摄快照并将其存储在远程存储库中。{：.important}
+**重要：** OpenSearch 节点无法降级。如果你需要恢复升级，则需要执行 OpenSearch 的全新安装并从快照还原集群。在开始升级过程之前，拍摄快照并将其存储在远程存储库中。
+{: .important}
 
 ## 执行升级
 

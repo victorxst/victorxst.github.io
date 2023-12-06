@@ -15,7 +15,7 @@ redirect_from:
 
 
 从OpenSearch 2.9开始，当使用批量操作索引文档时`_id` 大小必须为512个字节或更小。
-{:.note}
+{: .note}
 
 ## 例子
 
@@ -43,7 +43,7 @@ POST <index>/_bulk
 在路径中指定索引意味着您不需要将其包括在[请求身体]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/#request-body)。
 
 OpenSearch还接受将请求提交给`_bulk` 路径，但我们强烈建议使用帖子。公认的看法---在给定路径上添加或替换单个资源---对于批量请求没有意义。
-{:.note}
+{: .note}
 
 
 ## URL参数

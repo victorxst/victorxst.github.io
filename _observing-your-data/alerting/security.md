@@ -113,7 +113,7 @@ PUT _cluster/settings
 
 - 对于管理员用户，一个空列表被认为与删除用户拥有的所有权限相同。如果是非-管理员用户通过一个空列表中的传递，这会引发异常，因为非-管理用户。
 - 如果用户试图关联他们没有权限使用的角色，则会引发例外。
-{:.note}
+{: .note}
 
 要创建RBAC角色，请按照安全插件API文档中的说明进行操作[创建角色]({{site.url}}{{site.baseurl}}/security/access-control/api#create-role)。
 ### 创建带有RBAC角色的监视器

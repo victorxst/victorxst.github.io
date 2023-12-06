@@ -12,7 +12,7 @@ redirect_from:
 您可以将LogStash事件运送到OpenSearch Cluster，然后使用OpenSearch仪表板可视化事件。
 
 确保你有[logstash]({{site.url}}{{site.baseurl}}/tools/logstash/index#install-logstash)，[OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/)， 和[OpenSearch仪表板]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)。
-{:.note}
+{: .note}
 
 ## OpenSearch输出插件
 

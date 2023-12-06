@@ -23,7 +23,7 @@ has_toc: false
 ![搜索处理器图]({{site.url}}{{site.baseurl}}/images/search-pipelines.png)
 
 管道的请求和响应处理都在协调器节点上执行，因此没有碎片-水平处理。
-{:.note}
+{: .note}
 
 ## 处理器
 

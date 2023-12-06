@@ -14,7 +14,7 @@ has_children: true
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboards-management-ui.png" alt="Dashboards Management interface" width="700"/>
 
 {::nomarkdown} <img src ="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class ="inline-icon" alt ="alert icon"/> {:/}**笔记**<br> OpenSearch and OpenSearch仪表板特权管理对单个功能的访问。如果您没有适当的访问权限，请咨询您的管理员。
-{:.note}
+{: .note}
 
 ## 申请
 

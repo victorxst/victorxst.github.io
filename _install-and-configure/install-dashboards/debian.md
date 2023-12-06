@@ -9,10 +9,11 @@ nav_order: 33
 
 与该方法相比[Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tar/)，使用 Advanced Packaging Tool（APT）软件包管理器安装 OpenSearch 控制面板可大大简化该过程。例如，包管理器会处理多个技术注意事项，例如安装路径、配置文件的位置以及创建由 `systemd` 管理的服务。
 
-在安装 OpenSearch 控制面板之前，你必须配置 OpenSearch 集群。有关步骤，请参阅 OpenSearch [Debian]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/debian/)安装指南。{：.important}
+在安装 OpenSearch 控制面板之前，你必须配置 OpenSearch 集群。有关步骤，请参阅 OpenSearch [Debian]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/debian/)安装指南。
+{: .important}
 
 本指南假定你能够熟练地使用 Linux 命令行界面（CLI）工作。你应该了解如何输入命令、在目录之间导航和编辑文本文件。一些示例命令引用 `vi` 文本编辑器，但你可以使用任何可用的文本编辑器。
-{:.note}
+{: .note}
 
 ## 从软件包安装 OpenSearch 控制面板
 

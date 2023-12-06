@@ -35,7 +35,7 @@ parent: 连接到远程模型
 有关蓝图参数的更多信息，请参见[连接器蓝图]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/)。
 
 管理员只需要输入他们的`credential` 设置，例如`"openAI_key"`，对于他们正在连接的服务。所有其他参数均在[蓝图]({{site.url}}{{site.baseurl}}/ml-commons-plugin/extensibility/blueprints/)。
-{:.note}
+{: .note}
 
 ## 独立连接器
 

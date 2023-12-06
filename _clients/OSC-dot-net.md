@@ -47,7 +47,7 @@ public class Student
 {% include copy.html %}
 
 默认情况下，OpenSearch.Client使用Camel Case将属性名称转换为字段名称。
-{:.note}
+{: .note}
 
 ## 连接到OpenSearch
 

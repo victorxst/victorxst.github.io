@@ -126,7 +126,7 @@ docker build -t opensearch-reporting-cli .
 
 - 如果该功能包含固定值，例如电子邮件地址，则不需要JSON文件。您可以在AWS lambda中指定环境变量。
 - 如果功能采用变量键-值对，然后您需要用与命令选项相同的命名约定指定JSON中的值，例如`--credentials` 选项需要用户名和密码。
-{:.note}
+{: .note}
 
  以下示例显示了为发送者和收件人电子邮件地址提供的固定值：
 

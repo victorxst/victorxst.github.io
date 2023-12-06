@@ -187,7 +187,7 @@ plugins.security.kerberos.acceptor_keytab_filepath: 'eskeytab.tab'
 - `plugins.security.kerberos.acceptor_principal: 'HTTP/localhost'` 定义安全插件用于针对Kerberos发出请求的主体。此值必须在Keytab文件中存在。
 
 由于安全限制，必须将keytab文件放入`config` 或子目录，以及`opensearch.yml` 必须是相对的，而不是绝对的。
-{:.note}
+{: .note}
 
 
 #### 动态配置

@@ -12,7 +12,7 @@ redirect_from:
 执行以下步骤以在 Windows 上安装 OpenSearch 控制面板。
 
 确保你已安装 zip 实用程序。
-{:.note}
+{: .note}
 
 1. 下载 [ `opensearch-dashboards-{{site.opensearch_version}}-windows-x64.zip`]（https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/{{site.opensearch_version}}/opensearch-dashboards--windows-x64{{site.opensearch_version}}.zip） {:target='\_blank'} 存档。
 

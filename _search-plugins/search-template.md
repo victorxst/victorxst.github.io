@@ -15,7 +15,7 @@ redirect_from:
 当您编写代码以将用户输入转换为OpenSearch查询时，您可以使用搜索模板简化代码。如果您需要在搜索查询中添加字段，则可以在不更改代码的情况下修改模板。
 
 搜索模板使用胡须语言。有关所有语法选项的列表，请参见[胡子手册](https://mustache.github.io/mustache.5.html)。
-{:.note}
+{: .note}
 
 ## 创建搜索模板
 

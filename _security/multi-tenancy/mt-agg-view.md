@@ -17,7 +17,7 @@ nav_order: 150
 要访问保存的对象，请展开顶部菜单，然后选择**管理>仪表板管理>保存对象**。保存的对象窗口打开。默认情况下，用户拥有权限的所有租户都与与租户关联的所有保存对象一起显示。
 
 作为实验功能，保存对象的聚合视图保留在功能标志后面，必须在`opensearch_dashboards.yml` 在提供该功能之前的文件。看[启用聚合视图](#enabling-aggregate-view-for-saved-objects) 了解更多信息。
-{:.note}
+{: .note}
 
 ### 功能优势
 
@@ -73,6 +73,6 @@ nav_order: 150
 <img src="{{site.url}}{{site.baseurl}}/images/Security/actions.png" alt="Actions column controls" width="700">
 
 当租户不活跃时，您无法使用操作列控件与其关联对象一起使用。要与这些物体一起工作，请按照上述步骤使租户活跃起来。
-{:.note}
+{: .note}
 
 

@@ -353,7 +353,7 @@ server.xsrf.allowlist: ["/_opendistro/_security/saml/acs", "/_opendistro/_securi
 ```
 
 在仪表板标志中包括SAML与其他身份验证类型-在窗口中，请参阅[配置标志-在选项中]({{site.url}}{{site.baseurl}}/security/configuration/multi-auth/)。
-{:.note}
+{: .note}
 
 #### 会话管理以及其他cookie
 

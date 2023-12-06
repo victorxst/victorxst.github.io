@@ -85,7 +85,7 @@ PUT _snapshot/my-s3-repository/2
 ```
 
 要验证创建快照，请使用[获取快照]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot) API，将快照名称传递给`snapshot` 路径参数。
-{:.note}
+{: .note}
 
 ##### `wait_for_completion` 包括
 

@@ -13,7 +13,7 @@ The `text_embedding` processor is used to generate vector embeddings from text f
 
 **PREREQUISITE**<br>
 Before using the `text_embedding` processor, you must set up a machine learning (ML) model. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
-{:.note}
+{: .note}
 
 The following is the syntax for the `text_embedding` processor: 
 

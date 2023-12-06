@@ -273,7 +273,7 @@ GET chess_store/_search
 ```
 
 要利用源过滤，请在`_search` 端点。这`_suggest` 端点不支持源过滤。
-{:.note}
+{: .note}
 
 ## 完成查询参数
 

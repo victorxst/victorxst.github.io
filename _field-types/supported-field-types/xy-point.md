@@ -93,7 +93,7 @@ PUT testindex1/_doc/5
 {% include copy-curl.html %}
 
 在所有XY点格式中，必须在`x, y` 命令。
-{:.note}}
+{: .note}}
 
 ## 参数
 

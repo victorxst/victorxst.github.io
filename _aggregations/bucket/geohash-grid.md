@@ -246,7 +246,7 @@ GET national_parks/_search
 </details>
 
 当前，OpenSearch通过API支持GeoShape聚合，但在OpenSearch仪表板可视化中不支持GEOSHAPE聚合。如果您想查看为可视化实施的GeoShape聚合，请访问相关的[Github问题](https://github.com/opensearch-project/dashboards-maps/issues/250)。
-{:.note}
+{: .note}
 
 ## 支持的参数
 

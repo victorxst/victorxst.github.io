@@ -133,7 +133,7 @@ plugins.security.audit.config.resolve_indices: false
 ```
 
 此功能仅在`plugins.security.audit.config.log_request_body` 也设置为`false`。
-{:.note}
+{: .note}
 
 
 #### 配置批量请求处理

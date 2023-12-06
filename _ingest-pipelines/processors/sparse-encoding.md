@@ -13,7 +13,7 @@ The `sparse_encoding` processor is used to generate a sparse vector/token and we
 
 **PREREQUISITE**<br>
 Before using the `sparse_encoding` processor, you must set up a machine learning (ML) model. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-framework/) and [Semantic search]({{site.url}}{{site.baseurl}}/ml-commons-plugin/semantic-search/).
-{:.note}
+{: .note}
 
 The following is the syntax for the `sparse_encoding` processor: 
 

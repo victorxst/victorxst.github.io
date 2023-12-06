@@ -61,6 +61,6 @@ PUT testindex
 {% include copy-curl.html %}
 
 如果您不指定默认分析仪，则`standard` 使用分析仪。
-{:.note}
+{: .note}
 
 

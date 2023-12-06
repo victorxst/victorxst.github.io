@@ -348,7 +348,7 @@ GET hotels/_search
 `decay` | 定义文档的分数`scale` +`offset` 来自`origin`。选修的。默认值为0.5。
 
 对于文档中缺少的字段，衰减功能返回分数为1。
-{:.note}
+{: .note}
 
 ### 示例：数字字段
 

@@ -39,7 +39,7 @@ GET _cluster/stats/nodes/<node-filters>
 
 
   虽然`master` 现在称为节点`cluster_manager` 对于2.0版，我们保留了`master` 向后兼容的字段。如果您的节点有一个`master` 角色或`cluster_manager` 角色，`count` 这两个字段的增加。要查看示例节点计数的增加，请参见响应样本。
-   {:.note}
+   {: .note}
 
 ## 回复
 

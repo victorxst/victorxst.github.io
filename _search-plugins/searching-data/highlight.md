@@ -114,7 +114,7 @@ GET shakespeare/_search
 亮点功能可在实际字段内容上起作用。OpenSearch从存储的字段中检索这些内容（将映射设置为`true`）或来自`_source` 字段如果未存储字段。您可以从`_source` 通过设置字段`force_source` 参数为`true`。
 
 这`highlight` 参数即使使用同义词或用于搜索本身的同义词时，也会突出显示原始术语。
-{:.note}
+{: .note}
 
 ## 获取偏移的方法
 
@@ -200,7 +200,7 @@ phrase_limit| 所考虑的文档中匹配短语的数量。限制通过`fvh` 荧
 max_analyzer_offset| 指定要通过突出显示请求分析的最大字符数。其余文本将不会处理。如果要突出显示的文本超过此偏移量，则返回一个空的亮点。要为突出显示请求分析的最大字符数量由`index.highlight.max_analyzed_offset`。达到此限制后，返回错误。设置`max_analyzer_offset` 比值低于`index.highlight.max_analyzed_offset` 避免错误。
 
 统一的荧光笔的句子扫描仪将句子分割大于`fragment_size` 在第一个单词边界之后`fragment_size` 到达了。要返回整个句子而不分裂，请设置`fragment_size` 到0。
-{:.note}
+{: .note}
 
 ## 更改突出显示标签
 

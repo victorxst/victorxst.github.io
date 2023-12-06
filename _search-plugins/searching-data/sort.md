@@ -758,7 +758,7 @@ dange_type| 指定计算距离的方法。有效值是`arc` 和`plane`。这`pla
 ignore_unmapped| 指定如何处理未映射的字段。放`ignore_unmapped` 到`true` 忽略未映射的字段。默认为`false` （在遇到未绘制的字段时产生错误）。
 
 这`_geo_distance` 参数不支持`missing_values`。距离总是被认为是`infinity` 当文档不包含用于计算距离的字段时。
-{:.note}
+{: .note}
 
 例如，索引两个具有地理点的文档：
 
@@ -850,7 +850,7 @@ GET testindex1/_search
 ```
 
 您可以提供以Geopoint字段类型支持的任何格式的坐标。有关所有格式的描述，请参阅[地理点字段类型文档]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point)。
-{:.note}
+{: .note}
 
 将多个地理点传递给`_geo_distance`，使用一个数组：
 

@@ -53,7 +53,7 @@ If there is a corresponding OpenSearch Dashboards feature, provide a “See also
 If applicable, provide any caveats to its usage with a note or tip, as in the following example:
 
 "If you use the Security plugin, make sure you have the appropriate permissions."
-(To set this point in note-style format, follow the text on the next line with {:.note})
+(To set this point in note-style format, follow the text on the next line with {: .note})
 
 ### Path and HTTP methods
 

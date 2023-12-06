@@ -80,7 +80,7 @@ OpenSearch支持Web Map Service（WMS）或Tile Map Service（TMS）自定义地
 添加文档层使您可以可视化数据。您可以每个文档层添加一个索引模式。要查看多个索引模式，请创建多个层。
 
 文档层可以显示GeoPoint和GeoShape文档字段。
-{:.note}
+{: .note}
 
 以下示例假设您有`opensearch_dashboards_sample_data_flights` 已安装数据集。如果您没有安装此数据集，请执行以下步骤：
 

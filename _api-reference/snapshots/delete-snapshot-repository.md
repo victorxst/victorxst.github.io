@@ -41,5 +41,5 @@ DELETE _snapshot/my-opensearch-repo
 ````
 
 要验证存储库已删除，请使用[获取快照存储库]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-repository) API，将存储库名称作为`repository` 路径参数。
-{:.note}
+{: .note}
 

@@ -17,7 +17,7 @@ redirect_from:
 分析API分析文本字符串并返回所得令牌。
 
 如果使用安全插件，则必须`manage index` 特权。如果您只想分析文本，则必须`manage cluster` 特权。
-{:.note}
+{: .note}
 
 ## 路径和HTTP方法
 
@@ -29,7 +29,7 @@ POST /{index}/_analyze
 ```
 
 尽管您可以使用两者都会发出分析请求`GET` 和`POST` 请求，两者具有重要的区别。A`GET` 请求会导致数据缓存在索引中，以便下次请求数据时，将其检索得更快。A`POST` 请求发送了一个尚未存在的字符串，该字符串与索引中已经存在的数据进行了比较。`POST` 请求没有缓存。
-{:.note}
+{: .note}
 
 ## 路径参数
 
@@ -655,7 +655,7 @@ PUT /books2
 {% include copy-curl.html %}
 
 前面的请求是索引API，而不是分析API。看[动态索引-级索引设置]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-level-index-settings) 有关其他详细信息。
-{:.note}
+{: .note}
 
 ### 响应字段
 
@@ -686,5 +686,5 @@ charlingters| 大批| 应用于文本的字符过滤器列表。
 tokenfilters| 大批| 应用于文本的令牌过滤器列表。每个令牌过滤器都包含过滤器的名称和一个令牌<sup>*</sup>的列表，并在应用过滤器后具有内容。令牌过滤器按请求中指定的顺序列出。
 
 看[令牌对象](#token-object) 对于令牌字段描述。
-{:.note}
+{: .note}
 

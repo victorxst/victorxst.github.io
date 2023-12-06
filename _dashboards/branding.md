@@ -36,7 +36,7 @@ Faviconurl| 网站图标。加载应用程序标题旁边。看#图像中的4。
 ApplicationTitle| 应用程序的标题。看#图像中的5。
 
 要合并导航控件并减少标头在页面上占用的空间，请参见[凝结的标头](#condensed-header)。
-{:.note}
+{: .note}
 
 要开始在OpenSearch仪表板中使用您自己的品牌元素`opensearch_dashboards.yml`：
 
@@ -116,7 +116,7 @@ applicationTitle: "My custom application"
 ```
 
 In a future release, default behavior will become `useExpandedHeader: false`. If you want to retain the default view in subsequent releases, you can explicitly set the property to `true` in advance. Alternatively, you can also do this when upgrading.
-{:.note}
+{: .note}
 
 The condensed view header appears as in the example below.
 

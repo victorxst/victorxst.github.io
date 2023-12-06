@@ -233,6 +233,6 @@ DELETE /_plugins/_security_analytics/logtype/m98uk4kBlb9cbROIpEj2
 ```
 
 只能删除自定义日志类型。试图删除标准搜索-定义的日志类型导致错误。
-{:.note}
+{: .note}
 
 

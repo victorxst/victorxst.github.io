@@ -16,7 +16,7 @@ redirect_from:
 
 
 如果您需要使用一个字段以确切-价值搜索，将其映射为[`keyword`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/) 反而。
-{:.note}
+{: .note}
 
 ## 例子
 

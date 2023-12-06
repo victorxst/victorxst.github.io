@@ -30,7 +30,7 @@ GET shakespeare/_search
 默认情况下，在`terms` 查询是65,536。要更改最大条款数，请更新`index.max_terms_count` 环境。
 
 的能力[突出显示结果]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight/) 对于术语，可以保证查询，具体取决于荧光笔类型和查询中的条款数量。
-{:.note}
+{: .note}
 
 ## 参数
 

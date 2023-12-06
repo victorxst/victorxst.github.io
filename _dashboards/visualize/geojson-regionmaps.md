@@ -15,7 +15,7 @@ OpenSearch具有一组标准的Geojson文件，可为每个区域映射提供矢
 对于空隙环境，OpenSearch仪表板提供了自我-主机地图服务器。有关更多信息，请参阅[使用自我-主机地图服务器]({{site.url}}{{site.baseurl}}/dashboards/selfhost-maps-server/)
 
 虽然您无法配置服务器来支持用户-定义的矢量图层，您可以配置自己的Geojson文件并为此目的上传。
-{:.note}
+{: .note}
 
 ## 使用Geojson自定义向量图
 
@@ -29,7 +29,7 @@ Geojson格式允许您编码地理数据结构。要了解有关Geojson规范的
 >   要使用Geojson使用自定义矢量映射，请安装这两个必需的插件：
 >   * OpenSearch仪表板地图[`dashboards-maps`](https://github.com/opensearch-project/dashboards-maps) 正面-结束插件
 >   * OpenSearch[`geospatial`](https://github.com/opensearch-project/geospatial) 后端插件
-{:.note}
+{: .note}
 
 ### 步骤1：创建区域图可视化
 

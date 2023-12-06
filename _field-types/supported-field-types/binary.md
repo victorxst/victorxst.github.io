@@ -42,7 +42,7 @@ PUT testindex/_doc/1
 {% include copy-curl.html %}
 
 使用`=` 作为填充字符。不允许嵌入式新线字符。
-{:.note}
+{: .note}
 
 ## 参数
 

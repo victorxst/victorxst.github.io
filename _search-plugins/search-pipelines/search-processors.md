@@ -114,5 +114,5 @@ GET /_nodes/search_pipelines
 </details>
 
 除了OpenSearch提供的处理器外，插件还可以提供其他处理器。
-{:.note}
+{: .note}
 

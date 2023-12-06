@@ -21,7 +21,7 @@ OpenSearch仪表板笔记本电脑是一个接口，可让您轻松地将代码�
 常见用例包括创建验尸报告，设计运行书，构建实时基础架构报告和编写文档。
 
 OpenSearch仪表板中的租户是保存笔记本和其他OpenSearch仪表板对象的空间。有关更多信息，请参阅[OpenSearch仪表板并发-租赁]({{site.url}}{{site.baseurl}}/security/multi-tenancy/tenant-index/)。
-{:.note}
+{: .note}
 
 
 ## 开始笔记本

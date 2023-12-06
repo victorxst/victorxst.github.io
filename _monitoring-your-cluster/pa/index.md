@@ -13,7 +13,7 @@ redirect_from:
 Performance Analyzer是一个包含代理和REST API的插件，可让您查询众多集群性能指标，包括这些指标的聚合。
 
 默认情况下，在OpenSearch版本2.0及更高版本中安装了性能分析仪插件。如果要使用禁用性能分析仪使用OpenSearch 2.0或以后，请参见[禁用性能分析仪](#disable-performance-analyzer)。
-{:.note}
+{: .note}
 
 ## 先决条件
 

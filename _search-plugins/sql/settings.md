@@ -66,7 +66,7 @@ PUT _plugins/_query/settings
 ```
 
 请求`_plugins/_ppl` 和`_plugins/_sql` 端点在请求主体中包含索引名称，因此它们具有与`bulk`，`mget`， 和`msearch` 运营。设置`rest.action.multi.allow_explicit_index` 参数为`false` 禁用两者`SQL` 和`PPL` 端点。
-{:.note}
+{: .note}
 
 ## 可用设置
 

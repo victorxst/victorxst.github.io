@@ -47,7 +47,7 @@ redirect_from:
             - 对于AWS签名版本4身份验证，首先指定**地区**。接下来，在**服务名称** 列表。选项是**Amazon OpenSearch服务** 和**Amazon OpenSearch无服务器**。最后，输入**访问密钥** 和**密钥** 用于授权。
       
       有关AWS帐户可用AWS区域的信息，请参见[可用地区](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions)。有关AWS签名版本4身份验证请求的更多信息，请参阅[认证请求（AWS签名版本4）](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html)。
-      {:.note}
+      {: .note}
 
     - 在所有必需字段中输入适当的详细信息后，**测试连接** 和**创建数据源** 按钮变得活跃。您可以选择**测试连接** 确认连接有效。
 

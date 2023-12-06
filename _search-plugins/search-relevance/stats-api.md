@@ -29,7 +29,7 @@ searchRelevanceDashboards.metrics.metricInterval: 1000
 ```
 
 如果OpenSearch Configuration文件中指定了OpenSearch仪表板端点地址，则可能包含一个端口号。特定的URL格式取决于OpenSearch部署的类型及其托管的网络环境的类型。
-{:.note}
+{: .note}
 
 您可以通过两种方式查询端点：
   

@@ -23,7 +23,7 @@ redirect_from:
 - 使用[ppl]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) 指定基本查询。
 
 创建应用程序后，您无法更改基本查询。
-{:.note}
+{: .note}
 
 - 从下拉列表或服务图中选择服务和实体。
 - 从下拉菜单或表中选择跟踪组。

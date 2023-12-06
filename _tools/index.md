@@ -64,7 +64,7 @@ ecs_compatibility => disabled
 - [AuditBeat OSS 7.12.1](https://elastic.co/downloads/past-releases/auditbeat-oss-7-12-1)
 
 一些用户在这些版本的节拍上报告了与摄入管道的兼容性问题。如果您在OpenSearch中使用摄入管道，请考虑使用Beats的7.10.2版本。
-{:.note}
+{: .note}
 
 
 ## 兼容矩阵

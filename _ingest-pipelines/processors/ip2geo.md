@@ -14,7 +14,7 @@ redirect_from:
 The `ip2geo` processor adds information about the geographical location of an IPv4 or IPv6 address. The `ip2geo` processor uses IP geolocation (GeoIP) data from an external endpoint and therefore requires an additional component, `datasource`, that defines from where to download GeoIP data and how frequently to update the data.
 
 {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/info-icon.png" class="inline-icon" alt="info icon"/>{:/} **NOTE**<br>The `ip2geo` processor maintains the GeoIP data mapping in system indexes. The GeoIP mapping is retrieved from these indexes during data ingestion to perform the IP-to-geolocation conversion on the incoming data. For optimal performance, it is preferable to have a node with both ingest and data roles, as this configuration avoids internode calls reducing latency. Also, as the `ip2geo` processor searches GeoIP mapping data from the indexes, search performance is impacted.
-{:.note}
+{: .note}
 
 ## Getting started
 
@@ -192,7 +192,7 @@ PUT /_ingest/pipeline/my-pipeline
 **Step 2 (Optional): Test the pipeline.**
 
 {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/info-icon.png" class="inline-icon" alt="info icon"/>{:/} **NOTE**<br>It is recommended that you test your pipeline before you ingest documents.
-{:.note}
+{: .note}
 
 To test the pipeline, run the following query:
 

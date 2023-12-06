@@ -15,7 +15,7 @@ redirect_from:
 关键字字段类型包含未分析的字符串。它仅允许精确的情况-敏感匹配。
 
 如果您需要使用一个字段以完整-文本搜索，将其映射为[`text`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text/) 反而。
-{:.note}
+{: .note}
 
 ## 例子
 

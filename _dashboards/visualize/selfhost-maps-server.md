@@ -15,7 +15,7 @@ redirect_from:
 以下各节提供了设置和使用自我的步骤-带有OpenSearch仪表板的主机地图服务器。
 
 您可以访问`maps-server` 通过官方搜索图像[Docker Hub存储库](https://hub.docker.com/u/opensearchproject)。
-{:.note}
+{: .note}
 
 ## 拉码头图像
 
@@ -39,7 +39,7 @@ redirect_from:
 - Zoom Level 10（https://maps.opensearch.org/offline/planet-OSM-默认-Z0-z10.tar.gz）
 
 缩放级别10（2 GB压缩/6.8 GB未压缩）的行星瓷砖比缩放级别8（225 MB压缩/519 MB未压缩）的集合大约10倍。
-{:.note}
+{: .note}
 
 ```
 docker run \

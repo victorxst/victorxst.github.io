@@ -55,7 +55,7 @@ nav_order: 15
 创建检测器的第二步涉及设置警报。警报被配置为创建触发器，该触发器与一组检测规则标准匹配时，请发送有关可能的安全事件的通知。您可以在任何组合中选择规则名称，规则严重性和标签来定义触发器。定义触发器后，警报设置使您可以选择要通知的频道，并提供了为通知提供消息的选项。
 
 在检测器开始生成发现之前，至少需要一个警报条件。
-{:.note}
+{: .note}
 
 您还可以从**发现** 窗户。查看如何从**发现** 窗口，请参阅[调查结果列表]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/#the-findings-list)。添加其他警报的最终选项是编辑检测器并导航到**警报触发器** 选项卡，您可以在其中编辑现有警报并添加新警报。有关详细信息，请参阅[编辑检测器]({{site.url}}{{site.baseurl}}/security-analytics/usage/detectors/#editing-a-detector)。
 

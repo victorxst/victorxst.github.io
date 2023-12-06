@@ -15,7 +15,7 @@ redirect_from:
 可观察性的简单架构都受到两者的启发[Opentelemetry](https://opentelemetry.io/docs/) 以及弹性常见模式（ECS）并使用Amazon弹性容器服务（[亚马逊ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_cwe_events.html)）事件日志和opentelemetry（Otel）元数据。
 
 将来的发行版将支持警报。
-{:.note}
+{: .note}
 
 ## 用例
 
@@ -26,7 +26,7 @@ redirect_from:
 *将仪表板符合仪表板与数据结构保持一致，以便您可以以有效代表您的数据的方式设计和组织仪表板组件和可视化。
 
 数据预先符合指标的模式，并将逐渐支持迹线和日志。数据预备[跟踪映射]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/) 当前提供`service-map` 以不同的方式数据`ss4o` 迹线。为了使跟踪映射与可观察性兼容，它将与`ss4o` 痕迹模式并将介绍`service-map` 作为一个丰富的领域。
-{:.note}
+{: .note}
 
 ## 痕迹和指标
 
